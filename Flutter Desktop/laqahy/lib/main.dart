@@ -1,42 +1,36 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:laqahy/core/shared/styles/color.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:laqahy/view/screens/home.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:laqahy/constants.dart';
+import 'package:laqahy/controllers/MenuAppController.dart';
+import 'package:laqahy/view/screens/main/main_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'نظام لقاحي الذكي',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: MyColors.primaryColor),
-        fontFamily: 'Tajawal',
-        appBarTheme: AppBarTheme(
-          backgroundColor: MyColors.primaryColor,
-          iconTheme: CupertinoIconThemeData(color: MyColors.whiteColor),
-        ),
-        useMaterial3: true,
-
-      ),
       debugShowCheckedModeBanner: false,
-      scrollBehavior: CupertinoScrollBehavior(),
-      localizationsDelegates: [
-        GlobalCupertinoLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: [Locale("ar", "AE")],
-      locale: Locale("ar", "AL"),
-      home: HomeScreen(),
+      title: 'Flutter Admin Panel',
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: bgColor,
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+            .apply(bodyColor: Colors.white),
+        canvasColor: secondaryColor,
+      ),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => MenuAppController(),
+          ),
+        ],
+        child: MainScreen(),
+      ),
     );
   }
 }
-
