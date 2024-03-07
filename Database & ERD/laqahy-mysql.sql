@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25 فبراير 2024 الساعة 21:50
+-- Generation Time: 07 مارس 2024 الساعة 18:44
 -- إصدار الخادم: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -198,19 +198,17 @@ CREATE TABLE `health_centers` (
   `hc_phone` varchar(150) NOT NULL,
   `hc_address` varchar(150) NOT NULL,
   `hc_city` int(11) DEFAULT NULL,
-  `hc_directorate` int(11) DEFAULT NULL,
-  `hc_logo` varchar(150) DEFAULT NULL,
-  `hc_details` varchar(300) DEFAULT NULL
+  `hc_directorate` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- إرجاع أو استيراد بيانات الجدول `health_centers`
 --
 
-INSERT INTO `health_centers` (`hc_id`, `hc_name`, `hc_phone`, `hc_address`, `hc_city`, `hc_directorate`, `hc_logo`, `hc_details`) VALUES
-(1, 'مستوصف التعاون', '777777777-733333333', 'المسبح - جوار حديقة التعاون', 1, 2, NULL, NULL),
-(2, 'مستوصف المظفر', '777777777-733333333', 'حي الميدان - جوار مجمع هائل للبنات', 1, 1, NULL, NULL),
-(3, 'مركز التضامن', '777777777-733333333', 'بيرباشا - جوار نادي الصقر', 1, 1, NULL, NULL);
+INSERT INTO `health_centers` (`hc_id`, `hc_name`, `hc_phone`, `hc_address`, `hc_city`, `hc_directorate`) VALUES
+(1, 'مستوصف التعاون', '777777777-733333333', 'المسبح - جوار حديقة التعاون', 1, 2),
+(2, 'مستوصف المظفر', '777777777-733333333', 'حي الميدان - جوار مجمع هائل للبنات', 1, 1),
+(3, 'مركز التضامن', '777777777-733333333', 'بيرباشا - جوار نادي الصقر', 1, 1);
 
 -- --------------------------------------------------------
 

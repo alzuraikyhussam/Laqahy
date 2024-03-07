@@ -53,8 +53,6 @@ CREATE TABLE health_centers (
     hc_address NVARCHAR(150) NOT NULL,
     hc_city INT NULL,
     hc_directorate INT NULL,
-    hc_logo NVARCHAR(150) NULL,
-    hc_details NVARCHAR(300) NULL,
     CONSTRAINT FK_health_centers_cities FOREIGN KEY (hc_city) REFERENCES cities(city_id),
     CONSTRAINT FK_health_centers_directorates FOREIGN KEY (hc_directorate) REFERENCES directorates(directorate_id)
 );
