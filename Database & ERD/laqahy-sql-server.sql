@@ -71,6 +71,15 @@ CREATE TABLE permission_type (
     pt_type NVARCHAR(150) NOT NULL
 );
 
+-- Create posts table
+CREATE TABLE posts (
+  post_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  post_title NVARCHAR(300) NOT NULL,
+  post_description TEXT NOT NULL,
+  post_image TEXT NOT NULL,
+  post_date DATETIME NOT NULL DEFAULT current_timestamp,
+);
+
 -- Create employees table
 CREATE TABLE employees (
     emp_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,

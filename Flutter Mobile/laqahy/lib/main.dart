@@ -17,26 +17,26 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'لقـاحي',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: MyColors.primaryColor),
+        colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),
         fontFamily: 'Tajawal',
         appBarTheme: AppBarTheme(
-          backgroundColor: MyColors.primaryColor,
+          backgroundColor: MyColors.whiteColor,
           iconTheme: CupertinoIconThemeData(color: MyColors.whiteColor),
         ),
         useMaterial3: true,
-
       ),
       debugShowCheckedModeBanner: false,
-      scrollBehavior: CupertinoScrollBehavior(),
+      scrollBehavior: const CupertinoScrollBehavior(),
       localizationsDelegates: const [
         GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: const [Locale("ar", "AE")],
-      locale: Locale("ar", "AL"),
+      locale: const Locale("ar", "AL"),
       home: HomeScreen(),
     );
   }
 }
+
 

@@ -1,6 +1,6 @@
 # laqahy
 
-A smart vaccination tracking system for Desktop
+A smart vaccination tracking system for desktop
 
 ## Getting Started
 

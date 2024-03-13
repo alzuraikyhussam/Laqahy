@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 07 مارس 2024 الساعة 18:44
+-- Generation Time: 13 مارس 2024 الساعة 20:37
 -- إصدار الخادم: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -269,6 +269,20 @@ INSERT INTO `permission_type` (`pt_id`, `pt_type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- بنية الجدول `posts`
+--
+
+CREATE TABLE `posts` (
+  `post_id` int(11) NOT NULL,
+  `post_title` varchar(300) NOT NULL,
+  `post_description` text NOT NULL,
+  `post_image` text NOT NULL,
+  `post_date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- بنية الجدول `vaccine_type`
 --
 
@@ -421,6 +435,12 @@ ALTER TABLE `permission_type`
   ADD PRIMARY KEY (`pt_id`);
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`post_id`);
+
+--
 -- Indexes for table `vaccine_type`
 --
 ALTER TABLE `vaccine_type`
@@ -527,6 +547,12 @@ ALTER TABLE `mother_statement`
 --
 ALTER TABLE `permission_type`
   MODIFY `pt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vaccine_type`

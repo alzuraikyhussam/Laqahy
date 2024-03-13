@@ -1,33 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/main.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: MediaQuery.of(context).size.width,
-        title: Text(
-          'لقاحي',
-          style: TextStyle(
-            // fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: MyColors.whiteColor,
-          ),
-        ),
-      ),
-      body: Container(
-        margin: EdgeInsetsDirectional.all(15),
-        height: 250,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            MyColors.primaryColor,
-            MyColors.secondaryColor,
+      appBar: myAppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            myButton(
+              onPressed: () {},
+              text: 'مرحبا بكم',
+              textStyle: MyTextStyles.font14WhiteBold,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            myTextField(
+              labelText: 'رقم الهـــاتف',
+              keyboardType: TextInputType.text,
+              onChanged: (String) {},
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            myMiniButton(
+              onPressed: () {},
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            myTextButton(
+              text: 'نسيت كلمة المرور!',
+              onPressed: () {},
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            myCircleAvatar(icon: Icons.person),
+            const SizedBox(
+              height: 10,
+            ),
+            myListTile(
+              onTap: () {},
+              icon: Icons.person,
+              title: 'الوضع المظلم',
+              subtitle: 'قم بالتبديل الى لوضع المظلم.',
+            ),
+            myListTile(
+              onTap: () {},
+              icon: Icons.person,
+              title: 'الوضع المظلم',
+              subtitle: 'قم بالتبديل الى لوضع المظلم.',
+            ),
           ],
-          begin: AlignmentDirectional.topStart,
-            end: AlignmentDirectional.bottomEnd
-          ),
         ),
       ),
     );
