@@ -239,7 +239,7 @@ class CreateAccount extends StatelessWidget {
                       Text(
                         'جميع الحقوق محفوظة ${DateTime.now().year} ©',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color:MyColors.greyColor,
                         ),

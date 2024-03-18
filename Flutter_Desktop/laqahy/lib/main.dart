@@ -4,9 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 
-import 'view/screens/create_admin_account.dart';
+// import 'view/screens/create_admin_account.dart';
 
-// import 'view/screens/create_account.dart';
+import 'view/screens/create_account.dart';
 // import 'package:laqahy/view/screens/home.dart';
 
 
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: const CreateAdminAccount(),
+      home: const CreateAccount(),
     );
   }
 }
