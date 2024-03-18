@@ -45,6 +45,7 @@ dependencies:
   window_manager: ^0.3.8
   flutter_localizations:
     sdk: flutter
+  flutter_svg: ^2.0.10+1
 
 flutter_launcher_icons:
   web:
@@ -104,6 +105,7 @@ flutter:
     - family: Tajawal
       fonts:
         - asset: assets/fonts/Tajawal-Medium.ttf
+        - asset: assets/icons/create_Account_Icons.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
                 myButton(
                   onPressed: () {},
                   text: 'مرحبا بكم',
-                  textStyle: MyTextStyles.font14WhiteBold,
+                  textStyle: MyTextStyles.font18BlackBold,
                 ),
                 const SizedBox(
                   height: 10,
