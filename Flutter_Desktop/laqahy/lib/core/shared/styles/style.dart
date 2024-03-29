@@ -40,6 +40,10 @@ class MyTextStyles {
     fontSize: 14.0,
     color: MyColors.greyColor,
   );
+  static TextStyle font16GreyMedium = TextStyle(
+    fontSize: 16.0,
+    color: MyColors.greyColor,
+  );
 
   // -------------------------------------------
 
@@ -63,6 +67,10 @@ class MyTextStyles {
 
   static TextStyle font16PrimaryMedium = TextStyle(
     fontSize: 16.0,
+    color: MyColors.primaryColor,
+  );
+  static TextStyle font18PrimaryBold = TextStyle(
+    fontSize: 18.0,
     color: MyColors.primaryColor,
   );
 
