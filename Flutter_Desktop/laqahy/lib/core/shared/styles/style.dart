@@ -73,6 +73,7 @@ class MyTextStyles {
   );
   static TextStyle font18PrimaryBold = TextStyle(
     fontSize: 18.0,
+    fontWeight: FontWeight.bold,
     color: MyColors.primaryColor,
   );
 

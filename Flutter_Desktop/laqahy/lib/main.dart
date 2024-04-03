@@ -15,6 +15,7 @@ import 'view/screens/child_visit_data.dart';
 import 'view/screens/create_account.dart';
 import 'view/screens/employees.dart';
 import 'view/screens/mother_visit_data.dart';
+import 'view/screens/techincal_support.dart';
 import 'view/screens/visits.dart';
 // import 'package:laqahy/view/screens/home.dart';
 
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home:  AddStatusChild(),
+      home: const  TechnicalSupport(),
     );
   }
 }

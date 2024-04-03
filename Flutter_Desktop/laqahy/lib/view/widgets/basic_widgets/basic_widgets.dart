@@ -63,6 +63,7 @@ myTextField({
   IconData? prefixIcon,
   IconData? suffixIcon,
   Color? color,
+  int? minLines,
 }) {
   return SizedBox(
     width: width?.toDouble(),
@@ -72,7 +73,7 @@ myTextField({
       keyboardType: keyboardType,
       maxLength: maxLength,
       maxLines: obscureText ? 1 : 3,
-      minLines: 1,
+      minLines: minLines != null ? minLines : 1,
       obscureText: obscureText,
       onChanged: onChanged,
       readOnly: readOnly,

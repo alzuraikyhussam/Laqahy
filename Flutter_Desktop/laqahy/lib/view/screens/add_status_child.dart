@@ -489,7 +489,7 @@ class _AddStatusChildState extends State<AddStatusChild> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '   المديرية   ',
+                                  '   المديريو   ',
                                   style: MyTextStyles.font14BlackBold,
                                 ),
                                 Container(
