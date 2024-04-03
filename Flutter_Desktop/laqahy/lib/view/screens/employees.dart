@@ -127,7 +127,7 @@ class Employees extends StatelessWidget {
                             ],
                           ),
                           SizedBox(
-                            width: 20,
+                            width: 50,
                           ),
                           Container(
                             decoration: BoxDecoration(
@@ -138,24 +138,6 @@ class Employees extends StatelessWidget {
                               onPressed: () {},
                               icon: Icon(
                                 Icons.dark_mode_outlined,
-                                color: MyColors.whiteColor,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: MyColors.primaryColor,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.logout,
                                 color: MyColors.whiteColor,
                               ),
                             ),
@@ -264,7 +246,3 @@ class Employees extends StatelessWidget {
     );
   }
 }
-
-
-
-
