@@ -167,7 +167,7 @@ class TechnicalSupport extends StatelessWidget {
           Positioned(
             left: 0,
             bottom: 0,
-            child: Image.asset("assets/images/technical_support_image.png"),
+            child: Image.asset("assets/images/image_create_account.png"),
           )
         ],
       ),

@@ -594,13 +594,7 @@ class _AddStatusChildState extends State<AddStatusChild> {
                         ),
                         Row(
                           children: [
-                            Container(
-                              width: 130,
-                              child: myButton(
-                                  onPressed: () {},
-                                  text: 'اضــــافة',
-                                  textStyle: MyTextStyles.font16WhiteBold),
-                            ),
+                           
                             const SizedBox(
                               width: 20,
                             ),

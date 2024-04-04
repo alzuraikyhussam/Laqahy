@@ -4,7 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 
-
 import 'package:laqahy/view/widgets/basic_widgets/add_employ.dart';
 
 // import 'view/screens/create_admin_account.dart';
@@ -17,6 +16,9 @@ import 'view/screens/employees.dart';
 import 'view/screens/mother_visit_data.dart';
 import 'view/screens/techincal_support.dart';
 import 'view/screens/visits.dart';
+import 'view/widgets/basic_widgets/send_support_successfully.dart';
+import 'view/widgets/basic_widgets/successfully_add_state.dart';
+import 'view/widgets/basic_widgets/successfully_edit_state.dart';
 // import 'package:laqahy/view/screens/home.dart';
 
 void main() {
@@ -51,7 +53,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: const  TechnicalSupport(),
+      home: const SuccessfullyAddState(),
     );
   }
 }
