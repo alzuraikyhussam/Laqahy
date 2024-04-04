@@ -16,6 +16,9 @@ import 'view/screens/employees.dart';
 import 'view/screens/mother_visit_data.dart';
 import 'view/screens/techincal_support.dart';
 import 'view/screens/visits.dart';
+import 'view/widgets/basic_widgets/delete_employ_confirm.dart';
+import 'view/widgets/basic_widgets/delete_post_confirm.dart';
+import 'view/widgets/basic_widgets/logout_confirm.dart';
 import 'view/widgets/basic_widgets/send_support_successfully.dart';
 import 'view/widgets/basic_widgets/successfully_add_state.dart';
 import 'view/widgets/basic_widgets/successfully_edit_state.dart';
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: const SuccessfullyAddState(),
+      home: const DeletePostConfirm(),
     );
   }
 }
