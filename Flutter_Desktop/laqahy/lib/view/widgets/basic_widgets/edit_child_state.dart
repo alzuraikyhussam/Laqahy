@@ -1,18 +1,19 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import '../widgets/basic_widgets/basic_widgets.dart';
+import 'basic_widgets.dart';
 
-class AddStatusChild extends StatefulWidget {
-  AddStatusChild({super.key});
+class EditeChildState extends StatefulWidget {
+  EditeChildState({super.key});
 
   @override
-  State<AddStatusChild> createState() => _AddStatusChildState();
+  State<EditeChildState> createState() => _EditeChildStateState();
 }
 
-class _AddStatusChildState extends State<AddStatusChild> {
+class _EditeChildStateState extends State<EditeChildState> {
   final List<String> items = [
     'مملكه الفول',
     'Item2',
@@ -32,7 +33,7 @@ class _AddStatusChildState extends State<AddStatusChild> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -489,7 +490,7 @@ class _AddStatusChildState extends State<AddStatusChild> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '   المديريو   ',
+                                  '   المديرية   ',
                                   style: MyTextStyles.font14BlackBold,
                                 ),
                                 Container(
@@ -594,7 +595,13 @@ class _AddStatusChildState extends State<AddStatusChild> {
                         ),
                         Row(
                           children: [
-                           
+                            Container(
+                              width: 130,
+                              child: myButton(
+                                  onPressed: () {},
+                                  text: 'تعديل',
+                                  textStyle: MyTextStyles.font16WhiteBold),
+                            ),
                             const SizedBox(
                               width: 20,
                             ),
@@ -610,7 +617,6 @@ class _AddStatusChildState extends State<AddStatusChild> {
                         ),
                       ],
                     ),
-                    // Image.asset("assets/images/add_status.png")
                   ],
                 ),
                 Expanded(
@@ -634,6 +640,11 @@ class _AddStatusChildState extends State<AddStatusChild> {
               ],
             ),
           ),
+          Positioned(
+            left: 0,
+            bottom: 0,
+            child: Image.asset("assets/images/add_status.png"),
+          )
         ],
       ),
     );

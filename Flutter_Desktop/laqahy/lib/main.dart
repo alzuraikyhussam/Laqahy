@@ -5,21 +5,24 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 
 import 'package:laqahy/view/widgets/basic_widgets/add_employ.dart';
+import 'package:laqahy/view/widgets/basic_widgets/edit_child_state.dart';
 
 // import 'view/screens/create_admin_account.dart';
 
-import 'view/screens/add_status_child.dart';
-import 'view/screens/add_status_mother.dart';
-import 'view/screens/child_visit_data.dart';
+import 'view/widgets/basic_widgets/add_child_state.dart';
+import 'view/widgets/basic_widgets/add_mother_state.dart';
+import 'view/widgets/basic_widgets/child_visit_data.dart';
 import 'view/screens/create_account.dart';
 import 'view/screens/employees.dart';
-import 'view/screens/mother_visit_data.dart';
-import 'view/screens/techincal_support.dart';
+import 'view/widgets/basic_widgets/mother_visit_data.dart';
+import 'view/widgets/basic_widgets/techincal_support.dart';
 import 'view/screens/visits.dart';
 import 'view/widgets/basic_widgets/delete_employ_confirm.dart';
 import 'view/widgets/basic_widgets/delete_post_confirm.dart';
 import 'view/widgets/basic_widgets/logout_confirm.dart';
+import 'view/widgets/basic_widgets/main_page.dart';
 import 'view/widgets/basic_widgets/send_support_successfully.dart';
+import 'view/widgets/basic_widgets/state_details.dart';
 import 'view/widgets/basic_widgets/successfully_add_state.dart';
 import 'view/widgets/basic_widgets/successfully_edit_state.dart';
 // import 'package:laqahy/view/screens/home.dart';
@@ -56,7 +59,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: const DeletePostConfirm(),
+      home: EditeChildState(),
     );
   }
 }

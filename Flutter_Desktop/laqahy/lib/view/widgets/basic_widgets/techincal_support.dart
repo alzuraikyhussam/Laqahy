@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 
-import '../../core/shared/styles/color.dart';
-import '../widgets/basic_widgets/basic_widgets.dart';
+import '../../../core/shared/styles/color.dart';
+import 'basic_widgets.dart';
 
 class TechnicalSupport extends StatelessWidget {
   const TechnicalSupport({super.key});

@@ -3,16 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import '../widgets/basic_widgets/basic_widgets.dart';
+import 'basic_widgets.dart';
 
-class AddStatusMother extends StatefulWidget {
-  AddStatusMother({super.key});
+class AddChildState extends StatefulWidget {
+  AddChildState({super.key});
 
   @override
-  State<AddStatusMother> createState() => _AddStatusMotherState();
+  State<AddChildState> createState() => _AddChildStateState();
 }
 
-class _AddStatusMotherState extends State<AddStatusMother> {
+class _AddChildStateState extends State<AddChildState> {
   final List<String> items = [
     'مملكه الفول',
     'Item2',
@@ -32,7 +32,7 @@ class _AddStatusMotherState extends State<AddStatusMother> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -58,6 +58,20 @@ class _AddStatusMotherState extends State<AddStatusMother> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
+                          color: MyColors.whiteColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: 165,
+                        height: 42,
+                        child: Center(
+                          child: Text(
+                            'بيانات الأم',
+                            style: MyTextStyles.font14PrimaryBold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           gradient: LinearGradient(
                             colors: [
@@ -72,21 +86,8 @@ class _AddStatusMotherState extends State<AddStatusMother> {
                         height: 42,
                         child: Center(
                           child: Text(
-                            'بيانات الأم',
-                            style: MyTextStyles.font14WhiteBold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        width: 165,
-                        height: 42,
-                        child: Center(
-                          child: Text(
                             'بيانات الطفــل',
-                            style: MyTextStyles.font14PrimaryBold,
+                            style: MyTextStyles.font14WhiteBold,
                           ),
                         ),
                       )
@@ -105,87 +106,12 @@ class _AddStatusMotherState extends State<AddStatusMother> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '   الأسم   ',
+                                  '   اسم ألأم   ',
                                   style: MyTextStyles.font14BlackBold,
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(top: 3),
                                   width: 300,
-                                  child: myTextField(
-                                    prefixIcon: Icons.person_2_outlined,
-                                    hintText: '',
-                                    keyboardType: TextInputType.text,
-                                    onChanged: (String) {},
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '   رقم الهاتف   ',
-                                  style: MyTextStyles.font14BlackBold,
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.only(left: 20, top: 3),
-                                  width: 200,
-                                  child: myTextField(
-                                    prefixIcon: Icons.call_outlined,
-                                    hintText: '',
-                                    keyboardType: TextInputType.text,
-                                    onChanged: (String) {},
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '   تاريخ الميلاد   ',
-                                  style: MyTextStyles.font14BlackBold,
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 3),
-                                  width: 200,
-                                  child: myTextField(
-                                    prefixIcon: Icons.date_range,
-                                    hintText: '',
-                                    keyboardType: TextInputType.text,
-                                    onChanged: (String) {},
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '   المحافظة   ',
-                                  style: MyTextStyles.font14BlackBold,
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.only(left: 20, top: 3),
-                                  width: 150,
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton2<String>(
                                       isExpanded: true,
@@ -196,7 +122,7 @@ class _AddStatusMotherState extends State<AddStatusMother> {
                                             size: 16,
                                             color: MyColors.greyColor,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 4,
                                           ),
                                         ],
@@ -274,11 +200,88 @@ class _AddStatusMotherState extends State<AddStatusMother> {
                                 ),
                               ],
                             ),
+                            const SizedBox(
+                              width: 20,
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '   المديرية   ',
+                                  '    اسم الطفل   ',
+                                  style: MyTextStyles.font14BlackBold,
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 20, top: 3),
+                                  width: 300,
+                                  child: myTextField(
+                                    prefixIcon: Icons.person_2_outlined,
+                                    hintText: '',
+                                    keyboardType: TextInputType.text,
+                                    onChanged: (String) {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '    محل الميلاد   ',
+                                  style: MyTextStyles.font14BlackBold,
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 3),
+                                  width: 200,
+                                  child: myTextField(
+                                    prefixIcon: Icons.home,
+                                    hintText: '',
+                                    keyboardType: TextInputType.text,
+                                    onChanged: (String) {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '    تاريخ الميلاد   ',
+                                  style: MyTextStyles.font14BlackBold,
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 3),
+                                  width: 200,
+                                  child: myTextField(
+                                    prefixIcon: Icons.date_range,
+                                    hintText: '',
+                                    keyboardType: TextInputType.text,
+                                    onChanged: (String) {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '   الجنس   ',
                                   style: MyTextStyles.font14BlackBold,
                                 ),
                                 Container(
@@ -291,7 +294,7 @@ class _AddStatusMotherState extends State<AddStatusMother> {
                                       hint: Row(
                                         children: [
                                           Icon(
-                                            Icons.location_on_outlined,
+                                            Icons.male_outlined,
                                             size: 16,
                                             color: MyColors.greyColor,
                                           ),
@@ -378,48 +381,211 @@ class _AddStatusMotherState extends State<AddStatusMother> {
                         const SizedBox(
                           height: 15,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            Text(
-                              '  العزلة    ',
-                              style: MyTextStyles.font14BlackBold,
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 20, top: 3),
-                              width: 200,
-                              child: myTextField(
-                                prefixIcon: Icons.woman,
-                                hintText: '',
-                                keyboardType: TextInputType.text,
-                                onChanged: (String) {},
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 185,
-                              child: CheckboxListTile(
-                                fillColor: MaterialStateProperty.all(
-                                    Colors.transparent),
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                                side: BorderSide(
-                                  color: MyColors.primaryColor,
-                                ),
-                                checkColor: MyColors.primaryColor,
-                                value: state,
-                                onChanged: (val) {
-                                  setState(() {
-                                    state = val!;
-                                  });
-                                },
-                                title: Text(
-                                  'هل لديك طفل؟',
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '   المحافظة   ',
                                   style: MyTextStyles.font14BlackBold,
                                 ),
-                              ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 20, top: 3),
+                                  width: 150,
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton2<String>(
+                                      isExpanded: true,
+                                      hint: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.male_outlined,
+                                            size: 16,
+                                            color: MyColors.greyColor,
+                                          ),
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                        ],
+                                      ),
+                                      items: items
+                                          .map(
+                                            (String item) =>
+                                                DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: MyTextStyles
+                                                    .font14BlackBold,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                      value: areaselectedValue,
+                                      onChanged: (String? value) {
+                                        setState(() {
+                                          areaselectedValue = value;
+                                        });
+                                      },
+                                      buttonStyleData: ButtonStyleData(
+                                        height: 50,
+                                        width: 160,
+                                        padding: const EdgeInsets.only(
+                                            left: 14, right: 14),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                              color: MyColors.greyColor
+                                                  .withOpacity(0.3)),
+                                          color: MyColors.whiteColor,
+                                        ),
+                                        elevation: 0,
+                                      ),
+                                      iconStyleData: IconStyleData(
+                                        icon: const Icon(
+                                          Icons.arrow_forward_ios_outlined,
+                                        ),
+                                        iconSize: 14,
+                                        iconEnabledColor: MyColors.greyColor,
+                                        iconDisabledColor: MyColors.greyColor,
+                                      ),
+                                      dropdownStyleData: DropdownStyleData(
+                                        maxHeight: 150,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: MyColors.whiteColor,
+                                        ),
+                                        // offset: const Offset(-29, 0),
+                                        scrollbarTheme: ScrollbarThemeData(
+                                          radius: const Radius.circular(40),
+                                          thickness:
+                                              MaterialStateProperty.all<double>(
+                                                  6),
+                                          thumbVisibility:
+                                              MaterialStateProperty.all<bool>(
+                                                  true),
+                                        ),
+                                      ),
+                                      menuItemStyleData:
+                                          const MenuItemStyleData(
+                                        height: 40,
+                                        padding: EdgeInsets.only(
+                                            left: 14, right: 14),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '   المديرية   ',
+                                  style: MyTextStyles.font14BlackBold,
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 20, top: 3),
+                                  width: 150,
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton2<String>(
+                                      isExpanded: true,
+                                      hint: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.male_outlined,
+                                            size: 16,
+                                            color: MyColors.greyColor,
+                                          ),
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                        ],
+                                      ),
+                                      items: items
+                                          .map(
+                                            (String item) =>
+                                                DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: MyTextStyles
+                                                    .font14BlackBold,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                      value: areaselectedValue,
+                                      onChanged: (String? value) {
+                                        setState(() {
+                                          areaselectedValue = value;
+                                        });
+                                      },
+                                      buttonStyleData: ButtonStyleData(
+                                        height: 50,
+                                        width: 160,
+                                        padding: const EdgeInsets.only(
+                                            left: 14, right: 14),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                              color: MyColors.greyColor
+                                                  .withOpacity(0.3)),
+                                          color: MyColors.whiteColor,
+                                        ),
+                                        elevation: 0,
+                                      ),
+                                      iconStyleData: IconStyleData(
+                                        icon: const Icon(
+                                          Icons.arrow_forward_ios_outlined,
+                                        ),
+                                        iconSize: 14,
+                                        iconEnabledColor: MyColors.greyColor,
+                                        iconDisabledColor: MyColors.greyColor,
+                                      ),
+                                      dropdownStyleData: DropdownStyleData(
+                                        maxHeight: 150,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: MyColors.whiteColor,
+                                        ),
+                                        // offset: const Offset(-29, 0),
+                                        scrollbarTheme: ScrollbarThemeData(
+                                          radius: const Radius.circular(40),
+                                          thickness:
+                                              MaterialStateProperty.all<double>(
+                                                  6),
+                                          thumbVisibility:
+                                              MaterialStateProperty.all<bool>(
+                                                  true),
+                                        ),
+                                      ),
+                                      menuItemStyleData:
+                                          const MenuItemStyleData(
+                                        height: 40,
+                                        padding: EdgeInsets.only(
+                                            left: 14, right: 14),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -450,7 +616,7 @@ class _AddStatusMotherState extends State<AddStatusMother> {
                         ),
                       ],
                     ),
-                    Image.asset("assets/images/add_status.png")
+                    // Image.asset("assets/images/add_status.png")
                   ],
                 ),
                 Expanded(
