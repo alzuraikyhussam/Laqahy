@@ -264,7 +264,7 @@ myCopyRightText() {
   return Positioned(
     left: 0,
     right: 0,
-    bottom: 10,
+    bottom: 15,
     child: Opacity(
       opacity: 0.5,
       child: Text(
@@ -335,6 +335,55 @@ goBackButton() {
         Icons.arrow_back_ios_rounded,
         textDirection: TextDirection.ltr,
         color: MyColors.greyColor,
+        size: 25,
+      ),
+    ),
+  );
+}
+
+myHomeLayoutItems({
+  required icon,
+  required label,
+}) {
+  return Row(
+    children: [
+      icon,
+      SizedBox(
+        width: 20,
+      ),
+      label,
+    ],
+  );
+}
+
+myHomeLayoutAppBarButtons({
+  required IconData? icon,
+  required void Function()? onTap,
+  required List<Color> gradientColors,
+}) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: gradientColors,
+          begin: AlignmentDirectional.topCenter,
+          end: AlignmentDirectional.bottomCenter,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: MyColors.greyColor.withOpacity(0.3),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+            spreadRadius: 0,
+          ),
+        ],
+        borderRadius: BorderRadiusDirectional.circular(10),
+      ),
+      child: Icon(
+        icon,
+        color: MyColors.whiteColor,
         size: 25,
       ),
     ),

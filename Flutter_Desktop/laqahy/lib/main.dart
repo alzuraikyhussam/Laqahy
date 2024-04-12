@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/view/layouts/home_layout.dart';
 import 'package:laqahy/view/screens/create_account.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/splash_screen.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: SplashScreen(),
+      home: HomeLayout(),
     );
   }
 }
