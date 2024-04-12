@@ -232,7 +232,7 @@ class CreateAdminAccount extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color:MyColors.greyColor,
+                          color: MyColors.greyColor,
                         ),
                       )
                     ],

@@ -1,8 +1,11 @@
 // import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/welcome.dart';
 
 myButton({
   required void Function()? onPressed,
@@ -13,7 +16,7 @@ myButton({
 }) {
   return Container(
     width: width?.toDouble(),
-    height: 50.toDouble(),
+    height: 44.toDouble(),
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: [
@@ -44,6 +47,10 @@ myButton({
       ),
       child: Text(
         text,
+        textHeightBehavior: TextHeightBehavior(
+          applyHeightToFirstAscent: true,
+          applyHeightToLastDescent: false,
+        ),
         style: textStyle,
       ),
     ),
@@ -69,10 +76,10 @@ myTextField({
     width: width?.toDouble(),
     child: TextFormField(
       controller: controller,
-      cursorColor: MyColors.primaryColor,
+      cursorColor: MyColors.primaryColor.withOpacity(0.7),
       keyboardType: keyboardType,
       maxLength: maxLength,
-      maxLines: obscureText ? 1 : 3,
+      maxLines: obscureText ? 1 : minLines,
       minLines: minLines != null ? minLines : 1,
       obscureText: obscureText,
       onChanged: onChanged,
@@ -82,23 +89,28 @@ myTextField({
       textDirection: TextDirection.rtl,
       style: MyTextStyles.font16BlackMedium,
       decoration: InputDecoration(
+        counterStyle: MyTextStyles.font14GreyBold
+            .copyWith(color: MyColors.greyColor.withOpacity(0.5)),
         prefixIcon: prefixIcon != null
             ? Icon(
                 prefixIcon,
-                color: MyColors.greyColor,
+                color: MyColors.greyColor.withOpacity(0.5),
               )
             : null,
         suffixIcon: suffixIcon != null
-            ? Icon(
-                suffixIcon,
-                color: MyColors.greyColor,
+            ? InkWell(
+                onTap: () {},
+                child: Icon(
+                  suffixIcon,
+                  color: MyColors.greyColor.withOpacity(0.5),
+                ),
               )
             : null,
         contentPadding: EdgeInsetsDirectional.all(18),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
-            color: MyColors.greyColor,
+            color: MyColors.greyColor.withOpacity(0.3),
           ),
         ),
         enabledBorder: OutlineInputBorder(
@@ -110,7 +122,7 @@ myTextField({
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
-            color: MyColors.primaryColor,
+            color: MyColors.primaryColor.withOpacity(0.5),
           ),
         ),
         errorBorder: OutlineInputBorder(
@@ -126,7 +138,7 @@ myTextField({
           ),
         ),
         filled: true,
-        fillColor: MyColors.whiteColor,
+        fillColor: MyColors.whiteColor.withOpacity(0.5),
         hintText: hintText,
         hintStyle: MyTextStyles.font14GreyMedium,
       ),
@@ -248,6 +260,87 @@ myTextField2({
   );
 }
 
+myCopyRightText() {
+  return Positioned(
+    left: 0,
+    right: 0,
+    bottom: 10,
+    child: Opacity(
+      opacity: 0.5,
+      child: Text(
+        textAlign: TextAlign.center,
+        'جميع الحقوق محفوظة 2024',
+        style: MyTextStyles.font14GreyBold,
+      ),
+    ),
+  );
+}
+
+myBackgroundWindows() {
+  return Container(
+    width: double.infinity,
+    height: double.infinity,
+    decoration: const BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/images/background.png"),
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
+}
+
+myAppBarLogo() {
+  return Image.asset(
+    'assets/images/window-logo.png',
+    width: 220,
+  );
+}
+
+exitButton() {
+  return InkWell(
+    onTap: () {},
+    child: Container(
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: MyColors.redColor,
+        boxShadow: [
+          BoxShadow(
+            color: MyColors.greyColor.withOpacity(0.3),
+            blurRadius: 5,
+            blurStyle: BlurStyle.outer,
+          ),
+        ],
+      ),
+      child: Icon(
+        Icons.power_settings_new_rounded,
+        color: MyColors.whiteColor,
+        size: 28,
+      ),
+    ),
+  );
+}
+
+goBackButton() {
+  return InkWell(
+    onTap: () {
+      Get.off(WelcomeScreen());
+    },
+    child: Container(
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Icon(
+        Icons.arrow_back_ios_rounded,
+        textDirection: TextDirection.ltr,
+        color: MyColors.greyColor,
+        size: 25,
+      ),
+    ),
+  );
+}
+
 // myDropDownButton({
 //   required double? width,
 //   required List<String>? items,
@@ -308,7 +401,7 @@ myTextField2({
 //           icon:  Icon(
 //             iconStyleData,
 //           ) ,
-          
+
 //           iconSize: iconStyleDataSize!,
 //           iconEnabledColor: MyColors.greyColor,
 //           iconDisabledColor: MyColors.greyColor,

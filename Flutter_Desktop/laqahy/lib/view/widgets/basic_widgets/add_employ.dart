@@ -46,7 +46,6 @@ class _AddEmployState extends State<AddEmploy> {
                   child: Text(
                     'اضافة موظف جديد ',
                     textAlign: TextAlign.center,
-                    
                     style: MyTextStyles.font18PrimaryBold,
                   ),
                 ),

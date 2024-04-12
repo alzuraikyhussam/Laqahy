@@ -1,33 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/view/screens/create_account.dart';
+import 'package:laqahy/view/screens/login.dart';
+import 'package:laqahy/view/screens/splash_screen.dart';
+import 'package:laqahy/view/screens/welcome.dart';
 
-import 'package:laqahy/view/widgets/basic_widgets/add_employ.dart';
-import 'package:laqahy/view/widgets/basic_widgets/edit_child_state.dart';
+import 'package:window_manager/window_manager.dart';
 
 // import 'view/screens/create_admin_account.dart';
 
-import 'view/widgets/basic_widgets/add_child_state.dart';
-import 'view/widgets/basic_widgets/add_mother_state.dart';
-import 'view/widgets/basic_widgets/child_visit_data.dart';
-import 'view/screens/create_account.dart';
-import 'view/screens/employees.dart';
-import 'view/widgets/basic_widgets/mother_visit_data.dart';
-import 'view/widgets/basic_widgets/techincal_support.dart';
-import 'view/screens/visits.dart';
-import 'view/widgets/basic_widgets/delete_employ_confirm.dart';
-import 'view/widgets/basic_widgets/delete_post_confirm.dart';
-import 'view/widgets/basic_widgets/logout_confirm.dart';
-import 'view/widgets/basic_widgets/main_page.dart';
-import 'view/widgets/basic_widgets/send_support_successfully.dart';
-import 'view/widgets/basic_widgets/state_details.dart';
-import 'view/widgets/basic_widgets/successfully_add_state.dart';
-import 'view/widgets/basic_widgets/successfully_edit_state.dart';
 // import 'package:laqahy/view/screens/home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -38,6 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      defaultTransition: Transition.fadeIn,
       title: 'لقـاحي',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),
@@ -59,7 +50,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: EditeChildState(),
+      home: SplashScreen(),
     );
   }
 }

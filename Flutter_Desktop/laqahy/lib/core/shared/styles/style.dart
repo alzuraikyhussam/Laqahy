@@ -39,9 +39,13 @@ class MyTextStyles {
   static TextStyle font14GreyMedium = TextStyle(
     fontSize: 14.0,
     color: MyColors.greyColor,
+    
   );
   static TextStyle font14GreyBold = TextStyle(
-      fontSize: 14.0, color: MyColors.greyColor, fontWeight: FontWeight.bold);
+    fontSize: 14.0,
+    color: MyColors.greyColor,
+    fontWeight: FontWeight.bold,
+  );
   static TextStyle font16GreyMedium = TextStyle(
     fontSize: 16.0,
     color: MyColors.greyColor,

@@ -644,7 +644,7 @@ class _EditeChildStateState extends State<EditeChildState> {
             left: 0,
             bottom: 0,
             child: Image.asset("assets/images/add_status.png"),
-          )
+          ),
         ],
       ),
     );
