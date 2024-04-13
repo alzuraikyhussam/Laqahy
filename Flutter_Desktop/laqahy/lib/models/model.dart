@@ -19,3 +19,11 @@ class HomeLayoutListItem {
 
   HomeLayoutListItem({required this.icon, required this.label});
 }
+
+class HomeCards {
+  String imageName;
+  String title;
+  int value;
+
+  HomeCards({required this.imageName, required this.title, required this.value});
+}

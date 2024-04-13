@@ -5,8 +5,8 @@ class HomeLayoutController extends GetxController {
 
   changeChoose(String label) {
     if (label == 'تسجيل الخروج') {
-      choose.value = 'الرئيسية';
       print('logout');
+      return;
     } else {
       choose.value = label;
     }

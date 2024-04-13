@@ -249,9 +249,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(30),
-                      child: Expanded(
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(30),
                         child: Obx(
                           () {
                             if (hlc.choose.value == 'الرئيسية') {

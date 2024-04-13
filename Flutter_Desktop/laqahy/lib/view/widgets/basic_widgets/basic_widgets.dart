@@ -390,6 +390,61 @@ myHomeLayoutAppBarButtons({
   );
 }
 
+myHomeCards({
+  required String imageName,
+  required String title,
+  required int value,
+}) {
+  return Container(
+    padding: EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 10,
+        ),
+      ],
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Image.asset(
+            imageName,
+            fit: BoxFit.cover,
+            width: 40,
+          ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          title,
+          style: MyTextStyles.font16BlackBold,
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          '$value',
+          style: MyTextStyles.font18BlackBold,
+        ),
+      ],
+    ),
+  );
+}
+
 // myDropDownButton({
 //   required double? width,
 //   required List<String>? items,
