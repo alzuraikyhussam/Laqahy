@@ -13,6 +13,8 @@ import 'package:laqahy/view/screens/create_account.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/child_visit_data.dart';
 import 'package:laqahy/view/widgets/basic_widgets/home.dart';
+import 'package:laqahy/view/widgets/basic_widgets/mother_visit_data.dart';
+import 'package:laqahy/view/widgets/basic_widgets/techincal_support.dart';
 import 'package:window_manager/window_manager.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -52,13 +54,17 @@ class _HomeLayoutState extends State<HomeLayout> {
       body: Stack(
         children: [
           myBackgroundWindows(),
-          Positioned(
-            left: 0,
-            bottom: 0,
-            child: Image.asset(
-              'assets/images/home-layout-bg.png',
-            ),
-          ),
+          Obx(() {
+            return hlc.choose.value == 'الرئيسية'
+                ? Positioned(
+                    left: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/images/home-layout-bg.png',
+                    ),
+                  )
+                : SizedBox();
+          }),
           myCopyRightText(),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,19 +131,19 @@ class _HomeLayoutState extends State<HomeLayout> {
                                           : null,
                                 ),
                                 child: myHomeLayoutItems(
-                                  icon: Icon(
-                                    Constants.homeLayoutItems[index].icon,
-                                    color: Constants
-                                                .homeLayoutItems[index].label ==
-                                            'تسجيل الخروج'
-                                        ? MyColors.redColor
-                                        : hlc.choose.value ==
-                                                Constants.homeLayoutItems[index]
-                                                    .label
-                                            ? MyColors.whiteColor
-                                            : MyColors.greyColor,
-                                    size: 30,
-                                  ),
+                                  imageName: Image.asset(
+                                      Constants.homeLayoutItems[index].label ==
+                                              'تسجيل الخروج'
+                                          ? Constants
+                                              .homeLayoutItems[index].imageName
+                                          : hlc.choose.value ==
+                                                  Constants
+                                                      .homeLayoutItems[index]
+                                                      .label
+                                              ? Constants.homeLayoutItems[index]
+                                                  .imageNameFocused
+                                              : Constants.homeLayoutItems[index]
+                                                  .imageName),
                                   label: Text(
                                     Constants.homeLayoutItems[index].label,
                                     style: Constants
@@ -251,13 +257,22 @@ class _HomeLayoutState extends State<HomeLayout> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(30),
+                        padding: EdgeInsetsDirectional.only(
+                          top: 30,
+                          bottom: 0,
+                          end: 0,
+                          start: 30,
+                        ),
                         child: Obx(
                           () {
                             if (hlc.choose.value == 'الرئيسية') {
                               return HomeScreen();
+                            } else if (hlc.choose.value == 'الزيارات') {
+                              return MotherVisitData();
+                            } else if (hlc.choose.value == 'الدعم الفني') {
+                              return TechnicalSupport();
                             } else {
-                              return HomeScreen();
+                              return SizedBox();
                             }
                           },
                         ),

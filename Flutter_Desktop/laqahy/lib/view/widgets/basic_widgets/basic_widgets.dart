@@ -342,12 +342,12 @@ goBackButton() {
 }
 
 myHomeLayoutItems({
-  required icon,
+  required imageName,
   required label,
 }) {
   return Row(
     children: [
-      icon,
+      imageName,
       SizedBox(
         width: 20,
       ),

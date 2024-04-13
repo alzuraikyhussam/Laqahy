@@ -1,17 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:laqahy/models/model.dart';
-import 'package:laqahy/view/widgets/icons/my_flutter_app_icons2.dart';
+import 'package:laqahy/view/widgets/icons/my_flutter_app_icons.dart';
 
 class Constants {
   static List homeLayoutItems = [
-    HomeLayoutListItem(icon: Icons.access_alarm_sharp, label: 'الرئيسية'),
-    HomeLayoutListItem(icon: Icons.person_sharp, label: 'الموظفين'),
-    HomeLayoutListItem(icon: Icons.update, label: 'الحالات'),
-    HomeLayoutListItem(icon: Icons.people_alt_rounded, label: 'الزيارات'),
-    HomeLayoutListItem(icon: Icons.vaccines_rounded, label: 'اللقاحات'),
-    HomeLayoutListItem(icon: Icons.post_add_rounded, label: 'المنشورات'),
-    HomeLayoutListItem(icon: Icons.info_outline_rounded, label: 'حول النظام'),
-    HomeLayoutListItem(icon: Icons.support_agent_rounded, label: 'الدعم الفني'),
-    HomeLayoutListItem(icon: Icons.logout_rounded, label: 'تسجيل الخروج'),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/home-gr.png',
+      label: 'الرئيسية',
+      imageNameFocused: 'assets/icons/home-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/emp-gr.png',
+      label: 'الموظفين',
+      imageNameFocused: 'assets/icons/emp-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/status-gr.png',
+      label: 'الحالات',
+      imageNameFocused: 'assets/icons/status-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/visits-gr.png',
+      label: 'الزيارات',
+      imageNameFocused: 'assets/icons/visits-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/vaccine-gr.png',
+      label: 'اللقاحات',
+      imageNameFocused: 'assets/icons/vaccine-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/posts-gr.png',
+      label: 'المنشورات',
+      imageNameFocused: 'assets/icons/posts-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/info-gr.png',
+      label: 'حول النظام',
+      imageNameFocused: 'assets/icons/info-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/support-gr.png',
+      label: 'الدعم الفني',
+      imageNameFocused: 'assets/icons/support-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/logout.png',
+      label: 'تسجيل الخروج',
+      imageNameFocused: 'assets/icons/logout.png',
+    ),
   ];
 }

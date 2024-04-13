@@ -107,8 +107,12 @@ flutter:
     - family: Tajawal
       fonts:
         - asset: assets/fonts/Tajawal-Medium.ttf
+    - family: MyFlutterApp
+      fonts:
         - asset: assets/icons/MyFlutterApp.ttf
-        - asset: assets/icons/MyFlutterApp2.ttf
+    
+        
+    
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

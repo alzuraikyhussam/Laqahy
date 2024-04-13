@@ -14,10 +14,15 @@ class HomeLayoutListItem {
   //   {"icon": Icons.logout_rounded, "title": "تسجيل الخروج"},
   // ];
 
-  IconData icon;
+  String imageName;
+  String imageNameFocused;
   String label;
 
-  HomeLayoutListItem({required this.icon, required this.label});
+  HomeLayoutListItem({
+    required this.imageName,
+    required this.imageNameFocused,
+    required this.label,
+  });
 }
 
 class HomeCards {
@@ -25,5 +30,9 @@ class HomeCards {
   String title;
   int value;
 
-  HomeCards({required this.imageName, required this.title, required this.value});
+  HomeCards({
+    required this.imageName,
+    required this.title,
+    required this.value,
+  });
 }
