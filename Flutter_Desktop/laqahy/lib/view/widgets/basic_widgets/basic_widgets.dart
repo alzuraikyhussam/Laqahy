@@ -9,6 +9,8 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/welcome.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 myButton({
   required void Function()? onPressed,
@@ -376,13 +378,13 @@ goBackButton() {
 }
 
 myHomeLayoutItems({
-  required imageName,
+  required image,
   required label,
 }) {
   return Row(
     children: [
-      imageName,
-      SizedBox(
+      image,
+      const SizedBox(
         width: 20,
       ),
       label,
@@ -463,16 +465,28 @@ myHomeCards({
         SizedBox(
           height: 15,
         ),
-        Text(
-          title,
-          style: MyTextStyles.font16BlackBold,
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Text(
-          '$value',
-          style: MyTextStyles.font18BlackBold,
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: MyTextStyles.font16BlackBold,
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Expanded(
+                child: Text(
+                  '$value',
+                  style: MyTextStyles.font18BlackBold,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     ),
@@ -594,9 +608,72 @@ myPostsCard() {
   );
 }
 
-
-
-
+myAlertDialog({
+  required BuildContext context,
+  required String title,
+  required String text,
+  required String confirmBtnText,
+  required String cancelBtnText,
+  required String image,
+  Color? headerBackgroundColor,
+  required void Function()? onConfirmBtnTap,
+  required void Function()? onCancelBtnTap,
+  Color? confirmBtnColor,
+  Color? cancelBtnColor,
+}) {
+  return QuickAlert.show(
+    context: context,
+    headerBackgroundColor: headerBackgroundColor ?? MyColors.primaryColor,
+    type: QuickAlertType.custom,
+    showConfirmBtn: false,
+    showCancelBtn: false,
+    customAsset: image,
+    width: 500,
+    barrierDismissible: true,
+    widget: Container(
+      height: 140,
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: MyTextStyles.font18BlackBold,
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Expanded(
+              child: Text(
+            text,
+            style: MyTextStyles.font16BlackMedium,
+          )),
+          Row(
+            children: [
+              Expanded(
+                child: myButton(
+                  onPressed: onConfirmBtnTap,
+                  text: confirmBtnText,
+                  backgroundColor: confirmBtnColor,
+                  textStyle: MyTextStyles.font14WhiteBold,
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: myButton(
+                  onPressed: onCancelBtnTap,
+                  backgroundColor: cancelBtnColor ?? MyColors.greyColor,
+                  text: cancelBtnText,
+                  textStyle: MyTextStyles.font14WhiteBold,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
 // myDropDownButton({
 //   required double? width,

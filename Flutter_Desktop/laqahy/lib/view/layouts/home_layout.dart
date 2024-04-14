@@ -1,17 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/create_account.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/child_visit_data.dart';
 import 'package:laqahy/view/widgets/home.dart';
 import 'package:laqahy/view/widgets/mother_visit_data.dart';
 import 'package:laqahy/view/widgets/posts.dart';
@@ -88,23 +83,23 @@ class _HomeLayoutState extends State<HomeLayout> {
                   children: [
                     Image.asset(
                       'assets/images/window-logo.png',
-                      // width: 100,
                     ),
                     const SizedBox(
-                      height: 100,
+                      height: 80,
                     ),
                     Expanded(
                       child: ListView.separated(
-                        itemBuilder: (context, index) {
+                        itemBuilder: (ctx, index) {
                           return InkWell(
                             onTap: () {
                               hlc.changeChoose(
                                 Constants.homeLayoutItems[index].label,
+                                ctx,
                               );
                             },
                             child: Obx(
                               () => Container(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(15),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   gradient: hlc.choose.value == 'تسجيل الخروج'
@@ -133,7 +128,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                                           : null,
                                 ),
                                 child: myHomeLayoutItems(
-                                  imageName: Image.asset(
+                                  image: Image.asset(
                                       Constants.homeLayoutItems[index].label ==
                                               'تسجيل الخروج'
                                           ? Constants
@@ -246,7 +241,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                               ),
                               myHomeLayoutAppBarButtons(
                                 icon: Icons.power_settings_new_rounded,
-                                onTap: () {},
+                                onTap: () {
+                                  hlc.onTapExitButton(context);
+                                },
                                 gradientColors: [
                                   MyColors.greyColor,
                                   MyColors.greyColor,
