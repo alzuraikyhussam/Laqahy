@@ -11,10 +11,12 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/create_account.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/basic_widgets/child_visit_data.dart';
-import 'package:laqahy/view/widgets/basic_widgets/home.dart';
-import 'package:laqahy/view/widgets/basic_widgets/mother_visit_data.dart';
-import 'package:laqahy/view/widgets/basic_widgets/techincal_support.dart';
+import 'package:laqahy/view/widgets/child_visit_data.dart';
+import 'package:laqahy/view/widgets/home.dart';
+import 'package:laqahy/view/widgets/mother_visit_data.dart';
+import 'package:laqahy/view/widgets/posts.dart';
+import 'package:laqahy/view/widgets/system_info.dart';
+import 'package:laqahy/view/widgets/techincal_support.dart';
 import 'package:window_manager/window_manager.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -63,14 +65,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                       'assets/images/home-layout-bg.png',
                     ),
                   )
-                : SizedBox();
+                : const SizedBox();
           }),
           myCopyRightText(),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.all(30),
+                padding: const EdgeInsets.all(30),
                 height: screenHeight,
                 width: 300,
                 decoration: BoxDecoration(
@@ -88,7 +90,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                       'assets/images/window-logo.png',
                       // width: 100,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     Expanded(
@@ -102,11 +104,11 @@ class _HomeLayoutState extends State<HomeLayout> {
                             },
                             child: Obx(
                               () => Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   gradient: hlc.choose.value == 'تسجيل الخروج'
-                                      ? LinearGradient(
+                                      ? const LinearGradient(
                                           colors: [
                                             Colors.transparent,
                                             Colors.transparent,
@@ -162,7 +164,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           );
                         },
                         separatorBuilder: (context, index) {
-                          return SizedBox(
+                          return const SizedBox(
                             height: 10,
                           );
                         },
@@ -177,7 +179,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 30,
                         vertical: 20,
                       ),
@@ -188,7 +190,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           BoxShadow(
                             color: MyColors.greyColor.withOpacity(0.2),
                             blurRadius: 20,
-                            offset: Offset(-20, 5),
+                            offset: const Offset(-20, 5),
                           ),
                         ],
                         color: Colors.white,
@@ -228,7 +230,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 30,
                               ),
                               myHomeLayoutAppBarButtons(
@@ -239,7 +241,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                                   MyColors.secondaryColor,
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               myHomeLayoutAppBarButtons(
@@ -257,22 +259,34 @@ class _HomeLayoutState extends State<HomeLayout> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.only(
-                          top: 30,
-                          bottom: 0,
-                          end: 0,
-                          start: 30,
-                        ),
+                        padding: hlc.choose.value == 'الرئيسية'
+                            ? EdgeInsets.all(30)
+                            : EdgeInsetsDirectional.only(
+                                top: 30,
+                                bottom: 0,
+                                end: 0,
+                                start: 30,
+                              ),
                         child: Obx(
                           () {
                             if (hlc.choose.value == 'الرئيسية') {
-                              return HomeScreen();
+                              return const HomeScreen();
+                            } else if (hlc.choose.value == 'الموظفين') {
+                              return const SizedBox();
+                            } else if (hlc.choose.value == 'الحالات') {
+                              return const SizedBox();
                             } else if (hlc.choose.value == 'الزيارات') {
-                              return MotherVisitData();
+                              return const MotherVisitData();
+                            } else if (hlc.choose.value == 'اللقاحات') {
+                              return const SizedBox();
+                            } else if (hlc.choose.value == 'المنشورات') {
+                              return const PostsScreen();
+                            } else if (hlc.choose.value == 'حول النظام') {
+                              return const SystemInfoScreen();
                             } else if (hlc.choose.value == 'الدعم الفني') {
                               return TechnicalSupport();
                             } else {
-                              return SizedBox();
+                              return const SizedBox();
                             }
                           },
                         ),

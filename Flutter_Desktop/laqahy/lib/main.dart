@@ -12,7 +12,7 @@ import 'package:laqahy/view/screens/welcome.dart';
 
 import 'package:window_manager/window_manager.dart';
 
-import 'view/widgets/basic_widgets/state_details.dart';
+import 'view/widgets/state_details.dart';
 
 // import 'view/screens/create_admin_account.dart';
 

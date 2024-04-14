@@ -1,19 +1,18 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'basic_widgets.dart';
+import 'basic_widgets/basic_widgets.dart';
 
-class EditeChildState extends StatefulWidget {
-  EditeChildState({super.key});
+class AddMotherState extends StatefulWidget {
+  AddMotherState({super.key});
 
   @override
-  State<EditeChildState> createState() => _EditeChildStateState();
+  State<AddMotherState> createState() => _AddMotherStateState();
 }
 
-class _EditeChildStateState extends State<EditeChildState> {
+class _AddMotherStateState extends State<AddMotherState> {
   final List<String> items = [
     'مملكه الفول',
     'Item2',
@@ -59,20 +58,6 @@ class _EditeChildStateState extends State<EditeChildState> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: MyColors.whiteColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        width: 165,
-                        height: 42,
-                        child: Center(
-                          child: Text(
-                            'بيانات الأم',
-                            style: MyTextStyles.font14PrimaryBold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           gradient: LinearGradient(
                             colors: [
@@ -87,8 +72,21 @@ class _EditeChildStateState extends State<EditeChildState> {
                         height: 42,
                         child: Center(
                           child: Text(
-                            'بيانات الطفــل',
+                            'بيانات الأم',
                             style: MyTextStyles.font14WhiteBold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: 165,
+                        height: 42,
+                        child: Center(
+                          child: Text(
+                            'بيانات الطفــل',
+                            style: MyTextStyles.font14PrimaryBold,
                           ),
                         ),
                       )
@@ -107,12 +105,87 @@ class _EditeChildStateState extends State<EditeChildState> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '   اسم ألأم   ',
+                                  '   الأسم   ',
                                   style: MyTextStyles.font14BlackBold,
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(top: 3),
                                   width: 300,
+                                  child: myTextField(
+                                    prefixIcon: Icons.person_2_outlined,
+                                    hintText: '',
+                                    keyboardType: TextInputType.text,
+                                    onChanged: (String) {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '   رقم الهاتف   ',
+                                  style: MyTextStyles.font14BlackBold,
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 20, top: 3),
+                                  width: 200,
+                                  child: myTextField(
+                                    prefixIcon: Icons.call_outlined,
+                                    hintText: '',
+                                    keyboardType: TextInputType.text,
+                                    onChanged: (String) {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '   تاريخ الميلاد   ',
+                                  style: MyTextStyles.font14BlackBold,
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 3),
+                                  width: 200,
+                                  child: myTextField(
+                                    prefixIcon: Icons.date_range,
+                                    hintText: '',
+                                    keyboardType: TextInputType.text,
+                                    onChanged: (String) {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '   المحافظة   ',
+                                  style: MyTextStyles.font14BlackBold,
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 20, top: 3),
+                                  width: 150,
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton2<String>(
                                       isExpanded: true,
@@ -123,7 +196,7 @@ class _EditeChildStateState extends State<EditeChildState> {
                                             size: 16,
                                             color: MyColors.greyColor,
                                           ),
-                                          const SizedBox(
+                                          SizedBox(
                                             width: 4,
                                           ),
                                         ],
@@ -201,291 +274,6 @@ class _EditeChildStateState extends State<EditeChildState> {
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '    اسم الطفل   ',
-                                  style: MyTextStyles.font14BlackBold,
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.only(left: 20, top: 3),
-                                  width: 300,
-                                  child: myTextField(
-                                    prefixIcon: Icons.person_2_outlined,
-                                    hintText: '',
-                                    keyboardType: TextInputType.text,
-                                    onChanged: (String) {},
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '    محل الميلاد   ',
-                                  style: MyTextStyles.font14BlackBold,
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 3),
-                                  width: 200,
-                                  child: myTextField(
-                                    prefixIcon: Icons.home,
-                                    hintText: '',
-                                    keyboardType: TextInputType.text,
-                                    onChanged: (String) {},
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '    تاريخ الميلاد   ',
-                                  style: MyTextStyles.font14BlackBold,
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 3),
-                                  width: 200,
-                                  child: myTextField(
-                                    prefixIcon: Icons.date_range,
-                                    hintText: '',
-                                    keyboardType: TextInputType.text,
-                                    onChanged: (String) {},
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '   الجنس   ',
-                                  style: MyTextStyles.font14BlackBold,
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.only(left: 20, top: 3),
-                                  width: 150,
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton2<String>(
-                                      isExpanded: true,
-                                      hint: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.male_outlined,
-                                            size: 16,
-                                            color: MyColors.greyColor,
-                                          ),
-                                          SizedBox(
-                                            width: 4,
-                                          ),
-                                        ],
-                                      ),
-                                      items: items
-                                          .map(
-                                            (String item) =>
-                                                DropdownMenuItem<String>(
-                                              value: item,
-                                              child: Text(
-                                                item,
-                                                style: MyTextStyles
-                                                    .font14BlackBold,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                      value: areaselectedValue,
-                                      onChanged: (String? value) {
-                                        setState(() {
-                                          areaselectedValue = value;
-                                        });
-                                      },
-                                      buttonStyleData: ButtonStyleData(
-                                        height: 50,
-                                        width: 160,
-                                        padding: const EdgeInsets.only(
-                                            left: 14, right: 14),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: Border.all(
-                                              color: MyColors.greyColor
-                                                  .withOpacity(0.3)),
-                                          color: MyColors.whiteColor,
-                                        ),
-                                        elevation: 0,
-                                      ),
-                                      iconStyleData: IconStyleData(
-                                        icon: const Icon(
-                                          Icons.arrow_forward_ios_outlined,
-                                        ),
-                                        iconSize: 14,
-                                        iconEnabledColor: MyColors.greyColor,
-                                        iconDisabledColor: MyColors.greyColor,
-                                      ),
-                                      dropdownStyleData: DropdownStyleData(
-                                        maxHeight: 150,
-                                        width: 150,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: MyColors.whiteColor,
-                                        ),
-                                        // offset: const Offset(-29, 0),
-                                        scrollbarTheme: ScrollbarThemeData(
-                                          radius: const Radius.circular(40),
-                                          thickness:
-                                              MaterialStateProperty.all<double>(
-                                                  6),
-                                          thumbVisibility:
-                                              MaterialStateProperty.all<bool>(
-                                                  true),
-                                        ),
-                                      ),
-                                      menuItemStyleData:
-                                          const MenuItemStyleData(
-                                        height: 40,
-                                        padding: EdgeInsets.only(
-                                            left: 14, right: 14),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '   المحافظة   ',
-                                  style: MyTextStyles.font14BlackBold,
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.only(left: 20, top: 3),
-                                  width: 150,
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton2<String>(
-                                      isExpanded: true,
-                                      hint: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.male_outlined,
-                                            size: 16,
-                                            color: MyColors.greyColor,
-                                          ),
-                                          SizedBox(
-                                            width: 4,
-                                          ),
-                                        ],
-                                      ),
-                                      items: items
-                                          .map(
-                                            (String item) =>
-                                                DropdownMenuItem<String>(
-                                              value: item,
-                                              child: Text(
-                                                item,
-                                                style: MyTextStyles
-                                                    .font14BlackBold,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                      value: areaselectedValue,
-                                      onChanged: (String? value) {
-                                        setState(() {
-                                          areaselectedValue = value;
-                                        });
-                                      },
-                                      buttonStyleData: ButtonStyleData(
-                                        height: 50,
-                                        width: 160,
-                                        padding: const EdgeInsets.only(
-                                            left: 14, right: 14),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: Border.all(
-                                              color: MyColors.greyColor
-                                                  .withOpacity(0.3)),
-                                          color: MyColors.whiteColor,
-                                        ),
-                                        elevation: 0,
-                                      ),
-                                      iconStyleData: IconStyleData(
-                                        icon: const Icon(
-                                          Icons.arrow_forward_ios_outlined,
-                                        ),
-                                        iconSize: 14,
-                                        iconEnabledColor: MyColors.greyColor,
-                                        iconDisabledColor: MyColors.greyColor,
-                                      ),
-                                      dropdownStyleData: DropdownStyleData(
-                                        maxHeight: 150,
-                                        width: 150,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: MyColors.whiteColor,
-                                        ),
-                                        // offset: const Offset(-29, 0),
-                                        scrollbarTheme: ScrollbarThemeData(
-                                          radius: const Radius.circular(40),
-                                          thickness:
-                                              MaterialStateProperty.all<double>(
-                                                  6),
-                                          thumbVisibility:
-                                              MaterialStateProperty.all<bool>(
-                                                  true),
-                                        ),
-                                      ),
-                                      menuItemStyleData:
-                                          const MenuItemStyleData(
-                                        height: 40,
-                                        padding: EdgeInsets.only(
-                                            left: 14, right: 14),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -503,7 +291,7 @@ class _EditeChildStateState extends State<EditeChildState> {
                                       hint: Row(
                                         children: [
                                           Icon(
-                                            Icons.male_outlined,
+                                            Icons.location_on_outlined,
                                             size: 16,
                                             color: MyColors.greyColor,
                                           ),
@@ -583,10 +371,55 @@ class _EditeChildStateState extends State<EditeChildState> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
                               ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '  العزلة    ',
+                              style: MyTextStyles.font14BlackBold,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 20, top: 3),
+                              width: 200,
+                              child: myTextField(
+                                prefixIcon: Icons.woman,
+                                hintText: '',
+                                keyboardType: TextInputType.text,
+                                onChanged: (String) {},
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: 185,
+                              child: CheckboxListTile(
+                                fillColor: MaterialStateProperty.all(
+                                    Colors.transparent),
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                side: BorderSide(
+                                  color: MyColors.primaryColor,
+                                ),
+                                checkColor: MyColors.primaryColor,
+                                value: state,
+                                onChanged: (val) {
+                                  setState(() {
+                                    state = val!;
+                                  });
+                                },
+                                title: Text(
+                                  'هل لديك طفل؟',
+                                  style: MyTextStyles.font14BlackBold,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -599,7 +432,7 @@ class _EditeChildStateState extends State<EditeChildState> {
                               width: 130,
                               child: myButton(
                                   onPressed: () {},
-                                  text: 'تعديل',
+                                  text: 'اضــــافة',
                                   textStyle: MyTextStyles.font16WhiteBold),
                             ),
                             const SizedBox(
@@ -617,6 +450,7 @@ class _EditeChildStateState extends State<EditeChildState> {
                         ),
                       ],
                     ),
+                    Image.asset("assets/images/add_status.png")
                   ],
                 ),
                 Expanded(
@@ -639,11 +473,6 @@ class _EditeChildStateState extends State<EditeChildState> {
                 )
               ],
             ),
-          ),
-          Positioned(
-            left: 0,
-            bottom: 0,
-            child: Image.asset("assets/images/add_status.png"),
           ),
         ],
       ),

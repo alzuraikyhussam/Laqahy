@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'basic_widgets.dart';
+import 'basic_widgets/basic_widgets.dart';
 
 class EditeMotherState extends StatefulWidget {
   EditeMotherState({super.key});

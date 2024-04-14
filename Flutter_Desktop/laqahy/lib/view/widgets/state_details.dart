@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 
-import 'basic_widgets.dart';
+import 'basic_widgets/basic_widgets.dart';
 
 class StateDetails extends StatelessWidget {
   const StateDetails({super.key});

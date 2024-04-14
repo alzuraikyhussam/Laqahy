@@ -1,18 +1,19 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'basic_widgets.dart';
+import 'basic_widgets/basic_widgets.dart';
 
-class AddChildState extends StatefulWidget {
-  AddChildState({super.key});
+class EditeChildState extends StatefulWidget {
+  EditeChildState({super.key});
 
   @override
-  State<AddChildState> createState() => _AddChildStateState();
+  State<EditeChildState> createState() => _EditeChildStateState();
 }
 
-class _AddChildStateState extends State<AddChildState> {
+class _EditeChildStateState extends State<EditeChildState> {
   final List<String> items = [
     'مملكه الفول',
     'Item2',
@@ -598,7 +599,7 @@ class _AddChildStateState extends State<AddChildState> {
                               width: 130,
                               child: myButton(
                                   onPressed: () {},
-                                  text: 'اضــــافة',
+                                  text: 'تعديل',
                                   textStyle: MyTextStyles.font16WhiteBold),
                             ),
                             const SizedBox(
@@ -616,7 +617,6 @@ class _AddChildStateState extends State<AddChildState> {
                         ),
                       ],
                     ),
-                    // Image.asset("assets/images/add_status.png")
                   ],
                 ),
                 Expanded(
@@ -639,6 +639,11 @@ class _AddChildStateState extends State<AddChildState> {
                 )
               ],
             ),
+          ),
+          Positioned(
+            left: 0,
+            bottom: 0,
+            child: Image.asset("assets/images/add_status.png"),
           ),
         ],
       ),
