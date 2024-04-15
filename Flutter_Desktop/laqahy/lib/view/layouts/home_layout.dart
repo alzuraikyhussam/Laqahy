@@ -21,7 +21,7 @@ class HomeLayout extends StatefulWidget {
   State<HomeLayout> createState() => _HomeLayoutState();
 }
 
-class _HomeLayoutState extends State<HomeLayout> {
+class _HomeLayoutState extends State<HomeLayout> with WindowListener {
   HomeLayoutController hlc = Get.put(HomeLayoutController());
 
   @override
@@ -40,6 +40,29 @@ class _HomeLayoutState extends State<HomeLayout> {
       await windowManager.show();
       await windowManager.focus();
     });
+
+    windowManager.addListener(this);
+    _init();
+  }
+
+  void _init() async {
+    // Add this line to override the default close handler
+    await windowManager.setPreventClose(true);
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
+
+  @override
+  void onWindowClose() async {
+    bool _isPreventClose = await windowManager.isPreventClose();
+    if (_isPreventClose) {
+      return await hlc.onTapExitButton(context);
+    }
   }
 
   @override
@@ -73,11 +96,16 @@ class _HomeLayoutState extends State<HomeLayout> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: MyColors.greyColor.withOpacity(0.2),
+                      color: MyColors.primaryColor.withOpacity(0.2),
                       blurRadius: 20,
                     ),
                   ],
                   color: Colors.white,
+                  border: BorderDirectional(
+                    end: BorderSide(
+                      color: MyColors.primaryColor.withOpacity(0.5),
+                    ),
+                  ),
                 ),
                 child: Column(
                   children: [
@@ -183,11 +211,16 @@ class _HomeLayoutState extends State<HomeLayout> {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: MyColors.greyColor.withOpacity(0.2),
+                            color: MyColors.primaryColor.withOpacity(0.2),
                             blurRadius: 20,
                             offset: const Offset(-20, 5),
                           ),
                         ],
+                        border: BorderDirectional(
+                          bottom: BorderSide(
+                            color: MyColors.primaryColor.withOpacity(0.5),
+                          ),
+                        ),
                         color: Colors.white,
                       ),
                       child: Row(
@@ -245,8 +278,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                                   hlc.onTapExitButton(context);
                                 },
                                 gradientColors: [
-                                  MyColors.greyColor,
-                                  MyColors.greyColor,
+                                  MyColors.redColor,
+                                  MyColors.redColor,
                                 ],
                               ),
                             ],

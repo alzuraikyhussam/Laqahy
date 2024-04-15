@@ -103,7 +103,7 @@ class _PostsScreenState extends State<PostsScreen> {
                       keyboardType: TextInputType.text,
                       onChanged: (value) {},
                       width: 500,
-                      minLines: 5,
+                      maxLines: 5,
                       prefixIcon: Icons.description_outlined,
                     ),
                   ],

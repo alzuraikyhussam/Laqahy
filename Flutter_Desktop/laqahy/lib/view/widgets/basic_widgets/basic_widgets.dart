@@ -1,5 +1,8 @@
 // import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart';
+import 'dart:io';
+
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,6 +14,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/welcome.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 myButton({
   required void Function()? onPressed,
@@ -77,7 +81,7 @@ myTextField({
   IconData? suffixIcon,
   String? suffixImage,
   Color? color,
-  int? minLines,
+  int? maxLines,
 }) {
   return SizedBox(
     width: width?.toDouble(),
@@ -86,8 +90,12 @@ myTextField({
       cursorColor: MyColors.primaryColor.withOpacity(0.7),
       keyboardType: keyboardType,
       maxLength: maxLength,
-      maxLines: obscureText ? 1 : minLines,
-      minLines: minLines != null ? minLines : 1,
+      maxLines: obscureText
+          ? 1
+          : maxLines == null
+              ? 1
+              : maxLines,
+      // minLines: minLines != null ? minLines : 1,
       obscureText: obscureText,
       onChanged: onChanged,
       readOnly: readOnly,
@@ -334,7 +342,9 @@ myAppBarLogo() {
 
 exitButton() {
   return InkWell(
-    onTap: () {},
+    onTap: () {
+      exit(0);
+    },
     child: Container(
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
@@ -612,68 +622,199 @@ myAlertDialog({
   required BuildContext context,
   required String title,
   required String text,
-  required String confirmBtnText,
-  required String cancelBtnText,
   required String image,
-  Color? headerBackgroundColor,
   required void Function()? onConfirmBtnTap,
   required void Function()? onCancelBtnTap,
   Color? confirmBtnColor,
   Color? cancelBtnColor,
+  required String confirmBtnText,
+  required String cancelBtnText,
 }) {
-  return QuickAlert.show(
+  return Alert(
+    onWillPopActive: true,
+    closeIcon: SizedBox(),
+    padding: EdgeInsets.all(30),
     context: context,
-    headerBackgroundColor: headerBackgroundColor ?? MyColors.primaryColor,
-    type: QuickAlertType.custom,
-    showConfirmBtn: false,
-    showCancelBtn: false,
-    customAsset: image,
-    width: 500,
-    barrierDismissible: true,
-    widget: Container(
-      height: 140,
+    content: Container(
+      width: 500,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Image.asset(image),
+          SizedBox(
+            height: 30,
+          ),
           Text(
             title,
             style: MyTextStyles.font18BlackBold,
           ),
           SizedBox(
-            height: 15,
+            height: 20,
           ),
-          Expanded(
-              child: Text(
+          Text(
             text,
-            style: MyTextStyles.font16BlackMedium,
-          )),
-          Row(
-            children: [
-              Expanded(
-                child: myButton(
-                  onPressed: onConfirmBtnTap,
-                  text: confirmBtnText,
-                  backgroundColor: confirmBtnColor,
-                  textStyle: MyTextStyles.font14WhiteBold,
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: myButton(
-                  onPressed: onCancelBtnTap,
-                  backgroundColor: cancelBtnColor ?? MyColors.greyColor,
-                  text: cancelBtnText,
-                  textStyle: MyTextStyles.font14WhiteBold,
-                ),
-              ),
-            ],
+            style: MyTextStyles.font18BlackMedium,
           ),
         ],
       ),
     ),
+    buttons: [
+      DialogButton(
+        color: confirmBtnColor,
+        gradient: confirmBtnColor == null
+            ? LinearGradient(
+                colors: [
+                  MyColors.primaryColor,
+                  MyColors.secondaryColor,
+                ],
+                begin: AlignmentDirectional.topCenter,
+                end: AlignmentDirectional.bottomCenter,
+              )
+            : null,
+        radius: BorderRadius.circular(10),
+        height: 50.0,
+        onPressed: onConfirmBtnTap,
+        child: Text(
+          confirmBtnText,
+          textHeightBehavior: TextHeightBehavior(
+            applyHeightToFirstAscent: true,
+            applyHeightToLastDescent: false,
+          ),
+          style: MyTextStyles.font14WhiteBold,
+        ),
+      ),
+      DialogButton(
+        color: cancelBtnColor ?? MyColors.greyColor,
+        radius: BorderRadius.circular(10),
+        height: 50.0,
+        onPressed: onCancelBtnTap,
+        child: Text(
+          cancelBtnText,
+          textHeightBehavior: TextHeightBehavior(
+            applyHeightToFirstAscent: true,
+            applyHeightToLastDescent: false,
+          ),
+          style: MyTextStyles.font14WhiteBold,
+        ),
+      ),
+    ],
+  ).show();
+}
+
+myDropDownMenuButton({
+  required String hintText,
+  required List<String> items,
+  required void Function(String?)? onChanged,
+  required TextEditingController? searchController,
+  required String? selectedValue,
+  double? width,
+}) {
+  return Center(
+    child: DropdownButtonHideUnderline(
+      child: DropdownButton2<String>(
+        isExpanded: true,
+        hint: Text(
+          hintText,
+          style: TextStyle(
+            fontSize: 14,
+            color: MyColors.greyColor,
+          ),
+        ),
+        items: items
+            .map((item) => DropdownMenuItem(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: MyTextStyles.font16BlackMedium,
+                  ),
+                ))
+            .toList(),
+        value: selectedValue,
+        onChanged: onChanged,
+        buttonStyleData: ButtonStyleData(
+          padding: EdgeInsets.all(12),
+          height: 53,
+          width: width != null ? width.toDouble() : 200,
+          decoration: BoxDecoration(
+            color: MyColors.whiteColor.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: MyColors.greyColor.withOpacity(0.3),
+            ),
+          ),
+        ),
+        dropdownStyleData: DropdownStyleData(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          maxHeight: 150,
+          width: width,
+        ),
+        menuItemStyleData: const MenuItemStyleData(
+          height: 44,
+        ),
+
+        dropdownSearchData: DropdownSearchData(
+          searchController: searchController,
+          searchInnerWidgetHeight: 50,
+          searchInnerWidget: Container(
+            height: 50,
+            padding: const EdgeInsets.only(
+              top: 8,
+              bottom: 4,
+              right: 8,
+              left: 8,
+            ),
+            child: TextFormField(
+              expands: true,
+              maxLines: null,
+              controller: searchController,
+              decoration: InputDecoration(
+                isDense: true,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+                hintText: 'ابـحــث هنــا',
+                hintStyle: MyTextStyles.font14GreyMedium,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: MyColors.greyColor.withOpacity(0.3),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: MyColors.greyColor.withOpacity(0.3),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: MyColors.primaryColor.withOpacity(0.5),
+                  ),
+                ),
+                filled: true,
+                fillColor: MyColors.whiteColor.withOpacity(0.5),
+              ),
+            ),
+          ),
+          searchMatchFn: (item, searchValue) {
+            return item.value.toString().contains(searchValue);
+          },
+        ),
+        //This to clear the search value when you close the menu
+        onMenuStateChange: (isOpen) {
+          if (!isOpen) {
+            searchController?.clear();
+          }
+        },
+      ),
+    ),
   );
 }
+
 
 // myDropDownButton({
 //   required double? width,

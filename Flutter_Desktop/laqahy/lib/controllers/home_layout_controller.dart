@@ -6,6 +6,7 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:quickalert/models/quickalert_type.dart';
+import 'package:window_manager/window_manager.dart';
 
 class HomeLayoutController extends GetxController {
   RxString choose = 'الرئيسية'.obs;
@@ -21,39 +22,37 @@ class HomeLayoutController extends GetxController {
   onTapLogout(context) {
     return myAlertDialog(
       context: context,
-      headerBackgroundColor: MyColors.redColor,
-      title: 'تسجيل خروج',
-      text: 'هل انت متأكد من عملية تسجيل الخروج من حسابك؟',
-      confirmBtnText: 'تسجيـل خــروج',
-      cancelBtnText: 'إلغــاء الأمــر',
+      title: 'تسجيــل خــروج',
       image: 'assets/images/logout-image.png',
-      confirmBtnColor: MyColors.redColor,
+      text: 'هل انت متأكد من عملية تسجيل الخروج من حسابك؟',
       onConfirmBtnTap: () {
-        Get.to(LoginScreen());
-        choose.value = 'الرئيسية';
+        Get.offAll(LoginScreen());
       },
       onCancelBtnTap: () {
         Get.back();
       },
+      confirmBtnText: 'تسجيــل خــروج',
+      cancelBtnText: 'إلغــاء الأمــر',
+      cancelBtnColor: MyColors.greyColor,
+      confirmBtnColor: MyColors.redColor,
     );
   }
 
   onTapExitButton(context) {
     return myAlertDialog(
       context: context,
-      headerBackgroundColor: MyColors.primaryColor,
-      title: 'إغــلاق النـظــام',
-      text: 'هل انت متأكد من عملية الخروج من النظام؟',
-      confirmBtnText: 'نعــــم',
-      cancelBtnText: 'إلغــاء الأمــر',
+      title: 'إغــلاق النــظـام',
       image: 'assets/images/exit-image.png',
-      confirmBtnColor: MyColors.primaryColor,
+      text: 'هل انت متأكد من عملية الخروج من النظام؟',
       onConfirmBtnTap: () {
         exit(0);
       },
       onCancelBtnTap: () {
         Get.back();
       },
+      confirmBtnText: 'إغــلاق النــظـام',
+      cancelBtnText: 'إلغــاء الأمــر',
+      cancelBtnColor: MyColors.greyColor,
     );
   }
 }

@@ -27,6 +27,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
           ),
         ),
         SingleChildScrollView(
+          primary: true,
           child: Padding(
             padding: const EdgeInsetsDirectional.only(
               end: 30,

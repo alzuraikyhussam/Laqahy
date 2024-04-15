@@ -27,6 +27,11 @@ class MyTextStyles {
     color: MyColors.blackColor,
   );
 
+  static TextStyle font18BlackMedium = TextStyle(
+    fontSize: 18.0,
+    color: MyColors.blackColor,
+  );
+
   static TextStyle font18BlackBold = TextStyle(
     fontSize: 18.0,
     color: MyColors.blackColor,
