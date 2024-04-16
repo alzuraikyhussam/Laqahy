@@ -336,10 +336,12 @@ myBackgroundWindows() {
   );
 }
 
-myAppBarLogo() {
+myAppBarLogo({
+  double? width = 220,
+}) {
   return Image.asset(
     'assets/images/window-logo.png',
-    width: 220,
+    width: width,
   );
 }
 
@@ -370,11 +372,11 @@ exitButton() {
   );
 }
 
-goBackButton() {
+goBackButton({
+  required void Function()? onTap,
+}) {
   return InkWell(
-    onTap: () {
-      Get.off(WelcomeScreen());
-    },
+    onTap: onTap,
     child: Container(
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
@@ -827,7 +829,7 @@ myCheckBox({
   return Container(
     width: 150,
     child: ListTile(
-      onTap:onTap,
+      onTap: onTap,
       minLeadingWidth: 15,
       leading: MSHCheckbox(
         size: 20,
@@ -848,7 +850,11 @@ myCheckBox({
   );
 }
 
-
+adminVerificationDialog({
+  required BuildContext context,
+}) {
+  return;
+}
 
 
 

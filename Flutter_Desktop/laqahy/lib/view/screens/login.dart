@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
+import 'package:laqahy/view/screens/welcome.dart';
+import 'package:laqahy/view/widgets/admin_veriffication.dart';
+import 'package:laqahy/view/widgets/admin_verification.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -37,8 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: Stack(
         children: [
@@ -61,7 +62,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     myAppBarLogo(),
-                    goBackButton(),
+                    goBackButton(
+                      onTap: () {
+                        Get.off(WelcomeScreen());
+                      },
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -108,10 +113,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 myButton(
                   onPressed: () {
-                    Get.offAll(HomeLayout());
+                    showDialog(
+                      barrierDismissible: false,
+                      barrierColor: MyColors.greyColor.withOpacity(0.5),
+                      context: context,
+                      builder: (context) {
+                        return AdminVerification();
+                      },
+                    );
                   },
+                  width: 150,
                   text: 'تسجيـل دخـول',
-                  textStyle: MyTextStyles.font14WhiteMedium,
+                  textStyle: MyTextStyles.font14WhiteBold,
                 ),
               ],
             ),

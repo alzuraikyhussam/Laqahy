@@ -1,0 +1,113 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/layouts/home_layout.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:window_manager/window_manager.dart';
+
+class AdminVerification extends StatefulWidget {
+  const AdminVerification({super.key});
+
+  @override
+  State<AdminVerification> createState() => _AdminVerificationState();
+}
+
+class _AdminVerificationState extends State<AdminVerification> {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      alignment: AlignmentDirectional.center,
+      actionsAlignment: MainAxisAlignment.center,
+      content: Container(
+        height: 320,
+        width: 400,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  myAppBarLogo(
+                    width: 250,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              'أدخــل رمــز التـحقــق',
+              style: MyTextStyles.font18PrimaryBold,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              width: 300,
+              child: Text(
+                'الرجاء إدخال رمز التحقق الذي تم إرساله الى رقم جوالك.',
+                style: MyTextStyles.font16BlackMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            myTextField(
+              width: 300,
+              prefixIcon: Icons.password,
+              obscureText: true,
+              suffixIcon: Icons.visibility_off_outlined,
+              hintText: 'أدخـــل رمــز التـحــقــق',
+              keyboardType: TextInputType.visiblePassword,
+              onChanged: (value) {},
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  child: Text(
+                    'لم يصل الكود؟',
+                    style: MyTextStyles.font16GreyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                myTextButton(
+                  text: 'إعــادة إرســال',
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        myButton(
+          onPressed: () {
+            Get.offAll(HomeLayout());
+          },
+          width: 150,
+          text: 'تـأكيـــــد',
+          textStyle: MyTextStyles.font14WhiteBold,
+        ),
+        myButton(
+          width: 150,
+          onPressed: () {
+            Get.back();
+          },
+          text: 'إلـغــاء الأمـــر',
+          textStyle: MyTextStyles.font14WhiteBold,
+          backgroundColor: MyColors.greyColor,
+        ),
+      ],
+    );
+  }
+}

@@ -1,248 +1,213 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/controllers/create_admin_account_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/view/layouts/home_layout.dart';
+import 'package:laqahy/view/screens/create_account.dart';
+import 'package:laqahy/view/widgets/admin_veriffication.dart';
+import 'package:laqahy/view/widgets/admin_verification.dart';
+import 'package:window_manager/window_manager.dart';
 import '../widgets/basic_widgets/basic_widgets.dart';
 import '../widgets/icons/my_flutter_app_icons.dart';
 
-class CreateAdminAccount extends StatelessWidget {
+class CreateAdminAccount extends StatefulWidget {
   const CreateAdminAccount({super.key});
 
   @override
+  State<CreateAdminAccount> createState() => _CreateAdminAccountState();
+}
+
+class _CreateAdminAccountState extends State<CreateAdminAccount> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WindowOptions createAdminAccountWindowOptions = const WindowOptions(
+      size: Size(1000, 600),
+      center: true,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      titleBarStyle: TitleBarStyle.hidden,
+    );
+    windowManager.waitUntilReadyToShow(createAdminAccountWindowOptions,
+        () async {
+      await windowManager.setResizable(false);
+      await windowManager.setAlwaysOnTop(false);
+      await windowManager.setTitle('لقــاحي | إنشاء حساب المسؤول');
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    CreateAdminAccountController caac = Get.put(CreateAdminAccountController());
+
     return Scaffold(
-        body: Stack(
-      children: [
-        Container(
-          width: screenWidth,
-          height: screenHeight,
-          color: MyColors.blackColor,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: MyColors.whiteColor,
-            border: Border.all(
-              width: 3,
-              color: MyColors.primaryColor,
-            ),
-            borderRadius: BorderRadius.circular(20),
-            image: const DecorationImage(
-              image: AssetImage("assets/images/background.png"),
-              fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          myBackgroundWindows(),
+          Positioned(
+            left: 20,
+            bottom: 0,
+            top: 0,
+            child: SvgPicture.asset(
+              'assets/images/create-admin-account.svg',
+              width: 400,
             ),
           ),
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Image.asset('assets/images/app-icon.png',
-                      width: 50, height: 50),
-                  const SizedBox(width: 20),
-                  const Text(
-                    'لــقـــاحي  |',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '  LAQAHY',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: MyColors.primaryColor,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-              Container(
-                width: screenWidth,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          myCopyRightText(),
+          Padding(
+            padding: EdgeInsets.all(30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'إنشــاء حســاب المسؤول',
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'A D M I N   R E G I S T E R',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: MyColors.primaryColor,
-                      ),
+                    myAppBarLogo(),
+                    goBackButton(
+                      onTap: () {
+                        Get.off(CreateAccountScreen());
+                      },
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 15),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 300,
-                            child: myTextField(
-                              hintText: 'الاسم الكامل',
-                              keyboardType: TextInputType.text,
-                              onChanged: (String) {},
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: 250,
-                            child: myTextField(
-                              prefixIcon: MyFlutterApp.phone_handset,
-                              hintText: 'رقم الهاتف',
-                              keyboardType: TextInputType.text,
-                              onChanged: (String) {},
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 250,
-                            child: myTextField(
-                              hintText: 'تاريخ الميلاد',
-                              keyboardType: TextInputType.text,
-                              onChanged: (String) {},
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            decoration: BoxDecoration(
-                              color: MyColors.whiteColor,
-                              border: Border.all(
-                                color: MyColors.greyColor.withOpacity(0.3),
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            width: 170,
-                            height: 54,
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  'الجنس',
-                                  style: MyTextStyles.font14GreyMedium,
-                                ),
-                                const Spacer(),
-                                DropdownButton(
-                                    items: const [],
-                                    onChanged: ((value) => {})),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 250,
-                            child: myTextField(
-                              hintText: 'اسم المسـتـخدم',
-                              keyboardType: TextInputType.text,
-                              onChanged: (String) {},
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: 250,
-                            child: myTextField(
-                              hintText: 'كلمة الـمـرور',
-                              keyboardType: TextInputType.text,
-                              onChanged: (String) {},
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                        width: 440,
-                        child: myTextField(
-                          prefixIcon: MyFlutterApp.location,
-                          hintText: 'العنوان',
-                          keyboardType: TextInputType.text,
-                          onChanged: (String) {},
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        children: [
-                          myButton(
-                            onPressed: () {},
-                            text: 'إنشــاء الحســاب',
-                            textStyle: MyTextStyles.font14WhiteMedium,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          myButton(
-                            onPressed: () {},
-                            text: 'إلغاء الأمر',
-                            textStyle: MyTextStyles.font14WhiteMedium,
-                            backgroundColor: MyColors.greyColor,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 100,
-                  ),
-                  Image.asset("assets/images/create_admin_account.png"),
-                ],
-              ),
-              Expanded(
-                child: Container(
-                  width: screenWidth,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'جميع الحقوق محفوظة ${DateTime.now().year} ©',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: MyColors.greyColor,
-                        ),
-                      )
-                    ],
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Image.asset(
+                    'assets/images/create-admin-account-text.png',
+                    width: 200,
                   ),
                 ),
-              )
-            ],
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  children: [
+                    myTextField(
+                      hintText: 'الاســم الكـامل',
+                      width: 300,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    myTextField(
+                      hintText: 'رقــم الهـــاتف',
+                      width: 235,
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {},
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  children: [
+                    myTextField(
+                      hintText: 'تاريــخ الميـلاد',
+                      keyboardType: TextInputType.text,
+                      readOnly: true,
+                      width: 250,
+                      onChanged: (value) {},
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    GetBuilder<CreateAdminAccountController>(
+                      builder: (controller) {
+                        return myDropDownMenuButton(
+                          hintText: 'الجنــس',
+                          items: controller.gender,
+                          onChanged: (String? value) {
+                            controller.changeGenderSelectedValue(value!);
+                          },
+                          searchController:
+                              controller.genderSearchController.value,
+                          selectedValue: controller.genderSelectedValue,
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  children: [
+                    myTextField(
+                      hintText: 'اســم المستخــدم',
+                      keyboardType: TextInputType.text,
+                      width: 250,
+                      onChanged: (value) {},
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    myTextField(
+                      hintText: 'كلمــة المــرور',
+                      keyboardType: TextInputType.visiblePassword,
+                      width: 250,
+                      obscureText: true,
+                      onChanged: (value) {},
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                myTextField(
+                  hintText: 'العنـــوان',
+                  keyboardType: TextInputType.text,
+                  width: 440,
+                  onChanged: (value) {},
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  children: [
+                    myButton(
+                      onPressed: () {
+                        showDialog(
+                          barrierDismissible: false,
+                          barrierColor: MyColors.greyColor.withOpacity(0.5),
+                          context: context,
+                          builder: (context) {
+                            return AdminVerification();
+                          },
+                        );
+                      },
+                      text: 'إنشــاء حســـاب المســؤول',
+                      textStyle: MyTextStyles.font14WhiteBold,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    myButton(
+                      onPressed: () {
+                        Get.off(CreateAccountScreen());
+                      },
+                      text: 'إلغــاء الأمـــر',
+                      textStyle: MyTextStyles.font14WhiteBold,
+                      backgroundColor: MyColors.greyColor,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    ));
+        ],
+      ),
+    );
   }
 }

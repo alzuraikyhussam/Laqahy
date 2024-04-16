@@ -38,7 +38,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Stack(
         children: [
@@ -102,10 +101,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Get.off(LoginScreen());
                       },
                       text: 'تسجيـل دخـول',
-                      textStyle: MyTextStyles.font16WhiteBold,
+                      textStyle: MyTextStyles.font14WhiteBold,
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 15,
                     ),
                     myButton(
                       width: 150,
@@ -114,7 +113,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Get.off(CreateAccountScreen());
                       },
                       text: 'إنشـاء حسـاب',
-                      textStyle: MyTextStyles.font16WhiteBold,
+                      textStyle: MyTextStyles.font14WhiteBold,
                     ),
                   ],
                 ),

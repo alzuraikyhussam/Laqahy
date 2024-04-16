@@ -8,6 +8,7 @@ import 'package:laqahy/controllers/create_account_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
+import 'package:laqahy/view/screens/create_admin_account.dart';
 import 'package:laqahy/view/screens/welcome.dart';
 import 'package:window_manager/window_manager.dart';
 import '../widgets/basic_widgets/basic_widgets.dart';
@@ -67,7 +68,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     myAppBarLogo(),
-                    goBackButton(),
+                    goBackButton(
+                      onTap: () {
+                        Get.off(WelcomeScreen());
+                      },
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -191,10 +196,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 Expanded(
                   child: myButton(
                     onPressed: () {
-                      Get.offAll(HomeLayout());
+                      Get.off(CreateAdminAccount());
                     },
+                    width: 150,
                     text: 'إنشــاء حســاب',
-                    textStyle: MyTextStyles.font14WhiteMedium,
+                    textStyle: MyTextStyles.font14WhiteBold,
                   ),
                 ),
                 const SizedBox(
