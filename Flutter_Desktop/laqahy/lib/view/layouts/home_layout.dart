@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/layouts/visits_layout.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/employee.dart';
 import 'package:laqahy/view/widgets/home.dart';
@@ -123,7 +125,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             onTap: () {
                               hlc.changeChoose(
                                 Constants.homeLayoutItems[index].label,
-                                ctx,
+                                context: ctx,
                               );
                             },
                             child: Obx(
@@ -262,7 +264,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                               const SizedBox(
                                 width: 30,
                               ),
-                              myHomeLayoutAppBarButtons(
+                              myIconButton(
                                 icon: Icons.dark_mode_outlined,
                                 onTap: () {},
                                 gradientColors: [
@@ -273,7 +275,20 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                               const SizedBox(
                                 width: 10,
                               ),
-                              myHomeLayoutAppBarButtons(
+                              myIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onTap: () {
+                                  hlc.onTapMinimize();
+                                },
+                                gradientColors: [
+                                  MyColors.greyColor,
+                                  MyColors.greyColor,
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              myIconButton(
                                 icon: Icons.power_settings_new_rounded,
                                 onTap: () {
                                   hlc.onTapExitButton(context);
@@ -307,7 +322,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             } else if (hlc.choose.value == 'الحالات') {
                               return const SizedBox();
                             } else if (hlc.choose.value == 'الزيارات') {
-                              return const MotherVisitData();
+                              return const VisitsLayout();
                             } else if (hlc.choose.value == 'اللقاحات') {
                               return const SizedBox();
                             } else if (hlc.choose.value == 'المنشورات') {

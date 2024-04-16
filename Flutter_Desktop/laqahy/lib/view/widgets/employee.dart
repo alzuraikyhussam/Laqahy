@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -13,10 +15,10 @@ class EmployeeScreen extends StatefulWidget {
 }
 
 class _EmployeeScreenState extends State<EmployeeScreen> {
-
-
   @override
   Widget build(BuildContext context) {
+    HomeLayoutController hlc = Get.put(HomeLayoutController());
+
     return Padding(
       padding: const EdgeInsetsDirectional.only(
         end: 30,
@@ -225,7 +227,11 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                 width: 15,
               ),
               myButton(
-                onPressed: () {},
+                onPressed: () {
+                  hlc.changeChoose(
+                    'الرئيسية',
+                  );
+                },
                 text: 'خـــروج',
                 textStyle: MyTextStyles.font16WhiteBold,
                 width: 130,

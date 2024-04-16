@@ -65,6 +65,7 @@ class _AdminVerificationState extends State<AdminVerification> {
               suffixIcon: Icons.visibility_off_outlined,
               hintText: 'أدخـــل رمــز التـحــقــق',
               keyboardType: TextInputType.visiblePassword,
+              textAlign: TextAlign.center,
               onChanged: (value) {},
             ),
             SizedBox(

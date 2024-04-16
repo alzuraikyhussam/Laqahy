@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 
 import '../../core/shared/styles/color.dart';
@@ -11,7 +13,8 @@ class TechnicalSupport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    HomeLayoutController hlc = Get.put(HomeLayoutController());
+
     return Stack(
       children: [
         Positioned(
@@ -39,104 +42,114 @@ class TechnicalSupport extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      ' هل لديك سؤال؟',
-                      style: MyTextStyles.font14GreyBold,
-                    ),
-                    Text(
-                      ' نحن سعداء بتواصلك معنا.',
-                      style: MyTextStyles.font14GreyBold,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '  الأســـم الكامـــل   ',
-                          style: MyTextStyles.font14BlackBold,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 3),
-                          width: 350,
-                          child: myTextField(
-                            color: MyColors.whiteColor,
-                            prefixIcon: Icons.person_2_outlined,
-                            hintText: '',
-                            keyboardType: TextInputType.text,
-                            onChanged: (String) {},
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '  بريدك الألكتـــروني  ',
-                          style: MyTextStyles.font14BlackBold,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 3),
-                          width: 350,
-                          child: myTextField(
-                            prefixIcon: Icons.mail_outlined,
-                            hintText: '',
-                            keyboardType: TextInputType.text,
-                            onChanged: (String) {},
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '  نص الرســــالة   ',
-                          style: MyTextStyles.font14BlackBold,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 3),
-                          width: 350,
-                          child: myTextField(
-                            maxLength: 500,
-                            prefixIcon: Icons.mail_outlined,
-                            hintText: '',
-                            keyboardType: TextInputType.text,
-                            onChanged: (String) {},
-                          ),
+                          ' هل لديك سؤال؟',
+                          style: MyTextStyles.font16GreyBold,
                         ),
                         const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          ' نحن سعداء بتواصلك معنا.',
+                          style: MyTextStyles.font16GreyBold,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'الاســـم الكـــامــل',
+                          style: MyTextStyles.font16BlackBold,
+                        ),
+                        SizedBox(
                           height: 10,
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 130,
-                              child: myButton(
-                                  onPressed: () {},
-                                  text: 'ارســـــــــال',
-                                  textStyle: MyTextStyles.font16WhiteBold),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Container(
-                              width: 130,
-                              child: myButton(
-                                  backgroundColor: MyColors.greyColor,
-                                  onPressed: () {},
-                                  text: 'خروج',
-                                  textStyle: MyTextStyles.font16WhiteBold),
-                            ),
-                          ],
+                        myTextField(
+                          width: 400,
+                          prefixIcon: Icons.person_2_outlined,
+                          hintText: 'الاسـم الكامــل',
+                          keyboardType: TextInputType.text,
+                          onChanged: (String) {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'البريــد الإلـكتــروني',
+                          style: MyTextStyles.font16BlackBold,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        myTextField(
+                          width: 400,
+                          prefixIcon: Icons.email_outlined,
+                          hintText: 'بريدك الإلكــتروني',
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: (String) {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'نــص الـرســالـة',
+                          style: MyTextStyles.font16BlackBold,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        myTextField(
+                          width: 400,
+                          maxLines: 3,
+                          maxLength: 150,
+                          prefixIcon: Icons.message_outlined,
+                          hintText: 'اكتب رسالتك هنـــا',
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: (String) {},
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        myButton(
+                          onPressed: () {},
+                          text: 'إرســــــال',
+                          textStyle: MyTextStyles.font16WhiteBold,
+                          width: 130,
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        myButton(
+                          onPressed: () {
+                            hlc.changeChoose(
+                              'الرئيسية',
+                            );
+                          },
+                          text: 'خـــروج',
+                          textStyle: MyTextStyles.font16WhiteBold,
+                          width: 130,
+                          backgroundColor: MyColors.greyColor,
                         ),
                       ],
                     ),

@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/controllers/child_visit_controller.dart';
+import 'package:laqahy/controllers/home_layout_controller.dart';
 
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -15,254 +18,215 @@ class ChildVisitData extends StatefulWidget {
 }
 
 class _ChildVisitDataState extends State<ChildVisitData> {
-  bool state = false;
+  bool isChecked = false;
+  HomeLayoutController hlc = Get.put(HomeLayoutController());
+  ChildVisitController cvc = Get.put(ChildVisitController());
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          color: MyColors.whiteColor,
-          image: const DecorationImage(
-            image: AssetImage("assets/images/background.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: MyColors.whiteColor,
-                  borderRadius: BorderRadius.circular(10)),
-              width: 350,
-              height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: MyColors.whiteColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: 165,
-                    height: 42,
-                    child: Center(
-                      child: Text(
-                        'بيانات الأم',
-                        style: MyTextStyles.font14PrimaryBold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        colors: [
-                          MyColors.primaryColor,
-                          MyColors.secondaryColor,
-                        ],
-                        begin: AlignmentDirectional.topCenter,
-                        end: AlignmentDirectional.bottomCenter,
-                      ),
-                    ),
-                    width: 165,
-                    height: 42,
-                    child: Center(
-                      child: Text(
-                        'بيانات الطفــل',
-                        style: MyTextStyles.font14WhiteBold,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '  اسم الأم   ',
-                      style: MyTextStyles.font14BlackBold,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, top: 3),
-                      width: 300,
-                      child: myTextField(
-                        prefixIcon: Icons.woman,
-                        hintText: '',
-                        keyboardType: TextInputType.text,
-                        onChanged: (String) {},
-                      ),
-                    ),
-                  ],
+                Text(
+                  'اســـم الأم',
+                  style: MyTextStyles.font16BlackBold,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      ' أسم الطفل ',
-                      style: MyTextStyles.font14BlackBold,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, top: 3),
-                      width: 250,
-                      child: myTextField(
-                        prefixIcon: Icons.face,
-                        hintText: '',
-                        keyboardType: TextInputType.text,
-                        onChanged: (String) {},
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 10,
+                ),
+                myTextField(
+                  prefixIcon: Icons.woman,
+                  width: 300,
+                  hintText: 'اســم الأم',
+                  keyboardType: TextInputType.text,
+                  readOnly: true,
+                  onChanged: (value) {},
                 ),
               ],
             ),
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              width: 20,
             ),
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '  فترة الزيارة ',
-                      style: MyTextStyles.font14BlackBold,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, top: 3),
-                      width: 250,
-                      child: myTextField(
-                        prefixIcon: Icons.face,
-                        hintText: '',
-                        keyboardType: TextInputType.text,
-                        onChanged: (String) {},
-                      ),
-                    ),
-                  ],
+                Text(
+                  'اســـم الطـفــل',
+                  style: MyTextStyles.font16BlackBold,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '   نوع اللقاح ',
-                      style: MyTextStyles.font14BlackBold,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, top: 3),
-                      width: 250,
-                      child: myTextField(
-                        prefixIcon: Icons.face,
-                        hintText: '',
-                        keyboardType: TextInputType.text,
-                        onChanged: (String) {},
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 10,
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Container(
-                  width: 122,
-                  child: CheckboxListTile(
-                    fillColor: MaterialStateProperty.all(Colors.transparent),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    side: BorderSide(
-                      color: MyColors.primaryColor,
-                    ),
-                    checkColor: MyColors.primaryColor,
-                    value: state,
-                    onChanged: (val) {
-                      setState(() {
-                        state = val!;
-                      });
-                    },
-                    title: Text(
-                      'الاولى',
-                      style: MyTextStyles.font14BlackBold,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 122,
-                  child: CheckboxListTile(
-                    fillColor: MaterialStateProperty.all(Colors.transparent),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    side: BorderSide(
-                      color: MyColors.primaryColor,
-                    ),
-                    checkColor: MyColors.primaryColor,
-                    activeColor: Colors.white,
-                    title: Text(
-                      'الثانية',
-                      style: MyTextStyles.font14BlackBold,
-                    ),
-                    value: state,
-                    onChanged: (val) {
-                      setState(() {
-                        state = val!;
-                      });
-                    },
-                  ),
-                ),
-                Container(
-                  width: 122,
-                  child: CheckboxListTile(
-                    fillColor: MaterialStateProperty.all(Colors.transparent),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    side: BorderSide(
-                      color: MyColors.primaryColor,
-                    ),
-                    checkColor: MyColors.primaryColor,
-                    title: Text(
-                      'الثالثة',
-                      style: MyTextStyles.font14BlackBold,
-                    ),
-                    value: true,
-                    onChanged: (value) => '',
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Row(
-              children: [
-                Container(
-                  width: 130,
-                  child: myButton(
-                      onPressed: () {},
-                      text: 'اضافة',
-                      textStyle: MyTextStyles.font16WhiteBold),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Container(
-                  width: 130,
-                  child: myButton(
-                      backgroundColor: MyColors.greyColor,
-                      onPressed: () {},
-                      text: 'خروج',
-                      textStyle: MyTextStyles.font16WhiteBold),
+                myTextField(
+                  prefixIcon: Icons.woman,
+                  width: 300,
+                  hintText: 'اســم الطـفــل',
+                  keyboardType: TextInputType.text,
+                  readOnly: true,
+                  onChanged: (value) {},
                 ),
               ],
             ),
           ],
         ),
-      ),
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'فــترة الـزيـــارة',
+                  style: MyTextStyles.font16BlackBold,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                GetBuilder<ChildVisitController>(
+                  builder: (controller) {
+                    return myDropDownMenuButton(
+                      width: 300,
+                      hintText: 'اختـر فـترة الــزيـــارة',
+                      items: controller.visitTypes,
+                      onChanged: (String? value) {
+                        controller.changeVisitTypeSelectedValue(value!);
+                      },
+                      searchController:
+                          controller.visitTypeSearchController.value,
+                      selectedValue: controller.visitTypeSelectedValue,
+                    );
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'نـــوع الـلقـــاح',
+                  style: MyTextStyles.font16BlackBold,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                GetBuilder<ChildVisitController>(
+                  builder: (controller) {
+                    return myDropDownMenuButton(
+                      width: 300,
+                      hintText: 'اختر نــوع الـلقـــاح',
+                      items: controller.vaccineTypes,
+                      onChanged: (String? value) {
+                        controller.changeVaccineTypeSelectedValue(value!);
+                      },
+                      searchController:
+                          controller.vaccineTypeSearchController.value,
+                      selectedValue: controller.vaccineTypeSelectedValue,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'نـــوع الـجرعــة',
+              style: MyTextStyles.font16PrimaryBold,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                myCheckBox(
+                  onTap: () {
+                    setState(() {
+                      isChecked = !isChecked;
+                    });
+                  },
+                  onChanged: (selected) {
+                    setState(() {
+                      isChecked = selected;
+                    });
+                  },
+                  value: isChecked,
+                  text: 'الأولى',
+                ),
+                myCheckBox(
+                  onTap: () {
+                    setState(() {
+                      isChecked = !isChecked;
+                    });
+                  },
+                  onChanged: (selected) {
+                    setState(() {
+                      isChecked = selected;
+                    });
+                  },
+                  value: isChecked,
+                  text: 'الثانية',
+                ),
+                myCheckBox(
+                  onTap: () {
+                    setState(() {
+                      isChecked = !isChecked;
+                    });
+                  },
+                  onChanged: (selected) {
+                    setState(() {
+                      isChecked = selected;
+                    });
+                  },
+                  value: isChecked,
+                  text: 'الثالثة',
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 25,
+        ),
+        Row(
+          children: [
+            myButton(
+              onPressed: () {},
+              text: 'إضــافــة',
+              textStyle: MyTextStyles.font16WhiteBold,
+              width: 130,
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            myButton(
+              onPressed: () {
+                hlc.changeChoose(
+                  'الرئيسية',
+                );
+              },
+              text: 'خـــــروج',
+              textStyle: MyTextStyles.font16WhiteBold,
+              width: 130,
+              backgroundColor: MyColors.greyColor,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

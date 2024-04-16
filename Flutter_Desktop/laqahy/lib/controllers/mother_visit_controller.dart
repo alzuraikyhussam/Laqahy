@@ -17,8 +17,8 @@ class MotherVisitController extends GetxController {
       TextEditingController().obs;
 
   final List<String> dosageLevels = [
-    'بعد الولادة',
-    'في عمر 3 أشهر ونصف',
+    'أساسية',
+    'تنشيطية',
   ];
 
   changeDosageLevelSelectedValue(String selectedValue) {

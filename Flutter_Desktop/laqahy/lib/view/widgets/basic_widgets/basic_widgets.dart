@@ -83,6 +83,7 @@ myTextField({
   Color? color,
   int? maxLines,
   Color? fillColor,
+  TextAlign textAlign = TextAlign.start,
 }) {
   return SizedBox(
     width: width?.toDouble(),
@@ -101,7 +102,7 @@ myTextField({
       onChanged: onChanged,
       readOnly: readOnly,
       validator: validator,
-      textAlign: TextAlign.start,
+      textAlign: textAlign,
       // textDirection: TextDirection.rtl,
       style: MyTextStyles.font16BlackMedium,
       decoration: InputDecoration(
@@ -407,7 +408,7 @@ myHomeLayoutItems({
   );
 }
 
-myHomeLayoutAppBarButtons({
+myIconButton({
   required IconData? icon,
   required void Function()? onTap,
   required List<Color> gradientColors,
@@ -850,11 +851,7 @@ myCheckBox({
   );
 }
 
-adminVerificationDialog({
-  required BuildContext context,
-}) {
-  return;
-}
+
 
 
 

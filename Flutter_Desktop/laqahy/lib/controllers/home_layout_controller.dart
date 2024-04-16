@@ -8,7 +8,7 @@ import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 class HomeLayoutController extends GetxController {
   RxString choose = 'الرئيسية'.obs;
 
-  changeChoose(String label, context) {
+  changeChoose(String label, {context}) {
     if (label == 'تسجيل الخروج') {
       return onTapLogout(context);
     } else {
@@ -34,6 +34,8 @@ class HomeLayoutController extends GetxController {
       confirmBtnColor: MyColors.redColor,
     );
   }
+
+  onTapMinimize() {}
 
   onTapExitButton(context) {
     return myAlertDialog(
