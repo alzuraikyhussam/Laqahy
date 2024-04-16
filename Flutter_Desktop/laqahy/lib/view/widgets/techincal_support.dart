@@ -126,7 +126,7 @@ class TechnicalSupport extends StatelessWidget {
                                   textStyle: MyTextStyles.font16WhiteBold),
                             ),
                             const SizedBox(
-                              width: 20,
+                              width: 15,
                             ),
                             Container(
                               width: 130,

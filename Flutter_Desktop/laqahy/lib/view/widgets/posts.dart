@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
@@ -116,16 +117,16 @@ class _PostsScreenState extends State<PostsScreen> {
                     myButton(
                       onPressed: () {},
                       text: 'إضــافــة',
-                      textStyle: MyTextStyles.font14WhiteBold,
+                      textStyle: MyTextStyles.font16WhiteBold,
                       width: 130,
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 15,
                     ),
                     myButton(
                       onPressed: () {},
                       text: 'إلغـاء الأمـر',
-                      textStyle: MyTextStyles.font14WhiteBold,
+                      textStyle: MyTextStyles.font16WhiteBold,
                       width: 130,
                       backgroundColor: MyColors.greyColor,
                     ),

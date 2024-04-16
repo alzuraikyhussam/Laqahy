@@ -12,8 +12,8 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/welcome.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:msh_checkbox/msh_checkbox.dart';
+
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 myButton({
@@ -25,7 +25,7 @@ myButton({
 }) {
   return Container(
     width: width?.toDouble(),
-    height: 44.toDouble(),
+    height: 50.toDouble(),
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: [
@@ -82,6 +82,7 @@ myTextField({
   String? suffixImage,
   Color? color,
   int? maxLines,
+  Color? fillColor,
 }) {
   return SizedBox(
     width: width?.toDouble(),
@@ -167,7 +168,9 @@ myTextField({
           ),
         ),
         filled: true,
-        fillColor: MyColors.whiteColor.withOpacity(0.5),
+        fillColor: fillColor != null
+            ? fillColor.withOpacity(0.2)
+            : MyColors.whiteColor.withOpacity(0.5),
         hintText: hintText,
         hintStyle: MyTextStyles.font14GreyMedium,
       ),
@@ -600,13 +603,13 @@ myPostsCard() {
               myButton(
                 onPressed: () {},
                 text: 'تعـديـل',
-                textStyle: MyTextStyles.font14WhiteBold,
+                textStyle: MyTextStyles.font16WhiteBold,
                 width: 100,
               ),
               myButton(
                 onPressed: () {},
                 text: 'حــذف',
-                textStyle: MyTextStyles.font14WhiteBold,
+                textStyle: MyTextStyles.font16WhiteBold,
                 width: 100,
                 backgroundColor: MyColors.redColor,
               ),
@@ -814,6 +817,39 @@ myDropDownMenuButton({
     ),
   );
 }
+
+myCheckBox({
+  required void Function()? onTap,
+  required void Function(bool) onChanged,
+  required bool value,
+  required String text,
+}) {
+  return Container(
+    width: 150,
+    child: ListTile(
+      onTap:onTap,
+      minLeadingWidth: 15,
+      leading: MSHCheckbox(
+        size: 20,
+        checkedColor: MyColors.secondaryColor,
+        uncheckedColor: MyColors.greyColor,
+        value: value,
+        colorConfig: MSHColorConfig.fromCheckedUncheckedDisabled(
+          checkedColor: MyColors.primaryColor,
+        ),
+        style: MSHCheckboxStyle.stroke,
+        onChanged: onChanged,
+      ),
+      title: Text(
+        text,
+        style: MyTextStyles.font16BlackBold,
+      ),
+    ),
+  );
+}
+
+
+
 
 
 // myDropDownButton({

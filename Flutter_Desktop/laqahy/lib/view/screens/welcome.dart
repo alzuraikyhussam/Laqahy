@@ -102,7 +102,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Get.off(LoginScreen());
                       },
                       text: 'تسجيـل دخـول',
-                      textStyle: MyTextStyles.font14WhiteBold,
+                      textStyle: MyTextStyles.font16WhiteBold,
                     ),
                     SizedBox(
                       width: 10,
@@ -114,7 +114,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Get.off(CreateAccountScreen());
                       },
                       text: 'إنشـاء حسـاب',
-                      textStyle: MyTextStyles.font14WhiteBold,
+                      textStyle: MyTextStyles.font16WhiteBold,
                     ),
                   ],
                 ),

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      defaultTransition: Transition.fadeIn,
+      defaultTransition: Transition.fade,
       title: 'لقـاحي',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),
@@ -45,7 +45,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      scrollBehavior: const CupertinoScrollBehavior(),
+      scrollBehavior: const CupertinoScrollBehavior().copyWith(
+        scrollbars: false,
+      ),
       localizationsDelegates: const [
         GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

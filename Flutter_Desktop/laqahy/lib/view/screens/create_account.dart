@@ -142,7 +142,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           onChanged: (String? value) {
                             controller.changeDirectorateSelectedValue(value!);
                           },
-                          searchController: cac.directorateSearchController.value,
+                          searchController:
+                              cac.directorateSearchController.value,
                           selectedValue: cac.directorateSelectedValue,
                         );
                       },
@@ -188,27 +189,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                 ),
                 Expanded(
-                  child: Row(
-                    children: [
-                      myButton(
-                        onPressed: () {
-                          Get.offAll(HomeLayout());
-                        },
-                        text: 'إنشــاء حســاب',
-                        textStyle: MyTextStyles.font14WhiteMedium,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      myButton(
-                        onPressed: () {
-                          Get.off(WelcomeScreen());
-                        },
-                        text: 'إلغـاء الأمـر',
-                        textStyle: MyTextStyles.font14WhiteMedium,
-                        backgroundColor: MyColors.greyColor,
-                      ),
-                    ],
+                  child: myButton(
+                    onPressed: () {
+                      Get.offAll(HomeLayout());
+                    },
+                    text: 'إنشــاء حســاب',
+                    textStyle: MyTextStyles.font14WhiteMedium,
                   ),
                 ),
                 const SizedBox(

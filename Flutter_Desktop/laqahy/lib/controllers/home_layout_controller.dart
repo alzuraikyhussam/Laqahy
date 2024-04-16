@@ -1,12 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:window_manager/window_manager.dart';
 
 class HomeLayoutController extends GetxController {
   RxString choose = 'الرئيسية'.obs;

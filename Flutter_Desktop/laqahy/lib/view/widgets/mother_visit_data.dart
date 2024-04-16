@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/controllers/mother_visit_controller.dart';
 
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -12,7 +14,10 @@ class MotherVisitData extends StatefulWidget {
 }
 
 class _MotherVisitDataState extends State<MotherVisitData> {
-  bool state = false;
+  bool isChecked = false;
+
+  MotherVisitController mvc = Get.put(MotherVisitController());
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -22,44 +27,49 @@ class _MotherVisitDataState extends State<MotherVisitData> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: MyColors.whiteColor,
-                  borderRadius: BorderRadius.circular(10)),
-              width: 350,
-              height: 50,
+                color: MyColors.whiteColor,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: MyColors.greyColor.withOpacity(0.1)),
+              ),
+              width: 450,
+              height: 60,
+              padding: EdgeInsetsDirectional.all(3),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        colors: [
-                          MyColors.primaryColor,
-                          MyColors.secondaryColor,
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: MyColors.secondaryColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: MyColors.greyColor.withOpacity(0.3),
+                            blurRadius: 10,
+                          ),
                         ],
-                        begin: AlignmentDirectional.topCenter,
-                        end: AlignmentDirectional.bottomCenter,
                       ),
-                    ),
-                    width: 165,
-                    height: 42,
-                    child: Center(
-                      child: Text(
-                        'بيانات الأم',
-                        style: MyTextStyles.font14WhiteBold,
+                      child: Center(
+                        child: Text(
+                          'بيانات الأم',
+                          style: MyTextStyles.font16WhiteBold,
+                        ),
                       ),
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: 165,
-                    height: 42,
-                    child: Center(
-                      child: Text(
-                        'بيانات الطفــل',
-                        style: MyTextStyles.font14PrimaryBold,
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'بيانات الطفــل',
+                          style: MyTextStyles.font16SecondaryBold,
+                        ),
                       ),
                     ),
                   )
@@ -75,131 +85,135 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '  الأسم  ',
-                      style: MyTextStyles.font14BlackBold,
+                      'الاســم',
+                      style: MyTextStyles.font16BlackBold,
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, top: 3),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    myTextField(
+                      prefixIcon: Icons.woman,
                       width: 300,
-                      child: myTextField(
-                        prefixIcon: Icons.woman,
-                        hintText: '',
-                        keyboardType: TextInputType.text,
-                        onChanged: (String) {},
-                      ),
+                      hintText: 'اســم الحــالة',
+                      keyboardType: TextInputType.text,
+                      readOnly: true,
+                      onChanged: (value) {},
                     ),
                   ],
+                ),
+                SizedBox(
+                  width: 20,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      ' مرحلة الجرعة  ',
-                      style: MyTextStyles.font14BlackBold,
+                      'مرحلــة الـجرعــة',
+                      style: MyTextStyles.font16BlackBold,
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, top: 3),
-                      width: 250,
-                      child: myTextField(
-                        prefixIcon: Icons.vaccines_outlined,
-                        hintText: '',
-                        keyboardType: TextInputType.text,
-                        onChanged: (String) {},
-                      ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GetBuilder<MotherVisitController>(
+                      builder: (controller) {
+                        return myDropDownMenuButton(
+                          width: 280,
+                          hintText: 'اختر مرحـلة الجــرعة',
+                          items: controller.dosageLevels,
+                          onChanged: (String? value) {
+                            controller.changeDosageLevelSelectedValue(value!);
+                          },
+                          searchController:
+                              controller.dosageLevelSearchController.value,
+                          selectedValue: controller.dosageLevelSelectedValue,
+                        );
+                      },
                     ),
                   ],
                 ),
               ],
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 122,
-                  child: CheckboxListTile(
-                    fillColor: MaterialStateProperty.all(Colors.transparent),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    side: BorderSide(
-                      color: MyColors.primaryColor,
-                    ),
-                    checkColor: MyColors.primaryColor,
-                    value: state,
-                    onChanged: (val) {
-                      setState(() {
-                        state = val!;
-                      });
-                    },
-                    title: Text(
-                      'الاولى',
-                      style: MyTextStyles.font14BlackBold,
-                    ),
-                  ),
+                Text(
+                  'نـــوع الـجرعــة',
+                  style: MyTextStyles.font16PrimaryBold,
                 ),
-                Container(
-                  width: 122,
-                  child: CheckboxListTile(
-                    fillColor: MaterialStateProperty.all(Colors.transparent),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    side: BorderSide(
-                      color: MyColors.primaryColor,
-                    ),
-                    checkColor: MyColors.primaryColor,
-                    activeColor: Colors.white,
-                    title: Text(
-                      'الثانية',
-                      style: MyTextStyles.font14BlackBold,
-                    ),
-                    value: state,
-                    onChanged: (val) {
-                      setState(() {
-                        state = val!;
-                      });
-                    },
-                  ),
+                SizedBox(
+                  height: 5,
                 ),
-                Container(
-                  width: 122,
-                  child: CheckboxListTile(
-                    fillColor: MaterialStateProperty.all(Colors.transparent),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    side: BorderSide(
-                      color: MyColors.primaryColor,
+                Row(
+                  children: [
+                    myCheckBox(
+                      onTap: () {
+                        setState(() {
+                          isChecked = !isChecked;
+                        });
+                      },
+                      onChanged: (selected) {
+                        setState(() {
+                          isChecked = selected;
+                        });
+                      },
+                      value: isChecked,
+                      text: 'الأولى',
                     ),
-                    checkColor: MyColors.primaryColor,
-                    title: Text(
-                      'الثالثة',
-                      style: MyTextStyles.font14BlackBold,
+                    myCheckBox(
+                      onTap: () {
+                        setState(() {
+                          isChecked = !isChecked;
+                        });
+                      },
+                      onChanged: (selected) {
+                        setState(() {
+                          isChecked = selected;
+                        });
+                      },
+                      value: isChecked,
+                      text: 'الثانية',
                     ),
-                    value: true,
-                    onChanged: (value) => '',
-                  ),
+                    myCheckBox(
+                      onTap: () {
+                        setState(() {
+                          isChecked = !isChecked;
+                        });
+                      },
+                      onChanged: (selected) {
+                        setState(() {
+                          isChecked = selected;
+                        });
+                      },
+                      value: isChecked,
+                      text: 'الثالثة',
+                    ),
+                  ],
                 ),
               ],
             ),
             const SizedBox(
-              height: 50,
+              height: 25,
             ),
             Row(
               children: [
-                Container(
+                myButton(
+                  onPressed: () {},
+                  text: 'إضــافــة',
+                  textStyle: MyTextStyles.font16WhiteBold,
                   width: 130,
-                  child: myButton(
-                      onPressed: () {},
-                      text: 'اضافة',
-                      textStyle: MyTextStyles.font16WhiteBold),
                 ),
-                const SizedBox(
-                  width: 20,
+                SizedBox(
+                  width: 15,
                 ),
-                Container(
+                myButton(
+                  onPressed: () {},
+                  text: 'خـــــروج',
+                  textStyle: MyTextStyles.font16WhiteBold,
                   width: 130,
-                  child: myButton(
-                      backgroundColor: MyColors.greyColor,
-                      onPressed: () {},
-                      text: 'خروج',
-                      textStyle: MyTextStyles.font16WhiteBold),
+                  backgroundColor: MyColors.greyColor,
                 ),
               ],
             ),

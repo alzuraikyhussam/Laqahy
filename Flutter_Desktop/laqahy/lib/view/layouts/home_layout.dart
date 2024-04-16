@@ -7,6 +7,7 @@ import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/employee.dart';
 import 'package:laqahy/view/widgets/home.dart';
 import 'package:laqahy/view/widgets/mother_visit_data.dart';
 import 'package:laqahy/view/widgets/posts.dart';
@@ -302,7 +303,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             if (hlc.choose.value == 'الرئيسية') {
                               return const HomeScreen();
                             } else if (hlc.choose.value == 'الموظفين') {
-                              return const SizedBox();
+                              return const EmployeeScreen();
                             } else if (hlc.choose.value == 'الحالات') {
                               return const SizedBox();
                             } else if (hlc.choose.value == 'الزيارات') {
