@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 13 مارس 2024 الساعة 20:37
+-- Generation Time: 17 أبريل 2024 الساعة 20:59
 -- إصدار الخادم: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,6 +40,19 @@ CREATE TABLE `branches` (
 INSERT INTO `branches` (`branch_id`, `branch_name`, `branch_hc_name`) VALUES
 (1, 'فرع بيرباشا', 3),
 (2, 'فرع التحرير الاسفل', 3);
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `center_vax_store`
+--
+
+CREATE TABLE `center_vax_store` (
+  `center_vax_id` int(11) NOT NULL,
+  `vactype_type` int(11) NOT NULL,
+  `health_center` int(11) NOT NULL,
+  `center_vax_quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -213,6 +226,33 @@ INSERT INTO `health_centers` (`hc_id`, `hc_name`, `hc_phone`, `hc_address`, `hc_
 -- --------------------------------------------------------
 
 --
+-- بنية الجدول `ministry_vax_store`
+--
+
+CREATE TABLE `ministry_vax_store` (
+  `ministry_vax_id` int(11) NOT NULL,
+  `vactype_type` int(11) NOT NULL,
+  `ministry_vax_quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `ministry_vax_store_statement`
+--
+
+CREATE TABLE `ministry_vax_store_statement` (
+  `mvs_id` int(11) NOT NULL,
+  `vactype_type` int(11) NOT NULL,
+  `mvs_source` text NOT NULL,
+  `mvs_quantity` int(11) NOT NULL,
+  `mvs_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `mvs_details` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- بنية الجدول `mother_data`
 --
 
@@ -220,6 +260,7 @@ CREATE TABLE `mother_data` (
   `mother_id` int(11) NOT NULL,
   `mother_name` varchar(150) NOT NULL,
   `mother_phone` varchar(150) NOT NULL,
+  `identity_num` varchar(15) NOT NULL,
   `mother_birthdate` date NOT NULL,
   `mother_city` int(11) DEFAULT NULL,
   `mother_directorate` int(11) DEFAULT NULL,
@@ -246,6 +287,47 @@ CREATE TABLE `mother_statement` (
   `ms_dosage_type` int(11) DEFAULT NULL,
   `ms_return_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `health_center` int(11) NOT NULL,
+  `vactype_type` int(11) NOT NULL,
+  `order_date` datetime NOT NULL,
+  `order_delivery_date` datetime NOT NULL,
+  `order_quantity` int(11) NOT NULL,
+  `order_status` int(11) NOT NULL,
+  `order_center_comment` text DEFAULT NULL,
+  `order_ministry_comment` text DEFAULT NULL,
+  `ministry_deleted_at` datetime DEFAULT NULL,
+  `center_deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `order_status`
+--
+
+CREATE TABLE `order_status` (
+  `oreder_status_id` int(11) NOT NULL,
+  `order_status` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `order_status`
+--
+
+INSERT INTO `order_status` (`oreder_status_id`, `order_status`) VALUES
+(1, 'صادرة'),
+(2, 'قيد الاستلام'),
+(3, 'تم التسليم'),
+(4, 'ملغية');
 
 -- --------------------------------------------------------
 
@@ -336,6 +418,14 @@ ALTER TABLE `branches`
   ADD KEY `branch_hc_name` (`branch_hc_name`);
 
 --
+-- Indexes for table `center_vax_store`
+--
+ALTER TABLE `center_vax_store`
+  ADD PRIMARY KEY (`center_vax_id`),
+  ADD KEY `health_center` (`health_center`),
+  ADD KEY `vactype_type` (`vactype_type`);
+
+--
 -- Indexes for table `child statement`
 --
 ALTER TABLE `child statement`
@@ -407,6 +497,20 @@ ALTER TABLE `health_centers`
   ADD KEY `hc_directorate` (`hc_directorate`);
 
 --
+-- Indexes for table `ministry_vax_store`
+--
+ALTER TABLE `ministry_vax_store`
+  ADD PRIMARY KEY (`ministry_vax_id`),
+  ADD KEY `vactype_type` (`vactype_type`);
+
+--
+-- Indexes for table `ministry_vax_store_statement`
+--
+ALTER TABLE `ministry_vax_store_statement`
+  ADD PRIMARY KEY (`mvs_id`),
+  ADD KEY `vactype_type` (`vactype_type`);
+
+--
 -- Indexes for table `mother_data`
 --
 ALTER TABLE `mother_data`
@@ -427,6 +531,21 @@ ALTER TABLE `mother_statement`
   ADD KEY `ms_health_center` (`ms_health_center`),
   ADD KEY `ms_mother_name` (`ms_mother_name`),
   ADD KEY `ms_branch_name` (`ms_branch_name`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `health_center` (`health_center`),
+  ADD KEY `vactype_type` (`vactype_type`),
+  ADD KEY `order_status` (`order_status`);
+
+--
+-- Indexes for table `order_status`
+--
+ALTER TABLE `order_status`
+  ADD PRIMARY KEY (`oreder_status_id`);
 
 --
 -- Indexes for table `permission_type`
@@ -475,6 +594,12 @@ ALTER TABLE `visit_with_vaccine`
 --
 ALTER TABLE `branches`
   MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `center_vax_store`
+--
+ALTER TABLE `center_vax_store`
+  MODIFY `center_vax_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `child statement`
@@ -531,6 +656,18 @@ ALTER TABLE `health_centers`
   MODIFY `hc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `ministry_vax_store`
+--
+ALTER TABLE `ministry_vax_store`
+  MODIFY `ministry_vax_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ministry_vax_store_statement`
+--
+ALTER TABLE `ministry_vax_store_statement`
+  MODIFY `mvs_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `mother_data`
 --
 ALTER TABLE `mother_data`
@@ -541,6 +678,18 @@ ALTER TABLE `mother_data`
 --
 ALTER TABLE `mother_statement`
   MODIFY `ms_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_status`
+--
+ALTER TABLE `order_status`
+  MODIFY `oreder_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `permission_type`
@@ -575,6 +724,13 @@ ALTER TABLE `visit_type`
 --
 ALTER TABLE `branches`
   ADD CONSTRAINT `branches_ibfk_1` FOREIGN KEY (`branch_hc_name`) REFERENCES `health_centers` (`hc_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- قيود الجداول `center_vax_store`
+--
+ALTER TABLE `center_vax_store`
+  ADD CONSTRAINT `center_vax_store_ibfk_1` FOREIGN KEY (`health_center`) REFERENCES `health_centers` (`hc_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `center_vax_store_ibfk_2` FOREIGN KEY (`vactype_type`) REFERENCES `vaccine_type` (`vactype_id`) ON UPDATE CASCADE;
 
 --
 -- قيود الجداول `child statement`
@@ -624,6 +780,18 @@ ALTER TABLE `health_centers`
   ADD CONSTRAINT `health_centers_ibfk_2` FOREIGN KEY (`hc_directorate`) REFERENCES `directorates` (`directorate_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
+-- قيود الجداول `ministry_vax_store`
+--
+ALTER TABLE `ministry_vax_store`
+  ADD CONSTRAINT `ministry_vax_store_ibfk_1` FOREIGN KEY (`vactype_type`) REFERENCES `vaccine_type` (`vactype_id`) ON UPDATE CASCADE;
+
+--
+-- قيود الجداول `ministry_vax_store_statement`
+--
+ALTER TABLE `ministry_vax_store_statement`
+  ADD CONSTRAINT `ministry_vax_store_statement_ibfk_1` FOREIGN KEY (`vactype_type`) REFERENCES `vaccine_type` (`vactype_id`) ON UPDATE CASCADE;
+
+--
 -- قيود الجداول `mother_data`
 --
 ALTER TABLE `mother_data`
@@ -642,6 +810,14 @@ ALTER TABLE `mother_statement`
   ADD CONSTRAINT `mother_statement_ibfk_4` FOREIGN KEY (`ms_health_center`) REFERENCES `health_centers` (`hc_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `mother_statement_ibfk_5` FOREIGN KEY (`ms_mother_name`) REFERENCES `mother_data` (`mother_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `mother_statement_ibfk_6` FOREIGN KEY (`ms_branch_name`) REFERENCES `branches` (`branch_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- قيود الجداول `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`health_center`) REFERENCES `health_centers` (`hc_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`vactype_type`) REFERENCES `vaccine_type` (`vactype_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`oreder_status_id`) ON UPDATE CASCADE;
 
 --
 -- قيود الجداول `vaccine_with_dosage`

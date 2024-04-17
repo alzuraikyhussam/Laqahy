@@ -109,12 +109,23 @@ myTextField({
         counterStyle: MyTextStyles.font14GreyBold.copyWith(
           color: MyColors.greyColor.withOpacity(0.5),
         ),
-        prefixIcon: prefixIcon != null
-            ? Icon(
+        prefixIcon: prefixIcon != null && maxLines != null
+            ? Padding(
+                padding: const EdgeInsetsDirectional.only(start: 10),
+                child: Align(
+                  alignment: AlignmentDirectional.topStart,
+                  widthFactor: 1.0,
+                  heightFactor: 3.0,
+                  child: Icon(
+                    prefixIcon,
+                    color: MyColors.greyColor.withOpacity(0.8),
+                  ),
+                ),
+              )
+            : Icon(
                 prefixIcon,
                 color: MyColors.greyColor.withOpacity(0.8),
-              )
-            : null,
+              ),
         prefix: prefixImage != null
             ? Image.asset(
                 prefixImage,
