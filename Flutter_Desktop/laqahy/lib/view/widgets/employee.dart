@@ -1,11 +1,13 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/home_layout_controller.dart';
+import 'package:laqahy/controllers/employee_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/models/model.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:msh_checkbox/msh_checkbox.dart';
+import 'package:laqahy/view/widgets/data_table_source.dart';
 
 class EmployeeScreen extends StatefulWidget {
   const EmployeeScreen({super.key});
@@ -15,232 +17,119 @@ class EmployeeScreen extends StatefulWidget {
 }
 
 class _EmployeeScreenState extends State<EmployeeScreen> {
+  List<EmployeeData> myEmpData = [
+    EmployeeData(name: "خالد", phone: 09876543, age: 28),
+    EmployeeData(name: "الياس", phone: 6464646, age: 30),
+    EmployeeData(name: "اسماعيل", phone: 987654556, age: 23),
+    EmployeeData(name: "اوسان", phone: 46464664, age: 24),
+    EmployeeData(name: "شفيع", phone: 5353535, age: 36),
+    EmployeeData(name: "حسام", phone: 8888, age: 32),
+    EmployeeData(name: "مروان", phone: 3333333, age: 33),
+    EmployeeData(name: "خالد", phone: 09876543, age: 28),
+    EmployeeData(name: "الياس", phone: 6464646, age: 30),
+    EmployeeData(name: "اسماعيل", phone: 987654556, age: 23),
+    EmployeeData(name: "اوسان", phone: 46464664, age: 24),
+    EmployeeData(name: "شفيع", phone: 5353535, age: 36),
+    EmployeeData(name: "حسام", phone: 8888, age: 32),
+    EmployeeData(name: "مروان", phone: 3333333, age: 33),
+    EmployeeData(name: "خالد", phone: 09876543, age: 28),
+    EmployeeData(name: "الياس", phone: 6464646, age: 30),
+    EmployeeData(name: "اسماعيل", phone: 987654556, age: 23),
+    EmployeeData(name: "اوسان", phone: 46464664, age: 24),
+    EmployeeData(name: "شفيع", phone: 5353535, age: 36),
+    EmployeeData(name: "حسام", phone: 8888, age: 32),
+    EmployeeData(name: "مروان", phone: 3333333, age: 33),
+  ];
+
+  List<EmployeeData>? filterData;
+  bool sort = true;
+  TextEditingController controller = TextEditingController();
+
+  onsortColum(int columnIndex, bool ascending) {
+    if (columnIndex == 0) {
+      if (ascending) {
+        filterData!.sort((a, b) => a.name!.compareTo(b.name!));
+      } else {
+        filterData!.sort((a, b) => b.name!.compareTo(a.name!));
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    filterData = myEmpData;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    HomeLayoutController hlc = Get.put(HomeLayoutController());
-
-    return Padding(
+    return Container(
       padding: const EdgeInsetsDirectional.only(
-        end: 30,
-        bottom: 40,
+        // end: 30,
+        bottom: 50,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              myTextField(
-                hintText: 'أدخــل اســم المـوظــف',
-                keyboardType: TextInputType.text,
-                fillColor: MyColors.primaryColor,
-                onChanged: (value) {},
-                prefixIcon: Icons.search_rounded,
-                width: 400,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              myButton(
-                onPressed: () {},
-                text: 'بحـــث',
-                textStyle: MyTextStyles.font16WhiteBold,
-                width: 120,
-              ),
-            ],
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      ),
+      child: PaginatedDataTable2(
+        autoRowsToHeight: true,
+        headingRowColor: MaterialStatePropertyAll(MyColors.primaryColor),
+        sortColumnIndex: 0,
+        sortAscending: sort,
+        showFirstLastButtons: true,
+        headingRowDecoration: BoxDecoration(
+            borderRadius: BorderRadiusDirectional.only(
+                topStart: Radius.circular(10), topEnd: Radius.circular(10))),
+        actions: [
+          myButton(
+            onPressed: () {},
+            text: 'إضــافة مـوظــف جـديــد',
+            textStyle: MyTextStyles.font14WhiteBold,
           ),
-          SizedBox(
-            height: 30,
+        ],
+        header: myTextField(
+          hintText: 'اكتــب هنــا للبحـــث',
+          prefixIcon: Icons.search,
+          controller: controller,
+          keyboardType: TextInputType.text,
+          onChanged: (value) {
+            setState(() {
+              myEmpData = filterData!
+                  .where((element) => element.name!.contains(value))
+                  .toList();
+            });
+          },
+        ),
+        source: RowSource(
+          myData: myEmpData,
+          count: myEmpData.length,
+        ),
+        rowsPerPage: 8,
+        columnSpacing: 8,
+        columns: [
+          DataColumn(
+              label: Text(
+                "الاســــم",
+                style: MyTextStyles.font16WhiteBold,
+              ),
+              onSort: (columnIndex, ascending) {
+                setState(() {
+                  sort = !sort;
+                });
+                onsortColum(columnIndex, ascending);
+              }),
+          DataColumn(
+            label: Text(
+              "رقم الجـــوال",
+              style: MyTextStyles.font16WhiteBold,
+            ),
           ),
-
-          // Expanded(
-          //   child: DataTable2(
-
-          //     columnSpacing: 12,
-          //     showHeadingCheckBox: true,
-          //     showCheckboxColumn: true,
-
-          //     headingRowColor: MaterialStatePropertyAll(MyColors.primaryColor),
-          //     horizontalMargin: 12,
-          //     border: TableBorder.all(
-          //       borderRadius: BorderRadius.circular(20),
-          //       color: MyColors.greyColor.withOpacity(0.3),
-          //     ),
-          //     // minWidth: MediaQuery.of(context).size.width,
-          //     dataTextStyle: MyTextStyles.font14BlackMedium,
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(20),
-          //     ),
-          //     headingRowDecoration: BoxDecoration(
-          //       borderRadius: BorderRadiusDirectional.only(
-          //         topStart: Radius.circular(10),
-          //         topEnd: Radius.circular(10),
-          //       ),
-          //     ),
-          //     headingTextStyle: MyTextStyles.font16WhiteBold,
-          //     showBottomBorder: true,
-          //     columns: [
-          //       DataColumn2(
-          //         label: Text(
-          //           'الرقم',
-          //           textAlign: TextAlign.center,
-          //         ),
-          //         size: ColumnSize.S,
-          //       ),
-          //       DataColumn2(
-          //         label: Text(
-          //           'اسم الموظف',
-          //           textAlign: TextAlign.center,
-          //         ),
-          //         fixedWidth: 250,
-          //       ),
-          //       DataColumn2(
-          //         label: Text(
-          //           'تاريخ الميلاد',
-          //           textAlign: TextAlign.center,
-          //         ),
-          //         size: ColumnSize.L,
-          //       ),
-          //       DataColumn2(
-          //         label: Text(
-          //           'الجنس',
-          //           textAlign: TextAlign.center,
-          //         ),
-          //         size: ColumnSize.S,
-          //       ),
-          //       DataColumn2(
-          //         label: Text(
-          //           'رقم الجوال',
-          //           textAlign: TextAlign.center,
-          //         ),
-          //         size: ColumnSize.L,
-          //       ),
-          //       DataColumn2(
-          //         label: Text(
-          //           'العنوان',
-          //           textAlign: TextAlign.center,
-          //         ),
-          //         fixedWidth: 250,
-          //       ),
-          //       DataColumn2(
-          //         label: Text(
-          //           'اسم المستخدم',
-          //           textAlign: TextAlign.center,
-          //         ),
-          //         size: ColumnSize.M,
-          //       ),
-          //       DataColumn2(
-          //         label: Text(
-          //           'الصلاحية',
-          //           textAlign: TextAlign.center,
-          //         ),
-          //         size: ColumnSize.S,
-          //       ),
-          //     ],
-          //     rows: List<DataRow>.generate(
-          //       20,
-          //       (index) => DataRow(
-          //         cells: [
-          //           DataCell(
-          //             Text(
-          //               '0001',
-          //               textAlign: TextAlign.center,
-          //             ),
-          //             onDoubleTap: () {},
-          //           ),
-          //           DataCell(
-          //             Text(
-          //               'شفيع احمد سعيد قائد',
-          //               textAlign: TextAlign.center,
-          //             ),
-          //             onDoubleTap: () {},
-          //           ),
-          //           DataCell(
-          //             Text(
-          //               '15-01-2002',
-          //               textAlign: TextAlign.center,
-          //             ),
-          //             onDoubleTap: () {},
-          //           ),
-          //           DataCell(
-          //             Text(
-          //               'ذكر',
-          //               textAlign: TextAlign.center,
-          //             ),
-          //             onDoubleTap: () {},
-          //           ),
-          //           DataCell(
-          //             Text(
-          //               '772957881',
-          //               textAlign: TextAlign.center,
-          //             ),
-          //             onDoubleTap: () {},
-          //           ),
-          //           DataCell(
-          //             Text(
-          //               'تعز',
-          //               textAlign: TextAlign.center,
-          //             ),
-          //             onDoubleTap: () {},
-          //           ),
-          //           DataCell(
-          //             Text(
-          //               'shafee',
-          //               textAlign: TextAlign.center,
-          //             ),
-          //             onDoubleTap: () {},
-          //           ),
-          //           DataCell(
-          //             Text(
-          //               'admin',
-          //               textAlign: TextAlign.center,
-          //             ),
-          //             onDoubleTap: () {},
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              myButton(
-                onPressed: () {},
-                text: 'إضـــافـــة',
-                textStyle: MyTextStyles.font16WhiteBold,
-                width: 130,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              myButton(
-                onPressed: () {},
-                text: 'حـــذف',
-                textStyle: MyTextStyles.font16WhiteBold,
-                width: 130,
-                backgroundColor: MyColors.redColor,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              myButton(
-                onPressed: () {
-                  hlc.changeChoose(
-                    'الرئيسية',
-                  );
-                },
-                text: 'خـــروج',
-                textStyle: MyTextStyles.font16WhiteBold,
-                width: 130,
-                backgroundColor: MyColors.greyColor,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
+          DataColumn(
+            label: Text(
+              "العمـــر",
+              style: MyTextStyles.font16WhiteBold,
+            ),
           ),
         ],
       ),

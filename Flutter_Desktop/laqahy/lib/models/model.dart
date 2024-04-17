@@ -36,3 +36,13 @@ class HomeCards {
     required this.value,
   });
 }
+
+class EmployeeData {
+  String? name;
+  int? phone;
+  int? age;
+
+  EmployeeData({required this.name, required this.phone, required this.age});
+}
+
+

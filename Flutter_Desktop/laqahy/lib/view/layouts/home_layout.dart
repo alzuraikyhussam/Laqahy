@@ -310,7 +310,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             : EdgeInsetsDirectional.only(
                                 top: 30,
                                 bottom: 0,
-                                end: 0,
+                                end: 30,
                                 start: 30,
                               ),
                         child: Obx(
