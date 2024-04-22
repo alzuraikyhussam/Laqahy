@@ -6,6 +6,7 @@ import 'package:laqahy/controllers/mother_visit_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/successfully_add_state.dart';
 
 class MotherStatusData extends StatefulWidget {
   const MotherStatusData({super.key});
@@ -206,7 +207,12 @@ class _MotherStatusDataState extends State<MotherStatusData> {
         Row(
           children: [
             myButton(
-              onPressed: () {},
+              onPressed: () {
+                myShowDialog(
+                  context: context,
+                  widgetName: SuccessfullyAddState(),
+                );
+              },
               text: 'إضــافــة',
               textStyle: MyTextStyles.font16WhiteBold,
               width: 130,
