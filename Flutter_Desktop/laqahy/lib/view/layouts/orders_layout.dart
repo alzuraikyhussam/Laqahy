@@ -6,6 +6,10 @@ import 'package:laqahy/controllers/orders_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/add_order.dart';
+import 'package:laqahy/view/widgets/cancel_order.dart';
+import 'package:laqahy/view/widgets/export_order.dart';
+import 'package:laqahy/view/widgets/success_order.dart';
+import 'package:laqahy/view/widgets/waiting_order.dart';
 
 class OrdersLayout extends StatefulWidget {
   const OrdersLayout({super.key});
@@ -30,6 +34,7 @@ class _OrdersLayoutState extends State<OrdersLayout> {
         ),
         Container(
           width: double.infinity,
+          height: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -68,11 +73,11 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                               : null,
                           child: Center(
                             child: Icon(
-                              Icons.add,
+                              Icons.add_rounded,
                               color: olc.orderChange.value == 'add'
                                   ? MyColors.whiteColor
                                   : MyColors.secondaryColor,
-                              size: 30,
+                              size: 35,
                             ),
                           ),
                         ),
@@ -190,10 +195,10 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                       return Expanded(
                         child: InkWell(
                           onTap: () {
-                            olc.onChangeOrder('canceled');
+                            olc.onChangeOrder('cancel');
                           },
                           child: Container(
-                            decoration: olc.orderChange.value == 'canceled'
+                            decoration: olc.orderChange.value == 'cancel'
                                 ? BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: MyColors.secondaryColor,
@@ -209,7 +214,7 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                             child: Center(
                               child: Text(
                                 'الــملـغـيـــة',
-                                style: olc.orderChange.value == 'canceled'
+                                style: olc.orderChange.value == 'cancel'
                                     ? MyTextStyles.font16WhiteBold
                                     : MyTextStyles.font16SecondaryBold,
                               ),
@@ -225,20 +230,18 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                 height: 50,
               ),
               Obx(() {
-                return Column(
-                  children: [
-                    olc.orderChange.value == 'add'
-                        ? AddOrder()
-                        : olc.orderChange.value == 'export'
-                            ? SizedBox()
-                            : olc.orderChange.value == 'waiting'
-                                ? SizedBox()
-                                : olc.orderChange.value == 'success'
-                                    ? SizedBox()
-                                    : olc.orderChange.value == 'canceled'
-                                        ? SizedBox()
-                                        : SizedBox(),
-                  ],
+                return Expanded(
+                  child: olc.orderChange.value == 'add'
+                      ? AddOrder()
+                      : olc.orderChange.value == 'export'
+                          ? ExportOrders()
+                          : olc.orderChange.value == 'waiting'
+                              ? WaitingOrders()
+                              : olc.orderChange.value == 'success'
+                                  ? SuccessOrders()
+                                  : olc.orderChange.value == 'cancel'
+                                      ? CancelOrders()
+                                      : SizedBox(),
                 );
               }),
             ],
