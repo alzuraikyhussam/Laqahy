@@ -9,6 +9,7 @@ import 'package:laqahy/view/screens/create_account.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/splash_screen.dart';
 import 'package:laqahy/view/screens/welcome.dart';
+import 'package:laqahy/view/widgets/employee.dart';
 
 import 'package:window_manager/window_manager.dart';
 
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: SplashScreen(),
+      home: HomeLayout(),
     );
   }
 }

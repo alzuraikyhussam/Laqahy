@@ -6,8 +6,10 @@ import 'package:laqahy/controllers/employee_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/model.dart';
+import 'package:laqahy/view/widgets/add_employ.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/data_table_source.dart';
+import 'package:laqahy/view/widgets/successfully_add_state.dart';
 
 class EmployeeScreen extends StatefulWidget {
   const EmployeeScreen({super.key});
@@ -83,7 +85,10 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                 topStart: Radius.circular(10), topEnd: Radius.circular(10))),
         actions: [
           myButton(
-            onPressed: () {},
+            onPressed: () {
+              myShowDialog(
+                  context: context, widgetName: SuccessfullyAddState());
+            },
             text: 'إضــافة مـوظــف جـديــد',
             textStyle: MyTextStyles.font14WhiteBold,
           ),

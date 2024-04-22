@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/view/widgets/successfully_add_state.dart';
 import 'basic_widgets/basic_widgets.dart';
 
 class AddChildState extends StatefulWidget {
@@ -597,8 +598,13 @@ class _AddChildStateState extends State<AddChildState> {
                             Container(
                               width: 130,
                               child: myButton(
-                                  onPressed: () {},
-                                  text: 'اضــــافة',
+                                  onPressed: () {
+                                    return myShowDialog(
+                                      context: context,
+                                      widgetName: SuccessfullyAddState(),
+                                    );
+                                  },
+                                  text: 'jj',
                                   textStyle: MyTextStyles.font16WhiteBold),
                             ),
                             const SizedBox(
