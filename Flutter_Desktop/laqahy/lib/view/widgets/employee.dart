@@ -75,8 +75,8 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
       child: PaginatedDataTable2(
         autoRowsToHeight: true,
         headingRowColor: MaterialStatePropertyAll(MyColors.primaryColor),
-        sortColumnIndex: 0,
-        sortAscending: sort,
+        // sortColumnIndex: 0,
+        // sortAscending: sort,
         showFirstLastButtons: true,
         headingRowDecoration: BoxDecoration(
             borderRadius: BorderRadiusDirectional.only(
@@ -109,16 +109,17 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
         columnSpacing: 8,
         columns: [
           DataColumn(
-              label: Text(
-                "الاســــم",
-                style: MyTextStyles.font16WhiteBold,
-              ),
-              onSort: (columnIndex, ascending) {
-                setState(() {
-                  sort = !sort;
-                });
-                onsortColum(columnIndex, ascending);
-              }),
+            label: Text(
+              "الاســــم",
+              style: MyTextStyles.font16WhiteBold,
+            ),
+            // onSort: (columnIndex, ascending) {
+            //   setState(() {
+            //     sort = !sort;
+            //   });
+            //   onsortColum(columnIndex, ascending);
+            // },
+          ),
           DataColumn(
             label: Text(
               "رقم الجـــوال",

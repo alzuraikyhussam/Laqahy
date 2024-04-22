@@ -113,14 +113,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 myButton(
                   onPressed: () {
-                    showDialog(
-                      barrierDismissible: false,
-                      barrierColor: MyColors.greyColor.withOpacity(0.5),
-                      context: context,
-                      builder: (context) {
-                        return AdminVerification();
-                      },
-                    );
+                    myShowDialog(
+                        context: context, widgetName: AdminVerification());
                   },
                   width: 150,
                   text: 'تسجيـل دخـول',
