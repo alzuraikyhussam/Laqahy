@@ -834,9 +834,10 @@ myCheckBox({
   required void Function(bool) onChanged,
   required bool value,
   required String text,
+  double? width = 150,
 }) {
   return Container(
-    width: 150,
+    width: width,
     child: ListTile(
       onTap: onTap,
       minLeadingWidth: 15,
