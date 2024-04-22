@@ -1,3 +1,4 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -283,6 +284,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                                 icon: FontAwesomeIcons.minus,
                                 onTap: () {
                                   hlc.onTapMinimize();
+                                  
                                 },
                                 gradientColors: [
                                   MyColors.greyColor,

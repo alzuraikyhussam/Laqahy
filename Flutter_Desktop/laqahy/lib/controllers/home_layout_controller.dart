@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/login.dart';
@@ -35,7 +36,10 @@ class HomeLayoutController extends GetxController {
     );
   }
 
-  onTapMinimize() {}
+  
+  onTapMinimize() {
+    appWindow.minimize();
+  }
 
   onTapExitButton(context) {
     return myAlertDialog(

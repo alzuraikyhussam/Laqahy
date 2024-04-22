@@ -1,3 +1,4 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,6 +15,7 @@ import 'package:window_manager/window_manager.dart';
 
 import 'view/widgets/state_details.dart';
 
+
 // import 'view/screens/create_admin_account.dart';
 
 // import 'package:laqahy/view/screens/home.dart';
@@ -21,6 +23,7 @@ import 'view/widgets/state_details.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  appWindow.show();
   runApp(const MyApp());
 }
 
