@@ -874,7 +874,31 @@ myShowDialog({
   );
 }
 
-
+myOrdersItem({
+  required Widget? content,
+  double? height = 150,
+}) {
+  return Container(
+    padding: EdgeInsets.all(25),
+    height: height,
+    decoration: BoxDecoration(
+      color: Colors.white.withOpacity(0.9),
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 5,
+          blurStyle: BlurStyle.outer,
+          offset: Offset(0, 0),
+        ),
+      ],
+    ),
+    child: content,
+  );
+}
 
 
 // myDropDownButton({

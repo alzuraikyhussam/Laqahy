@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/visits_latout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import '../widgets/icons/child_status_data.dart';
-import '../widgets/icons/mother_status_data.dart';
+import '../widgets/child_status_data.dart';
+import '../widgets/mother_status_data.dart';
 
 class StatusLayout extends StatefulWidget {
   const StatusLayout({super.key});

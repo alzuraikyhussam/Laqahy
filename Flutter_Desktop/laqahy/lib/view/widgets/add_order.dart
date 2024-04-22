@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/add_order_controller.dart';
+import 'package:laqahy/controllers/home_layout_controller.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -14,6 +16,7 @@ class AddOrder extends StatefulWidget {
 
 class _AddOrderState extends State<AddOrder> {
   AddOrderController aoc = Get.put(AddOrderController());
+  HomeLayoutController hlc = Get.put(HomeLayoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +94,36 @@ class _AddOrderState extends State<AddOrder> {
               maxLines: 3,
               maxLength: 150,
               hintText: 'ملاحظات',
+              prefixIcon: Icons.message_outlined,
               keyboardType: TextInputType.text,
               onChanged: (value) {},
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        Row(
+          children: [
+            myButton(
+              onPressed: () {},
+              text: 'إضــافــة',
+              textStyle: MyTextStyles.font16WhiteBold,
+              width: 130,
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            myButton(
+              onPressed: () {
+                hlc.changeChoose(
+                  'الرئيسية',
+                );
+              },
+              text: 'خـــــروج',
+              textStyle: MyTextStyles.font16WhiteBold,
+              width: 130,
+              backgroundColor: MyColors.greyColor,
             ),
           ],
         ),
