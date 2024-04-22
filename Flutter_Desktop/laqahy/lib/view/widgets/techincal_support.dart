@@ -7,6 +7,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 
 import '../../core/shared/styles/color.dart';
 import 'basic_widgets/basic_widgets.dart';
+import 'send_support_successfully.dart';
 
 class TechnicalSupport extends StatelessWidget {
   const TechnicalSupport({super.key});
@@ -132,7 +133,9 @@ class TechnicalSupport extends StatelessWidget {
                     Row(
                       children: [
                         myButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            myShowDialog(context: context, widgetName: SendSupportSuccessfully());
+                          },
                           text: 'إرســــــال',
                           textStyle: MyTextStyles.font16WhiteBold,
                           width: 130,
