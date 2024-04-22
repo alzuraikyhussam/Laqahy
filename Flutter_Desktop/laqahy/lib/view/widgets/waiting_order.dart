@@ -5,6 +5,8 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
+import 'orders_confirmation_successfully.dart';
+
 class WaitingOrders extends StatefulWidget {
   const WaitingOrders({super.key});
 
@@ -151,7 +153,9 @@ class _WaitingOrdersState extends State<WaitingOrders> {
                     ),
                     myButton(
                       width: 120,
-                      onPressed: () {},
+                      onPressed: () {
+                        myShowDialog(context: context, widgetName: OrderConfirmationSuccessfully());
+                      },
                       text: 'تــأكيـــــد',
                       textStyle: MyTextStyles.font16WhiteBold,
                     ),
