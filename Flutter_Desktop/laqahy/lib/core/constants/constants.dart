@@ -30,9 +30,9 @@ class Constants {
       imageNameFocused: 'assets/icons/vaccine-wh.png',
     ),
     HomeLayoutListItem(
-      imageName: 'assets/icons/posts-gr.png',
-      label: 'المنشورات',
-      imageNameFocused: 'assets/icons/posts-wh.png',
+      imageName: 'assets/icons/order-gr.png',
+      label: 'الطلبات',
+      imageNameFocused: 'assets/icons/order-wh.png',
     ),
     HomeLayoutListItem(
       imageName: 'assets/icons/info-gr.png',

@@ -4,7 +4,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/visits_latout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
@@ -858,6 +860,19 @@ myCheckBox({
   );
 }
 
+myShowDialog({
+  required BuildContext context,
+  required widgetName,
+}) {
+  return showDialog(
+    barrierDismissible: false,
+    barrierColor: MyColors.greyColor.withOpacity(0.5),
+    context: context,
+    builder: (context) {
+      return widgetName;
+    },
+  );
+}
 
 
 
