@@ -200,7 +200,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     },
                     width: 150,
                     text: 'إنشــاء حســاب',
-                    textStyle: MyTextStyles.font14WhiteBold,
+                    textStyle: MyTextStyles.font16WhiteBold,
                   ),
                 ),
                 const SizedBox(

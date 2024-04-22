@@ -67,7 +67,7 @@ class _SendSupportSuccessfullyState extends State<SendSupportSuccessfully> {
           },
           width: 150,
           text: 'مــوافــق',
-          textStyle: MyTextStyles.font14WhiteBold,
+          textStyle: MyTextStyles.font16WhiteBold,
         ),
       ],
     );

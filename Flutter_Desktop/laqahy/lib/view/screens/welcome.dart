@@ -6,6 +6,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/create_account.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/install_verification.dart';
 import 'package:window_manager/window_manager.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -87,7 +88,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   width: 250,
                   child: Text(
                     'في البرنامج الأول لمتابعة عملية التطعيم في اليمن.',
-                    style: MyTextStyles.font16BlackBold,
+                    style: MyTextStyles.font18BlackBold,
                   ),
                 ),
                 SizedBox(
@@ -98,23 +99,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     myButton(
                       width: 150,
                       onPressed: () {
-                        Get.off(LoginScreen());
+                        // Get.off(LoginScreen());
+                        myShowDialog(
+                            context: context,
+                            widgetName: InstallVerification());
                       },
                       text: 'تسجيـل دخـول',
-                      textStyle: MyTextStyles.font14WhiteBold,
+                      textStyle: MyTextStyles.font16WhiteBold,
                     ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    myButton(
-                      width: 150,
-                      backgroundColor: MyColors.greyColor,
-                      onPressed: () {
-                        Get.off(CreateAccountScreen());
-                      },
-                      text: 'إنشـاء حسـاب',
-                      textStyle: MyTextStyles.font14WhiteBold,
-                    ),
+                    // SizedBox(
+                    //   width: 15,
+                    // ),
+                    // myButton(
+                    //   width: 150,
+                    //   backgroundColor: MyColors.greyColor,
+                    //   onPressed: () {
+                    //     Get.off(CreateAccountScreen());
+                    //   },
+                    //   text: 'إنشـاء حسـاب',
+                    //   textStyle: MyTextStyles.font16WhiteBold,
+                    // ),
                   ],
                 ),
               ],

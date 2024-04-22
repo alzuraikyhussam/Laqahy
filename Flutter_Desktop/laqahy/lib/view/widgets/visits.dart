@@ -94,7 +94,7 @@ class _VisitsSearchState extends State<VisitsSearch> {
                   child: myButton(
                       onPressed: () {},
                       text: 'بحـــــــث',
-                      textStyle: MyTextStyles.font14WhiteBold),
+                      textStyle: MyTextStyles.font16WhiteBold),
                 )
               ],
             ),

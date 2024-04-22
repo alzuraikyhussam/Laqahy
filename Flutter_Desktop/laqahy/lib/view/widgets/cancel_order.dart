@@ -97,7 +97,6 @@ class _CancelOrdersState extends State<CancelOrders> {
                     children: [
                       Text(
                         'سـبب الـرفــض:',
-                        overflow: TextOverflow.ellipsis,
                         style: MyTextStyles.font16RedBold,
                       ),
                       SizedBox(

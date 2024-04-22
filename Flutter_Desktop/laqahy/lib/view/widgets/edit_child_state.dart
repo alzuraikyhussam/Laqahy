@@ -88,7 +88,7 @@ class _EditeChildStateState extends State<EditeChildState> {
                         child: Center(
                           child: Text(
                             'بيانات الطفــل',
-                            style: MyTextStyles.font14WhiteBold,
+                            style: MyTextStyles.font16WhiteBold,
                           ),
                         ),
                       )

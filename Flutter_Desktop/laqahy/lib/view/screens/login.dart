@@ -5,7 +5,6 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
 import 'package:laqahy/view/screens/welcome.dart';
-import 'package:laqahy/view/widgets/admin_veriffication.dart';
 import 'package:laqahy/view/widgets/admin_verification.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:window_manager/window_manager.dart';
@@ -62,11 +61,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     myAppBarLogo(),
-                    goBackButton(
-                      onTap: () {
-                        Get.off(WelcomeScreen());
-                      },
-                    ),
+                    // goBackButton(
+                    //   onTap: () {
+                    //     Get.off(WelcomeScreen());
+                    //   },
+                    // ),
+                    exitButton(),
                   ],
                 ),
                 SizedBox(
@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   width: 150,
                   text: 'تسجيـل دخـول',
-                  textStyle: MyTextStyles.font14WhiteBold,
+                  textStyle: MyTextStyles.font16WhiteBold,
                 ),
               ],
             ),

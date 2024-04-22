@@ -85,7 +85,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
           myButton(
             onPressed: () {},
             text: 'إضــافة مـوظــف جـديــد',
-            textStyle: MyTextStyles.font14WhiteBold,
+            textStyle: MyTextStyles.font16WhiteBold,
           ),
         ],
         header: myTextField(

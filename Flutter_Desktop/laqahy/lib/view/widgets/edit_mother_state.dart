@@ -73,7 +73,7 @@ class _EditeMotherStateState extends State<EditeMotherState> {
                         child: Center(
                           child: Text(
                             'بيانات الأم',
-                            style: MyTextStyles.font14WhiteBold,
+                            style: MyTextStyles.font16WhiteBold,
                           ),
                         ),
                       ),

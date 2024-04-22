@@ -73,7 +73,7 @@ class _AddMotherStateState extends State<AddMotherState> {
                         child: Center(
                           child: Text(
                             'بيانات الأم',
-                            style: MyTextStyles.font14WhiteBold,
+                            style: MyTextStyles.font16WhiteBold,
                           ),
                         ),
                       ),

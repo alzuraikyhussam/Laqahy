@@ -3,25 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/layouts/home_layout.dart';
+import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:window_manager/window_manager.dart';
 
-class AdminVerification extends StatefulWidget {
-  const AdminVerification({super.key});
+class InstallVerification extends StatefulWidget {
+  const InstallVerification({super.key});
 
   @override
-  State<AdminVerification> createState() => _AdminVerificationState();
+  State<InstallVerification> createState() => _InstallVerificationState();
 }
 
-class _AdminVerificationState extends State<AdminVerification> {
+class _InstallVerificationState extends State<InstallVerification> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
-        height: 320,
+        height: 280,
         width: 400,
         child: Column(
           children: [
@@ -35,13 +34,13 @@ class _AdminVerificationState extends State<AdminVerification> {
                     width: 250,
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                 ],
               ),
             ),
             Text(
-              'أدخــل رمــز التـحقــق',
+              'أدخــل رمــز التثبيـت',
               style: MyTextStyles.font18PrimaryBold,
             ),
             SizedBox(
@@ -50,7 +49,7 @@ class _AdminVerificationState extends State<AdminVerification> {
             SizedBox(
               width: 300,
               child: Text(
-                'الرجاء إدخال رمز التحقق الذي تم إرساله الى رقم جوالك.',
+                'الرجاء إدخال رمز التثبيت المرسل من الوزارة من أجل إكمال عملية التثبيت.',
                 style: MyTextStyles.font16BlackMedium,
                 textAlign: TextAlign.center,
               ),
@@ -63,7 +62,7 @@ class _AdminVerificationState extends State<AdminVerification> {
               prefixIcon: Icons.password,
               obscureText: true,
               suffixIcon: Icons.visibility_off_outlined,
-              hintText: 'أدخـــل رمــز التـحــقــق',
+              hintText: 'أدخـــل رمــز التثبيـت',
               keyboardType: TextInputType.visiblePassword,
               textAlign: TextAlign.center,
               onChanged: (value) {},
@@ -71,32 +70,33 @@ class _AdminVerificationState extends State<AdminVerification> {
             SizedBox(
               height: 5,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  child: Text(
-                    'لم يصل الكود؟',
-                    style: MyTextStyles.font16GreyMedium,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                myTextButton(
-                  text: 'إعــادة إرســال',
-                  onPressed: () {},
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox(
+            //       child: Text(
+            //         'لم يصل الكود؟',
+            //         style: MyTextStyles.font16GreyMedium,
+            //         textAlign: TextAlign.center,
+            //       ),
+            //     ),
+            //     myTextButton(
+            //       text: 'إعــادة إرســال',
+            //       onPressed: () {},
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
       actions: [
         myButton(
           onPressed: () {
-            Get.offAll(HomeLayout());
+            // Get.offAll(HomeLayout());
+            Get.off(LoginScreen());
           },
           width: 150,
-          text: 'تـأكيـــــد',
+          text: 'مــوافــق',
           textStyle: MyTextStyles.font16WhiteBold,
         ),
         myButton(

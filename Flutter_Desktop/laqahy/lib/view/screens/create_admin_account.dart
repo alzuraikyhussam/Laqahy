@@ -188,7 +188,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         );
                       },
                       text: 'إنشــاء حســـاب المســؤول',
-                      textStyle: MyTextStyles.font14WhiteBold,
+                      textStyle: MyTextStyles.font16WhiteBold,
                     ),
                     SizedBox(
                       width: 15,
@@ -198,7 +198,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         Get.off(CreateAccountScreen());
                       },
                       text: 'إلغــاء الأمـــر',
-                      textStyle: MyTextStyles.font14WhiteBold,
+                      textStyle: MyTextStyles.font16WhiteBold,
                       backgroundColor: MyColors.greyColor,
                     ),
                   ],
