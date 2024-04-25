@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17 أبريل 2024 الساعة 20:59
+-- Generation Time: 25 أبريل 2024 الساعة 21:18
 -- إصدار الخادم: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,26 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `laqahy`
 --
-
--- --------------------------------------------------------
-
---
--- بنية الجدول `branches`
---
-
-CREATE TABLE `branches` (
-  `branch_id` int(11) NOT NULL,
-  `branch_name` varchar(150) NOT NULL,
-  `branch_hc_name` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- إرجاع أو استيراد بيانات الجدول `branches`
---
-
-INSERT INTO `branches` (`branch_id`, `branch_name`, `branch_hc_name`) VALUES
-(1, 'فرع بيرباشا', 3),
-(2, 'فرع التحرير الاسفل', 3);
 
 -- --------------------------------------------------------
 
@@ -64,7 +44,6 @@ CREATE TABLE `child statement` (
   `cs_id` int(11) NOT NULL,
   `cs_child_name` int(11) DEFAULT NULL,
   `cs_health_center` int(11) DEFAULT NULL,
-  `cs_branch_name` int(11) DEFAULT NULL,
   `cs_emp_name` int(11) DEFAULT NULL,
   `cs_vaccine_type` int(11) DEFAULT NULL,
   `cs_visit_type` int(11) DEFAULT NULL,
@@ -156,33 +135,6 @@ CREATE TABLE `dosage_type` (
 -- --------------------------------------------------------
 
 --
--- بنية الجدول `employees`
---
-
-CREATE TABLE `employees` (
-  `emp_id` int(11) NOT NULL,
-  `emp_name` varchar(150) NOT NULL,
-  `emp_phone` varchar(150) NOT NULL,
-  `emp_address` varchar(150) NOT NULL,
-  `emp_health_center` int(11) DEFAULT NULL,
-  `emp_branch_name` int(11) DEFAULT NULL,
-  `emp_birthdate` date NOT NULL,
-  `emp_gender` int(11) DEFAULT NULL,
-  `emp_username` varchar(150) NOT NULL,
-  `emp_password` varchar(150) NOT NULL,
-  `emp_permission_type` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- إرجاع أو استيراد بيانات الجدول `employees`
---
-
-INSERT INTO `employees` (`emp_id`, `emp_name`, `emp_phone`, `emp_address`, `emp_health_center`, `emp_branch_name`, `emp_birthdate`, `emp_gender`, `emp_username`, `emp_password`, `emp_permission_type`) VALUES
-(2, 'حسام خالد سعيد علي الزريقي', '772957881', 'تعز - باب موسى', 2, 1, '2002-07-21', 1, 'hussam772', '123456789', 2);
-
--- --------------------------------------------------------
-
---
 -- بنية الجدول `gender`
 --
 
@@ -202,6 +154,20 @@ INSERT INTO `gender` (`gender_id`, `gender_type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- بنية الجدول `hc_accounts`
+--
+
+CREATE TABLE `hc_accounts` (
+  `hca_id` int(11) NOT NULL,
+  `hca_device_name` varchar(150) NOT NULL,
+  `hca_mac_address` varchar(150) NOT NULL,
+  `hca_health_center` int(11) NOT NULL,
+  `join_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- بنية الجدول `health_centers`
 --
 
@@ -211,17 +177,18 @@ CREATE TABLE `health_centers` (
   `hc_phone` varchar(150) NOT NULL,
   `hc_address` varchar(150) NOT NULL,
   `hc_city` int(11) DEFAULT NULL,
-  `hc_directorate` int(11) DEFAULT NULL
+  `hc_directorate` int(11) DEFAULT NULL,
+  `hc_setup_code` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- إرجاع أو استيراد بيانات الجدول `health_centers`
 --
 
-INSERT INTO `health_centers` (`hc_id`, `hc_name`, `hc_phone`, `hc_address`, `hc_city`, `hc_directorate`) VALUES
-(1, 'مستوصف التعاون', '777777777-733333333', 'المسبح - جوار حديقة التعاون', 1, 2),
-(2, 'مستوصف المظفر', '777777777-733333333', 'حي الميدان - جوار مجمع هائل للبنات', 1, 1),
-(3, 'مركز التضامن', '777777777-733333333', 'بيرباشا - جوار نادي الصقر', 1, 1);
+INSERT INTO `health_centers` (`hc_id`, `hc_name`, `hc_phone`, `hc_address`, `hc_city`, `hc_directorate`, `hc_setup_code`) VALUES
+(1, 'مستوصف التعاون', '777777777-733333333', 'المسبح - جوار حديقة التعاون', 1, 2, NULL),
+(2, 'مستوصف المظفر', '777777777-733333333', 'حي الميدان - جوار مجمع هائل للبنات', 1, 1, NULL),
+(3, 'مركز التضامن', '777777777-733333333', 'بيرباشا - جوار نادي الصقر', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -266,7 +233,6 @@ CREATE TABLE `mother_data` (
   `mother_directorate` int(11) DEFAULT NULL,
   `mother_village` varchar(150) NOT NULL,
   `mother_health_center` int(11) DEFAULT NULL,
-  `mother_branch_name` int(11) DEFAULT NULL,
   `mother_password` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -280,7 +246,6 @@ CREATE TABLE `mother_statement` (
   `ms_id` int(11) NOT NULL,
   `ms_mother_name` int(11) DEFAULT NULL,
   `ms_health_center` int(11) DEFAULT NULL,
-  `ms_branch_name` int(11) DEFAULT NULL,
   `ms_emp_name` int(11) DEFAULT NULL,
   `ms_dosage_date` date NOT NULL,
   `ms_dosage_level` int(11) DEFAULT NULL,
@@ -315,7 +280,7 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `order_status` (
-  `oreder_status_id` int(11) NOT NULL,
+  `order_status_id` int(11) NOT NULL,
   `order_status` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -323,7 +288,7 @@ CREATE TABLE `order_status` (
 -- إرجاع أو استيراد بيانات الجدول `order_status`
 --
 
-INSERT INTO `order_status` (`oreder_status_id`, `order_status`) VALUES
+INSERT INTO `order_status` (`order_status_id`, `order_status`) VALUES
 (1, 'صادرة'),
 (2, 'قيد الاستلام'),
 (3, 'تم التسليم'),
@@ -361,6 +326,32 @@ CREATE TABLE `posts` (
   `post_image` text NOT NULL,
   `post_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `users`
+--
+
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
+  `user_name` varchar(150) NOT NULL,
+  `user_phone` varchar(150) NOT NULL,
+  `user_address` varchar(150) NOT NULL,
+  `user_health_center` int(11) DEFAULT NULL,
+  `user_birthdate` date NOT NULL,
+  `user_gender` int(11) DEFAULT NULL,
+  `user_username` varchar(150) NOT NULL,
+  `user_password` varchar(150) NOT NULL,
+  `user_permission_type` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_name`, `user_phone`, `user_address`, `user_health_center`, `user_birthdate`, `user_gender`, `user_username`, `user_password`, `user_permission_type`) VALUES
+(2, 'حسام خالد سعيد علي الزريقي', '772957881', 'تعز - باب موسى', 2, '2002-07-21', 1, 'hussam772', '123456789', 2);
 
 -- --------------------------------------------------------
 
@@ -411,13 +402,6 @@ CREATE TABLE `visit_with_vaccine` (
 --
 
 --
--- Indexes for table `branches`
---
-ALTER TABLE `branches`
-  ADD PRIMARY KEY (`branch_id`),
-  ADD KEY `branch_hc_name` (`branch_hc_name`);
-
---
 -- Indexes for table `center_vax_store`
 --
 ALTER TABLE `center_vax_store`
@@ -435,8 +419,7 @@ ALTER TABLE `child statement`
   ADD KEY `cs_emp_name` (`cs_emp_name`),
   ADD KEY `cs_health_center` (`cs_health_center`),
   ADD KEY `cs_vaccine_type` (`cs_vaccine_type`),
-  ADD KEY `cs_visit_type` (`cs_visit_type`),
-  ADD KEY `cs_branch_name` (`cs_branch_name`);
+  ADD KEY `cs_visit_type` (`cs_visit_type`);
 
 --
 -- Indexes for table `child_data`
@@ -473,20 +456,17 @@ ALTER TABLE `dosage_type`
   ADD PRIMARY KEY (`dt_id`);
 
 --
--- Indexes for table `employees`
---
-ALTER TABLE `employees`
-  ADD PRIMARY KEY (`emp_id`),
-  ADD KEY `emp_gender` (`emp_gender`),
-  ADD KEY `emp_health_center` (`emp_health_center`),
-  ADD KEY `emp_permission_type` (`emp_permission_type`),
-  ADD KEY `employees_ibfk_4` (`emp_branch_name`);
-
---
 -- Indexes for table `gender`
 --
 ALTER TABLE `gender`
   ADD PRIMARY KEY (`gender_id`);
+
+--
+-- Indexes for table `hc_accounts`
+--
+ALTER TABLE `hc_accounts`
+  ADD PRIMARY KEY (`hca_id`),
+  ADD KEY `hca_health_center` (`hca_health_center`);
 
 --
 -- Indexes for table `health_centers`
@@ -517,8 +497,7 @@ ALTER TABLE `mother_data`
   ADD PRIMARY KEY (`mother_id`),
   ADD KEY `mother_city` (`mother_city`),
   ADD KEY `mother_directorate` (`mother_directorate`),
-  ADD KEY `mother_health_center` (`mother_health_center`),
-  ADD KEY `mother_branch_name` (`mother_branch_name`);
+  ADD KEY `mother_health_center` (`mother_health_center`);
 
 --
 -- Indexes for table `mother_statement`
@@ -529,8 +508,7 @@ ALTER TABLE `mother_statement`
   ADD KEY `ms_dosage_type` (`ms_dosage_type`),
   ADD KEY `ms_emp_name` (`ms_emp_name`),
   ADD KEY `ms_health_center` (`ms_health_center`),
-  ADD KEY `ms_mother_name` (`ms_mother_name`),
-  ADD KEY `ms_branch_name` (`ms_branch_name`);
+  ADD KEY `ms_mother_name` (`ms_mother_name`);
 
 --
 -- Indexes for table `orders`
@@ -545,7 +523,7 @@ ALTER TABLE `orders`
 -- Indexes for table `order_status`
 --
 ALTER TABLE `order_status`
-  ADD PRIMARY KEY (`oreder_status_id`);
+  ADD PRIMARY KEY (`order_status_id`);
 
 --
 -- Indexes for table `permission_type`
@@ -558,6 +536,15 @@ ALTER TABLE `permission_type`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`post_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `emp_gender` (`user_gender`),
+  ADD KEY `emp_health_center` (`user_health_center`),
+  ADD KEY `emp_permission_type` (`user_permission_type`);
 
 --
 -- Indexes for table `vaccine_type`
@@ -588,12 +575,6 @@ ALTER TABLE `visit_with_vaccine`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `branches`
---
-ALTER TABLE `branches`
-  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `center_vax_store`
@@ -638,16 +619,16 @@ ALTER TABLE `dosage_type`
   MODIFY `dt_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `employees`
---
-ALTER TABLE `employees`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `gender`
 --
 ALTER TABLE `gender`
   MODIFY `gender_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `hc_accounts`
+--
+ALTER TABLE `hc_accounts`
+  MODIFY `hca_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `health_centers`
@@ -689,7 +670,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `order_status`
 --
 ALTER TABLE `order_status`
-  MODIFY `oreder_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `permission_type`
@@ -702,6 +683,12 @@ ALTER TABLE `permission_type`
 --
 ALTER TABLE `posts`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `vaccine_type`
@@ -720,12 +707,6 @@ ALTER TABLE `visit_type`
 --
 
 --
--- قيود الجداول `branches`
---
-ALTER TABLE `branches`
-  ADD CONSTRAINT `branches_ibfk_1` FOREIGN KEY (`branch_hc_name`) REFERENCES `health_centers` (`hc_id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
 -- قيود الجداول `center_vax_store`
 --
 ALTER TABLE `center_vax_store`
@@ -738,11 +719,10 @@ ALTER TABLE `center_vax_store`
 ALTER TABLE `child statement`
   ADD CONSTRAINT `child statement_ibfk_1` FOREIGN KEY (`cs_child_name`) REFERENCES `child_data` (`child_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `child statement_ibfk_2` FOREIGN KEY (`cs_dosage_type`) REFERENCES `dosage_type` (`dt_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `child statement_ibfk_3` FOREIGN KEY (`cs_emp_name`) REFERENCES `employees` (`emp_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `child statement_ibfk_3` FOREIGN KEY (`cs_emp_name`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `child statement_ibfk_4` FOREIGN KEY (`cs_health_center`) REFERENCES `health_centers` (`hc_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `child statement_ibfk_5` FOREIGN KEY (`cs_vaccine_type`) REFERENCES `vaccine_type` (`vactype_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `child statement_ibfk_6` FOREIGN KEY (`cs_visit_type`) REFERENCES `visit_type` (`vt_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `child statement_ibfk_7` FOREIGN KEY (`cs_branch_name`) REFERENCES `branches` (`branch_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `child statement_ibfk_6` FOREIGN KEY (`cs_visit_type`) REFERENCES `visit_type` (`vt_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- قيود الجداول `child_data`
@@ -764,13 +744,10 @@ ALTER TABLE `dosage_levels`
   ADD CONSTRAINT `dosage_levels_ibfk_1` FOREIGN KEY (`dl_dosage_type`) REFERENCES `dosage_type` (`dt_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- قيود الجداول `employees`
+-- قيود الجداول `hc_accounts`
 --
-ALTER TABLE `employees`
-  ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`emp_gender`) REFERENCES `gender` (`gender_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `employees_ibfk_2` FOREIGN KEY (`emp_health_center`) REFERENCES `health_centers` (`hc_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `employees_ibfk_3` FOREIGN KEY (`emp_permission_type`) REFERENCES `permission_type` (`pt_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `employees_ibfk_4` FOREIGN KEY (`emp_branch_name`) REFERENCES `branches` (`branch_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `hc_accounts`
+  ADD CONSTRAINT `hc_accounts_ibfk_1` FOREIGN KEY (`hca_health_center`) REFERENCES `health_centers` (`hc_id`) ON UPDATE CASCADE;
 
 --
 -- قيود الجداول `health_centers`
@@ -797,8 +774,7 @@ ALTER TABLE `ministry_vax_store_statement`
 ALTER TABLE `mother_data`
   ADD CONSTRAINT `mother_data_ibfk_1` FOREIGN KEY (`mother_city`) REFERENCES `cities` (`city_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `mother_data_ibfk_2` FOREIGN KEY (`mother_directorate`) REFERENCES `directorates` (`directorate_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `mother_data_ibfk_3` FOREIGN KEY (`mother_health_center`) REFERENCES `health_centers` (`hc_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `mother_data_ibfk_5` FOREIGN KEY (`mother_branch_name`) REFERENCES `branches` (`branch_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `mother_data_ibfk_3` FOREIGN KEY (`mother_health_center`) REFERENCES `health_centers` (`hc_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- قيود الجداول `mother_statement`
@@ -806,10 +782,9 @@ ALTER TABLE `mother_data`
 ALTER TABLE `mother_statement`
   ADD CONSTRAINT `mother_statement_ibfk_1` FOREIGN KEY (`ms_dosage_level`) REFERENCES `dosage_levels` (`dl_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `mother_statement_ibfk_2` FOREIGN KEY (`ms_dosage_type`) REFERENCES `dosage_type` (`dt_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `mother_statement_ibfk_3` FOREIGN KEY (`ms_emp_name`) REFERENCES `employees` (`emp_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `mother_statement_ibfk_3` FOREIGN KEY (`ms_emp_name`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `mother_statement_ibfk_4` FOREIGN KEY (`ms_health_center`) REFERENCES `health_centers` (`hc_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `mother_statement_ibfk_5` FOREIGN KEY (`ms_mother_name`) REFERENCES `mother_data` (`mother_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `mother_statement_ibfk_6` FOREIGN KEY (`ms_branch_name`) REFERENCES `branches` (`branch_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `mother_statement_ibfk_5` FOREIGN KEY (`ms_mother_name`) REFERENCES `mother_data` (`mother_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- قيود الجداول `orders`
@@ -817,7 +792,15 @@ ALTER TABLE `mother_statement`
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`health_center`) REFERENCES `health_centers` (`hc_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`vactype_type`) REFERENCES `vaccine_type` (`vactype_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`oreder_status_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`order_status`) REFERENCES `order_status` (`order_status_id`) ON UPDATE CASCADE;
+
+--
+-- قيود الجداول `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`user_gender`) REFERENCES `gender` (`gender_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`user_health_center`) REFERENCES `health_centers` (`hc_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`user_permission_type`) REFERENCES `permission_type` (`pt_id`) ON UPDATE CASCADE;
 
 --
 -- قيود الجداول `vaccine_with_dosage`
