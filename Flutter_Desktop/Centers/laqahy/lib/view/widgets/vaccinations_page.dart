@@ -36,45 +36,38 @@ class _VaccinationsPageState extends State<VaccinationsPage> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            myButton(
-              onPressed: () {},
-              text: 'إضــافــة جــرحــة جــديــدة',
-              textStyle: MyTextStyles.font16WhiteBold,
-              width: 200,
-            ),
             const SizedBox(
               height: 25,
             ),
             Row(
               children: [
                 Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'نــوع اللــقــاح',
-                  style: MyTextStyles.font16BlackBold,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                GetBuilder<MotherVisitController>(
-                  builder: (controller) {
-                    return myDropDownMenuButton(
-                      width: 250,
-                      hintText: 'إختــر نــوع اللــقــاح',
-                      items: controller.dosageLevels,
-                      onChanged: (String? value) {
-                        controller.changeDosageLevelSelectedValue(value!);
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'نــوع اللــقــاح',
+                      style: MyTextStyles.font16BlackBold,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GetBuilder<MotherVisitController>(
+                      builder: (controller) {
+                        return myDropDownMenuButton(
+                          width: 250,
+                          hintText: 'إختــر نــوع اللــقــاح',
+                          items: controller.dosageLevels,
+                          onChanged: (String? value) {
+                            controller.changeDosageLevelSelectedValue(value!);
+                          },
+                          searchController:
+                              controller.dosageLevelSearchController.value,
+                          selectedValue: controller.dosageLevelSelectedValue,
+                        );
                       },
-                      searchController:
-                          controller.dosageLevelSearchController.value,
-                      selectedValue: controller.dosageLevelSelectedValue,
-                    );
-                  },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            
                 const SizedBox(
                   width: 20,
                 ),

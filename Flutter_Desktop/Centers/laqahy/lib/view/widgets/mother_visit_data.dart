@@ -42,7 +42,7 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                     height: 10,
                   ),
                   myTextField(
-                    prefixIcon: Icons.woman,
+                    prefixIcon: Icons.woman_2_outlined,
                     width: 300,
                     hintText: 'اســم الأم',
                     keyboardType: TextInputType.text,
