@@ -315,10 +315,16 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                           () {
                             if (hlc.choose.value == 'الرئيسية') {
                               return const HomeScreen();
-                            } else if (hlc.choose.value == 'الموظفين') {
+                            } else if (hlc.choose.value == 'المستخدمين') {
                               return const UsersScreen();
-                            } else if (hlc.choose.value == 'الطلبات') {
+                            }else if (hlc.choose.value == 'اللقاحات') {
+                              return const SizedBox();
+                            }else if (hlc.choose.value == 'الطلبات') {
                               return const OrdersLayout();
+                            }else if (hlc.choose.value == 'الإعلانات') {
+                              return const SizedBox();
+                            }else if (hlc.choose.value == 'التقارير') {
+                              return const SizedBox();
                             } else if (hlc.choose.value == 'حول النظام') {
                               return const SystemInfoScreen();
                             } else if (hlc.choose.value == 'الدعم الفني') {

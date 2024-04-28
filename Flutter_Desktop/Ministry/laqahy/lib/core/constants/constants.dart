@@ -11,28 +11,28 @@ class Constants {
     ),
     HomeLayoutListItem(
       imageName: 'assets/icons/emp-gr.png',
-      label: 'الموظفين',
+      label: 'المستخدمين',
       imageNameFocused: 'assets/icons/emp-wh.png',
     ),
     HomeLayoutListItem(
-      imageName: 'assets/icons/status-gr.png',
-      label: 'الحالات',
-      imageNameFocused: 'assets/icons/status-wh.png',
-    ),
-    HomeLayoutListItem(
-      imageName: 'assets/icons/visits-gr.png',
-      label: 'الزيارات',
-      imageNameFocused: 'assets/icons/visits-wh.png',
-    ),
-    HomeLayoutListItem(
-      imageName: 'assets/icons/vaccine-gr.png',
+      imageName: 'assets/icons/vaccines-gr.png',
       label: 'اللقاحات',
-      imageNameFocused: 'assets/icons/vaccine-wh.png',
+      imageNameFocused: 'assets/icons/vaccines-wh.png',
     ),
     HomeLayoutListItem(
       imageName: 'assets/icons/order-gr.png',
       label: 'الطلبات',
       imageNameFocused: 'assets/icons/order-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/posts-gr.png',
+      label: 'الإعلانات',
+      imageNameFocused: 'assets/icons/posts-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/reports-gr.png',
+      label: 'التقارير',
+      imageNameFocused: 'assets/icons/reports-wh.png',
     ),
     HomeLayoutListItem(
       imageName: 'assets/icons/info-gr.png',

@@ -458,7 +458,7 @@ myHomeCards({
   required int value,
 }) {
   return Container(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
       color: Colors.white,
       border: Border.all(
@@ -477,7 +477,7 @@ myHomeCards({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: MyColors.primaryColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
@@ -488,7 +488,7 @@ myHomeCards({
             width: 40,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Expanded(
@@ -502,7 +502,7 @@ myHomeCards({
                   style: MyTextStyles.font16BlackBold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Expanded(

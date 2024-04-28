@@ -21,8 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return GridView.builder(
       shrinkWrap: true,
       itemCount: hc.homeCardItems.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
+        mainAxisSpacing: 20,
         crossAxisSpacing: 20,
         mainAxisExtent: 180,
       ),
