@@ -120,15 +120,11 @@ class _StatusLayoutState extends State<StatusLayout> {
               height: 50,
             ),
             Obx(() {
-              return Column(
-                children: [
-                  vlc.visitChange.value == 'm'
-                      ? MotherStatusData()
-                      : vlc.visitChange.value == 'c'
-                          ? ChildStatusData()
-                          : SizedBox(),
-                ],
-              );
+              return vlc.visitChange.value == 'm'
+                  ? MotherStatusData()
+                  : vlc.visitChange.value == 'c'
+                      ? ChildStatusData()
+                      : SizedBox();
             }),
           ],
         ),

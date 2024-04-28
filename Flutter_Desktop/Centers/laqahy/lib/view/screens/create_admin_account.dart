@@ -6,13 +6,10 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/create_admin_account_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'package:laqahy/view/layouts/home_layout.dart';
-import 'package:laqahy/view/screens/create_account.dart';
 import 'package:laqahy/view/screens/welcome.dart';
 import 'package:laqahy/view/widgets/admin_verification.dart';
 import 'package:window_manager/window_manager.dart';
 import '../widgets/basic_widgets/basic_widgets.dart';
-import '../widgets/icons/my_flutter_app_icons.dart';
 
 class CreateAdminAccount extends StatefulWidget {
   const CreateAdminAccount({super.key});
@@ -192,17 +189,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         text: 'إنشــاء حســـاب المســؤول',
                         textStyle: MyTextStyles.font16WhiteBold,
                       ),
-                      // SizedBox(
-                      //   width: 15,
-                      // ),
-                      // myButton(
-                      //   onPressed: () {
-                      //     Get.off(WelcomeScreen());
-                      //   },
-                      //   text: 'إلغــاء الأمـــر',
-                      //   textStyle: MyTextStyles.font16WhiteBold,
-                      //   backgroundColor: MyColors.greyColor,
-                      // ),
+                    
                     ],
                   ),
                 ],

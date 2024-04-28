@@ -189,17 +189,6 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         text: 'إنشــاء حســـاب المســؤول',
                         textStyle: MyTextStyles.font16WhiteBold,
                       ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      myButton(
-                        onPressed: () {
-                          Get.off(WelcomeScreen());
-                        },
-                        text: 'إلغــاء الأمـــر',
-                        textStyle: MyTextStyles.font16WhiteBold,
-                        backgroundColor: MyColors.greyColor,
-                      ),
                     ],
                   ),
                 ],

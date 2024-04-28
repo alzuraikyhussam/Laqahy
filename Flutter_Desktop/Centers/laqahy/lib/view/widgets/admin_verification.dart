@@ -5,7 +5,6 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:window_manager/window_manager.dart';
 
 class AdminVerification extends StatefulWidget {
   const AdminVerification({super.key});

@@ -228,30 +228,6 @@ class StateDetails extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                '  اسم الفرع  :',
-                                style: MyTextStyles.font14BlackBold,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                ' الرئيسي ',
-                                style: MyTextStyles.font14GreyBold,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const SizedBox(
-                            width: 100,
-                          ),
                         ],
                       ),
                     ],

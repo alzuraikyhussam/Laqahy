@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomeLayoutListItem {
   // static List listMain = [
@@ -38,9 +39,45 @@ class HomeCards {
 }
 
 class UserData {
+  int? id;
   String? name;
-  int? phone;
-  int? age;
+  String? gender;
+  dynamic birthDate;
+  String? permission;
+  String? phoneNumber;
+  String? username;
+  String? password;
+  String? address;
+  String? healthCenter;
 
-  UserData({required this.name, required this.phone, required this.age});
+  UserData({
+    required this.id,
+    required this.name,
+    required this.username,
+    required this.password,
+    required this.birthDate,
+    required this.gender,
+    required this.phoneNumber,
+    required this.permission,
+    required this.address,
+    this.healthCenter,
+  });
+}
+
+class MotherVisitData {
+  int? id;
+  String? dosageType;
+  String? fullUserName;
+  String? healthCenter;
+  dynamic dosageDate;
+  dynamic returnDate;
+
+  MotherVisitData({
+    this.id,
+    required this.dosageType,
+    required this.fullUserName,
+    required this.healthCenter,
+    required this.dosageDate,
+    required this.returnDate,
+  });
 }

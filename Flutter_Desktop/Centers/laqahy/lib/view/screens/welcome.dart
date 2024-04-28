@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/create_account.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/install_verification.dart';
@@ -99,26 +97,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     myButton(
                       width: 150,
                       onPressed: () {
-                        // Get.off(LoginScreen());
-                        myShowDialog(
-                            context: context,
-                            widgetName: InstallVerification());
+                        Get.off(LoginScreen());
                       },
                       text: 'تسجيـل دخـول',
                       textStyle: MyTextStyles.font16WhiteBold,
                     ),
-                    // SizedBox(
-                    //   width: 15,
-                    // ),
-                    // myButton(
-                    //   width: 150,
-                    //   backgroundColor: MyColors.greyColor,
-                    //   onPressed: () {
-                    //     Get.off(CreateAccountScreen());
-                    //   },
-                    //   text: 'إنشـاء حسـاب',
-                    //   textStyle: MyTextStyles.font16WhiteBold,
-                    // ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    myButton(
+                      width: 180,
+                      backgroundColor: MyColors.greyColor,
+                      onPressed: () {
+                        myShowDialog(
+                            context: context,
+                            widgetName: InstallVerification());
+                      },
+                      text: 'إنشـاء حسـاب مـركز',
+                      textStyle: MyTextStyles.font16WhiteBold,
+                    ),
                   ],
                 ),
               ],

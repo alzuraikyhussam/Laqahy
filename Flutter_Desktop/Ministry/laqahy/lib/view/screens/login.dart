@@ -64,7 +64,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         Get.off(WelcomeScreen());
                       },
                     ),
-                    exitButton(),
                   ],
                 ),
                 SizedBox(
@@ -81,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 250,
                   child: Text(
                     'أدخل اسم المستخدم وكلمة المرور لتسجيل الدخول.',
-                    style: MyTextStyles.font14BlackBold,
+                    style: MyTextStyles.font16BlackBold,
                   ),
                 ),
                 SizedBox(

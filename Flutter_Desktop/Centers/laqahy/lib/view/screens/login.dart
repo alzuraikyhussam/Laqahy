@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/layouts/home_layout.dart';
 import 'package:laqahy/view/screens/welcome.dart';
 import 'package:laqahy/view/widgets/admin_verification.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -61,12 +59,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     myAppBarLogo(),
-                    // goBackButton(
-                    //   onTap: () {
-                    //     Get.off(WelcomeScreen());
-                    //   },
-                    // ),
-                    exitButton(),
+                    goBackButton(
+                      onTap: () {
+                        Get.off(WelcomeScreen());
+                      },
+                    ),
+                    // exitButton(),
                   ],
                 ),
                 SizedBox(
@@ -83,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 250,
                   child: Text(
                     'أدخل اسم المستخدم وكلمة المرور لتسجيل الدخول.',
-                    style: MyTextStyles.font14BlackBold,
+                    style: MyTextStyles.font16BlackBold,
                   ),
                 ),
                 SizedBox(

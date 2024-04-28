@@ -311,8 +311,8 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                     Expanded(
                       child: Padding(
                         padding: hlc.choose.value == 'الرئيسية'
-                            ? EdgeInsets.all(30)
-                            : EdgeInsetsDirectional.only(
+                            ? const EdgeInsets.all(30)
+                            : const EdgeInsetsDirectional.only(
                                 top: 30,
                                 bottom: 0,
                                 end: 30,
@@ -335,7 +335,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             } else if (hlc.choose.value == 'حول النظام') {
                               return const SystemInfoScreen();
                             } else if (hlc.choose.value == 'الدعم الفني') {
-                              return TechnicalSupport();
+                              return const TechnicalSupport();
                             } else {
                               return const SizedBox();
                             }

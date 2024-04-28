@@ -81,10 +81,12 @@ myTextField({
   int? maxLines,
   Color? fillColor,
   TextAlign textAlign = TextAlign.start,
+  void Function()? onTap,
 }) {
   return SizedBox(
     width: width?.toDouble(),
     child: TextFormField(
+      onTap: onTap,
       controller: controller,
       cursorColor: MyColors.primaryColor.withOpacity(0.7),
       keyboardType: keyboardType,
@@ -420,11 +422,14 @@ myIconButton({
   required IconData? icon,
   required void Function()? onTap,
   required List<Color> gradientColors,
+  EdgeInsetsGeometry? padding = const EdgeInsets.all(10),
+  double borderRadius = 10,
+  double iconSize = 25,
 }) {
   return InkWell(
     onTap: onTap,
     child: Container(
-      padding: EdgeInsets.all(10),
+      padding: padding,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: gradientColors,
@@ -439,12 +444,12 @@ myIconButton({
             spreadRadius: 0,
           ),
         ],
-        borderRadius: BorderRadiusDirectional.circular(10),
+        borderRadius: BorderRadiusDirectional.circular(borderRadius.toDouble()),
       ),
       child: Icon(
         icon,
         color: MyColors.whiteColor,
-        size: 25,
+        size: iconSize.toDouble(),
       ),
     ),
   );
@@ -899,92 +904,3 @@ myOrdersItem({
     child: content,
   );
 }
-
-
-// myDropDownButton({
-//   required double? width,
-//   required List<String>? items,
-//   String? selectedValue,
-//   IconData? buttonIcon,
-//   double? buttonIconSize,
-//   Color? buttonIconColor,
-//   required void Function(String?)? onChanged,
-//   IconData? iconStyleData,
-//   double? iconStyleDataSize,
-//   double? dropdownStyleDataWdith,
-//   double? menuItemStyleDataHight,
-// }) {
-//   Container(
-//     margin: const EdgeInsets.only(left: 20, top: 3),
-//     width: width?.toDouble(),
-//     child: DropdownButtonHideUnderline(
-//       child: DropdownButton2<String>(
-//         isExpanded: true,
-//         hint: Row(
-//           children: [
-//             Icon(
-//               buttonIcon,
-//               size: 16,
-//               color: buttonIconColor,
-//             ),
-//             SizedBox(
-//               width: 4,
-//             ),
-//           ],
-//         ),
-//         items: items!
-//             .map(
-//               (String item) => DropdownMenuItem<String>(
-//                 value: item,
-//                 child: Text(
-//                   item,
-//                   style: MyTextStyles.font14BlackBold,
-//                   overflow: TextOverflow.ellipsis,
-//                 ),
-//               ),
-//             )
-//             .toList(),
-//         value: selectedValue,
-//         onChanged: onChanged,
-//         buttonStyleData: ButtonStyleData(
-//           height: 50,
-//           width: 160,
-//           padding: const EdgeInsets.only(left: 14, right: 14),
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//             border: Border.all(color: MyColors.greyColor.withOpacity(0.3)),
-//             color: MyColors.whiteColor,
-//           ),
-//           elevation: 0,
-//         ),
-//         iconStyleData: IconStyleData (
-//           icon:  Icon(
-//             iconStyleData,
-//           ) ,
-
-//           iconSize: iconStyleDataSize!,
-//           iconEnabledColor: MyColors.greyColor,
-//           iconDisabledColor: MyColors.greyColor,
-//         ),
-//         dropdownStyleData: DropdownStyleData(
-//           maxHeight: 150,
-//           width: 150,
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//             color: MyColors.whiteColor,
-//           ),
-//           // offset: const Offset(-29, 0),
-//           scrollbarTheme: ScrollbarThemeData(
-//             radius: const Radius.circular(40),
-//             thickness: MaterialStateProperty.all<double>(6),
-//             thumbVisibility: MaterialStateProperty.all<bool>(true),
-//           ),
-//         ),
-//         menuItemStyleData: MenuItemStyleData(
-//           height: menuItemStyleDataHight!,
-//           padding: const EdgeInsets.only(left: 14, right: 14),
-//         ),
-//       ),
-//     ),
-//   );
-// }

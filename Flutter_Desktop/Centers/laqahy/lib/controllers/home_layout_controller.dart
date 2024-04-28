@@ -24,6 +24,7 @@ class HomeLayoutController extends GetxController {
       image: 'assets/images/logout-image.png',
       text: 'هل انت متأكد من عملية تسجيل الخروج من حسابك؟',
       onConfirmBtnTap: () {
+        choose.value = 'الرئيسية';
         Get.offAll(LoginScreen());
       },
       onCancelBtnTap: () {
@@ -36,7 +37,6 @@ class HomeLayoutController extends GetxController {
     );
   }
 
-  
   onTapMinimize() {
     appWindow.minimize();
   }

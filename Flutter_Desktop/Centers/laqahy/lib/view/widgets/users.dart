@@ -1,14 +1,16 @@
+import 'dart:developer';
+
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/users_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/model.dart';
-import 'package:laqahy/view/widgets/add_user.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/data_table_source.dart';
+import 'package:laqahy/view/widgets/user_data_table.dart';
 import 'package:laqahy/view/widgets/successfully_add_state.dart';
 
 class UsersScreen extends StatefulWidget {
@@ -19,125 +21,176 @@ class UsersScreen extends StatefulWidget {
 }
 
 class _UsersScreenState extends State<UsersScreen> {
-  List<UserData> myEmpData = [
-    UserData(name: "خالد", phone: 09876543, age: 28),
-    UserData(name: "الياس", phone: 6464646, age: 30),
-    UserData(name: "اسماعيل", phone: 987654556, age: 23),
-    UserData(name: "اوسان", phone: 46464664, age: 24),
-    UserData(name: "شفيع", phone: 5353535, age: 36),
-    UserData(name: "حسام", phone: 8888, age: 32),
-    UserData(name: "مروان", phone: 3333333, age: 33),
-    UserData(name: "خالد", phone: 09876543, age: 28),
-    UserData(name: "الياس", phone: 6464646, age: 30),
-    UserData(name: "اسماعيل", phone: 987654556, age: 23),
-    UserData(name: "اوسان", phone: 46464664, age: 24),
-    UserData(name: "شفيع", phone: 5353535, age: 36),
-    UserData(name: "حسام", phone: 8888, age: 32),
-    UserData(name: "مروان", phone: 3333333, age: 33),
-    UserData(name: "خالد", phone: 09876543, age: 28),
-    UserData(name: "الياس", phone: 6464646, age: 30),
-    UserData(name: "اسماعيل", phone: 987654556, age: 23),
-    UserData(name: "اوسان", phone: 46464664, age: 24),
-    UserData(name: "شفيع", phone: 5353535, age: 36),
-    UserData(name: "حسام", phone: 8888, age: 32),
-    UserData(name: "مروان", phone: 3333333, age: 33),
-  ];
-
-  List<UserData>? filterData;
-  bool sort = true;
-  TextEditingController controller = TextEditingController();
-
-  onsortColum(int columnIndex, bool ascending) {
-    if (columnIndex == 0) {
-      if (ascending) {
-        filterData!.sort((a, b) => a.name!.compareTo(b.name!));
-      } else {
-        filterData!.sort((a, b) => b.name!.compareTo(a.name!));
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    filterData = myEmpData;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    UsersController uc = Get.put(UsersController());
+
     return Container(
       padding: const EdgeInsetsDirectional.only(
-        // end: 30,
         bottom: 50,
       ),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
-      child: PaginatedDataTable2(
-        autoRowsToHeight: true,
-        headingRowColor: MaterialStatePropertyAll(MyColors.primaryColor),
-        // sortColumnIndex: 0,
-        // sortAscending: sort,
-        showFirstLastButtons: true,
-        headingRowDecoration: BoxDecoration(
-            borderRadius: BorderRadiusDirectional.only(
-                topStart: Radius.circular(10), topEnd: Radius.circular(10))),
-        actions: [
-          myButton(
-            onPressed: () {
-              myShowDialog(
-                  context: context, widgetName: SuccessfullyAddState());
-            },
-            text: 'إضــافة مـوظــف جـديــد',
-            textStyle: MyTextStyles.font16WhiteBold,
-          ),
-        ],
-        header: myTextField(
-          hintText: 'اكتــب هنــا للبحـــث',
-          prefixIcon: Icons.search,
-          controller: controller,
-          keyboardType: TextInputType.text,
-          onChanged: (value) {
-            setState(() {
-              myEmpData = filterData!
-                  .where((element) => element.name!.contains(value))
-                  .toList();
-            });
-          },
-        ),
-        source: RowSource(
-          myData: myEmpData,
-          count: myEmpData.length,
-        ),
-        rowsPerPage: 8,
-        columnSpacing: 8,
-        columns: [
-          DataColumn(
-            label: Text(
-              "الاســــم",
-              style: MyTextStyles.font16WhiteBold,
+      child: Obx(
+        () {
+          return PaginatedDataTable2(
+            autoRowsToHeight: true,
+            empty: Center(
+              child: Container(
+                alignment: AlignmentDirectional.center,
+                child: SvgPicture.asset('assets/images/No data.svg'),
+              ),
             ),
-            // onSort: (columnIndex, ascending) {
-            //   setState(() {
-            //     sort = !sort;
-            //   });
-            //   onsortColum(columnIndex, ascending);
-            // },
-          ),
-          DataColumn(
-            label: Text(
-              "رقم الجـــوال",
-              style: MyTextStyles.font16WhiteBold,
+            horizontalMargin: 15,
+            headingRowColor: MaterialStatePropertyAll(MyColors.primaryColor),
+            sortColumnIndex: 1,
+            sortAscending: uc.sort.value,
+            showFirstLastButtons: true,
+            columnSpacing: 5,
+            // rowsPerPage: 8,
+            headingRowDecoration: BoxDecoration(
+              borderRadius: BorderRadiusDirectional.only(
+                topStart: Radius.circular(10),
+                topEnd: Radius.circular(10),
+              ),
             ),
-          ),
-          DataColumn(
-            label: Text(
-              "العمـــر",
-              style: MyTextStyles.font16WhiteBold,
+            header: Container(
+              width: double.infinity,
+              // padding: EdgeInsetsDirectional.all(5),
+              child: myTextField(
+                onTap: () {},
+                hintText: 'اكتــب هنــا للبحـــث',
+                prefixIcon: Icons.search,
+                controller: uc.userSearchController,
+                keyboardType: TextInputType.text,
+                onChanged: uc.filterUserData,
+              ),
             ),
-          ),
-        ],
+            columns: [
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "م",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                fixedWidth: 40,
+                // numeric: true,
+              ),
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "اسـم المـوظـف",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                onSort: (columnIndex, ascending) {
+                  uc.sort.value = ascending;
+                  uc.onSortColum(columnIndex, ascending);
+                },
+                fixedWidth: 220,
+              ),
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "الجنـس",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                fixedWidth: 50,
+              ),
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "تاريـخ الميـلاد",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                fixedWidth: 120,
+              ),
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "الصـلاحيـة",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                fixedWidth: 60,
+              ),
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "رقـم الجـوال",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                fixedWidth: 100,
+              ),
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "اسـم المستخـدم",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                fixedWidth: 130,
+              ),
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "كلمـة المـرور",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                fixedWidth: 130,
+              ),
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "العنـوان",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                // fixedWidth: 180,
+              ),
+              DataColumn2(
+                label: Container(
+                  alignment: AlignmentDirectional.center,
+                  child: Text(
+                    "العمليـات",
+                    style: MyTextStyles.font14WhiteBold,
+                  ),
+                ),
+                fixedWidth: 100,
+              ),
+            ],
+            source: UserRowSource(
+              myData: uc.myUserFilteredData,
+              count: uc.myUserFilteredData.length,
+            ),
+            actions: [
+              myButton(
+                onPressed: () {
+                  myShowDialog(
+                      context: context, widgetName: SuccessfullyAddState());
+                },
+                text: 'إضــافة مـوظــف جـديــد',
+                textStyle: MyTextStyles.font16WhiteBold,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

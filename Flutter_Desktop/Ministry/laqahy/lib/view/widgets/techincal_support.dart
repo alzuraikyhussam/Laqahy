@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,140 +28,144 @@ class TechnicalSupport extends StatelessWidget {
             width: 600,
           ),
         ),
-        Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'تواصــــل معــــــنا',
-                      style: MyTextStyles.font18PrimaryBold,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          ' هل لديك سؤال؟',
-                          style: MyTextStyles.font16GreyBold,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          ' نحن سعداء بتواصلك معنا.',
-                          style: MyTextStyles.font16GreyBold,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'الاســـم الكـــامــل',
-                          style: MyTextStyles.font16BlackBold,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        myTextField(
-                          width: 400,
-                          prefixIcon: Icons.person_2_outlined,
-                          hintText: 'الاسـم الكامــل',
-                          keyboardType: TextInputType.text,
-                          onChanged: (String) {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'البريــد الإلـكتــروني',
-                          style: MyTextStyles.font16BlackBold,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        myTextField(
-                          width: 400,
-                          prefixIcon: Icons.email_outlined,
-                          hintText: 'بريدك الإلكــتروني',
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged: (String) {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'نــص الـرســالـة',
-                          style: MyTextStyles.font16BlackBold,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        myTextField(
-                          width: 400,
-                          maxLines: 3,
-                          maxLength: 150,
-                          prefixIcon: Icons.message_outlined,
-                          hintText: 'اكتب رسالتك هنـــا',
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged: (String) {},
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        myButton(
-                          onPressed: () {
-                            myShowDialog(context: context, widgetName: SendSupportSuccessfully());
-                          },
-                          text: 'إرســــــال',
-                          textStyle: MyTextStyles.font16WhiteBold,
-                          width: 130,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        myButton(
-                          onPressed: () {
-                            hlc.changeChoose(
-                              'الرئيسية',
-                            );
-                          },
-                          text: 'خـــروج',
-                          textStyle: MyTextStyles.font16WhiteBold,
-                          width: 130,
-                          backgroundColor: MyColors.greyColor,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+        SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'تواصــــل معــــــنا',
+                        style: MyTextStyles.font18PrimaryBold,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            ' هل لديك سؤال؟',
+                            style: MyTextStyles.font16GreyBold,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            ' نحن سعداء بتواصلك معنا.',
+                            style: MyTextStyles.font16GreyBold,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'الاســـم الكـــامــل',
+                            style: MyTextStyles.font16BlackBold,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          myTextField(
+                            width: 400,
+                            prefixIcon: Icons.person_2_outlined,
+                            hintText: 'الاسـم الكامــل',
+                            keyboardType: TextInputType.text,
+                            onChanged: (String) {},
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'البريــد الإلـكتــروني',
+                            style: MyTextStyles.font16BlackBold,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          myTextField(
+                            width: 400,
+                            prefixIcon: Icons.email_outlined,
+                            hintText: 'بريدك الإلكــتروني',
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (String) {},
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'نــص الـرســالـة',
+                            style: MyTextStyles.font16BlackBold,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          myTextField(
+                            width: 400,
+                            maxLines: 3,
+                            maxLength: 150,
+                            prefixIcon: Icons.message_outlined,
+                            hintText: 'اكتب رسالتك هنـــا',
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (String) {},
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          myButton(
+                            onPressed: () {
+                              myShowDialog(
+                                  context: context,
+                                  widgetName: SendSupportSuccessfully());
+                            },
+                            text: 'إرســــــال',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                            width: 130,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          myButton(
+                            onPressed: () {
+                              hlc.changeChoose(
+                                'الرئيسية',
+                              );
+                            },
+                            text: 'خـــروج',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                            width: 130,
+                            backgroundColor: MyColors.greyColor,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );
