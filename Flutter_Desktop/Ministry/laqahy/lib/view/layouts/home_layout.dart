@@ -15,6 +15,8 @@ import 'package:laqahy/view/widgets/system_info.dart';
 import 'package:laqahy/view/widgets/techincal_support.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../widgets/vaccines_page.dart';
+
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
 
@@ -304,8 +306,8 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                     Expanded(
                       child: Padding(
                         padding: hlc.choose.value == 'الرئيسية'
-                            ? EdgeInsets.all(30)
-                            : EdgeInsetsDirectional.only(
+                            ? const EdgeInsets.all(30)
+                            : const EdgeInsetsDirectional.only(
                                 top: 30,
                                 bottom: 0,
                                 end: 30,
@@ -318,7 +320,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             } else if (hlc.choose.value == 'المستخدمين') {
                               return const UsersScreen();
                             }else if (hlc.choose.value == 'اللقاحات') {
-                              return const SizedBox();
+                              return const VaccinesScreen();
                             }else if (hlc.choose.value == 'الطلبات') {
                               return const OrdersLayout();
                             }else if (hlc.choose.value == 'الإعلانات') {

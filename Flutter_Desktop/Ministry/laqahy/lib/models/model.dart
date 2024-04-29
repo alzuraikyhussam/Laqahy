@@ -25,13 +25,28 @@ class HomeLayoutListItem {
   });
 }
 
-class HomeCards {
+class HomeCard {
   String imageName;
   String title;
   int value;
 
-  HomeCards({
+  HomeCard({
     required this.imageName,
+    required this.title,
+    required this.value,
+  });
+}
+
+class VaccinesData {
+  String imageName;
+  String icon;
+  String title;
+  int value;
+
+
+  VaccinesData({
+    required this.imageName,
+    required this.icon,
     required this.title,
     required this.value,
   });

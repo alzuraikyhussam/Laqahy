@@ -7,6 +7,8 @@ import 'package:laqahy/models/model.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/data_table_source.dart';
 
+import 'add_user.dart';
+
 class UsersScreen extends StatefulWidget {
   const UsersScreen({super.key});
 
@@ -67,8 +69,8 @@ class _UsersScreenState extends State<UsersScreen> {
         bottom: 50,
       ),
       width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: PaginatedDataTable2(
         autoRowsToHeight: true,
@@ -76,14 +78,14 @@ class _UsersScreenState extends State<UsersScreen> {
         // sortColumnIndex: 0,
         // sortAscending: sort,
         showFirstLastButtons: true,
-        headingRowDecoration: BoxDecoration(
+        headingRowDecoration: const BoxDecoration(
             borderRadius: BorderRadiusDirectional.only(
                 topStart: Radius.circular(10), topEnd: Radius.circular(10))),
         actions: [
           myButton(
             onPressed: () {
-              // myShowDialog(
-              //     context: context, widgetName: SuccessfullyAddState());
+              myShowDialog(
+                  context: context, widgetName: const AddUser());
             },
             text: 'إضـافة مستخــدم جـديـد',
             textStyle: MyTextStyles.font16WhiteBold,

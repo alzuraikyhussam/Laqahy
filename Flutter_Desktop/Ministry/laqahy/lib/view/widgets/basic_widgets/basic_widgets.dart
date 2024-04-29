@@ -11,6 +11,7 @@ import 'package:msh_checkbox/msh_checkbox.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+
 myButton({
   required void Function()? onPressed,
   required String text,
@@ -82,9 +83,7 @@ myTextField({
   String? initialValue,
 }) {
   return SizedBox(
-    
     width: width?.toDouble(),
-    
     child: TextFormField(
       initialValue: initialValue,
       controller: controller,
@@ -117,7 +116,6 @@ myTextField({
                   heightFactor: 3.0,
                   child: Icon(
                     prefixIcon,
-                    
                     color: MyColors.greyColor.withOpacity(0.8),
                   ),
                 ),
@@ -515,6 +513,67 @@ myHomeCards({
             ],
           ),
         ),
+      ],
+    ),
+  );
+}
+
+myVaccineCards({
+  required String imageName,
+  required String icon,
+  required String title,
+  required int value,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 10,
+        ),
+      ],
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Image.asset(
+            imageName,
+            fit: BoxFit.cover,
+            width: 40,
+          ),
+        ),
+        const Spacer(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: MyTextStyles.font16BlackMedium,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              '$value',
+              style: MyTextStyles.font18BlackBold,
+            ),
+          ],
+        ),
+        const Spacer(),
+        IconButton(onPressed:(){
+        }, icon:Image.asset(icon))
       ],
     ),
   );
