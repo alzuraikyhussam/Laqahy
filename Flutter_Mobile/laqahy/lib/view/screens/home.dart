@@ -21,17 +21,17 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              myTextField(
-                labelText: 'رقم الهـــاتف',
-                keyboardType: TextInputType.text,
-                onChanged: (String) {},
-              ),
+              // myTextField(
+              //   labelText: 'رقم الهـــاتف',
+              //   keyboardType: TextInputType.text,
+              //   onChanged: (String) {},
+              // ),
               const SizedBox(
                 height: 10,
               ),
-              myMiniButton(
-                onPressed: () {},
-              ),
+              // myMiniButton(
+              //   onPressed: () {},
+              // ),
               const SizedBox(
                 height: 10,
               ),

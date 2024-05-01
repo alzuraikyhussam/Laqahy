@@ -1,0 +1,207 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/controllers/onboarding_controller.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/login.dart';
+import 'package:laqahy/view/screens/onboarding_screens/first_onboarding.dart';
+import 'package:laqahy/view/screens/onboarding_screens/second_onboarding.dart';
+import 'package:laqahy/view/screens/onboarding_screens/third_onboarding.dart';
+
+class OnboardingLayout extends StatefulWidget {
+  const OnboardingLayout({super.key});
+
+  @override
+  State<OnboardingLayout> createState() => _OnboardingLayoutState();
+}
+
+class _OnboardingLayoutState extends State<OnboardingLayout> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
+  }
+
+  OnboardingController obc = Get.put(OnboardingController());
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            width: width,
+            height: height,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/screen-background.png',
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Obx(
+              () => PageView(
+                onPageChanged: (index) {
+                  obc.changeIndex(index);
+                },
+                controller: obc.pageController.value,
+                scrollBehavior: MaterialScrollBehavior(),
+                reverse: true,
+                children: [
+                  FirstOnboarding(),
+                  SecondOnboarding(),
+                  ThirdOnboarding(),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            // left: 0,
+            right: 40,
+            bottom: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    if (obc.currentIndex.value != 2) {
+                      print(obc.currentIndex.value);
+                      obc.pageController.value.nextPage(
+                        duration: Duration(seconds: 1),
+                        curve: Curves.easeInOut,
+                      );
+                    } else {
+                      Get.offAll(Login());
+                    }
+                  },
+                  child: Obx(
+                    () => Container(
+                      width: obc.currentIndex.value == 2 ? 100 : null,
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            MyColors.primaryColor,
+                            MyColors.secondaryColor,
+                          ],
+                          begin: AlignmentDirectional.topCenter,
+                          end: AlignmentDirectional.bottomCenter,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: MyColors.greyColor.withOpacity(0.3),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                            spreadRadius: 0,
+                          ),
+                        ],
+                        borderRadius: obc.currentIndex.value != 2
+                            ? BorderRadius.circular(100)
+                            : BorderRadius.circular(10),
+                      ),
+                      child: obc.currentIndex.value != 2
+                          ? Icon(
+                              Icons.arrow_back_ios_new_rounded,
+                              color: MyColors.whiteColor,
+                              size: 30,
+                            )
+                          : Text(
+                              'البــدء',
+                              style: MyTextStyles.font14WhiteBold,
+                              textAlign: TextAlign.center,
+                            ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            left: 40,
+            // right: 20,
+            bottom: 50,
+            child: Row(
+              children: [
+                Container(
+                  alignment: AlignmentDirectional.centerEnd,
+                  height: 10,
+                  width: 150,
+                  child: ListView.separated(
+                    reverse: true,
+                    scrollDirection: Axis.horizontal,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Obx(() => Container(
+                            height: 8,
+                            width: 18,
+                            // padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              gradient: obc.currentIndex.value != index
+                                  ? LinearGradient(
+                                      colors: [
+                                        MyColors.primaryColor.withOpacity(0.5),
+                                        MyColors.primaryColor.withOpacity(0.5),
+                                      ],
+                                      begin: AlignmentDirectional.topCenter,
+                                      end: AlignmentDirectional.bottomCenter,
+                                    )
+                                  : LinearGradient(
+                                      colors: [
+                                        MyColors.primaryColor,
+                                        MyColors.primaryColor,
+                                      ],
+                                      begin: AlignmentDirectional.topCenter,
+                                      end: AlignmentDirectional.bottomCenter,
+                                    ),
+                              boxShadow: [
+                                obc.currentIndex.value == index
+                                    ? BoxShadow(
+                                        color:
+                                            MyColors.greyColor.withOpacity(0.3),
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                        spreadRadius: 1,
+                                      )
+                                    : BoxShadow(
+                                        color:
+                                            MyColors.greyColor.withOpacity(0.2),
+                                        blurRadius: 5,
+                                        offset: Offset(0, 0),
+                                        spreadRadius: 0,
+                                      ),
+                              ],
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ));
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        width: 5,
+                      );
+                    },
+                    itemCount: 3,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

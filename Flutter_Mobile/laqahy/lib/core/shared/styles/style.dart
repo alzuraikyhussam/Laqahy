@@ -27,6 +27,11 @@ class MyTextStyles {
     color: MyColors.blackColor,
   );
 
+  static TextStyle font18BlackMedium = TextStyle(
+    fontSize: 18.0,
+    color: MyColors.blackColor,
+  );
+
   static TextStyle font18BlackBold = TextStyle(
     fontSize: 18.0,
     color: MyColors.blackColor,
@@ -38,6 +43,20 @@ class MyTextStyles {
   // Grey
   static TextStyle font14GreyMedium = TextStyle(
     fontSize: 14.0,
+    color: MyColors.greyColor,
+  );
+  static TextStyle font14GreyBold = TextStyle(
+    fontSize: 14.0,
+    color: MyColors.greyColor,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle font16GreyBold = TextStyle(
+    fontSize: 16.0,
+    color: MyColors.greyColor,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle font16GreyMedium = TextStyle(
+    fontSize: 16.0,
     color: MyColors.greyColor,
   );
 
@@ -63,6 +82,11 @@ class MyTextStyles {
 
   static TextStyle font16PrimaryMedium = TextStyle(
     fontSize: 16.0,
+    color: MyColors.primaryColor,
+  );
+  static TextStyle font18PrimaryBold = TextStyle(
+    fontSize: 18.0,
+    fontWeight: FontWeight.bold,
     color: MyColors.primaryColor,
   );
 
@@ -119,8 +143,8 @@ class MyTextStyles {
   // -------------------------------------------
 
   // Red Color
-  static TextStyle font14RedBold = TextStyle(
-    fontSize: 14.0,
+  static TextStyle font16RedBold = TextStyle(
+    fontSize: 16.0,
     color: MyColors.redColor,
     fontWeight: FontWeight.bold,
   );
