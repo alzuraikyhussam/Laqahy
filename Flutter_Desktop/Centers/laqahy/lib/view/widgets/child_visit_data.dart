@@ -40,7 +40,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                   height: 10,
                 ),
                 myTextField(
-                  prefixIcon: Icons.woman,
+                  prefixIcon: Icons.woman_2_outlined,
                   width: 300,
                   hintText: 'اســم الأم',
                   keyboardType: TextInputType.text,
@@ -63,7 +63,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                   height: 10,
                 ),
                 myTextField(
-                  prefixIcon: Icons.woman,
+                  prefixIcon: Icons.child_care_outlined,
                   width: 300,
                   hintText: 'اســم الطـفــل',
                   keyboardType: TextInputType.text,

@@ -11,6 +11,7 @@ import 'package:msh_checkbox/msh_checkbox.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+
 myButton({
   required void Function()? onPressed,
   required String text,
@@ -82,9 +83,7 @@ myTextField({
   String? initialValue,
 }) {
   return SizedBox(
-    
     width: width?.toDouble(),
-    
     child: TextFormField(
       initialValue: initialValue,
       controller: controller,
@@ -458,7 +457,7 @@ myHomeCards({
   required int value,
 }) {
   return Container(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
       color: Colors.white,
       border: Border.all(
@@ -477,7 +476,7 @@ myHomeCards({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: MyColors.primaryColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
@@ -488,7 +487,7 @@ myHomeCards({
             width: 40,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Expanded(
@@ -502,7 +501,7 @@ myHomeCards({
                   style: MyTextStyles.font16BlackBold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Expanded(
@@ -514,6 +513,67 @@ myHomeCards({
             ],
           ),
         ),
+      ],
+    ),
+  );
+}
+
+myVaccineCards({
+  required String imageName,
+  required String icon,
+  required String title,
+  required int value,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 10,
+        ),
+      ],
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Image.asset(
+            imageName,
+            fit: BoxFit.cover,
+            width: 40,
+          ),
+        ),
+        const Spacer(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: MyTextStyles.font16BlackMedium,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              '$value',
+              style: MyTextStyles.font18BlackBold,
+            ),
+          ],
+        ),
+        const Spacer(),
+        IconButton(onPressed:(){
+        }, icon:Image.asset(icon))
       ],
     ),
   );

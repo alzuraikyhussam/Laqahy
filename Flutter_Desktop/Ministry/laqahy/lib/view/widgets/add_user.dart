@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/add_user_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/add_user_successfully.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class AddUser extends StatefulWidget {
@@ -216,7 +217,11 @@ class _AddUserState extends State<AddUser> {
                   Container(
                     width: 130,
                     child: myButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          myShowDialog(
+                                  context: context,
+                                  widgetName: const AddUserSuccessfully());
+                        },
                         text: 'اضافة',
                         textStyle: MyTextStyles.font16WhiteBold),
                   ),

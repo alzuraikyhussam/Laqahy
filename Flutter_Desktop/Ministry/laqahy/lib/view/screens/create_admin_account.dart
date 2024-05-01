@@ -101,6 +101,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                       ),
                       myTextField(
                         hintText: 'رقــم الهـــاتف',
+                        prefixIcon: Icons.call_outlined,
                         width: 235,
                         keyboardType: TextInputType.number,
                         onChanged: (value) {},
@@ -114,6 +115,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                     children: [
                       myTextField(
                         hintText: 'تاريــخ الميـلاد',
+                        prefixIcon: Icons.date_range_outlined,
                         keyboardType: TextInputType.text,
                         readOnly: true,
                         width: 250,
@@ -145,6 +147,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                     children: [
                       myTextField(
                         hintText: 'اســم المستخــدم',
+                        prefixIcon: Icons.person_2_outlined,
                         keyboardType: TextInputType.text,
                         width: 250,
                         onChanged: (value) {},
@@ -154,6 +157,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                       ),
                       myTextField(
                         hintText: 'كلمــة المــرور',
+                        prefixIcon: Icons.lock_outline_rounded,
                         keyboardType: TextInputType.visiblePassword,
                         width: 250,
                         obscureText: true,
@@ -166,6 +170,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                   ),
                   myTextField(
                     hintText: 'العنـــوان',
+                    prefixIcon: Icons.location_on_outlined,
                     keyboardType: TextInputType.text,
                     width: 440,
                     onChanged: (value) {},

@@ -9,6 +9,7 @@ import 'package:laqahy/controllers/users_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/model.dart';
+import 'package:laqahy/view/widgets/add_user.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/user_data_table.dart';
 import 'package:laqahy/view/widgets/successfully_add_state.dart';
@@ -182,8 +183,7 @@ class _UsersScreenState extends State<UsersScreen> {
             actions: [
               myButton(
                 onPressed: () {
-                  myShowDialog(
-                      context: context, widgetName: SuccessfullyAddState());
+                  myShowDialog(context: context, widgetName: AddUser());
                 },
                 text: 'إضــافة مـوظــف جـديــد',
                 textStyle: MyTextStyles.font16WhiteBold,

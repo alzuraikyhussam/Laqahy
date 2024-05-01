@@ -15,6 +15,8 @@ import 'package:laqahy/view/widgets/system_info.dart';
 import 'package:laqahy/view/widgets/techincal_support.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../widgets/vaccines_page.dart';
+
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
 
@@ -304,8 +306,8 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                     Expanded(
                       child: Padding(
                         padding: hlc.choose.value == 'الرئيسية'
-                            ? EdgeInsets.all(30)
-                            : EdgeInsetsDirectional.only(
+                            ? const EdgeInsets.all(30)
+                            : const EdgeInsetsDirectional.only(
                                 top: 30,
                                 bottom: 0,
                                 end: 30,
@@ -315,10 +317,16 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                           () {
                             if (hlc.choose.value == 'الرئيسية') {
                               return const HomeScreen();
-                            } else if (hlc.choose.value == 'الموظفين') {
+                            } else if (hlc.choose.value == 'المستخدمين') {
                               return const UsersScreen();
-                            } else if (hlc.choose.value == 'الطلبات') {
+                            }else if (hlc.choose.value == 'اللقاحات') {
+                              return const VaccinesScreen();
+                            }else if (hlc.choose.value == 'الطلبات') {
                               return const OrdersLayout();
+                            }else if (hlc.choose.value == 'الإعلانات') {
+                              return const SizedBox();
+                            }else if (hlc.choose.value == 'التقارير') {
+                              return const SizedBox();
                             } else if (hlc.choose.value == 'حول النظام') {
                               return const SystemInfoScreen();
                             } else if (hlc.choose.value == 'الدعم الفني') {

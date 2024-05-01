@@ -6,6 +6,10 @@ import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/orders_confirmation_successfully.dart';
+import 'package:laqahy/view/widgets/success_order.dart';
+import 'package:laqahy/view/widgets/successfully_add_order.dart';
+import 'package:laqahy/view/widgets/successfully_add_state.dart';
 
 class AddOrder extends StatefulWidget {
   const AddOrder({super.key});
@@ -106,7 +110,10 @@ class _AddOrderState extends State<AddOrder> {
         Row(
           children: [
             myButton(
-              onPressed: () {},
+              onPressed: () {
+                myShowDialog(
+                    context: context, widgetName: SuccessfullyAddOrder());
+              },
               text: 'إضــافــة',
               textStyle: MyTextStyles.font16WhiteBold,
               width: 130,
