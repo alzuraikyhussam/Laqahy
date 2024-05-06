@@ -55,6 +55,7 @@ class HomeLayoutController extends GetxController {
       },
       confirmBtnText: 'إغــلاق النــظـام',
       cancelBtnText: 'إلغــاء الأمــر',
+      confirmBtnColor: MyColors.redColor,
       cancelBtnColor: MyColors.greyColor,
     );
   }

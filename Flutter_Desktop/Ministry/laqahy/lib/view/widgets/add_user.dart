@@ -24,13 +24,6 @@ class _AddUserState extends State<AddUser> {
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 3,
-            color: MyColors.primaryColor,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
         height: 470,
         child: Column(
@@ -219,8 +212,8 @@ class _AddUserState extends State<AddUser> {
                     child: myButton(
                         onPressed: () {
                           myShowDialog(
-                                  context: context,
-                                  widgetName: const AddUserSuccessfully());
+                              context: context,
+                              widgetName: const AddUserSuccessfully());
                         },
                         text: 'اضافة',
                         textStyle: MyTextStyles.font16WhiteBold),

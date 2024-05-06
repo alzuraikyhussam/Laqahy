@@ -59,6 +59,10 @@ class MyTextStyles {
     fontSize: 16.0,
     color: MyColors.greyColor,
   );
+  static TextStyle font18GreyMedium = TextStyle(
+    fontSize: 18.0,
+    color: MyColors.greyColor,
+  );
 
   // -------------------------------------------
 

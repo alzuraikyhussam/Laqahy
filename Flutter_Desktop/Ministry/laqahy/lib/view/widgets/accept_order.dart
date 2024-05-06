@@ -5,26 +5,27 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class RejectOrder extends StatefulWidget {
-  const RejectOrder({super.key});
+class AcceptOrder extends StatefulWidget {
+  const AcceptOrder({super.key});
 
   @override
-  State<RejectOrder> createState() => _RejectOrderState();
+  State<AcceptOrder> createState() => _AcceptOrderState();
 }
 
-class _RejectOrderState extends State<RejectOrder> {
+class _AcceptOrderState extends State<AcceptOrder> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
-        height: 320,
+        height: 350,
         width: 380,
         child: Column(
           children: [
             Container(
               width: 250,
+              height: 40,
               alignment: Alignment.topCenter,
               child: Image.asset("assets/images/window-logo.png"),
             ),
@@ -36,27 +37,33 @@ class _RejectOrderState extends State<RejectOrder> {
                 children: [
                   Container(
                     child: Text(
-                      'هل انت متاكد من عملية   ',
-                      style: MyTextStyles.font16RedBold,
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      'رفض الطلب؟',
-                      style: MyTextStyles.font16RedBold,
+                      'الموافقة على الطلب',
+                      style: MyTextStyles.font16PrimaryBold,
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   myTextField(
                     width: 350,
-                    maxLines: 3,
-                    maxLength: 150,
-                    hintText: 'سبب الرفض',
+                    hintText: 'تحديد الكمية',
+                    prefixIcon: Icons.numbers,
+                    keyboardType: TextInputType.text,
+                    onChanged: (string) {},
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  myTextField(
+                    width: 350,
+                    hintText: 'ملاحظة',
+                    maxLines: 2,
                     prefixIcon: Icons.message_outlined,
                     keyboardType: TextInputType.text,
                     onChanged: (string) {},
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -65,10 +72,10 @@ class _RejectOrderState extends State<RejectOrder> {
                           onPressed: () {
                             Get.back();
                           },
-                          text: 'رفض',
+                          text: 'موافق',
                           textStyle: MyTextStyles.font14WhiteBold,
                           width: 150,
-                          backgroundColor: MyColors.redColor),
+                          backgroundColor: MyColors.primaryColor),
                       SizedBox(
                         width: 20,
                       ),
