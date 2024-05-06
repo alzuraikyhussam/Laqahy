@@ -146,17 +146,6 @@ class _WaitingOrdersState extends State<WaitingOrders> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    myButton(
-                      width: 120,
-                      onPressed: () {
-                        // myShowDialog(context: context, widgetName: OrderConfirmationSuccessfully());
-                      },
-                      text: 'تــأكيـــــد',
-                      textStyle: MyTextStyles.font16WhiteBold,
-                    ),
                   ],
                 ),
               ],
