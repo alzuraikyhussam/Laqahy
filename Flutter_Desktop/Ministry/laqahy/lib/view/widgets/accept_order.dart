@@ -47,6 +47,7 @@ class _AcceptOrderState extends State<AcceptOrder> {
                   myTextField(
                     width: 350,
                     hintText: 'تحديد الكمية',
+                    prefixIcon: Icons.numbers,
                     keyboardType: TextInputType.text,
                     onChanged: (string) {},
                   ),
@@ -57,6 +58,7 @@ class _AcceptOrderState extends State<AcceptOrder> {
                     width: 350,
                     hintText: 'ملاحظة',
                     maxLines: 2,
+                    prefixIcon: Icons.message_outlined,
                     keyboardType: TextInputType.text,
                     onChanged: (string) {},
                   ),

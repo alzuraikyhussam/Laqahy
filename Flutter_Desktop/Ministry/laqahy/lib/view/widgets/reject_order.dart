@@ -75,8 +75,6 @@ class _RejectOrderState extends State<RejectOrder> {
                       myButton(
                           onPressed: () {
                             Get.back();
-                            myShowDialog(
-                                context: context, widgetName: RejectOrder());
                           },
                           text: 'الغاء الامر',
                           textStyle: MyTextStyles.font14WhiteBold,

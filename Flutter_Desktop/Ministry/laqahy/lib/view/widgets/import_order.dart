@@ -78,6 +78,7 @@ class _ImportOrdersState extends State<ImportOrders> {
                           Text(
                             'الكميــة:',
                             style: MyTextStyles.font16PrimaryBold,
+                            
                           ),
                           SizedBox(
                             width: 5,
