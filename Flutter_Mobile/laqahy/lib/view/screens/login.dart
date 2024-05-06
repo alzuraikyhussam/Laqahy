@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/home.dart';
+import 'package:laqahy/view/screens/reset_password.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class Login extends StatefulWidget {
@@ -77,11 +78,13 @@ class _LoginState extends State<Login> {
                         alignment: AlignmentDirectional.centerStart,
                         child: myTextButton(
                           text: 'نسيت كلمة المرور؟',
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(ResetPassword());
+                          },
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: 5,
                       ),
                       Row(
                         children: [

@@ -9,11 +9,13 @@ import 'package:shadow_overlay/shadow_overlay.dart';
 myAppBar({
   String? text,
   bool showBackButton = true,
+  void Function()? onTap,
 }) {
   return AppBar(
+    elevation: 0,
     leading: showBackButton
         ? InkWell(
-            onTap: () {},
+            onTap: onTap,
             child: Icon(
               Icons.arrow_back_ios_new_rounded,
               color: MyColors.blackColor,
@@ -21,6 +23,7 @@ myAppBar({
           )
         : null,
     centerTitle: true,
+    backgroundColor: Colors.white,
     title: text != null
         ? Text(
             textHeightBehavior: TextHeightBehavior(

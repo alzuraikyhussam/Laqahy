@@ -7,6 +7,8 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/layouts/onboarding_layout.dart';
 import 'package:laqahy/view/screens/home.dart';
 import 'package:laqahy/view/screens/login.dart';
+import 'package:laqahy/view/screens/onboarding_screens/awareness_information.dart';
+import 'package:laqahy/view/screens/onboarding_screens/create_new_password.dart';
 import 'package:laqahy/view/screens/onboarding_screens/first_onboarding.dart';
 import 'package:laqahy/view/screens/splash_screen.dart';
 
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Tajawal',
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 41, 20, 20),
           scrolledUnderElevation: 0,
           iconTheme: CupertinoIconThemeData(color: MyColors.blackColor),
         ),
@@ -43,7 +45,13 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: const MyCustomSplashScreen(),
+      home:awarenessinformation(),
     );
   }
+  
+
+  
+  
 }
+
+
