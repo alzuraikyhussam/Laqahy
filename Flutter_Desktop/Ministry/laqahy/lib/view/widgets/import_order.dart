@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/reject_order.dart';
 
 class ImportOrders extends StatefulWidget {
   const ImportOrders({super.key});
@@ -21,6 +22,7 @@ class _ImportOrdersState extends State<ImportOrders> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return myOrdersItem(
+            height: 200,
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +110,7 @@ class _ImportOrdersState extends State<ImportOrders> {
                       ),
                       Expanded(
                         child: Text(
-                          'lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll------------------------------------------------------------------------------------------------------------------------------------------------------llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll',
+                          'lllllllllllllllllllll------------------------------------------lllllllllllllllll',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: MyTextStyles.font16BlackBold,
@@ -117,6 +119,32 @@ class _ImportOrdersState extends State<ImportOrders> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    myButton(
+                      onPressed: () {},
+                      text: 'موافقة',
+                      textStyle: MyTextStyles.font14WhiteBold,
+                      width: 150,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    myButton(
+                        onPressed: () {
+                          myShowDialog(
+                              context: context, widgetName: RejectOrder());
+                        },
+                        text: 'رفض',
+                        textStyle: MyTextStyles.font14WhiteBold,
+                        width: 150,
+                        backgroundColor: MyColors.redColor),
+                  ],
+                )
               ],
             ),
           );
