@@ -49,38 +49,6 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Obx(() {
-                      return InkWell(
-                        onTap: () {
-                          olc.onChangeOrder('add');
-                        },
-                        child: Container(
-                          width: 100,
-                          decoration: olc.orderChange.value == 'add'
-                              ? BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: MyColors.secondaryColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          MyColors.greyColor.withOpacity(0.3),
-                                      blurRadius: 10,
-                                    ),
-                                  ],
-                                )
-                              : null,
-                          child: Center(
-                            child: Icon(
-                              Icons.add_rounded,
-                              color: olc.orderChange.value == 'add'
-                                  ? MyColors.whiteColor
-                                  : MyColors.secondaryColor,
-                              size: 35,
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
                     SizedBox(
                       width: 10,
                     ),
@@ -106,7 +74,7 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                                 : null,
                             child: Center(
                               child: Text(
-                                'الصــــادرة',
+                                'الوارده',
                                 style: olc.orderChange.value == 'export'
                                     ? MyTextStyles.font16WhiteBold
                                     : MyTextStyles.font16SecondaryBold,
