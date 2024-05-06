@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/vaccines_card.dart';
+import 'package:laqahy/controllers/vaccines_card_controller.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class VaccinesScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class VaccinesScreen extends StatefulWidget {
 }
 
 class _VaccinesScreenState extends State<VaccinesScreen> {
-  VaccinesCard hc = Get.put(VaccinesCard());
+  VaccinesCardController hc = Get.put(VaccinesCardController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
           shrinkWrap: true,
           itemCount: hc.vaccinesCardItems.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
+            crossAxisCount: 3,
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
             mainAxisExtent: 110,
@@ -39,6 +39,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
               icon: hc.vaccinesCardItems[index].icon,
               title: hc.vaccinesCardItems[index].title,
               value: hc.vaccinesCardItems[index].value,
+              context: context,
             );
           },
         ),

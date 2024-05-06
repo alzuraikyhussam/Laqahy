@@ -7,10 +7,11 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/add_quantity_vaccine.dart';
+import 'package:laqahy/view/widgets/edit_user.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
-
 
 myButton({
   required void Function()? onPressed,
@@ -81,6 +82,7 @@ myTextField({
   Color? fillColor,
   TextAlign textAlign = TextAlign.start,
   String? initialValue,
+  double? heightFactor = 2.7,
 }) {
   return SizedBox(
     width: width?.toDouble(),
@@ -112,8 +114,8 @@ myTextField({
                 padding: const EdgeInsetsDirectional.only(start: 10),
                 child: Align(
                   alignment: AlignmentDirectional.topStart,
-                  widthFactor: 1.0,
-                  heightFactor: 3.0,
+                  widthFactor: 1.5,
+                  heightFactor: heightFactor,
                   child: Icon(
                     prefixIcon,
                     color: MyColors.greyColor.withOpacity(0.8),
@@ -523,6 +525,7 @@ myVaccineCards({
   required String icon,
   required String title,
   required int value,
+  required context,
 }) {
   return Container(
     padding: const EdgeInsets.all(20),
@@ -541,6 +544,7 @@ myVaccineCards({
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
           padding: const EdgeInsets.all(10),
@@ -554,26 +558,41 @@ myVaccineCards({
             width: 40,
           ),
         ),
-        const Spacer(),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: MyTextStyles.font16BlackMedium,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              '$value',
-              style: MyTextStyles.font18BlackBold,
-            ),
-          ],
+        const SizedBox(
+          width: 20,
         ),
-        const Spacer(),
-        IconButton(onPressed:(){
-        }, icon:Image.asset(icon))
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: MyTextStyles.font16BlackMedium,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                '$value',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: MyTextStyles.font18BlackBold,
+              ),
+            ],
+          ),
+        ),
+        // const Spacer(),
+        IconButton(
+            onPressed: () {
+              myShowDialog(
+                context: context,
+                widgetName: AddQuantityVaccine(),
+              );
+            },
+            icon: Image.asset(icon))
       ],
     ),
   );
@@ -961,6 +980,66 @@ myOrdersItem({
     child: content,
   );
 }
+
+myReportsCards({
+  required String imageName,
+  required String title,
+  required context,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 10,
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Image.asset(
+            imageName,
+            fit: BoxFit.cover,
+            width: 40,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: MyTextStyles.font18BlackBold,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        myButton(
+          width: 120,
+          onPressed: () {},
+          text: 'إنشـــــــاء',
+          textStyle: MyTextStyles.font14WhiteBold,
+        )
+      ],
+    ),
+  );
+}
+
 
 
 // myDropDownButton({

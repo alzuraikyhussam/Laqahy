@@ -102,7 +102,20 @@ class _CreateMinistryAccountScreenState
                       child: myTextField(
                         initialValue: 'وزارة الصحة والسكان',
                         hintText: 'اسم الوزارة',
+                        prefixIcon: Icons.home_outlined,
                         keyboardType: TextInputType.text,
+                        onChanged: (value) {},
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
+                      width: 228,
+                      child: myTextField(
+                        prefixIcon: Icons.call_outlined,
+                        hintText: 'رقم الهاتف',
+                        keyboardType: TextInputType.number,
                         onChanged: (value) {},
                       ),
                     ),
@@ -149,15 +162,6 @@ class _CreateMinistryAccountScreenState
                         const SizedBox(
                           width: 10,
                         ),
-                        SizedBox(
-                          width: 228,
-                          child: myTextField(
-                            prefixIcon: Icons.call_outlined,
-                            hintText: 'رقم الهاتف',
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) {},
-                          ),
-                        ),
                       ],
                     ),
                   ],
@@ -181,13 +185,14 @@ class _CreateMinistryAccountScreenState
                   flex: 2,
                   child: SizedBox(
                     child: myTextField(
-                      width: 470,
+                      width: 400,
                       maxLines: 3,
                       maxLength: 150,
-                      hintText: 'ملاحظات',
+                      heightFactor: 1.5,
                       prefixIcon: Icons.message_outlined,
-                      keyboardType: TextInputType.text,
-                      onChanged: (value) {},
+                      hintText: 'ملاحظات',
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (String) {},
                     ),
                   ),
                 ),

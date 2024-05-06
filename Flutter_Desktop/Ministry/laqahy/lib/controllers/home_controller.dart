@@ -9,19 +9,19 @@ class HomeController extends GetxController {
         value: 1200),
     HomeCard(
         imageName: 'assets/icons/women-count.png',
-        title: ' عدد الأمهات',
+        title: 'عدد الأمهات',
         value: 700),
     HomeCard(
         imageName: 'assets/icons/children-count.png',
-        title: ' عدد الأطفال',
+        title: 'عدد الأطفال',
         value: 500),
     HomeCard(
         imageName: 'assets/icons/vaccines-icon.png',
-        title: ' عدد اللقاحات',
+        title: 'عدد اللقاحات',
         value: 4000),
     HomeCard(
         imageName: 'assets/icons/order-icon.png',
-        title: ' عدد الطلبات',
+        title: 'عدد الطلبات',
         value: 3),
   ];
 }

@@ -9,6 +9,7 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/layouts/orders_layout.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/reports.dart';
 import 'package:laqahy/view/widgets/users.dart';
 import 'package:laqahy/view/widgets/home.dart';
 import 'package:laqahy/view/widgets/system_info.dart';
@@ -326,7 +327,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             }else if (hlc.choose.value == 'الإعلانات') {
                               return const SizedBox();
                             }else if (hlc.choose.value == 'التقارير') {
-                              return const SizedBox();
+                              return const ReportsPage();
                             } else if (hlc.choose.value == 'حول النظام') {
                               return const SystemInfoScreen();
                             } else if (hlc.choose.value == 'الدعم الفني') {

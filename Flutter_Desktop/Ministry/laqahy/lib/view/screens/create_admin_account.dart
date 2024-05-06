@@ -93,6 +93,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                       myTextField(
                         hintText: 'الاســم الكـامل',
                         width: 300,
+                        prefixIcon: Icons.person_2_outlined,
                         keyboardType: TextInputType.text,
                         onChanged: (value) {},
                       ),
@@ -147,7 +148,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                     children: [
                       myTextField(
                         hintText: 'اســم المستخــدم',
-                        prefixIcon: Icons.person_2_outlined,
+                        prefixIcon: Icons.person_pin_outlined,
                         keyboardType: TextInputType.text,
                         width: 250,
                         onChanged: (value) {},

@@ -43,7 +43,6 @@ class VaccinesData {
   String title;
   int value;
 
-
   VaccinesData({
     required this.imageName,
     required this.icon,
@@ -58,4 +57,14 @@ class UserData {
   int? age;
 
   UserData({required this.name, required this.phone, required this.age});
+}
+
+class ReportsData {
+  String imageName;
+  String title;
+
+  ReportsData({
+    required this.imageName,
+    required this.title,
+  });
 }
