@@ -6,6 +6,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/model.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/data_table_source.dart';
+import 'package:laqahy/view/widgets/edit_user.dart';
 
 import 'add_user.dart';
 
@@ -84,8 +85,7 @@ class _UsersScreenState extends State<UsersScreen> {
         actions: [
           myButton(
             onPressed: () {
-              myShowDialog(
-                  context: context, widgetName: const AddUser());
+              myShowDialog(context: context, widgetName: const AddUser());
             },
             text: 'إضـافة مستخــدم جـديـد',
             textStyle: MyTextStyles.font16WhiteBold,

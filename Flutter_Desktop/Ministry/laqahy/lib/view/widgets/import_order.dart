@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/accept_order.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/reject_order.dart';
 
@@ -126,7 +127,10 @@ class _ImportOrdersState extends State<ImportOrders> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     myButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        myShowDialog(
+                            context: context, widgetName: AcceptOrder());
+                      },
                       text: 'موافقة',
                       textStyle: MyTextStyles.font14WhiteBold,
                       width: 150,
