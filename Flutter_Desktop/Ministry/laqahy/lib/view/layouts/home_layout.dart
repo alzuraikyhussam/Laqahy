@@ -14,7 +14,7 @@ import 'package:laqahy/view/widgets/home.dart';
 import 'package:laqahy/view/widgets/system_info.dart';
 import 'package:laqahy/view/widgets/techincal_support.dart';
 import 'package:window_manager/window_manager.dart';
-
+import '../widgets/posts.dart';
 import '../widgets/vaccines_page.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -324,7 +324,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             }else if (hlc.choose.value == 'الطلبات') {
                               return const OrdersLayout();
                             }else if (hlc.choose.value == 'الإعلانات') {
-                              return const SizedBox();
+                              return const PostsScreen();
                             }else if (hlc.choose.value == 'التقارير') {
                               return const SizedBox();
                             } else if (hlc.choose.value == 'حول النظام') {
