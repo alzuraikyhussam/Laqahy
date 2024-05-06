@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -10,9 +11,12 @@ class DeletePostConfirm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+    return AlertDialog(
+      alignment: AlignmentDirectional.center,
+      actionsAlignment: MainAxisAlignment.center,
+      content: Container(
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.005),
+      height: 370,
       child: Column(
         children: [
           Container(
@@ -29,17 +33,17 @@ class DeletePostConfirm extends StatelessWidget {
           Container(
             child: Text(
               ' هل أنت متأكد من عملية حذف',
-              style: MyTextStyles.font16BlackBold,
+              style: MyTextStyles.font18BlackBold,
             ),
           ),
           Container(
             child: Text(
               'هذا المنشور؟',
-              style: MyTextStyles.font16BlackBold,
+              style: MyTextStyles.font18BlackBold,
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 30,
           ),
           Container(
             child: Row(
@@ -60,7 +64,9 @@ class DeletePostConfirm extends StatelessWidget {
                   width: 150,
                   child: myButton(
                       backgroundColor: MyColors.greyColor,
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.back();
+                      },
                       text: 'الغـــاء الأمـــر',
                       textStyle: MyTextStyles.font16WhiteBold),
                 ),
@@ -69,6 +75,6 @@ class DeletePostConfirm extends StatelessWidget {
           ),
         ],
       ),
-    ));
+          ));
   }
 }

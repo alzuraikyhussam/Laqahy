@@ -50,7 +50,7 @@ class _PostsScreenState extends State<PostsScreen> {
                           'عنـوان المنشـور',
                           style: MyTextStyles.font16BlackBold,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         myTextField(
@@ -63,7 +63,7 @@ class _PostsScreenState extends State<PostsScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Column(
@@ -74,7 +74,7 @@ class _PostsScreenState extends State<PostsScreen> {
                           'صـورة المنشـور',
                           style: MyTextStyles.font16BlackBold,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         myTextField(
@@ -89,7 +89,7 @@ class _PostsScreenState extends State<PostsScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Column(
@@ -100,7 +100,7 @@ class _PostsScreenState extends State<PostsScreen> {
                       'وصـف المنشـور',
                       style: MyTextStyles.font16BlackBold,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     myTextField(
@@ -113,7 +113,8 @@ class _PostsScreenState extends State<PostsScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -124,7 +125,7 @@ class _PostsScreenState extends State<PostsScreen> {
                       textStyle: MyTextStyles.font16WhiteBold,
                       width: 130,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     myButton(
@@ -140,22 +141,22 @@ class _PostsScreenState extends State<PostsScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 ListView.separated(
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return myPostsCard();
+                    return myPostsCard(context: context);
                   },
                   separatorBuilder: (context, index) {
-                    return SizedBox(
+                    return const SizedBox(
                       height: 20,
                     );
                   },
                   itemCount: 5,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 100,
                 ),
               ],

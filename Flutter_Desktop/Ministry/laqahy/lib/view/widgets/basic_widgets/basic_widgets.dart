@@ -13,6 +13,9 @@ import 'package:msh_checkbox/msh_checkbox.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../delete_post_confirm.dart';
+import '../edit_post.dart';
+
 myButton({
   required void Function()? onPressed,
   required String text,
@@ -598,7 +601,7 @@ myVaccineCards({
   );
 }
 
-myPostsCard() {
+myPostsCard({required context}) {
   return Container(
     padding: EdgeInsets.all(15),
     height: 200,
@@ -693,13 +696,17 @@ myPostsCard() {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               myButton(
-                onPressed: () {},
+                onPressed: () {
+                  myShowDialog(context: context, widgetName: EditPost());
+                },
                 text: 'تعـديـل',
                 textStyle: MyTextStyles.font16WhiteBold,
                 width: 100,
               ),
               myButton(
-                onPressed: () {},
+                onPressed: () {
+                  myShowDialog(context: context, widgetName: DeletePostConfirm());
+                },
                 text: 'حــذف',
                 textStyle: MyTextStyles.font16WhiteBold,
                 width: 100,
