@@ -6,15 +6,15 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class CreateVaccineReportDialog extends StatefulWidget {
-  const CreateVaccineReportDialog({super.key});
+class CreateOrdersReportDialog extends StatefulWidget {
+  const CreateOrdersReportDialog({super.key});
 
   @override
-  State<CreateVaccineReportDialog> createState() =>
-      _CreateVaccineReportDialogState();
+  State<CreateOrdersReportDialog> createState() =>
+      _CreateOrdersReportDialogState();
 }
 
-class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
+class _CreateOrdersReportDialogState extends State<CreateOrdersReportDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -41,7 +41,7 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
               ),
             ),
             Text(
-              'تقريـر عــن اللقـاحــات',
+              'تقريـر عــن الطلبــات',
               style: MyTextStyles.font18PrimaryBold,
             ),
             SizedBox(
@@ -54,15 +54,14 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
                 GetBuilder<ReportsController>(
                   builder: (controller) {
                     return myDropDownMenuButton(
-                      width: 250,
-                      hintText: 'اختر نــوع الـلقـــاح',
-                      items: controller.vaccineTypes,
+                      width: 220,
+                      hintText: 'المحـافظـة',
+                      items: controller.cities,
                       onChanged: (String? value) {
-                        controller.changeVaccineTypeSelectedValue(value!);
+                        controller.changeCitySelectedValue(value!);
                       },
-                      searchController:
-                          controller.vaccineTypeSearchController.value,
-                      selectedValue: controller.vaccineTypeSelectedValue,
+                      searchController: controller.citySearchController.value,
+                      selectedValue: controller.citySelectedValue,
                     );
                   },
                 ),
@@ -72,15 +71,14 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
                 GetBuilder<ReportsController>(
                   builder: (controller) {
                     return myDropDownMenuButton(
-                      width: 250,
-                      hintText: 'اختر الجهـة المـانحــة',
-                      items: controller.vaccineTypes,
+                      width: 280,
+                      hintText: 'اسـم المـركـز الصـحـي',
+                      items: controller.centers,
                       onChanged: (String? value) {
-                        controller.changeVaccineTypeSelectedValue(value!);
+                        controller.changeCenterSelectedValue(value!);
                       },
-                      searchController:
-                          controller.vaccineTypeSearchController.value,
-                      selectedValue: controller.vaccineTypeSelectedValue,
+                      searchController: controller.centerSearchController.value,
+                      selectedValue: controller.centerSelectedValue,
                     );
                   },
                 ),
@@ -93,8 +91,26 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                GetBuilder<ReportsController>(
+                  builder: (controller) {
+                    return myDropDownMenuButton(
+                      width: 165,
+                      hintText: 'حـالـة الطلـب',
+                      items: controller.orderStatus,
+                      onChanged: (String? value) {
+                        controller.changeOrderStatusSelectedValue(value!);
+                      },
+                      searchController:
+                          controller.orderStatusSearchController.value,
+                      selectedValue: controller.orderStatusSelectedValue,
+                    );
+                  },
+                ),
+                SizedBox(
+                  width: 15,
+                ),
                 myTextField(
-                  width: 250,
+                  width: 160,
                   prefixIcon: Icons.date_range_outlined,
                   readOnly: true,
                   hintText: 'من تاريـخ',
@@ -105,7 +121,7 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
                   width: 15,
                 ),
                 myTextField(
-                  width: 250,
+                  width: 160,
                   prefixIcon: Icons.date_range_outlined,
                   readOnly: true,
                   hintText: 'الى تاريـخ',

@@ -984,6 +984,7 @@ myOrdersItem({
 myReportsCards({
   required String imageName,
   required String title,
+  required void Function()? onPressed,
   required context,
 }) {
   return Container(
@@ -1031,10 +1032,10 @@ myReportsCards({
         ),
         myButton(
           width: 120,
-          onPressed: () {},
+          onPressed: onPressed,
           text: 'إنشـــــــاء',
           textStyle: MyTextStyles.font14WhiteBold,
-        )
+        ),
       ],
     ),
   );

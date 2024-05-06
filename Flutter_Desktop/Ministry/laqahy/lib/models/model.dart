@@ -62,9 +62,11 @@ class UserData {
 class ReportsData {
   String imageName;
   String title;
+  Widget? onPressed;
 
   ReportsData({
     required this.imageName,
     required this.title,
+    required this.onPressed,
   });
 }

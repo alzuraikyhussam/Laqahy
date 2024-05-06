@@ -6,23 +6,23 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class CreateVaccineReportDialog extends StatefulWidget {
-  const CreateVaccineReportDialog({super.key});
+class CreateCentersReportDialog extends StatefulWidget {
+  const CreateCentersReportDialog({super.key});
 
   @override
-  State<CreateVaccineReportDialog> createState() =>
-      _CreateVaccineReportDialogState();
+  State<CreateCentersReportDialog> createState() =>
+      _CreateCentersReportDialogState();
 }
 
-class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
+class _CreateCentersReportDialogState extends State<CreateCentersReportDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
-        height: 300,
-        width: 550,
+        height: 230,
+        width: 450,
         child: Column(
           children: [
             Padding(
@@ -41,7 +41,7 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
               ),
             ),
             Text(
-              'تقريـر عــن اللقـاحــات',
+              'تقريـر عــن المـراكـز الصحيــة',
               style: MyTextStyles.font18PrimaryBold,
             ),
             SizedBox(
@@ -54,15 +54,14 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
                 GetBuilder<ReportsController>(
                   builder: (controller) {
                     return myDropDownMenuButton(
-                      width: 250,
-                      hintText: 'اختر نــوع الـلقـــاح',
-                      items: controller.vaccineTypes,
+                      width: 200,
+                      hintText: 'المحـافـظـة',
+                      items: controller.cities,
                       onChanged: (String? value) {
-                        controller.changeVaccineTypeSelectedValue(value!);
+                        controller.changeCitySelectedValue(value!);
                       },
-                      searchController:
-                          controller.vaccineTypeSearchController.value,
-                      selectedValue: controller.vaccineTypeSelectedValue,
+                      searchController: controller.citySearchController.value,
+                      selectedValue: controller.citySelectedValue,
                     );
                   },
                 ),
@@ -72,45 +71,17 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
                 GetBuilder<ReportsController>(
                   builder: (controller) {
                     return myDropDownMenuButton(
-                      width: 250,
-                      hintText: 'اختر الجهـة المـانحــة',
-                      items: controller.vaccineTypes,
+                      width: 200,
+                      hintText: 'المـديريــة',
+                      items: controller.directorates,
                       onChanged: (String? value) {
-                        controller.changeVaccineTypeSelectedValue(value!);
+                        controller.changeDirectorateSelectedValue(value!);
                       },
                       searchController:
-                          controller.vaccineTypeSearchController.value,
-                      selectedValue: controller.vaccineTypeSelectedValue,
+                          controller.directorateSearchController.value,
+                      selectedValue: controller.directorateSelectedValue,
                     );
                   },
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                myTextField(
-                  width: 250,
-                  prefixIcon: Icons.date_range_outlined,
-                  readOnly: true,
-                  hintText: 'من تاريـخ',
-                  keyboardType: TextInputType.datetime,
-                  onChanged: (value) {},
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                myTextField(
-                  width: 250,
-                  prefixIcon: Icons.date_range_outlined,
-                  readOnly: true,
-                  hintText: 'الى تاريـخ',
-                  keyboardType: TextInputType.datetime,
-                  onChanged: (value) {},
                 ),
               ],
             ),
