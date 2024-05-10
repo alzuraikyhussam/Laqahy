@@ -20,9 +20,6 @@ class CreateMinistryAccountScreen extends StatefulWidget {
 
 class _CreateMinistryAccountScreenState
     extends State<CreateMinistryAccountScreen> {
-  CreateMinistryAccountController cac =
-      Get.put(CreateMinistryAccountController());
-
   @override
   void initState() {
     // TODO: implement initState
@@ -45,6 +42,8 @@ class _CreateMinistryAccountScreenState
 
   @override
   Widget build(BuildContext context) {
+    CreateMinistryAccountController cac =
+        Get.put(CreateMinistryAccountController());
     return Scaffold(
       body: Stack(
         children: [
@@ -59,157 +58,177 @@ class _CreateMinistryAccountScreenState
             ),
           ),
           myCopyRightText(),
-          Padding(
-            padding: EdgeInsets.all(30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    myAppBarLogo(),
-                    goBackButton(
-                      onTap: () {
-                        Get.off(WelcomeScreen());
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'إنشاء حساب وزارة الصحة والسكان ...',
-                  style: MyTextStyles.font18PrimaryBold,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  width: 300,
-                  child: Text(
-                    'قم بملئ الحقول التالية لإنشاء حساب جديد للوزارة.',
-                    style: MyTextStyles.font16BlackBold,
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      myAppBarLogo(),
+                      goBackButton(
+                        onTap: () {
+                          Get.off(WelcomeScreen());
+                        },
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 300,
-                      child: myTextField(
-                        initialValue: 'وزارة الصحة والسكان',
-                        hintText: 'اسم الوزارة',
-                        prefixIcon: Icons.home_outlined,
-                        keyboardType: TextInputType.text,
-                        onChanged: (value) {},
-                      ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'إنشاء حساب وزارة الصحة والسكان ...',
+                    style: MyTextStyles.font18PrimaryBold,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    width: 300,
+                    child: Text(
+                      'قم بملئ الحقول التالية لإنشاء حساب جديد للوزارة.',
+                      style: MyTextStyles.font16BlackBold,
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 228,
-                      child: myTextField(
-                        prefixIcon: Icons.call_outlined,
-                        hintText: 'رقم الهاتف',
-                        keyboardType: TextInputType.number,
-                        onChanged: (value) {},
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Column(
-                  children: [
-                    Row(
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Form(
+                    key: cac.createMinistryAccountFormKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GetBuilder<CreateMinistryAccountController>(
-                          builder: (controller) {
-                            return myDropDownMenuButton(
-                              hintText: 'المحافظة',
-                              items: cac.cities,
-                              onChanged: (String? value) {
-                                controller.changeCitySelectedValue(value!);
-                              },
-                              searchController: cac.citySearchController.value,
-                              selectedValue: cac.citySelectedValue,
-                            );
-                          },
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 300,
+                              child: myTextField(
+                                initialValue: 'وزارة الصحة والسكان',
+                                hintText: 'اسم الوزارة',
+                                prefixIcon: Icons.house_outlined,
+                                readOnly: true,
+                                keyboardType: TextInputType.text,
+                                onChanged: (value) {},
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            SizedBox(
+                              width: 228,
+                              child: myTextField(
+                                validator: cac.numberValidator,
+                                controller: cac.numberController,
+                                prefixIcon: Icons.call_outlined,
+                                hintText: 'رقم الهاتف',
+                                keyboardType: TextInputType.number,
+                                onChanged: (value) {},
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          width: 10,
+                          height: 15,
                         ),
-                        GetBuilder<CreateMinistryAccountController>(
-                          builder: (controller) {
-                            return myDropDownMenuButton(
-                              hintText: 'المديرية',
-                              items: cac.directorates,
-                              onChanged: (String? value) {
-                                controller
-                                    .changeDirectorateSelectedValue(value!);
-                              },
-                              searchController:
-                                  cac.directorateSearchController.value,
-                              selectedValue: cac.directorateSelectedValue,
-                            );
-                          },
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                GetBuilder<CreateMinistryAccountController>(
+                                  builder: (controller) {
+                                    return myDropDownMenuButton(
+                                      validator: cac.cityValidator,
+                                      hintText: 'المحافظة',
+                                      items: cac.cities,
+                                      onChanged: (String? value) {
+                                        controller
+                                            .changeCitySelectedValue(value!);
+                                      },
+                                      searchController:
+                                          cac.citySearchController.value,
+                                      selectedValue: cac.citySelectedValue,
+                                    );
+                                  },
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                GetBuilder<CreateMinistryAccountController>(
+                                  builder: (controller) {
+                                    return myDropDownMenuButton(
+                                      validator: cac.directorateValidator,
+                                      hintText: 'المديرية',
+                                      items: cac.directorates,
+                                      onChanged: (String? value) {
+                                        controller
+                                            .changeDirectorateSelectedValue(
+                                                value!);
+                                      },
+                                      searchController:
+                                          cac.directorateSearchController.value,
+                                      selectedValue:
+                                          cac.directorateSelectedValue,
+                                    );
+                                  },
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          width: 10,
+                          height: 15,
+                        ),
+                        SizedBox(
+                          width: 410,
+                          child: myTextField(
+                            validator: cac.addressValidator,
+                            controller: cac.addressController,
+                            hintText: 'العنوان',
+                            keyboardType: TextInputType.text,
+                            prefixIcon: Icons.location_on_outlined,
+                            onChanged: (value) {},
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        SizedBox(
+                          child: myTextField(
+                            width: 410,
+                            maxLines: 2,
+                            maxLength: 150,
+                            heightFactor: 1.8,
+                            prefixIcon: Icons.message_outlined,
+                            hintText: 'ملاحظات',
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (String) {},
+                          ),
+                        ),
+                        myButton(
+                          onPressed: () {
+                            if (cac.createMinistryAccountFormKey.currentState!
+                                .validate()) {
+                              Get.off(CreateAdminAccount());
+                            }
+                          },
+                          width: 150,
+                          text: 'إنشــاء حســاب',
+                          textStyle: MyTextStyles.font16WhiteBold,
                         ),
                       ],
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 440,
-                  child: myTextField(
-                    hintText: 'العنوان',
-                    keyboardType: TextInputType.text,
-                    prefixIcon: Icons.location_on_outlined,
-                    onChanged: (value) {},
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Expanded(
-                  flex: 2,
-                  child: SizedBox(
-                    child: myTextField(
-                      width: 400,
-                      maxLines: 3,
-                      maxLength: 150,
-                      heightFactor: 1.5,
-                      prefixIcon: Icons.message_outlined,
-                      hintText: 'ملاحظات',
-                      keyboardType: TextInputType.emailAddress,
-                      onChanged: (String) {},
-                    ),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                Expanded(
-                  child: myButton(
-                    onPressed: () {
-                      Get.off(CreateAdminAccount());
-                    },
-                    width: 150,
-                    text: 'إنشــاء حســاب',
-                    textStyle: MyTextStyles.font16WhiteBold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

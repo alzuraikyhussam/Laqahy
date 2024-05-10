@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/login_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/welcome.dart';
 import 'package:laqahy/view/widgets/admin_verification.dart';
@@ -37,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    LoginController lc = Get.put(LoginController());
     return Scaffold(
       body: Stack(
         children: [
@@ -50,74 +53,99 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           myCopyRightText(),
-          Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    myAppBarLogo(),
-                    goBackButton(
-                      onTap: () {
-                        Get.off(WelcomeScreen());
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 60,
-                ),
-                Text(
-                  'صبـاح الخيــر ...',
-                  style: MyTextStyles.font18PrimaryBold,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: 250,
-                  child: Text(
-                    'أدخل اسم المستخدم وكلمة المرور لتسجيل الدخول.',
-                    style: MyTextStyles.font16BlackBold,
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      myAppBarLogo(),
+                      goBackButton(
+                        onTap: () {
+                          Get.off(WelcomeScreen());
+                        },
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                myTextField(
-                  width: 300,
-                  prefixIcon: Icons.person_2_outlined,
-                  hintText: 'اسم المستخدم',
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {},
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                myTextField(
-                  width: 300,
-                  prefixIcon: Icons.password,
-                  obscureText: true,
-                  suffixIcon: Icons.visibility_off_outlined,
-                  hintText: 'كلمة المرور',
-                  keyboardType: TextInputType.visiblePassword,
-                  onChanged: (value) {},
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                myButton(
-                  onPressed: () {
-                    myShowDialog(
-                        context: context, widgetName: AdminVerification());
-                  },
-                  width: 150,
-                  text: 'تسجيـل دخـول',
-                  textStyle: MyTextStyles.font16WhiteBold,
-                ),
-              ],
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Text(
+                    'صبـاح الخيــر ...',
+                    style: MyTextStyles.font18PrimaryBold,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 250,
+                    child: Text(
+                      'أدخل اسم المستخدم وكلمة المرور لتسجيل الدخول.',
+                      style: MyTextStyles.font16BlackBold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Form(
+                    key: lc.loginFormKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        myTextField(
+                          validator: lc.userNameValidator,
+                          controller: lc.userNameController,
+                          width: 300,
+                          prefixIcon: Icons.person_2_outlined,
+                          hintText: 'اسم المستخدم',
+                          keyboardType: TextInputType.text,
+                          onChanged: (value) {},
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Obx(() {
+                          return myTextField(
+                            width: 300,
+                            prefixIcon: Icons.password,
+                            obscureText: lc.isVisible.value ? false : true,
+                            validator: lc.passwordValidator,
+                            controller: lc.passwordController,
+                            suffixIcon: lc.isVisible.value
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            hintText: 'كلمة المرور',
+                            keyboardType: TextInputType.visiblePassword,
+                            onChanged: (value) {},
+                            onTapSuffixIcon: () {
+                              lc.changePasswordVisibility();
+                            },
+                          );
+                        }),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        myButton(
+                          onPressed: () {
+                            if (lc.loginFormKey.currentState!.validate()) {
+                              myShowDialog(
+                                  context: context,
+                                  widgetName: AdminVerification());
+                            }
+                          },
+                          width: 150,
+                          text: 'تسجيـل دخـول',
+                          textStyle: MyTextStyles.font16WhiteBold,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

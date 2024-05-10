@@ -63,6 +63,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
             child: Padding(
               padding: EdgeInsets.all(30),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -77,7 +78,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   Container(
                     alignment: AlignmentDirectional.center,
@@ -90,9 +91,10 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                     height: 50,
                   ),
                   Form(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    key: caac.createAccountFormKey,
+                    // autovalidateMode: AutovalidateMode.onUserInteraction,
+                    key: caac.createAdminAccountFormKey,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
@@ -115,7 +117,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                               hintText: 'رقــم الهـــاتف',
                               prefixIcon: Icons.call_outlined,
                               width: 235,
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.phone,
                               onChanged: (value) {},
                             ),
                           ],
@@ -154,13 +156,11 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                             const SizedBox(
                               width: 10,
                             ),
-
                             GetBuilder<CreateAdminAccountController>(
                               builder: (controller) {
-
                                 return myDropDownMenuButton(
-
                                   hintText: 'الجنــس',
+                                  validator: caac.genderValidator,
                                   items: controller.gender,
                                   onChanged: (String? value) {
                                     controller
@@ -182,7 +182,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                             myTextField(
                               validator: caac.userNameValidator,
                               controller: caac.userNameController,
-                              hintText: 'اســم المستخــدم',
+                              hintText: 'اســم المستخدم',
                               prefixIcon: Icons.person_pin_outlined,
                               keyboardType: TextInputType.text,
                               width: 250,
@@ -191,14 +191,25 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                             const SizedBox(
                               width: 10,
                             ),
-                            myTextField(
-                              hintText: 'كلمــة المــرور',
-                              prefixIcon: Icons.lock_outline_rounded,
-                              keyboardType: TextInputType.visiblePassword,
-                              width: 250,
-                              obscureText: true,
-                              onChanged: (value) {},
-                            ),
+                            Obx(() {
+                              return myTextField(
+                                hintText: 'كلمــة المــرور',
+                                controller: caac.passwordController,
+                                validator: caac.passwordValidator,
+                                prefixIcon: Icons.lock_outline_rounded,
+                                keyboardType: TextInputType.visiblePassword,
+                                width: 250,
+                                suffixIcon: caac.isVisible.value
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                obscureText:
+                                    caac.isVisible.value ? false : true,
+                                onChanged: (value) {},
+                                onTapSuffixIcon: () {
+                                  caac.changePasswordVisibility();
+                                },
+                              );
+                            }),
                           ],
                         ),
                         const SizedBox(
@@ -206,6 +217,8 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         ),
                         myTextField(
                           hintText: 'العنـــوان',
+                          controller: caac.addressController,
+                          validator: caac.addressValidator,
                           prefixIcon: Icons.location_on_outlined,
                           keyboardType: TextInputType.text,
                           width: 440,
@@ -218,7 +231,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                           children: [
                             myButton(
                               onPressed: () {
-                                if (caac.createAccountFormKey.currentState!
+                                if (caac.createAdminAccountFormKey.currentState!
                                     .validate()) {
                                   showDialog(
                                     barrierDismissible: false,
