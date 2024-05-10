@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/create_admin_account_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
@@ -88,114 +89,155 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                   SizedBox(
                     height: 50,
                   ),
-                  Row(
-                    children: [
-                      myTextField(
-                        hintText: 'الاســم الكـامل',
-                        width: 300,
-                        prefixIcon: Icons.person_2_outlined,
-                        keyboardType: TextInputType.text,
-                        onChanged: (value) {},
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      myTextField(
-                        hintText: 'رقــم الهـــاتف',
-                        prefixIcon: Icons.call_outlined,
-                        width: 235,
-                        keyboardType: TextInputType.number,
-                        onChanged: (value) {},
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      myTextField(
-                        hintText: 'تاريــخ الميـلاد',
-                        prefixIcon: Icons.date_range_outlined,
-                        keyboardType: TextInputType.text,
-                        readOnly: true,
-                        width: 250,
-                        onChanged: (value) {},
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      GetBuilder<CreateAdminAccountController>(
-                        builder: (controller) {
-                          return myDropDownMenuButton(
-                            hintText: 'الجنــس',
-                            items: controller.gender,
-                            onChanged: (String? value) {
-                              controller.changeGenderSelectedValue(value!);
-                            },
-                            searchController:
-                                controller.genderSearchController.value,
-                            selectedValue: controller.genderSelectedValue,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      myTextField(
-                        hintText: 'اســم المستخــدم',
-                        prefixIcon: Icons.person_pin_outlined,
-                        keyboardType: TextInputType.text,
-                        width: 250,
-                        onChanged: (value) {},
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      myTextField(
-                        hintText: 'كلمــة المــرور',
-                        prefixIcon: Icons.lock_outline_rounded,
-                        keyboardType: TextInputType.visiblePassword,
-                        width: 250,
-                        obscureText: true,
-                        onChanged: (value) {},
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  myTextField(
-                    hintText: 'العنـــوان',
-                    prefixIcon: Icons.location_on_outlined,
-                    keyboardType: TextInputType.text,
-                    width: 440,
-                    onChanged: (value) {},
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  Row(
-                    children: [
-                      myButton(
-                        onPressed: () {
-                          showDialog(
-                            barrierDismissible: false,
-                            barrierColor: MyColors.greyColor.withOpacity(0.5),
-                            context: context,
-                            builder: (context) {
-                              return AdminVerification();
-                            },
-                          );
-                        },
-                        text: 'إنشــاء حســـاب المســؤول',
-                        textStyle: MyTextStyles.font16WhiteBold,
-                      ),
-                    ],
+                  Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    key: caac.createAccountFormKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            myTextField(
+                              validator: caac.nameValidator,
+                              hintText: 'الاســم الرباعي',
+                              controller: caac.nameController,
+                              width: 300,
+                              prefixIcon: Icons.person_2_outlined,
+                              keyboardType: TextInputType.text,
+                              onChanged: (value) {},
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            myTextField(
+                              controller: caac.numberController,
+                              validator: caac.numberValidator,
+                              hintText: 'رقــم الهـــاتف',
+                              prefixIcon: Icons.call_outlined,
+                              width: 235,
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) {},
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            myTextField(
+                              validator: caac.dateValidator,
+                              controller: caac.dateController,
+                              hintText: 'تاريــخ الميـلاد',
+                              prefixIcon: Icons.date_range_outlined,
+                              keyboardType: TextInputType.text,
+                              readOnly: true,
+                              width: 250,
+                              onTap: () {
+                                showDatePicker(
+                                        context: context,
+                                        firstDate: DateTime(1950),
+                                        lastDate: DateTime.now())
+                                    .then(
+                                  (value) {
+                                    if (value == null) {
+                                      return;
+                                    } else {
+                                      caac.dateController.text =
+                                          DateFormat.yMMMd().format(value);
+                                    }
+                                  },
+                                );
+                              },
+                              onChanged: (value) {},
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+
+                            GetBuilder<CreateAdminAccountController>(
+                              builder: (controller) {
+
+                                return myDropDownMenuButton(
+
+                                  hintText: 'الجنــس',
+                                  items: controller.gender,
+                                  onChanged: (String? value) {
+                                    controller
+                                        .changeGenderSelectedValue(value!);
+                                  },
+                                  searchController:
+                                      controller.genderSearchController.value,
+                                  selectedValue: controller.genderSelectedValue,
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            myTextField(
+                              validator: caac.userNameValidator,
+                              controller: caac.userNameController,
+                              hintText: 'اســم المستخــدم',
+                              prefixIcon: Icons.person_pin_outlined,
+                              keyboardType: TextInputType.text,
+                              width: 250,
+                              onChanged: (value) {},
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            myTextField(
+                              hintText: 'كلمــة المــرور',
+                              prefixIcon: Icons.lock_outline_rounded,
+                              keyboardType: TextInputType.visiblePassword,
+                              width: 250,
+                              obscureText: true,
+                              onChanged: (value) {},
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        myTextField(
+                          hintText: 'العنـــوان',
+                          prefixIcon: Icons.location_on_outlined,
+                          keyboardType: TextInputType.text,
+                          width: 440,
+                          onChanged: (value) {},
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Row(
+                          children: [
+                            myButton(
+                              onPressed: () {
+                                if (caac.createAccountFormKey.currentState!
+                                    .validate()) {
+                                  showDialog(
+                                    barrierDismissible: false,
+                                    barrierColor:
+                                        MyColors.greyColor.withOpacity(0.5),
+                                    context: context,
+                                    builder: (context) {
+                                      return AdminVerification();
+                                    },
+                                  );
+                                }
+                              },
+                              text: 'إنشــاء حســـاب المســؤول',
+                              textStyle: MyTextStyles.font16WhiteBold,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

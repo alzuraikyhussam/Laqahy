@@ -86,10 +86,12 @@ myTextField({
   TextAlign textAlign = TextAlign.start,
   String? initialValue,
   double? heightFactor = 2.7,
+  void Function()? onTap ,
 }) {
   return SizedBox(
     width: width?.toDouble(),
     child: TextFormField(
+      onTap: onTap ,
       initialValue: initialValue,
       controller: controller,
       cursorColor: MyColors.primaryColor.withOpacity(0.7),
@@ -813,7 +815,10 @@ myDropDownMenuButton({
 }) {
   return Center(
     child: DropdownButtonHideUnderline(
+
       child: DropdownButton2<String>(
+
+
         isExpanded: true,
         hint: Text(
           hintText,
