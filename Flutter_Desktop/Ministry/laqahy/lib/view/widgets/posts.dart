@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/create_posts_controller.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -17,6 +18,7 @@ class PostsScreen extends StatefulWidget {
 
 class _PostsScreenState extends State<PostsScreen> {
   HomeLayoutController hlc = Get.put(HomeLayoutController());
+  CreatePostsController cpc = Get.put(CreatePostsController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,107 +41,126 @@ class _PostsScreenState extends State<PostsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'عنـوان المنشـور',
-                          style: MyTextStyles.font16BlackBold,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        myTextField(
-                          hintText: 'عنوان المنشور',
-                          keyboardType: TextInputType.text,
-                          onChanged: (value) {},
-                          width: 500,
-                          maxLength: 150,
-                          prefixIcon: Icons.label_outlined,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'صـورة المنشـور',
-                          style: MyTextStyles.font16BlackBold,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        myTextField(
-                          hintText: 'اختر صورة المنشور',
-                          keyboardType: TextInputType.text,
-                          onChanged: (value) {},
-                          readOnly: true,
-                          width: 200,
-                          prefixIcon: Icons.photo_size_select_actual_outlined,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'وصـف المنشـور',
-                      style: MyTextStyles.font16BlackBold,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    myTextField(
-                      hintText: 'وصف المنشور',
-                      keyboardType: TextInputType.text,
-                      onChanged: (value) {},
-                      width: 500,
-                      maxLines: 5,
-                      prefixIcon: Icons.description_outlined,
-                    ),
-                  ],
-                ),
-                
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    myButton(
-                      onPressed: () {},
-                      text: 'إضــافــة',
-                      textStyle: MyTextStyles.font16WhiteBold,
-                      width: 130,
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    myButton(
-                      onPressed: () {
-                        hlc.changeChoose(
-                          'الرئيسية',
-                        );
-                      },
-                      text: 'خـــروج',
-                      textStyle: MyTextStyles.font16WhiteBold,
-                      width: 130,
-                      backgroundColor: MyColors.greyColor,
-                    ),
-                  ],
+                Form(
+                  key: cpc.createPostsFormKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'عنـوان المنشـور',
+                                style: MyTextStyles.font16BlackBold,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              myTextField(
+                                controller: cpc.titleController,
+                                validator: cpc.titleValidator,
+                                hintText: 'عنوان المنشور',
+                                keyboardType: TextInputType.text,
+                                onChanged: (value) {},
+                                width: 500,
+                                maxLength: 150,
+                                prefixIcon: Icons.label_outlined,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'صـورة المنشـور',
+                                style: MyTextStyles.font16BlackBold,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              myTextField(
+                                controller: cpc.pictureController,
+                                validator: cpc.pictureValidator,
+                                hintText: 'اختر صورة المنشور',
+                                keyboardType: TextInputType.text,
+                                onChanged: (value) {},
+                                readOnly: true,
+                                width: 200,
+                                prefixIcon:
+                                    Icons.photo_size_select_actual_outlined,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'وصـف المنشـور',
+                            style: MyTextStyles.font16BlackBold,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          myTextField(
+                            hintText: 'وصف المنشور',
+                            controller: cpc.descController,
+                            validator: cpc.descValidator,
+                            keyboardType: TextInputType.text,
+                            onChanged: (value) {},
+                            width: 500,
+                            maxLines: 5,
+                            heightFactor: 4.8,
+                            prefixIcon: Icons.description_outlined,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          myButton(
+                            onPressed: () {
+                              if (cpc.createPostsFormKey.currentState!
+                                  .validate()) {}
+                            },
+                            text: 'إضــافــة',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                            width: 130,
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          myButton(
+                            onPressed: () {
+                              hlc.changeChoose(
+                                'الرئيسية',
+                              );
+                            },
+                            text: 'خـــروج',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                            width: 130,
+                            backgroundColor: MyColors.greyColor,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 30,

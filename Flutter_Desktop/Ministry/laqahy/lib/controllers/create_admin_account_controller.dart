@@ -48,14 +48,14 @@ class CreateAdminAccountController extends GetxController {
 
 /////////////
   TextEditingController birthdateController = TextEditingController();
-  String? dateValidator(value) {
+  String? birthdateValidator(value) {
     if (value.isEmpty) {
       return 'ادخل تاريخ الميلاد';
     }
     return null;
   }
 
-  TextEditingController dateController = TextEditingController();
+/////////////
   String? genderValidator(value) {
     if (value == null) {
       return 'قم باختيار الجنس';

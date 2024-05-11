@@ -822,6 +822,8 @@ myDropDownMenuButton({
     child: DropdownButtonFormField2<String>(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: MyColors.whiteColor.withOpacity(0.5),
         contentPadding: EdgeInsets.zero,
         border: InputBorder.none,
         enabledBorder: OutlineInputBorder(
@@ -874,7 +876,7 @@ myDropDownMenuButton({
         height: 60,
         width: width != null ? width.toDouble() : 200,
         decoration: BoxDecoration(
-          color: MyColors.whiteColor.withOpacity(0.5),
+          // color: MyColors.whiteColor.withOpacity(0.5),
           borderRadius: BorderRadius.circular(10),
           // border: Border.all(
           //   color: MyColors.greyColor.withOpacity(0.3),
@@ -1076,7 +1078,7 @@ myReportsCards({
         myButton(
           width: 120,
           onPressed: onPressed,
-          text: 'إنشـــــــاء',
+          text: 'إنـــشـــــــاء',
           textStyle: MyTextStyles.font14WhiteBold,
         ),
       ],

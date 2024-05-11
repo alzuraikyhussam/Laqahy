@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: LoginScreen(),
+      home: HomeLayout(),
     );
   }
 }
