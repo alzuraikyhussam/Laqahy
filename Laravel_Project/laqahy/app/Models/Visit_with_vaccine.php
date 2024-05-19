@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Visit_with_vaccine extends Model
+{
+    use HasFactory;
+    public $timestamps = false;
+    protected $fillable = ['visit_types_id','vaccine_types_id'];
+
+}

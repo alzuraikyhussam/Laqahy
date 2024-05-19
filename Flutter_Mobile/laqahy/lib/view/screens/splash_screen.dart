@@ -151,6 +151,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
                 ],
               ),
             ),
+          
           ),
 
           // Center(

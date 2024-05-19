@@ -15,6 +15,7 @@ import 'package:laqahy/view/widgets/home.dart';
 import 'package:laqahy/view/widgets/system_info.dart';
 import 'package:laqahy/view/widgets/techincal_support.dart';
 import 'package:window_manager/window_manager.dart';
+import '../widgets/offices_screen.dart';
 import '../widgets/posts.dart';
 import '../widgets/vaccines_page.dart';
 
@@ -320,6 +321,8 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                               return const HomeScreen();
                             } else if (hlc.choose.value == 'المستخدمين') {
                               return const UsersScreen();
+                            }else if (hlc.choose.value == 'المكاتب') {
+                              return const OfficesScreen();
                             }else if (hlc.choose.value == 'اللقاحات') {
                               return const VaccinesScreen();
                             }else if (hlc.choose.value == 'الطلبات') {
@@ -331,7 +334,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             } else if (hlc.choose.value == 'حول النظام') {
                               return const SystemInfoScreen();
                             } else if (hlc.choose.value == 'الدعم الفني') {
-                              return TechnicalSupport();
+                              return const TechnicalSupport();
                             } else {
                               return const SizedBox();
                             }
