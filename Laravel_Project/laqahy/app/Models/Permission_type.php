@@ -11,4 +11,10 @@ class Permission_type extends Model
     public $timestamps = false;
     protected $fillable = ['permission_type'];
 
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
+
 }

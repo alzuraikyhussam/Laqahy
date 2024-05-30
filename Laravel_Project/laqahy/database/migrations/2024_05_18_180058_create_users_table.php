@@ -19,9 +19,9 @@ return new class extends Migration
             $table->date('user_birthdate');
             $table->String('user_account_name');
             $table->String('user_account_password');
-            $table->foreignId('genders_id')->constrained('genders');
-            $table->foreignId('permission_types_id')->constrained('permission_types');
-            $table->foreignId('healthy_centers_id')->constrained('healthy_centers');
+            $table->foreignId('gender_id')->constrained('genders');
+            $table->foreignId('permission_type_id')->constrained('permission_types');
+            $table->foreignId('healthy_center_id')->constrained('healthy_centers');
         });
     }
 

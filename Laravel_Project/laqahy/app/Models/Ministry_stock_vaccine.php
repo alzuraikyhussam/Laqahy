@@ -10,7 +10,12 @@ class Ministry_stock_vaccine extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'vaccine_types_id',
+        'vaccine_type_id',
         'quantity',
     ];
+
+    public function vaccine_type()
+    {
+        return $this->belongsTo(Vaccine_type::class);
+    }
 }

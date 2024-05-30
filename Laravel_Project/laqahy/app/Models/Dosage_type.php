@@ -9,7 +9,26 @@ class Dosage_type extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable=['dosage_type','dosage_levels_id'];
+    protected $fillable=['dosage_type','dosage_level_id'];
 
+    public function dosage_level()
+    {
+        return $this->belongsTo(Dosage_level::class);
+    }
+
+    public function mother_statement()
+    {
+        return $this->hasMany(Mother_statement::class);
+    }
+
+    public function child_statement()
+    {
+        return $this->hasMany(Child_statement::class);
+    }
+
+    public function vaccine_type()
+    {
+        return $this->belongsToMany(Vaccine_type::class);
+    }
 
 }

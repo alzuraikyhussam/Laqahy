@@ -11,5 +11,13 @@ class Gender extends Model
     public $timestamps = false;
     protected $fillable=['gender_type'];
 
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 
+    public function child_data()
+    {
+        return $this->hasMany(Child_data::class);
+    }
 }

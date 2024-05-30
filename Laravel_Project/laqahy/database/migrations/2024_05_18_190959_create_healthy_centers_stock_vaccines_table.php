@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('healthy_centers_stock_vaccines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('healthy_centers_id')->constrained('healthy_centers');
-            $table->foreignId('vaccine_types_id')->constrained('vaccine_types');
+            $table->foreignId('healthy_center_id')->constrained('healthy_centers');
+            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
             $table->integer('basic_quantity');
             $table->integer('remaining_quantity');
         });

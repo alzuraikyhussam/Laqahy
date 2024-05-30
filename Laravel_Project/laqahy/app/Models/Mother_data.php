@@ -16,7 +16,32 @@ class Mother_data extends Model
         'mother_village',
         'mother_password',
         'cities_id',
-        'directorates_id',
-        'healthy_centers_id',
+        'directorate_id',
+        'healthy_center_id',
     ];
+
+    public function city()
+    {
+        return $this->belongsTo(Cities::class);
+    }
+
+    public function directorate()
+    {
+        return $this->belongsTo(Directorate::class);
+    }
+
+    public function child_data()
+    {
+        return $this->hasMany(Child_data::class);
+    }
+
+    public function healthy_center()
+    {
+        return $this->belongsTo(Healthy_center::class);
+    }
+
+    public function mother_statement()
+    {
+        return $this->hasMany(Mother_statement::class);
+    }
 }

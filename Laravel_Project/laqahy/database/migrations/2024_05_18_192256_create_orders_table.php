@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vaccine_types_id')->constrained('vaccine_types');
-            $table->foreignId('healthy_centers_id')->constrained('healthy_centers');
+            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
+            $table->foreignId('healthy_center_id')->constrained('healthy_centers');
             $table->date('order_date');
             $table->integer('quantity');
             $table->date('delivery_date');
             $table->String('healthy_center_note_date');
             $table->String('ministry_note_date');
-            $table->foreignId('order_states_id')->constrained('order_states');
+            $table->foreignId('order_state_id')->constrained('order_states');
             $table->date('date_deleted_from_healthy_center');
             $table->date('date_deleted_from_ministry');
         });

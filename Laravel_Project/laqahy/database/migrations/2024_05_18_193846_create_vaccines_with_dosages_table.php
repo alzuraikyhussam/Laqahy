@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('vaccines_with_dosages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vaccine_types_id')->constrained('vaccine_types');
-            $table->foreignId('dosage_types_id')->constrained('dosage_types');
+            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
+            $table->foreignId('dosage_type_id')->constrained('dosage_types');
 
         });
     }

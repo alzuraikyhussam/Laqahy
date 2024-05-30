@@ -10,13 +10,38 @@ class Child_statement extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'child_datas_id',
-        'healthy_centers_id',
+        'child_data_id',
+        'healthy_center_id',
         'health_employee_name',
         'date_taking_dose',
         'return_date',
-        'visit_types_id',
-        'vaccine_types_id',
-        'dosage_types_id',
+        'visit_type_id',
+        'vaccine_type_id',
+        'dosage_type_id',
     ];
+
+    public function child_data()
+    {
+        return $this->belongsTo(Child_data::class);
+    }
+
+    public function healthy_center()
+    {
+        return $this->belongsTo(Healthy_center::class);
+    }
+
+    public function visit_type()
+    {
+        return $this->belongsTo(Visit_type::class);
+    }
+
+    public function vaccine_type()
+    {
+        return $this->belongsTo(Vaccine_type::class);
+    }
+
+    public function dosage_type()
+    {
+        return $this->belongsTo(Dosage_type::class);
+    }
 }

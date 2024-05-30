@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ministry_statement_stock_vaccines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vaccine_types_id')->constrained('vaccine_types');
+            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
             $table->integer('quantity');
             $table->String('donor');
             $table->date('date');

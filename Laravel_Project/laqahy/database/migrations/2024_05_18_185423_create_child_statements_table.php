@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('child_statements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('child_datas_id')->constrained('child_datas');
-            $table->foreignId('healthy_centers_id')->constrained('healthy_centers');
+            $table->foreignId('child_data_id')->constrained('child_datas');
+            $table->foreignId('healthy_center_id')->constrained('healthy_centers');
             $table->String('health_employee_name');
             $table->date('date_taking_dose');
             $table->date('return_date');
-            $table->foreignId('visit_types_id')->constrained('visit_types');
-            $table->foreignId('vaccine_types_id')->constrained('vaccine_types');
-            $table->foreignId('dosage_types_id')->constrained('dosage_types');
+            $table->foreignId('visit_type_id')->constrained('visit_types');
+            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
+            $table->foreignId('dosage_type_id')->constrained('dosage_types');
         });
     }
 
