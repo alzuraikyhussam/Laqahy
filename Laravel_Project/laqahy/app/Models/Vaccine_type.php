@@ -10,4 +10,39 @@ class Vaccine_type extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable=['vaccine_type'];
+
+    public function ministry_stock_vaccine()
+    {
+        return $this->hasMany(Ministry_stock_vaccine::class);
+    }
+
+    public function ministry_statement_stock_vaccine()
+    {
+        return $this->hasMany(Ministry_statement_stock_vaccine::class);
+    }
+
+    public function healthy_center_stock_vaccine()
+    {
+        return $this->hasMany(Healthy_centers_stock_vaccine::class);
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function child_statement()
+    {
+        return $this->hasMany(Child_statement::class);
+    }
+
+    public function dosage_type()
+    {
+        return $this->belongsToMany(Dosage_type::class);
+    }
+
+    public function visit_type()
+    {
+        return $this->belongsToMany(Visit_type::class);
+    }
 }

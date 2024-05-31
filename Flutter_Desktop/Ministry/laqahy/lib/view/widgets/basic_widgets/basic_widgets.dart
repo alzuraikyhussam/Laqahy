@@ -4,11 +4,13 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/add_quantity_vaccine.dart';
 import 'package:laqahy/view/widgets/edit_user.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -605,12 +607,19 @@ myVaccineCards({
   );
 }
 
-myPostsCard({required context}) {
+myPostsCard({
+  required context,
+  required var title,
+  required var desc,
+  required var image,
+  required var publishAt,
+  required var postId,
+}) {
   return Container(
     padding: EdgeInsets.all(15),
-    height: 200,
+    height: 220,
     decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.9),
+      color: Colors.white,
       border: Border.all(
         color: MyColors.greyColor.withOpacity(0.2),
       ),
@@ -628,12 +637,13 @@ myPostsCard({required context}) {
       children: [
         Container(
           width: 200,
+          height: Get.height,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Image.asset(
-            'assets/images/default-post-image.png',
+          child: Image.network(
+            image,
             fit: BoxFit.cover,
           ),
         ),
@@ -646,15 +656,16 @@ myPostsCard({required context}) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'لقــاح الســل',
+                title,
                 style: MyTextStyles.font18PrimaryBold,
+                maxLines: 2,
               ),
               SizedBox(
                 height: 10,
               ),
               Expanded(
                 child: Text(
-                  'ما هو لقاح السل؟ لقاح السل هو لقاح يستخدم للوقاية من مرض السل، وهو مرض يسببه البكتيريا المعروفة باسم ميكروب السل. كيف يعمل لقاح السل؟',
+                  desc,
                   style: MyTextStyles.font16BlackMedium,
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
@@ -685,7 +696,7 @@ myPostsCard({required context}) {
                     width: 10,
                   ),
                   Text(
-                    '${DateFormat('hh:mm yyyy-MM-dd').format(DateTime.now())}',
+                    publishAt,
                     style: MyTextStyles.font16GreyMedium,
                   ),
                 ],
@@ -701,7 +712,15 @@ myPostsCard({required context}) {
             children: [
               myButton(
                 onPressed: () {
-                  myShowDialog(context: context, widgetName: EditPost());
+                  myShowDialog(
+                    context: context,
+                    widgetName: EditPostDialog(
+                      postId: postId,
+                      title: title,
+                      desc: desc,
+                      image: image,
+                    ),
+                  );
                 },
                 text: 'تعـديـل',
                 textStyle: MyTextStyles.font16WhiteBold,
@@ -710,7 +729,10 @@ myPostsCard({required context}) {
               myButton(
                 onPressed: () {
                   myShowDialog(
-                      context: context, widgetName: DeletePostConfirm());
+                      context: context,
+                      widgetName: DeletePostConfirm(
+                        postId: postId,
+                      ));
                 },
                 text: 'حــذف',
                 textStyle: MyTextStyles.font16WhiteBold,
@@ -1082,6 +1104,35 @@ myReportsCards({
           textStyle: MyTextStyles.font14WhiteBold,
         ),
       ],
+    ),
+  );
+}
+
+myLoadingIndicator() {
+  return Container(
+    padding: EdgeInsetsDirectional.all(10),
+    height: 50,
+    width: 120,
+    alignment: AlignmentDirectional.center,
+    child: LoadingIndicator(
+      indicatorType: Indicator.lineScale,
+
+      /// Required, The loading type of the widget
+      colors: [
+        MyColors.secondaryColor,
+        MyColors.primaryColor,
+      ],
+
+      /// Optional, The color collections
+      strokeWidth: 2,
+
+      /// Optional, The stroke of the line, only applicable to widget which contains line
+      // backgroundColor: Colors.black,
+
+      /// Optional, Background of the widget
+      // pathBackgroundColor: Colors.black,
+
+      /// Optional, the stroke backgroundColor
     ),
   );
 }

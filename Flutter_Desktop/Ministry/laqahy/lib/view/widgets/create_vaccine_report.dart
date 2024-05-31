@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/create_vaccine_report_controller.dart';
 import 'package:laqahy/controllers/reports_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
@@ -107,6 +108,22 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
                       hintText: 'من تاريـخ',
                       keyboardType: TextInputType.datetime,
                       onChanged: (value) {},
+                      onTap: () {
+                        showDatePicker(
+                                context: context,
+                                firstDate: DateTime(2024),
+                                lastDate: DateTime.now())
+                            .then(
+                          (value) {
+                            if (value == null) {
+                              return;
+                            } else {
+                              cvrc.beginDateController.text =
+                                  DateFormat.yMMMd().format(value);
+                            }
+                          },
+                        );
+                      },
                     ),
                     SizedBox(
                       width: 15,
@@ -120,6 +137,22 @@ class _CreateVaccineReportDialogState extends State<CreateVaccineReportDialog> {
                       hintText: 'الى تاريـخ',
                       keyboardType: TextInputType.datetime,
                       onChanged: (value) {},
+                      onTap: () {
+                        showDatePicker(
+                                context: context,
+                                firstDate: DateTime(2024),
+                                lastDate: DateTime.now())
+                            .then(
+                          (value) {
+                            if (value == null) {
+                              return;
+                            } else {
+                              cvrc.endDateController.text =
+                                  DateFormat.yMMMd().format(value);
+                            }
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Model
 {
@@ -16,8 +17,23 @@ class User extends Model
         'user_birthdate',
         'user_account_name',
         'user_account_password',
-        'genders_id',
-        'permission_types_id',
-        'healthy_centers_id',
+        'gender_id',
+        'permission_type_id',
+        'healthy_center_id',
     ];
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
+    public function permission_type()
+    {
+        return $this->belongsTo(Permission_type::class);
+    }
+
+    public function healthy_center()
+    {
+        return $this->belongsTo(Healthy_center::class);
+    }
 }

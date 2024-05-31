@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('mother_village');
             $table->string('mother_password');
             $table->foreignId('cities_id')->constrained('cities');
-            $table->foreignId('directorates_id')->constrained('directorates');
-            $table->foreignId('healthy_centers_id')->constrained('healthy_centers');
+            $table->foreignId('directorate_id')->constrained('directorates');
+            $table->foreignId('healthy_center_id')->constrained('healthy_centers');
         });
     }
 

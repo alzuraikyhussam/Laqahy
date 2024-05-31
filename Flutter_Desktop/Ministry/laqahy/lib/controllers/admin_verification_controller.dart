@@ -8,8 +8,8 @@ class AdminVerificationController extends GetxController {
   String? codeValidator(value) {
     if (value.trim().isEmpty) {
       return 'يجب ادخال كود التحقق';
-    } else if (!GetUtils.isLengthGreaterOrEqual(value, 10)) {
-      return 'يجب ألا يقل عن 10 ارقام وحروف';
+    } else if (!GetUtils.isLengthGreaterOrEqual(value, 5)) {
+      return 'يجب ألا يقل عن 5 ارقام وحروف';
     } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
       return 'يجب ألا يحتوي على رموز او أحرف عربية';
     }

@@ -10,4 +10,9 @@ class Order_state extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = ['order_state'];
+
+    public function order()
+    {
+        return $this->hasOne(Order::class);
+    }
 }
