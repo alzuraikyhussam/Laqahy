@@ -22,7 +22,7 @@ class StorageService {
   }
 
   Future<int?> getCenterId() async {
-    return prefs.getInt('centerId');
+    return prefs.getInt('centerId') ?? 0;
   }
 
   Future<bool> isRegistered() async {

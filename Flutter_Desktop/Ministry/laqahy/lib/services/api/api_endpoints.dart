@@ -32,4 +32,8 @@ class ApiEndpoints {
   // --------------- Create Account Endpoints -------------------
   static const String register = '$baseUrl/auth/register';
   // --------------------------------------------------
+
+  // --------------- Login Endpoints -------------------
+  static const String login = '$baseUrl/auth/login';
+  // --------------------------------------------------
 }

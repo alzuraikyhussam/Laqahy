@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use Notifiable;
     use SoftDeletes;
     protected $fillable = [
         'user_name',
@@ -22,6 +24,9 @@ class User extends Model
         'permission_type_id',
         'healthy_center_id',
     ];
+
+    protected $hidden = ['user_account_password'];
+
     protected $dates = ['deleted_at'];
 
 

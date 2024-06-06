@@ -62,6 +62,45 @@ class ApiExceptionAlert {
     );
   }
 
+  myUserAlreadyExistsAlert() {
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiErrorAlert(
+        height: 270,
+        imageUrl: 'assets/images/error.json',
+        backgroundColor: MyColors.redColor,
+        title: 'المستخدم موجود بالفعل',
+        description: 'عذرا، هذا المستخدم الذي أدخلته موجود بالفعل',
+      ),
+    );
+  }
+
+  myUserNotFoundAlert() {
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiErrorAlert(
+        height: 270,
+        imageUrl: 'assets/images/404-error.json',
+        backgroundColor: MyColors.redColor,
+        title: 'المستخدم غير موجود',
+        description: 'المستخدم الذي أدخلته غير موجود',
+      ),
+    );
+  }
+
+  myInvalidPasswordAlert() {
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiErrorAlert(
+        height: 270,
+        imageUrl: 'assets/images/error.json',
+        backgroundColor: MyColors.redColor,
+        title: 'كلمة المرور خاطئة',
+        description: 'يرجى التأكد من كتابة كلمة المرور بشكل صحيح',
+      ),
+    );
+  }
+
   mySocketExceptionAlert() {
     myShowDialog(
       context: Get.context!,
@@ -79,7 +118,7 @@ class ApiExceptionAlert {
       context: Get.context!,
       widgetName: ApiErrorAlert(
         imageUrl: 'assets/images/500-error.json',
-        title: 'خطأ غير متوقع',
+        title: 'فشل في الوصول',
         description:
             'عذرا، لقد حدث خطأ غير متوقع أثناء تحميل البيانات من الخادم، يرجى المحاولة مرة أخرى \n$statusCode',
       ),

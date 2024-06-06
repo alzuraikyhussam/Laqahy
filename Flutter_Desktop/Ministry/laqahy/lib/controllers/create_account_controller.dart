@@ -177,7 +177,7 @@ class CreateAccountController extends GetxController {
         sdc.centerData.assignAll([center]);
 
         try {
-// Save SharedPreferences
+          // Save SharedPreferences
           StaticDataController controller = Get.find<StaticDataController>();
           await controller.storageService.setCenterId(sdc.centerData.first.id!);
           await controller.storageService.setRegistered(true);
@@ -190,6 +190,10 @@ class CreateAccountController extends GetxController {
             Get.offAll(HomeLayout());
           },
         );
+        return;
+      } else if (response.statusCode == 401) {
+        isLoading(false);
+        ApiExceptionAlert().myUserAlreadyExistsAlert();
         return;
       } else {
         isLoading(false);

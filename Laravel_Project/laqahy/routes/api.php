@@ -55,4 +55,9 @@ Route::get('directorates/{id}', [DirectorateController::class, 'show']);
 
 // --------------------- Auth Routes ------------------------
 Route::post('auth/register', [AuthController::class, 'register']);
+Route::post('auth/login', [AuthController::class, 'login']);
+// ------------------------------------------------------------
+
+// --------------------- User Routes ------------------------
+Route::get('users', [UserController::class, 'index']);
 // ------------------------------------------------------------

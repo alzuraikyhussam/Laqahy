@@ -6,6 +6,7 @@ use App\Models\Healthy_center;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,26 +35,18 @@ class AuthController extends Controller
                 ],
             );
 
-            // $request->validate([
-            //     'user_name' => 'required',
-            //     'user_phone' => 'required',
-            //     'user_address' => 'required',
-            //     'user_birthdate' => 'required',
-            //     'user_account_name' => 'required',
-            //     'user_account_password' => 'required',
-            //     'gender_id' => 'required',
-            //     'permission_type_id' => 'required',
-            //     'healthy_center_name' => 'required',
-            //     'healthy_center_address' => 'required',
-            //     'healthy_center_phone' => 'required',
-            //     'directorate_id' => 'required',
-            //     'cities_id' => 'required',
-            // ]);
-
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors(),
                 ], 400);
+            }
+
+            $user = User::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
+
+            if ($user) {
+                return response()->json([
+                    'message' => 'This user already exists',
+                ], 401);
             }
 
             $center = Healthy_center::create([
@@ -81,6 +74,52 @@ class AuthController extends Controller
                 'user' => $user,
                 'center' => $center,
             ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function login(Request $request)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'user_account_name' => 'required',
+                    'user_account_password' => 'required',
+                ],
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
+
+            $user = User::where('user_account_name', $request->user_account_name)->first();
+
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found',
+                ], 404);
+            }
+
+            if (!Hash::check($request->user_account_password, $user->user_account_password)) {
+                return response()->json([
+                    'message' => 'Invalid password',
+                ], 401);
+            }
+
+
+            Auth::login($user);
+            $center = Healthy_center::where('id', $user->healthy_center_id)->first();
+            return response()->json([
+                'message' => 'Login successfully',
+                'user' => $user,
+                'center' => $center,
+            ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

@@ -134,18 +134,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           height: 20,
                         ),
-                        myButton(
-                          onPressed: () {
-                            if (lc.loginFormKey.currentState!.validate()) {
-                              myShowDialog(
-                                  context: context,
-                                  widgetName: AdminVerification());
-                            }
-                          },
-                          width: 150,
-                          text: 'تسجيـل دخـول',
-                          textStyle: MyTextStyles.font16WhiteBold,
-                        ),
+                        Obx(() {
+                          return lc.isLoading.value
+                              ? myLoadingIndicator()
+                              : myButton(
+                                  onPressed: lc.isLoading.value
+                                      ? null
+                                      : () {
+                                          if (lc.loginFormKey.currentState!
+                                              .validate()) {
+                                            // myShowDialog(
+                                            //     context: context,
+                                            //     widgetName: AdminVerification());
+                                            lc.login();
+                                          }
+                                        },
+                                  width: 150,
+                                  text: 'تسجيـل دخـول',
+                                  textStyle: MyTextStyles.font16WhiteBold,
+                                );
+                        }),
                       ],
                     ),
                   ),

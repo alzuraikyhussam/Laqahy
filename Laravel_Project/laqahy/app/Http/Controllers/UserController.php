@@ -13,7 +13,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $user = User::get();
+            return response()->json([
+                'message' => 'Users retrieved successfully',
+                'data' => $user,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
