@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreignId('cities_id')->constrained('cities');
             $table->foreignId('directorate_id')->constrained('directorates');
             $table->foreignId('healthy_center_id')->constrained('healthy_centers');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

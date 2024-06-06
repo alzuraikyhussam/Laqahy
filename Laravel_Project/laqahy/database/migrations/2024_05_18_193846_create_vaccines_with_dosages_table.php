@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
             $table->foreignId('dosage_type_id')->constrained('dosage_types');
-
         });
     }
 

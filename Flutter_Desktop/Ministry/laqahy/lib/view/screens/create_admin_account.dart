@@ -4,11 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/create_admin_account_controller.dart';
+import 'package:laqahy/controllers/create_account_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/view/screens/create_ministry_account.dart';
 import 'package:laqahy/view/screens/welcome.dart';
-import 'package:laqahy/view/widgets/admin_verification.dart';
 import 'package:window_manager/window_manager.dart';
 import '../widgets/basic_widgets/basic_widgets.dart';
 
@@ -43,7 +43,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
 
   @override
   Widget build(BuildContext context) {
-    CreateAdminAccountController caac = Get.put(CreateAdminAccountController());
+    CreateAccountController cac = Get.put(CreateAccountController());
 
     return Scaffold(
       body: Stack(
@@ -72,7 +72,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                       myAppBarLogo(),
                       goBackButton(
                         onTap: () {
-                          Get.off(WelcomeScreen());
+                          Get.back();
                         },
                       ),
                     ],
@@ -91,8 +91,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                     height: 50,
                   ),
                   Form(
-                    // autovalidateMode: AutovalidateMode.onUserInteraction,
-                    key: caac.createAdminAccountFormKey,
+                    key: cac.createAdminAccountFormKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,9 +99,9 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         Row(
                           children: [
                             myTextField(
-                              validator: caac.nameValidator,
+                              validator: cac.nameValidator,
                               hintText: 'الاســم الرباعي',
-                              controller: caac.nameController,
+                              controller: cac.nameController,
                               width: 300,
                               prefixIcon: Icons.person_2_outlined,
                               keyboardType: TextInputType.text,
@@ -112,8 +111,8 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                               width: 10,
                             ),
                             myTextField(
-                              controller: caac.numberController,
-                              validator: caac.numberValidator,
+                              controller: cac.phoneNumberController,
+                              validator: cac.phoneNumberValidator,
                               hintText: 'رقــم الهـــاتف',
                               prefixIcon: Icons.call_outlined,
                               width: 235,
@@ -128,8 +127,8 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         Row(
                           children: [
                             myTextField(
-                              validator: caac.birthdateValidator,
-                              controller: caac.birthdateController,
+                              validator: cac.birthdateValidator,
+                              controller: cac.birthdateController,
                               hintText: 'تاريــخ الميـلاد',
                               prefixIcon: Icons.date_range_outlined,
                               keyboardType: TextInputType.text,
@@ -145,7 +144,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                                     if (value == null) {
                                       return;
                                     } else {
-                                      caac.birthdateController.text =
+                                      cac.birthdateController.text =
                                           DateFormat.yMMMd().format(value);
                                     }
                                   },
@@ -156,22 +155,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                             const SizedBox(
                               width: 10,
                             ),
-                            GetBuilder<CreateAdminAccountController>(
-                              builder: (controller) {
-                                return myDropDownMenuButton(
-                                  hintText: 'الجنــس',
-                                  validator: caac.genderValidator,
-                                  items: controller.gender,
-                                  onChanged: (String? value) {
-                                    controller
-                                        .changeGenderSelectedValue(value!);
-                                  },
-                                  searchController:
-                                      controller.genderSearchController.value,
-                                  selectedValue: controller.genderSelectedValue,
-                                );
-                              },
-                            ),
+                            Constants().gendersDropdownMenu(),
                           ],
                         ),
                         const SizedBox(
@@ -180,8 +164,8 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         Row(
                           children: [
                             myTextField(
-                              validator: caac.userNameValidator,
-                              controller: caac.userNameController,
+                              validator: cac.userNameValidator,
+                              controller: cac.userNameController,
                               hintText: 'اســم المستخدم',
                               prefixIcon: Icons.person_pin_outlined,
                               keyboardType: TextInputType.text,
@@ -194,19 +178,18 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                             Obx(() {
                               return myTextField(
                                 hintText: 'كلمــة المــرور',
-                                controller: caac.passwordController,
-                                validator: caac.passwordValidator,
+                                controller: cac.passwordController,
+                                validator: cac.passwordValidator,
                                 prefixIcon: Icons.lock_outline_rounded,
                                 keyboardType: TextInputType.visiblePassword,
                                 width: 250,
-                                suffixIcon: caac.isVisible.value
+                                suffixIcon: cac.isVisible.value
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
-                                obscureText:
-                                    caac.isVisible.value ? false : true,
+                                obscureText: cac.isVisible.value ? false : true,
                                 onChanged: (value) {},
                                 onTapSuffixIcon: () {
-                                  caac.changePasswordVisibility();
+                                  cac.changePasswordVisibility();
                                 },
                               );
                             }),
@@ -217,8 +200,8 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         ),
                         myTextField(
                           hintText: 'العنـــوان',
-                          controller: caac.addressController,
-                          validator: caac.addressValidator,
+                          controller: cac.addressController,
+                          validator: cac.addressValidator,
                           prefixIcon: Icons.location_on_outlined,
                           keyboardType: TextInputType.text,
                           width: 440,
@@ -229,24 +212,23 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         ),
                         Row(
                           children: [
-                            myButton(
-                              onPressed: () {
-                                if (caac.createAdminAccountFormKey.currentState!
-                                    .validate()) {
-                                  showDialog(
-                                    barrierDismissible: false,
-                                    barrierColor:
-                                        MyColors.greyColor.withOpacity(0.5),
-                                    context: context,
-                                    builder: (context) {
-                                      return AdminVerification();
-                                    },
-                                  );
-                                }
-                              },
-                              text: 'إنشــاء حســـاب المســؤول',
-                              textStyle: MyTextStyles.font16WhiteBold,
-                            ),
+                            Obx(() {
+                              return cac.isLoading.value
+                                  ? myLoadingIndicator()
+                                  : myButton(
+                                      onPressed: cac.isLoading.value
+                                          ? null
+                                          : () {
+                                              if (cac.createAdminAccountFormKey
+                                                  .currentState!
+                                                  .validate()) {
+                                                cac.createAccount();
+                                              }
+                                            },
+                                      text: 'إنشـــاء الحســـاب',
+                                      textStyle: MyTextStyles.font16WhiteBold,
+                                    );
+                            }),
                           ],
                         ),
                       ],

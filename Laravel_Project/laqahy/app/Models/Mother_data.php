@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Mother_data extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    use SoftDeletes;
     protected $fillable = [
         'mother_name',
         'mother_phone',
@@ -19,6 +20,8 @@ class Mother_data extends Model
         'directorate_id',
         'healthy_center_id',
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function city()
     {

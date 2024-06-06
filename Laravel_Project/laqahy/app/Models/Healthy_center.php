@@ -4,19 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Healthy_center extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    use SoftDeletes;
     protected $fillable = [
         'healthy_center_name',
         'healthy_center_address',
         'healthy_center_phone',
-        'healthy_center_installation_cod',
+        'healthy_center_installation_code',
         'directorate_id',
         'cities_id',
     ];
+    protected $dates = ['deleted_at'];
 
     public function city()
     {

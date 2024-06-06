@@ -16,9 +16,11 @@ return new class extends Migration
             $table->String('healthy_center_name');
             $table->String('healthy_center_address');
             $table->String('healthy_center_phone');
-            $table->String('healthy_center_installation_cod');
+            $table->String('healthy_center_installation_code')->nullable();
             $table->foreignId('directorate_id')->constrained('directorates');
             $table->foreignId('cities_id')->constrained('cities');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/login_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/welcome.dart';
 import 'package:laqahy/view/widgets/admin_verification.dart';
@@ -17,6 +18,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  StaticDataController controller = Get.find<StaticDataController>();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -59,17 +62,19 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      myAppBarLogo(),
-                      goBackButton(
-                        onTap: () {
-                          Get.off(WelcomeScreen());
-                        },
-                      ),
-                    ],
-                  ),
+                  controller.isRegistered.value
+                      ? myAppBarLogo()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            myAppBarLogo(),
+                            goBackButton(
+                              onTap: () {
+                                Get.off(WelcomeScreen());
+                              },
+                            ),
+                          ],
+                        ),
                   SizedBox(
                     height: 40,
                   ),

@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Child_data extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    use SoftDeletes;
     protected $fillable = [
         'child_data_name',
         'mother_datas_id',
@@ -16,6 +17,7 @@ class Child_data extends Model
         'child_data_birthdate',
         'gender_id',
     ];
+    protected $dates = ['deleted_at'];
 
 
     public function gender()

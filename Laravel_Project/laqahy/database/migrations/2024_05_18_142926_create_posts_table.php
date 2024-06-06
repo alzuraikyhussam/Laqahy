@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('post_description');
             $table->String('post_image');
             $table->timestamp('post_publish_date');
+            $table->softDeletes();
         });
     }
 

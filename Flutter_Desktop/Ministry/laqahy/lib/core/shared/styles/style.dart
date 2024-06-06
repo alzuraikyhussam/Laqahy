@@ -144,6 +144,12 @@ class MyTextStyles {
     color: MyColors.whiteColor,
   );
 
+  static TextStyle font18WhiteBold = TextStyle(
+    fontSize: 18.0,
+    color: MyColors.whiteColor,
+    fontWeight: FontWeight.bold,
+  );
+
   // -------------------------------------------
 
   // Red Color

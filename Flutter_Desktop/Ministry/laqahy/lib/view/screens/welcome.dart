@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/create_ministry_account.dart';
@@ -16,6 +18,8 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  StaticDataController controller = Get.find<StaticDataController>();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -77,47 +81,65 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   height: 40,
                 ),
                 Text(
-                  'مرحبــاً بكــم ...',
+                  controller.isRegistered.value
+                      ? 'مرحبــاً بعــودتك ...'
+                      : 'مرحبــاً بكــم ...',
                   style: MyTextStyles.font18PrimaryBold,
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  width: 250,
-                  child: Text(
-                    'في البرنامج الأول لمتابعة عملية التطعيم في اليمن.',
-                    style: MyTextStyles.font18BlackBold,
-                  ),
-                ),
+                controller.isRegistered.value
+                    ? Container(
+                        width: 320,
+                        child: Text(
+                          'أهلاً وسهلاً بك في البرنامج الأول لمتابعة عملية التطعيم في اليمن.',
+                          style: MyTextStyles.font18BlackBold,
+                        ),
+                      )
+                    : Container(
+                        width: 250,
+                        child: Text(
+                          'في البرنامج الأول لمتابعة عملية التطعيم في اليمن.',
+                          style: MyTextStyles.font18BlackBold,
+                        ),
+                      ),
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    myButton(
-                      width: 150,
-                      onPressed: () {
-                        Get.off(LoginScreen());
-                        
-                      },
-                      text: 'تسجيـل دخـول',
-                      textStyle: MyTextStyles.font16WhiteBold,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    myButton(
-                      width: 150,
-                      backgroundColor: MyColors.greyColor,
-                      onPressed: () {
-                        Get.off(CreateMinistryAccountScreen());
-                      },
-                      text: 'إنشـاء حسـاب',
-                      textStyle: MyTextStyles.font16WhiteBold,
-                    ),
-                  ],
-                ),
+                controller.isRegistered.value
+                    ? myButton(
+                        width: 150,
+                        onPressed: () {
+                          Get.off(LoginScreen());
+                        },
+                        text: 'تسجيـل دخـول',
+                        textStyle: MyTextStyles.font16WhiteBold,
+                      )
+                    : Row(
+                        children: [
+                          myButton(
+                            width: 150,
+                            onPressed: () {
+                              Get.off(LoginScreen());
+                            },
+                            text: 'تسجيـل دخـول',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          myButton(
+                            width: 150,
+                            backgroundColor: MyColors.greyColor,
+                            onPressed: () {
+                              Get.off(CreateMinistryAccountScreen());
+                            },
+                            text: 'إنشـاء حسـاب',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                          ),
+                        ],
+                      ),
               ],
             ),
           ),

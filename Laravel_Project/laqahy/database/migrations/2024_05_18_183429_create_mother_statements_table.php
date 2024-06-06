@@ -20,6 +20,8 @@ return new class extends Migration
             $table->date('return_date');
             $table->foreignId('dosage_type_id')->constrained('dosage_types');
             $table->foreignId('dosage_level_id')->constrained('dosage_levels');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/create_ministry_account_controller.dart';
+import 'package:laqahy/controllers/create_account_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/create_admin_account.dart';
 import 'package:laqahy/view/screens/welcome.dart';
@@ -25,7 +26,7 @@ class _CreateMinistryAccountScreenState
     // TODO: implement initState
     super.initState();
     WindowOptions createAccountWindowOptions = const WindowOptions(
-      size: Size(1000, 600),
+      size: Size(950, 580),
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
@@ -42,8 +43,8 @@ class _CreateMinistryAccountScreenState
 
   @override
   Widget build(BuildContext context) {
-    CreateMinistryAccountController cac =
-        Get.put(CreateMinistryAccountController());
+    CreateAccountController cac = Get.put(CreateAccountController());
+
     return Scaffold(
       body: Stack(
         children: [
@@ -76,7 +77,7 @@ class _CreateMinistryAccountScreenState
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                   Text(
                     'إنشاء حساب وزارة الصحة والسكان ...',
@@ -93,7 +94,7 @@ class _CreateMinistryAccountScreenState
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 40,
                   ),
                   Form(
                     key: cac.createMinistryAccountFormKey,
@@ -120,8 +121,8 @@ class _CreateMinistryAccountScreenState
                             SizedBox(
                               width: 228,
                               child: myTextField(
-                                validator: cac.numberValidator,
-                                controller: cac.numberController,
+                                validator: cac.centerPhoneNumberValidator,
+                                controller: cac.centerPhoneNumberController,
                                 prefixIcon: Icons.call_outlined,
                                 hintText: 'رقم الهاتف',
                                 keyboardType: TextInputType.number,
@@ -133,52 +134,13 @@ class _CreateMinistryAccountScreenState
                         const SizedBox(
                           height: 15,
                         ),
-                        Column(
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                GetBuilder<CreateMinistryAccountController>(
-                                  builder: (controller) {
-                                    return myDropDownMenuButton(
-                                      validator: cac.cityValidator,
-                                      hintText: 'المحافظة',
-                                      items: cac.cities,
-                                      onChanged: (String? value) {
-                                        controller
-                                            .changeCitySelectedValue(value!);
-                                      },
-                                      searchController:
-                                          cac.citySearchController.value,
-                                      selectedValue: cac.citySelectedValue,
-                                    );
-                                  },
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                GetBuilder<CreateMinistryAccountController>(
-                                  builder: (controller) {
-                                    return myDropDownMenuButton(
-                                      validator: cac.directorateValidator,
-                                      hintText: 'المديرية',
-                                      items: cac.directorates,
-                                      onChanged: (String? value) {
-                                        controller
-                                            .changeDirectorateSelectedValue(
-                                                value!);
-                                      },
-                                      searchController:
-                                          cac.directorateSearchController.value,
-                                      selectedValue:
-                                          cac.directorateSelectedValue,
-                                    );
-                                  },
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                              ],
+                            Constants().citiesDropdownMenu(),
+                            const SizedBox(
+                              width: 10,
                             ),
+                            Constants().directoratesDropdownMenu(),
                           ],
                         ),
                         const SizedBox(
@@ -187,8 +149,8 @@ class _CreateMinistryAccountScreenState
                         SizedBox(
                           width: 410,
                           child: myTextField(
-                            validator: cac.addressValidator,
-                            controller: cac.addressController,
+                            validator: cac.centerAddressValidator,
+                            controller: cac.centerAddressController,
                             hintText: 'العنوان',
                             keyboardType: TextInputType.text,
                             prefixIcon: Icons.location_on_outlined,
@@ -198,27 +160,27 @@ class _CreateMinistryAccountScreenState
                         const SizedBox(
                           height: 15,
                         ),
-                        SizedBox(
-                          child: myTextField(
-                            width: 410,
-                            maxLines: 2,
-                            maxLength: 150,
-                            heightFactor: 1.8,
-                            prefixIcon: Icons.message_outlined,
-                            hintText: 'ملاحظات',
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: (String) {},
-                          ),
-                        ),
+                        // SizedBox(
+                        //   child: myTextField(
+                        //     width: 410,
+                        //     maxLines: 2,
+                        //     maxLength: 150,
+                        //     heightFactor: 1.8,
+                        //     prefixIcon: Icons.message_outlined,
+                        //     hintText: 'ملاحظات',
+                        //     keyboardType: TextInputType.emailAddress,
+                        //     onChanged: (value) {},
+                        //   ),
+                        // ),
                         myButton(
                           onPressed: () {
                             if (cac.createMinistryAccountFormKey.currentState!
                                 .validate()) {
-                              Get.off(CreateAdminAccount());
+                              Get.to(const CreateAdminAccount());
                             }
                           },
                           width: 150,
-                          text: 'إنشــاء حســاب',
+                          text: 'التــــالي',
                           textStyle: MyTextStyles.font16WhiteBold,
                         ),
                       ],

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/admin_verification_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/layouts/home_layout.dart';
+import 'package:laqahy/view/layouts/home/home_layout.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:window_manager/window_manager.dart';
 

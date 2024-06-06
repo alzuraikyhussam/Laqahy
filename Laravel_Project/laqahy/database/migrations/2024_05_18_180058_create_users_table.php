@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreignId('gender_id')->constrained('genders');
             $table->foreignId('permission_type_id')->constrained('permission_types');
             $table->foreignId('healthy_center_id')->constrained('healthy_centers');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

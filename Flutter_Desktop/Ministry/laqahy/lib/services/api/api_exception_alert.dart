@@ -7,7 +7,9 @@ import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:lottie/lottie.dart';
 
 class ApiExceptionAlert {
-  myAddedDataSuccessAlert() {
+  myAddedDataSuccessAlert({
+    void Function()? onPressed,
+  }) {
     myShowDialog(
       context: Get.context!,
       widgetName: ApiErrorAlert(
@@ -16,6 +18,7 @@ class ApiExceptionAlert {
         imageUrl: 'assets/images/success.json',
         title: 'تمت الإضافة بنجاح',
         description: 'لقد تمت عملية الإضافة بنجاح',
+        onPressed: onPressed,
       ),
     );
   }
@@ -51,6 +54,7 @@ class ApiExceptionAlert {
       context: Get.context!,
       widgetName: ApiErrorAlert(
         imageUrl: 'assets/images/error.json',
+        backgroundColor: MyColors.redColor,
         title: 'خطأ غير متوقع',
         description:
             'عذرا، لقد حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى \n${statusCode ?? error}',
@@ -87,7 +91,7 @@ class ApiExceptionAlert {
       context: Get.context!,
       widgetName: ApiErrorAlert(
         imageUrl: 'assets/images/500-error.json',
-        title: 'فشل في تحميل البيانات',
+        title: 'فشل في الوصول',
         description:
             'عذرا، لقد حدث خطأ ما أثناء عملية الوصول الى قاعدة البيانات\n$statusCode',
       ),

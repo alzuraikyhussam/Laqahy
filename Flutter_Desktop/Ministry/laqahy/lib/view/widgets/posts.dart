@@ -4,12 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:laqahy/controllers/create_posts_controller.dart';
+import 'package:laqahy/controllers/post_controller.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/post_model.dart';
-import 'package:laqahy/services/api_exception_alert.dart';
+import 'package:laqahy/services/api/api_exception_alert.dart';
 import 'package:laqahy/view/widgets/api_error_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -23,7 +23,7 @@ class PostsScreen extends StatefulWidget {
 
 class _PostsScreenState extends State<PostsScreen> {
   HomeLayoutController hlc = Get.put(HomeLayoutController());
-  CreatePostsController cpc = Get.put(CreatePostsController());
+  PostController cpc = Get.put(PostController());
 
   @override
   Widget build(BuildContext context) {
@@ -186,6 +186,60 @@ class _PostsScreenState extends State<PostsScreen> {
                 const SizedBox(
                   height: 30,
                 ),
+                SizedBox(
+                  height: 70,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 5,
+                        height: Get.height,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              MyColors.primaryColor,
+                              MyColors.secondaryColor,
+                            ],
+                            begin: AlignmentDirectional.topCenter,
+                            end: AlignmentDirectional.bottomCenter,
+                          ),
+                          borderRadius: const BorderRadiusDirectional.only(
+                            bottomEnd: Radius.circular(10),
+                            topEnd: Radius.circular(10),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(10),
+                        height: 50,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              MyColors.primaryColor,
+                              MyColors.secondaryColor,
+                            ],
+                            begin: AlignmentDirectional.topCenter,
+                            end: AlignmentDirectional.bottomCenter,
+                          ),
+                          borderRadius: const BorderRadiusDirectional.only(
+                            bottomEnd: Radius.circular(10),
+                            topEnd: Radius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          'كافــة المنشــورات',
+                          style: MyTextStyles.font18WhiteBold,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
                 Obx(() {
                   return FutureBuilder(
                     future: cpc.fetchDataFuture.value,
@@ -323,9 +377,9 @@ class _PostsScreenState extends State<PostsScreen> {
                 //     );
                 //   }
                 // }),
-                const SizedBox(
-                  height: 50,
-                ),
+                Obx(() => SizedBox(
+                      height: cpc.posts.isEmpty ? 30 : 100,
+                    )),
               ],
             ),
           ),

@@ -14,11 +14,15 @@ class ApiErrorAlert extends StatefulWidget {
     this.height = 320,
     this.imageUrl = 'assets/images/error.json',
     this.backgroundColor,
+    this.onPressed,
+    this.btnLabel = 'مــوافق',
   });
 
   String title, description, imageUrl;
   double height;
   Color? backgroundColor;
+  String btnLabel;
+  void Function()? onPressed;
 
   @override
   State<ApiErrorAlert> createState() => _ApiErrorAlertState();
@@ -83,12 +87,13 @@ class _ApiErrorAlertState extends State<ApiErrorAlert> {
       ),
       actions: [
         myButton(
-          onPressed: () {
-            Get.back();
-          },
+          onPressed: widget.onPressed ??
+              () {
+                Get.back();
+              },
           width: 150,
           backgroundColor: widget.backgroundColor ?? MyColors.redColor,
-          text: 'موافـــق',
+          text: widget.btnLabel,
           textStyle: MyTextStyles.font16WhiteBold,
         ),
       ],

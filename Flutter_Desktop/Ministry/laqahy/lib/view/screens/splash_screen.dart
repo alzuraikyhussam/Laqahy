@@ -36,6 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
           seconds: 5,
         ), () {
       // انتقل إلى الشاشة الرئيسية
+
       Get.off(const WelcomeScreen());
     });
   }
@@ -44,8 +45,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
-
 
     return Scaffold(
       body: Container(

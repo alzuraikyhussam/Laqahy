@@ -1,19 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:laqahy/models/post_model.dart';
-import 'package:laqahy/services/api_endpoints.dart';
+import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
-import 'package:laqahy/services/api_exception_alert.dart';
+import 'package:laqahy/services/api/api_exception_alert.dart';
 import 'package:laqahy/view/widgets/api_error_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class CreatePostsController extends GetxController {
+class PostController extends GetxController {
   // var posts = Rx<Future<List<Post>?>?>(Future.value([]));
   var posts = <Post>[].obs;
   var fetchDataFuture = Future<void>.value().obs;
@@ -163,6 +162,7 @@ class CreatePostsController extends GetxController {
           return;
         } else {
           isLoading(false);
+
           ApiExceptionAlert()
               .myAccessDatabaseExceptionAlert(response.statusCode);
           return;
@@ -268,10 +268,10 @@ class CreatePostsController extends GetxController {
     isDeletePostsLoading(true);
 
     try {
-      var response =
+      var request =
           await http.delete(Uri.parse('${ApiEndpoints.deletePost}/$postId'));
 
-      if (response.statusCode == 200) {
+      if (request.statusCode == 200) {
         isDeletePostsLoading(false);
         Get.back();
         await fetchPosts();
@@ -280,7 +280,7 @@ class CreatePostsController extends GetxController {
         return;
       } else {
         isDeletePostsLoading(false);
-        ApiExceptionAlert().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionAlert().myAccessDatabaseExceptionAlert(request.statusCode);
         return;
       }
     } on SocketException catch (_) {

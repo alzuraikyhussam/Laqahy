@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'package:laqahy/view/layouts/home_layout.dart';
-import 'package:laqahy/view/screens/create_admin_account.dart';
+import 'package:laqahy/services/storage/storage_service.dart';
+import 'package:laqahy/view/layouts/home/home_layout.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/splash_screen.dart';
+import 'package:laqahy/view/screens/welcome.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:window_manager/window_manager.dart';
 
@@ -18,9 +21,11 @@ import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await windowManager.ensureInitialized();
   appWindow.show();
-  runApp(const MyApp());
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -31,6 +36,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       defaultTransition: Transition.fade,
+      initialBinding: BindingsBuilder(() {
+        Get.put(StaticDataController());
+      }),
       title: 'لقـاحي',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),
@@ -54,7 +62,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: HomeLayout(),
+      home: SplashScreen(),
     );
   }
 }

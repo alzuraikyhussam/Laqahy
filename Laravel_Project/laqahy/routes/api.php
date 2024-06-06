@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\DirectorateController;
+use App\Http\Controllers\GenderController;
+use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +35,24 @@ Route::post('posts/add-post', [PostController::class, 'store']);
 Route::get('posts', [PostController::class, 'index']);
 Route::patch('posts/update-post/{id}', [PostController::class, 'update']);
 Route::delete('posts/delete-post/{id}', [PostController::class, 'destroy']);
+// ------------------------------------------------------------
+
+// --------------------- Gender Routes ------------------------
+Route::get('genders', [GenderController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Permission Routes ------------------------
+Route::get('permissions', [PermissionTypeController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- City Routes ------------------------
+Route::get('cities', [CityController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Directorate Routes ------------------------
+Route::get('directorates/{id}', [DirectorateController::class, 'show']);
+// ------------------------------------------------------------
+
+// --------------------- Auth Routes ------------------------
+Route::post('auth/register', [AuthController::class, 'register']);
 // ------------------------------------------------------------

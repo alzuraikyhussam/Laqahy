@@ -17,6 +17,8 @@ return new class extends Migration
             $table->String('device_name');
             $table->String('MAC_address');
             $table->dateTime('join_date');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

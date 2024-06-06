@@ -1,0 +1,31 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+class StorageService {
+  late SharedPreferences prefs;
+
+  static Future<StorageService> getInstance() async {
+    final instance = StorageService();
+    await instance._init();
+    return instance;
+  }
+
+  Future<void> _init() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  Future<void> setCenterId(int centerId) async {
+    await prefs.setInt('centerId', centerId);
+  }
+
+  Future<void> setRegistered(bool isRegistered) async {
+    await prefs.setBool('isRegistered', isRegistered);
+  }
+
+  Future<int?> getCenterId() async {
+    return prefs.getInt('centerId');
+  }
+
+  Future<bool> isRegistered() async {
+    return prefs.getBool('isRegistered') ?? false;
+  }
+}

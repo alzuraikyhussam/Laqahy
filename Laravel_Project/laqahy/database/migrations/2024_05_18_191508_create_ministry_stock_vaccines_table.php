@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
             $table->integer('quantity');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

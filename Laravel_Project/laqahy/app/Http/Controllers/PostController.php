@@ -6,6 +6,7 @@ use App\Models\Post;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -15,8 +16,7 @@ class PostController extends Controller
     public function index()
     {
         try {
-            $post = Post::get();
-            // $post = Post::onlyTrashed()->get();
+            $post = Post::orderBy('post_publish_date', 'desc')->get();
             $postWithImageUrl = $post->map(function ($posts) {
                 $posts->image_url = url('storage/images/' . $posts->post_image);
                 return $posts;
@@ -28,7 +28,7 @@ class PostController extends Controller
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error' . $e,
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -38,18 +38,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // $post = Post::create($request->all());
-        // return response()->json([
-        //     'message' => 'Posts created successfully',
-        //     'data' => $post,
-        // ], 201);
 
         try {
-            $request->validate([
-                'post_title' => 'required',
-                'post_description' => 'required',
-                'post_image' => 'required|image|mimes:png,jpg,jpeg',
-            ]);
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'post_title' => 'required',
+                    'post_description' => 'required',
+                    'post_image' => 'required|image|mimes:png,jpg,jpeg',
+                ],
+            );
+            // $request->validate([
+            //     'post_title' => 'required',
+            //     'post_description' => 'required',
+            //     'post_image' => 'required|image|mimes:png,jpg,jpeg',
+            // ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
 
             // Save image in storage/app/public
             $imageName = time() . '.' . $request->post_image->extension();
@@ -76,7 +85,7 @@ class PostController extends Controller
             ], 201);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error' . $e,
+                'message' => $e->getMessage(),
 
             ], 500);
         }
@@ -142,7 +151,7 @@ class PostController extends Controller
             ], 200);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error' . $e,
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -169,7 +178,7 @@ class PostController extends Controller
             return response()->json(['message' => 'Post deleted successfully',], 200);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error' . $e,
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -192,7 +201,7 @@ class PostController extends Controller
             return response()->json(['message' => 'No soft deleted posts found.'], 404);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error' . $e,
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -219,7 +228,7 @@ class PostController extends Controller
             return response()->json(['message' => 'Post not found or not deleted.'], 404);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error' . $e,
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -240,7 +249,7 @@ class PostController extends Controller
             return response()->json(['message' => 'All soft deleted posts have been permanently deleted.'], 200);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error' . $e,
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -260,7 +269,7 @@ class PostController extends Controller
             return response()->json(['message' => 'Post not found or not deleted.'], 404);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error' . $e,
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -278,7 +287,7 @@ class PostController extends Controller
             return response()->json(['message' => 'All soft deleted posts have been restored.'], 200);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error' . $e,
+                'message' => $e->getMessage(),
             ], 500);
         }
     }

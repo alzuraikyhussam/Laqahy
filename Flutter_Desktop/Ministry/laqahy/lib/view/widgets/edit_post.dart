@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:laqahy/controllers/add_user_controller.dart';
-import 'package:laqahy/controllers/create_posts_controller.dart';
+import 'package:laqahy/controllers/post_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-
-import 'edit_post_successfully.dart';
 
 // ignore: must_be_immutable
 class EditPostDialog extends StatefulWidget {
@@ -31,7 +28,7 @@ class EditPostDialog extends StatefulWidget {
 }
 
 class _EditPostDialogState extends State<EditPostDialog> {
-  CreatePostsController cpc = Get.put(CreatePostsController());
+  PostController cpc = Get.put(PostController());
 
   late TextEditingController titleController;
   late TextEditingController descController;

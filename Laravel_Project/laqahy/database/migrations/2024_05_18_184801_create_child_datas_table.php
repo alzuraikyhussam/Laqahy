@@ -18,6 +18,8 @@ return new class extends Migration
             $table->String('child_data_birthplace');
             $table->date('child_data_birthdate');
             $table->foreignId('gender_id')->constrained('genders');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

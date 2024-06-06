@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->String('donor');
             $table->date('date');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

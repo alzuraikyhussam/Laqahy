@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/add_user_controller.dart';
-import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/controllers/create_account_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/add_user_successfully.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -16,7 +16,7 @@ class AddUser extends StatefulWidget {
 }
 
 class _AddUserState extends State<AddUser> {
-  AddUserController aec = Get.put(AddUserController());
+  CreateAccountController cac = Get.put(CreateAccountController());
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _AddUserState extends State<AddUser> {
                           prefixIcon: Icons.person_outline_sharp,
                           hintText: '',
                           keyboardType: TextInputType.text,
-                          onChanged: (String) {}),
+                          onChanged: (value) {}),
                     ),
                   ],
                 ),
@@ -74,7 +74,7 @@ class _AddUserState extends State<AddUser> {
                         prefixIcon: Icons.phone_outlined,
                         hintText: '',
                         keyboardType: TextInputType.text,
-                        onChanged: (String) {},
+                        onChanged: (value) {},
                       ),
                     ),
                   ],
@@ -86,21 +86,7 @@ class _AddUserState extends State<AddUser> {
                       '  الجنس ',
                       style: MyTextStyles.font14BlackBold,
                     ),
-                    GetBuilder<AddUserController>(
-                      builder: (controller) {
-                        return myDropDownMenuButton(
-                          // width: 50,
-                          hintText: 'الجنــس',
-                          items: controller.gender,
-                          onChanged: (String? value) {
-                            controller.changeGenderSelectedValue(value!);
-                          },
-                          searchController:
-                              controller.genderSearchController.value,
-                          selectedValue: controller.genderSelectedValue,
-                        );
-                      },
-                    ),
+                    Constants().gendersDropdownMenu(),
                   ],
                 ),
               ],
@@ -127,7 +113,7 @@ class _AddUserState extends State<AddUser> {
                             prefixIcon: Icons.person,
                             hintText: '',
                             keyboardType: TextInputType.text,
-                            onChanged: (String) {}),
+                            onChanged: (value) {}),
                       )
                     ],
                   ),
@@ -145,7 +131,7 @@ class _AddUserState extends State<AddUser> {
                             prefixIcon: Icons.lock,
                             hintText: '',
                             keyboardType: TextInputType.visiblePassword,
-                            onChanged: (String) {}),
+                            onChanged: (value) {}),
                       )
                     ],
                   ),
@@ -174,7 +160,7 @@ class _AddUserState extends State<AddUser> {
                             prefixIcon: Icons.date_range_outlined,
                             hintText: '',
                             keyboardType: TextInputType.datetime,
-                            onChanged: (String) {}),
+                            onChanged: (value) {}),
                       )
                     ],
                   ),
@@ -182,7 +168,7 @@ class _AddUserState extends State<AddUser> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '   تحديد الصلاحيه ',
+                        'تحديد الصلاحية ',
                         style: MyTextStyles.font14BlackBold,
                       ),
                       Container(
@@ -192,7 +178,7 @@ class _AddUserState extends State<AddUser> {
                             prefixIcon: Icons.shield,
                             hintText: '',
                             keyboardType: TextInputType.text,
-                            onChanged: (String) {}),
+                            onChanged: (value) {}),
                       )
                     ],
                   ),
@@ -215,7 +201,7 @@ class _AddUserState extends State<AddUser> {
                               context: context,
                               widgetName: const AddUserSuccessfully());
                         },
-                        text: 'اضافة',
+                        text: 'اضــافة',
                         textStyle: MyTextStyles.font16WhiteBold),
                   ),
                   Container(

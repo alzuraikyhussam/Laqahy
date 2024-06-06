@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreignId('order_state_id')->constrained('order_states');
             $table->date('date_deleted_from_healthy_center');
             $table->date('date_deleted_from_ministry');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -977,6 +977,148 @@ myDropDownMenuButton({
   );
 }
 
+myDropDownMenuButton2({
+  required String hintText,
+  required List<DropdownMenuItem<String>>? items,
+  required void Function(String?)? onChanged,
+  required TextEditingController? searchController,
+  required String? selectedValue,
+  double? width,
+  String? Function(String?)? validator,
+}) {
+  return Container(
+    width: width != null ? width.toDouble() : 200,
+    child: DropdownButtonFormField2<String>(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: MyColors.whiteColor.withOpacity(0.5),
+        contentPadding: EdgeInsets.zero,
+        border: InputBorder.none,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: MyColors.greyColor.withOpacity(0.3),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: MyColors.primaryColor.withOpacity(0.5),
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: MyColors.redColor,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: MyColors.redColor,
+          ),
+        ),
+      ),
+      validator: validator,
+      isExpanded: true,
+      hint: Text(
+        hintText,
+        style: TextStyle(
+          fontSize: 14,
+          color: MyColors.greyColor,
+        ),
+      ),
+
+      items: items,
+      value: selectedValue,
+      onChanged: onChanged,
+      buttonStyleData: ButtonStyleData(
+        padding: EdgeInsets.all(12),
+        height: 60,
+        width: width != null ? width.toDouble() : 200,
+        decoration: BoxDecoration(
+          // color: MyColors.whiteColor.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(10),
+          // border: Border.all(
+          //   color: MyColors.greyColor.withOpacity(0.3),
+          // ),
+        ),
+      ),
+
+      dropdownStyleData: DropdownStyleData(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        maxHeight: 150,
+        width: width,
+      ),
+      menuItemStyleData: const MenuItemStyleData(
+        height: 44,
+      ),
+
+      dropdownSearchData: DropdownSearchData(
+        searchController: searchController,
+        searchInnerWidgetHeight: 50,
+        searchInnerWidget: Container(
+          height: 50,
+          padding: const EdgeInsets.only(
+            top: 8,
+            bottom: 4,
+            right: 8,
+            left: 8,
+          ),
+          child: TextFormField(
+            expands: true,
+            maxLines: null,
+            controller: searchController,
+            decoration: InputDecoration(
+              isDense: true,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 8,
+              ),
+              hintText: 'ابـحــث هنــا',
+              hintStyle: MyTextStyles.font14GreyMedium,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: MyColors.greyColor.withOpacity(0.3),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: MyColors.greyColor.withOpacity(0.3),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: MyColors.primaryColor.withOpacity(0.5),
+                ),
+              ),
+              filled: true,
+              fillColor: MyColors.whiteColor.withOpacity(0.5),
+            ),
+          ),
+        ),
+        searchMatchFn: (item, searchValue) {
+          // return item.value.toString().contains(searchValue);
+          return item.child.toString().contains(searchValue);
+        },
+      ),
+
+      //This to clear the search value when you close the menu
+      onMenuStateChange: (isOpen) {
+        if (!isOpen) {
+          searchController?.clear();
+        }
+      },
+    ),
+  );
+}
+
 myCheckBox({
   required void Function()? onTap,
   required void Function(bool) onChanged,

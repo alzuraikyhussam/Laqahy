@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    use SoftDeletes;
     protected $fillable = [
         'user_name',
         'user_phone',
@@ -21,6 +22,8 @@ class User extends Model
         'permission_type_id',
         'healthy_center_id',
     ];
+    protected $dates = ['deleted_at'];
+
 
     public function gender()
     {

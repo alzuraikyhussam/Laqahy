@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/create_posts_controller.dart';
+import 'package:laqahy/controllers/post_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:lottie/lottie.dart';
 
 // ignore: must_be_immutable
 class DeletePostConfirm extends StatelessWidget {
@@ -19,7 +20,7 @@ class DeletePostConfirm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(postId);
-    CreatePostsController cpc = Get.put(CreatePostsController());
+    PostController cpc = Get.put(PostController());
 
     return AlertDialog(
         alignment: AlignmentDirectional.center,
@@ -32,30 +33,37 @@ class DeletePostConfirm extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: Container(
+                flex: 2,
+                child: Lottie.asset(
+                  'assets/images/delete-confirm.json',
                   alignment: Alignment.center,
-                  child: Image.asset(
-                    "assets/images/confirm_image.png",
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Container(
-                child: Text(
-                  ' هل أنت متأكد من عملية حذف',
-                  style: MyTextStyles.font18BlackBold,
-                ),
-              ),
-              Container(
-                child: Text(
-                  'هذا الإعـلان؟',
-                  style: MyTextStyles.font18BlackBold,
+                  // fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(
                 height: 30,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        ' هل أنت متأكد من عملية حذف',
+                        style: MyTextStyles.font18BlackBold,
+                      ),
+                    ),
+                    Container(
+                      child: Text(
+                        'هذا الإعـلان؟',
+                        style: MyTextStyles.font18BlackBold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
