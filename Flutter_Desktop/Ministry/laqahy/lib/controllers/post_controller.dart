@@ -8,8 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:laqahy/models/post_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
-import 'package:laqahy/services/api/api_exception_alert.dart';
-import 'package:laqahy/view/widgets/api_error_alert.dart';
+import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class PostController extends GetxController {
@@ -94,7 +94,7 @@ class PostController extends GetxController {
           } else {
             myShowDialog(
               context: Get.context!,
-              widgetName: ApiErrorAlert(
+              widgetName: ApiExceptionAlert(
                 title: 'خطــــــــأ',
                 description: 'يجب اختيار صورة من نوع\n[ JPG او PNG او JPEG ]',
               ),
@@ -103,7 +103,7 @@ class PostController extends GetxController {
         } else {
           myShowDialog(
             context: Get.context!,
-            widgetName: ApiErrorAlert(
+            widgetName: ApiExceptionAlert(
               height: 280,
               title: 'خطــــــــأ',
               description: 'يجب ألا يزيد حجم الصورة عن 2 ميجابايت',
@@ -115,7 +115,7 @@ class PostController extends GetxController {
       Get.snackbar('Error', 'Error picking file $e');
       myShowDialog(
         context: Get.context!,
-        widgetName: ApiErrorAlert(
+        widgetName: ApiExceptionAlert(
           title: 'خطــــــــأ',
           description:
               'عذرا، لقد حدث خطأ ما اثناء عملية جلب الصورة من الجهاز\nحاول مرة أخرى',
@@ -128,7 +128,7 @@ class PostController extends GetxController {
     if (image.value == null) {
       myShowDialog(
         context: Get.context!,
-        widgetName: ApiErrorAlert(
+        widgetName: ApiExceptionAlert(
           height: 280,
           title: 'خطــــــــأ',
           description: 'يجب اختيار صورة الإعلان',
@@ -157,23 +157,22 @@ class PostController extends GetxController {
           isLoading(false);
           await fetchPosts();
           clearTextFormFields();
-          ApiExceptionAlert().myAddedDataSuccessAlert();
+          ApiException().myAddedDataSuccessAlert();
 
           return;
         } else {
           isLoading(false);
 
-          ApiExceptionAlert()
-              .myAccessDatabaseExceptionAlert(response.statusCode);
+          ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
           return;
         }
       } on SocketException catch (_) {
         isLoading(false);
-        ApiExceptionAlert().mySocketExceptionAlert();
+        ApiException().mySocketExceptionAlert();
         return null;
       } catch (e) {
         isLoading(false);
-        ApiExceptionAlert().myUnknownExceptionAlert(error: e.toString());
+        ApiException().myUnknownExceptionAlert(error: e.toString());
       } finally {
         isLoading(false);
       }
@@ -198,18 +197,17 @@ class PostController extends GetxController {
           posts.assignAll(fetchedPost);
         } else if (response.statusCode == 500) {
           isFetchPostsLoading(false);
-          ApiExceptionAlert().myFetchDataExceptionAlert(response.statusCode);
+          ApiException().myFetchDataExceptionAlert(response.statusCode);
         } else {
           isFetchPostsLoading(false);
-          ApiExceptionAlert()
-              .myAccessDatabaseExceptionAlert(response.statusCode);
+          ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
         }
       } on SocketException catch (_) {
         isFetchPostsLoading(false);
-        ApiExceptionAlert().mySocketExceptionAlert();
+        ApiException().mySocketExceptionAlert();
       } catch (e) {
         isFetchPostsLoading(false);
-        ApiExceptionAlert().myUnknownExceptionAlert(error: e.toString());
+        ApiException().myUnknownExceptionAlert(error: e.toString());
       } finally {
         isFetchPostsLoading(false);
       }
@@ -243,21 +241,21 @@ class PostController extends GetxController {
         updatedImage.value = null;
         Get.back();
         await fetchPosts();
-        ApiExceptionAlert().myUpdateDataSuccessAlert();
+        ApiException().myUpdateDataSuccessAlert();
 
         return;
       } else {
         isUpdatePostsLoading(false);
-        ApiExceptionAlert().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isUpdatePostsLoading(false);
-      ApiExceptionAlert().mySocketExceptionAlert();
+      ApiException().mySocketExceptionAlert();
       return;
     } catch (e) {
       isUpdatePostsLoading(false);
-      ApiExceptionAlert().myUnknownExceptionAlert(error: e.toString());
+      ApiException().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isUpdatePostsLoading(false);
@@ -275,21 +273,21 @@ class PostController extends GetxController {
         isDeletePostsLoading(false);
         Get.back();
         await fetchPosts();
-        ApiExceptionAlert().myDeleteDataSuccessAlert();
+        ApiException().myDeleteDataSuccessAlert();
 
         return;
       } else {
         isDeletePostsLoading(false);
-        ApiExceptionAlert().myAccessDatabaseExceptionAlert(request.statusCode);
+        ApiException().myAccessDatabaseExceptionAlert(request.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isDeletePostsLoading(false);
-      ApiExceptionAlert().mySocketExceptionAlert();
+      ApiException().mySocketExceptionAlert();
       return;
     } catch (e) {
       isDeletePostsLoading(false);
-      ApiExceptionAlert().myUnknownExceptionAlert(error: e.toString());
+      ApiException().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isDeletePostsLoading(false);

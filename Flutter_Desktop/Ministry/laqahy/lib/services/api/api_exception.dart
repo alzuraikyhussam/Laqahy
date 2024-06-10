@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/api_error_alert.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:lottie/lottie.dart';
 
-class ApiExceptionAlert {
+class ApiException {
   myAddedDataSuccessAlert({
     void Function()? onPressed,
   }) {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         height: 280,
         backgroundColor: MyColors.primaryColor,
         imageUrl: 'assets/images/success.json',
@@ -26,7 +26,7 @@ class ApiExceptionAlert {
   myDeleteDataSuccessAlert() {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         height: 280,
         backgroundColor: MyColors.primaryColor,
         imageUrl: 'assets/images/success.json',
@@ -39,7 +39,7 @@ class ApiExceptionAlert {
   myUpdateDataSuccessAlert() {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         height: 280,
         backgroundColor: MyColors.primaryColor,
         imageUrl: 'assets/images/success.json',
@@ -52,7 +52,7 @@ class ApiExceptionAlert {
   myUnknownExceptionAlert({var statusCode, var error}) {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         imageUrl: 'assets/images/error.json',
         backgroundColor: MyColors.redColor,
         title: 'خطأ غير متوقع',
@@ -65,7 +65,7 @@ class ApiExceptionAlert {
   myUserAlreadyExistsAlert() {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         height: 270,
         imageUrl: 'assets/images/error.json',
         backgroundColor: MyColors.redColor,
@@ -78,7 +78,7 @@ class ApiExceptionAlert {
   myUserNotFoundAlert() {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         height: 270,
         imageUrl: 'assets/images/404-error.json',
         backgroundColor: MyColors.redColor,
@@ -91,7 +91,7 @@ class ApiExceptionAlert {
   myInvalidPasswordAlert() {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         height: 270,
         imageUrl: 'assets/images/error.json',
         backgroundColor: MyColors.redColor,
@@ -104,7 +104,7 @@ class ApiExceptionAlert {
   mySocketExceptionAlert() {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         imageUrl: 'assets/images/no-network2.json',
         height: 280,
         title: 'لا يتوفر اتصال بالإنترنت',
@@ -116,7 +116,7 @@ class ApiExceptionAlert {
   myFetchDataExceptionAlert(var statusCode) {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         imageUrl: 'assets/images/500-error.json',
         title: 'فشل في الوصول',
         description:
@@ -128,7 +128,7 @@ class ApiExceptionAlert {
   myAccessDatabaseExceptionAlert(var statusCode) {
     myShowDialog(
       context: Get.context!,
-      widgetName: ApiErrorAlert(
+      widgetName: ApiExceptionAlert(
         imageUrl: 'assets/images/500-error.json',
         title: 'فشل في الوصول',
         description:

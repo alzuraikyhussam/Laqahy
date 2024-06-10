@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/orders_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/cancel_order.dart';
-import 'package:laqahy/view/widgets/import_order.dart';
-import 'package:laqahy/view/widgets/success_order.dart';
-import 'package:laqahy/view/widgets/waiting_order.dart';
+import 'package:laqahy/view/widgets/orders/cancel_order.dart';
+import 'package:laqahy/view/widgets/orders/import_order.dart';
+import 'package:laqahy/view/widgets/orders/success_order.dart';
+import 'package:laqahy/view/widgets/orders/waiting_order.dart';
 
 class OrdersLayout extends StatefulWidget {
   const OrdersLayout({super.key});

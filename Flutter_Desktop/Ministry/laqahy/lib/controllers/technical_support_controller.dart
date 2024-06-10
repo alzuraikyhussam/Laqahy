@@ -1,10 +1,21 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/services/api/api_endpoints.dart';
+import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class TechnicalSupportController extends GetxController {
   GlobalKey<FormState> technicalSupportFormKey = GlobalKey<FormState>();
 
   TextEditingController nameController = TextEditingController();
+
+  var isLoading = false.obs;
 
   String? nameValidator(value) {
     if (value.trim().isEmpty) {
@@ -39,5 +50,55 @@ class TechnicalSupportController extends GetxController {
       return 'يرجى ادخال نص الرسالة';
     }
     return null;
+  }
+
+  Future<void> sendMsg() async {
+    try {
+      isLoading(true);
+
+      var response = await http.post(
+        Uri.parse(ApiEndpoints.sendMsg),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'name': nameController.text,
+          'email': emailController.text,
+          'message': messageController.text,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        isLoading(false);
+        myShowDialog(
+          context: Get.context!,
+          widgetName: ApiExceptionAlert(
+            height: 280,
+            backgroundColor: MyColors.primaryColor,
+            imageUrl: 'assets/images/success.json',
+            title: 'تم الإرسال بنجاح',
+            description:
+                'شكراً لك على تواصلك معنا، سوف يتم الرد عليك في أقرب وقت ممكن',
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        );
+        return;
+      } else {
+        isLoading(false);
+        ApiException().mySocketExceptionAlert();
+        return;
+      }
+    } on SocketException catch (_) {
+      isLoading(false);
+      ApiException().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isLoading(false);
+      ApiException().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isLoading(false);
+    }
   }
 }

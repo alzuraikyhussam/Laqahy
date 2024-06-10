@@ -51,7 +51,7 @@ class _MenuSideState extends State<MenuSide> {
           Expanded(
             child: ListView.separated(
               itemBuilder: (ctx, index) {
-                return controller.userLoggedData.first.permissionId == 1
+                return controller.userLoggedData.first.userPermissionId == 1
                     ? InkWell(
                         onTap: () {
                           hlc.changeChoose(
@@ -191,7 +191,7 @@ class _MenuSideState extends State<MenuSide> {
                   height: 10,
                 );
               },
-              itemCount: controller.userLoggedData.first.permissionId == 1
+              itemCount: controller.userLoggedData.first.userPermissionId == 1
                   ? Constants.adminHomeLayoutItems.length
                   : Constants.userHomeLayoutItems.length,
             ),

@@ -6,11 +6,12 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/center_model.dart';
+import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/models/login_model.dart';
-import 'package:laqahy/models/user_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
-import 'package:laqahy/services/api/api_exception_alert.dart';
+import 'package:laqahy/services/api/api_exception.dart';
 import 'package:laqahy/view/layouts/home/home_layout.dart';
+import 'package:laqahy/view/screens/login.dart';
 
 class LoginController extends GetxController {
   RxBool isVisible = false.obs;
@@ -47,8 +48,8 @@ class LoginController extends GetxController {
     try {
       isLoading(true);
       final loginData = Login(
-        username: userNameController.text,
-        password: passwordController.text,
+        userAccountName: userNameController.text,
+        userAccountPassword: passwordController.text,
       );
       var response = await http.post(
         Uri.parse(ApiEndpoints.login),
@@ -62,48 +63,44 @@ class LoginController extends GetxController {
         isLoading(false);
 
         var data = json.decode(response.body);
-        print(data['center']);
 
         // Handle user and center objects
-        User user = User.fromJson(data['user']);
+        Login user = Login.fromJson(data['user']);
         HealthyCenter center = HealthyCenter.fromJson(data['center']);
 
         sdc.userLoggedData.assignAll([user]);
         sdc.centerData.assignAll([center]);
 
-        // Save SharedPreferences
-        StaticDataController controller = Get.find<StaticDataController>();
-        if (await controller.storageService.getCenterId() == 0) {
-          await controller.storageService.setCenterId(sdc.centerData.first.id!);
-        }
-        if (!await controller.storageService.isRegistered()) {
-          await controller.storageService.setRegistered(true);
-        }
-
+        try {
+          // Save SharedPreferences
+          if (!await sdc.storageService.isRegistered()) {
+            await sdc.storageService.setRegistered(true);
+            await sdc.storageService.setCenterId(sdc.centerData.first.id!);
+          }
+        } catch (_) {}
         Get.offAll(const HomeLayout());
-
         return;
       } else if (response.statusCode == 404) {
         isLoading(false);
-        ApiExceptionAlert().myUserNotFoundAlert();
+        ApiException().myUserNotFoundAlert();
         return;
       } else if (response.statusCode == 401) {
         isLoading(false);
-        ApiExceptionAlert().myInvalidPasswordAlert();
+        ApiException().myInvalidPasswordAlert();
         return;
       } else {
         isLoading(false);
-        ApiExceptionAlert().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isLoading(false);
-      ApiExceptionAlert().mySocketExceptionAlert();
+      ApiException().mySocketExceptionAlert();
       return;
     } catch (e) {
       isLoading(false);
       print(e);
-      ApiExceptionAlert().myUnknownExceptionAlert(error: e.toString());
+      ApiException().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);
     }

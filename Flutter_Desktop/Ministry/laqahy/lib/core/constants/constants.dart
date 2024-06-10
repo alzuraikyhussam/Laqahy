@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/model.dart';
-import 'package:laqahy/view/widgets/api_error_alert.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/icons/my_flutter_app_icons.dart';
 
@@ -155,7 +155,7 @@ class Constants {
           onTap: () {
             myShowDialog(
                 context: Get.context!,
-                widgetName: ApiErrorAlert(
+                widgetName: ApiExceptionAlert(
                   title: 'حدث خطأ ما',
                   description: controller.genderErrorMsg.value,
                   height: 280,
@@ -182,7 +182,7 @@ class Constants {
           onTap: () {
             myShowDialog(
                 context: Get.context!,
-                widgetName: ApiErrorAlert(
+                widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
                   description: 'عذرا، لم يتم العثور على بيانات',
                   height: 280,
@@ -255,7 +255,7 @@ class Constants {
           onTap: () {
             myShowDialog(
                 context: Get.context!,
-                widgetName: ApiErrorAlert(
+                widgetName: ApiExceptionAlert(
                   title: 'حدث خطأ ما',
                   description: controller.permissionErrorMsg.value,
                   height: 280,
@@ -282,7 +282,7 @@ class Constants {
           onTap: () {
             myShowDialog(
                 context: Get.context!,
-                widgetName: ApiErrorAlert(
+                widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
                   description: 'عذرا، لم يتم العثور على بيانات',
                   height: 280,
@@ -355,7 +355,7 @@ class Constants {
           onTap: () {
             myShowDialog(
                 context: Get.context!,
-                widgetName: ApiErrorAlert(
+                widgetName: ApiExceptionAlert(
                   title: 'حدث خطأ ما',
                   description: controller.cityErrorMsg.value,
                   height: 280,
@@ -382,7 +382,7 @@ class Constants {
           onTap: () {
             myShowDialog(
                 context: Get.context!,
-                widgetName: ApiErrorAlert(
+                widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
                   description: 'عذرا، لم يتم العثور على بيانات',
                   height: 280,
@@ -440,7 +440,7 @@ class Constants {
           onTap: () {
             myShowDialog(
               context: Get.context!,
-              widgetName: ApiErrorAlert(
+              widgetName: ApiExceptionAlert(
                 title: 'تنبيــه',
                 description: 'من فضلك، قم باختيار المحافظة أولاً',
                 height: 280,
@@ -476,7 +476,7 @@ class Constants {
           onTap: () {
             myShowDialog(
                 context: Get.context!,
-                widgetName: ApiErrorAlert(
+                widgetName: ApiExceptionAlert(
                   title: 'حدث خطأ ما',
                   description: controller.directorateErrorMsg.value,
                   height: 280,
@@ -502,7 +502,7 @@ class Constants {
           onTap: () {
             myShowDialog(
                 context: Get.context!,
-                widgetName: ApiErrorAlert(
+                widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
                   description: 'عذرا، لم يتم العثور على بيانات',
                   height: 280,

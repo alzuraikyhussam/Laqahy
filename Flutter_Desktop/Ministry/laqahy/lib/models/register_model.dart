@@ -1,13 +1,12 @@
 import 'package:intl/intl.dart';
 
-class CenterWithUser {
+class Register {
   int? centerId;
   String centerName;
   String centerPhone;
   String centerAddress;
   int centerDirectorateId;
   int centerCityId;
-
   int? userId;
   String userName;
   String userPhone;
@@ -18,7 +17,7 @@ class CenterWithUser {
   int userGenderId;
   int userPermissionId;
 
-  CenterWithUser({
+  Register({
     this.centerId,
     required this.centerName,
     required this.centerPhone,
@@ -36,8 +35,8 @@ class CenterWithUser {
     required this.userPermissionId,
   });
 
-  factory CenterWithUser.fromJson(Map<String, dynamic> json) {
-    return CenterWithUser(
+  factory Register.fromJson(Map<String, dynamic> json) {
+    return Register(
       centerName: json['healthy_center_name'],
       centerPhone: json['healthy_center_phone'],
       centerAddress: json['healthy_center_address'],
