@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,7 +27,7 @@ class _TopBarSideState extends State<TopBarSide> {
         horizontal: 30,
         vertical: 20,
       ),
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width,
       height: 95,
       decoration: BoxDecoration(
         boxShadow: [
@@ -44,6 +45,7 @@ class _TopBarSideState extends State<TopBarSide> {
         color: Colors.white,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Obx(
             () {
@@ -61,20 +63,20 @@ class _TopBarSideState extends State<TopBarSide> {
                                   ),
                                 )
                               : const SizedBox(),
-                          Text(
-                            controller.centerData.first.name,
-                            style: MyTextStyles.font18PrimaryBold,
+                          Expanded(
+                            child: Text(
+                              controller.centerData.first.name,
+                              style: MyTextStyles.font18PrimaryBold,
+                            ),
                           ),
                         ],
                       ),
                     )
-                  : Expanded(
-                      child: Text(
-                        hlc.choose.value == 'الرئيسية'
-                            ? 'الصفحــة الرئيـسيــة'
-                            : 'قـائـمــة ${hlc.choose.value}',
-                        style: MyTextStyles.font18PrimaryBold,
-                      ),
+                  : Text(
+                      hlc.choose.value == 'الرئيسية'
+                          ? 'الصفحــة الرئيـسيــة'
+                          : 'قـائـمــة ${hlc.choose.value}',
+                      style: MyTextStyles.font18PrimaryBold,
                     );
             },
           ),
@@ -84,19 +86,17 @@ class _TopBarSideState extends State<TopBarSide> {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Expanded(
-                    child: Obx(() => Text(
-                          controller.greeting.value,
-                          style: MyTextStyles.font16PrimaryBold,
-                        )),
-                  ),
-                  Expanded(
-                    child: Text(
-                      controller.userLoggedData.first.name,
-                      style: MyTextStyles.font16GreyBold,
-                    ),
+                  Obx(() => Text(
+                        controller.greeting.value,
+                        style: MyTextStyles.font16PrimaryBold,
+                      )),
+                  Text(
+                    controller.userLoggedData.first.userName!,
+                    style: MyTextStyles.font16GreyBold,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                 ],
               ),

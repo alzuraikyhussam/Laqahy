@@ -6,6 +6,7 @@ use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -60,4 +61,8 @@ Route::post('auth/login', [AuthController::class, 'login']);
 
 // --------------------- User Routes ------------------------
 Route::get('users', [UserController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Technical Support Routes ------------------------
+Route::post('support', [TechnicalSupportController::class, 'sendMessage']);
 // ------------------------------------------------------------

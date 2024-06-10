@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/models/model.dart';
-import 'package:laqahy/view/widgets/create_centers_report.dart';
-import 'package:laqahy/view/widgets/create_orders_report.dart';
-import 'package:laqahy/view/widgets/create_status_report.dart';
-import 'package:laqahy/view/widgets/create_vaccine_report.dart';
+import 'package:laqahy/view/widgets/reports/create_centers_report.dart';
+import 'package:laqahy/view/widgets/reports/create_orders_report.dart';
+import 'package:laqahy/view/widgets/reports/create_status_report.dart';
+import 'package:laqahy/view/widgets/reports/create_vaccine_report.dart';
 
 class ReportsController extends GetxController {
   List<ReportsData> reportsCardItems = [

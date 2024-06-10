@@ -8,10 +8,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/center_model.dart';
-import 'package:laqahy/models/center_with_user_model.dart';
-import 'package:laqahy/models/user_model.dart';
+import 'package:laqahy/models/register_model.dart';
+import 'package:laqahy/models/login_model.dart';
+import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
-import 'package:laqahy/services/api/api_exception_alert.dart';
+import 'package:laqahy/services/api/api_exception.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
 import 'package:laqahy/view/layouts/home/home_layout.dart';
 import 'package:laqahy/view/screens/login.dart';
@@ -141,7 +142,7 @@ class CreateAccountController extends GetxController {
         DateFormat('MMM d, yyyy').parse(birthdateController.text);
     try {
       isLoading(true);
-      final centerWithUser = CenterWithUser(
+      final centerWithUser = Register(
         userName: nameController.text,
         userPhone: phoneNumberController.text,
         userAddress: addressController.text,
@@ -170,7 +171,7 @@ class CreateAccountController extends GetxController {
         var data = json.decode(response.body);
 
         // Handle user and center objects
-        User user = User.fromJson(data['user']);
+        Login user = Login.fromJson(data['user']);
         HealthyCenter center = HealthyCenter.fromJson(data['center']);
 
         sdc.userLoggedData.assignAll([user]);
@@ -178,14 +179,14 @@ class CreateAccountController extends GetxController {
 
         try {
           // Save SharedPreferences
-          StaticDataController controller = Get.find<StaticDataController>();
-          await controller.storageService.setCenterId(sdc.centerData.first.id!);
-          await controller.storageService.setRegistered(true);
+
+          await sdc.storageService.setCenterId(sdc.centerData.first.id!);
+          await sdc.storageService.setRegistered(true);
         } catch (e) {
           Get.offAll(LoginScreen());
         }
 
-        ApiExceptionAlert().myAddedDataSuccessAlert(
+        ApiException().myAddedDataSuccessAlert(
           onPressed: () {
             Get.offAll(HomeLayout());
           },
@@ -193,20 +194,20 @@ class CreateAccountController extends GetxController {
         return;
       } else if (response.statusCode == 401) {
         isLoading(false);
-        ApiExceptionAlert().myUserAlreadyExistsAlert();
+        ApiException().myUserAlreadyExistsAlert();
         return;
       } else {
         isLoading(false);
-        ApiExceptionAlert().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isLoading(false);
-      ApiExceptionAlert().mySocketExceptionAlert();
+      ApiException().mySocketExceptionAlert();
       return;
     } catch (e) {
       isLoading(false);
-      ApiExceptionAlert().myUnknownExceptionAlert(error: e.toString());
+      ApiException().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);
     }

@@ -6,8 +6,8 @@ import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:lottie/lottie.dart';
 
 // ignore: must_be_immutable
-class ApiErrorAlert extends StatefulWidget {
-  ApiErrorAlert({
+class ApiExceptionAlert extends StatefulWidget {
+  ApiExceptionAlert({
     super.key,
     required this.title,
     required this.description,
@@ -25,10 +25,10 @@ class ApiErrorAlert extends StatefulWidget {
   void Function()? onPressed;
 
   @override
-  State<ApiErrorAlert> createState() => _ApiErrorAlertState();
+  State<ApiExceptionAlert> createState() => _ApiExceptionAlertState();
 }
 
-class _ApiErrorAlertState extends State<ApiErrorAlert> {
+class _ApiExceptionAlertState extends State<ApiExceptionAlert> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

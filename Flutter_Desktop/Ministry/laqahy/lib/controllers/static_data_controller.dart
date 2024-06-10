@@ -5,17 +5,19 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/models/center_model.dart';
-import 'package:laqahy/models/city.dart';
-import 'package:laqahy/models/directorate.dart';
+import 'package:laqahy/models/city_model.dart';
+import 'package:laqahy/models/directorate_model.dart';
 import 'package:laqahy/models/gender_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/models/permission_type_model.dart';
-import 'package:laqahy/models/user_model.dart';
+import 'package:laqahy/models/login_model.dart';
+import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
+import 'package:windows_system_info/windows_system_info.dart';
 
 class StaticDataController extends GetxController {
-  List<User> userLoggedData = <User>[].obs;
+  List<Login> userLoggedData = <Login>[].obs;
   List<HealthyCenter> centerData = <HealthyCenter>[].obs;
 
   late StorageService storageService;
@@ -52,11 +54,25 @@ class StaticDataController extends GetxController {
     fetchCities();
     storageService = await StorageService.getInstance();
     isRegistered.value = await storageService.isRegistered();
+    initWindowsSystemInfo();
     // fetchDirectorates();
   }
 
+  Future<void> initWindowsSystemInfo() async {
+    await WindowsSystemInfo.initWindowsInfo();
+    try {
+      if (await WindowsSystemInfo.isInitilized) {
+        print(WindowsSystemInfo.network);
+        print(WindowsSystemInfo.deviceName);
+        print(WindowsSystemInfo.userName);
+      }
+    } catch (_) {
+      print(_);
+    }
+  }
+
   void updateGreeting() {
-    Timer.periodic(Duration(minutes: 1), (timer) {
+    Timer.periodic(Duration(seconds: 1), (timer) {
       var hour = DateTime.now().hour;
       greeting.value = (hour < 12) ? 'صبـاح الخيــر' : 'مسـاء الخيــر';
     });

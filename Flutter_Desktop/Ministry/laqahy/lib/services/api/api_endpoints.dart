@@ -36,4 +36,12 @@ class ApiEndpoints {
   // --------------- Login Endpoints -------------------
   static const String login = '$baseUrl/auth/login';
   // --------------------------------------------------
+
+  // --------------- Login Endpoints -------------------
+  static const String getUsers = '$baseUrl/users';
+  // --------------------------------------------------
+
+  // --------------- Technical Support Endpoints -------------------
+  static const String sendMsg = '$baseUrl/support';
+  // --------------------------------------------------
 }

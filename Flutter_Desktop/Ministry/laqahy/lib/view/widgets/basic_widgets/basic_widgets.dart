@@ -8,15 +8,15 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/add_quantity_vaccine.dart';
-import 'package:laqahy/view/widgets/edit_user.dart';
+import 'package:laqahy/view/widgets/vaccines/add_vaccine_quantity.dart';
+import 'package:laqahy/view/widgets/users/edit_user.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import '../delete_post_confirm.dart';
-import '../edit_post.dart';
+import '../posts/delete_post_confirm.dart';
+import '../posts/edit_post.dart';
 
 myButton({
   required void Function()? onPressed,
@@ -432,11 +432,14 @@ myIconButton({
   required IconData? icon,
   required void Function()? onTap,
   required List<Color> gradientColors,
+  EdgeInsetsGeometry? padding = const EdgeInsets.all(10),
+  double borderRadius = 10,
+  double iconSize = 25,
 }) {
   return InkWell(
     onTap: onTap,
     child: Container(
-      padding: EdgeInsets.all(10),
+      padding: padding,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: gradientColors,
@@ -451,15 +454,43 @@ myIconButton({
             spreadRadius: 0,
           ),
         ],
-        borderRadius: BorderRadiusDirectional.circular(10),
+        borderRadius: BorderRadiusDirectional.circular(borderRadius.toDouble()),
       ),
       child: Icon(
         icon,
         color: MyColors.whiteColor,
-        size: 25,
+        size: iconSize.toDouble(),
       ),
     ),
   );
+
+  // return InkWell(
+  //   onTap: onTap,
+  //   child: Container(
+  //     padding: EdgeInsets.all(10),
+  //     decoration: BoxDecoration(
+  //       gradient: LinearGradient(
+  //         colors: gradientColors,
+  //         begin: AlignmentDirectional.topCenter,
+  //         end: AlignmentDirectional.bottomCenter,
+  //       ),
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: MyColors.greyColor.withOpacity(0.3),
+  //           blurRadius: 4,
+  //           offset: Offset(0, 4),
+  //           spreadRadius: 0,
+  //         ),
+  //       ],
+  //       borderRadius: BorderRadiusDirectional.circular(10),
+  //     ),
+  //     child: Icon(
+  //       icon,
+  //       color: MyColors.whiteColor,
+  //       size: 25,
+  //     ),
+  //   ),
+  // );
 }
 
 myHomeCards({
@@ -598,7 +629,7 @@ myVaccineCards({
             onPressed: () {
               myShowDialog(
                 context: context,
-                widgetName: AddQuantityVaccine(),
+                widgetName: AddVaccineQuantity(),
               );
             },
             icon: Image.asset(icon))

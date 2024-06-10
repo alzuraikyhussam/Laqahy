@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/create_account_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/create_admin_account.dart';
+import 'package:laqahy/view/screens/create_account/create_admin_account.dart';
 import 'package:laqahy/view/screens/welcome.dart';
 import 'package:window_manager/window_manager.dart';
-import '../widgets/basic_widgets/basic_widgets.dart';
+import '../../widgets/basic_widgets/basic_widgets.dart';
 
 class CreateMinistryAccountScreen extends StatefulWidget {
   const CreateMinistryAccountScreen({super.key});

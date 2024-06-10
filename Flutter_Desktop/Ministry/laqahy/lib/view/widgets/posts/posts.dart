@@ -9,8 +9,8 @@ import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/post_model.dart';
-import 'package:laqahy/services/api/api_exception_alert.dart';
-import 'package:laqahy/view/widgets/api_error_alert.dart';
+import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -250,14 +250,14 @@ class _PostsScreenState extends State<PostsScreen> {
                         );
                       } else if (snapshot.hasError) {
                         return Center(
-                          child: ApiExceptionAlert().mySnapshotError(
-                              snapshot.error, onPressedRefresh: () {
+                          child: ApiException().mySnapshotError(snapshot.error,
+                              onPressedRefresh: () {
                             cpc.fetchPosts();
                           }),
                         );
                       } else {
                         if (cpc.posts.isEmpty) {
-                          return ApiExceptionAlert().myDataNotFound(
+                          return ApiException().myDataNotFound(
                             onPressedRefresh: () {
                               cpc.fetchPosts();
                             },

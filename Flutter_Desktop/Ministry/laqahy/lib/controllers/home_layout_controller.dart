@@ -7,6 +7,7 @@ import 'package:laqahy/controllers/home_controller.dart';
 import 'package:laqahy/controllers/orders_layout_controller.dart';
 import 'package:laqahy/controllers/reports_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
+import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/controllers/vaccines_card_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/login.dart';
@@ -22,6 +23,7 @@ class HomeLayoutController extends GetxController {
       if (choose.value != label) {
         // Delete controller
         if (Get.isRegistered<HomeController>()) Get.delete<HomeController>();
+        if (Get.isRegistered<UserController>()) Get.delete<UserController>();
         if (Get.isRegistered<VaccinesCardController>())
           Get.delete<VaccinesCardController>();
         if (Get.isRegistered<OrdersLayoutController>())

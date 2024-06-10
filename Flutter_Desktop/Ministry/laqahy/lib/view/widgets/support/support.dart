@@ -7,12 +7,11 @@ import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 
-import '../../core/shared/styles/color.dart';
-import 'basic_widgets/basic_widgets.dart';
-import 'send_support_successfully.dart';
+import '../../../core/shared/styles/color.dart';
+import '../basic_widgets/basic_widgets.dart';
 
-class TechnicalSupport extends StatelessWidget {
-  const TechnicalSupport({super.key});
+class SupportScreen extends StatelessWidget {
+  const SupportScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -145,19 +144,22 @@ class TechnicalSupport extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              myButton(
-                                onPressed: () {
-                                  if (tsc.technicalSupportFormKey.currentState!
-                                      .validate()) {
-                                    myShowDialog(
-                                        context: context,
-                                        widgetName: SendSupportSuccessfully());
-                                  }
-                                },
-                                text: 'إرســــــال',
-                                textStyle: MyTextStyles.font16WhiteBold,
-                                width: 130,
-                              ),
+                              Obx(() {
+                                return tsc.isLoading.value
+                                    ? myLoadingIndicator()
+                                    : myButton(
+                                        onPressed: () {
+                                          if (tsc.technicalSupportFormKey
+                                              .currentState!
+                                              .validate()) {
+                                            tsc.sendMsg();
+                                          }
+                                        },
+                                        text: 'إرســــــال',
+                                        textStyle: MyTextStyles.font16WhiteBold,
+                                        width: 130,
+                                      );
+                              }),
                               SizedBox(
                                 width: 15,
                               ),

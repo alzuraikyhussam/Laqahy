@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/create_account_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/add_user_successfully.dart';
+import 'package:laqahy/view/widgets/users/add_user_successfully.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class AddUser extends StatefulWidget {

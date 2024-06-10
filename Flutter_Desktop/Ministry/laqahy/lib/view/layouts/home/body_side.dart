@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
-import 'package:laqahy/view/layouts/orders_layout.dart';
-import 'package:laqahy/view/widgets/home.dart';
-import 'package:laqahy/view/widgets/offices_screen.dart';
-import 'package:laqahy/view/widgets/posts.dart';
-import 'package:laqahy/view/widgets/reports.dart';
-import 'package:laqahy/view/widgets/system_info.dart';
-import 'package:laqahy/view/widgets/techincal_support.dart';
-import 'package:laqahy/view/widgets/users.dart';
-import 'package:laqahy/view/widgets/vaccines_page.dart';
+import 'package:laqahy/view/layouts/orders/orders_layout.dart';
+import 'package:laqahy/view/widgets/home/home.dart';
+import 'package:laqahy/view/widgets/offices.dart';
+import 'package:laqahy/view/widgets/posts/posts.dart';
+import 'package:laqahy/view/widgets/reports/reports.dart';
+import 'package:laqahy/view/widgets/system_info/system_info.dart';
+import 'package:laqahy/view/widgets/support/support.dart';
+import 'package:laqahy/view/widgets/users/users.dart';
+import 'package:laqahy/view/widgets/vaccines/vaccines.dart';
 
 class BodySide extends StatefulWidget {
   const BodySide({super.key});
@@ -52,7 +52,7 @@ class _BodySideState extends State<BodySide> {
             } else if (hlc.choose.value == 'حول النظام') {
               return const SystemInfoScreen();
             } else if (hlc.choose.value == 'الدعم الفني') {
-              return const TechnicalSupport();
+              return const SupportScreen();
             } else {
               return const SizedBox();
             }

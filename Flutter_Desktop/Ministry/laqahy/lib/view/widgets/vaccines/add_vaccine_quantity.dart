@@ -6,14 +6,14 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class AddQuantityVaccine extends StatefulWidget {
-  const AddQuantityVaccine({super.key});
+class AddVaccineQuantity extends StatefulWidget {
+  const AddVaccineQuantity({super.key});
 
   @override
-  State<AddQuantityVaccine> createState() => _AddQuantityVaccineState();
+  State<AddVaccineQuantity> createState() => _AddVaccineQuantityState();
 }
 
-class _AddQuantityVaccineState extends State<AddQuantityVaccine> {
+class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
   AddQtyVaccineController aqvc = Get.put(AddQtyVaccineController());
 
   @override
