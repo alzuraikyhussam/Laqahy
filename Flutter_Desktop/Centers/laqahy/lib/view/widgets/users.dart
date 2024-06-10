@@ -50,7 +50,7 @@ class _UsersScreenState extends State<UsersScreen> {
             sortAscending: uc.sort.value,
             showFirstLastButtons: true,
             columnSpacing: 5,
-            // rowsPerPage: 8,
+            // rowsPerPage: 8,2
             headingRowDecoration: BoxDecoration(
               borderRadius: BorderRadiusDirectional.only(
                 topStart: Radius.circular(10),

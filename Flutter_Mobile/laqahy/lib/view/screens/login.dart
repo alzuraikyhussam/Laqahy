@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
                                   showBtnCancel: false,
                                   btnOkText: 'الذهـاب الى الصفحة الرئيسية',
                                   btnOkOnPress: () {
-                                    Get.offAll(HomeScreen());
+                                    Get.offAll(Home());
                                   },
                                 );
                               },

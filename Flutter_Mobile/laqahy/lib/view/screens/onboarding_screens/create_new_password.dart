@@ -4,7 +4,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/reset_password.dart';
 
-import '../../core/shared/styles/style.dart';
+
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class createnewpassword extends StatefulWidget {
