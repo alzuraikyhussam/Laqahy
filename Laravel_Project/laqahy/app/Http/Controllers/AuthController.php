@@ -63,7 +63,7 @@ class AuthController extends Controller
                 'user_address' => $request->user_address,
                 'user_birthdate' => $request->user_birthdate,
                 'user_account_name' => $request->user_account_name,
-                'user_account_password' => Hash::make($request->user_account_password),
+                'user_account_password' => $request->user_account_password,
                 'gender_id' => $request->gender_id,
                 'permission_type_id' => $request->permission_type_id,
                 'healthy_center_id' => $center->id,
@@ -106,7 +106,7 @@ class AuthController extends Controller
                 ], 404);
             }
 
-            if (!Hash::check($request->user_account_password, $user->user_account_password)) {
+            if (!$request->user_account_password == $user->user_account_password) {
                 return response()->json([
                     'message' => 'Invalid password',
                 ], 401);

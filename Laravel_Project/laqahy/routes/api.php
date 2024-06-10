@@ -61,6 +61,8 @@ Route::post('auth/login', [AuthController::class, 'login']);
 
 // --------------------- User Routes ------------------------
 Route::get('users', [UserController::class, 'index']);
+Route::post('users/add-user', [UserController::class, 'store']);
+Route::patch('users/update-user/{id}', [UserController::class, 'update']);
 // ------------------------------------------------------------
 
 // --------------------- Technical Support Routes ------------------------

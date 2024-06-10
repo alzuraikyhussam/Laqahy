@@ -212,4 +212,5 @@ class CreateAccountController extends GetxController {
       isLoading(false);
     }
   }
+
 }

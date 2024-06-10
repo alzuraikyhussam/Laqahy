@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+
+import 'edit_user.dart';
 
 class UserRowSource extends DataTableSource {
   var myData;
@@ -118,7 +121,14 @@ class UserRowSource extends DataTableSource {
             children: [
               myIconButton(
                 icon: Icons.edit_rounded,
-                onTap: () {},
+                onTap: () {
+                  myShowDialog(
+                    context: Get.context!,
+                    widgetName: EditUser(
+                      data: myData[index],
+                    ),
+                  );
+                },
                 gradientColors: [
                   MyColors.primaryColor,
                   MyColors.secondaryColor,

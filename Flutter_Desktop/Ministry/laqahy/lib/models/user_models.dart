@@ -1,14 +1,16 @@
+import 'package:intl/intl.dart';
+
 class User {
-  int id;
+  int? id;
   String username;
   String password;
   String name;
   String phone;
   String address;
   DateTime birthDate;
-  String genderType;
-  String permissionType;
-  String centerName;
+  String? genderType;
+  String? permissionType;
+  String? centerName;
   int userGenderId;
   int userPermissionId;
   int centerId;
@@ -16,13 +18,13 @@ class User {
   User({
     required this.username,
     required this.password,
-    required this.id,
+    this.id,
     required this.birthDate,
-    required this.centerName,
-    required this.genderType,
+    this.centerName,
+    this.genderType,
     required this.address,
     required this.name,
-    required this.permissionType,
+    this.permissionType,
     required this.phone,
     required this.userGenderId,
     required this.userPermissionId,
@@ -47,5 +49,19 @@ class User {
       userPermissionId: json['permission_type_id'] ?? 0,
       centerId: json['healthy_center_id'] ?? 0,
     );
+  }
+
+    Map<String, dynamic> toJson() {
+    return {
+      'user_name': name,
+      'user_phone': phone,
+      'user_address': address,
+      'user_birthdate': DateFormat('yyyy-MM-dd').format(birthDate),
+      'user_account_name': username,
+      'user_account_password': password,
+      'gender_id': userGenderId,
+      'healthy_center_id': centerId,
+      'permission_type_id': userPermissionId,
+    };
   }
 }

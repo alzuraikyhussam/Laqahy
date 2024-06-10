@@ -37,7 +37,7 @@ class _UsersScreenState extends State<UsersScreen> {
                   bottom: 50,
                 ),
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
                 child: PaginatedDataTable2(
@@ -53,7 +53,7 @@ class _UsersScreenState extends State<UsersScreen> {
                   showFirstLastButtons: true,
                   columnSpacing: 5,
                   // rowsPerPage: 8,
-                  headingRowDecoration: BoxDecoration(
+                  headingRowDecoration: const BoxDecoration(
                     borderRadius: BorderRadiusDirectional.only(
                       topStart: Radius.circular(10),
                       topEnd: Radius.circular(10),

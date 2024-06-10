@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -31,7 +32,51 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //    
+
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'user_name' => 'required',
+                    'user_phone' => 'required',
+                    'user_address' => 'required',
+                    'user_birthdate' => 'required',
+                    'user_account_name' => 'required',
+                    'user_account_password' => 'required',
+                    'gender_id' => 'required',
+                    'permission_type_id' => 'required',
+                    'healthy_center_id' => 'required',
+
+                ],
+            );
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
+            // Create record
+            $user = User::create([
+                'user_name' => $request->user_name,
+                'user_phone' => $request->user_phone,
+                'user_address' => $request->user_address,
+                'user_birthdate' => $request->user_birthdate,
+                'user_account_name' => $request->user_account_name,
+                'user_account_password' => $request->user_account_password,
+                'gender_id' => $request->gender_id,
+                'permission_type_id' => $request->permission_type_id,
+                'healthy_center_id' => $request->healthy_center_id,
+            ]);
+
+            // Return created record
+            return response()->json([
+                'message' => 'User created successfully',
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+
+            ], 500);
+        }
     }
 
     /**
@@ -47,7 +92,23 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $user = User::find($id);
+
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found',
+                ], 404);
+            }
+            $user->update($request->all());
+            return response()->json([
+                'message' => 'User updated successfully',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**

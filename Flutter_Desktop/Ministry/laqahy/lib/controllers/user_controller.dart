@@ -4,15 +4,105 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception.dart';
 
 class UserController extends GetxController {
+  StaticDataController sdc = Get.find<StaticDataController>();
   var users = [].obs;
   var filteredUsers = [].obs;
   var isLoading = false.obs;
+  var isAddLoading = false.obs;
+  var isUpdateLoading = false.obs;
   TextEditingController userSearchController = TextEditingController();
+  GlobalKey<FormState> createUserAccountFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> editUserAccountFormKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+
+  String? nameValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يرجى ادخال الاسم الرباعي';
+    } else if (RegExp(r'[^a-zA-Z\u0600-\u06FF\s]').hasMatch(value)) {
+      return 'لا يجب أن يحتوي الاسم على أرقام أو رموز';
+    } else if (!RegExp(r'^\S+(\s+\S+){3}$').hasMatch(value)) {
+      // Regular expression to match exactly four words separated by spaces
+      return 'يجب ادخال اسمك الرباعي';
+    }
+    return null;
+  }
+
+/////////////
+  TextEditingController phoneNumberController = TextEditingController();
+  String? phoneNumberValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يرجى ادخال رقم الهاتف ';
+    } else if (!GetUtils.isNumericOnly(value)) {
+      return 'يجب ادخال ارقام فقط';
+    } else if (!GetUtils.isLengthEqualTo(value, 9)) {
+      return 'يجب ان يتكون من 9 ارقام';
+    }
+    return null;
+  }
+
+/////////////
+  TextEditingController birthdateController = TextEditingController();
+  String? birthdateValidator(value) {
+    if (value.isEmpty) {
+      return 'ادخل تاريخ الميلاد';
+    }
+    return null;
+  }
+
+  //////////
+  TextEditingController userNameController = TextEditingController();
+  String? userNameValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يرجى ادخال اسم المستخدم';
+    } else if (!GetUtils.isUsername(value)) {
+      return 'يرجى ادخال اسم مستخدم صالح';
+    }
+    return null;
+  }
+
+  //////////
+  TextEditingController passwordController = TextEditingController();
+  String? passwordValidator(value) {
+    if (value.isEmpty) {
+      return 'يرجى ادخال كلمة المرور';
+    } else if (value.length < 8) {
+      return 'يجب أن تكون على الأقل 8 أحرف';
+    } else if (!RegExp(
+            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$')
+        .hasMatch(value)) {
+      // Check for at least one uppercase letter, one lowercase letter, one digit, and one special character
+      return 'يجب أن تحتوي على أحرف كبيرة\n وصغيرة وأرقام ورموز';
+    }
+    return null;
+  }
+  //////////
+
+  void clearTextFormFields() {
+    nameController.clear();
+    phoneNumberController.clear();
+    passwordController.clear();
+    userNameController.clear();
+    birthdateController.clear();
+    sdc.selectedPermissionId.value = null;
+    sdc.selectedGenderId.value = null;
+    addressController.clear();
+  }
+
+  //////////
+  TextEditingController addressController = TextEditingController();
+  String? addressValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يرجى ادخال العنوان';
+    }
+    return null;
+  }
 
   @override
   onInit() {
@@ -64,6 +154,122 @@ class UserController extends GetxController {
       print(e);
     } finally {
       isLoading(false);
+    }
+  }
+
+  Future<void> addUser() async {
+    int? centerID = await sdc.storageService.getCenterId();
+    DateTime parsedBirthDate =
+        DateFormat('MMM d, yyyy').parse(birthdateController.text);
+    try {
+      isAddLoading(true);
+      final user = User(
+        centerId: centerID!,
+        name: nameController.text,
+        phone: phoneNumberController.text,
+        address: addressController.text,
+        userGenderId: sdc.selectedGenderId.value!,
+        username: userNameController.text,
+        password: passwordController.text,
+        userPermissionId: sdc.selectedPermissionId.value!,
+        birthDate: parsedBirthDate,
+      );
+      var response = await http.post(
+        Uri.parse(ApiEndpoints.addUser),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(user.toJson()),
+      );
+
+      if (response.statusCode == 201) {
+        isAddLoading(false);
+        await fetchUsers();
+        clearTextFormFields();
+        ApiException().myAddedDataSuccessAlert();
+
+        return;
+      } else {
+        isAddLoading(false);
+        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isAddLoading(false);
+      ApiException().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isAddLoading(false);
+      print(e);
+      ApiException().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isAddLoading(false);
+    }
+  }
+
+  Future<void> updateUser(
+      var userId,
+      var name,
+      var address,
+      var userName,
+      var password,
+      var permission,
+      var phone,
+      var gender,
+      var birthdate) async {
+    DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthdate);
+    int? centerID = await sdc.storageService.getCenterId();
+    isUpdateLoading(true);
+    final user = User(
+      centerId: centerID!,
+      name: name,
+      phone: phone,
+      address: address,
+      userGenderId: gender!,
+      username: userName,
+      password: password,
+      userPermissionId: permission,
+      birthDate: parsedBirthDate,
+    );
+    try {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('${ApiEndpoints.updateUser}/$userId'));
+      request.fields['_method'] = 'PATCH';
+      request.fields['user_name'] = user.name;
+      request.fields['user_phone'] = user.phone;
+      request.fields['user_address'] = user.address;
+      request.fields['user_birthdate'] =
+          DateFormat('yyyy-MM-dd').format(user.birthDate);
+      request.fields['user_account_name'] = user.username;
+      request.fields['user_account_password'] = user.password;
+      request.fields['gender_id'] = user.userGenderId.toString();
+      request.fields['healthy_center_id'] = user.centerId.toString();
+      request.fields['permission_type_id'] = user.userPermissionId.toString();
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        isUpdateLoading(false);
+        await fetchUsers();
+
+        ApiException().myUpdateDataSuccessAlert();
+
+        return;
+      } else {
+        isUpdateLoading(false);
+        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isUpdateLoading(false);
+      ApiException().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isUpdateLoading(false);
+      ApiException().myUnknownExceptionAlert(error: e.toString());
+      return;
+    } finally {
+      isUpdateLoading(false);
     }
   }
 }

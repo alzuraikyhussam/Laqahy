@@ -50,6 +50,7 @@ class StaticDataController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     updateGreeting();
+    fetchPermissions();
     fetchGenders();
     fetchCities();
     storageService = await StorageService.getInstance();

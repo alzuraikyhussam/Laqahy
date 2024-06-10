@@ -39,6 +39,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
+
         try {
             $validator = Validator::make(
                 $request->all(),
@@ -89,6 +90,7 @@ class PostController extends Controller
 
             ], 500);
         }
+
     }
 
     /**
