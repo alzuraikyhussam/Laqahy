@@ -41,6 +41,7 @@ class ApiEndpoints {
   static const String getUsers = '$baseUrl/users';
   static const String addUser = '$baseUrl/users/add-user';
   static const String updateUser = '$baseUrl/users/update-user';
+  static const String deleteUser = '$baseUrl/users/delete-user';
   // --------------------------------------------------
 
   // --------------- Technical Support Endpoints -------------------

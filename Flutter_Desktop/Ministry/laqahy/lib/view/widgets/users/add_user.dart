@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/create_account_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/users/add_user_successfully.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -22,24 +23,33 @@ class _AddUserState extends State<AddUser> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      contentPadding: EdgeInsets.all(20),
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-        height: 480,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 3,
+            color: MyColors.primaryColor,
+          ),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        height: 520,
         child: Form(
           key: uc.createUserAccountFormKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 child: Text(
-                  'اضافة موظف جديد ',
+                  'اضافة مستخدم جديد ',
                   textAlign: TextAlign.center,
                   style: MyTextStyles.font18PrimaryBold,
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +58,7 @@ class _AddUserState extends State<AddUser> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '  اسم الموظف',
+                        '  اسم المستخدم',
                         style: MyTextStyles.font14BlackBold,
                       ),
                       Container(
@@ -136,8 +146,8 @@ class _AddUserState extends State<AddUser> {
                         Container(
                           margin: const EdgeInsets.only(top: 3),
                           child: myTextField(
-                            controller: uc.passwordController,
-                            validator: uc.passwordValidator,
+                              controller: uc.passwordController,
+                              validator: uc.passwordValidator,
                               width: 230,
                               prefixIcon: Icons.lock,
                               hintText: '',
@@ -234,46 +244,44 @@ class _AddUserState extends State<AddUser> {
               const SizedBox(
                 height: 30,
               ),
-              Container(
-                width: 400,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                        width: 130,
-                        child: Obx(() {
-                          return uc.isAddLoading.value
-                              ? myLoadingIndicator()
-                              : myButton(
-                                  onPressed: uc.isAddLoading.value
-                                      ? null
-                                      : () {
-                                          if (uc.createUserAccountFormKey
-                                              .currentState!
-                                              .validate()) {
-                                            uc.addUser();
-                                            Get.back();
-                                          }
-                                          // myShowDialog(
-                                          //     context: context,
-                                          //     widgetName:
-                                          //         const AddUserSuccessfully());
-                                        },
-                                  text: 'اضــافة',
-                                  textStyle: MyTextStyles.font16WhiteBold);
-                        })),
-                    Container(
-                      width: 140,
-                      child: myButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          text: 'الغـــاء اللأمــر',
-                          textStyle: MyTextStyles.font16WhiteBold),
-                    ),
-                  ],
-                ),
-              )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() {
+                    return uc.isAddLoading.value
+                        ? myLoadingIndicator()
+                        : myButton(
+                            width: 150,
+                            onPressed: uc.isAddLoading.value
+                                ? null
+                                : () {
+                                    if (uc
+                                        .createUserAccountFormKey.currentState!
+                                        .validate()) {
+                                      uc.addUser();
+                                      Get.back();
+                                    }
+                                    // myShowDialog(
+                                    //     context: context,
+                                    //     widgetName:
+                                    //         const AddUserSuccessfully());
+                                  },
+                            text: 'اضــافة',
+                            textStyle: MyTextStyles.font16WhiteBold);
+                  }),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  myButton(
+                      width: 150,
+                      backgroundColor: MyColors.greyColor,
+                      onPressed: () {
+                        Get.back();
+                      },
+                      text: 'الغـــاء اللأمــر',
+                      textStyle: MyTextStyles.font16WhiteBold),
+                ],
+              ),
             ],
           ),
         ),

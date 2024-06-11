@@ -90,10 +90,12 @@ myTextField({
   double? heightFactor = 2.7,
   void Function()? onTap,
   void Function()? onTapSuffixIcon,
+  bool autofocus = false,
 }) {
   return SizedBox(
     width: width?.toDouble(),
     child: TextFormField(
+      autofocus: autofocus,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onTap: onTap,
       initialValue: initialValue,

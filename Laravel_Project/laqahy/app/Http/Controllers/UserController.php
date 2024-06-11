@@ -32,7 +32,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
             $validator = Validator::make(
                 $request->all(),
@@ -54,6 +53,15 @@ class UserController extends Controller
                     'message' => $validator->errors(),
                 ], 400);
             }
+
+            $userExists = User::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
+
+            if ($userExists) {
+                return response()->json([
+                    'message' => 'This user already exists',
+                ], 401);
+            }
+
             // Create record
             $user = User::create([
                 'user_name' => $request->user_name,
@@ -100,6 +108,23 @@ class UserController extends Controller
                     'message' => 'User not found',
                 ], 404);
             }
+
+            if ($request->user_account_name !== $user->user_account_name) {
+                if (User::where('user_account_name', $request->user_account_name)->exists()) {
+                    return response()->json([
+                        'message' => 'This username already exists',
+                    ], 401);
+                }
+            }
+
+            if ($request->user_name !== $user->user_name) {
+                if (User::where('user_name', $request->user_name)->exists()) {
+                    return response()->json([
+                        'message' => 'This name already exists',
+                    ], 401);
+                }
+            }
+
             $user->update($request->all());
             return response()->json([
                 'message' => 'User updated successfully',
@@ -116,6 +141,19 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $user = User::find($id);
+            if (!$user) {
+                return response()->json(['message' => 'User not found',], 404);
+            }
+
+            $user->delete();
+
+            return response()->json(['message' => 'User deleted successfully',], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

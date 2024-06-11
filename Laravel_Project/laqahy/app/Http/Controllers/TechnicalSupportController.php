@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\GeneralNotificationMail;
+use App\Mail\SupportMail;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -18,24 +20,21 @@ class TechnicalSupportController extends Controller
                 'message' => 'required',
             ],);
 
-            $name = $request->name;
-            $email = $request->email;
-            $msg = $request->message;
-
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors(),
                 ], 400);
             }
 
-            // Send mail
-            Mail::raw($msg, function ($message) use ($email, $name) {
-                $message->from(config('mail.from.address'), config('mail.from.name'))->to('sourcetechno2022@gmail.com')->subject('رسالة واردة من : ' . $name);
-            });
+            $data = $request->only('name', 'email', 'message');
 
-            return response()->json([
-                'message' => 'Transmitted successfully',
-            ], 200);
+            // Send support message
+            Mail::to('sourcetechno2022@gmail.com')->send(new SupportMail($data));
+
+            // Send notification email
+            Mail::to($data['email'])->send(new GeneralNotificationMail($data['name']));
+
+            return response()->json(['message' => 'Support message sent and notification sent successfully!'], 200);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

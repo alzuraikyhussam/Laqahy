@@ -63,6 +63,7 @@ Route::post('auth/login', [AuthController::class, 'login']);
 Route::get('users', [UserController::class, 'index']);
 Route::post('users/add-user', [UserController::class, 'store']);
 Route::patch('users/update-user/{id}', [UserController::class, 'update']);
+Route::delete('users/delete-user/{id}', [UserController::class, 'destroy']);
 // ------------------------------------------------------------
 
 // --------------------- Technical Support Routes ------------------------

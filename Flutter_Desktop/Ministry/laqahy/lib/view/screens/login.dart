@@ -65,19 +65,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    controller.isRegistered.value
-                        ? myAppBarLogo()
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              myAppBarLogo(),
-                              goBackButton(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        myAppBarLogo(),
+                        controller.isRegistered.value
+                            ? exitButton()
+                            : goBackButton(
                                 onTap: () {
                                   Get.off(WelcomeScreen());
                                 },
                               ),
-                            ],
-                          ),
+                      ],
+                    ),
                     SizedBox(
                       height: 40,
                     ),
@@ -105,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           myTextField(
+                            autofocus: true,
                             validator: lc.userNameValidator,
                             controller: lc.userNameController,
                             width: 300,

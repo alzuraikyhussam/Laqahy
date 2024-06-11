@@ -26,7 +26,7 @@ class _EditUserState extends State<EditUser> {
   TextEditingController passwordController = TextEditingController();
   late TextEditingController phoneController;
 
-   TextEditingController birthdateController=TextEditingController();
+  TextEditingController birthdateController = TextEditingController();
 
   @override
   void initState() {
@@ -39,36 +39,44 @@ class _EditUserState extends State<EditUser> {
     userNameController = TextEditingController(text: widget.data.username);
     // passwordController = TextEditingController(text: widget.data.password);
     phoneController = TextEditingController(text: widget.data.phone);
-    birthdateController.text = DateFormat('MMM d, yyyy').parse(widget.data.birthDate).toString();
+    birthdateController.text =
+        DateFormat('MMM d, yyyy').format(widget.data.birthDate);
+    ;
   }
 
   UserController uc = Get.put(UserController());
   StaticDataController sdc = Get.put(StaticDataController());
 
-  
-
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
       alignment: AlignmentDirectional.center,
+      contentPadding: EdgeInsets.all(20),
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-        height: 480,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 3,
+            color: MyColors.primaryColor,
+          ),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        height: 520,
         child: Form(
           key: uc.editUserAccountFormKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 child: Text(
-                  'تعديل موظف ',
+                  'تعديل مستخدم ',
                   textAlign: TextAlign.center,
                   style: MyTextStyles.font18PrimaryBold,
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +85,7 @@ class _EditUserState extends State<EditUser> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '  اسم الموظف',
+                        '  اسم المستخدم',
                         style: MyTextStyles.font14BlackBold,
                       ),
                       Container(
@@ -263,55 +271,51 @@ class _EditUserState extends State<EditUser> {
               const SizedBox(
                 height: 30,
               ),
-              Container(
-                width: 400,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                        width: 130,
-                        child: Obx(() {
-                          return uc.isUpdateLoading.value
-                              ? myLoadingIndicator()
-                              : myButton(
-                                  onPressed: uc.isUpdateLoading.value
-                                      ? null
-                                      : () {
-                                          if (uc.editUserAccountFormKey
-                                              .currentState!
-                                              .validate()) {
-                                            uc.updateUser(
-                                              widget.data.id,
-                                              nameController.text,
-                                              addressController.text,
-                                              userNameController.text,
-                                              passwordController.text,
-                                              sdc.selectedPermissionId.value,
-                                              phoneController.text,
-                                              sdc.selectedGenderId.value,
-                                              birthdateController.text,
-                                            );
-                                            Get.back();
-                                          }
-                                          // myShowDialog(
-                                          //     context: context,
-                                          //     widgetName:
-                                          //         const AddUserSuccessfully());
-                                        },
-                                  text: 'تعـــديل',
-                                  textStyle: MyTextStyles.font16WhiteBold);
-                        })),
-                    Container(
-                      width: 140,
-                      child: myButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          text: 'الغـــاء اللأمــر',
-                          textStyle: MyTextStyles.font16WhiteBold),
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() {
+                    return uc.isUpdateLoading.value
+                        ? myLoadingIndicator()
+                        : myButton(
+                            width: 150,
+                            onPressed: uc.isUpdateLoading.value
+                                ? null
+                                : () {
+                                    if (uc.editUserAccountFormKey.currentState!
+                                        .validate()) {
+                                      uc.updateUser(
+                                        widget.data.id,
+                                        nameController.text,
+                                        addressController.text,
+                                        userNameController.text,
+                                        passwordController.text,
+                                        sdc.selectedPermissionId.value,
+                                        phoneController.text,
+                                        sdc.selectedGenderId.value,
+                                        birthdateController.text,
+                                      );
+                                    }
+                                    // myShowDialog(
+                                    //     context: context,
+                                    //     widgetName:
+                                    //         const AddUserSuccessfully());
+                                  },
+                            text: 'تعـــديل',
+                            textStyle: MyTextStyles.font16WhiteBold);
+                  }),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  myButton(
+                      width: 150,
+                      backgroundColor: MyColors.greyColor,
+                      onPressed: () {
+                        Get.back();
+                      },
+                      text: 'الغـــاء اللأمــر',
+                      textStyle: MyTextStyles.font16WhiteBold),
+                ],
               )
             ],
           ),

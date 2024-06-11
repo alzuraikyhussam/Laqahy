@@ -17,6 +17,7 @@ class UserController extends GetxController {
   var isLoading = false.obs;
   var isAddLoading = false.obs;
   var isUpdateLoading = false.obs;
+  var isDeleteLoading = false.obs;
   TextEditingController userSearchController = TextEditingController();
   GlobalKey<FormState> createUserAccountFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> editUserAccountFormKey = GlobalKey<FormState>();
@@ -136,7 +137,6 @@ class UserController extends GetxController {
         isLoading(false);
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
         users.value = jsonData.map((e) => User.fromJson(e)).toList();
-
         filteredUsers.assignAll(users);
       } else if (response.statusCode == 500) {
         isLoading(false);
@@ -187,7 +187,10 @@ class UserController extends GetxController {
         await fetchUsers();
         clearTextFormFields();
         ApiException().myAddedDataSuccessAlert();
-
+        return;
+      } else if (response.statusCode == 401) {
+        isAddLoading(false);
+        ApiException().myUserAlreadyExistsAlert();
         return;
       } else {
         isAddLoading(false);
@@ -200,7 +203,6 @@ class UserController extends GetxController {
       return;
     } catch (e) {
       isAddLoading(false);
-      print(e);
       ApiException().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isAddLoading(false);
@@ -251,9 +253,13 @@ class UserController extends GetxController {
       if (response.statusCode == 200) {
         isUpdateLoading(false);
         await fetchUsers();
-
+        Get.back();
         ApiException().myUpdateDataSuccessAlert();
 
+        return;
+      } else if (response.statusCode == 401) {
+        isUpdateLoading(false);
+        ApiException().myUserAlreadyExistsAlert();
         return;
       } else {
         isUpdateLoading(false);
@@ -270,6 +276,38 @@ class UserController extends GetxController {
       return;
     } finally {
       isUpdateLoading(false);
+    }
+  }
+
+  Future<void> deleteUser(int userId) async {
+    isDeleteLoading(true);
+
+    try {
+      var request =
+          await http.delete(Uri.parse('${ApiEndpoints.deleteUser}/$userId'));
+
+      if (request.statusCode == 200) {
+        isDeleteLoading(false);
+        Get.back();
+        await fetchUsers();
+        ApiException().myDeleteDataSuccessAlert();
+        return;
+      } else {
+        isDeleteLoading(false);
+        ApiException().myAccessDatabaseExceptionAlert(request.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isDeleteLoading(false);
+      ApiException().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isDeleteLoading(false);
+      print(e);
+      ApiException().myUnknownExceptionAlert(error: e.toString());
+      return;
+    } finally {
+      isDeleteLoading(false);
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -24,6 +25,7 @@ class UsersScreen extends StatefulWidget {
 
 class _UsersScreenState extends State<UsersScreen> {
   UserController uc = Get.put(UserController());
+  StaticDataController sdc = Get.put(StaticDataController());
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -185,6 +187,8 @@ class _UsersScreenState extends State<UsersScreen> {
                   actions: [
                     myButton(
                       onPressed: () {
+                        sdc.selectedGenderId.value = null;
+                        sdc.selectedPermissionId.value = null;
                         myShowDialog(context: context, widgetName: AddUser());
                       },
                       text: 'إضــافة مستخــدم جـديــد',

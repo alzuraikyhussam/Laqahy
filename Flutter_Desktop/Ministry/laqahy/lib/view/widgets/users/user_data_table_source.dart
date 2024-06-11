@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/users/delete_user_confirm.dart';
 
 import 'edit_user.dart';
 
@@ -138,7 +139,13 @@ class UserRowSource extends DataTableSource {
               ),
               myIconButton(
                 icon: Icons.delete,
-                onTap: () {},
+                onTap: () {
+                  myShowDialog(
+                      context: Get.context!,
+                      widgetName: DeleteUserConfirm(
+                        userId: user.id,
+                      ));
+                },
                 gradientColors: [
                   MyColors.redColor,
                   MyColors.redColor,
