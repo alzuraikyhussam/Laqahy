@@ -45,7 +45,9 @@ class _UsersScreenState extends State<UsersScreen> {
                 child: PaginatedDataTable2(
                   autoRowsToHeight: true,
                   empty: ApiException().myDataNotFound(
-                    onPressedRefresh: uc.fetchUsers,
+                    onPressedRefresh: () {
+                      uc.fetchUsers(uc.centerId);
+                    },
                   ),
                   horizontalMargin: 15,
                   headingRowColor:
@@ -54,7 +56,8 @@ class _UsersScreenState extends State<UsersScreen> {
                   // sortAscending: uc.sort.value,
                   showFirstLastButtons: true,
                   columnSpacing: 5,
-                  // rowsPerPage: 8,
+                  rowsPerPage: 5,
+                  controller: uc.tableController,
                   headingRowDecoration: const BoxDecoration(
                     borderRadius: BorderRadiusDirectional.only(
                       topStart: Radius.circular(10),
@@ -65,7 +68,10 @@ class _UsersScreenState extends State<UsersScreen> {
                     width: double.infinity,
                     // padding: EdgeInsetsD)irectional.all(5),
                     child: myTextField(
-                      onTap: () {},
+                      onTap: () {
+                        uc.tableController.goToFirstPage();
+                        print(uc.tableController.currentRowIndex);
+                      },
                       hintText: 'اكتــب هنــا للبحـــث',
                       prefixIcon: Icons.search,
                       controller: uc.userSearchController,
@@ -189,9 +195,10 @@ class _UsersScreenState extends State<UsersScreen> {
                       onPressed: () {
                         sdc.selectedGenderId.value = null;
                         sdc.selectedPermissionId.value = null;
+                        uc.clearTextFormFields();
                         myShowDialog(context: context, widgetName: AddUser());
                       },
-                      text: 'إضــافة مستخــدم جـديــد',
+                      text: 'إضــافة مستخـدم جـديــد',
                       textStyle: MyTextStyles.font16WhiteBold,
                     ),
                   ],

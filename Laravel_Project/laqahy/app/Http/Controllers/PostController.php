@@ -38,8 +38,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
-
         try {
             $validator = Validator::make(
                 $request->all(),

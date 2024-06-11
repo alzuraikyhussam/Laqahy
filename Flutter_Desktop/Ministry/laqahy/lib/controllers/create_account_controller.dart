@@ -89,7 +89,7 @@ class CreateAccountController extends GetxController {
     if (value.isEmpty) {
       return 'يرجى ادخال كلمة المرور';
     } else if (value.length < 8) {
-      return 'يجب أن تكون على الأقل 8 أحرف';
+      return 'يجب ألا تقل عن 8 أحرف';
     } else if (!RegExp(
             r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$')
         .hasMatch(value)) {
@@ -140,8 +140,11 @@ class CreateAccountController extends GetxController {
     StaticDataController sdc = Get.find<StaticDataController>();
     DateTime parsedBirthDate =
         DateFormat('MMM d, yyyy').parse(birthdateController.text);
+
     try {
       isLoading(true);
+      // final deviceInfo = await sdc.initWindowsSystemInfo();
+  
       final centerWithUser = Register(
         userName: nameController.text,
         userPhone: phoneNumberController.text,
@@ -156,6 +159,9 @@ class CreateAccountController extends GetxController {
         centerAddress: centerAddressController.text,
         centerDirectorateId: sdc.selectedDirectorateId.value!,
         centerCityId: sdc.selectedCityId.value!,
+        // deviceName: deviceInfo[1],
+        // deviceUserName: deviceInfo[2],
+        // deviceMacAddress: deviceInfo[0],
       );
       var response = await http.post(
         Uri.parse(ApiEndpoints.register),
@@ -179,8 +185,8 @@ class CreateAccountController extends GetxController {
 
         try {
           // Save SharedPreferences
-
           await sdc.storageService.setCenterId(sdc.centerData.first.id!);
+          await sdc.storageService.setAdminId(sdc.userLoggedData.first.userId!);
           await sdc.storageService.setRegistered(true);
         } catch (e) {
           Get.offAll(LoginScreen());
@@ -199,6 +205,7 @@ class CreateAccountController extends GetxController {
       } else {
         isLoading(false);
         ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        print(response.body);
         return;
       }
     } on SocketException catch (_) {
@@ -207,10 +214,10 @@ class CreateAccountController extends GetxController {
       return;
     } catch (e) {
       isLoading(false);
+      print(e);
       ApiException().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);
     }
   }
-
 }

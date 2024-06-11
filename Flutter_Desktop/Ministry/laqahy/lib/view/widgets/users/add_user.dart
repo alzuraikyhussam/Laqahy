@@ -43,7 +43,7 @@ class _AddUserState extends State<AddUser> {
             children: [
               Container(
                 child: Text(
-                  'اضافة مستخدم جديد ',
+                  'اضافة مستخدم جديد',
                   textAlign: TextAlign.center,
                   style: MyTextStyles.font18PrimaryBold,
                 ),
@@ -58,7 +58,7 @@ class _AddUserState extends State<AddUser> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '  اسم المستخدم',
+                        'الاسم الرباعي',
                         style: MyTextStyles.font14BlackBold,
                       ),
                       Container(
@@ -68,40 +68,48 @@ class _AddUserState extends State<AddUser> {
                             controller: uc.nameController,
                             validator: uc.nameValidator,
                             prefixIcon: Icons.person_outline_sharp,
-                            hintText: '',
+                            hintText: 'الاسم الرباعي',
                             keyboardType: TextInputType.text,
                             onChanged: (value) {}),
                       ),
                     ],
                   ),
+                  SizedBox(
+                    width: 20,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '      رقم الهاتف',
+                        'رقم الجوال',
                         style: MyTextStyles.font14BlackBold,
                       ),
                       Container(
-                        margin:
-                            const EdgeInsets.only(left: 20, right: 20, top: 3),
+                        margin: const EdgeInsets.only(top: 3),
                         width: 200,
                         child: myTextField(
                           controller: uc.phoneNumberController,
                           validator: uc.phoneNumberValidator,
                           prefixIcon: Icons.phone_outlined,
-                          hintText: '',
+                          hintText: 'رقم الجوال',
                           keyboardType: TextInputType.text,
                           onChanged: (value) {},
                         ),
                       ),
                     ],
                   ),
+                  SizedBox(
+                    width: 20,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '  الجنس ',
+                        'الجنس',
                         style: MyTextStyles.font14BlackBold,
+                      ),
+                      SizedBox(
+                        height: 3,
                       ),
                       Constants().gendersDropdownMenu(),
                     ],
@@ -120,7 +128,7 @@ class _AddUserState extends State<AddUser> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '  اسم المستخدم ',
+                          'اسم المستخدم',
                           style: MyTextStyles.font14BlackBold,
                         ),
                         Container(
@@ -129,8 +137,8 @@ class _AddUserState extends State<AddUser> {
                               controller: uc.userNameController,
                               validator: uc.userNameValidator,
                               width: 230,
-                              prefixIcon: Icons.person,
-                              hintText: '',
+                              prefixIcon: Icons.person_pin_outlined,
+                              hintText: 'اسم المستخدم',
                               keyboardType: TextInputType.text,
                               onChanged: (value) {}),
                         )
@@ -140,7 +148,7 @@ class _AddUserState extends State<AddUser> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '  كلمة المرور ',
+                          'كلمة المرور',
                           style: MyTextStyles.font14BlackBold,
                         ),
                         Container(
@@ -149,8 +157,8 @@ class _AddUserState extends State<AddUser> {
                               controller: uc.passwordController,
                               validator: uc.passwordValidator,
                               width: 230,
-                              prefixIcon: Icons.lock,
-                              hintText: '',
+                              prefixIcon: Icons.password_outlined,
+                              hintText: 'كلمة المرور',
                               keyboardType: TextInputType.visiblePassword,
                               onChanged: (value) {}),
                         )
@@ -160,8 +168,11 @@ class _AddUserState extends State<AddUser> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'تحديد الصلاحية ',
+                          'تحديد الصلاحية',
                           style: MyTextStyles.font14BlackBold,
+                        ),
+                        SizedBox(
+                          height: 3,
                         ),
                         Constants().permissionsDropdownMenu(),
                       ],
@@ -181,7 +192,7 @@ class _AddUserState extends State<AddUser> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '   تاريخ الميلاد ',
+                          'تاريخ الميلاد',
                           style: MyTextStyles.font14BlackBold,
                         ),
                         Container(
@@ -231,8 +242,8 @@ class _AddUserState extends State<AddUser> {
                               controller: uc.addressController,
                               validator: uc.addressValidator,
                               width: 300,
-                              prefixIcon: Icons.location_city_outlined,
-                              hintText: '',
+                              prefixIcon: Icons.location_on_outlined,
+                              hintText: 'العنوان',
                               keyboardType: TextInputType.text,
                               onChanged: (value) {}),
                         )
@@ -259,7 +270,7 @@ class _AddUserState extends State<AddUser> {
                                         .createUserAccountFormKey.currentState!
                                         .validate()) {
                                       uc.addUser();
-                                      Get.back();
+                                      // Get.back();
                                     }
                                     // myShowDialog(
                                     //     context: context,

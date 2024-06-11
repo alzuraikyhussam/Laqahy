@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Healthy_center;
+use App\Models\Healthy_center_account;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -32,6 +33,9 @@ class AuthController extends Controller
                     'healthy_center_phone' => 'required',
                     'directorate_id' => 'required',
                     'cities_id' => 'required',
+                    // 'device_name' => 'required',
+                    // 'device_username' => 'required',
+                    // 'MAC_address' => 'required',
                 ],
             );
 
@@ -56,6 +60,13 @@ class AuthController extends Controller
                 'directorate_id' => $request->directorate_id,
                 'cities_id' => $request->cities_id,
             ]);
+
+            // $centerAccount = Healthy_center_account::create([
+            //     'healthy_center_id' => $center->id,
+            //     'device_name' => $request->device_name,
+            //     'device_username' => $request->device_username,
+            //     'MAC_address' => $request->MAC_address,
+            // ]);
 
             $user = User::create([
                 'user_name' => $request->user_name,
@@ -106,7 +117,7 @@ class AuthController extends Controller
                 ], 404);
             }
 
-            if (!$request->user_account_password == $user->user_account_password) {
+            if (!($request->user_account_password === $user->user_account_password)) {
                 return response()->json([
                     'message' => 'Invalid password',
                 ], 401);

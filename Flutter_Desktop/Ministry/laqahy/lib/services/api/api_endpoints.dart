@@ -47,4 +47,8 @@ class ApiEndpoints {
   // --------------- Technical Support Endpoints -------------------
   static const String sendMsg = '$baseUrl/support';
   // --------------------------------------------------
+
+  // --------------- Healthy Center Account Endpoints -------------------
+  static const String addCenterAccount = '$baseUrl/centers/add-center-account';
+  // --------------------------------------------------
 }

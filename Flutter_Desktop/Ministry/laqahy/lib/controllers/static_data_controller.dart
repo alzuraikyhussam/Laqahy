@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -24,6 +25,10 @@ class StaticDataController extends GetxController {
   late var isRegistered = false.obs;
 
   final greeting = ''.obs;
+
+  // final macAddress = ''.obs;
+  // final deviceName = ''.obs;
+  // final deviceUserName = ''.obs;
 
   var genders = <Gender>[].obs;
   var selectedGenderId = Rx<int?>(null);
@@ -55,20 +60,20 @@ class StaticDataController extends GetxController {
     fetchCities();
     storageService = await StorageService.getInstance();
     isRegistered.value = await storageService.isRegistered();
-    initWindowsSystemInfo();
-    // fetchDirectorates();
   }
 
-  Future<void> initWindowsSystemInfo() async {
+  Future initWindowsSystemInfo() async {
     await WindowsSystemInfo.initWindowsInfo();
     try {
       if (await WindowsSystemInfo.isInitilized) {
-        print(WindowsSystemInfo.network);
-        print(WindowsSystemInfo.deviceName);
-        print(WindowsSystemInfo.userName);
+        final networkInfo = WindowsSystemInfo.network.map((e) => e.mac);
+        final macAddress = networkInfo.toString();
+        final deviceName = WindowsSystemInfo.deviceName;
+        final deviceUserName = WindowsSystemInfo.userName;
+        return [macAddress, deviceName, deviceUserName];
       }
     } catch (_) {
-      print(_);
+      log(_.toString());
     }
   }
 

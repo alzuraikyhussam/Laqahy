@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('healthy_center_id')->constrained('healthy_centers');
             $table->String('device_name');
-            $table->String('MAC_address');
-            $table->dateTime('join_date');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->String('device_username');
+            $table->longText('MAC_address');
+            $table->timestamp('joined_date');
         });
     }
 

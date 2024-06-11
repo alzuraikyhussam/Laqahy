@@ -38,7 +38,7 @@ class LoginController extends GetxController {
     if (value.isEmpty) {
       return 'يرجى ادخال كلمة المرور';
     } else if (value.length < 8) {
-      return 'يجب أن تكون على الأقل 8 أحرف';
+      return 'يجب ألا تقل عن 8 أحرف';
     }
     return null;
   }
@@ -74,8 +74,10 @@ class LoginController extends GetxController {
         try {
           // Save SharedPreferences
           if (!await sdc.storageService.isRegistered()) {
-            await sdc.storageService.setRegistered(true);
             await sdc.storageService.setCenterId(sdc.centerData.first.id!);
+            await sdc.storageService
+                .setAdminId(sdc.userLoggedData.first.userId!);
+            await sdc.storageService.setRegistered(true);
           }
         } catch (_) {}
         Get.offAll(const HomeLayout());

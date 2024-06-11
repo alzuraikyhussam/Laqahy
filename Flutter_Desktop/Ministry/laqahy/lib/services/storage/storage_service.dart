@@ -19,6 +19,10 @@ class StorageService {
     await prefs.setInt('centerId', centerId);
   }
 
+  Future<void> setAdminId(int adminId) async {
+    await prefs.setInt('adminId', adminId);
+  }
+
   Future<void> setRegistered(bool isRegistered) async {
     StaticDataController controller = Get.find<StaticDataController>();
     await prefs.setBool('isRegistered', isRegistered);
@@ -27,6 +31,10 @@ class StorageService {
 
   Future<int?> getCenterId() async {
     return prefs.getInt('centerId') ?? 0;
+  }
+
+  Future<int?> getAdminId() async {
+    return prefs.getInt('adminId') ?? 0;
   }
 
   Future<bool> isRegistered() async {

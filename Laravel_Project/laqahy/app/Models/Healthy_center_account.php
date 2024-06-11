@@ -10,9 +10,9 @@ class Healthy_center_account extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['healthy_center_id', 'device_name', 'MAC_address', 'join_date'];
+    protected $fillable = ['healthy_center_id', 'device_name', 'device_username', 'MAC_address', 'joined_date'];
 
-    protected $dates = ['deleted_at'];
+    public $timestamps = false;
 
     public function healthy_center()
     {

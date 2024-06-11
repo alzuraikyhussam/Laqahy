@@ -225,7 +225,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                                                 cac.createAccount();
                                               }
                                             },
-                                      text: 'إنشـــاء الحســـاب',
+                                      text: 'إنشـــاء حســـاب',
                                       textStyle: MyTextStyles.font16WhiteBold,
                                     );
                             }),

@@ -7,6 +7,9 @@ class Register {
   String centerAddress;
   int centerDirectorateId;
   int centerCityId;
+  // String? deviceName;
+  // String? deviceUserName;
+  // String? deviceMacAddress;
   int? userId;
   String userName;
   String userPhone;
@@ -24,6 +27,9 @@ class Register {
     required this.centerAddress,
     required this.centerDirectorateId,
     required this.centerCityId,
+    //  this.deviceName,
+    //  this.deviceUserName,
+    //  this.deviceMacAddress,
     this.userId,
     required this.userName,
     required this.userPhone,
@@ -70,6 +76,9 @@ class Register {
       'gender_id': userGenderId,
       'permission_type_id': userPermissionId,
       'healthy_center_id': centerId,
+      // 'device_name': deviceName,
+      // 'device_username': deviceUserName,
+      // 'MAC_address': deviceMacAddress,
     };
   }
 }

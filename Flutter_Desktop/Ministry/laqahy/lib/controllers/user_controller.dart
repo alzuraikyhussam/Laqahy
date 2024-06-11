@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:data_table_2/data_table_2.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class UserController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
@@ -18,10 +23,13 @@ class UserController extends GetxController {
   var isAddLoading = false.obs;
   var isUpdateLoading = false.obs;
   var isDeleteLoading = false.obs;
+  PaginatorController tableController = PaginatorController();
   TextEditingController userSearchController = TextEditingController();
   GlobalKey<FormState> createUserAccountFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> editUserAccountFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
+
+  int? centerId;
 
   String? nameValidator(value) {
     if (value.trim().isEmpty) {
@@ -74,7 +82,7 @@ class UserController extends GetxController {
     if (value.isEmpty) {
       return 'يرجى ادخال كلمة المرور';
     } else if (value.length < 8) {
-      return 'يجب أن تكون على الأقل 8 أحرف';
+      return 'يجب ألا تقل عن 8 أحرف';
     } else if (!RegExp(
             r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$')
         .hasMatch(value)) {
@@ -106,8 +114,9 @@ class UserController extends GetxController {
   }
 
   @override
-  onInit() {
-    fetchUsers();
+  onInit() async {
+    centerId = await sdc.storageService.getCenterId();
+    fetchUsers(centerId);
     super.onInit();
   }
 
@@ -124,11 +133,12 @@ class UserController extends GetxController {
     }).toList();
   }
 
-  Future<void> fetchUsers() async {
+  Future<void> fetchUsers(var centerId) async {
     try {
       isLoading(true);
+      userSearchController.clear();
       final response = await http.get(
-        Uri.parse(ApiEndpoints.getUsers),
+        Uri.parse('${ApiEndpoints.getUsers}/$centerId'),
         headers: {
           'content-Type': 'application/json',
         },
@@ -137,7 +147,7 @@ class UserController extends GetxController {
         isLoading(false);
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
         users.value = jsonData.map((e) => User.fromJson(e)).toList();
-        filteredUsers.assignAll(users);
+        filteredUsers.value = users;
       } else if (response.statusCode == 500) {
         isLoading(false);
         ApiException().myFetchDataExceptionAlert(response.statusCode);
@@ -184,7 +194,8 @@ class UserController extends GetxController {
 
       if (response.statusCode == 201) {
         isAddLoading(false);
-        await fetchUsers();
+        Get.back();
+        await fetchUsers(centerId);
         clearTextFormFields();
         ApiException().myAddedDataSuccessAlert();
         return;
@@ -252,7 +263,7 @@ class UserController extends GetxController {
 
       if (response.statusCode == 200) {
         isUpdateLoading(false);
-        await fetchUsers();
+        await fetchUsers(centerId);
         Get.back();
         ApiException().myUpdateDataSuccessAlert();
 
@@ -281,7 +292,20 @@ class UserController extends GetxController {
 
   Future<void> deleteUser(int userId) async {
     isDeleteLoading(true);
-
+    var adminId = await sdc.storageService.getAdminId();
+    if (userId == adminId) {
+      isDeleteLoading(false);
+      return myShowDialog(
+        context: Get.context!,
+        widgetName: ApiExceptionAlert(
+          height: 270,
+          imageUrl: 'assets/images/error.json',
+          backgroundColor: MyColors.redColor,
+          title: 'خطـــأ',
+          description: 'عذرا، لا يمكنك حذف مسؤول النظام',
+        ),
+      );
+    }
     try {
       var request =
           await http.delete(Uri.parse('${ApiEndpoints.deleteUser}/$userId'));
@@ -289,7 +313,7 @@ class UserController extends GetxController {
       if (request.statusCode == 200) {
         isDeleteLoading(false);
         Get.back();
-        await fetchUsers();
+        await fetchUsers(centerId);
         ApiException().myDeleteDataSuccessAlert();
         return;
       } else {
