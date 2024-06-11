@@ -17,6 +17,8 @@ class Ministry_statement_stock_vaccine extends Model
         'date',
     ];
 
+    public $timestamps = false;
+
     protected $dates = ['deleted_at'];
 
     public function vaccine_type()

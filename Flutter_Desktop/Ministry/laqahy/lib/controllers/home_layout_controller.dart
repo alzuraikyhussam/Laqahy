@@ -8,7 +8,7 @@ import 'package:laqahy/controllers/orders_layout_controller.dart';
 import 'package:laqahy/controllers/reports_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
-import 'package:laqahy/controllers/vaccines_card_controller.dart';
+import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -22,17 +22,27 @@ class HomeLayoutController extends GetxController {
     } else {
       if (choose.value != label) {
         // Delete controller
-        if (Get.isRegistered<HomeController>()) Get.delete<HomeController>();
-        if (Get.isRegistered<UserController>()) Get.delete<UserController>();
-        if (Get.isRegistered<VaccinesCardController>())
-          Get.delete<VaccinesCardController>();
-        if (Get.isRegistered<OrdersLayoutController>())
+        if (Get.isRegistered<HomeController>()) {
+          Get.delete<HomeController>();
+        }
+        if (Get.isRegistered<UserController>()) {
+          Get.delete<UserController>();
+        }
+        if (Get.isRegistered<VaccineController>()) {
+          Get.delete<VaccineController>();
+        }
+        if (Get.isRegistered<OrdersLayoutController>()) {
           Get.delete<OrdersLayoutController>();
-        if (Get.isRegistered<PostController>()) Get.delete<PostController>();
-        if (Get.isRegistered<ReportsController>())
+        }
+        if (Get.isRegistered<PostController>()) {
+          Get.delete<PostController>();
+        }
+        if (Get.isRegistered<ReportsController>()) {
           Get.delete<ReportsController>();
-        if (Get.isRegistered<TechnicalSupportController>())
+        }
+        if (Get.isRegistered<TechnicalSupportController>()) {
           Get.delete<TechnicalSupportController>();
+        }
       }
 
       choose.value = label;

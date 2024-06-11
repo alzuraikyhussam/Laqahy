@@ -5,6 +5,8 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\HealthyCenterAccountController;
+use App\Http\Controllers\MinistryStatementStockVaccineController;
+use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TechnicalSupportController;
@@ -73,4 +75,12 @@ Route::post('support', [TechnicalSupportController::class, 'sendMessage']);
 
 // --------------------- Healthy Center Account Routes ------------------------
 // Route::post('centers/add-center-account', [HealthyCenterAccountController::class, 'store']);
+// ------------------------------------------------------------
+
+// --------------------- Ministry Stock Vaccines Routes ------------------------
+Route::get('ministry/vaccines', [MinistryStockVaccineController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Ministry Statement Stock Vaccines Routes ------------------------
+Route::post('ministry/vaccines/add-quantity', [MinistryStatementStockVaccineController::class, 'store']);
 // ------------------------------------------------------------

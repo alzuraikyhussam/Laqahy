@@ -48,7 +48,16 @@ class ApiEndpoints {
   static const String sendMsg = '$baseUrl/support';
   // --------------------------------------------------
 
-  // --------------- Healthy Center Account Endpoints -------------------
-  static const String addCenterAccount = '$baseUrl/centers/add-center-account';
+  // // --------------- Healthy Center Account Endpoints -------------------
+  // static const String addCenterAccount = '$baseUrl/centers/add-center-account';
+  // // --------------------------------------------------
+
+  // --------------- Ministry Stock Vaccines Endpoints -------------------
+  static const String getVaccines = '$baseUrl/ministry/vaccines';
+  // --------------------------------------------------
+
+  // --------------- Ministry Statement Stock Vaccines Endpoints -------------------
+  static const String addVaccineQuantity =
+      '$baseUrl/ministry/vaccines/add-quantity';
   // --------------------------------------------------
 }

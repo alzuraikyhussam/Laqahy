@@ -566,11 +566,9 @@ myHomeCards({
 }
 
 myVaccineCards({
-  required String imageName,
-  required String icon,
-  required String title,
-  required int value,
-  required context,
+  String title = 'unknown',
+  int quantity = 0,
+  required int id,
 }) {
   return Container(
     padding: const EdgeInsets.all(20),
@@ -598,7 +596,7 @@ myVaccineCards({
             borderRadius: BorderRadius.circular(10),
           ),
           child: Image.asset(
-            imageName,
+            'assets/icons/vaccines-icon.png',
             fit: BoxFit.cover,
             width: 40,
           ),
@@ -612,16 +610,16 @@ myVaccineCards({
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                title,
+                'لقـاح ${title}',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: MyTextStyles.font16BlackMedium,
+                style: MyTextStyles.font16PrimaryBold,
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
-                '$value',
+                '$quantity',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: MyTextStyles.font18BlackBold,
@@ -631,13 +629,14 @@ myVaccineCards({
         ),
         // const Spacer(),
         IconButton(
-            onPressed: () {
-              myShowDialog(
-                context: context,
-                widgetName: AddVaccineQuantity(),
-              );
-            },
-            icon: Image.asset(icon))
+          onPressed: () {
+            myShowDialog(
+              context: Get.context!,
+              widgetName: AddVaccineQuantity(id: id,),
+            );
+          },
+          icon: Image.asset('assets/icons/add-vaccines-icon.png'),
+        ),
       ],
     ),
   );

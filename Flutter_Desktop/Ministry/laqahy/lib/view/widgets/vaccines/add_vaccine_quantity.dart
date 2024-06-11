@@ -1,25 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/add_qty_vaccine_controller.dart';
+import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class AddVaccineQuantity extends StatefulWidget {
-  const AddVaccineQuantity({super.key});
+  AddVaccineQuantity({super.key, required this.id});
+
+  int id;
 
   @override
   State<AddVaccineQuantity> createState() => _AddVaccineQuantityState();
 }
 
 class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
-  AddQtyVaccineController aqvc = Get.put(AddQtyVaccineController());
+  VaccineController vc = Get.put(VaccineController());
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: aqvc.addQtyVaccineFormKey,
+      key: vc.addQtyVaccineFormKey,
       child: AlertDialog(
         alignment: AlignmentDirectional.center,
         actionsAlignment: MainAxisAlignment.center,
@@ -50,8 +52,8 @@ class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
                 ),
                 myTextField(
                   width: 300,
-                  controller: aqvc.sourceController,
-                  validator: aqvc.sourceValidator,
+                  controller: vc.sourceController,
+                  validator: vc.sourceValidator,
                   prefixIcon: Icons.source_outlined,
                   hintText: 'الجهة المانحة',
                   keyboardType: TextInputType.text,
@@ -61,8 +63,8 @@ class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
                   height: 10,
                 ),
                 myTextField(
-                  controller: aqvc.qtyController,
-                  validator: aqvc.qtyValidator,
+                  controller: vc.qtyController,
+                  validator: vc.qtyValidator,
                   width: 300,
                   prefixIcon: Icons.numbers,
                   hintText: 'الكميـة',
@@ -77,16 +79,23 @@ class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
           ),
         ),
         actions: [
-          myButton(
-            onPressed: () {
-              if (aqvc.addQtyVaccineFormKey.currentState!.validate()) {
-                Get.back();
-              }
-            },
-            width: 150,
-            text: 'مـوافــق',
-            textStyle: MyTextStyles.font16WhiteBold,
-          ),
+          Obx(() {
+            return vc.isAddLoading.value
+                ? myLoadingIndicator()
+                : myButton(
+                    onPressed: vc.isAddLoading.value
+                        ? null
+                        : () {
+                            if (vc.addQtyVaccineFormKey.currentState!
+                                .validate()) {
+                              vc.addVaccineQty(widget.id);
+                            }
+                          },
+                    width: 150,
+                    text: 'إضـــافة',
+                    textStyle: MyTextStyles.font16WhiteBold,
+                  );
+          }),
           myButton(
             width: 150,
             onPressed: () {
