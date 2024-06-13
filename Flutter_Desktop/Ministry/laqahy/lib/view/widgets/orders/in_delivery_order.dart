@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class SuccessOrders extends StatefulWidget {
-  const SuccessOrders({super.key});
+class InDeliveryOrder extends StatefulWidget {
+  const InDeliveryOrder({super.key});
 
   @override
-  State<SuccessOrders> createState() => _SuccessOrdersState();
+  State<InDeliveryOrder> createState() => _InDeliveryOrderState();
 }
 
-class _SuccessOrdersState extends State<SuccessOrders> {
+class _InDeliveryOrderState extends State<InDeliveryOrder> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,6 +21,7 @@ class _SuccessOrdersState extends State<SuccessOrders> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return myOrdersItem(
+            height: 200,
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -96,7 +100,7 @@ class _SuccessOrdersState extends State<SuccessOrders> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'ملاحظــة الـوزارة:',
+                        'ملاحظة الوزارة:',
                         overflow: TextOverflow.ellipsis,
                         style: MyTextStyles.font16PrimaryBold,
                       ),
@@ -113,6 +117,36 @@ class _SuccessOrdersState extends State<SuccessOrders> {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.info_outline,
+                            color: MyColors.greyColor,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Text(
+                              'lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll------------------------------------------------------------------------------------------------------------------------------------------------------llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              style: MyTextStyles.font16GreyBold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

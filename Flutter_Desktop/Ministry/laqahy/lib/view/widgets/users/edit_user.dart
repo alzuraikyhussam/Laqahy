@@ -188,7 +188,7 @@ class _EditUserState extends State<EditUser> {
                               validator: uc.passwordValidator,
                               width: 230,
                               prefixIcon: Icons.password_outlined,
-                              hintText: 'أدخل كلمة مرور جديدة',
+                              hintText: 'كلمة المرور',
                               keyboardType: TextInputType.visiblePassword,
                               onChanged: (value) {}),
                         )

@@ -40,7 +40,7 @@ class PostController extends GetxController {
 
   String? pictureValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يرجى اختيار صورة الإعلان';
+      return 'يجب اختيار صورة الإعلان';
     }
     return null;
   }

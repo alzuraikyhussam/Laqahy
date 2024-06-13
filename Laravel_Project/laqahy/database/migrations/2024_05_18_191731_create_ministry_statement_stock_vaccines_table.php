@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
             $table->integer('quantity');
-            $table->String('donor');
+            $table->foreignId('donor_id')->constrained('donors');
             $table->timestamp('date');
             $table->softDeletes();
         });

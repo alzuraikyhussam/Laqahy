@@ -62,20 +62,20 @@ class StaticDataController extends GetxController {
     isRegistered.value = await storageService.isRegistered();
   }
 
-  Future initWindowsSystemInfo() async {
-    await WindowsSystemInfo.initWindowsInfo();
-    try {
-      if (await WindowsSystemInfo.isInitilized) {
-        final networkInfo = WindowsSystemInfo.network.map((e) => e.mac);
-        final macAddress = networkInfo.toString();
-        final deviceName = WindowsSystemInfo.deviceName;
-        final deviceUserName = WindowsSystemInfo.userName;
-        return [macAddress, deviceName, deviceUserName];
-      }
-    } catch (_) {
-      log(_.toString());
-    }
-  }
+  // Future initWindowsSystemInfo() async {
+  //   await WindowsSystemInfo.initWindowsInfo();
+  //   try {
+  //     if (await WindowsSystemInfo.isInitilized) {
+  //       final networkInfo = WindowsSystemInfo.network.map((e) => e.mac);
+  //       final macAddress = networkInfo.toString();
+  //       final deviceName = WindowsSystemInfo.deviceName;
+  //       final deviceUserName = WindowsSystemInfo.userName;
+  //       return [macAddress, deviceName, deviceUserName];
+  //     }
+  //   } catch (_) {
+  //     log(_.toString());
+  //   }
+  // }
 
   void updateGreeting() {
     Timer.periodic(Duration(seconds: 1), (timer) {
@@ -107,7 +107,7 @@ class StaticDataController extends GetxController {
     } on SocketException catch (_) {
       isGenderLoading(false);
       genderErrorMsg(
-          'لا يتوفر اتصال بالإنترنت، يرجى التحقق من اتصالك بالإنترنت');
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isGenderLoading(false);
       genderErrorMsg('خطأ غير متوقع\n${e.toString()}');
@@ -139,7 +139,7 @@ class StaticDataController extends GetxController {
     } on SocketException catch (_) {
       isPermissionLoading(false);
       permissionErrorMsg(
-          'لا يتوفر اتصال بالإنترنت، يرجى التحقق من اتصالك بالإنترنت');
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isPermissionLoading(false);
       permissionErrorMsg('خطأ غير متوقع\n${e.toString()}');
@@ -170,7 +170,7 @@ class StaticDataController extends GetxController {
       }
     } on SocketException catch (_) {
       isCityLoading(false);
-      cityErrorMsg('لا يتوفر اتصال بالإنترنت، يرجى التحقق من اتصالك بالإنترنت');
+      cityErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isCityLoading(false);
       cityErrorMsg('خطأ غير متوقع\n${e.toString()}');
@@ -202,7 +202,7 @@ class StaticDataController extends GetxController {
     } on SocketException catch (_) {
       isDirectorateLoading(false);
       directorateErrorMsg(
-          'لا يتوفر اتصال بالإنترنت، يرجى التحقق من اتصالك بالإنترنت');
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDirectorateLoading(false);
       directorateErrorMsg('خطأ غير متوقع\n${e.toString()}');

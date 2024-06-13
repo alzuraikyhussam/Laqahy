@@ -59,5 +59,16 @@ class ApiEndpoints {
   // --------------- Ministry Statement Stock Vaccines Endpoints -------------------
   static const String addVaccineQuantity =
       '$baseUrl/ministry/vaccines/add-quantity';
+  static const String getVaccineStatement =
+      '$baseUrl/ministry/vaccines/statement';
+  static const String updateVaccineStatement =
+      '$baseUrl/ministry/vaccines/update-statement';
+  static const String deleteVaccineStatement =
+      '$baseUrl/ministry/vaccines/delete-statement';
+  // --------------------------------------------------
+
+  // --------------- Donor Endpoints -------------------
+  static const String getDonors = '$baseUrl/donors';
+  static const String addDonor = '$baseUrl/donors/add-donor';
   // --------------------------------------------------
 }

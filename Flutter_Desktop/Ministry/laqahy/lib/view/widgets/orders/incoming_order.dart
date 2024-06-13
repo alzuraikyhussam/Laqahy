@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/orders/accept_order.dart';
+import 'package:laqahy/view/widgets/orders/approval_order_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/orders/reject_order.dart';
+import 'package:laqahy/view/widgets/orders/reject_confirm_alert.dart';
 
-class ImportOrders extends StatefulWidget {
-  const ImportOrders({super.key});
+class IncomingOrder extends StatefulWidget {
+  const IncomingOrder({super.key});
 
   @override
-  State<ImportOrders> createState() => _ImportOrdersState();
+  State<IncomingOrder> createState() => _IncomingOrderState();
 }
 
-class _ImportOrdersState extends State<ImportOrders> {
+class _IncomingOrderState extends State<IncomingOrder> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -78,7 +78,6 @@ class _ImportOrdersState extends State<ImportOrders> {
                           Text(
                             'الكميــة:',
                             style: MyTextStyles.font16PrimaryBold,
-                            
                           ),
                           SizedBox(
                             width: 5,
@@ -130,7 +129,7 @@ class _ImportOrdersState extends State<ImportOrders> {
                     myButton(
                       onPressed: () {
                         myShowDialog(
-                            context: context, widgetName: AcceptOrder());
+                            context: context, widgetName: ApprovalOrderAlert());
                       },
                       text: 'موافقة',
                       textStyle: MyTextStyles.font14WhiteBold,
@@ -142,7 +141,8 @@ class _ImportOrdersState extends State<ImportOrders> {
                     myButton(
                         onPressed: () {
                           myShowDialog(
-                              context: context, widgetName: RejectOrder());
+                              context: context,
+                              widgetName: RejectConfirmAlert());
                         },
                         text: 'رفض',
                         textStyle: MyTextStyles.font14WhiteBold,

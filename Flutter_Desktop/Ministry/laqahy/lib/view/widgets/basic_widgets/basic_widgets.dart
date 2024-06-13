@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/vaccines/add_vaccine_quantity.dart';
@@ -570,8 +571,10 @@ myVaccineCards({
   int quantity = 0,
   required int id,
 }) {
+  VaccineController vc = Get.put(VaccineController());
+
   return Container(
-    padding: const EdgeInsets.all(20),
+    padding: const EdgeInsets.all(15),
     decoration: BoxDecoration(
       color: Colors.white,
       border: Border.all(
@@ -590,15 +593,16 @@ myVaccineCards({
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.all(10),
+          height: Get.height,
+          width: 90,
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: MyColors.primaryColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Image.asset(
             'assets/icons/vaccines-icon.png',
-            fit: BoxFit.cover,
-            width: 40,
+            fit: BoxFit.contain,
           ),
         ),
         const SizedBox(
@@ -612,7 +616,7 @@ myVaccineCards({
               Text(
                 'لقـاح ${title}',
                 overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+                maxLines: 2,
                 style: MyTextStyles.font16PrimaryBold,
               ),
               const SizedBox(
@@ -627,12 +631,17 @@ myVaccineCards({
             ],
           ),
         ),
-        // const Spacer(),
+        const SizedBox(
+          width: 5,
+        ),
         IconButton(
           onPressed: () {
+            vc.clearTextFormFields();
             myShowDialog(
               context: Get.context!,
-              widgetName: AddVaccineQuantity(id: id,),
+              widgetName: AddVaccineQuantity(
+                id: id,
+              ),
             );
           },
           icon: Image.asset('assets/icons/add-vaccines-icon.png'),
@@ -1207,7 +1216,7 @@ myOrdersItem({
     padding: EdgeInsets.all(25),
     height: height,
     decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.9),
+      // color: Colors.white.withOpacity(0.9),
       border: Border.all(
         color: MyColors.greyColor.withOpacity(0.2),
       ),

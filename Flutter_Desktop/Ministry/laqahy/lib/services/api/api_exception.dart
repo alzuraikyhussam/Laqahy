@@ -57,7 +57,7 @@ class ApiException {
         backgroundColor: MyColors.redColor,
         title: 'خطأ غير متوقع',
         description:
-            'عذرا، لقد حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى \n${statusCode ?? error}',
+            'عذرا، لقد حدث خطأ غير متوقع، يجب المحاولة مرة أخرى \n${statusCode ?? error}',
       ),
     );
   }
@@ -96,7 +96,7 @@ class ApiException {
         imageUrl: 'assets/images/error.json',
         backgroundColor: MyColors.redColor,
         title: 'كلمة المرور خاطئة',
-        description: 'يرجى التأكد من كتابة كلمة المرور بشكل صحيح',
+        description: 'يجب التأكد من كتابة كلمة المرور بشكل صحيح',
       ),
     );
   }
@@ -108,7 +108,7 @@ class ApiException {
         imageUrl: 'assets/images/no-network2.json',
         height: 280,
         title: 'لا يتوفر اتصال بالإنترنت',
-        description: 'يرجى التحقق من اتصالك بالإنترنت',
+        description: 'يجب التحقق من اتصالك بالإنترنت',
       ),
     );
   }
@@ -120,7 +120,7 @@ class ApiException {
         imageUrl: 'assets/images/500-error.json',
         title: 'فشل في الوصول',
         description:
-            'عذرا، لقد حدث خطأ غير متوقع أثناء تحميل البيانات من الخادم، يرجى المحاولة مرة أخرى \n$statusCode',
+            'عذرا، لقد حدث خطأ غير متوقع أثناء تحميل البيانات من الخادم، يجب المحاولة مرة أخرى \n$statusCode',
       ),
     );
   }

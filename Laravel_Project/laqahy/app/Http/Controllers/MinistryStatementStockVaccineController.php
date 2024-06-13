@@ -15,7 +15,17 @@ class MinistryStatementStockVaccineController extends Controller
      */
     public function index()
     {
-        // 
+        try {
+            $vaccine = Ministry_statement_stock_vaccine::join('vaccine_types', 'ministry_statement_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->join('donors', 'ministry_statement_stock_vaccines.donor_id', '=', 'donors.id')->select('ministry_statement_stock_vaccines.*', 'vaccine_types.vaccine_type', 'donors.donor_name')->orderBy('id', 'desc')->get();
+            return response()->json([
+                'message' => 'Vaccines quantity retrieved successfully',
+                'data' => $vaccine,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -29,7 +39,7 @@ class MinistryStatementStockVaccineController extends Controller
                 [
                     'vaccine_type_id' => 'required',
                     'quantity' => 'required',
-                    'donor' => 'required',
+                    'donor_id' => 'required',
                 ],
             );
 
@@ -43,7 +53,7 @@ class MinistryStatementStockVaccineController extends Controller
             $addQty = Ministry_statement_stock_vaccine::create([
                 'vaccine_type_id' => $request->vaccine_type_id,
                 'quantity' => $request->quantity,
-                'donor' => $request->donor,
+                'donor_id' => $request->donor_id,
             ]);
 
             $updateVaccineQty = Ministry_stock_vaccine::find($request->vaccine_type_id);
@@ -75,16 +85,65 @@ class MinistryStatementStockVaccineController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $statement = Ministry_statement_stock_vaccine::find($id);
+
+            if (!$statement) {
+                return response()->json([
+                    'message' => 'Statement not found',
+                ], 404);
+            }
+
+            $oldQty = $statement->quantity;
+            $newQty = $request->quantity;
+            $quantityDifference = $newQty - $oldQty;
+
+            $vaccine = Ministry_stock_vaccine::find($statement->vaccine_type_id);
+
+            $updatedQty = $vaccine->quantity + $quantityDifference;
+
+            $vaccine->update(['quantity' => $updatedQty]);
+            $statement->update(['donor_id' => $request->donor_id, 'quantity' => $request->quantity]);
+
+            // إعادة الاستجابة بالبيانات المحدثة
+            return response()->json([
+                'message' => 'Statement updated successfully',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        try {
+            $statement = Ministry_statement_stock_vaccine::find($id);
+            if (!$statement) {
+                return response()->json(['message' => 'Statement not found',], 404);
+            }
+
+            $quantityToRemove = $statement->quantity;
+
+            $vaccine = Ministry_stock_vaccine::find($statement->vaccine_type_id);
+
+            $newQty = $vaccine->quantity - $quantityToRemove;
+
+            $vaccine->update(['quantity' => $newQty]);
+
+            $statement->delete();
+
+            return response()->json(['message' => 'Statement deleted successfully',], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

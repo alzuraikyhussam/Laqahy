@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class CancelOrders extends StatefulWidget {
-  const CancelOrders({super.key});
+class DeliveredOrder extends StatefulWidget {
+  const DeliveredOrder({super.key});
 
   @override
-  State<CancelOrders> createState() => _CancelOrdersState();
+  State<DeliveredOrder> createState() => _DeliveredOrderState();
 }
 
-class _CancelOrdersState extends State<CancelOrders> {
+class _DeliveredOrderState extends State<DeliveredOrder> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -96,8 +96,9 @@ class _CancelOrdersState extends State<CancelOrders> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'سـبب الـرفــض:',
-                        style: MyTextStyles.font16RedBold,
+                        'ملاحظــة الـوزارة:',
+                        overflow: TextOverflow.ellipsis,
+                        style: MyTextStyles.font16PrimaryBold,
                       ),
                       SizedBox(
                         width: 5,

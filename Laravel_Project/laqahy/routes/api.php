@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DirectorateController;
+use App\Http\Controllers\DonorController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\HealthyCenterAccountController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
@@ -83,4 +84,12 @@ Route::get('ministry/vaccines', [MinistryStockVaccineController::class, 'index']
 
 // --------------------- Ministry Statement Stock Vaccines Routes ------------------------
 Route::post('ministry/vaccines/add-quantity', [MinistryStatementStockVaccineController::class, 'store']);
+Route::get('ministry/vaccines/statement', [MinistryStatementStockVaccineController::class, 'index']);
+Route::patch('ministry/vaccines/update-statement/{id}', [MinistryStatementStockVaccineController::class, 'update']);
+Route::delete('ministry/vaccines/delete-statement/{id}', [MinistryStatementStockVaccineController::class, 'destroy']);
+// ------------------------------------------------------------
+
+// --------------------- Donor Routes ------------------------
+Route::post('donors/add-donor', [DonorController::class, 'store']);
+Route::get('donors', [DonorController::class, 'index']);
 // ------------------------------------------------------------

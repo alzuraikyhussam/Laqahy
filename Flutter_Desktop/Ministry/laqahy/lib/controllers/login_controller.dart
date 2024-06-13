@@ -25,9 +25,9 @@ class LoginController extends GetxController {
   TextEditingController userNameController = TextEditingController();
   String? userNameValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يرجى ادخال اسم المستخدم';
+      return 'يجب ادخال اسم المستخدم';
     } else if (!GetUtils.isUsername(value)) {
-      return 'يرجى ادخال اسم مستخدم صالح';
+      return 'يجب ادخال اسم مستخدم صالح';
     }
     return null;
   }
@@ -36,7 +36,7 @@ class LoginController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   String? passwordValidator(value) {
     if (value.isEmpty) {
-      return 'يرجى ادخال كلمة المرور';
+      return 'يجب ادخال كلمة المرور';
     } else if (value.length < 8) {
       return 'يجب ألا تقل عن 8 أحرف';
     }

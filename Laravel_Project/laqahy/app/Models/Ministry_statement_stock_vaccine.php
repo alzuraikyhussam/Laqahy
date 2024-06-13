@@ -13,7 +13,7 @@ class Ministry_statement_stock_vaccine extends Model
     protected $fillable = [
         'vaccine_type_id',
         'quantity',
-        'donor',
+        'donor_id',
         'date',
     ];
 
@@ -24,5 +24,10 @@ class Ministry_statement_stock_vaccine extends Model
     public function vaccine_type()
     {
         return $this->belongsTo(Vaccine_type::class);
+    }
+
+    public function donors()
+    {
+        return $this->belongsTo(Donor::class);
     }
 }

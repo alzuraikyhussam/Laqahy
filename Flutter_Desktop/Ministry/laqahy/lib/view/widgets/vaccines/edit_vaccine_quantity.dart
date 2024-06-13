@@ -7,22 +7,32 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/vaccines/add_donor.dart';
 
-class AddVaccineQuantity extends StatefulWidget {
-  AddVaccineQuantity({super.key, required this.id});
+class EditVaccineQuantity extends StatefulWidget {
+  EditVaccineQuantity({super.key, required this.data});
 
-  int id;
+  var data;
 
   @override
-  State<AddVaccineQuantity> createState() => _AddVaccineQuantityState();
+  State<EditVaccineQuantity> createState() => _EditVaccineQuantityState();
 }
 
-class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
+class _EditVaccineQuantityState extends State<EditVaccineQuantity> {
   VaccineController vc = Get.put(VaccineController());
+
+  TextEditingController quantityController = TextEditingController();
+
+  @override
+  void initState() {
+    vc.selectedDonorId.value = null;
+    vc.selectedDonorId.value = widget.data.donorId;
+    quantityController.text = widget.data.quantity.toString();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: vc.addQtyVaccineFormKey,
+      key: vc.editVaccineQtyFormKey,
       child: AlertDialog(
         alignment: AlignmentDirectional.center,
         actionsAlignment: MainAxisAlignment.center,
@@ -45,7 +55,7 @@ class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
                   ),
                 ),
                 Text(
-                  'إضــافة كمــية جـديــدة',
+                  'تعـــديل البيـــان',
                   style: MyTextStyles.font18PrimaryBold,
                 ),
                 SizedBox(
@@ -96,26 +106,19 @@ class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
                     ),
                   ],
                 ),
-                // myTextField(
-                //   width: 300,
-                //   controller: vc.donorController,
-                //   validator: vc.donorValidator,
-                //   prefixIcon: Icons.source_outlined,
-                //   hintText: 'الجهة المانحة',
-                //   keyboardType: TextInputType.text,
-                //   onChanged: (value) {},
-                // ),
                 SizedBox(
                   height: 10,
                 ),
                 myTextField(
-                  controller: vc.qtyController,
+                  controller: quantityController,
                   validator: vc.qtyValidator,
-                  // width: 300,
                   prefixIcon: Icons.numbers,
                   hintText: 'الكميـة',
                   keyboardType: TextInputType.number,
                   onChanged: (value) {},
+                ),
+                SizedBox(
+                  height: 5,
                 ),
               ],
             ),
@@ -123,19 +126,22 @@ class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
         ),
         actions: [
           Obx(() {
-            return vc.isAddLoading.value
+            return vc.isUpdateLoading.value
                 ? myLoadingIndicator()
                 : myButton(
-                    onPressed: vc.isAddLoading.value
+                    onPressed: vc.isUpdateLoading.value
                         ? null
                         : () {
-                            if (vc.addQtyVaccineFormKey.currentState!
+                            if (vc.editVaccineQtyFormKey.currentState!
                                 .validate()) {
-                              vc.addVaccineQty(widget.id);
+                              vc.updateVaccineStatement(
+                                widget.data.id,
+                                quantityController.text,
+                              );
                             }
                           },
                     width: 150,
-                    text: 'إضـــافة',
+                    text: 'تعـــديل',
                     textStyle: MyTextStyles.font16WhiteBold,
                   );
           }),

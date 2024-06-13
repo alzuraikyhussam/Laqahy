@@ -33,7 +33,7 @@ class UserController extends GetxController {
 
   String? nameValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يرجى ادخال الاسم الرباعي';
+      return 'يجب ادخال الاسم الرباعي';
     } else if (RegExp(r'[^a-zA-Z\u0600-\u06FF\s]').hasMatch(value)) {
       return 'لا يجب أن يحتوي الاسم على أرقام أو رموز';
     } else if (!RegExp(r'^\S+(\s+\S+){3}$').hasMatch(value)) {
@@ -47,7 +47,7 @@ class UserController extends GetxController {
   TextEditingController phoneNumberController = TextEditingController();
   String? phoneNumberValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يرجى ادخال رقم الهاتف ';
+      return 'يجب ادخال رقم الهاتف ';
     } else if (!GetUtils.isNumericOnly(value)) {
       return 'يجب ادخال ارقام فقط';
     } else if (!GetUtils.isLengthEqualTo(value, 9)) {
@@ -69,9 +69,9 @@ class UserController extends GetxController {
   TextEditingController userNameController = TextEditingController();
   String? userNameValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يرجى ادخال اسم المستخدم';
+      return 'يجب ادخال اسم المستخدم';
     } else if (!GetUtils.isUsername(value)) {
-      return 'يرجى ادخال اسم مستخدم صالح';
+      return 'يجب ادخال اسم مستخدم صالح';
     }
     return null;
   }
@@ -80,7 +80,7 @@ class UserController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   String? passwordValidator(value) {
     if (value.isEmpty) {
-      return 'يرجى ادخال كلمة المرور';
+      return 'يجب ادخال كلمة المرور';
     } else if (value.length < 8) {
       return 'يجب ألا تقل عن 8 أحرف';
     } else if (!RegExp(
@@ -108,7 +108,7 @@ class UserController extends GetxController {
   TextEditingController addressController = TextEditingController();
   String? addressValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يرجى ادخال العنوان';
+      return 'يجب ادخال العنوان';
     }
     return null;
   }

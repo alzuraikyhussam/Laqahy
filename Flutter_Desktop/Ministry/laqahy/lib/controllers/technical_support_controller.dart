@@ -19,7 +19,7 @@ class TechnicalSupportController extends GetxController {
 
   String? nameValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يرجى ادخال الاسم الرباعي';
+      return 'يجب ادخال الاسم الرباعي';
     } else if (RegExp(r'[^a-zA-Z\u0600-\u06FF\s]').hasMatch(value)) {
       return 'لا يجب أن يحتوي الاسم على أرقام أو رموز';
     } else if (!RegExp(r'^\S+(\s+\S+){3}$').hasMatch(value)) {
@@ -35,9 +35,9 @@ class TechnicalSupportController extends GetxController {
 
   String? emailValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يرجى ادخال بريدك الإلكتروني';
+      return 'يجب ادخال بريدك الإلكتروني';
     } else if (!GetUtils.isEmail(value)) {
-      return 'يرجى إدخال البريد الإلكتروني بشكل صحيح';
+      return 'يجب إدخال البريد الإلكتروني بشكل صحيح';
     }
     return null;
   }
@@ -47,7 +47,7 @@ class TechnicalSupportController extends GetxController {
   TextEditingController messageController = TextEditingController();
   String? messageValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يرجى ادخال نص الرسالة';
+      return 'يجب ادخال نص الرسالة';
     }
     return null;
   }
