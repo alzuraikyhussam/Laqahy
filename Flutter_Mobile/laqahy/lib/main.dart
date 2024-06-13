@@ -4,18 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'package:laqahy/view/layouts/onboarding_layout.dart';
-import 'package:laqahy/view/screens/Notification_page.dart';
-import 'package:laqahy/view/screens/children_vaccine.dart';
-import 'package:laqahy/view/screens/home.dart';
-import 'package:laqahy/view/screens/home_layout.dart';
-import 'package:laqahy/view/screens/login.dart';
-import 'package:laqahy/view/screens/mother_vaccine.dart';
-import 'package:laqahy/view/screens/onboarding_screens/awareness_information.dart';
-import 'package:laqahy/view/screens/onboarding_screens/create_new_password.dart';
-import 'package:laqahy/view/screens/onboarding_screens/first_onboarding.dart';
-import 'package:laqahy/view/screens/profile.dart';
-import 'package:laqahy/view/screens/splash_screen.dart';
+import 'package:laqahy/view/layouts/home_layout.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,7 +39,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: ChildrenVaccine(),
+      home: HomeLayout(),
     );
   }
 }
