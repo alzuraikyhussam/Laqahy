@@ -5,13 +5,13 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class MotherVaccine extends StatelessWidget {
-  const MotherVaccine({super.key});
+class ChildrenVaccine extends StatelessWidget {
+  const ChildrenVaccine({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(text: 'لقــاحـــات ألام'),
+      appBar: myAppBar(text: 'لقــاحـــات الطفــــل'),
       body: Column(
         children: [
           Container(
@@ -39,14 +39,14 @@ class MotherVaccine extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                'مرحبا بك',
+                                'لقاحات طفلك',
                                 style: MyTextStyles.font14PrimaryMedium,
                               ),
                               // SizedBox(
                               //   height: 5,
                               // ),
                               Text(
-                                'زينب محمد صالح الاشول',
+                                ' محمد صالح الاشول',
                                 style: MyTextStyles.font16BlackBold,
                               ),
                             ],
@@ -67,7 +67,7 @@ class MotherVaccine extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: MyColors.whiteColor,
                         borderRadius: BorderRadius.circular(15)),
-                    width: 100,
+                    width: 70,
                     height: 100,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -85,23 +85,23 @@ class MotherVaccine extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'عدد الاطفال',
+                          'العمر',
                           style: MyTextStyles.font14PrimaryBold,
                         ),
                         Divider(
                           thickness: 3,
-                          indent: 40,
-                          endIndent: 40,
+                          indent: 25,
+                          endIndent: 25,
                           color: MyColors.primaryColor,
                           height: 3,
                         ),
-                        Text('3 طفل')
+                        Text(' 30 يوم')
                       ],
                     ),
                   ),
                 ),
                 Positioned(
-                  right: 140,
+                  right: 105,
                   top: 80,
                   child: Container(
                     decoration: BoxDecoration(
@@ -136,6 +136,46 @@ class MotherVaccine extends StatelessWidget {
                           height: 3,
                         ),
                         Text('20-05-2024')
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 210,
+                  top: 80,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: MyColors.whiteColor,
+                        borderRadius: BorderRadius.circular(15)),
+                    width: 70,
+                    height: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: MyColors.primaryColor.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          width: 35,
+                          height: 35,
+                          child: Icon(
+                            Icons.date_range_outlined,
+                            color: MyColors.primaryColor,
+                          ),
+                        ),
+                        Text(
+                          'الجنس',
+                          style: MyTextStyles.font14PrimaryBold,
+                        ),
+                        Divider(
+                          thickness: 3,
+                          indent: 25,
+                          endIndent: 25,
+                          color: MyColors.primaryColor,
+                          height: 3,
+                        ),
+                        Text('ذكر')
                       ],
                     ),
                   ),

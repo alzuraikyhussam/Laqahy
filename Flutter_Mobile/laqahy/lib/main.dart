@@ -6,6 +6,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/layouts/onboarding_layout.dart';
 import 'package:laqahy/view/screens/Notification_page.dart';
+import 'package:laqahy/view/screens/children_vaccine.dart';
 import 'package:laqahy/view/screens/home.dart';
 import 'package:laqahy/view/screens/home_layout.dart';
 import 'package:laqahy/view/screens/login.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: MotherVaccine(),
+      home: ChildrenVaccine(),
     );
   }
 }
