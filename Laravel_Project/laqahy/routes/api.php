@@ -8,6 +8,8 @@ use App\Http\Controllers\GenderController;
 use App\Http\Controllers\HealthyCenterAccountController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
+use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TechnicalSupportController;
@@ -54,6 +56,10 @@ Route::get('permissions', [PermissionTypeController::class, 'index']);
 Route::get('cities', [CityController::class, 'index']);
 // ------------------------------------------------------------
 
+// --------------------- Office Routes ------------------------
+Route::get('offices', [OfficeController::class, 'index']);
+// ------------------------------------------------------------
+
 // --------------------- Directorate Routes ------------------------
 Route::get('directorates/{id}', [DirectorateController::class, 'show']);
 // ------------------------------------------------------------
@@ -92,4 +98,14 @@ Route::delete('ministry/vaccines/delete-statement/{id}', [MinistryStatementStock
 // --------------------- Donor Routes ------------------------
 Route::post('donors/add-donor', [DonorController::class, 'store']);
 Route::get('donors', [DonorController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Order Routes ------------------------
+Route::patch('orders/to-in-delivery/{id}', [OrderController::class, 'transferToInDelivery']);
+Route::patch('orders/to-cancelled/{id}', [OrderController::class, 'transferToCancelled']);
+Route::patch('orders/undo-cancelled/{id}', [OrderController::class, 'undoCancelled']);
+Route::get('orders/incoming', [OrderController::class, 'incomingOrders']);
+Route::get('orders/in-delivery', [OrderController::class, 'inDeliveryOrders']);
+Route::get('orders/delivered', [OrderController::class, 'deliveredOrders']);
+Route::get('orders/cancelled', [OrderController::class, 'cancelledOrders']);
 // ------------------------------------------------------------

@@ -9,7 +9,7 @@ class Vaccine_type extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable=['vaccine_type'];
+    protected $fillable = ['vaccine_type'];
 
     public function ministry_stock_vaccine()
     {
@@ -44,5 +44,10 @@ class Vaccine_type extends Model
     public function visit_type()
     {
         return $this->belongsToMany(Visit_type::class);
+    }
+
+    public function officeStockVaccine()
+    {
+        return $this->hasMany(Office_stock_vaccine::class);
     }
 }

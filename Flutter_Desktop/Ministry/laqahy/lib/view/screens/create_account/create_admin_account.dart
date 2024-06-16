@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/create_account_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/create_account/create_ministry_account.dart';
@@ -22,6 +23,8 @@ class CreateAdminAccount extends StatefulWidget {
 class _CreateAdminAccountState extends State<CreateAdminAccount> {
   @override
   void initState() {
+    StaticDataController sdc = Get.find<StaticDataController>();
+
     // TODO: implement initState
     super.initState();
     WindowOptions createAdminAccountWindowOptions = const WindowOptions(
@@ -39,6 +42,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
       await windowManager.show();
       await windowManager.focus();
     });
+    sdc.fetchGenders();
   }
 
   @override

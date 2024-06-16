@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/models/post_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
@@ -92,6 +93,7 @@ class PostController extends GetxController {
                 ? pictureController.text = pickImage.name
                 : updatedImage.value = image.value;
           } else {
+            Constants().errorAudio();
             myShowDialog(
               context: Get.context!,
               widgetName: ApiExceptionAlert(
@@ -101,6 +103,8 @@ class PostController extends GetxController {
             );
           }
         } else {
+          Constants().errorAudio();
+
           myShowDialog(
             context: Get.context!,
             widgetName: ApiExceptionAlert(
@@ -112,7 +116,8 @@ class PostController extends GetxController {
         }
       }
     } catch (e) {
-      Get.snackbar('Error', 'Error picking file $e');
+      Constants().errorAudio();
+
       myShowDialog(
         context: Get.context!,
         widgetName: ApiExceptionAlert(
@@ -126,6 +131,8 @@ class PostController extends GetxController {
 
   Future addPost(String postTitle, String postDescription) async {
     if (image.value == null) {
+      Constants().errorAudio();
+
       myShowDialog(
         context: Get.context!,
         widgetName: ApiExceptionAlert(

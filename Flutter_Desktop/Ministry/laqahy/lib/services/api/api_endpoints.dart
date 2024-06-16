@@ -17,6 +17,10 @@ class ApiEndpoints {
   static const String getGenders = '$baseUrl/genders';
   // --------------------------------------------------
 
+  // --------------- Gender Endpoints -------------------
+  static const String getOffices = '$baseUrl/offices';
+  // --------------------------------------------------
+
   // --------------- City Endpoints -------------------
   static const String getCities = '$baseUrl/cities';
   // --------------------------------------------------
@@ -70,5 +74,16 @@ class ApiEndpoints {
   // --------------- Donor Endpoints -------------------
   static const String getDonors = '$baseUrl/donors';
   static const String addDonor = '$baseUrl/donors/add-donor';
+  // --------------------------------------------------
+
+  // --------------- Order Endpoints -------------------
+  static const String getIncomingOrders = '$baseUrl/orders/incoming';
+  static const String getInDeliveryOrders = '$baseUrl/orders/in-delivery';
+  static const String getDeliveredOrders = '$baseUrl/orders/delivered';
+  static const String getCancelledOrders = '$baseUrl/orders/cancelled';
+  static const String transferOrderToInDelivery =
+      '$baseUrl/orders/to-in-delivery';
+  static const String transferOrderToCancelled = '$baseUrl/orders/to-cancelled';
+  static const String undoCancelled = '$baseUrl/orders/undo-cancelled';
   // --------------------------------------------------
 }

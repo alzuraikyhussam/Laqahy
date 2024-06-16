@@ -5,6 +5,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/donor_model.dart';
@@ -33,6 +34,7 @@ class VaccineController extends GetxController {
   var donorErrorMsg = ''.obs;
   var isDonorLoading = false.obs;
   final TextEditingController donorSearchController = TextEditingController();
+  TextEditingController vaccineController = TextEditingController();
   TextEditingController vaccineSearchController = TextEditingController();
   GlobalKey<FormState> editVaccineQtyFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> addQtyVaccineFormKey = GlobalKey<FormState>();
@@ -51,6 +53,7 @@ class VaccineController extends GetxController {
     qtyController.clear();
     donorController.clear();
     selectedDonorId.value = null;
+    vaccineController.clear();
     vaccineSearchController.clear();
   }
 
@@ -142,6 +145,8 @@ class VaccineController extends GetxController {
         return;
       } else if (response.statusCode == 401) {
         isAddDonorLoading(false);
+        Constants().errorAudio();
+
         myShowDialog(
           context: Get.context!,
           widgetName: ApiExceptionAlert(
@@ -192,6 +197,8 @@ class VaccineController extends GetxController {
       if (donorErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -219,6 +226,8 @@ class VaccineController extends GetxController {
       if (donors.isEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -282,6 +291,7 @@ class VaccineController extends GetxController {
   }
 
   Future<void> fetchVaccines() async {
+    clearTextFormFields();
     fetchDataFuture.value = Future<void>(() async {
       try {
         isLoading(true);
@@ -316,6 +326,7 @@ class VaccineController extends GetxController {
   }
 
   Future<void> fetchVaccineStatement() async {
+    clearTextFormFields();
     try {
       isTableLoading(true);
       final response = await http.get(
@@ -412,6 +423,10 @@ class VaccineController extends GetxController {
         await fetchVaccineStatement();
         ApiException().myUpdateDataSuccessAlert();
         return;
+      } else if (response.statusCode == 401) {
+        isUpdateLoading(false);
+        ApiException().myCannotUpdateVaccineStatementAlert();
+        return;
       } else {
         isUpdateLoading(false);
         print(await response.stream.bytesToString());
@@ -442,6 +457,10 @@ class VaccineController extends GetxController {
         await fetchVaccines();
         await fetchVaccineStatement();
         ApiException().myDeleteDataSuccessAlert();
+        return;
+      } else if (request.statusCode == 401) {
+        isDeleteLoading(false);
+        ApiException().myCannotDeleteVaccineStatementAlert();
         return;
       } else {
         isDeleteLoading(false);

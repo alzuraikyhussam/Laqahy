@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
@@ -8,6 +9,17 @@ import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/icons/my_flutter_app_icons.dart';
 
 class Constants {
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  successAudio() {
+    audioPlayer.play(AssetSource('sounds/success.mp3'));
+  }
+
+  errorAudio() {
+    // audioPlayer.play(AssetSource('sounds/joke-error.m4a'));
+    audioPlayer.play(AssetSource('sounds/error.mp3'));
+  }
+
   static List adminHomeLayoutItems = [
     HomeLayoutListItem(
       imageName: 'assets/icons/home-gr.png',
@@ -63,9 +75,9 @@ class Constants {
       imageNameFocused: 'assets/icons/home-wh.png',
     ),
     HomeLayoutListItem(
-      imageName: 'assets/icons/vaccines-gr.png',
-      label: 'اللقاحات',
-      imageNameFocused: 'assets/icons/vaccines-wh.png',
+      imageName: 'assets/icons/order-gr.png',
+      label: 'الطلبات',
+      imageNameFocused: 'assets/icons/order-wh.png',
     ),
     HomeLayoutListItem(
       imageName: 'assets/icons/posts-gr.png',
@@ -153,6 +165,8 @@ class Constants {
       if (controller.genderErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -180,6 +194,8 @@ class Constants {
       if (controller.genders.isEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -253,6 +269,8 @@ class Constants {
       if (controller.permissionErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -280,6 +298,8 @@ class Constants {
       if (controller.permissions.isEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -353,6 +373,8 @@ class Constants {
       if (controller.cityErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -380,6 +402,8 @@ class Constants {
       if (controller.cities.isEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -438,6 +462,8 @@ class Constants {
       if (controller.selectedCityId.value == null) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
               context: Get.context!,
               widgetName: ApiExceptionAlert(
@@ -474,6 +500,8 @@ class Constants {
       } else if (controller.directorateErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -500,6 +528,8 @@ class Constants {
       } else if (controller.directorates.isEmpty) {
         return InkWell(
           onTap: () {
+            Constants().errorAudio();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(

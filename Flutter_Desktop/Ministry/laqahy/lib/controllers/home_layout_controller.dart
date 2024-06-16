@@ -4,11 +4,12 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/post_controller.dart';
 import 'package:laqahy/controllers/home_controller.dart';
-import 'package:laqahy/controllers/orders_layout_controller.dart';
+import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/controllers/reports_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/controllers/vaccine_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -31,8 +32,8 @@ class HomeLayoutController extends GetxController {
         if (Get.isRegistered<VaccineController>()) {
           Get.delete<VaccineController>();
         }
-        if (Get.isRegistered<OrdersLayoutController>()) {
-          Get.delete<OrdersLayoutController>();
+        if (Get.isRegistered<OrdersController>()) {
+          Get.delete<OrdersController>();
         }
         if (Get.isRegistered<PostController>()) {
           Get.delete<PostController>();
@@ -50,12 +51,15 @@ class HomeLayoutController extends GetxController {
   }
 
   onTapLogout(context) {
+    Constants().errorAudio();
+
     return myAlertDialog(
       context: context,
       title: 'تسجيــل خــروج',
       image: 'assets/images/logout-image.png',
       text: 'هل انت متأكد من عملية تسجيل الخروج من حسابك؟',
       onConfirmBtnTap: () {
+        Get.back();
         Get.offAll(() => LoginScreen());
       },
       onCancelBtnTap: () {
@@ -73,6 +77,8 @@ class HomeLayoutController extends GetxController {
   }
 
   onTapExitButton(context) {
+    Constants().errorAudio();
+
     return myAlertDialog(
       context: context,
       title: 'إغــلاق النــظـام',

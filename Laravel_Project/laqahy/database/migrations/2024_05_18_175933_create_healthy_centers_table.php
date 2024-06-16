@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('healthy_centers', function (Blueprint $table) {
             $table->id();
             $table->String('healthy_center_name');
-            $table->String('healthy_center_address');
+            $table->text('healthy_center_address');
             $table->String('healthy_center_phone');
             $table->String('healthy_center_installation_code')->nullable();
             $table->foreignId('directorate_id')->constrained('directorates');
             $table->foreignId('cities_id')->constrained('cities');
+            $table->foreignId('office_id')->constrained('offices');
             $table->timestamps();
             $table->softDeletes();
         });

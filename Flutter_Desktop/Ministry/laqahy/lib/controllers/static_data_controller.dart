@@ -10,6 +10,7 @@ import 'package:laqahy/models/city_model.dart';
 import 'package:laqahy/models/directorate_model.dart';
 import 'package:laqahy/models/gender_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:laqahy/models/offices_model.dart';
 import 'package:laqahy/models/permission_type_model.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:laqahy/models/user_models.dart';
@@ -50,6 +51,11 @@ class StaticDataController extends GetxController {
   var directorateErrorMsg = ''.obs;
   var isDirectorateLoading = false.obs;
 
+  var offices = <Office>[].obs;
+  var selectedOfficeId = Rx<int?>(null);
+  var officeErrorMsg = ''.obs;
+  var isOfficeLoading = false.obs;
+
   @override
   void onInit() async {
     // TODO: implement onInit
@@ -58,6 +64,7 @@ class StaticDataController extends GetxController {
     fetchPermissions();
     fetchGenders();
     fetchCities();
+    fetchOffices();
     storageService = await StorageService.getInstance();
     isRegistered.value = await storageService.isRegistered();
   }
@@ -208,6 +215,38 @@ class StaticDataController extends GetxController {
       directorateErrorMsg('خطأ غير متوقع\n${e.toString()}');
     } finally {
       isDirectorateLoading(false);
+    }
+  }
+
+  void fetchOffices() async {
+    try {
+      officeErrorMsg('');
+      isOfficeLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getOffices),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isOfficeLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<Office> fetchedOffice =
+            jsonData.map((e) => Office.fromJson(e)).toList();
+        offices.assignAll(fetchedOffice);
+      } else {
+        isOfficeLoading(false);
+        officeErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isOfficeLoading(false);
+      officeErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isOfficeLoading(false);
+      officeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isOfficeLoading(false);
     }
   }
 }

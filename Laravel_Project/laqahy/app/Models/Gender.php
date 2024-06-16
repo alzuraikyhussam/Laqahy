@@ -9,11 +9,16 @@ class Gender extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable=['gender_type'];
+    protected $fillable = ['gender_type'];
 
     public function user()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function officeUser()
+    {
+        return $this->hasMany(Office_users::class);
     }
 
     public function child_data()

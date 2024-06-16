@@ -35,6 +35,16 @@ class User extends Authenticatable
         return $this->belongsTo(Gender::class);
     }
 
+    public function motherStatement()
+    {
+        return $this->hasMany(Mother_statement::class);
+    }
+
+    public function childStatement()
+    {
+        return $this->hasMany(Child_statement::class);
+    }
+
     public function permission_type()
     {
         return $this->belongsTo(Permission_type::class);

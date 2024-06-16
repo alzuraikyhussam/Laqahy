@@ -17,4 +17,8 @@ class Permission_type extends Model
         return $this->hasMany(User::class);
     }
 
+    public function officeUser()
+    {
+        return $this->hasMany(Office_users::class);
+    }
 }

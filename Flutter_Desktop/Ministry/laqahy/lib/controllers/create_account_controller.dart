@@ -24,6 +24,14 @@ class CreateAccountController extends GetxController {
     super.onClose();
   }
 
+  @override
+  void onInit() {
+    StaticDataController controller = Get.find<StaticDataController>();
+    controller.fetchCities();
+    controller.fetchGenders();
+    super.onInit();
+  }
+
   var fetchDataFuture = Future<void>.value().obs;
   var isLoading = false.obs;
 

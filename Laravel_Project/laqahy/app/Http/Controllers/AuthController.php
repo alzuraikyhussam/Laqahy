@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Healthy_center;
 use App\Models\Healthy_center_account;
+use App\Models\Office;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -46,6 +47,7 @@ class AuthController extends Controller
             }
 
             $user = User::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
+            $office = Office::where('office_name', 'مكتب محافظة عدن')->first();
 
             if ($user) {
                 return response()->json([
@@ -59,6 +61,7 @@ class AuthController extends Controller
                 'healthy_center_phone' => $request->healthy_center_phone,
                 'directorate_id' => $request->directorate_id,
                 'cities_id' => $request->cities_id,
+                'office_id' => $office->id,
             ]);
 
             // $centerAccount = Healthy_center_account::create([

@@ -23,7 +23,7 @@ class PostsScreen extends StatefulWidget {
 
 class _PostsScreenState extends State<PostsScreen> {
   HomeLayoutController hlc = Get.put(HomeLayoutController());
-  PostController cpc = Get.put(PostController());
+  PostController pc = Get.put(PostController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _PostsScreenState extends State<PostsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Form(
-                  key: cpc.createPostFormKey,
+                  key: pc.createPostFormKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,8 +68,8 @@ class _PostsScreenState extends State<PostsScreen> {
                                 height: 10,
                               ),
                               myTextField(
-                                controller: cpc.titleController,
-                                validator: cpc.titleValidator,
+                                controller: pc.titleController,
+                                validator: pc.titleValidator,
                                 hintText: 'عنوان الإعــلان',
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {},
@@ -94,13 +94,13 @@ class _PostsScreenState extends State<PostsScreen> {
                                 height: 10,
                               ),
                               myTextField(
-                                controller: cpc.pictureController,
-                                validator: cpc.pictureValidator,
+                                controller: pc.pictureController,
+                                validator: pc.pictureValidator,
                                 hintText: 'اختر صورة الإعــلان',
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {},
                                 onTap: () async {
-                                  await cpc.pickImage(ImageSource.gallery);
+                                  await pc.pickImage(ImageSource.gallery);
                                 },
                                 readOnly: true,
                                 width: 200,
@@ -127,8 +127,8 @@ class _PostsScreenState extends State<PostsScreen> {
                           ),
                           myTextField(
                             hintText: 'وصف الإعــلان',
-                            controller: cpc.descController,
-                            validator: cpc.descValidator,
+                            controller: pc.descController,
+                            validator: pc.descValidator,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
                             width: 500,
@@ -144,18 +144,18 @@ class _PostsScreenState extends State<PostsScreen> {
                       Row(
                         children: [
                           Obx(() {
-                            return cpc.isLoading.value
+                            return pc.isLoading.value
                                 ? myLoadingIndicator()
                                 : myButton(
-                                    onPressed: cpc.isLoading.value
+                                    onPressed: pc.isLoading.value
                                         ? null
                                         : () {
-                                            if (cpc
+                                            if (pc
                                                 .createPostFormKey.currentState!
                                                 .validate()) {
-                                              cpc.addPost(
-                                                cpc.titleController.text,
-                                                cpc.descController.text,
+                                              pc.addPost(
+                                                pc.titleController.text,
+                                                pc.descController.text,
                                               );
                                             }
                                           },
@@ -234,6 +234,20 @@ class _PostsScreenState extends State<PostsScreen> {
                           textAlign: TextAlign.center,
                         ),
                       ),
+                      Spacer(),
+                      Container(
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: myIconButton(
+                          icon: Icons.refresh_rounded,
+                          onTap: () {
+                            pc.fetchPosts();
+                          },
+                          gradientColors: [
+                            MyColors.primaryColor,
+                            MyColors.secondaryColor,
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -242,7 +256,7 @@ class _PostsScreenState extends State<PostsScreen> {
                 ),
                 Obx(() {
                   return FutureBuilder(
-                    future: cpc.fetchDataFuture.value,
+                    future: pc.fetchDataFuture.value,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
@@ -252,14 +266,14 @@ class _PostsScreenState extends State<PostsScreen> {
                         return Center(
                           child: ApiException().mySnapshotError(snapshot.error,
                               onPressedRefresh: () {
-                            cpc.fetchPosts();
+                            pc.fetchPosts();
                           }),
                         );
                       } else {
-                        if (cpc.posts.isEmpty) {
+                        if (pc.posts.isEmpty) {
                           return ApiException().myDataNotFound(
                             onPressedRefresh: () {
-                              cpc.fetchPosts();
+                              pc.fetchPosts();
                             },
                           );
                         } else {
@@ -268,11 +282,11 @@ class _PostsScreenState extends State<PostsScreen> {
                             itemBuilder: (context, index) {
                               return myPostsCard(
                                 context: context,
-                                postId: cpc.posts[index].id,
-                                title: cpc.posts[index].postTitle,
-                                desc: cpc.posts[index].postDescription,
-                                image: cpc.posts[index].postImage,
-                                publishAt: cpc.posts[index].postPublishDate,
+                                postId: pc.posts[index].id,
+                                title: pc.posts[index].postTitle,
+                                desc: pc.posts[index].postDescription,
+                                image: pc.posts[index].postImage,
+                                publishAt: pc.posts[index].postPublishDate,
                               );
                             },
                             separatorBuilder: (context, index) {
@@ -280,7 +294,7 @@ class _PostsScreenState extends State<PostsScreen> {
                                 height: 20,
                               );
                             },
-                            itemCount: cpc.posts.length,
+                            itemCount: pc.posts.length,
                           );
                         }
                       }
@@ -288,7 +302,7 @@ class _PostsScreenState extends State<PostsScreen> {
                   );
                 }),
                 Obx(() => SizedBox(
-                      height: cpc.posts.isEmpty ? 30 : 100,
+                      height: pc.posts.isEmpty ? 30 : 100,
                     )),
               ],
             ),

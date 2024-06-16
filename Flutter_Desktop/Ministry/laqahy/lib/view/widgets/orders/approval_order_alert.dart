@@ -1,102 +1,117 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class ApprovalOrderAlert extends StatefulWidget {
-  const ApprovalOrderAlert({super.key});
+  ApprovalOrderAlert({super.key, required this.id, required this.quantity});
+
+  int id;
+  int quantity;
 
   @override
   State<ApprovalOrderAlert> createState() => _ApprovalOrderAlertState();
 }
 
 class _ApprovalOrderAlertState extends State<ApprovalOrderAlert> {
+  OrdersController olc = Get.put(OrdersController());
+
+  @override
+  void initState() {
+    olc.clearTextFields();
+    olc.quantityController.text = widget.quantity.toString();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      alignment: AlignmentDirectional.center,
-      actionsAlignment: MainAxisAlignment.center,
-      content: Container(
-        height: 350,
-        width: 380,
-        child: Column(
-          children: [
-            Container(
-              width: 250,
-              height: 40,
-              alignment: Alignment.topCenter,
-              child: Image.asset("assets/images/window-logo.png"),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Container(
-                    child: Text(
-                      'الموافقة على الطلب',
-                      style: MyTextStyles.font16PrimaryBold,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  myTextField(
-                    width: 350,
-                    hintText: 'تحديد الكمية',
-                    prefixIcon: Icons.numbers,
-                    keyboardType: TextInputType.text,
-                    onChanged: (string) {},
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  myTextField(
-                    width: 350,
-                    hintText: 'ملاحظة',
-                    maxLines: 2,
-                    prefixIcon: Icons.message_outlined,
-                    keyboardType: TextInputType.text,
-                    onChanged: (string) {},
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
+    return Form(
+      key: olc.approvalAlertFormKey,
+      child: AlertDialog(
+        alignment: AlignmentDirectional.center,
+        actionsAlignment: MainAxisAlignment.center,
+        content: Container(
+          height: 320,
+          width: 350,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      myButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          text: 'موافق',
-                          textStyle: MyTextStyles.font14WhiteBold,
-                          width: 150,
-                          backgroundColor: MyColors.primaryColor),
-                      SizedBox(
-                        width: 20,
+                      myAppBarLogo(
+                        width: 250,
                       ),
-                      myButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          text: 'الغاء الامر',
-                          textStyle: MyTextStyles.font14WhiteBold,
-                          width: 150,
-                          backgroundColor: MyColors.greyColor),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
-            )
-          ],
+                ),
+                Text(
+                  'الموافقــة على الطلــب',
+                  style: MyTextStyles.font18PrimaryBold,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                myTextField(
+                  controller: olc.quantityController,
+                  validator: olc.qtyValidator,
+                  prefixIcon: Icons.source_outlined,
+                  hintText: 'تحديد الكمية',
+                  keyboardType: TextInputType.text,
+                  onChanged: (value) {},
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                myTextField(
+                  validator: olc.notesValidator,
+                  controller: olc.notesController,
+                  maxLines: 2,
+                  maxLength: 150,
+                  heightFactor: 1.8,
+                  prefixIcon: Icons.message_outlined,
+                  hintText: 'ملاحظات',
+                  keyboardType: TextInputType.emailAddress,
+                  onChanged: (value) {},
+                ),
+              ],
+            ),
+          ),
         ),
+        actions: [
+          Obx(() {
+            return olc.isApprovalLoading.value
+                ? myLoadingIndicator()
+                : myButton(
+                    onPressed: olc.isApprovalLoading.value
+                        ? null
+                        : () {
+                            if (olc.approvalAlertFormKey.currentState!
+                                .validate()) {
+                              olc.transferOrderToInDelivery(widget.id);
+                            }
+                          },
+                    width: 150,
+                    text: 'موافــق',
+                    textStyle: MyTextStyles.font16WhiteBold,
+                  );
+          }),
+          myButton(
+            width: 150,
+            onPressed: () {
+              Get.back();
+            },
+            text: 'إلـغــاء الأمـــر',
+            textStyle: MyTextStyles.font16WhiteBold,
+            backgroundColor: MyColors.greyColor,
+          ),
+        ],
       ),
     );
   }

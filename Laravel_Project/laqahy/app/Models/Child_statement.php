@@ -13,7 +13,7 @@ class Child_statement extends Model
     protected $fillable = [
         'child_data_id',
         'healthy_center_id',
-        'health_employee_name',
+        'user_id',
         'date_taking_dose',
         'return_date',
         'visit_type_id',
@@ -25,6 +25,11 @@ class Child_statement extends Model
     public function child_data()
     {
         return $this->belongsTo(Child_data::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function healthy_center()

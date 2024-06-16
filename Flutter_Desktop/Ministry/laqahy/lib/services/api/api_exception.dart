@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
@@ -10,6 +11,7 @@ class ApiException {
   myAddedDataSuccessAlert({
     void Function()? onPressed,
   }) {
+    Constants().successAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -24,6 +26,7 @@ class ApiException {
   }
 
   myDeleteDataSuccessAlert() {
+    Constants().successAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -36,7 +39,36 @@ class ApiException {
     );
   }
 
+  myCannotDeleteVaccineStatementAlert() {
+    Constants().errorAudio();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 280,
+        imageUrl: 'assets/images/error.json',
+        title: 'خطــــأ',
+        description:
+            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك حذفه حالياً',
+      ),
+    );
+  }
+
+  myCannotUpdateVaccineStatementAlert() {
+    Constants().errorAudio();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 280,
+        imageUrl: 'assets/images/error.json',
+        title: 'خطــــأ',
+        description:
+            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك تعديله حالياً',
+      ),
+    );
+  }
+
   myUpdateDataSuccessAlert() {
+    Constants().successAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -50,6 +82,7 @@ class ApiException {
   }
 
   myUnknownExceptionAlert({var statusCode, var error}) {
+    Constants().errorAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -63,6 +96,7 @@ class ApiException {
   }
 
   myUserAlreadyExistsAlert() {
+    Constants().errorAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -76,6 +110,7 @@ class ApiException {
   }
 
   myUserNotFoundAlert() {
+    Constants().errorAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -89,6 +124,7 @@ class ApiException {
   }
 
   myInvalidPasswordAlert() {
+    Constants().errorAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -102,6 +138,7 @@ class ApiException {
   }
 
   mySocketExceptionAlert() {
+    Constants().errorAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -114,18 +151,20 @@ class ApiException {
   }
 
   myFetchDataExceptionAlert(var statusCode) {
+    Constants().errorAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
         imageUrl: 'assets/images/500-error.json',
         title: 'فشل في الوصول',
         description:
-            'عذرا، لقد حدث خطأ غير متوقع أثناء تحميل البيانات من الخادم، يجب المحاولة مرة أخرى \n$statusCode',
+            'عذرا، لقد حدث خطأ غير متوقع أثناء تحميل البيانات من الخادم، الرجاء المحاولة مرة أخرى \n$statusCode',
       ),
     );
   }
 
   myAccessDatabaseExceptionAlert(var statusCode) {
+    Constants().errorAudio();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -172,6 +211,7 @@ class ApiException {
 
   myDataNotFound({
     required void Function()? onPressedRefresh,
+    String text = 'لـم يتـــم العثــور على نتـــــائج',
   }) {
     return Center(
       child: Column(
@@ -187,7 +227,7 @@ class ApiException {
             height: 20,
           ),
           Text(
-            'لـم يتـــم العثــور على نتـــــائج',
+            text,
             style: MyTextStyles.font16GreyBold,
           ),
           SizedBox(
@@ -201,5 +241,203 @@ class ApiException {
         ],
       ),
     );
+  }
+
+  myOrderAlert({required String title, required String description}) {
+    Constants().successAudio();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 280,
+        backgroundColor: MyColors.primaryColor,
+        imageUrl: 'assets/images/success.json',
+        title: title,
+        description: description,
+      ),
+    );
+  }
+
+  myOrderWithQuantityAlert(
+      {required String title, required String description, var quantity}) {
+    Constants().successAudio();
+    myShowDialog(
+        context: Get.context!,
+        widgetName: AlertDialog(
+          alignment: AlignmentDirectional.center,
+          actionsAlignment: MainAxisAlignment.center,
+          content: Container(
+            padding: EdgeInsetsDirectional.only(
+              top: 20,
+            ),
+            height: 300,
+            width: 350,
+            child: Column(
+              children: [
+                Center(
+                  child: Container(
+                    height: 150,
+                    width: Get.width,
+                    child: Lottie.asset(
+                      'assets/images/success.json',
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        title,
+                        style: MyTextStyles.font18BlackBold,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: Text(
+                          description,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: MyTextStyles.font16GreyMedium,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            gradient: quantity == 0
+                                ? LinearGradient(
+                                    colors: [
+                                      MyColors.redColor,
+                                      MyColors.redColor,
+                                    ],
+                                    begin: AlignmentDirectional.topCenter,
+                                    end: AlignmentDirectional.bottomCenter,
+                                  )
+                                : LinearGradient(
+                                    colors: [
+                                      MyColors.primaryColor,
+                                      MyColors.secondaryColor,
+                                    ],
+                                    begin: AlignmentDirectional.topCenter,
+                                    end: AlignmentDirectional.bottomCenter,
+                                  )),
+                        child: Text(
+                          'الكميـة المتبقية:  ${quantity} جرعـة',
+                          style: MyTextStyles.font16WhiteBold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            myButton(
+              onPressed: () {
+                Get.back();
+              },
+              width: 150,
+              backgroundColor: MyColors.primaryColor,
+              text: 'مــوافق',
+              textStyle: MyTextStyles.font16WhiteBold,
+            ),
+          ],
+        ));
+  }
+
+  myVaccineQtyNotEnoughAlert({required var quantity}) {
+    Constants().errorAudio();
+    myShowDialog(
+        context: Get.context!,
+        widgetName: AlertDialog(
+          alignment: AlignmentDirectional.center,
+          actionsAlignment: MainAxisAlignment.center,
+          content: Container(
+            padding: EdgeInsetsDirectional.only(
+              top: 20,
+            ),
+            height: 300,
+            width: 350,
+            child: Column(
+              children: [
+                Center(
+                  child: Container(
+                    height: 150,
+                    width: Get.width,
+                    child: Lottie.asset(
+                      'assets/images/error.json',
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'الكمية غير كافية',
+                        style: MyTextStyles.font18BlackBold,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: Text(
+                          'عذرا، كمية اللقاح غير كافية لتنفيذ طلبك',
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: MyTextStyles.font16GreyMedium,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            gradient: LinearGradient(
+                              colors: [
+                                MyColors.redColor,
+                                MyColors.redColor,
+                              ],
+                              begin: AlignmentDirectional.topCenter,
+                              end: AlignmentDirectional.bottomCenter,
+                            )),
+                        child: Text(
+                          'الكميـة المتبقية:  ${quantity} جرعـة',
+                          style: MyTextStyles.font16WhiteBold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            myButton(
+              onPressed: () {
+                Get.back();
+              },
+              width: 150,
+              backgroundColor: MyColors.redColor,
+              text: 'مــوافق',
+              textStyle: MyTextStyles.font16WhiteBold,
+            ),
+          ],
+        ));
   }
 }

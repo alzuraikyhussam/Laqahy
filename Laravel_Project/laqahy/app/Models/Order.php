@@ -12,22 +12,20 @@ class Order extends Model
     use SoftDeletes;
     protected $fillable = [
         'vaccine_type_id',
-        'healthy_center_id',
+        'office_id',
         'order_date',
         'quantity',
         'delivery_date',
-        'healthy_center_note_date',
-        'ministry_note_date',
+        'office_note_data',
+        'ministry_note_data',
         'order_state_id',
-        'date_deleted_from_healthy_center',
-        'date_deleted_from_ministry',
     ];
 
     protected $dates = ['deleted_at'];
 
-    public function healthy_center()
+    public function office()
     {
-        return $this->belongsTo(Healthy_center::class);
+        return $this->belongsTo(Office::class);
     }
 
     public function vaccine_type()

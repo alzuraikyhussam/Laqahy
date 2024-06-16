@@ -17,6 +17,7 @@ class Healthy_center extends Model
         'healthy_center_installation_code',
         'directorate_id',
         'cities_id',
+        'office_id',
     ];
     protected $dates = ['deleted_at'];
 
@@ -28,6 +29,11 @@ class Healthy_center extends Model
     public function directorate()
     {
         return $this->belongsTo(Directorate::class);
+    }
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class);
     }
 
     public function users()

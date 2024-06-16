@@ -11,18 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('office_stock_vaccines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
             $table->foreignId('office_id')->constrained('offices');
-            $table->dateTime('order_date');
+            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
             $table->integer('quantity');
-            $table->date('delivery_date')->nullable();
-            $table->text('office_note_data')->nullable();
-            $table->text('ministry_note_data')->nullable();
-            $table->foreignId('order_state_id')->constrained('order_states');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('office_stock_vaccines');
     }
 };

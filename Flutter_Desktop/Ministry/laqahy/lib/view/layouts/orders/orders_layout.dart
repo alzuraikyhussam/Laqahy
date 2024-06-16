@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/orders_layout_controller.dart';
+import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/orders/cancelled_order.dart';
 import 'package:laqahy/view/widgets/orders/incoming_order.dart';
 import 'package:laqahy/view/widgets/orders/delivered_order.dart';
@@ -17,7 +18,7 @@ class OrdersLayout extends StatefulWidget {
 }
 
 class _OrdersLayoutState extends State<OrdersLayout> {
-  OrdersLayoutController olc = Get.put(OrdersLayoutController());
+  OrdersController olc = Get.put(OrdersController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,9 @@ class _OrdersLayoutState extends State<OrdersLayout> {
         Container(
           width: double.infinity,
           height: double.infinity,
+          padding: EdgeInsetsDirectional.only(
+            start: 5,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -190,8 +194,27 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                alignment: AlignmentDirectional.centerEnd,
+                child: myIconButton(
+                  icon: Icons.refresh_rounded,
+                  onTap: () async {
+                    olc.fetchIncomingOrders();
+                    olc.fetchInDeliveryOrders();
+                    olc.fetchDeliveredOrders();
+                    olc.fetchCancelledOrders();
+                  },
+                  gradientColors: [
+                    MyColors.primaryColor,
+                    MyColors.secondaryColor,
+                  ],
+                ),
+              ),
               const SizedBox(
-                height: 50,
+                height: 20,
               ),
               Obx(() {
                 return Expanded(

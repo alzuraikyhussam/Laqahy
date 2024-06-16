@@ -13,7 +13,7 @@ class Mother_statement extends Model
     protected $fillable = [
         'mother_data_id',
         'healthy_center_id',
-        'health_employee_name',
+        'user_id',
         'date_taking_dose',
         'return_date',
         'dosage_type_id',
@@ -40,5 +40,10 @@ class Mother_statement extends Model
     public function dosage_type()
     {
         return $this->belongsTo(Dosage_type::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

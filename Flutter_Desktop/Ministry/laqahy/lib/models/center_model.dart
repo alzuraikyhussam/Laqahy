@@ -5,6 +5,7 @@ class HealthyCenter {
   String address;
   int directorateId;
   int cityId;
+  int officeId;
 
   HealthyCenter({
     this.id,
@@ -13,6 +14,7 @@ class HealthyCenter {
     required this.address,
     required this.cityId,
     required this.directorateId,
+    required this.officeId,
   });
 
   factory HealthyCenter.fromJson(Map<String, dynamic> json) {
@@ -23,16 +25,17 @@ class HealthyCenter {
       address: json['healthy_center_address'],
       cityId: json['cities_id'],
       directorateId: json['directorate_id'],
+      officeId: json['office_id'],
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'healthy_center_name': name,
-      'healthy_center_phone': phone,
-      'healthy_center_address': address,
-      'cities_id': cityId,
-      'directorate_id': directorateId,
-    };
-  }
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     'healthy_center_name': name,
+  //     'healthy_center_phone': phone,
+  //     'healthy_center_address': address,
+  //     'cities_id': cityId,
+  //     'directorate_id': directorateId,
+  //   };
+  // }
 }

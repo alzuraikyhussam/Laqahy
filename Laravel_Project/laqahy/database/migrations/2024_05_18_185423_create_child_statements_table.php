@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('child_data_id')->constrained('child_datas');
             $table->foreignId('healthy_center_id')->constrained('healthy_centers');
-            $table->String('health_employee_name');
+            $table->foreignId('user_id')->constrained('users');
             $table->date('date_taking_dose');
             $table->date('return_date');
             $table->foreignId('visit_type_id')->constrained('visit_types');

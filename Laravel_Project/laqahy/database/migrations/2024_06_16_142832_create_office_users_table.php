@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('office_users', function (Blueprint $table) {
             $table->id();
             $table->String('user_name');
             $table->String('user_phone');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->String('user_account_password');
             $table->foreignId('gender_id')->constrained('genders');
             $table->foreignId('permission_type_id')->constrained('permission_types');
-            $table->foreignId('healthy_center_id')->constrained('healthy_centers');
+            $table->foreignId('office_id')->constrained('offices');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('office_users');
     }
 };

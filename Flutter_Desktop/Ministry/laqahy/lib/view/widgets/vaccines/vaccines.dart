@@ -142,6 +142,21 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
+                                Spacer(),
+                                Container(
+                                  alignment: AlignmentDirectional.centerEnd,
+                                  child: myIconButton(
+                                    icon: Icons.refresh_rounded,
+                                    onTap: () {
+                                      vc.fetchVaccines();
+                                      vc.fetchVaccineStatement();
+                                    },
+                                    gradientColors: [
+                                      MyColors.primaryColor,
+                                      MyColors.secondaryColor,
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),

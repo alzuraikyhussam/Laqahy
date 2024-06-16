@@ -6,9 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/controllers/vaccine_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/orders/approval_order_alert.dart';
+import 'package:laqahy/view/widgets/orders/reject_confirm_alert.dart';
 import 'package:laqahy/view/widgets/vaccines/add_vaccine_quantity.dart';
 import 'package:laqahy/view/widgets/users/edit_user.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -336,15 +340,12 @@ myCopyRightText() {
     left: 0,
     right: 0,
     bottom: 15,
-    child: Container(
-      padding: EdgeInsets.only(top: 5),
-      child: Opacity(
-        opacity: 0.5,
-        child: Text(
-          textAlign: TextAlign.center,
-          'جميع الحقوق محفوظة لدى فريق سورس تك ${DateTime.now().year} ©',
-          style: MyTextStyles.font14GreyBold,
-        ),
+    child: Opacity(
+      opacity: 0.5,
+      child: Text(
+        textAlign: TextAlign.center,
+        'جميع الحقوق محفوظة لدى فريق سورس تك ${DateTime.now().year} ©',
+        style: MyTextStyles.font14GreyBold,
       ),
     ),
   );
@@ -1209,9 +1210,16 @@ myShowDialog({
 }
 
 myOrdersItem({
-  required Widget? content,
-  double? height = 150,
+  int? id,
+  required String centerName,
+  required String vaccineType,
+  String? orderState,
+  required var date,
+  required String note,
+  required int quantity,
+  double? height = 250,
 }) {
+  OrdersController olc = Get.put(OrdersController());
   return Container(
     padding: EdgeInsets.all(25),
     height: height,
@@ -1230,7 +1238,196 @@ myOrdersItem({
         ),
       ],
     ),
-    child: content,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  Text(
+                    'اسم المركز الصحي:',
+                    style: MyTextStyles.font16PrimaryBold,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: Text(
+                      centerName,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: MyTextStyles.font16BlackBold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Text(
+                    'اسم اللقــاح:',
+                    style: MyTextStyles.font16PrimaryBold,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: Text(
+                      vaccineType,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: MyTextStyles.font16BlackBold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: [
+            Text(
+              'الكميــة:',
+              style: MyTextStyles.font16PrimaryBold,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              quantity.toString(),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: MyTextStyles.font16BlackBold,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              orderState == 'cancelled'
+                  ? 'سبب الرفـض:'
+                  : orderState == 'incoming'
+                      ? 'ملاحظــة:'
+                      : 'ملاحظة الوزارة:',
+              overflow: TextOverflow.ellipsis,
+              style: MyTextStyles.font16PrimaryBold,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Expanded(
+              child: Text(
+                note,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: MyTextStyles.font16BlackBold,
+              ),
+            ),
+          ],
+        ),
+        Spacer(),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    gradient: LinearGradient(
+                      colors: [
+                        MyColors.primaryColor,
+                        MyColors.secondaryColor,
+                      ],
+                      begin: AlignmentDirectional.topCenter,
+                      end: AlignmentDirectional.bottomCenter,
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.av_timer_rounded,
+                    color: MyColors.whiteColor,
+                    size: 20,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  date,
+                  style: MyTextStyles.font16GreyBold,
+                ),
+              ],
+            ),
+            orderState == 'incoming'
+                ? Row(
+                    children: [
+                      myButton(
+                          width: 150,
+                          onPressed: () {
+                            myShowDialog(
+                                context: Get.context!,
+                                widgetName: ApprovalOrderAlert(
+                                  quantity: quantity,
+                                  id: id!,
+                                ));
+                          },
+                          text: 'موافقــة',
+                          textStyle: MyTextStyles.font16WhiteBold),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      myButton(
+                          width: 150,
+                          backgroundColor: MyColors.redColor,
+                          onPressed: () {
+                            myShowDialog(
+                                context: Get.context!,
+                                widgetName: RejectConfirmAlert(
+                                  id: id!,
+                                ));
+                          },
+                          text: 'رفـــض',
+                          textStyle: MyTextStyles.font16WhiteBold),
+                    ],
+                  )
+                : orderState == 'cancelled'
+                    ? Obx(() {
+                        return olc.isUndoLoading.value
+                            ? myLoadingIndicator()
+                            : myButton(
+                                // width: 150,
+                                backgroundColor: MyColors.greyColor,
+                                onPressed: olc.isUndoLoading.value
+                                    ? null
+                                    : () {
+                                        olc.undoCancelledOrder(id!);
+                                      },
+                                text: 'تراجــع عن الرفــض',
+                                textStyle: MyTextStyles.font16WhiteBold,
+                              );
+                      })
+                    : SizedBox(),
+          ],
+        ),
+      ],
+    ),
   );
 }
 

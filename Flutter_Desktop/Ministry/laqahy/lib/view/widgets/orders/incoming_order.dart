@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/orders_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/services/api/api_exception.dart';
 import 'package:laqahy/view/widgets/orders/approval_order_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/orders/reject_confirm_alert.dart';
@@ -15,152 +20,63 @@ class IncomingOrder extends StatefulWidget {
 }
 
 class _IncomingOrderState extends State<IncomingOrder> {
+  OrdersController olc = Get.put(OrdersController());
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 50),
-      child: ListView.separated(
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return myOrdersItem(
-            height: 200,
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Row(
-                        children: [
-                          Text(
-                            'اسم المركز الصحي:',
-                            style: MyTextStyles.font16PrimaryBold,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'مركز المظفر',
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: MyTextStyles.font16BlackBold,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Row(
-                        children: [
-                          Text(
-                            'اسم اللقــاح:',
-                            style: MyTextStyles.font16PrimaryBold,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'شلل الاطفال',
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: MyTextStyles.font16BlackBold,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Text(
-                            'الكميــة:',
-                            style: MyTextStyles.font16PrimaryBold,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '200',
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: MyTextStyles.font16BlackBold,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'ملاحظــة:',
-                        overflow: TextOverflow.ellipsis,
-                        style: MyTextStyles.font16PrimaryBold,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Expanded(
-                        child: Text(
-                          'lllllllllllllllllllll------------------------------------------lllllllllllllllll',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: MyTextStyles.font16BlackBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    myButton(
-                      onPressed: () {
-                        myShowDialog(
-                            context: context, widgetName: ApprovalOrderAlert());
-                      },
-                      text: 'موافقة',
-                      textStyle: MyTextStyles.font14WhiteBold,
-                      width: 150,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    myButton(
-                        onPressed: () {
-                          myShowDialog(
-                              context: context,
-                              widgetName: RejectConfirmAlert());
-                        },
-                        text: 'رفض',
-                        textStyle: MyTextStyles.font14WhiteBold,
-                        width: 150,
-                        backgroundColor: MyColors.redColor),
-                  ],
-                )
-              ],
-            ),
-          );
-        },
-        itemCount: 5,
-        separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(
-            height: 10,
-          );
-        },
-      ),
+      child: Obx(() {
+        return FutureBuilder(
+          future: olc.fetchIncomingOrdersFuture.value,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: myLoadingIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: ApiException().mySnapshotError(snapshot.error,
+                    onPressedRefresh: () {
+                  olc.fetchIncomingOrders();
+                }),
+              );
+            } else {
+              if (olc.incomingOrders.isEmpty) {
+                return ApiException().myDataNotFound(
+                  text: 'لـم يتـــم العثــور على طلبــات واردة',
+                  onPressedRefresh: () {
+                    olc.fetchIncomingOrders();
+                  },
+                );
+              } else {
+                return ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    var parsedDate = DateFormat('EEEE dd-MM-yyyy hh:mm')
+                        .format(olc.incomingOrders[index].orderDate!);
+                    return myOrdersItem(
+                      orderState: 'incoming',
+                      id: olc.incomingOrders[index].id!,
+                      centerName: olc.incomingOrders[index].officeName!,
+                      vaccineType: olc.incomingOrders[index].vaccineType!,
+                      quantity: olc.incomingOrders[index].quantity!,
+                      note: olc.incomingOrders[index].officeNoteData!,
+                      date: parsedDate,
+                    );
+                  },
+                  itemCount: olc.incomingOrders.length,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 10,
+                    );
+                  },
+                );
+              }
+            }
+          },
+        );
+      }),
     );
   }
 }

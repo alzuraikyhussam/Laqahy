@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/create_account_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/create_account/create_admin_account.dart';
@@ -25,6 +26,8 @@ class _CreateMinistryAccountScreenState
   void initState() {
     // TODO: implement initState
     super.initState();
+    StaticDataController sdc = Get.find<StaticDataController>();
+
     WindowOptions createAccountWindowOptions = const WindowOptions(
       size: Size(950, 580),
       center: true,
@@ -39,6 +42,7 @@ class _CreateMinistryAccountScreenState
       await windowManager.show();
       await windowManager.focus();
     });
+    sdc.fetchCities();
   }
 
   @override

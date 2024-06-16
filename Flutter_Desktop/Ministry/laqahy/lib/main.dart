@@ -4,21 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'package:laqahy/services/storage/storage_service.dart';
-import 'package:laqahy/view/layouts/home/home_layout.dart';
-import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/splash_screen.dart';
-import 'package:laqahy/view/screens/welcome.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:window_manager/window_manager.dart';
 
-// import 'view/screens/create_admin_account.dart';
-
-// import 'package:laqahy/view/screens/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +21,7 @@ void main() async {
   await windowManager.ensureInitialized();
   appWindow.show();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

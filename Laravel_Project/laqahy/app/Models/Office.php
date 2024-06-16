@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Office extends Model
+{
+    use HasFactory;
+    public $timestamps = false;
+    protected $fillable = ['office_name', 'office_phone', 'office_address'];
+
+    public function officeStockVaccine()
+    {
+        return $this->hasMany(Office_stock_vaccine::class);
+    }
+
+    public function healthyCenter()
+    {
+        return $this->hasMany(Healthy_center::class);
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function officeUser()
+    {
+        return $this->hasMany(Office_users::class);
+    }
+}

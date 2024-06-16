@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -97,6 +98,7 @@ class LoginController extends GetxController {
       }
     } on SocketException catch (_) {
       isLoading(false);
+      
       ApiException().mySocketExceptionAlert();
       return;
     } catch (e) {
