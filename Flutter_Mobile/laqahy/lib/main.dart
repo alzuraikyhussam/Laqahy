@@ -5,6 +5,16 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
+import 'package:laqahy/view/screens/chosse_child.dart';
+import 'package:laqahy/view/screens/contact_us.dart';
+import 'package:laqahy/view/screens/create_new_pass.dart';
+import 'package:laqahy/view/screens/fingerprint_check.dart';
+import 'package:laqahy/view/screens/logout.dart';
+import 'package:laqahy/view/screens/reset_password.dart';
+import 'package:laqahy/view/screens/reset_password_verification.dart';
+import 'package:laqahy/view/screens/settings_page.dart';
+import 'package:laqahy/view/screens/successfully_chang_pass.dart';
+import 'package:laqahy/view/screens/successfully_login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +49,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: HomeLayout(),
+      home: SuccessfullyLogin(),
     );
   }
 }
