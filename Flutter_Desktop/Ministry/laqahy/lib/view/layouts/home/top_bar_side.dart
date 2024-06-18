@@ -9,14 +9,14 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class TopBarSide extends StatefulWidget {
-  const TopBarSide({super.key});
+class HomeTopBarSide extends StatefulWidget {
+  const HomeTopBarSide({super.key});
 
   @override
-  State<TopBarSide> createState() => _TopBarSideState();
+  State<HomeTopBarSide> createState() => _HomeTopBarSideState();
 }
 
-class _TopBarSideState extends State<TopBarSide> {
+class _HomeTopBarSideState extends State<HomeTopBarSide> {
   HomeLayoutController hlc = Get.find<HomeLayoutController>();
   StaticDataController controller = Get.find<StaticDataController>();
 

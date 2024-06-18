@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('child_datas', function (Blueprint $table) {
             $table->id();
             $table->String('child_data_name');
-            $table->foreignId('mother_data_id')->constrained('mother_datas');
+            $table->foreignId('mother_data_id')->constrained('mother_datas')->onUpdate('cascade');
             $table->String('child_data_birthplace');
             $table->date('child_data_birthdate');
-            $table->foreignId('gender_id')->constrained('genders');
+            $table->foreignId('gender_id')->constrained('genders')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

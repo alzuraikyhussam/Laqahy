@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/view/layouts/orders/orders_layout.dart';
 import 'package:laqahy/view/widgets/home/home.dart';
-import 'package:laqahy/view/widgets/offices.dart';
+import 'package:laqahy/view/widgets/centers_accounts/centers_accounts.dart';
 import 'package:laqahy/view/widgets/posts/posts.dart';
 import 'package:laqahy/view/widgets/reports/reports.dart';
 import 'package:laqahy/view/widgets/system_info/system_info.dart';
@@ -11,14 +11,14 @@ import 'package:laqahy/view/widgets/support/support.dart';
 import 'package:laqahy/view/widgets/users/users.dart';
 import 'package:laqahy/view/widgets/vaccines/vaccines.dart';
 
-class BodySide extends StatefulWidget {
-  const BodySide({super.key});
+class HomeBodySide extends StatefulWidget {
+  const HomeBodySide({super.key});
 
   @override
-  State<BodySide> createState() => _BodySideState();
+  State<HomeBodySide> createState() => _HomeBodySideState();
 }
 
-class _BodySideState extends State<BodySide> {
+class _HomeBodySideState extends State<HomeBodySide> {
   HomeLayoutController hlc = Get.find<HomeLayoutController>();
 
   @override
@@ -39,8 +39,8 @@ class _BodySideState extends State<BodySide> {
               return const HomeScreen();
             } else if (hlc.choose.value == 'المستخدمين') {
               return const UsersScreen();
-            } else if (hlc.choose.value == 'المكاتب') {
-              return const OfficesScreen();
+            } else if (hlc.choose.value == 'حسابات المراكز') {
+              return const CentersAccounts();
             } else if (hlc.choose.value == 'اللقاحات') {
               return const VaccinesScreen();
             } else if (hlc.choose.value == 'الطلبات') {

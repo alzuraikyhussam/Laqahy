@@ -70,7 +70,7 @@ class PostController extends GetxController {
     return ['jpg', 'jpeg', 'png'].contains(extension);
   }
 
-  void clearTextFormFields() {
+  void clearTextFields() {
     titleController.clear();
     descController.clear();
     pictureController.clear();
@@ -162,9 +162,9 @@ class PostController extends GetxController {
         var response = await request.send();
         if (response.statusCode == 201) {
           isLoading(false);
-          await fetchPosts();
-          clearTextFormFields();
           ApiException().myAddedDataSuccessAlert();
+          clearTextFields();
+          await fetchPosts();
 
           return;
         } else {
@@ -247,8 +247,8 @@ class PostController extends GetxController {
         isUpdatePostsLoading(false);
         updatedImage.value = null;
         Get.back();
-        await fetchPosts();
         ApiException().myUpdateDataSuccessAlert();
+        await fetchPosts();
 
         return;
       } else {
@@ -279,8 +279,8 @@ class PostController extends GetxController {
       if (request.statusCode == 200) {
         isDeletePostsLoading(false);
         Get.back();
-        await fetchPosts();
         ApiException().myDeleteDataSuccessAlert();
+        await fetchPosts();
 
         return;
       } else {

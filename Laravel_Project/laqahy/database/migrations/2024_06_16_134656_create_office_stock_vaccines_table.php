@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('office_stock_vaccines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('office_id')->constrained('offices');
-            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
+            $table->foreignId('office_id')->constrained('offices')->onUpdate('cascade');
+            $table->foreignId('vaccine_type_id')->constrained('vaccine_types')->onUpdate('cascade');
             $table->integer('quantity');
             $table->timestamps();
         });

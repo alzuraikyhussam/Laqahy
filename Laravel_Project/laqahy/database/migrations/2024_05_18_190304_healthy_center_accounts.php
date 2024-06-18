@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('healthy_center_accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('healthy_center_id')->constrained('healthy_centers');
+            $table->foreignId('healthy_center_id')->constrained('healthy_centers')->onUpdate('cascade');
             $table->String('device_name');
             $table->String('device_username');
             $table->longText('MAC_address');

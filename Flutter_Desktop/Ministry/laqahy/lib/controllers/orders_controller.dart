@@ -3,20 +3,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/models/order_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_exception.dart';
-import 'package:laqahy/view/widgets/orders/incoming_order.dart';
 
 class OrdersController extends GetxController {
   @override
   void onInit() {
     fetchIncomingOrders();
-    fetchInDeliveryOrders();
-    fetchDeliveredOrders();
-    fetchCancelledOrders();
     super.onInit();
   }
 
@@ -224,10 +219,6 @@ class OrdersController extends GetxController {
       if (response.statusCode == 200) {
         var data = json.decode(await response.stream.bytesToString());
         var quantity = data['quantity'];
-        await fetchIncomingOrders();
-        await fetchInDeliveryOrders();
-        await fetchDeliveredOrders();
-        await fetchCancelledOrders();
         isApprovalLoading(false);
         Get.back();
         ApiException().myOrderWithQuantityAlert(
@@ -235,6 +226,11 @@ class OrdersController extends GetxController {
           title: 'تمت الموافقة بنجاح',
           description: 'لقد تمت عملية الموافقة بنجاح',
         );
+        await fetchIncomingOrders();
+        await fetchInDeliveryOrders();
+        await fetchDeliveredOrders();
+        await fetchCancelledOrders();
+
         print(quantity);
         return;
       } else if (response.statusCode == 401) {
@@ -277,16 +273,17 @@ class OrdersController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        await fetchIncomingOrders();
-        await fetchInDeliveryOrders();
-        await fetchDeliveredOrders();
-        await fetchCancelledOrders();
         isRejectLoading(false);
         Get.back();
         ApiException().myOrderAlert(
           title: 'تم الرفـض بنجاح',
           description: 'لقد تمت عملية الرفض بنجاح',
         );
+        await fetchIncomingOrders();
+        await fetchInDeliveryOrders();
+        await fetchDeliveredOrders();
+        await fetchCancelledOrders();
+
         return;
       } else {
         print(await response.stream.bytesToString());
@@ -319,16 +316,17 @@ class OrdersController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        await fetchIncomingOrders();
-        await fetchInDeliveryOrders();
-        await fetchDeliveredOrders();
-        await fetchCancelledOrders();
         isUndoLoading(false);
         Get.back();
         ApiException().myOrderAlert(
           title: 'تم التراجع بنجاح',
           description: 'لقد تمت عملية التراجع بنجاح',
         );
+        await fetchIncomingOrders();
+        await fetchInDeliveryOrders();
+        await fetchDeliveredOrders();
+        await fetchCancelledOrders();
+
         return;
       } else {
         print(await response.stream.bytesToString());

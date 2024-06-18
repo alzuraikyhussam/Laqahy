@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('directorates', function (Blueprint $table) {
             $table->id();
             $table->String('directorate_name');
-            $table->foreignId('cities_id')->constrained('cities');
+            $table->foreignId('cities_id')->constrained('cities')->onUpdate('cascade');
         });
     }
 

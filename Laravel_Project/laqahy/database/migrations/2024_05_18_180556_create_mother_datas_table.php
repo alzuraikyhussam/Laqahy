@@ -18,9 +18,9 @@ return new class extends Migration
             $table->date('mother_birthdate');
             $table->string('mother_village');
             $table->string('mother_password');
-            $table->foreignId('cities_id')->constrained('cities');
-            $table->foreignId('directorate_id')->constrained('directorates');
-            $table->foreignId('healthy_center_id')->constrained('healthy_centers');
+            $table->foreignId('cities_id')->constrained('cities')->onUpdate('cascade');
+            $table->foreignId('directorate_id')->constrained('directorates')->onUpdate('cascade');
+            $table->foreignId('healthy_center_id')->constrained('healthy_centers')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('ministry_statement_stock_vaccines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
+            $table->foreignId('vaccine_type_id')->constrained('vaccine_types')->onUpdate('cascade');
             $table->integer('quantity');
-            $table->foreignId('donor_id')->constrained('donors');
+            $table->foreignId('donor_id')->constrained('donors')->onUpdate('cascade');
             $table->timestamp('date');
             $table->softDeletes();
         });

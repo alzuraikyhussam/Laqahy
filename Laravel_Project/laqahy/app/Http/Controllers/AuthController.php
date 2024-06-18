@@ -47,7 +47,7 @@ class AuthController extends Controller
             }
 
             $user = User::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
-            $office = Office::where('office_name', 'مكتب محافظة عدن')->first();
+            $office = Office::where('office_name', 'مكتب الصحة والسكان - عدن')->first();
 
             if ($user) {
                 return response()->json([

@@ -83,13 +83,13 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
           const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MenuSide(),
+              HomeMenuSide(),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TopBarSide(),
-                    BodySide(),
+                    HomeTopBarSide(),
+                    HomeBodySide(),
                   ],
                 ),
               )

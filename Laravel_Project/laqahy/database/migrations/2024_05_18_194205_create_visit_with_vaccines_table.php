@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('visit_with_vaccines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('visit_type_id')->constrained('visit_types');
-            $table->foreignId('vaccine_type_id')->constrained('vaccine_types');
+            $table->foreignId('visit_type_id')->constrained('visit_types')->onUpdate('cascade');
+            $table->foreignId('vaccine_type_id')->constrained('vaccine_types')->onUpdate('cascade');
 
         });
     }

@@ -95,7 +95,7 @@ class UserController extends GetxController {
   }
   //////////
 
-  void clearTextFormFields() {
+  void clearTextFields() {
     nameController.clear();
     phoneNumberController.clear();
     passwordController.clear();
@@ -199,9 +199,10 @@ class UserController extends GetxController {
       if (response.statusCode == 201) {
         isAddLoading(false);
         Get.back();
-        await fetchUsers(centerId);
-        clearTextFormFields();
         ApiException().myAddedDataSuccessAlert();
+        clearTextFields();
+        await fetchUsers(centerId);
+
         return;
       } else if (response.statusCode == 401) {
         isAddLoading(false);
@@ -225,15 +226,16 @@ class UserController extends GetxController {
   }
 
   Future<void> updateUser(
-      var userId,
-      var name,
-      var address,
-      var userName,
-      var password,
-      var permission,
-      var phone,
-      var gender,
-      var birthdate) async {
+    var userId,
+    var name,
+    var address,
+    var userName,
+    var password,
+    var permission,
+    var phone,
+    var gender,
+    var birthdate,
+  ) async {
     DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthdate);
     int? centerID = await sdc.storageService.getCenterId();
     isUpdateLoading(true);
@@ -299,6 +301,7 @@ class UserController extends GetxController {
     var adminId = await sdc.storageService.getAdminId();
     if (userId == adminId) {
       isDeleteLoading(false);
+      Get.back();
       Constants().errorAudio();
 
       return myShowDialog(
@@ -319,8 +322,9 @@ class UserController extends GetxController {
       if (request.statusCode == 200) {
         isDeleteLoading(false);
         Get.back();
-        await fetchUsers(centerId);
         ApiException().myDeleteDataSuccessAlert();
+        await fetchUsers(centerId);
+
         return;
       } else {
         isDeleteLoading(false);

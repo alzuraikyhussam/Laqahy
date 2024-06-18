@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dosage_types', function (Blueprint $table) {
             $table->id();
             $table->String('dosage_type');
-            $table->foreignId('dosage_level_id')->constrained('dosage_levels');
+            $table->foreignId('dosage_level_id')->constrained('dosage_levels')->onUpdate('cascade');
         });
     }
 

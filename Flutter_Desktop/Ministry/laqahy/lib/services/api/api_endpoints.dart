@@ -17,8 +17,16 @@ class ApiEndpoints {
   static const String getGenders = '$baseUrl/genders';
   // --------------------------------------------------
 
-  // --------------- Gender Endpoints -------------------
-  static const String getOffices = '$baseUrl/offices';
+  // --------------- Office Endpoints -------------------
+  static const String updateOffice = '$baseUrl/offices/update-office';
+  static const String getOfficesCentersCount = '$baseUrl/offices/centers-count';
+  static const String getRegisteredOffices = '$baseUrl/offices/registered';
+  static const String getUnRegisteredOffices = '$baseUrl/offices/unregistered';
+  // --------------------------------------------------
+
+  // --------------- Healthy Center Endpoints -------------------
+  static const String getCenters = '$baseUrl/centers';
+  static const String getCentersByOffice = '$baseUrl/centers';
   // --------------------------------------------------
 
   // --------------- City Endpoints -------------------

@@ -191,37 +191,15 @@ class _UsersScreenState extends State<UsersScreen> {
                     count: uc.filteredUsers.length,
                   ),
                   actions: [
-                    Row(
-                      children: [
-                        myButton(
-                          onPressed: () {
-                            sdc.selectedGenderId.value = null;
-                            sdc.selectedPermissionId.value = null;
-                            uc.clearTextFormFields();
-                            myShowDialog(
-                                context: context, widgetName: AddUser());
-                          },
-                          text: 'إضــافة مستخـدم جـديــد',
-                          textStyle: MyTextStyles.font16WhiteBold,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          height: 50,
-                          width: 50,
-                          child: myIconButton(
-                            icon: Icons.refresh_rounded,
-                            onTap: () {
-                              uc.fetchUsers(uc.centerId);
-                            },
-                            gradientColors: [
-                              MyColors.greyColor,
-                              MyColors.greyColor,
-                            ],
-                          ),
-                        ),
-                      ],
+                    myButton(
+                      onPressed: () {
+                        sdc.selectedGenderId.value = null;
+                        sdc.selectedPermissionId.value = null;
+                        uc.clearTextFields();
+                        myShowDialog(context: context, widgetName: AddUser());
+                      },
+                      text: 'إضــافة مستخـدم جـديــد',
+                      textStyle: MyTextStyles.font16WhiteBold,
                     ),
                   ],
                 ),

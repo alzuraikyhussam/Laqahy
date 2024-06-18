@@ -6,6 +6,7 @@ use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\HealthyCenterAccountController;
+use App\Http\Controllers\HealthyCenterController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\OfficeController;
@@ -57,7 +58,15 @@ Route::get('cities', [CityController::class, 'index']);
 // ------------------------------------------------------------
 
 // --------------------- Office Routes ------------------------
-Route::get('offices', [OfficeController::class, 'index']);
+Route::get('offices/centers-count', [OfficeController::class, 'getCentersCount']);
+Route::get('offices/registered', [OfficeController::class, 'getRegisteredOffices']);
+Route::get('offices/unregistered', [OfficeController::class, 'getUnRegisteredOffices']);
+Route::patch('offices/update-office/{id}', [OfficeController::class, 'update']);
+// ------------------------------------------------------------
+
+// --------------------- Healthy Center Routes ------------------------
+Route::get('centers', [HealthyCenterController::class, 'index']);
+Route::get('centers/{id}', [HealthyCenterController::class, 'getCentersByOffice']);
 // ------------------------------------------------------------
 
 // --------------------- Directorate Routes ------------------------

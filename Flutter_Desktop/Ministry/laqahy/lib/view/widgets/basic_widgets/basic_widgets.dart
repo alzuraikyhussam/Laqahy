@@ -637,7 +637,7 @@ myVaccineCards({
         ),
         IconButton(
           onPressed: () {
-            vc.clearTextFormFields();
+            vc.clearTextFields();
             myShowDialog(
               context: Get.context!,
               widgetName: AddVaccineQuantity(
@@ -1491,11 +1491,14 @@ myReportsCards({
   );
 }
 
-myLoadingIndicator() {
+myLoadingIndicator({
+  double height = 50,
+  double width = 120,
+}) {
   return Container(
     padding: EdgeInsetsDirectional.all(10),
-    height: 50,
-    width: 120,
+    height: height.toDouble(),
+    width: width.toDouble(),
     alignment: AlignmentDirectional.center,
     child: LoadingIndicator(
       indicatorType: Indicator.lineScale,

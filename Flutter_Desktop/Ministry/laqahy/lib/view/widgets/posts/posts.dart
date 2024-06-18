@@ -259,8 +259,12 @@ class _PostsScreenState extends State<PostsScreen> {
                     future: pc.fetchDataFuture.value,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: myLoadingIndicator(),
+                        return SizedBox(
+                          width: Get.width,
+                          height: 300,
+                          child: Center(
+                            child: myLoadingIndicator(),
+                          ),
                         );
                       } else if (snapshot.hasError) {
                         return Center(
@@ -302,7 +306,7 @@ class _PostsScreenState extends State<PostsScreen> {
                   );
                 }),
                 Obx(() => SizedBox(
-                      height: pc.posts.isEmpty ? 30 : 100,
+                      height: pc.posts.isEmpty ? 50 : 100,
                     )),
               ],
             ),

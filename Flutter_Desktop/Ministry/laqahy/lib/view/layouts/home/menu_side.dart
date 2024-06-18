@@ -7,14 +7,14 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class MenuSide extends StatefulWidget {
-  const MenuSide({super.key});
+class HomeMenuSide extends StatefulWidget {
+  const HomeMenuSide({super.key});
 
   @override
-  State<MenuSide> createState() => _MenuSideState();
+  State<HomeMenuSide> createState() => _HomeMenuSideState();
 }
 
-class _MenuSideState extends State<MenuSide> {
+class _HomeMenuSideState extends State<HomeMenuSide> {
   HomeLayoutController hlc = Get.find<HomeLayoutController>();
   StaticDataController controller = Get.find<StaticDataController>();
 

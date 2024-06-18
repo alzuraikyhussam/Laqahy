@@ -46,10 +46,10 @@ class VaccineController extends GetxController {
     super.onInit();
     fetchDonors();
     fetchVaccines();
-    fetchVaccineStatement();
+    fetchVaccinesStatement();
   }
 
-  void clearTextFormFields() {
+  void clearTextFields() {
     qtyController.clear();
     donorController.clear();
     selectedDonorId.value = null;
@@ -134,14 +134,13 @@ class VaccineController extends GetxController {
 
       if (response.statusCode == 201) {
         isAddDonorLoading(false);
-
+        Get.back();
+        ApiException().myAddedDataSuccessAlert();
         var data = json.decode(response.body);
         Donor donor = Donor.fromJson(data['data']);
         selectedDonorId.value = donor.id;
-
-        Get.back();
         fetchDonors();
-        ApiException().myAddedDataSuccessAlert();
+
         return;
       } else if (response.statusCode == 401) {
         isAddDonorLoading(false);
@@ -291,7 +290,7 @@ class VaccineController extends GetxController {
   }
 
   Future<void> fetchVaccines() async {
-    clearTextFormFields();
+    clearTextFields();
     fetchDataFuture.value = Future<void>(() async {
       try {
         isLoading(true);
@@ -325,8 +324,8 @@ class VaccineController extends GetxController {
     });
   }
 
-  Future<void> fetchVaccineStatement() async {
-    clearTextFormFields();
+  Future<void> fetchVaccinesStatement() async {
+    clearTextFields();
     try {
       isTableLoading(true);
       final response = await http.get(
@@ -378,9 +377,10 @@ class VaccineController extends GetxController {
       if (response.statusCode == 201) {
         isAddLoading(false);
         Get.back();
-        await fetchVaccines();
-        await fetchVaccineStatement();
         ApiException().myAddedDataSuccessAlert();
+        await fetchVaccines();
+        await fetchVaccinesStatement();
+
         return;
       } else {
         isAddLoading(false);
@@ -419,9 +419,10 @@ class VaccineController extends GetxController {
       if (response.statusCode == 200) {
         isUpdateLoading(false);
         Get.back();
-        await fetchVaccines();
-        await fetchVaccineStatement();
         ApiException().myUpdateDataSuccessAlert();
+        await fetchVaccines();
+        await fetchVaccinesStatement();
+
         return;
       } else if (response.statusCode == 401) {
         isUpdateLoading(false);
@@ -454,9 +455,10 @@ class VaccineController extends GetxController {
       if (request.statusCode == 200) {
         isDeleteLoading(false);
         Get.back();
-        await fetchVaccines();
-        await fetchVaccineStatement();
         ApiException().myDeleteDataSuccessAlert();
+        await fetchVaccines();
+        await fetchVaccinesStatement();
+
         return;
       } else if (request.statusCode == 401) {
         isDeleteLoading(false);

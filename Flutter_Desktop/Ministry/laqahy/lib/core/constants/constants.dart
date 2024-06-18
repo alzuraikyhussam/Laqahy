@@ -32,6 +32,11 @@ class Constants {
       imageNameFocused: 'assets/icons/emp-wh.png',
     ),
     HomeLayoutListItem(
+      imageName: 'assets/icons/centers-accounts-gr.png',
+      label: 'حسابات المراكز',
+      imageNameFocused: 'assets/icons/centers-accounts-wh.png',
+    ),
+    HomeLayoutListItem(
       imageName: 'assets/icons/vaccines-gr.png',
       label: 'اللقاحات',
       imageNameFocused: 'assets/icons/vaccines-wh.png',
@@ -140,6 +145,9 @@ class Constants {
   final TextEditingController permissionSearchController =
       TextEditingController();
   final TextEditingController genderSearchController = TextEditingController();
+  final TextEditingController officeSearchController = TextEditingController();
+
+  
 
   Widget gendersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();

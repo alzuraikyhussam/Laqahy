@@ -39,8 +39,12 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                   future: vc.fetchDataFuture.value,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: myLoadingIndicator(),
+                      return SizedBox(
+                        width: Get.width,
+                        height: 300,
+                        child: Center(
+                          child: myLoadingIndicator(),
+                        ),
                       );
                     } else if (snapshot.hasError) {
                       return Center(
@@ -85,8 +89,12 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
               ),
               Obx(() {
                 return vc.isTableLoading.value
-                    ? Center(
-                        child: myLoadingIndicator(),
+                    ? SizedBox(
+                        width: Get.width,
+                        height: 600,
+                        child: Center(
+                          child: myLoadingIndicator(),
+                        ),
                       )
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +157,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                                     icon: Icons.refresh_rounded,
                                     onTap: () {
                                       vc.fetchVaccines();
-                                      vc.fetchVaccineStatement();
+                                      vc.fetchVaccinesStatement();
                                     },
                                     gradientColors: [
                                       MyColors.primaryColor,
@@ -177,7 +185,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                               autoRowsToHeight: true,
                               empty: ApiException().myDataNotFound(
                                 onPressedRefresh: () {
-                                  vc.fetchVaccineStatement();
+                                  vc.fetchVaccinesStatement();
                                 },
                               ),
                               horizontalMargin: 15,

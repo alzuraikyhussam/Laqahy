@@ -17,9 +17,9 @@ return new class extends Migration
             $table->text('healthy_center_address');
             $table->String('healthy_center_phone');
             $table->String('healthy_center_installation_code')->nullable();
-            $table->foreignId('directorate_id')->constrained('directorates');
-            $table->foreignId('cities_id')->constrained('cities');
-            $table->foreignId('office_id')->constrained('offices');
+            $table->foreignId('directorate_id')->constrained('directorates')->onUpdate('cascade');
+            $table->foreignId('cities_id')->constrained('cities')->onUpdate('cascade');
+            $table->foreignId('office_id')->constrained('offices')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

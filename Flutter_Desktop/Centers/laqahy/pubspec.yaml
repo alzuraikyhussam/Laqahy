@@ -53,13 +53,13 @@ dependencies:
 flutter_launcher_icons:
   web:
     generate: true
-    image_path: "assets/images/app-icon.png"
+    image_path: "assets/images/windows-icon.ico"
     # background_color: "#hexcode"
     # theme_color: "#hexcode"
   windows:
     generate: true
-    image_path: "assets/images/app-icon.png"
-    icon_size: 48 # min:48, max:256, default: 48
+    image_path: "assets/images/windows-icon.ico"
+    icon_size: 256 # min:48, max:256, default: 48
   macos:
     generate: true
   # The following adds the Cupertino Icons font to your application.
