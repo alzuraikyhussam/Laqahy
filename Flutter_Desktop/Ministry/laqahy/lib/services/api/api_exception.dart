@@ -180,32 +180,34 @@ class ApiException {
     var snapshotError, {
     required void Function()? onPressedRefresh,
   }) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Lottie.asset(
-          'assets/images/404-error.json',
-          width: 220,
-          alignment: Alignment.center,
-          fit: BoxFit.cover,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          'لقد حدث خطأ ما...!\n$snapshotError',
-          style: MyTextStyles.font16RedBold,
-          maxLines: 2,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        myButton(
-          onPressed: onPressedRefresh,
-          text: 'تحـديـــث',
-          textStyle: MyTextStyles.font14WhiteBold,
-        ),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Lottie.asset(
+            'assets/images/404-error.json',
+            width: 100,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'لقد حدث خطأ ما...!\n$snapshotError',
+            style: MyTextStyles.font16GreyBold,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          myButton(
+            onPressed: onPressedRefresh,
+            text: 'تحـديـــث',
+            textStyle: MyTextStyles.font14WhiteBold,
+          ),
+        ],
+      ),
     );
   }
 
@@ -216,12 +218,12 @@ class ApiException {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Lottie.asset(
             'assets/images/no-data.json',
-            width: 220,
+            width: 200,
             alignment: Alignment.center,
-            fit: BoxFit.cover,
           ),
           SizedBox(
             height: 20,
@@ -229,6 +231,7 @@ class ApiException {
           Text(
             text,
             style: MyTextStyles.font16GreyBold,
+            textAlign: TextAlign.center,
           ),
           SizedBox(
             height: 20,

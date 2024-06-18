@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/home_controller.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
@@ -501,9 +502,9 @@ myIconButton({
 }
 
 myHomeCards({
-  required String imageName,
+  required String imagePath,
   required String title,
-  required int value,
+  required int count,
 }) {
   return Container(
     padding: const EdgeInsets.all(20),
@@ -526,14 +527,15 @@ myHomeCards({
       children: [
         Container(
           padding: const EdgeInsets.all(10),
+          width: 60,
           decoration: BoxDecoration(
             color: MyColors.primaryColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Image.asset(
-            imageName,
+            imagePath,
             fit: BoxFit.cover,
-            width: 40,
+            // width: 40,
           ),
         ),
         const SizedBox(
@@ -555,7 +557,7 @@ myHomeCards({
               ),
               Expanded(
                 child: Text(
-                  '$value',
+                  '$count',
                   style: MyTextStyles.font18BlackBold,
                 ),
               ),

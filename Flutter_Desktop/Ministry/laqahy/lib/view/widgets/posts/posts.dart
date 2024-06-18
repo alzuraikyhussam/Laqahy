@@ -306,7 +306,7 @@ class _PostsScreenState extends State<PostsScreen> {
                   );
                 }),
                 Obx(() => SizedBox(
-                      height: pc.posts.isEmpty ? 50 : 100,
+                      height: pc.posts.isEmpty ? 40 : 100,
                     )),
               ],
             ),

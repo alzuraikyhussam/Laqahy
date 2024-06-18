@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/models/model.dart';
+import 'package:laqahy/models/home_model.dart';
 import 'package:laqahy/view/widgets/reports/create_centers_report.dart';
 import 'package:laqahy/view/widgets/reports/create_orders_report.dart';
 import 'package:laqahy/view/widgets/reports/create_status_report.dart';

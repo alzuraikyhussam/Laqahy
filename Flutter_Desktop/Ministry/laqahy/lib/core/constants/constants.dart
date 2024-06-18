@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/models/model.dart';
+import 'package:laqahy/models/home_model.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/icons/my_flutter_app_icons.dart';
@@ -146,8 +146,6 @@ class Constants {
       TextEditingController();
   final TextEditingController genderSearchController = TextEditingController();
   final TextEditingController officeSearchController = TextEditingController();
-
-  
 
   Widget gendersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();

@@ -1,6 +1,12 @@
 class ApiEndpoints {
   // *********************************************
   static const String baseUrl = 'http://127.0.0.1:8000/api';
+  // *********************************************
+
+  // --------------- Total Count Endpoints -------------------
+  static const String getTotalCount = '$baseUrl/home/total-count';
+  // --------------------------------------------------
+
   // --------------- Post Endpoints -------------------
   static const String getPosts = '$baseUrl/posts';
   static const String addPost = '$baseUrl/posts/add-post';

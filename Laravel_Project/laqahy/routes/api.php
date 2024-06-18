@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TechnicalSupportController;
+use App\Http\Controllers\TotalCountController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// --------------------- Total Count Routes ------------------------
+Route::get('home/total-count', [TotalCountController::class, 'getTotalCount']);
+// ------------------------------------------------------------
 
 // --------------------- Post Routes ------------------------
 Route::get('posts/trashed', [PostController::class, 'trashedPosts']);
