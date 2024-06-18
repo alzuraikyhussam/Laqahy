@@ -27,108 +27,46 @@ class Home extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  // height: 50,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            child: Image.asset(
-                              'assets/images/app-icon.png',
-                              width: 50,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'صباح الخير',
-                                style: MyTextStyles.font16PrimaryBold,
-                              ),
-                              Text(
-                                'زينب محمد صالح الاشول',
-                                style: MyTextStyles.font16BlackBold,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: 30,
-                            height: 30,
-                            child: myIconButton(
-                              onPressed: () {},
-                              icon: Icons.notifications_none,
-                              onTap: () {},
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            width: 30,
-                            height: 30,
-                            child: myIconButton(
-                              onPressed: () {},
-                              icon: Icons.dark_mode_outlined,
-                              onTap: () {},
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Container(
                   width: 350,
                   height: 200,
                   child: Image.asset(
                     'assets/images/home_image.png',
                   ),
                 ),
-                GridView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 30,
-                      crossAxisSpacing: 40),
-                  itemCount: 4,
-                  itemBuilder: (context, i) {
-                    return Container(
-                      decoration: BoxDecoration(
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 50),
+                    itemCount: 4,
+                    itemBuilder: (context, i) {
+                      return Container(
+                        decoration: BoxDecoration(
                           color: MyColors.primaryColor.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(10)),
-                      width: 50,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            items[i]['icon'],
-                            size: 60,
-                            color: MyColors.brownColor,
-                          ),
-                          Text(
-                            items[i]['titel'],
-                            style: MyTextStyles.font14BlackBold,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: 50,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              items[i]['icon'],
+                              size: 60,
+                              color: MyColors.brownColor,
+                            ),
+                            Text(
+                              items[i]['titel'],
+                              style: MyTextStyles.font14BlackBold,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(
                   height: 20,

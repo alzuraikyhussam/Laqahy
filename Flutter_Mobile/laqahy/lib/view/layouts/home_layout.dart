@@ -8,6 +8,7 @@ import 'package:laqahy/view/screens/home.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/mother_vaccine.dart';
 import 'package:laqahy/view/screens/profile.dart';
+import 'package:laqahy/view/screens/settings_page.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _HomeLayoutState extends State<HomeLayout> {
           Home(),
           Login(),
           Profile(),
-          MotherVaccine(),
+          SettingsScreen(),
         ],
       ),
       bottomNavigationBar: Obx(() {

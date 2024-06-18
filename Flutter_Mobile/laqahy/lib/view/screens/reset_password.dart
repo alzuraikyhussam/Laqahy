@@ -54,15 +54,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                     height: 10,
                   ),
                   Text(
-                    'قم بإدخال رقمك الوطني وسوف يتم إرسال كود التأكيد الى رقم جوالك.',
+                    'قم بإدخال رقم هاتفك  وسوف يتم إرسال كود التأكيد الى هاتفك .',
                     style: MyTextStyles.font16GreyMedium,
                   ),
                   SizedBox(
                     height: 30,
                   ),
                   myTextField(
-                    labelText: 'أدخل الرقم الوطني',
-                    prefixIcon: Icons.credit_card,
+                    labelText: 'أدخل رقم الهاتف ',
+                    prefixIcon: Icons.phone_enabled_outlined,
                     keyboardType: TextInputType.number,
                     onChanged: (p0) {},
                   ),
