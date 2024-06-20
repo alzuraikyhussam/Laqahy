@@ -7,7 +7,7 @@ import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:lottie/lottie.dart';
 
-class ApiException {
+class ApiExceptionWidgets {
   myAddedDataSuccessAlert({
     void Function()? onPressed,
   }) {
@@ -442,5 +442,18 @@ class ApiException {
             ),
           ],
         ));
+  }
+
+  myGeneratePdfFailureAlert() {
+    Constants().errorAudio();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 280,
+        imageUrl: 'assets/images/error.json',
+        title: 'خطــــأ',
+        description: 'لقد حدث خطأ ما أثناء عملية انشاء التقرير',
+      ),
+    );
   }
 }

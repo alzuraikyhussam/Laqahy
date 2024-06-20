@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
-import 'package:laqahy/models/home_model.dart';
+import 'package:laqahy/models/home_card_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_endpoints.dart';
 
@@ -21,37 +21,37 @@ class HomeController extends GetxController {
   var homeCardItems = <HomeCardItem>[
     HomeCardItem(
       imagePath: 'assets/icons/office.png',
-      title: 'عــدد المكــاتب',
+      title: 'عدد المكاتب',
       count: 0,
     ),
     HomeCardItem(
       imagePath: 'assets/icons/building.png',
-      title: 'عــدد المــراكز الصحيــة',
+      title: 'عدد المراكز الصحية',
       count: 0,
     ),
     HomeCardItem(
       imagePath: 'assets/icons/women-count.png',
-      title: 'إجمــالي عــدد الأمهــات',
+      title: 'إجمالي عدد الأمهات',
       count: 0,
     ),
     HomeCardItem(
       imagePath: 'assets/icons/children-count.png',
-      title: 'إجمــالي عــدد الأطفــال',
+      title: 'إجمالي عدد الأطفال',
       count: 0,
     ),
     HomeCardItem(
       imagePath: 'assets/icons/vaccine.png',
-      title: 'عــدد اللقــاحـات',
+      title: 'عدد اللقاحات',
       count: 0,
     ),
     HomeCardItem(
       imagePath: 'assets/icons/order-icon.png',
-      title: 'عــدد الطلبــات',
+      title: 'عدد الطلبات',
       count: 0,
     ),
     HomeCardItem(
       imagePath: 'assets/icons/posts.png',
-      title: 'عــدد الإعــلانـات',
+      title: 'عدد الإعلانات',
       count: 0,
     ),
   ].obs;

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/core/utils/office_pdf_generator.dart';
+import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/view/screens/create_account/create_ministry_account.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -67,7 +70,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     exitButton(),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
@@ -77,7 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     width: 300,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Text(
@@ -86,7 +89,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       : 'مرحبــاً بكــم ...',
                   style: MyTextStyles.font18PrimaryBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 controller.isRegistered.value
@@ -104,14 +107,224 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           style: MyTextStyles.font18BlackBold,
                         ),
                       ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 controller.isRegistered.value
                     ? myButton(
                         width: 150,
                         onPressed: () {
-                          Get.off(LoginScreen());
+                          Get.off(const LoginScreen());
+                          // OfficePdfGenerator(offices: [
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, DateTime.april, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, DateTime.april, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, 1, 1),
+                          //   ),
+                          //   Office(
+                          //     id: 1,
+                          //     name: 'Taiz Office',
+                          //     address: 'Taiz',
+                          //     centersCount: 10,
+                          //     phone: '04224552',
+                          //     createdAt: DateTime(2024, DateTime.april, 1),
+                          //   )
+                          // ]).generatePdf();
                         },
                         text: 'تسجيـل دخـول',
                         textStyle: MyTextStyles.font16WhiteBold,
@@ -121,19 +334,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           myButton(
                             width: 150,
                             onPressed: () {
-                              Get.off(LoginScreen());
+                              Get.off(const LoginScreen());
                             },
                             text: 'تسجيـل دخـول',
                             textStyle: MyTextStyles.font16WhiteBold,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           myButton(
                             width: 150,
                             backgroundColor: MyColors.greyColor,
                             onPressed: () {
-                              Get.off(CreateMinistryAccountScreen());
+                              Get.off(const CreateMinistryAccountScreen());
                             },
                             text: 'إنشـاء حسـاب',
                             textStyle: MyTextStyles.font16WhiteBold,

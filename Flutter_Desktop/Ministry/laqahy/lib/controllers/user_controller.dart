@@ -13,7 +13,7 @@ import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -154,17 +154,18 @@ class UserController extends GetxController {
         filteredUsers.value = users;
       } else if (response.statusCode == 500) {
         isLoading(false);
-        ApiException().myFetchDataExceptionAlert(response.statusCode);
+        ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
       } else {
         isLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
       }
     } on SocketException catch (_) {
       isLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       print(e);
     } finally {
       isLoading(false);
@@ -199,27 +200,28 @@ class UserController extends GetxController {
       if (response.statusCode == 201) {
         isAddLoading(false);
         Get.back();
-        ApiException().myAddedDataSuccessAlert();
+        ApiExceptionWidgets().myAddedDataSuccessAlert();
         clearTextFields();
         await fetchUsers(centerId);
 
         return;
       } else if (response.statusCode == 401) {
         isAddLoading(false);
-        ApiException().myUserAlreadyExistsAlert();
+        ApiExceptionWidgets().myUserAlreadyExistsAlert();
         return;
       } else {
         isAddLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isAddLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isAddLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isAddLoading(false);
     }
@@ -271,25 +273,26 @@ class UserController extends GetxController {
         isUpdateLoading(false);
         await fetchUsers(centerId);
         Get.back();
-        ApiException().myUpdateDataSuccessAlert();
+        ApiExceptionWidgets().myUpdateDataSuccessAlert();
 
         return;
       } else if (response.statusCode == 401) {
         isUpdateLoading(false);
-        ApiException().myUserAlreadyExistsAlert();
+        ApiExceptionWidgets().myUserAlreadyExistsAlert();
         return;
       } else {
         isUpdateLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isUpdateLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isUpdateLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isUpdateLoading(false);
@@ -322,23 +325,24 @@ class UserController extends GetxController {
       if (request.statusCode == 200) {
         isDeleteLoading(false);
         Get.back();
-        ApiException().myDeleteDataSuccessAlert();
+        ApiExceptionWidgets().myDeleteDataSuccessAlert();
         await fetchUsers(centerId);
 
         return;
       } else {
         isDeleteLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(request.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(request.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isDeleteLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isDeleteLoading(false);
       print(e);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isDeleteLoading(false);

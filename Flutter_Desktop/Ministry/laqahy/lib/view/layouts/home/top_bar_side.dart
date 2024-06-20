@@ -65,7 +65,7 @@ class _HomeTopBarSideState extends State<HomeTopBarSide> {
                               : const SizedBox(),
                           Expanded(
                             child: Text(
-                              controller.centerData.first.name,
+                              controller.centerData.first.name ?? 'غير معروف',
                               style: MyTextStyles.font18PrimaryBold,
                             ),
                           ),

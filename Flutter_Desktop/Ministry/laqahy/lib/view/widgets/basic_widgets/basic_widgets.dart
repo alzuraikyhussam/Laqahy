@@ -557,7 +557,8 @@ myHomeCards({
               ),
               Expanded(
                 child: Text(
-                  '$count',
+                  // '$count',
+                  Constants().decimalFormatter.format(count).toString(),
                   style: MyTextStyles.font18BlackBold,
                 ),
               ),

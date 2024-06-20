@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class CancelledOrder extends StatefulWidget {
@@ -30,14 +30,14 @@ class _CancelledOrderState extends State<CancelledOrder> {
               );
             } else if (snapshot.hasError) {
               return Center(
-                child: ApiException().mySnapshotError(snapshot.error,
+                child: ApiExceptionWidgets().mySnapshotError(snapshot.error,
                     onPressedRefresh: () {
                   olc.fetchCancelledOrders();
                 }),
               );
             } else {
               if (olc.cancelledOrders.isEmpty) {
-                return ApiException().myDataNotFound(
+                return ApiExceptionWidgets().myDataNotFound(
                   text: 'لـم يتـــم العثــور على طلبــات ملغيـــة',
                   onPressedRefresh: () {
                     olc.fetchCancelledOrders();

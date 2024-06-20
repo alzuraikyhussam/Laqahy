@@ -13,7 +13,7 @@ import 'package:laqahy/models/vaccine_quantity_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/models/vaccine_statement_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -135,7 +135,7 @@ class VaccineController extends GetxController {
       if (response.statusCode == 201) {
         isAddDonorLoading(false);
         Get.back();
-        ApiException().myAddedDataSuccessAlert();
+        ApiExceptionWidgets().myAddedDataSuccessAlert();
         var data = json.decode(response.body);
         Donor donor = Donor.fromJson(data['data']);
         selectedDonorId.value = donor.id;
@@ -159,16 +159,17 @@ class VaccineController extends GetxController {
         return;
       } else {
         isAddDonorLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isAddDonorLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isAddDonorLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isAddDonorLoading(false);
     }
@@ -307,17 +308,18 @@ class VaccineController extends GetxController {
               jsonData.map((e) => VaccineQuantity.fromJson(e)).toList();
         } else if (response.statusCode == 500) {
           isLoading(false);
-          ApiException().myFetchDataExceptionAlert(response.statusCode);
+          ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
         } else {
           isLoading(false);
-          ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+          ApiExceptionWidgets()
+              .myAccessDatabaseExceptionAlert(response.statusCode);
         }
       } on SocketException catch (_) {
         isLoading(false);
-        ApiException().mySocketExceptionAlert();
+        ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isLoading(false);
-        ApiException().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       } finally {
         isLoading(false);
       }
@@ -342,17 +344,18 @@ class VaccineController extends GetxController {
         filteredVaccines.assignAll(vaccineStatement);
       } else if (response.statusCode == 500) {
         isTableLoading(false);
-        ApiException().myFetchDataExceptionAlert(response.statusCode);
+        ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
       } else {
         isTableLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
       }
     } on SocketException catch (_) {
       isTableLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isTableLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isTableLoading(false);
     }
@@ -377,23 +380,24 @@ class VaccineController extends GetxController {
       if (response.statusCode == 201) {
         isAddLoading(false);
         Get.back();
-        ApiException().myAddedDataSuccessAlert();
+        ApiExceptionWidgets().myAddedDataSuccessAlert();
         await fetchVaccines();
         await fetchVaccinesStatement();
 
         return;
       } else {
         isAddLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isAddLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isAddLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isAddLoading(false);
     }
@@ -419,28 +423,29 @@ class VaccineController extends GetxController {
       if (response.statusCode == 200) {
         isUpdateLoading(false);
         Get.back();
-        ApiException().myUpdateDataSuccessAlert();
+        ApiExceptionWidgets().myUpdateDataSuccessAlert();
         await fetchVaccines();
         await fetchVaccinesStatement();
 
         return;
       } else if (response.statusCode == 401) {
         isUpdateLoading(false);
-        ApiException().myCannotUpdateVaccineStatementAlert();
+        ApiExceptionWidgets().myCannotUpdateVaccineStatementAlert();
         return;
       } else {
         isUpdateLoading(false);
         print(await response.stream.bytesToString());
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isUpdateLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isUpdateLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isUpdateLoading(false);
@@ -455,28 +460,29 @@ class VaccineController extends GetxController {
       if (request.statusCode == 200) {
         isDeleteLoading(false);
         Get.back();
-        ApiException().myDeleteDataSuccessAlert();
+        ApiExceptionWidgets().myDeleteDataSuccessAlert();
         await fetchVaccines();
         await fetchVaccinesStatement();
 
         return;
       } else if (request.statusCode == 401) {
         isDeleteLoading(false);
-        ApiException().myCannotDeleteVaccineStatementAlert();
+        ApiExceptionWidgets().myCannotDeleteVaccineStatementAlert();
         return;
       } else {
         isDeleteLoading(false);
         print(request.body);
-        ApiException().myAccessDatabaseExceptionAlert(request.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(request.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isDeleteLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isDeleteLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isDeleteLoading(false);

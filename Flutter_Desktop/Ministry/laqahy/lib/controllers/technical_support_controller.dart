@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -90,16 +90,16 @@ class TechnicalSupportController extends GetxController {
         return;
       } else {
         isLoading(false);
-        ApiException().mySocketExceptionAlert();
+        ApiExceptionWidgets().mySocketExceptionAlert();
         return;
       }
     } on SocketException catch (_) {
       isLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);
     }

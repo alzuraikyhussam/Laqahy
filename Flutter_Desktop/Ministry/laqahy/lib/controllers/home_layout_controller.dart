@@ -6,7 +6,7 @@ import 'package:laqahy/controllers/centers_accounts_controller.dart';
 import 'package:laqahy/controllers/post_controller.dart';
 import 'package:laqahy/controllers/home_controller.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
-import 'package:laqahy/controllers/reports_controller.dart';
+import 'package:laqahy/controllers/report_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/controllers/vaccine_controller.dart';
@@ -42,8 +42,8 @@ class HomeLayoutController extends GetxController {
         if (Get.isRegistered<PostController>()) {
           Get.delete<PostController>();
         }
-        if (Get.isRegistered<ReportsController>()) {
-          Get.delete<ReportsController>();
+        if (Get.isRegistered<ReportController>()) {
+          Get.delete<ReportController>();
         }
         if (Get.isRegistered<TechnicalSupportController>()) {
           Get.delete<TechnicalSupportController>();

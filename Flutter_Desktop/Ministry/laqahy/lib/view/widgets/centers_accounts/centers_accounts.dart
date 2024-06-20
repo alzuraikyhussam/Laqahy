@@ -8,7 +8,7 @@ import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/centers_accounts/add_office_account.dart';
 import 'package:laqahy/view/widgets/centers_accounts/centers_data_table_source.dart';
@@ -190,7 +190,7 @@ class CentersAccounts extends StatelessWidget {
                             ),
                             child: PaginatedDataTable2(
                               autoRowsToHeight: true,
-                              empty: ApiException().myDataNotFound(
+                              empty: ApiExceptionWidgets().myDataNotFound(
                                 onPressedRefresh: () {
                                   if (cac.selectedOption.value == 'all') {
                                     cac.fetchCenters();
@@ -402,7 +402,7 @@ class CentersAccounts extends StatelessWidget {
                         ),
                         child: PaginatedDataTable2(
                           autoRowsToHeight: true,
-                          empty: ApiException().myDataNotFound(
+                          empty: ApiExceptionWidgets().myDataNotFound(
                             onPressedRefresh: () {
                               cac.fetchOffices();
                             },

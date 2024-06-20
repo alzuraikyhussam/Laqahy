@@ -1,14 +1,14 @@
 class HealthyCenter {
   int? id;
-  String name;
-  String phone;
-  String address;
+  String? name;
+  String? phone;
+  String? address;
   String? cityName;
   String? directorateName;
   String? officeName;
-  int directorateId;
-  int cityId;
-  int officeId;
+  int? directorateId;
+  int? cityId;
+  int? officeId;
   DateTime? createdAt;
 
   HealthyCenter({
@@ -17,12 +17,12 @@ class HealthyCenter {
     this.directorateName,
     this.officeName,
     this.createdAt,
-    required this.name,
-    required this.phone,
-    required this.address,
-    required this.cityId,
-    required this.directorateId,
-    required this.officeId,
+    this.name,
+    this.phone,
+    this.address,
+    this.cityId,
+    this.directorateId,
+    this.officeId,
   });
 
   factory HealthyCenter.fromJson(Map<String, dynamic> json) {
@@ -45,9 +45,6 @@ class HealthyCenter {
 
   // Map<String, dynamic> toJson() {
   //   return {
-  //     'healthy_center_name': name,
-  //     'healthy_center_phone': phone,
-  //     'healthy_center_address': address,
   //     'cities_id': cityId,
   //     'directorate_id': directorateId,
   //   };

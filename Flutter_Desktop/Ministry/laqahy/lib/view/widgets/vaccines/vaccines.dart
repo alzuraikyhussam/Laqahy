@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/vaccines/vaccine_data_table_source.dart';
 
@@ -48,14 +48,14 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                       );
                     } else if (snapshot.hasError) {
                       return Center(
-                        child: ApiException().mySnapshotError(snapshot.error,
-                            onPressedRefresh: () {
+                        child: ApiExceptionWidgets().mySnapshotError(
+                            snapshot.error, onPressedRefresh: () {
                           vc.fetchVaccines();
                         }),
                       );
                     } else {
                       if (vc.vaccines.isEmpty) {
-                        return ApiException().myDataNotFound(
+                        return ApiExceptionWidgets().myDataNotFound(
                           onPressedRefresh: () {
                             vc.fetchVaccines();
                           },
@@ -183,7 +183,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                             ),
                             child: PaginatedDataTable2(
                               autoRowsToHeight: true,
-                              empty: ApiException().myDataNotFound(
+                              empty: ApiExceptionWidgets().myDataNotFound(
                                 onPressedRefresh: () {
                                   vc.fetchVaccinesStatement();
                                 },

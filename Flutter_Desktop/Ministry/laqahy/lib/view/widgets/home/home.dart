@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:lottie/lottie.dart';
 
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             } else if (snapshot.hasError) {
               return Center(
-                child: ApiException().mySnapshotError(snapshot.error,
+                child: ApiExceptionWidgets().mySnapshotError(snapshot.error,
                     onPressedRefresh: () {
                   hc.fetchHomeCardItems();
                 }),

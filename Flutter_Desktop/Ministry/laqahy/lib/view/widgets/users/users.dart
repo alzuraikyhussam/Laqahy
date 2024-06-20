@@ -7,8 +7,8 @@ import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/models/home_model.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/models/home_layout_model.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/users/user_data_table_source.dart';
 import 'package:laqahy/view/widgets/users/edit_user.dart';
@@ -44,7 +44,7 @@ class _UsersScreenState extends State<UsersScreen> {
                 ),
                 child: PaginatedDataTable2(
                   autoRowsToHeight: true,
-                  empty: ApiException().myDataNotFound(
+                  empty: ApiExceptionWidgets().myDataNotFound(
                     onPressedRefresh: () {
                       uc.fetchUsers(uc.centerId);
                     },

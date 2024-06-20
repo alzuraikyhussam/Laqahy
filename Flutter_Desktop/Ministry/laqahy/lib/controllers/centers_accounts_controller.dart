@@ -11,7 +11,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -417,14 +417,15 @@ class CentersAccountsController extends GetxController {
         filteredOffices.value = offices;
       } else {
         isOfficesLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
       }
     } on SocketException catch (_) {
       isOfficesLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isOfficesLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       print(e);
     } finally {
       isOfficesLoading(false);
@@ -448,14 +449,15 @@ class CentersAccountsController extends GetxController {
         filteredCenters.value = centers;
       } else {
         isCentersLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
       }
     } on SocketException catch (_) {
       isCentersLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isCentersLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       print(e);
     } finally {
       isCentersLoading(false);
@@ -479,14 +481,15 @@ class CentersAccountsController extends GetxController {
         filteredCenters.value = centers;
       } else {
         isCentersLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
       }
     } on SocketException catch (_) {
       isCentersLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isCentersLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       print(e);
     } finally {
       isCentersLoading(false);
@@ -517,24 +520,25 @@ class CentersAccountsController extends GetxController {
         isUpdateLoading(false);
         Get.back();
         alertType == 'add'
-            ? ApiException().myAddedDataSuccessAlert()
-            : ApiException().myUpdateDataSuccessAlert();
+            ? ApiExceptionWidgets().myAddedDataSuccessAlert()
+            : ApiExceptionWidgets().myUpdateDataSuccessAlert();
         await fetchOffices();
         fetchRegisteredOfficesInDropDownMenu();
         fetchUnRegisteredOfficesInDropDownMenu();
         return;
       } else {
         isUpdateLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isUpdateLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isUpdateLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isUpdateLoading(false);

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/reports_controller.dart';
+import 'package:laqahy/controllers/report_controller.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class ReportsPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class ReportsPage extends StatefulWidget {
 }
 
 class _ReportsPageState extends State<ReportsPage> {
-  ReportsController rc = Get.put(ReportsController());
+  ReportController rc = Get.put(ReportController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +41,8 @@ class _ReportsPageState extends State<ReportsPage> {
               title: rc.reportsCardItems[index].title,
               context: context,
               onPressed: () {
+                rc.clearTextFields();
+
                 myShowDialog(
                   context: context,
                   widgetName: rc.reportsCardItems[index].onPressed,

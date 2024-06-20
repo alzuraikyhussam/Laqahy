@@ -5,7 +5,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\GenderController;
-use App\Http\Controllers\HealthyCenterAccountController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HealthyCenterController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
@@ -13,8 +13,8 @@ use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicalSupportController;
-use App\Http\Controllers\TotalCountController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,8 +34,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// --------------------- Total Count Routes ------------------------
-Route::get('home/total-count', [TotalCountController::class, 'getTotalCount']);
+// --------------------- General Routes ------------------------
+Route::get('general/home-total-count', [GeneralController::class, 'getTotalCount']);
 // ------------------------------------------------------------
 
 // --------------------- Post Routes ------------------------
@@ -84,6 +84,7 @@ Route::post('auth/login', [AuthController::class, 'login']);
 // ------------------------------------------------------------
 
 // --------------------- User Routes ------------------------
+Route::get('users/get-admin/{id}', [UserController::class, 'getAdminData']);
 Route::post('users/add-user', [UserController::class, 'store']);
 Route::patch('users/update-user/{id}', [UserController::class, 'update']);
 Route::get('users/{id}', [UserController::class, 'show']);
@@ -122,4 +123,8 @@ Route::get('orders/incoming', [OrderController::class, 'incomingOrders']);
 Route::get('orders/in-delivery', [OrderController::class, 'inDeliveryOrders']);
 Route::get('orders/delivered', [OrderController::class, 'deliveredOrders']);
 Route::get('orders/cancelled', [OrderController::class, 'cancelledOrders']);
+// ------------------------------------------------------------
+
+// --------------------- Report Routes ------------------------
+Route::get('reports/centers-report/{id}', [ReportController::class, 'generateCentersReport']);
 // ------------------------------------------------------------

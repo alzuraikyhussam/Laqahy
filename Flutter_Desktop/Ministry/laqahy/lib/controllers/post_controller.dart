@@ -9,7 +9,7 @@ import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/models/post_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -162,7 +162,7 @@ class PostController extends GetxController {
         var response = await request.send();
         if (response.statusCode == 201) {
           isLoading(false);
-          ApiException().myAddedDataSuccessAlert();
+          ApiExceptionWidgets().myAddedDataSuccessAlert();
           clearTextFields();
           await fetchPosts();
 
@@ -170,16 +170,17 @@ class PostController extends GetxController {
         } else {
           isLoading(false);
 
-          ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+          ApiExceptionWidgets()
+              .myAccessDatabaseExceptionAlert(response.statusCode);
           return;
         }
       } on SocketException catch (_) {
         isLoading(false);
-        ApiException().mySocketExceptionAlert();
+        ApiExceptionWidgets().mySocketExceptionAlert();
         return null;
       } catch (e) {
         isLoading(false);
-        ApiException().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       } finally {
         isLoading(false);
       }
@@ -204,17 +205,18 @@ class PostController extends GetxController {
           posts.assignAll(fetchedPost);
         } else if (response.statusCode == 500) {
           isFetchPostsLoading(false);
-          ApiException().myFetchDataExceptionAlert(response.statusCode);
+          ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
         } else {
           isFetchPostsLoading(false);
-          ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+          ApiExceptionWidgets()
+              .myAccessDatabaseExceptionAlert(response.statusCode);
         }
       } on SocketException catch (_) {
         isFetchPostsLoading(false);
-        ApiException().mySocketExceptionAlert();
+        ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isFetchPostsLoading(false);
-        ApiException().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       } finally {
         isFetchPostsLoading(false);
       }
@@ -247,22 +249,23 @@ class PostController extends GetxController {
         isUpdatePostsLoading(false);
         updatedImage.value = null;
         Get.back();
-        ApiException().myUpdateDataSuccessAlert();
+        ApiExceptionWidgets().myUpdateDataSuccessAlert();
         await fetchPosts();
 
         return;
       } else {
         isUpdatePostsLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isUpdatePostsLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isUpdatePostsLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isUpdatePostsLoading(false);
@@ -279,22 +282,23 @@ class PostController extends GetxController {
       if (request.statusCode == 200) {
         isDeletePostsLoading(false);
         Get.back();
-        ApiException().myDeleteDataSuccessAlert();
+        ApiExceptionWidgets().myDeleteDataSuccessAlert();
         await fetchPosts();
 
         return;
       } else {
         isDeletePostsLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(request.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(request.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isDeletePostsLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isDeletePostsLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isDeletePostsLoading(false);

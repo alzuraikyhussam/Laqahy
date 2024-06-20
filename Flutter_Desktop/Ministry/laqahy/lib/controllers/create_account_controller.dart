@@ -14,7 +14,7 @@ import 'package:laqahy/models/register_model.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
 import 'package:laqahy/view/layouts/home/home_layout.dart';
 import 'package:laqahy/view/screens/login.dart';
@@ -221,22 +221,23 @@ class CreateAccountController extends GetxController {
         return;
       } else if (response.statusCode == 401) {
         isLoading(false);
-        ApiException().myUserAlreadyExistsAlert();
+        ApiExceptionWidgets().myUserAlreadyExistsAlert();
         return;
       } else {
         isLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         print(response.body);
         return;
       }
     } on SocketException catch (_) {
       isLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isLoading(false);
       print(e);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);
     }

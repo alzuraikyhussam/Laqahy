@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/models/order_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 
 class OrdersController extends GetxController {
   @override
@@ -93,14 +93,15 @@ class OrdersController extends GetxController {
               jsonData.map((e) => Order.fromJson(e)).toList();
         } else {
           isIncomingLoading(false);
-          ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+          ApiExceptionWidgets()
+              .myAccessDatabaseExceptionAlert(response.statusCode);
         }
       } on SocketException catch (_) {
         isIncomingLoading(false);
-        ApiException().mySocketExceptionAlert();
+        ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isIncomingLoading(false);
-        ApiException().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       } finally {
         isIncomingLoading(false);
       }
@@ -124,14 +125,15 @@ class OrdersController extends GetxController {
               jsonData.map((e) => Order.fromJson(e)).toList();
         } else {
           isInDeliveryLoading(false);
-          ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+          ApiExceptionWidgets()
+              .myAccessDatabaseExceptionAlert(response.statusCode);
         }
       } on SocketException catch (_) {
         isInDeliveryLoading(false);
-        ApiException().mySocketExceptionAlert();
+        ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isInDeliveryLoading(false);
-        ApiException().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       } finally {
         isInDeliveryLoading(false);
       }
@@ -155,14 +157,15 @@ class OrdersController extends GetxController {
               jsonData.map((e) => Order.fromJson(e)).toList();
         } else {
           isDeliveredLoading(false);
-          ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+          ApiExceptionWidgets()
+              .myAccessDatabaseExceptionAlert(response.statusCode);
         }
       } on SocketException catch (_) {
         isDeliveredLoading(false);
-        ApiException().mySocketExceptionAlert();
+        ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isDeliveredLoading(false);
-        ApiException().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       } finally {
         isDeliveredLoading(false);
       }
@@ -186,14 +189,15 @@ class OrdersController extends GetxController {
               jsonData.map((e) => Order.fromJson(e)).toList();
         } else {
           isCancelledLoading(false);
-          ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+          ApiExceptionWidgets()
+              .myAccessDatabaseExceptionAlert(response.statusCode);
         }
       } on SocketException catch (_) {
         isCancelledLoading(false);
-        ApiException().mySocketExceptionAlert();
+        ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isCancelledLoading(false);
-        ApiException().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       } finally {
         isCancelledLoading(false);
       }
@@ -221,7 +225,7 @@ class OrdersController extends GetxController {
         var quantity = data['quantity'];
         isApprovalLoading(false);
         Get.back();
-        ApiException().myOrderWithQuantityAlert(
+        ApiExceptionWidgets().myOrderWithQuantityAlert(
           quantity: quantity,
           title: 'تمت الموافقة بنجاح',
           description: 'لقد تمت عملية الموافقة بنجاح',
@@ -237,21 +241,22 @@ class OrdersController extends GetxController {
         var data = json.decode(await response.stream.bytesToString());
         var quantity = data['quantity'];
         isApprovalLoading(false);
-        ApiException().myVaccineQtyNotEnoughAlert(quantity: quantity);
+        ApiExceptionWidgets().myVaccineQtyNotEnoughAlert(quantity: quantity);
         return;
       } else {
         isApprovalLoading(false);
         print(await response.stream.bytesToString());
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isApprovalLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isApprovalLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isApprovalLoading(false);
@@ -275,7 +280,7 @@ class OrdersController extends GetxController {
       if (response.statusCode == 200) {
         isRejectLoading(false);
         Get.back();
-        ApiException().myOrderAlert(
+        ApiExceptionWidgets().myOrderAlert(
           title: 'تم الرفـض بنجاح',
           description: 'لقد تمت عملية الرفض بنجاح',
         );
@@ -289,16 +294,17 @@ class OrdersController extends GetxController {
         print(await response.stream.bytesToString());
 
         isRejectLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isRejectLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isRejectLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isRejectLoading(false);
@@ -318,7 +324,7 @@ class OrdersController extends GetxController {
       if (response.statusCode == 200) {
         isUndoLoading(false);
         Get.back();
-        ApiException().myOrderAlert(
+        ApiExceptionWidgets().myOrderAlert(
           title: 'تم التراجع بنجاح',
           description: 'لقد تمت عملية التراجع بنجاح',
         );
@@ -332,16 +338,17 @@ class OrdersController extends GetxController {
         print(await response.stream.bytesToString());
 
         isUndoLoading(false);
-        ApiException().myAccessDatabaseExceptionAlert(response.statusCode);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
         return;
       }
     } on SocketException catch (_) {
       isUndoLoading(false);
-      ApiException().mySocketExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isUndoLoading(false);
-      ApiException().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {
       isUndoLoading(false);

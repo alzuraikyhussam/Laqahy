@@ -4,7 +4,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class DeliveredOrder extends StatefulWidget {
@@ -31,14 +31,14 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
               );
             } else if (snapshot.hasError) {
               return Center(
-                child: ApiException().mySnapshotError(snapshot.error,
+                child: ApiExceptionWidgets().mySnapshotError(snapshot.error,
                     onPressedRefresh: () {
                   olc.fetchDeliveredOrders();
                 }),
               );
             } else {
               if (olc.deliveredOrders.isEmpty) {
-                return ApiException().myDataNotFound(
+                return ApiExceptionWidgets().myDataNotFound(
                   text: 'لـم يتـــم العثــور على طلبــات تـم تسليمهــا',
                   onPressedRefresh: () {
                     olc.fetchDeliveredOrders();

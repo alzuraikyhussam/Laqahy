@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class HomeLayoutListItem {
   String imageName;
@@ -13,17 +11,7 @@ class HomeLayoutListItem {
   });
 }
 
-class HomeCardItem {
-  String? title;
-  String? imagePath;
-  int? count;
 
-  HomeCardItem({
-    required this.title,
-    required this.imagePath,
-    required this.count,
-  });
-}
 
 // class VaccinesData {
 //   String imageName;
@@ -47,14 +35,3 @@ class HomeCardItem {
 //   UserData({required this.name, required this.phone, required this.age});
 // }
 
-class ReportsData {
-  String imageName;
-  String title;
-  Widget? onPressed;
-
-  ReportsData({
-    required this.imageName,
-    required this.title,
-    required this.onPressed,
-  });
-}

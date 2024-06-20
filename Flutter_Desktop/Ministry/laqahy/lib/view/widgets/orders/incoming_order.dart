@@ -7,7 +7,7 @@ import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/services/api/api_exception.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/orders/approval_order_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/orders/reject_confirm_alert.dart';
@@ -36,14 +36,14 @@ class _IncomingOrderState extends State<IncomingOrder> {
               );
             } else if (snapshot.hasError) {
               return Center(
-                child: ApiException().mySnapshotError(snapshot.error,
+                child: ApiExceptionWidgets().mySnapshotError(snapshot.error,
                     onPressedRefresh: () {
                   olc.fetchIncomingOrders();
                 }),
               );
             } else {
               if (olc.incomingOrders.isEmpty) {
-                return ApiException().myDataNotFound(
+                return ApiExceptionWidgets().myDataNotFound(
                   text: 'لـم يتـــم العثــور على طلبــات واردة',
                   onPressedRefresh: () {
                     olc.fetchIncomingOrders();

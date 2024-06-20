@@ -4,7 +4,7 @@ class ApiEndpoints {
   // *********************************************
 
   // --------------- Total Count Endpoints -------------------
-  static const String getTotalCount = '$baseUrl/home/total-count';
+  static const String getTotalCount = '$baseUrl/general/home-total-count';
   // --------------------------------------------------
 
   // --------------- Post Endpoints -------------------
@@ -57,6 +57,7 @@ class ApiEndpoints {
 
   // --------------- Login Endpoints -------------------
   static const String getUsers = '$baseUrl/users';
+  static const String getAdmin = '$baseUrl/users/get-admin';
   static const String addUser = '$baseUrl/users/add-user';
   static const String updateUser = '$baseUrl/users/update-user';
   static const String deleteUser = '$baseUrl/users/delete-user';
@@ -100,4 +101,9 @@ class ApiEndpoints {
   static const String transferOrderToCancelled = '$baseUrl/orders/to-cancelled';
   static const String undoCancelled = '$baseUrl/orders/undo-cancelled';
   // --------------------------------------------------
+
+  // --------------- Generate Centers Report Endpoints -------------------
+  static const String getCentersReport = '$baseUrl/reports/centers-report';
+  // --------------------------------------------------
+  
 }

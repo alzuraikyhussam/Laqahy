@@ -156,4 +156,19 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function getAdminData($id)
+    {
+        try {
+            $admin = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_centers', 'users.healthy_center_id', '=', 'healthy_centers.id')->select('users.*', 'genders.genders_type', 'healthy_centers.healthy_center_name', 'permission_types.permission_type')->where('users.id', $id)->get();
+            return response()->json([
+                'message' => 'Admin data retrieved successfully',
+                'data' => $admin,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

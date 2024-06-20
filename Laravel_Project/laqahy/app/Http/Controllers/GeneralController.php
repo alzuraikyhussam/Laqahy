@@ -13,12 +13,12 @@ use App\Models\Vaccine_type;
 use Exception;
 use Illuminate\Http\Request;
 
-class TotalCountController extends Controller
+class GeneralController extends Controller
 {
     public function getTotalCount()
     {
         try {
-            $officesCount = Office::count();
+            $officesCount = Office::where('office_phone', '!=', null)->count();
             $centersCount = Healthy_center::count();
             $mothersCount = Mother_data::count();
             $childrenCount = Child_data::count();
@@ -45,4 +45,5 @@ class TotalCountController extends Controller
             ], 500);
         }
     }
+
 }
