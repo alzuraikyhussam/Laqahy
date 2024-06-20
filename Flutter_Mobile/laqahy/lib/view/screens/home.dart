@@ -173,6 +173,10 @@ class Home extends StatelessWidget {
                                 'معلومات حول التطبيق وخدماته  ',
                                 style: MyTextStyles.font16BlackBold,
                               ),
+                              //Texst(
+                               // 'معلومات هامة حول لقاح السل'
+                                //Style: MyTextStyles.font16BlackBold,
+                              //)
                             ],
                           ),
                         ],
