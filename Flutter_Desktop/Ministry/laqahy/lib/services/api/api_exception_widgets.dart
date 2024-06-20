@@ -456,4 +456,17 @@ class ApiExceptionWidgets {
       ),
     );
   }
+
+  mySharePdfFailureAlert() {
+    Constants().errorAudio();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 280,
+        imageUrl: 'assets/images/error.json',
+        title: 'خطــــأ',
+        description: 'لقد حدث خطأ ما أثناء عملية مشاركة الملف',
+      ),
+    );
+  }
 }

@@ -17,6 +17,7 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:share_plus/share_plus.dart';
 
 class PDFWidgets {
   late pw.Font ttf;
@@ -326,12 +327,20 @@ class PDFWidgets {
 
       Get.back();
 
-      myShowSavedDialog(Get.context!, file);
+      await shareFile(file: file, name: name);
 
-      // Share PDF
-      // Share.shareFiles([file.path], text: name);
+      myShowSavedDialog(Get.context!, file);
     } catch (e) {
       ApiExceptionWidgets().myGeneratePdfFailureAlert();
+    }
+  }
+
+  Future<void> shareFile({required File file, required String name}) async {
+    try {
+      // Share PDF
+      await Share.shareXFiles([XFile(file.path)], text: name);
+    } catch (e) {
+      ApiExceptionWidgets().mySharePdfFailureAlert();
     }
   }
 }
