@@ -12,12 +12,13 @@ class Child_data extends Model
     use SoftDeletes;
     protected $fillable = [
         'child_data_name',
-        'mother_datas_id',
+        'mother_data_id',
         'child_data_birthplace',
-        'child_data_birthdate',
+        'child_data_',
         'gender_id',
     ];
     protected $dates = ['deleted_at'];
+    protected $table = 'child_data';
 
 
     public function gender()

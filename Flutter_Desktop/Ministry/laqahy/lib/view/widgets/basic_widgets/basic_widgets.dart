@@ -341,12 +341,11 @@ myCopyRightText() {
     left: 0,
     right: 0,
     bottom: 15,
-    child: Opacity(
-      opacity: 0.5,
-      child: Text(
-        textAlign: TextAlign.center,
-        'جميع الحقوق محفوظة لدى فريق سورس تك ${DateTime.now().year} ©',
-        style: MyTextStyles.font14GreyBold,
+    child: Text(
+      textAlign: TextAlign.center,
+      'جميع الحقوق محفوظة لدى فريق سورس تك ${DateTime.now().year} ©',
+      style: MyTextStyles.font14GreyBold.copyWith(
+        color: MyColors.greyColor.withOpacity(0.5),
       ),
     ),
   );

@@ -131,8 +131,8 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                         Row(
                           children: [
                             myTextField(
-                              validator: cac.birthdateValidator,
-                              controller: cac.birthdateController,
+                              validator: cac.birthDateValidator,
+                              controller: cac.birthDateController,
                               hintText: 'تاريــخ الميـلاد',
                               prefixIcon: Icons.date_range_outlined,
                               keyboardType: TextInputType.text,
@@ -148,7 +148,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                                     if (value == null) {
                                       return;
                                     } else {
-                                      cac.birthdateController.text =
+                                      cac.birthDateController.text =
                                           DateFormat.yMMMd().format(value);
                                     }
                                   },

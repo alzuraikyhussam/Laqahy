@@ -59,8 +59,8 @@ class UserController extends GetxController {
   }
 
 /////////////
-  TextEditingController birthdateController = TextEditingController();
-  String? birthdateValidator(value) {
+  TextEditingController birthDateController = TextEditingController();
+  String? birthDateValidator(value) {
     if (value.isEmpty) {
       return 'ادخل تاريخ الميلاد';
     }
@@ -100,7 +100,7 @@ class UserController extends GetxController {
     phoneNumberController.clear();
     passwordController.clear();
     userNameController.clear();
-    birthdateController.clear();
+    birthDateController.clear();
     sdc.selectedPermissionId.value = null;
     sdc.selectedGenderId.value = null;
     addressController.clear();
@@ -175,7 +175,7 @@ class UserController extends GetxController {
   Future<void> addUser() async {
     int? centerID = await sdc.storageService.getCenterId();
     DateTime parsedBirthDate =
-        DateFormat('MMM d, yyyy').parse(birthdateController.text);
+        DateFormat('MMM d, yyyy').parse(birthDateController.text);
     try {
       isAddLoading(true);
       final user = User(
@@ -210,6 +210,7 @@ class UserController extends GetxController {
         ApiExceptionWidgets().myUserAlreadyExistsAlert();
         return;
       } else {
+        print(response.body);
         isAddLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
@@ -236,9 +237,9 @@ class UserController extends GetxController {
     var permission,
     var phone,
     var gender,
-    var birthdate,
+    var birthDate,
   ) async {
-    DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthdate);
+    DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthDate);
     int? centerID = await sdc.storageService.getCenterId();
     isUpdateLoading(true);
     final user = User(
@@ -259,7 +260,7 @@ class UserController extends GetxController {
       request.fields['user_name'] = user.name;
       request.fields['user_phone'] = user.phone;
       request.fields['user_address'] = user.address;
-      request.fields['user_birthdate'] =
+      request.fields['user_birthDate'] =
           DateFormat('yyyy-MM-dd').format(user.birthDate);
       request.fields['user_account_name'] = user.username;
       request.fields['user_account_password'] = user.password;

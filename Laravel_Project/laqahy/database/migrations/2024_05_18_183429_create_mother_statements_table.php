@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mother_statements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mother_data_id')->constrained('mother_datas')->onUpdate('cascade');
+            $table->foreignId('mother_data_id')->constrained('mother_data')->onUpdate('cascade');
             $table->foreignId('healthy_center_id')->constrained('healthy_centers')->onUpdate('cascade');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade');
             $table->date('date_taking_dose');

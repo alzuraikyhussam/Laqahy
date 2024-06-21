@@ -26,7 +26,7 @@ class _EditUserState extends State<EditUser> {
   TextEditingController passwordController = TextEditingController();
   late TextEditingController phoneController;
 
-  TextEditingController birthdateController = TextEditingController();
+  TextEditingController birthDateController = TextEditingController();
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _EditUserState extends State<EditUser> {
     userNameController = TextEditingController(text: widget.data.username);
     // passwordController = TextEditingController(text: widget.data.password);
     phoneController = TextEditingController(text: widget.data.phone);
-    birthdateController.text =
+    birthDateController.text =
         DateFormat('MMM d, yyyy').format(widget.data.birthDate);
     ;
   }
@@ -238,8 +238,8 @@ class _EditUserState extends State<EditUser> {
                         Container(
                           margin: const EdgeInsets.only(top: 3),
                           child: myTextField(
-                            validator: uc.birthdateValidator,
-                            controller: birthdateController,
+                            validator: uc.birthDateValidator,
+                            controller: birthDateController,
                             hintText: 'تاريــخ الميـلاد',
                             prefixIcon: Icons.date_range_outlined,
                             keyboardType: TextInputType.text,
@@ -255,7 +255,7 @@ class _EditUserState extends State<EditUser> {
                                   if (value == null) {
                                     return;
                                   } else {
-                                    birthdateController.text =
+                                    birthDateController.text =
                                         DateFormat.yMMMd().format(value);
                                   }
                                 },
@@ -317,7 +317,7 @@ class _EditUserState extends State<EditUser> {
                                         sdc.selectedPermissionId.value,
                                         phoneController.text,
                                         sdc.selectedGenderId.value,
-                                        birthdateController.text,
+                                        birthDateController.text,
                                       );
                                     }
                                     // myShowDialog(

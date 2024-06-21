@@ -198,8 +198,8 @@ class _AddUserState extends State<AddUser> {
                         Container(
                           margin: const EdgeInsets.only(top: 3),
                           child: myTextField(
-                            validator: uc.birthdateValidator,
-                            controller: uc.birthdateController,
+                            validator: uc.birthDateValidator,
+                            controller: uc.birthDateController,
                             hintText: 'تاريــخ الميـلاد',
                             prefixIcon: Icons.date_range_outlined,
                             keyboardType: TextInputType.text,
@@ -215,7 +215,7 @@ class _AddUserState extends State<AddUser> {
                                   if (value == null) {
                                     return;
                                   } else {
-                                    uc.birthdateController.text =
+                                    uc.birthDateController.text =
                                         DateFormat.yMMMd().format(value);
                                   }
                                 },

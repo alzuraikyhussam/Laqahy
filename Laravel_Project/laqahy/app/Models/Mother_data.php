@@ -13,13 +13,16 @@ class Mother_data extends Model
     protected $fillable = [
         'mother_name',
         'mother_phone',
-        'mother_birthdate',
+        'mother_birthDate',
         'mother_village',
+        'mother_identity_num',
         'mother_password',
         'cities_id',
         'directorate_id',
         'healthy_center_id',
     ];
+
+    protected $table = 'mother_data';
 
     protected $dates = ['deleted_at'];
 

@@ -38,8 +38,6 @@ class LoginController extends GetxController {
   String? passwordValidator(value) {
     if (value.isEmpty) {
       return 'يجب ادخال كلمة المرور';
-    } else if (value.length < 8) {
-      return 'يجب ألا تقل عن 8 أحرف';
     }
     return null;
   }

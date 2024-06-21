@@ -81,10 +81,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 40,
                     ),
-                    Text(
-                      'صبـاح الخيــر ...',
-                      style: MyTextStyles.font18PrimaryBold,
-                    ),
+                    Obx(() => Text(
+                          '${controller.greeting.value} ...',
+                          style: MyTextStyles.font18PrimaryBold,
+                        )),
                     SizedBox(
                       height: 10,
                     ),

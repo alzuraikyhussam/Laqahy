@@ -34,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (snapshot.hasError) {
               return Center(
                 child: ApiExceptionWidgets().mySnapshotError(snapshot.error,
-                    onPressedRefresh: () {
-                  hc.fetchHomeCardItems();
+                    onPressedRefresh: () async {
+                  await hc.fetchHomeCardItems();
                 }),
               );
             } else {
@@ -62,7 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 20,
                       ),
                       myButton(
-                        onPressed: hc.fetchHomeCardItems,
+                        onPressed: () async {
+                          await hc.fetchHomeCardItems();
+                        },
                         text: 'تحـديـــث',
                         textStyle: MyTextStyles.font14WhiteBold,
                       ),

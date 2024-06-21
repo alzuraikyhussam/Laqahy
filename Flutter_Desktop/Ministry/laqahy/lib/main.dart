@@ -9,7 +9,6 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/splash_screen.dart';
 import 'package:window_manager/window_manager.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

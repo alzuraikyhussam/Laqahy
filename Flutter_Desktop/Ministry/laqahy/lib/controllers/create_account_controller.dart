@@ -76,8 +76,8 @@ class CreateAccountController extends GetxController {
   }
 
 /////////////
-  TextEditingController birthdateController = TextEditingController();
-  String? birthdateValidator(value) {
+  TextEditingController birthDateController = TextEditingController();
+  String? birthDateValidator(value) {
     if (value.isEmpty) {
       return 'ادخل تاريخ الميلاد';
     }
@@ -151,7 +151,7 @@ class CreateAccountController extends GetxController {
   Future<void> createAccount() async {
     StaticDataController sdc = Get.find<StaticDataController>();
     DateTime parsedBirthDate =
-        DateFormat('MMM d, yyyy').parse(birthdateController.text);
+        DateFormat('MMM d, yyyy').parse(birthDateController.text);
 
     try {
       isLoading(true);

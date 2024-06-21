@@ -25,7 +25,7 @@ class PDFWidgets {
   late pw.MemoryImage imageLogo;
   String? userName;
   String printFormattedDate =
-      DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now());
+      DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now());
 
   Future<void> init() async {
     StaticDataController sdc = Get.find<StaticDataController>();
@@ -290,7 +290,7 @@ class PDFWidgets {
             child: pw.Bullet(
               bulletSize: 1.5 * PdfPageFormat.mm,
               textAlign: pw.TextAlign.start,
-              text: 'تم طباعة هذا التقرير باستخدام نظام لقاحي',
+              text: 'تم طباعة هذا التقرير بواسطة نظام لقاحي',
               style: pw.TextStyle(
                 fontSize: 12,
                 fontWeight: pw.FontWeight.bold,

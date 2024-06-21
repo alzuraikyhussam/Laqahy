@@ -29,8 +29,8 @@ class Login {
       userName: json['user_name'] ?? '',
       userPhone: json['user_phone'] ?? '',
       userAddress: json['user_address'] ?? '',
-      userBirthDate: json['user_birthdate'] != null
-          ? DateTime.parse(json['user_birthdate'])
+      userBirthDate: json['user_birthDate'] != null
+          ? DateTime.parse(json['user_birthDate'])
           : DateTime(1970, 1, 1), // default value if null
       userAccountName: json['user_account_name'] ?? '',
       userAccountPassword: json['user_account_password'] ?? '',

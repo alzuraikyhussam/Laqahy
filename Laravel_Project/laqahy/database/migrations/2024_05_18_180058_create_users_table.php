@@ -16,7 +16,7 @@ return new class extends Migration
             $table->String('user_name');
             $table->String('user_phone');
             $table->text('user_address');
-            $table->date('user_birthdate');
+            $table->date('user_birthDate');
             $table->String('user_account_name');
             $table->String('user_account_password');
             $table->foreignId('gender_id')->constrained('genders')->onUpdate('cascade');

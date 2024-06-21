@@ -92,6 +92,11 @@ class Constants {
       imageNameFocused: 'assets/icons/posts-wh.png',
     ),
     HomeLayoutListItem(
+      imageName: 'assets/icons/reports-gr.png',
+      label: 'التقارير',
+      imageNameFocused: 'assets/icons/reports-wh.png',
+    ),
+    HomeLayoutListItem(
       imageName: 'assets/icons/info-gr.png',
       label: 'حول النظام',
       imageNameFocused: 'assets/icons/info-wh.png',

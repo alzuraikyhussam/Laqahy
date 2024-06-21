@@ -14,7 +14,7 @@ class Office_users extends Model
         'user_name',
         'user_phone',
         'user_address',
-        'user_birthdate',
+        'user_birthDate',
         'user_account_name',
         'user_account_password',
         'gender_id',

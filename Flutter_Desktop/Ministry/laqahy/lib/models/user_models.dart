@@ -37,8 +37,8 @@ class User {
       name: json['user_name'] ?? '',
       phone: json['user_phone'] ?? '',
       address: json['user_address'] ?? '',
-      birthDate: json['user_birthdate'] != null
-          ? DateTime.parse(json['user_birthdate'])
+      birthDate: json['user_birthDate'] != null
+          ? DateTime.parse(json['user_birthDate'])
           : DateTime(1970, 1, 1), // default value if null
       username: json['user_account_name'] ?? '',
       password: json['user_account_password'] ?? '',
@@ -51,12 +51,12 @@ class User {
     );
   }
 
-    Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'user_name': name,
       'user_phone': phone,
       'user_address': address,
-      'user_birthdate': DateFormat('yyyy-MM-dd').format(birthDate),
+      'user_birthDate': DateFormat('yyyy-MM-dd').format(birthDate),
       'user_account_name': username,
       'user_account_password': password,
       'gender_id': userGenderId,
