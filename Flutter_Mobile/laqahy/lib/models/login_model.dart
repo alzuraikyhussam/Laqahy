@@ -1,7 +1,7 @@
 class Login {
   int? id;
   String? motherName;
-  int? phoneNum;
+  String? phoneNum;
   String? identityNum;
   String? passWord;
   String? healthCenterName;
