@@ -2,15 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-
-RxBool switchValue = false.obs;
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class SettingController extends GetxController {
+  RxBool switchValue = false.obs;
   List items = [
     {
-      'icon': Icon(
-        Icons.lock_outline_rounded,
-        color: MyColors.primaryColor,
+      'icon': Container(
+        width: 45,
+        height: 45,
+        decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(50)),
+        child: Icon(
+          Icons.lock_outline_rounded,
+          color: MyColors.primaryColor,
+        ),
       ),
       'label': 'تغيير كلمة السر',
       'pericon': Icon(
@@ -21,9 +28,16 @@ class SettingController extends GetxController {
       ),
     },
     {
-      'icon': Icon(
-        Icons.fingerprint,
-        color: MyColors.primaryColor,
+      'icon': Container(
+        width: 45,
+        height: 45,
+        decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(50)),
+        child: Icon(
+          Icons.fingerprint_outlined,
+          color: MyColors.primaryColor,
+        ),
       ),
       'label': 'تفعيل بصمة الأصبع',
       'pericon': Icon(
@@ -34,23 +48,31 @@ class SettingController extends GetxController {
       ),
     },
     {
-      'icon': Icon(
-        Icons.dark_mode_outlined,
-        color: MyColors.primaryColor,
+      'icon': Container(
+        width: 45,
+        height: 45,
+        decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(50)),
+        child: Icon(
+          Icons.dark_mode_outlined,
+          color: MyColors.primaryColor,
+        ),
       ),
       'label': 'الوضع المظلم',
-      'pericon': CupertinoSwitch(
-        value: switchValue.value,
-        onChanged: (val) {
-          switchValue = val.obs;
-          print(switchValue);
-        },
-      ),
+      'pericon': mySwitch(),
     },
     {
-      'icon': Icon(
-        Icons.logout_outlined,
-        color: MyColors.redColor,
+      'icon': Container(
+        width: 45,
+        height: 45,
+        decoration: BoxDecoration(
+            color: MyColors.redColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(50)),
+        child: Icon(
+          Icons.logout_outlined,
+          color: MyColors.redColor,
+        ),
       ),
       'label': 'تسجيل الخروج',
       'pericon': Icon(

@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+/////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
 // --------------------- General Routes ------------------------
 Route::get('general/home-total-count', [GeneralController::class, 'getTotalCount']);
 // ------------------------------------------------------------
@@ -127,4 +127,12 @@ Route::get('orders/cancelled', [OrderController::class, 'cancelledOrders']);
 
 // --------------------- Report Routes ------------------------
 Route::get('reports/centers-report/{id}', [ReportController::class, 'generateCentersReport']);
+// ------------------------------------------------------------
+
+
+/////////////////////////////////////////MOBILE////////////////////////////////////////////////////////////////////////////
+
+
+// --------------------- Login Routes ------------------------
+Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
 // ------------------------------------------------------------

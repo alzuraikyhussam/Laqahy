@@ -20,33 +20,34 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Container(
-          height: Get.height,
+          // height: Get.height,
+          // width: Get.width,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
-                  width: 350,
-                  height: 200,
+                  height: 150,
+                  width: Get.width,
                   child: Image.asset(
                     'assets/images/home_image.png',
+                    fit: BoxFit.cover,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
+                Container(
                   child: GridView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 50),
+                        mainAxisSpacing: 15,
+                        crossAxisSpacing: 15),
                     itemCount: 4,
                     itemBuilder: (context, i) {
                       return Container(
                         decoration: BoxDecoration(
-                          color: MyColors.primaryColor.withOpacity(0.3),
+                          color: MyColors.primaryColor.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: 50,
@@ -56,7 +57,10 @@ class Home extends StatelessWidget {
                             Icon(
                               items[i]['icon'],
                               size: 60,
-                              color: MyColors.brownColor,
+                              color: MyColors.primaryColor,
+                            ),
+                            const SizedBox(
+                              height: 20,
                             ),
                             Text(
                               items[i]['titel'],
@@ -174,8 +178,8 @@ class Home extends StatelessWidget {
                                 style: MyTextStyles.font16BlackBold,
                               ),
                               //Texst(
-                               // 'معلومات هامة حول لقاح السل'
-                                //Style: MyTextStyles.font16BlackBold,
+                              // 'معلومات هامة حول لقاح السل'
+                              //Style: MyTextStyles.font16BlackBold,
                               //)
                             ],
                           ),

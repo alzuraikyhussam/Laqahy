@@ -1,10 +1,13 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/setting_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:shadow_overlay/shadow_overlay.dart';
 
 myAppBar({
@@ -467,6 +470,20 @@ myListTile({
   );
 }
 
+myShowDialog({
+  required BuildContext context,
+  required widgetName,
+}) {
+  return showDialog(
+    barrierDismissible: false,
+    barrierColor: MyColors.greyColor.withOpacity(0.5),
+    context: context,
+    builder: (context) {
+      return widgetName;
+    },
+  );
+}
+
 myAwesomeDialog({
   required BuildContext context,
   DialogType dialogType = DialogType.info,
@@ -519,7 +536,6 @@ myAwesomeDialog({
     dismissOnTouchOutside: dismissOnTouchOutside,
   ).show();
 }
-
 
 myDropDownMenuButton({
   required String hintText,
@@ -631,6 +647,54 @@ myDropDownMenuButton({
           }
         },
       ),
+    ),
+  );
+}
+
+SettingController sc = Get.put(SettingController());
+
+mySwitch() {
+  return Obx(() {
+    return CupertinoSwitch(
+      activeColor: MyColors.primaryColor,
+      trackColor: MyColors.primaryColor.withOpacity(0.2),
+      value: sc.switchValue.value,
+      onChanged: (val) {
+        sc.switchValue.value = val;
+        print(sc.switchValue);
+      },
+    );
+  });
+}
+
+myLoadingIndicator({
+  double height = 50,
+  double width = 120,
+}) {
+  return Container(
+    padding: EdgeInsetsDirectional.all(10),
+    height: height.toDouble(),
+    width: width.toDouble(),
+    alignment: AlignmentDirectional.center,
+    child: LoadingIndicator(
+      indicatorType: Indicator.lineScale,
+
+      /// Required, The loading type of the widget
+      colors: [
+        MyColors.secondaryColor,
+        MyColors.primaryColor,
+      ],
+
+      /// Optional, The color collections
+      strokeWidth: 2,
+
+      /// Optional, The stroke of the line, only applicable to widget which contains line
+      // backgroundColor: Colors.black,
+
+      /// Optional, Background of the widget
+      // pathBackgroundColor: Colors.black,
+
+      /// Optional, the stroke backgroundColor
     ),
   );
 }

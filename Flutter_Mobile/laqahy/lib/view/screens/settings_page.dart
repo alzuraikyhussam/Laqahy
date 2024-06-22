@@ -69,44 +69,61 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(25),
+                  padding: const EdgeInsets.all(15),
                   child: Column(
                     children: [
-                      ...List.generate(
-                        sC.items.length,
-                        (index) {
-                          return Container(
-                            margin: EdgeInsets.only(bottom: 25),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 40,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        color: MyColors.primaryColor
-                                            .withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: sC.items[index]['icon'],
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      sC.items[index]['label'],
-                                      style: MyTextStyles.font14BlackBold,
-                                    ),
-                                  ],
+                      Expanded(
+                        child: ListView.separated(
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                leading: sC.items[index]['icon'],
+                                title: Text(
+                                  sC.items[index]['label'],
                                 ),
-                               Obx(() => sC.items[index]['pericon'],) 
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                                trailing: sC.items[index]['pericon'],
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const Divider();
+                            },
+                            itemCount: sC.items.length),
+                      )
+
+                      // ...List.generate(
+                      //   sC.items.length,
+                      //   (index) {
+                      //     return Container(
+                      //       margin: EdgeInsets.only(bottom: 25),
+                      //       child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           Row(
+                      //             children: [
+                      //               Container(
+                      //                 width: 40,
+                      //                 height: 40,
+                      //                 decoration: BoxDecoration(
+                      //                   color: MyColors.primaryColor
+                      //                       .withOpacity(0.2),
+                      //                   borderRadius: BorderRadius.circular(50),
+                      //                 ),
+                      //                 child: sC.items[index]['icon'],
+                      //               ),
+                      //               const SizedBox(
+                      //                 width: 10,
+                      //               ),
+                      //               Text(
+                      //                 sC.items[index]['label'],
+                      //                 style: MyTextStyles.font14BlackBold,
+                      //               ),
+                      //             ],
+                      //           ),
+                      //          Obx(() => sC.items[index]['pericon'],)
+                      //         ],
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
                     ],
                   ),
                 ),

@@ -15,7 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('mother_name');
             $table->string('mother_phone');
+<<<<<<< Updated upstream:Laravel_Project/laqahy/database/migrations/2024_05_18_180556_create_mother_data_table.php
             $table->date('mother_birthDate');
+=======
+            $table->string('mother_identity_num')->unique();
+            $table->date('mother_birthdate');
+>>>>>>> Stashed changes:Laravel_Project/laqahy/database/migrations/2024_05_18_180556_create_mother_datas_table.php
             $table->string('mother_village');
             $table->string('mother_identity_num')->unique();
             $table->string('mother_password');

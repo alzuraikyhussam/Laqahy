@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
 import 'package:laqahy/view/screens/awareness_information.dart';
@@ -10,6 +11,8 @@ import 'package:laqahy/view/screens/chosse_child.dart';
 import 'package:laqahy/view/screens/contact_us.dart';
 import 'package:laqahy/view/screens/create_new_pass.dart';
 import 'package:laqahy/view/screens/fingerprint_check.dart';
+import 'package:laqahy/view/screens/home.dart';
+import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/logout.dart';
 import 'package:laqahy/view/screens/reset_password.dart';
 import 'package:laqahy/view/screens/reset_password_verification.dart';
@@ -29,6 +32,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       defaultTransition: Transition.rightToLeft,
+      initialBinding: BindingsBuilder(() {
+        Get.put(StaticDataController());
+      }),
       title: 'لقـاحي',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),
@@ -50,7 +56,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: AwarenessInformation(),
+      home: SettingsScreen(),
     );
   }
 }
