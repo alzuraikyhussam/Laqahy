@@ -21,7 +21,7 @@ class UserController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
   var users = [].obs;
   var filteredUsers = [].obs;
-  var isLoading = false.obs;
+  var isLoading = true.obs;
   var isAddLoading = false.obs;
   var isUpdateLoading = false.obs;
   var isDeleteLoading = false.obs;

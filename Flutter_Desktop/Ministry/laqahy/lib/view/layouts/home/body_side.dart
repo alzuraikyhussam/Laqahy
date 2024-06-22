@@ -1,4 +1,6 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/view/layouts/orders/orders_layout.dart';
@@ -24,7 +26,12 @@ class _HomeBodySideState extends State<HomeBodySide> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Padding(
+      child: Container(
+        // color: ThemeModelInheritedNotifier.of(Get.context!).theme.brightness ==
+        //         Brightness.light
+        //     ? Colors.transparent
+        //     : Colors.black87,
+        color: Colors.white,
         padding: hlc.choose.value == 'الرئيسية'
             ? const EdgeInsets.all(30)
             : const EdgeInsetsDirectional.only(

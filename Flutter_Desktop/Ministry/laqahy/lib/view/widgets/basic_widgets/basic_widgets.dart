@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -355,7 +356,7 @@ myBackgroundWindows() {
   return Container(
     width: double.infinity,
     height: double.infinity,
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
       image: DecorationImage(
         image: AssetImage("assets/images/background.png"),
         fit: BoxFit.cover,
@@ -508,7 +509,10 @@ myHomeCards({
   return Container(
     padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
-      color: Colors.white,
+      // color: ThemeModelInheritedNotifier.of(Get.context!).theme.brightness ==
+      //         Brightness.light
+      //     ? Colors.white
+      //     : Colors.black12,
       border: Border.all(
         color: MyColors.greyColor.withOpacity(0.2),
       ),

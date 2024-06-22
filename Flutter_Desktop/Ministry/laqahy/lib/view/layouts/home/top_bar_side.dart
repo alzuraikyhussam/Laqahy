@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -5,8 +6,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/main.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class HomeTopBarSide extends StatefulWidget {
@@ -43,6 +46,10 @@ class _HomeTopBarSideState extends State<HomeTopBarSide> {
           ),
         ),
         color: Colors.white,
+        // color: ThemeModelInheritedNotifier.of(Get.context!).theme.brightness ==
+        //         Brightness.light
+        //     ? Colors.white
+        //     : Colors.black87,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,13 +110,27 @@ class _HomeTopBarSideState extends State<HomeTopBarSide> {
               const SizedBox(
                 width: 30,
               ),
-              myIconButton(
-                icon: Icons.dark_mode_outlined,
-                onTap: () {},
-                gradientColors: [
-                  MyColors.primaryColor,
-                  MyColors.secondaryColor,
-                ],
+              ThemeSwitcher(
+                clipper: const ThemeSwitcherCircleClipper(),
+                builder: (context) {
+                  return myIconButton(
+                    icon: Icons.dark_mode_outlined,
+                    onTap: () {
+                      ThemeSwitcher.of(context).changeTheme(
+                        theme: ThemeModelInheritedNotifier.of(context)
+                                    .theme
+                                    .brightness ==
+                                Brightness.light
+                            ? Constants().darkTheme
+                            : Constants().lightTheme,
+                      );
+                    },
+                    gradientColors: [
+                      MyColors.primaryColor,
+                      MyColors.secondaryColor,
+                    ],
+                  );
+                },
               ),
               const SizedBox(
                 width: 10,

@@ -26,6 +26,7 @@ class StaticDataController extends GetxController {
   late var isRegistered = false.obs;
 
   final greeting = ''.obs;
+  Timer? timer;
 
   // final macAddress = ''.obs;
   // final deviceName = ''.obs;
@@ -53,14 +54,14 @@ class StaticDataController extends GetxController {
 
   @override
   void onInit() async {
-    // TODO: implement onInit
-    super.onInit();
     updateGreeting();
+    startTimer();
     fetchPermissions();
     fetchGenders();
     fetchCities();
     storageService = await StorageService.getInstance();
     isRegistered.value = await storageService.isRegistered();
+    super.onInit();
   }
 
   // Future initWindowsSystemInfo() async {
@@ -78,11 +79,15 @@ class StaticDataController extends GetxController {
   //   }
   // }
 
-  void updateGreeting() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      var hour = DateTime.now().hour;
-      greeting.value = (hour < 12) ? 'صبـاح الخيــر' : 'مسـاء الخيــر';
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+      updateGreeting();
     });
+  }
+
+  void updateGreeting() {
+    final hour = DateTime.now().hour;
+    greeting.value = (hour < 12) ? 'صبـاح الخيــر' : 'مسـاء الخيــر';
   }
 
   void fetchGenders() async {
@@ -211,5 +216,4 @@ class StaticDataController extends GetxController {
       isDirectorateLoading(false);
     }
   }
-
 }

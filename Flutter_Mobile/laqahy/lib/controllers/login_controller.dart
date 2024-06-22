@@ -82,7 +82,6 @@ class LoginController extends GetxController {
       }
     } on SocketException catch (_) {
       isLoading(false);
-
       ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {

@@ -32,8 +32,8 @@ class Login {
       phoneNum: json['mother_phone'],
       passWord: json['mother_password'],
       village: json['mother_village'],
-      birthDate: json['mother_birthdate'] != null
-          ? DateTime.parse(json['mother_birthdate'])
+      birthDate: json['mother_birthDate'] != null
+          ? DateTime.parse(json['mother_birthDate'])
           : DateTime(1970, 1, 1),
       city: json['city_name'],
       identityNum: json['mother_identity_num'],
@@ -42,7 +42,7 @@ class Login {
       healthCenterName: json['healthy_center_name'],
     );
   }
-   Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'mother_identity_num': identityNum,
       'mother_password': passWord,

@@ -7,11 +7,11 @@ class StorageService {
 
   static Future<StorageService> getInstance() async {
     final instance = StorageService();
-    await instance._init();
+    await instance.init();
     return instance;
   }
 
-  Future<void> _init() async {
+  Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
   }
 
@@ -39,5 +39,13 @@ class StorageService {
 
   Future<bool> isRegistered() async {
     return prefs.getBool('isRegistered') ?? false;
+  }
+
+  Future<bool> setThemeMode(bool isDark) async {
+    return prefs.setBool('isDark', isDark);
+  }
+
+  Future<bool?> isDarkMode() async {
+    return prefs.getBool('isDark');
   }
 }
