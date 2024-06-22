@@ -177,7 +177,7 @@ class AuthController extends Controller
 
             Auth::login($user);
             $motherData=Mother_data::join('cities','mother_datas.cities_id','=','cities.id')->join('directorates','mother_datas.directorate_id','=','directorates.id')->join('healthy_centers','mother_datas.healthy_center_id','=','healthy_centers.id')->select('mother_datas.*','cities.city_name','directorates.directorate_name','healthy_centers.healthy_center_name')->where('mother_datas.id',$user->id)->get();
-            
+        
             return response()->json([
                 'message' => 'Login successfully',
                 'user' => $motherData,
