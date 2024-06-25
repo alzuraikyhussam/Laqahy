@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('mother_identity_num')->unique();
             $table->date('mother_birthDate');
             $table->string('mother_village');
-            $table->string('mother_identity_num')->unique();
+            
             $table->string('mother_password');
             $table->foreignId('cities_id')->constrained('cities')->onUpdate('cascade');
             $table->foreignId('directorate_id')->constrained('directorates')->onUpdate('cascade');
