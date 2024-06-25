@@ -12,10 +12,12 @@ class CentersPdfGenerator {
   StaticDataController sdc = Get.find<StaticDataController>();
   String? managerName;
   final List<HealthyCenter> centerData;
+  String? officeName;
 
-  CentersPdfGenerator({required this.centerData, required this.managerName}) {
-    // userName = sdc.userLoggedData.first.userName!;
-  }
+  CentersPdfGenerator(
+      {required this.centerData,
+      required this.managerName,
+      required this.officeName});
 
   Future<void> generatePdf(BuildContext context) async {
     final pdf = pw.Document();
@@ -49,7 +51,7 @@ class CentersPdfGenerator {
           child:
               pdfWidgets.buildHeader(centerData: sdc.centerData.first.phone!),
         ),
-        pdfWidgets.buildTitle(title: 'تقرير عن المراكز الصحية في ${centerData.first.officeName}'),
+        pdfWidgets.buildTitle(title: 'تقرير عن المراكز الصحية في $officeName'),
         pw.SizedBox(height: 20),
         pw.TableHelper.fromTextArray(
           headers: [
@@ -131,7 +133,7 @@ class CentersPdfGenerator {
             italic: ttf,
             boldItalic: ttf,
           ),
-          pageFormat: PdfPageFormat.a4.copyWith(
+          pageFormat: PdfPageFormat.a4.landscape.copyWith(
             marginLeft: 30,
             marginRight: 30,
             marginTop: 30,

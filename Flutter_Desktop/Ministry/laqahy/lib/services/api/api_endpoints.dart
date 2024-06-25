@@ -102,8 +102,16 @@ class ApiEndpoints {
   static const String undoCancelled = '$baseUrl/orders/undo-cancelled';
   // --------------------------------------------------
 
-  // --------------- Generate Centers Report Endpoints -------------------
-  static const String getCentersReport = '$baseUrl/reports/centers-report';
+  // --------------- Mother Date Endpoints -------------------
+  static const String getMotherDateRange = '$baseUrl/mothers/date-range';
   // --------------------------------------------------
-  
+
+  // --------------- Reports Endpoints -------------------
+  static const String getCentersReport = '$baseUrl/reports/centers-report';
+  static const String getStatusReport = '$baseUrl/reports/status-report';
+  static const String getStatusInAllOfficesReport =
+      '$baseUrl/reports/status-all-offices-report';
+  static const String getStatusInAllCentersReport =
+      '$baseUrl/reports/status-all-centers-report';
+  // --------------------------------------------------
 }

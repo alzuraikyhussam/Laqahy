@@ -59,8 +59,6 @@ class LoginController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        isLoading(false);
-
         var data = json.decode(response.body);
 
         // Handle user and center objects
@@ -79,7 +77,9 @@ class LoginController extends GetxController {
             await sdc.storageService.setRegistered(true);
           }
         } catch (_) {}
+
         Get.offAll(const HomeLayout());
+        isLoading(false);
         return;
       } else if (response.statusCode == 404) {
         isLoading(false);

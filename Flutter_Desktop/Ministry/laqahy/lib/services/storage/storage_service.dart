@@ -40,12 +40,4 @@ class StorageService {
   Future<bool> isRegistered() async {
     return prefs.getBool('isRegistered') ?? false;
   }
-
-  Future<bool> setThemeMode(bool isDark) async {
-    return prefs.setBool('isDark', isDark);
-  }
-
-  Future<bool?> isDarkMode() async {
-    return prefs.getBool('isDark');
-  }
 }

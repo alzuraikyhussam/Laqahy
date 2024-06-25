@@ -9,6 +9,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HealthyCenterController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
+use App\Http\Controllers\MotherDataController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionTypeController;
@@ -125,8 +126,15 @@ Route::get('orders/delivered', [OrderController::class, 'deliveredOrders']);
 Route::get('orders/cancelled', [OrderController::class, 'cancelledOrders']);
 // ------------------------------------------------------------
 
+// --------------------- Mother Data Routes ------------------------
+Route::get('mothers/date-range', [MotherDataController::class, 'getDateRange']);
+// ------------------------------------------------------------
+
 // --------------------- Report Routes ------------------------
 Route::get('reports/centers-report/{id}', [ReportController::class, 'generateCentersReport']);
+Route::get('reports/status-report', [ReportController::class, 'generateStatusReport']);
+Route::get('reports/status-all-offices-report', [ReportController::class, 'generateStatusInAllOfficesReport']);
+Route::get('reports/status-all-centers-report', [ReportController::class, 'generateStatusInAllCentersReport']);
 // ------------------------------------------------------------
 
 

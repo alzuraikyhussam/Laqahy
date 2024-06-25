@@ -14,7 +14,7 @@ class Child_data extends Model
         'child_data_name',
         'mother_data_id',
         'child_data_birthplace',
-        'child_data_',
+        'child_data_birthDate',
         'gender_id',
     ];
     protected $dates = ['deleted_at'];

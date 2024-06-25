@@ -62,6 +62,7 @@ class PDFWidgets {
   myShowSavedDialog(BuildContext context, File file) {
     Constants().successAudio();
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -332,6 +333,7 @@ class PDFWidgets {
       myShowSavedDialog(Get.context!, file);
     } catch (e) {
       ApiExceptionWidgets().myGeneratePdfFailureAlert();
+      print(e);
     }
   }
 
