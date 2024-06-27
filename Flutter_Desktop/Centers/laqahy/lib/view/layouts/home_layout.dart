@@ -11,7 +11,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/layouts/orders_layout.dart';
 import 'package:laqahy/view/layouts/visits_layout.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/users.dart';
+import 'package:laqahy/view/widgets/user/users.dart';
 import 'package:laqahy/view/widgets/home.dart';
 import 'package:laqahy/view/widgets/mother_visit_data.dart';
 import 'package:laqahy/view/widgets/posts.dart';
@@ -19,6 +19,7 @@ import 'package:laqahy/view/widgets/system_info.dart';
 import 'package:laqahy/view/widgets/techincal_support.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../../controllers/static_data_controller.dart';
 import '../widgets/vaccinations_page.dart';
 import 'status_layout.dart';
 
@@ -31,6 +32,7 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> with WindowListener {
   HomeLayoutController hlc = Get.put(HomeLayoutController());
+  StaticDataController controller = Get.find<StaticDataController>();
 
   @override
   void initState() {

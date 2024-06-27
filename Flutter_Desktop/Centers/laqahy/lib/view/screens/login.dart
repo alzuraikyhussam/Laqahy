@@ -67,14 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     // exitButton(),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
                 Text(
                   'صبـاح الخيــر ...',
                   style: MyTextStyles.font18PrimaryBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: MyTextStyles.font16BlackBold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 myTextField(
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.text,
                   onChanged: (value) {},
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 myTextField(
@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.visiblePassword,
                   onChanged: (value) {},
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 myButton(

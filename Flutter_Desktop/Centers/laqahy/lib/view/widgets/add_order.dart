@@ -9,7 +9,7 @@ import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/orders_confirmation_successfully.dart';
 import 'package:laqahy/view/widgets/success_order.dart';
 import 'package:laqahy/view/widgets/successfully_add_order.dart';
-import 'package:laqahy/view/widgets/successfully_add_state.dart';
+import 'package:laqahy/view/widgets/status/successfully_add_state.dart';
 
 class AddOrder extends StatefulWidget {
   const AddOrder({super.key});

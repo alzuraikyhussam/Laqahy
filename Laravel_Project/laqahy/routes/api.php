@@ -9,6 +9,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HealthyCenterController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
+use App\Http\Controllers\MotherDataController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionTypeController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
+use App\Models\Mother_data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -135,4 +137,12 @@ Route::get('reports/centers-report/{id}', [ReportController::class, 'generateCen
 
 // --------------------- Login Routes ------------------------
 Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
+// ------------------------------------------------------------
+
+
+
+/////////////////////////////////////////MOBILE Route////////////////////////////////////////////////////////////////////////////
+
+// --------------------- Mother Data Routes ------------------------
+Route::post('motherData/add-motherData', [MotherDataController::class, 'store']);
 // ------------------------------------------------------------
