@@ -4,19 +4,21 @@ class ApiEndpoints {
   // *********************************************
 
   // --------------- Total Count Endpoints -------------------
-  static const String getTotalCount = '$baseUrl/general/home-total-count';
+  static const String getTotalCount =
+      '$baseUrl/ministry/general/home-total-count';
   // --------------------------------------------------
 
   // --------------- Post Endpoints -------------------
-  static const String getPosts = '$baseUrl/posts';
-  static const String addPost = '$baseUrl/posts/add-post';
-  static const String updatePost = '$baseUrl/posts/update-post';
-  static const String deletePost = '$baseUrl/posts/delete-post';
-  static const String forceDeletePost = '$baseUrl/posts/force-delete';
-  static const String forceDeleteAllPosts = '$baseUrl/posts/force-delete-all';
-  static const String restorePost = '$baseUrl/posts/restore';
-  static const String restoreAllPost = '$baseUrl/posts/restore-all';
-  static const String getTrashedPost = '$baseUrl/posts/trashed';
+  static const String getPosts = '$baseUrl/ministry/posts';
+  static const String addPost = '$baseUrl/ministry/posts/add-post';
+  static const String updatePost = '$baseUrl/ministry/posts/update-post';
+  static const String deletePost = '$baseUrl/ministry/posts/delete-post';
+  static const String forceDeletePost = '$baseUrl/ministry/posts/force-delete';
+  static const String forceDeleteAllPosts =
+      '$baseUrl/ministry/posts/force-delete-all';
+  static const String restorePost = '$baseUrl/ministry/posts/restore';
+  static const String restoreAllPost = '$baseUrl/ministry/posts/restore-all';
+  static const String getTrashedPost = '$baseUrl/ministry/posts/trashed';
   // --------------------------------------------------
 
   // --------------- Gender Endpoints -------------------
@@ -24,15 +26,18 @@ class ApiEndpoints {
   // --------------------------------------------------
 
   // --------------- Office Endpoints -------------------
-  static const String updateOffice = '$baseUrl/offices/update-office';
-  static const String getOfficesCentersCount = '$baseUrl/offices/centers-count';
-  static const String getRegisteredOffices = '$baseUrl/offices/registered';
-  static const String getUnRegisteredOffices = '$baseUrl/offices/unregistered';
+  static const String updateOffice = '$baseUrl/ministry/offices/update-office';
+  static const String getOfficesCentersCount =
+      '$baseUrl/ministry/offices/centers-count';
+  static const String getRegisteredOffices =
+      '$baseUrl/ministry/offices/registered';
+  static const String getUnRegisteredOffices =
+      '$baseUrl/ministry/offices/unregistered';
   // --------------------------------------------------
 
   // --------------- Healthy Center Endpoints -------------------
-  static const String getCenters = '$baseUrl/centers';
-  static const String getCentersByOffice = '$baseUrl/centers';
+  static const String getCenters = '$baseUrl/ministry/centers';
+  static const String getCentersByOffice = '$baseUrl/ministry/centers';
   // --------------------------------------------------
 
   // --------------- City Endpoints -------------------
@@ -52,19 +57,19 @@ class ApiEndpoints {
   // --------------------------------------------------
 
   // --------------- Create Account Endpoints -------------------
-  static const String register = '$baseUrl/auth/register';
+  static const String register = '$baseUrl/ministry/auth/register';
   // --------------------------------------------------
 
   // --------------- Login Endpoints -------------------
-  static const String login = '$baseUrl/auth/login';
+  static const String login = '$baseUrl/ministry/auth/login';
   // --------------------------------------------------
 
   // --------------- Login Endpoints -------------------
-  static const String getUsers = '$baseUrl/users';
-  static const String getAdmin = '$baseUrl/users/get-admin';
-  static const String addUser = '$baseUrl/users/add-user';
-  static const String updateUser = '$baseUrl/users/update-user';
-  static const String deleteUser = '$baseUrl/users/delete-user';
+  static const String getUsers = '$baseUrl/ministry/users';
+  static const String getAdmin = '$baseUrl/ministry/users/get-admin';
+  static const String addUser = '$baseUrl/ministry/users/add-user';
+  static const String updateUser = '$baseUrl/ministry/users/update-user';
+  static const String deleteUser = '$baseUrl/ministry/users/delete-user';
   // --------------------------------------------------
 
   // --------------- Technical Support Endpoints -------------------
@@ -98,45 +103,52 @@ class ApiEndpoints {
   // --------------------------------------------------
 
   // --------------- Order Endpoints -------------------
-  static const String getIncomingOrders = '$baseUrl/orders/incoming';
-  static const String getInDeliveryOrders = '$baseUrl/orders/in-delivery';
-  static const String getDeliveredOrders = '$baseUrl/orders/delivered';
-  static const String getCancelledOrders = '$baseUrl/orders/cancelled';
+  static const String getIncomingOrders = '$baseUrl/ministry/orders/incoming';
+  static const String getInDeliveryOrders =
+      '$baseUrl/ministry/orders/in-delivery';
+  static const String getDeliveredOrders = '$baseUrl/ministry/orders/delivered';
+  static const String getCancelledOrders = '$baseUrl/ministry/orders/cancelled';
   static const String transferOrderToInDelivery =
       '$baseUrl/orders/to-in-delivery';
-  static const String transferOrderToCancelled = '$baseUrl/orders/to-cancelled';
-  static const String undoCancelled = '$baseUrl/orders/undo-cancelled';
-  static const String getOrdersDateRange = '$baseUrl/orders/date-range';
+  static const String transferOrderToCancelled =
+      '$baseUrl/ministry/orders/to-cancelled';
+  static const String undoCancelled = '$baseUrl/ministry/orders/undo-cancelled';
+  static const String getOrdersDateRange =
+      '$baseUrl/ministry/orders/date-range';
   // --------------------------------------------------
 
   // --------------- Mother Data Endpoints -------------------
-  static const String getMotherDateRange = '$baseUrl/mothers/date-range';
+  static const String getMotherDateRange =
+      '$baseUrl/ministry/mothers/date-range';
   // --------------------------------------------------
 
   // --------------- Reports Endpoints -------------------
-  static const String getCentersReport = '$baseUrl/reports/centers-report';
+  static const String getCentersReport =
+      '$baseUrl/ministry/reports/centers-report';
 
-  static const String getOfficesReport = '$baseUrl/reports/offices-report';
+  static const String getOfficesReport =
+      '$baseUrl/ministry/reports/offices-report';
 
   static const String getVaccinesQtyReport =
-      '$baseUrl/reports/vaccines-qty-report';
+      '$baseUrl/ministry/reports/vaccines-qty-report';
 
-  static const String getStatusReport = '$baseUrl/reports/vaccines-qty-report';
+  static const String getStatusReport =
+      '$baseUrl/ministry/reports/vaccines-qty-report';
   static const String getStatusInAllOfficesReport =
-      '$baseUrl/reports/status-all-offices-report';
+      '$baseUrl/ministry/reports/status-all-offices-report';
   static const String getStatusInAllCentersReport =
-      '$baseUrl/reports/status-all-centers-report';
+      '$baseUrl/ministry/reports/status-all-centers-report';
 
   static const String getAllVaccinesStockReport =
-      '$baseUrl/reports/stock/vaccines-all-report';
+      '$baseUrl/ministry/reports/stock/vaccines-all-report';
   static const String getVaccinesStockCustomReport =
-      '$baseUrl/reports/stock/vaccines-custom-report';
+      '$baseUrl/ministry/reports/stock/vaccines-custom-report';
   static const String getAllVaccinesStockOfSpecificDonorReport =
-      '$baseUrl/reports/stock/vaccines-specific-donor-report';
+      '$baseUrl/ministry/reports/stock/vaccines-specific-donor-report';
   static const String getSpecificVaccineStockOfAllDonorsReport =
-      '$baseUrl/reports/stock/vaccine-all-donors-report';
+      '$baseUrl/ministry/reports/stock/vaccine-all-donors-report';
 
   static const String getAllOrdersReport =
-      '$baseUrl/reports/orders-all-report';
+      '$baseUrl/ministry/reports/orders-all-report';
   // --------------------------------------------------
 }

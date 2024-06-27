@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
+    // ----------------------------- Centers Report ----------------------------------
     public function generateCentersReport($id)
     {
         try {
@@ -35,7 +36,9 @@ class ReportController extends Controller
             ], 500);
         }
     }
+    // -------------------------------------------------------------------------------
 
+    // ----------------------------- Status Report ----------------------------------
     public function generateStatusReport(Request $request)
     {
         try {
@@ -119,7 +122,9 @@ class ReportController extends Controller
             ], 500);
         }
     }
+    // -------------------------------------------------------------------------------
 
+    // ----------------------------- Offices Report ----------------------------------
     public function getOfficesReport()
     {
         try {
@@ -135,7 +140,9 @@ class ReportController extends Controller
             ], 500);
         }
     }
+    // -------------------------------------------------------------------------------
 
+    // ----------------------------- Ministry Vaccines Report ----------------------------------
     public function getVaccinesQtyReport()
     {
         try {
@@ -170,7 +177,9 @@ class ReportController extends Controller
             ], 500);
         }
     }
+    // -------------------------------------------------------------------------------
 
+    // ----------------------------- Ministry Vaccine Statement Report ----------------------------------
     public function generateVaccinesStockCustomReport(Request $request)
     {
         try {
@@ -215,7 +224,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $vaccineStock = Ministry_statement_stock_vaccine::join('vaccine_types', 'ministry_statement_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->join('donors', 'ministry_statement_stock_vaccines.donor_id', '=', 'donors.id')->select('ministry_statement_stock_vaccines.*', 'vaccine_types.vaccine_type', 'donors.donor_name')->where('ministry_statement_stock_vaccines.vaccine_type_id','=', $request->vaccine_type)->whereBetween('ministry_statement_stock_vaccines.date', [$firstDate, $lastDate])->orderBy('ministry_statement_stock_vaccines.id', 'asc')->get();
+            $vaccineStock = Ministry_statement_stock_vaccine::join('vaccine_types', 'ministry_statement_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->join('donors', 'ministry_statement_stock_vaccines.donor_id', '=', 'donors.id')->select('ministry_statement_stock_vaccines.*', 'vaccine_types.vaccine_type', 'donors.donor_name')->where('ministry_statement_stock_vaccines.vaccine_type_id', '=', $request->vaccine_type)->whereBetween('ministry_statement_stock_vaccines.date', [$firstDate, $lastDate])->orderBy('ministry_statement_stock_vaccines.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Vaccines stock retrieved successfully',
@@ -227,4 +236,10 @@ class ReportController extends Controller
             ], 500);
         }
     }
+    // -------------------------------------------------------------------------------
+
+    // ----------------------------- Orders Report ----------------------------------
+
+    // -------------------------------------------------------------------------------
+
 }
