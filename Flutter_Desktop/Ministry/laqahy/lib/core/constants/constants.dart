@@ -2,28 +2,18 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/report_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/home_layout_model.dart';
+import 'package:laqahy/models/status_type_model.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class Constants {
   AudioPlayer audioPlayer = AudioPlayer();
   final decimalFormatter = NumberFormat.decimalPattern();
-
-  ThemeData lightTheme = ThemeData(
-    brightness: Brightness.light,
-    colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),
-    fontFamily: 'Tajawal',
-    scaffoldBackgroundColor: Colors.white,
-    useMaterial3: true,
-  );
-
-  ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-  );
 
   successAudio() {
     audioPlayer.play(AssetSource('sounds/success.mp3'));

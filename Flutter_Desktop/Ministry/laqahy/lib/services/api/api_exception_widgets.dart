@@ -123,6 +123,21 @@ class ApiExceptionWidgets {
     );
   }
 
+  myUserNotFoundInThisCenterAlert() {
+    Constants().errorAudio();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 270,
+        imageUrl: 'assets/images/error.json',
+        backgroundColor: MyColors.redColor,
+        title: 'خطـــأ',
+        description:
+            'عذراً، لا يمكنك تسجيل الدخول بهذا المستخدم لأنه غير موجود في هذا المرفق',
+      ),
+    );
+  }
+
   myInvalidPasswordAlert() {
     Constants().errorAudio();
     myShowDialog(

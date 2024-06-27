@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Mother_data;
 use Exception;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MotherDataController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -113,5 +115,25 @@ class MotherDataController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getDateRange()
+    {
+        try {
+
+            $minDate = Carbon::parse(Mother_data::min('created_at'))->toDateString();
+
+            $maxDate = Carbon::parse(Mother_data::max('created_at'))->toDateString();
+
+            return response()->json([
+                'message' => 'Date range retrieved successfully',
+                'min_date' => $minDate,
+                'max_date' => $maxDate,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

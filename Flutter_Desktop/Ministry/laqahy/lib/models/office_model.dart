@@ -21,7 +21,7 @@ class Office {
       name: json['office_name'] ?? '',
       phone: json['office_phone'] ?? '',
       address: json['office_address'] ?? '',
-      centersCount: json['healthy_center_count'] ?? 0,
+      centersCount: json['healthy_centers_count'] ?? 0,
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : DateTime(1970, 1, 1), // default value if null

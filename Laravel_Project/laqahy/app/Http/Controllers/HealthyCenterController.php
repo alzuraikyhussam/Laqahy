@@ -64,7 +64,11 @@ class HealthyCenterController extends Controller
     public function getCentersByOffice($id)
     {
         try {
-            $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.cities_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->where('healthy_centers.office_id', $id)->orderBy('healthy_centers.id', 'asc')->get();
+            if ($id == 0) {
+                $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.cities_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->orderBy('healthy_centers.id', 'asc')->get();
+            } else {
+                $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.cities_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->where('healthy_centers.office_id', $id)->orderBy('healthy_centers.id', 'asc')->get();
+            }
             return response()->json([
                 'message' => 'Centers retrieved successfully',
                 'data' => $center,

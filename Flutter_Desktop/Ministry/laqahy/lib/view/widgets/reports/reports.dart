@@ -42,7 +42,6 @@ class _ReportsPageState extends State<ReportsPage> {
               context: context,
               onPressed: () {
                 rc.clearTextFields();
-
                 myShowDialog(
                   context: context,
                   widgetName: rc.reportsCardItems[index].onPressed,

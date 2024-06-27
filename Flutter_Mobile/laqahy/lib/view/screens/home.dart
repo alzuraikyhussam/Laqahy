@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/children_vaccine.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class Home extends StatelessWidget {
@@ -35,38 +36,46 @@ class Home extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
                 Container(
                   child: GridView.builder(
                     shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 15,
-                        crossAxisSpacing: 15),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 15,
+                            crossAxisSpacing: 15),
                     itemCount: 4,
                     itemBuilder: (context, i) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: MyColors.primaryColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        width: 50,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              items[i]['icon'],
-                              size: 60,
-                              color: MyColors.primaryColor,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              items[i]['titel'],
-                              style: MyTextStyles.font14BlackBold,
-                            ),
-                          ],
+                      return InkWell(
+                        onTap: () {
+                          Get.to(ChildrenVaccine);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: MyColors.primaryColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          width: 50,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                items[i]['icon'],
+                                size: 60,
+                                color: MyColors.primaryColor,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                items[i]['titel'],
+                                style: MyTextStyles.font14BlackBold,
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },

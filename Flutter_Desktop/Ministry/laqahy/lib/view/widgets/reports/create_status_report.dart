@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/create_status_report_controller.dart';
 import 'package:laqahy/controllers/report_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -17,12 +15,18 @@ class CreateStatusReportDialog extends StatefulWidget {
 }
 
 class _CreateStatusReportDialogState extends State<CreateStatusReportDialog> {
-  CreateStatusReportController csrc = Get.put(CreateStatusReportController());
+  ReportController rc = Get.put(ReportController());
+
+  @override
+  void initState() {
+    rc.fetchMinMaxStatusDates();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: csrc.createStatusReportFormKey,
+      key: rc.createStatusReportFormKey,
       child: AlertDialog(
         alignment: AlignmentDirectional.center,
         actionsAlignment: MainAxisAlignment.center,
@@ -55,40 +59,14 @@ class _CreateStatusReportDialogState extends State<CreateStatusReportDialog> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GetBuilder<CreateStatusReportController>(
-                      builder: (controller) {
-                        return myDropDownMenuButton(
-                          validator: csrc.cityValidator,
-                          width: 220,
-                          hintText: 'المحـافظـة',
-                          items: controller.cities,
-                          onChanged: (String? value) {
-                            controller.changeCitySelectedValue(value!);
-                          },
-                          searchController:
-                              controller.citySearchController.value,
-                          selectedValue: controller.citySelectedValue,
-                        );
-                      },
+                    Expanded(
+                      child: rc.registeredOfficesDropdownMenu(),
                     ),
                     SizedBox(
                       width: 15,
                     ),
-                    GetBuilder<CreateStatusReportController>(
-                      builder: (controller) {
-                        return myDropDownMenuButton(
-                          width: 280,
-                          validator: csrc.centerNameValidator,
-                          hintText: 'المـركـز الصـحـي',
-                          items: controller.centers,
-                          onChanged: (String? value) {
-                            controller.changeCenterSelectedValue(value!);
-                          },
-                          searchController:
-                              controller.centerSearchController.value,
-                          selectedValue: controller.centerSelectedValue,
-                        );
-                      },
+                    Expanded(
+                      child: rc.centersDropdownMenu(),
                     ),
                   ],
                 ),
@@ -99,78 +77,29 @@ class _CreateStatusReportDialogState extends State<CreateStatusReportDialog> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GetBuilder<CreateStatusReportController>(
-                      builder: (controller) {
-                        return myDropDownMenuButton(
-                          validator: csrc.statusTypeValidator,
-                          width: 165,
-                          hintText: 'نـوع الحــالة',
-                          items: controller.statusType,
-                          onChanged: (String? value) {
-                            controller.changeStatusTypeSelectedValue(value!);
-                          },
-                          searchController:
-                              controller.statusTypeSearchController.value,
-                          selectedValue: controller.statusTypeSelectedValue,
-                        );
-                      },
-                    ),
+                    rc.statusTypeDropdownMenu(),
                     SizedBox(
                       width: 15,
                     ),
-                    myTextField(
-                      width: 160,
-                      controller: csrc.beginDateController,
-                      validator: csrc.beginDateValidator,
-                      prefixIcon: Icons.date_range_outlined,
-                      readOnly: true,
+                    rc.dateField(
+                      controller: rc.firstDateController,
                       hintText: 'من تاريـخ',
-                      keyboardType: TextInputType.datetime,
-                      onChanged: (value) {},
-                      onTap: () {
-                        showDatePicker(
-                                context: context,
-                                firstDate: DateTime(2024),
-                                lastDate: DateTime.now())
-                            .then(
-                          (value) {
-                            if (value == null) {
-                              return;
-                            } else {
-                              csrc.beginDateController.text =
-                                  DateFormat.yMMMd().format(value);
-                            }
-                          },
-                        );
+                      validator: rc.firstDateValidator,
+                      onPressedRefresh: () {
+                        rc.fetchMinMaxStatusDates();
+                        Get.back();
                       },
                     ),
                     SizedBox(
                       width: 15,
                     ),
-                    myTextField(
-                      width: 160,
-                      controller: csrc.endDateController,
-                      validator: csrc.endDateValidator,
-                      prefixIcon: Icons.date_range_outlined,
-                      readOnly: true,
+                    rc.dateField(
                       hintText: 'الى تاريـخ',
-                      keyboardType: TextInputType.datetime,
-                      onChanged: (value) {},
-                      onTap: () {
-                        showDatePicker(
-                                context: context,
-                                firstDate: DateTime(2024),
-                                lastDate: DateTime.now())
-                            .then(
-                          (value) {
-                            if (value == null) {
-                              return;
-                            } else {
-                              csrc.endDateController.text =
-                                  DateFormat.yMMMd().format(value);
-                            }
-                          },
-                        );
+                      controller: rc.lastDateController,
+                      validator: rc.lastDateValidator,
+                      onPressedRefresh: () {
+                        rc.fetchMinMaxStatusDates();
+                        Get.back();
                       },
                     ),
                   ],
@@ -183,14 +112,23 @@ class _CreateStatusReportDialogState extends State<CreateStatusReportDialog> {
           ),
         ),
         actions: [
-          myButton(
-            onPressed: () {
-              if (csrc.createStatusReportFormKey.currentState!.validate()) {}
-            },
-            width: 150,
-            text: 'إنشــاء تقـريــر',
-            textStyle: MyTextStyles.font16WhiteBold,
-          ),
+          Obx(() {
+            return rc.isGenerateStatusReportLoading.value
+                ? myLoadingIndicator()
+                : myButton(
+                    onPressed: rc.isGenerateStatusReportLoading.value
+                        ? null
+                        : () {
+                            if (rc.createStatusReportFormKey.currentState!
+                                .validate()) {
+                              rc.handleStatusReportOptions();
+                            }
+                          },
+                    width: 150,
+                    text: 'إنشــاء تقـريــر',
+                    textStyle: MyTextStyles.font16WhiteBold,
+                  );
+          }),
           myButton(
             width: 150,
             onPressed: () {

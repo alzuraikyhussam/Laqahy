@@ -16,6 +16,9 @@ class LoginController extends GetxController {
   var isLoading = false.obs;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  changePasswordVisibility() {
+    isVisible.value = !isVisible.value;
+  }
 
   TextEditingController idNumberController = TextEditingController();
   String? idNumberValidator(Value) {
@@ -63,7 +66,7 @@ class LoginController extends GetxController {
         Login user = Login.fromJson(data['user']);
 
         sdc.userLoggedData.assignAll([user]);
-
+        
         Get.offAll(const HomeLayout());
         return;
       } else if (response.statusCode == 404) {
