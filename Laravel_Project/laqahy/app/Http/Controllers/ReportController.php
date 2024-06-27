@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Child_data;
 use App\Models\Healthy_center;
+use App\Models\Ministry_stock_vaccine;
 use App\Models\Mother_data;
+use App\Models\Office;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -29,7 +31,6 @@ class ReportController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
-
             ], 500);
         }
     }
@@ -110,6 +111,38 @@ class ReportController extends Controller
             return response()->json([
                 'message' => 'Data retrieved successfully',
                 'data' => $data,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getOfficesReport()
+    {
+        try {
+            $office = Office::withCount('healthyCenter as healthy_centers_count')->where('office_phone', '!=', null)->get();
+
+            return response()->json([
+                'message' => 'Offices retrieved successfully',
+                'data' => $office,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getVaccinesQtyReport()
+    {
+        try {
+            $vaccineQty = Ministry_stock_vaccine::join('vaccine_types', 'ministry_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->select('ministry_stock_vaccines.*', 'vaccine_types.vaccine_type')->get();
+
+            return response()->json([
+                'message' => 'Vaccines quantity retrieved successfully',
+                'data' => $vaccineQty,
             ]);
         } catch (Exception $e) {
             return response()->json([

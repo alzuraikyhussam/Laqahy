@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/create_status_report_controller.dart';
 import 'package:laqahy/controllers/report_controller.dart';
-import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -19,6 +16,12 @@ class CreateStatusReportDialog extends StatefulWidget {
 
 class _CreateStatusReportDialogState extends State<CreateStatusReportDialog> {
   ReportController rc = Get.put(ReportController());
+
+  @override
+  void initState() {
+    rc.fetchMinMaxStatusDates();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

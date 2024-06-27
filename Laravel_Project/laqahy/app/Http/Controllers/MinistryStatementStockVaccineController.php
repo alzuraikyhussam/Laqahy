@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ministry_statement_stock_vaccine;
 use App\Models\Ministry_stock_vaccine;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -142,16 +143,35 @@ class MinistryStatementStockVaccineController extends Controller
                 ], 401);
             } else {
                 $quantityToRemove = $statement->quantity;
-    
+
                 $newQty = $vaccine->quantity - $quantityToRemove;
-    
+
                 $vaccine->update(['quantity' => $newQty]);
-    
+
                 $statement->delete();
-    
+
                 return response()->json(['message' => 'Statement deleted successfully',], 200);
             }
-            
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getDateRange()
+    {
+        try {
+
+            $minDate = Carbon::parse(Ministry_statement_stock_vaccine::min('date'))->toDateString();
+
+            $maxDate = Carbon::parse(Ministry_statement_stock_vaccine::max('date'))->toDateString();
+
+            return response()->json([
+                'message' => 'Date range retrieved successfully',
+                'min_date' => $minDate,
+                'max_date' => $maxDate,
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

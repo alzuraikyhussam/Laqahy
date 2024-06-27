@@ -96,7 +96,7 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function login(Request $request, $centerId = null)
     {
         try {
             $validator = Validator::make(
@@ -119,6 +119,14 @@ class AuthController extends Controller
                 return response()->json([
                     'message' => 'User not found',
                 ], 404);
+            }
+
+            if ($centerId != null) {
+                if ($centerId != $user->healthy_center_id) {
+                    return response()->json([
+                        'message' => 'User not found in this healthy center',
+                    ], 402);
+                }
             }
 
             if (!($request->user_account_password === $user->user_account_password)) {

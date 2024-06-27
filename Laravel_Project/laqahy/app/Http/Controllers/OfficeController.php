@@ -77,7 +77,7 @@ class OfficeController extends Controller
     public function getCentersCount()
     {
         try {
-            $office = Office::withCount('healthyCenter')->where('office_phone', '!=', null)->get();
+            $office = Office::withCount('healthyCenter as healthy_centers_count')->where('office_phone', '!=', null)->get();
 
             return response()->json([
                 'message' => 'Offices retrieved successfully',

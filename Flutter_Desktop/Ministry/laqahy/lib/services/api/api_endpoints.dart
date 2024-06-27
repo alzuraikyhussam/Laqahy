@@ -84,6 +84,8 @@ class ApiEndpoints {
       '$baseUrl/ministry/vaccines/update-statement';
   static const String deleteVaccineStatement =
       '$baseUrl/ministry/vaccines/delete-statement';
+  static const String getVaccineStockDateRange =
+      '$baseUrl/ministry/vaccines/date-range';
   // --------------------------------------------------
 
   // --------------- Donor Endpoints -------------------
@@ -102,13 +104,16 @@ class ApiEndpoints {
   static const String undoCancelled = '$baseUrl/orders/undo-cancelled';
   // --------------------------------------------------
 
-  // --------------- Mother Date Endpoints -------------------
+  // --------------- Mother Data Endpoints -------------------
   static const String getMotherDateRange = '$baseUrl/mothers/date-range';
   // --------------------------------------------------
 
   // --------------- Reports Endpoints -------------------
   static const String getCentersReport = '$baseUrl/reports/centers-report';
-  static const String getStatusReport = '$baseUrl/reports/status-report';
+  static const String getOfficesReport = '$baseUrl/reports/offices-report';
+  static const String getVaccinesQtyReport =
+      '$baseUrl/reports/vaccines-qty-report';
+  static const String getStatusReport = '$baseUrl/reports/vaccines-qty-report';
   static const String getStatusInAllOfficesReport =
       '$baseUrl/reports/status-all-offices-report';
   static const String getStatusInAllCentersReport =

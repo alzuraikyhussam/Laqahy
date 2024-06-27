@@ -1,23 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
-import 'package:laqahy/core/utils/pdf_widgets/pdf_widgets.dart';
-import 'package:laqahy/models/center_model.dart';
+import 'package:laqahy/core/utils/pdf/pdf_widgets/pdf_widgets.dart';
+import 'package:laqahy/models/vaccine_quantity_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class StatusPdfGenerator {
+class VaccinesPdfGenerator {
   StaticDataController sdc = Get.find<StaticDataController>();
   String? managerName;
-  final List<List<dynamic>> data;
+  final List<Vaccine> data;
   String? reportName;
-  final List tableHeader;
 
-  StatusPdfGenerator({
+  VaccinesPdfGenerator({
     required this.data,
-    required this.tableHeader,
     required this.managerName,
     required this.reportName,
   });
@@ -54,18 +51,34 @@ class StatusPdfGenerator {
           child:
               pdfWidgets.buildHeader(centerData: sdc.centerData.first.phone!),
         ),
-        pdfWidgets.buildTitle(
-          title: reportName ?? '',
-        ),
+        pdfWidgets.buildTitle(title: reportName ?? ''),
         pw.SizedBox(height: 20),
         pw.TableHelper.fromTextArray(
-          headers: tableHeader,
-          data: data,
+          headers: [
+            'الكمية المتبقية',
+            'اسم اللقاح',
+            'م',
+          ],
+          data: data
+              .map(
+                (vaccine) => [
+                  vaccine.quantity,
+                  vaccine.vaccineType,
+                  vaccine.id,
+                ],
+              )
+              .toList(),
           headerStyle: tableHeaderTextStyle,
           cellStyle: tableBodyTextStyle,
           headerDecoration: const pw.BoxDecoration(
             color: PdfColors.grey300,
           ),
+          columnWidths: {
+            0: const pw.FlexColumnWidth(1),
+            1: const pw.FlexColumnWidth(4),
+            // 2: const pw.FlexColumnWidth(4),
+          },
+          // defaultColumnWidth: const pw.IntrinsicColumnWidth(),
           cellHeight: 30,
           cellAlignment: pw.Alignment.center,
           cellDecoration: (index, data, rowNum) => rowNum % 2 == 0
@@ -118,7 +131,7 @@ class StatusPdfGenerator {
             italic: ttf,
             boldItalic: ttf,
           ),
-          pageFormat: PdfPageFormat.a4.landscape.copyWith(
+          pageFormat: PdfPageFormat.a4.copyWith(
             marginLeft: 30,
             marginRight: 30,
             marginTop: 30,
@@ -147,7 +160,7 @@ class StatusPdfGenerator {
     );
 
     pdfWidgets.savePdfDocument(
-      fileName: 'status_report.pdf',
+      fileName: 'vaccines_report.pdf',
       pdf: pdf,
     );
   }

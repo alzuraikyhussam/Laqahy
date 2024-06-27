@@ -18,7 +18,7 @@ import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class VaccineController extends GetxController {
-  var vaccines = <VaccineQuantity>[].obs;
+  var vaccines = <Vaccine>[].obs;
   var vaccineStatement = <VaccineStatement>[].obs;
   var fetchDataFuture = Future<void>.value().obs;
   var filteredVaccines = [].obs;
@@ -60,14 +60,14 @@ class VaccineController extends GetxController {
   TextEditingController donorController = TextEditingController();
   String? donorValidator(value) {
     if (value == null) {
-      return 'يجب اختيار الجهة المانحة ';
+      return 'يجب اختيار الجهة المانحة';
     }
     return null;
   }
 
   String? addDonorValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يجب ادخال اسم الجهة المانحة ';
+      return 'يجب ادخال اسم الجهة المانحة';
     } else if (RegExp(r'[^a-zA-Z\u0600-\u06FF\s]').hasMatch(value)) {
       return 'لا يمكن ادخال ارقام او رموز';
     }
@@ -304,8 +304,7 @@ class VaccineController extends GetxController {
         if (response.statusCode == 200) {
           isLoading(false);
           List<dynamic> jsonData = json.decode(response.body)['data'] as List;
-          vaccines.value =
-              jsonData.map((e) => VaccineQuantity.fromJson(e)).toList();
+          vaccines.value = jsonData.map((e) => Vaccine.fromJson(e)).toList();
         } else if (response.statusCode == 500) {
           isLoading(false);
           ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);

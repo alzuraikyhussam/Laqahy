@@ -17,6 +17,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
+use App\Models\Ministry_statement_stock_vaccine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -81,7 +82,7 @@ Route::get('directorates/{id}', [DirectorateController::class, 'show']);
 
 // --------------------- Auth Routes ------------------------
 Route::post('auth/register', [AuthController::class, 'register']);
-Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/login/{center_id?}', [AuthController::class, 'login']);
 // ------------------------------------------------------------
 
 // --------------------- User Routes ------------------------
@@ -105,6 +106,7 @@ Route::get('ministry/vaccines', [MinistryStockVaccineController::class, 'index']
 // ------------------------------------------------------------
 
 // --------------------- Ministry Statement Stock Vaccines Routes ------------------------
+Route::get('ministry/vaccines/date-range', [MinistryStatementStockVaccineController::class, 'getDateRange']);
 Route::post('ministry/vaccines/add-quantity', [MinistryStatementStockVaccineController::class, 'store']);
 Route::get('ministry/vaccines/statement', [MinistryStatementStockVaccineController::class, 'index']);
 Route::patch('ministry/vaccines/update-statement/{id}', [MinistryStatementStockVaccineController::class, 'update']);
@@ -135,6 +137,8 @@ Route::get('reports/centers-report/{id}', [ReportController::class, 'generateCen
 Route::get('reports/status-report', [ReportController::class, 'generateStatusReport']);
 Route::get('reports/status-all-offices-report', [ReportController::class, 'generateStatusInAllOfficesReport']);
 Route::get('reports/status-all-centers-report', [ReportController::class, 'generateStatusInAllCentersReport']);
+Route::get('reports/offices-report', [ReportController::class, 'getOfficesReport']);
+Route::get('reports/vaccines-qty-report', [ReportController::class, 'getVaccinesQtyReport']);
 // ------------------------------------------------------------
 
 

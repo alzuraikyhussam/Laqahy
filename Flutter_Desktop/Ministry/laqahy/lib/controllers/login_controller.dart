@@ -50,8 +50,10 @@ class LoginController extends GetxController {
         userAccountName: userNameController.text,
         userAccountPassword: passwordController.text,
       );
+      var centerId = await sdc.storageService.getCenterId();
+      print(centerId);
       var response = await http.post(
-        Uri.parse(ApiEndpoints.login),
+        Uri.parse('${ApiEndpoints.login}/$centerId'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -80,6 +82,10 @@ class LoginController extends GetxController {
 
         Get.offAll(const HomeLayout());
         isLoading(false);
+        return;
+      } else if (response.statusCode == 402) {
+        isLoading(false);
+        ApiExceptionWidgets().myUserNotFoundInThisCenterAlert();
         return;
       } else if (response.statusCode == 404) {
         isLoading(false);

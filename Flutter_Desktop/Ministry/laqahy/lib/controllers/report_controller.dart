@@ -1,38 +1,44 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/core/utils/centers_pdf_generator.dart';
-import 'package:laqahy/core/utils/status_pdf_generator.dart';
+import 'package:laqahy/core/utils/pdf/centers_pdf_generator.dart';
+import 'package:laqahy/core/utils/pdf/offices_pdf_generator.dart';
+import 'package:laqahy/core/utils/pdf/status_pdf_generator.dart';
+import 'package:laqahy/core/utils/pdf/vaccines_pdf_generator.dart';
 import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/child_data_model.dart';
-import 'package:laqahy/models/home_layout_model.dart';
+import 'package:laqahy/models/donor_model.dart';
 import 'package:laqahy/models/mother_data_model.dart';
 import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/models/report_card_model.dart';
 import 'package:laqahy/models/status_type_model.dart';
 import 'package:laqahy/models/user_models.dart';
+import 'package:laqahy/models/vaccine_quantity_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/reports/create_centers_report.dart';
+import 'package:laqahy/view/widgets/reports/create_ofices_report.dart';
 import 'package:laqahy/view/widgets/reports/create_orders_report.dart';
 import 'package:laqahy/view/widgets/reports/create_status_report.dart';
-import 'package:laqahy/view/widgets/reports/create_vaccine_report.dart';
+import 'package:laqahy/view/widgets/reports/create_vaccinea_stock_report.dart';
 import 'package:http/http.dart' as http;
+import 'package:laqahy/view/widgets/reports/create_vaccines_report.dart';
 
 class ReportController extends GetxController {
   @override
-  onInit() async {
+  onInit() {
     fetchRegisteredOfficesInDropDownMenu();
-    await fetchMinMaxStatusDates();
+    fetchDonors();
+    fetchVaccinesStockInDropDownMenu();
     super.onInit();
   }
 
@@ -55,9 +61,9 @@ class ReportController extends GetxController {
 
   List<ReportCardItem> reportsCardItems = [
     ReportCardItem(
-      imageName: 'assets/icons/status-icon.png',
-      title: 'تقرير عن الحالات',
-      onPressed: const CreateStatusReportDialog(),
+      imageName: 'assets/icons/office.png',
+      title: 'تقرير عن المكاتب',
+      onPressed: const CreateOfficesReportDialog(),
     ),
     ReportCardItem(
       imageName: 'assets/icons/centers-icon.png',
@@ -65,9 +71,19 @@ class ReportController extends GetxController {
       onPressed: const CreateCentersReportDialog(),
     ),
     ReportCardItem(
+      imageName: 'assets/icons/status-icon.png',
+      title: 'تقرير عن الحالات',
+      onPressed: const CreateStatusReportDialog(),
+    ),
+    ReportCardItem(
+      imageName: 'assets/icons/vaccine.png',
+      title: 'تقرير عن كمية اللقاحات',
+      onPressed: const CreateVaccinesReportDialog(),
+    ),
+    ReportCardItem(
       imageName: 'assets/icons/vaccines-icon.png',
-      title: 'تقرير عن اللقاحات',
-      onPressed: const CreateVaccineReportDialog(),
+      title: 'تقرير عن حركة المخزون',
+      onPressed: const CreateVaccinesStockReportDialog(),
     ),
     ReportCardItem(
       imageName: 'assets/icons/orders-icon.png',
@@ -91,7 +107,12 @@ class ReportController extends GetxController {
     firstDateController.clear();
     lastDateController.clear();
     selectedStatusType.value = null;
+    selectedCenter.value = null;
+    selectedDonor.value = null;
+    selectedVaccine.value = null;
   }
+
+  // --------------------- Centers Report -------------------------------------
 
   Future<void> fetchAdminData() async {
     try {
@@ -109,14 +130,17 @@ class ReportController extends GetxController {
         adminData.value = jsonData.map((e) => User.fromJson(e)).toList();
       } else {
         isFetchAdminDataLoading(false);
+        Get.back();
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
       }
     } on SocketException catch (_) {
       isFetchAdminDataLoading(false);
+      Get.back();
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isFetchAdminDataLoading(false);
+      Get.back();
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       print(e);
     } finally {
@@ -335,6 +359,8 @@ class ReportController extends GetxController {
 
 // ----------------------------------------------------------
 
+// --------------------- Status Report -------------------------------------
+
   GlobalKey<FormState> createStatusReportFormKey = GlobalKey<FormState>();
   var isCentersLoading = false.obs;
   var centersErrorMsg = ''.obs;
@@ -357,6 +383,42 @@ class ReportController extends GetxController {
 
   final TextEditingController statusTypeSearchController =
       TextEditingController();
+
+  //////////
+  TextEditingController firstDateController = TextEditingController();
+  String? firstDateValidator(value) {
+    if (value.isEmpty) {
+      return 'اختر تاريخ البداية';
+    }
+    return null;
+  }
+
+  //////////
+  TextEditingController lastDateController = TextEditingController();
+  String? lastDateValidator(value) {
+    if (value.isEmpty) {
+      return 'اختر تاريخ النهاية';
+    }
+    return null;
+  }
+
+  /////////////
+
+  String? centersValidator(value) {
+    if (value == null) {
+      return 'قم باختيار المركز الصحي';
+    }
+    return null;
+  }
+
+  /////////////
+
+  String? statusTypeValidator(value) {
+    if (value == null) {
+      return 'قم باختيار نوع الحالة';
+    }
+    return null;
+  }
 
   final List<StatusType> statusTypes = [
     StatusType(
@@ -396,42 +458,6 @@ class ReportController extends GetxController {
         selectedValue: rc.selectedStatusType.value,
       );
     });
-  }
-
-  /////////////
-
-  String? statusTypeValidator(value) {
-    if (value == null) {
-      return 'قم باختيار نوع الحالة';
-    }
-    return null;
-  }
-
-  //////////
-  TextEditingController firstDateController = TextEditingController();
-  String? firstDateValidator(value) {
-    if (value.isEmpty) {
-      return 'اختر تاريخ البداية';
-    }
-    return null;
-  }
-
-  //////////
-  TextEditingController lastDateController = TextEditingController();
-  String? lastDateValidator(value) {
-    if (value.isEmpty) {
-      return 'اختر تاريخ النهاية';
-    }
-    return null;
-  }
-
-  /////////////
-
-  String? centersValidator(value) {
-    if (value == null) {
-      return 'قم باختيار المركز الصحي';
-    }
-    return null;
   }
 
   dateField({
@@ -985,4 +1011,478 @@ class ReportController extends GetxController {
       isGenerateStatusReportLoading(false);
     }
   }
+
+// ----------------------------------------------------------
+
+// --------------------- Offices Report -------------------------------------
+
+  var offices = <Office>[].obs;
+
+  Future<void> fetchOfficesReport() async {
+    try {
+      var response = await http.get(
+        Uri.parse(ApiEndpoints.getOfficesReport),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<Office> fetchedOffice =
+            jsonData.map((office) => Office.fromJson(office)).toList();
+        offices.assignAll(fetchedOffice);
+
+        if (adminData.isEmpty) {
+          await fetchAdminData();
+        }
+
+        await generateOfficesReportPdf(context: Get.context!);
+      } else {
+        Get.back();
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+      }
+    } on SocketException catch (_) {
+      Get.back();
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      Get.back();
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {}
+  }
+
+  Future<void> generateOfficesReportPdf({
+    required BuildContext context,
+  }) async {
+    try {
+      final pdfGenerator = OfficesPdfGenerator(
+        reportName:
+            'تقرير عن جميع مكاتب الصحة والسكان في محافظات الجمهورية اليمنية',
+        data: offices,
+        managerName: adminData.first.name,
+      );
+      await pdfGenerator.generatePdf(context);
+    } catch (e) {
+      Get.back();
+      ApiExceptionWidgets().myGeneratePdfFailureAlert();
+    }
+  }
+
+// ----------------------------------------------------------
+
+// --------------------- Vaccines Quantity Report -------------------------------------
+
+  var vaccinesQty = <Vaccine>[].obs;
+
+  Future<void> fetchVaccinesQtyReport() async {
+    try {
+      var response = await http.get(
+        Uri.parse(ApiEndpoints.getVaccinesQtyReport),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<Vaccine> fetchedVaccine =
+            jsonData.map((vaccine) => Vaccine.fromJson(vaccine)).toList();
+        vaccinesQty.assignAll(fetchedVaccine);
+        print(jsonData);
+
+        if (adminData.isEmpty) {
+          await fetchAdminData();
+        }
+
+        await generateVaccinesReportPdf(context: Get.context!);
+      } else {
+        Get.back();
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+      }
+    } on SocketException catch (_) {
+      Get.back();
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      Get.back();
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {}
+  }
+
+  Future<void> generateVaccinesReportPdf({
+    required BuildContext context,
+  }) async {
+    try {
+      final pdfGenerator = VaccinesPdfGenerator(
+        reportName: 'تقرير عن الكمية المتبقية من اللقاحات',
+        data: vaccinesQty,
+        managerName: adminData.first.name,
+      );
+      await pdfGenerator.generatePdf(context);
+    } catch (e) {
+      Get.back();
+      ApiExceptionWidgets().myGeneratePdfFailureAlert();
+    }
+  }
+
+// ----------------------------------------------------------
+
+// --------------------- Vaccines Stock Report -------------------------------------
+
+  GlobalKey<FormState> createVaccinesStockReportFormKey =
+      GlobalKey<FormState>();
+
+  var vaccinesStockDropDownMenu = <Vaccine>[].obs;
+  var selectedVaccine = Rx<Vaccine?>(null);
+  var vaccinesStockErrorMsg = ''.obs;
+  var isVaccinesStockDropDownMenuLoading = false.obs;
+
+  var donorsDropDiwnMenu = <Donor>[].obs;
+  var selectedDonor = Rx<Donor?>(null);
+  var donorErrorMsg = ''.obs;
+  var isDonorLoading = false.obs;
+
+  TextEditingController vaccinesStockDropDownMenuSearchController =
+      TextEditingController();
+  TextEditingController donorsDropDownMenuSearchController =
+      TextEditingController();
+
+  String? vaccinesStockValidator(value) {
+    if (value == null) {
+      return 'قم باختيار نوع اللقاح';
+    }
+    return null;
+  }
+
+  //////////
+  String? donorValidator(value) {
+    if (value == null) {
+      return 'قم باختيار الجهة المانحة';
+    }
+    return null;
+  }
+
+  Future<void> fetchMinMaxVaccinesStockDates() async {
+    try {
+      datesErrorMsg('');
+      isDatesLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getVaccineStockDateRange),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isDatesLoading(false);
+        var data = json.decode(response.body);
+        firstDate.value = DateTime.parse(data['min_date']);
+        lastDate.value = DateTime.parse(data['max_date']);
+      } else {
+        isDatesLoading(false);
+        print(response.body);
+        datesErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isDatesLoading(false);
+      datesErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isDatesLoading(false);
+      datesErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isDatesLoading(false);
+    }
+  }
+
+  Widget vaccinesDropdownMenu() {
+    return Obx(() {
+      if (isVaccinesStockDropDownMenuLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'اختر اللقاح',
+          items: [
+            DropdownMenuItem(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          selectedValue: null,
+          validator: vaccinesStockValidator,
+        );
+      }
+
+      if (vaccinesStockErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            cons.errorAudio();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: vaccinesStockErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    fetchVaccinesStockInDropDownMenu();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'اختر اللقاح',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: vaccinesStockValidator,
+          ),
+        );
+      }
+
+      if (vaccinesStockDropDownMenu.isEmpty) {
+        return InkWell(
+          onTap: () {
+            cons.errorAudio();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على لقاحات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    fetchVaccinesStockInDropDownMenu();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'اختر اللقاح',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: vaccinesStockValidator,
+          ),
+        );
+      }
+
+      return myDropDownMenuButton2<Vaccine>(
+        hintText: 'اختر اللقاح',
+        validator: vaccinesStockValidator,
+        items: vaccinesStockDropDownMenu.map((element) {
+          return DropdownMenuItem<Vaccine>(
+            value: element,
+            child: Text(
+              element.vaccineType ?? '',
+              style: MyTextStyles.font16BlackMedium,
+            ),
+          );
+        }).toList(),
+        onChanged: (Vaccine? value) {
+          if (value != null) {
+            if (value.id == 0) {
+              selectedVaccine.value = value;
+            } else {
+              selectedVaccine.value = value;
+            }
+          } else {
+            selectedVaccine.value = null;
+          }
+        },
+        searchController: vaccinesStockDropDownMenuSearchController,
+        selectedValue: selectedVaccine.value,
+      );
+    });
+  }
+
+  Widget donorsDropdownMenu() {
+    return Obx(() {
+      if (isDonorLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'الجهة المانحة',
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          selectedValue: null,
+          validator: donorValidator,
+        );
+      }
+
+      if (donorErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            Constants().errorAudio();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: donorErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    fetchDonors();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'الجهة المانحة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: donorValidator,
+          ),
+        );
+      }
+
+      if (donorsDropDiwnMenu.isEmpty) {
+        return InkWell(
+          onTap: () {
+            Constants().errorAudio();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    fetchDonors();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'الجهة المانحة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: donorValidator,
+          ),
+        );
+      }
+
+      return myDropDownMenuButton2<Donor>(
+        hintText: 'الجهة المانحة',
+        validator: donorValidator,
+        items: donorsDropDiwnMenu.map((element) {
+          return DropdownMenuItem<Donor>(
+            value: element,
+            child: Text(
+              element.name,
+              style: MyTextStyles.font16BlackMedium,
+            ),
+          );
+        }).toList(),
+        onChanged: (Donor? value) {
+          if (value != null) {
+            selectedDonor.value = value;
+          } else {
+            selectedDonor.value = null;
+          }
+        },
+        searchController: donorsDropDownMenuSearchController,
+        selectedValue: selectedDonor.value,
+      );
+    });
+  }
+
+  void fetchVaccinesStockInDropDownMenu() async {
+    try {
+      vaccinesStockErrorMsg('');
+      isVaccinesStockDropDownMenuLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getVaccineStatement),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isVaccinesStockDropDownMenuLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<Vaccine> fetchedVaccineStock =
+            jsonData.map((e) => Vaccine.fromJson(e)).toList();
+
+        fetchedVaccineStock.insert(0, Vaccine(id: 0, vaccineType: 'الكل'));
+
+        vaccinesStockDropDownMenu.assignAll(fetchedVaccineStock);
+      } else {
+        isVaccinesStockDropDownMenuLoading(false);
+        vaccinesStockErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isVaccinesStockDropDownMenuLoading(false);
+      vaccinesStockErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isVaccinesStockDropDownMenuLoading(false);
+      vaccinesStockErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isVaccinesStockDropDownMenuLoading(false);
+    }
+  }
+
+  void fetchDonors() async {
+    try {
+      donorErrorMsg('');
+      isDonorLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getDonors),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isDonorLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<Donor> fetchedDonor =
+            jsonData.map((e) => Donor.fromJson(e)).toList();
+        donorsDropDiwnMenu.assignAll(fetchedDonor);
+
+        fetchedDonor.insert(0, Donor(id: 0, name: 'الكل'));
+
+        donorsDropDiwnMenu.assignAll(fetchedDonor);
+      } else {
+        isDonorLoading(false);
+        donorErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isDonorLoading(false);
+      donorErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isDonorLoading(false);
+      donorErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isDonorLoading(false);
+    }
+  }
+
+  void handleVaccinesStockReportOptions() {
+    if (selectedVaccine.value!.id == 0 && selectedDonor.value!.id == 0) {
+      // fetchAllVaccinesOfAllDonorsReport();
+    } else if (selectedVaccine.value!.id == 0) {
+      // fetchAllVaccinesOfSpecificDonorReport();
+    } else if (selectedDonor.value!.id == 0) {
+      // fetchSpecificVaccineOfAllDonorsReport();
+    }
+  }
+
+// ----------------------------------------------------------
 }
