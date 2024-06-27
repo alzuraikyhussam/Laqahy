@@ -69,16 +69,22 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 15,
                         ),
-                        myTextField(
-                          controller: lc.passwordController,
-                          validator: lc.passwordValidator,
-                          labelText: 'كلمة المرور',
-                          prefixIcon: Icons.password_outlined,
-                          suffixIcon: Icons.visibility_off_outlined,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
-                          onChanged: (p0) {},
-                        ),
+                        Obx(() {
+                          return myTextField(
+                              controller: lc.passwordController,
+                              validator: lc.passwordValidator,
+                              labelText: 'كلمة المرور',
+                              prefixIcon: Icons.password_outlined,
+                              suffixIcon: lc.isVisible.value
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              keyboardType: TextInputType.visiblePassword,
+                              obscureText: lc.isVisible.value ? false : true,
+                              onChanged: (p0) {},
+                              onTapSuffixIcon: () {
+                                lc.changePasswordVisibility();
+                              });
+                        }),
                         SizedBox(
                           height: 5,
                         ),

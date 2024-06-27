@@ -93,7 +93,6 @@ class HomeController extends GetxController {
       } catch (e) {
         isLoading(false);
         errorMsg('خطأ غير متوقع\n${e.toString()}');
-        print(e);
       } finally {
         isLoading(false);
       }

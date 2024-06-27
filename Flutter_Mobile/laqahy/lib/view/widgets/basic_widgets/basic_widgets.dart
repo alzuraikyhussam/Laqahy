@@ -148,6 +148,7 @@ myTextField({
   Color? fillColor,
   TextAlign textAlign = TextAlign.right,
   void Function()? onTap,
+  void Function()? onTapSuffixIcon,
 }) {
   return SizedBox(
     width: width?.toDouble(),
@@ -198,7 +199,7 @@ myTextField({
             : null,
         suffixIcon: suffixIcon != null
             ? InkWell(
-                onTap: () {},
+                onTap: onTapSuffixIcon,
                 child: Icon(
                   suffixIcon,
                   color: MyColors.greyColor.withOpacity(0.8),

@@ -236,7 +236,7 @@ class CreateAccountController extends GetxController {
       return;
     } catch (e) {
       isLoading(false);
-      print(e);
+
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);

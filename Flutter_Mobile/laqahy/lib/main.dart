@@ -14,6 +14,7 @@ import 'package:laqahy/view/screens/fingerprint_check.dart';
 import 'package:laqahy/view/screens/home.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/logout.dart';
+import 'package:laqahy/view/screens/profile.dart';
 import 'package:laqahy/view/screens/reset_password.dart';
 import 'package:laqahy/view/screens/reset_password_verification.dart';
 import 'package:laqahy/view/screens/settings_page.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: Login(),
+      home: HomeLayout(),
     );
   }
 }

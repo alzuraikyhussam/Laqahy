@@ -19,46 +19,46 @@ class SettingsScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: MyColors.primaryColor,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 350,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  myCircleAvatar(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'مرحبا بك',
-                    style: MyTextStyles.font16WhiteBold,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 200,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: MyColors.secondaryColor,
-                      borderRadius: BorderRadius.circular(5),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 350,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    myCircleAvatar(),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    child: Text(
-                      'زينب محمد صالح الاشول',
+                    Text(
+                      'مرحبا بك',
                       style: MyTextStyles.font16WhiteBold,
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 200,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: MyColors.secondaryColor,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        'زينب محمد صالح الاشول',
+                        style: MyTextStyles.font16WhiteBold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 0,
-            ),
-            SingleChildScrollView(
-              child: Container(
+              SizedBox(
+                height: 0,
+              ),
+              Container(
                 width: 395,
                 height: 387,
                 decoration: BoxDecoration(
@@ -128,8 +128,8 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
