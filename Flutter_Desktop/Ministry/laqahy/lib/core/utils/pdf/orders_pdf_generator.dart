@@ -59,7 +59,7 @@ class OrdersPdfGenerator {
         pw.SizedBox(height: 20),
         pw.TableHelper.fromTextArray(
           headers: [
-            'تاريخ التوصيل',
+            'تاريخ التسليم',
             'تاريخ الطلب',
             'حالة الطلب',
             'الكمية',
@@ -70,8 +70,13 @@ class OrdersPdfGenerator {
           data: data
               .map(
                 (data) => [
-                  DateFormat('dd-MM-yyyy HH:mm').format(data.deliveryDate!),
-                  DateFormat('dd-MM-yyyy HH:mm').format(data.orderDate!),
+                  data.deliveryDate == null
+                      ? ''
+                      : DateFormat('dd-MM-yyyy HH:mm')
+                          .format(data.deliveryDate!),
+                  data.orderDate == null
+                      ? ''
+                      : DateFormat('dd-MM-yyyy HH:mm').format(data.orderDate!),
                   data.orderStateName,
                   data.quantity,
                   data.vaccineType,
@@ -166,7 +171,7 @@ class OrdersPdfGenerator {
     );
 
     pdfWidgets.savePdfDocument(
-      fileName: 'orders_stock_report.pdf',
+      fileName: 'orders_report.pdf',
       pdf: pdf,
     );
   }

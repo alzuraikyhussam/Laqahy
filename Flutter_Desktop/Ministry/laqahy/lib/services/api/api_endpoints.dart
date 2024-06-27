@@ -109,7 +109,7 @@ class ApiEndpoints {
   static const String getDeliveredOrders = '$baseUrl/ministry/orders/delivered';
   static const String getCancelledOrders = '$baseUrl/ministry/orders/cancelled';
   static const String transferOrderToInDelivery =
-      '$baseUrl/orders/to-in-delivery';
+      '$baseUrl/ministry/orders/to-in-delivery';
   static const String transferOrderToCancelled =
       '$baseUrl/ministry/orders/to-cancelled';
   static const String undoCancelled = '$baseUrl/ministry/orders/undo-cancelled';
@@ -150,5 +150,19 @@ class ApiEndpoints {
 
   static const String getAllOrdersReport =
       '$baseUrl/ministry/reports/orders-all-report';
+  static const String getAllVaccinesOfAllOfficesOrdersReport =
+      '$baseUrl/ministry/reports/orders-vaccines-offices-report';
+  static const String getAllStatesOfAllOfficesOrdersReport =
+      '$baseUrl/ministry/reports/orders-states-offices-report';
+  static const String getAllStatesOfAllVaccinesOrdersReport =
+      '$baseUrl/ministry/reports/orders-states-vaccines-report';
+  static const String getAllOfficesOrdersReport =
+      '$baseUrl/ministry/reports/orders-offices-report';
+  static const String getAllVaccinesOrdersReport =
+      '$baseUrl/ministry/reports/orders-vaccines-report';
+  static const String getAllStatesOrdersReport =
+      '$baseUrl/ministry/reports/orders-states-report';
+  static const String getCustomOrdersReport =
+      '$baseUrl/ministry/reports/orders-custom-report';
   // --------------------------------------------------
 }

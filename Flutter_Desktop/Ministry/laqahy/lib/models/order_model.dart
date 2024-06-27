@@ -34,7 +34,7 @@ class Order {
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
       id: json['id'] ?? 0,
-      orderStateName: json['order_state_name'] ?? '',
+      orderStateName: json['order_state'] ?? '',
       officeName: json['office_name'] ?? '',
       officeNoteData: json['office_note_data'] ?? '',
       ministryNoteData: json['ministry_note_data'] ?? '',
@@ -46,7 +46,7 @@ class Order {
           : DateTime(1970, 1, 1), // default value if null
       deliveryDate: json['delivery_date'] != null
           ? DateTime.parse(json['delivery_date'])
-          : DateTime(1970, 1, 1),
+          : null,
       updatedAt: json['updated_at'] != null
           ? DateTime.parse(json['updated_at'])
           : DateTime(1970, 1, 1),

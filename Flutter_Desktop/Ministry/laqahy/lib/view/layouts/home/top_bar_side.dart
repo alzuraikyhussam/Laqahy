@@ -113,17 +113,17 @@ class _HomeTopBarSideState extends State<HomeTopBarSide> {
               const SizedBox(
                 width: 30,
               ),
-              myIconButton(
-                icon: Icons.dark_mode_outlined,
-                onTap: ()  {},
-                gradientColors: [
-                  MyColors.primaryColor,
-                  MyColors.secondaryColor,
-                ],
-              ),
-              const SizedBox(
-                width: 10,
-              ),
+              // myIconButton(
+              //   icon: Icons.dark_mode_outlined,
+              //   onTap: ()  {},
+              //   gradientColors: [
+              //     MyColors.primaryColor,
+              //     MyColors.secondaryColor,
+              //   ],
+              // ),
+              // const SizedBox(
+              //   width: 10,
+              // ),
               myIconButton(
                 icon: FontAwesomeIcons.minus,
                 onTap: () {

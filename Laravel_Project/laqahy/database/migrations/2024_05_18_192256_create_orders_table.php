@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('office_id')->constrained('offices')->onUpdate('cascade');
             $table->dateTime('order_date')->useCurrent();
             $table->integer('quantity');
-            $table->date('delivery_date')->nullable();
+            $table->dateTime('delivery_date')->nullable();
             $table->text('office_note_data')->nullable();
             $table->text('ministry_note_data')->nullable();
             $table->foreignId('order_state_id')->constrained('order_states')->onUpdate('cascade');

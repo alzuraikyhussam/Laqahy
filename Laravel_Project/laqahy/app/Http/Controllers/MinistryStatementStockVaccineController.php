@@ -57,9 +57,9 @@ class MinistryStatementStockVaccineController extends Controller
                 'donor_id' => $request->donor_id,
             ]);
 
-            $updateVaccineQty = Ministry_stock_vaccine::where('vaccine_type_id', $request->vaccine_type_id)->first();
-            $newQty = $updateVaccineQty->quantity + $request->quantity;
-            $updateVaccineQty->update([
+            $vaccineQty = Ministry_stock_vaccine::where('vaccine_type_id', $request->vaccine_type_id)->first();
+            $newQty = $vaccineQty->quantity + $request->quantity;
+            $vaccineQty->update([
                 'quantity' => $newQty,
             ]);
 
@@ -89,6 +89,22 @@ class MinistryStatementStockVaccineController extends Controller
     public function update(Request $request, $id)
     {
         try {
+
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'vaccine_type_id' => 'required',
+                    'quantity' => 'required',
+                    'donor_id' => 'required',
+                ],
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
+
             $statement = Ministry_statement_stock_vaccine::find($id);
 
             if (!$statement) {
@@ -96,28 +112,30 @@ class MinistryStatementStockVaccineController extends Controller
                     'message' => 'Statement not found',
                 ], 404);
             }
+
+            $oldQty = $statement->quantity;
+            $newQty = $request->quantity;
+            $quantityDifference = $newQty - $oldQty;
+
             $vaccine = Ministry_stock_vaccine::where('vaccine_type_id', $statement->vaccine_type_id)->first();
-            if ($vaccine->quantity !== $statement->quantity) {
+
+            // التحقق من ان التحديث لن يؤدي الى قيمة سالبة
+            if ($vaccine->quantity + $quantityDifference < 0) {
                 return response()->json([
-                    'message' => 'Vaccine quantity used. Can not update it now',
+                    'message' => 'Can not update this vaccine statement now',
                 ], 401);
-            } else {
-                $oldQty = $statement->quantity;
-                $newQty = $request->quantity;
-                $quantityDifference = $newQty - $oldQty;
-
-                $vaccine = Ministry_stock_vaccine::where('vaccine_type_id', $statement->vaccine_type_id)->first();
-
-                $updatedQty = $vaccine->quantity + $quantityDifference;
-
-                $vaccine->update(['quantity' => $updatedQty]);
-                $statement->update(['donor_id' => $request->donor_id, 'quantity' => $request->quantity]);
-
-                // إعادة الاستجابة بالبيانات المحدثة
-                return response()->json([
-                    'message' => 'Statement updated successfully',
-                ], 200);
             }
+
+            // تحديث الكمية في جدول بيان اللقاح
+            $statement->update(['donor_id' => $request->donor_id, 'quantity' => $newQty]);
+
+            // تحديث الكمية في جدول اللقاحات
+            $updatedQty = $vaccine->quantity + $quantityDifference;
+            $vaccine->update(['quantity' => $updatedQty]);
+
+            return response()->json([
+                'message' => 'Statement updated successfully',
+            ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -132,26 +150,32 @@ class MinistryStatementStockVaccineController extends Controller
     {
         try {
             $statement = Ministry_statement_stock_vaccine::find($id);
-            $vaccine = Ministry_stock_vaccine::where('vaccine_type_id', $statement->vaccine_type_id)->first();
 
             if (!$statement) {
-                return response()->json(['message' => 'Statement not found',], 404);
-            }
-            if ($vaccine->quantity !== $statement->quantity) {
                 return response()->json([
-                    'message' => 'Vaccine quantity used. Can not delete it now',
-                ], 401);
-            } else {
-                $quantityToRemove = $statement->quantity;
-
-                $newQty = $vaccine->quantity - $quantityToRemove;
-
-                $vaccine->update(['quantity' => $newQty]);
-
-                $statement->delete();
-
-                return response()->json(['message' => 'Statement deleted successfully',], 200);
+                    'message' => 'Statement not found',
+                ], 404);
             }
+
+            $vaccine = Ministry_stock_vaccine::where('vaccine_type_id', $statement->vaccine_type_id)->first();
+
+            // التحقق من ان الحذف لن يؤدي الى قيمة سالبة
+            if ($vaccine->quantity < $statement->quantity) {
+                return response()->json([
+                    'message' => 'Can not delete this vaccine statement now',
+                ], 401);
+            }
+
+            // تحديث الكمية في جدول اللقاحات
+            $newQty = $vaccine->quantity - $statement->quantity;
+            $vaccine->update(['quantity' => $newQty]);
+
+            // حذف السجل من جدول بيان اللقاح
+            $statement->delete();
+
+            return response()->json([
+                'message' => 'Statement deleted successfully',
+            ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
