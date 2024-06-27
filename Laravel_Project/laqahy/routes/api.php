@@ -38,19 +38,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
 // --------------------- General Routes ------------------------
-Route::get('general/home-total-count', [GeneralController::class, 'getTotalCount']);
+Route::get('ministry/general/home-total-count', [GeneralController::class, 'getTotalCount']);
 // ------------------------------------------------------------
 
 // --------------------- Post Routes ------------------------
-Route::get('posts/trashed', [PostController::class, 'trashedPosts']);
-Route::delete('posts/force-delete/{id}', [PostController::class, 'forceDelete']);
-Route::delete('posts/force-delete-all', [PostController::class, 'forceDeleteAll']);
-Route::patch('posts/restore/{id}', [PostController::class, 'restore']);
-Route::patch('posts/restore-all', [PostController::class, 'restoreAll']);
-Route::post('posts/add-post', [PostController::class, 'store']);
-Route::get('posts', [PostController::class, 'index']);
-Route::patch('posts/update-post/{id}', [PostController::class, 'update']);
-Route::delete('posts/delete-post/{id}', [PostController::class, 'destroy']);
+Route::get('ministry/posts/trashed', [PostController::class, 'trashedPosts']);
+Route::delete('ministry/posts/force-delete/{id}', [PostController::class, 'forceDelete']);
+Route::delete('ministry/posts/force-delete-all', [PostController::class, 'forceDeleteAll']);
+Route::patch('ministry/posts/restore/{id}', [PostController::class, 'restore']);
+Route::patch('ministry/posts/restore-all', [PostController::class, 'restoreAll']);
+Route::post('ministry/posts/add-post', [PostController::class, 'store']);
+Route::get('ministry/posts', [PostController::class, 'index']);
+Route::patch('ministry/posts/update-post/{id}', [PostController::class, 'update']);
+Route::delete('ministry/posts/delete-post/{id}', [PostController::class, 'destroy']);
 // ------------------------------------------------------------
 
 // --------------------- Gender Routes ------------------------
@@ -70,15 +70,15 @@ Route::get('order-states', [OrderStateController::class, 'index']);
 // ------------------------------------------------------------
 
 // --------------------- Office Routes ------------------------
-Route::get('offices/centers-count', [OfficeController::class, 'getCentersCount']);
-Route::get('offices/registered', [OfficeController::class, 'getRegisteredOffices']);
-Route::get('offices/unregistered', [OfficeController::class, 'getUnRegisteredOffices']);
-Route::patch('offices/update-office/{id}', [OfficeController::class, 'update']);
+Route::get('ministry/offices/centers-count', [OfficeController::class, 'getCentersCount']);
+Route::get('ministry/offices/registered', [OfficeController::class, 'getRegisteredOffices']);
+Route::get('ministry/offices/unregistered', [OfficeController::class, 'getUnRegisteredOffices']);
+Route::patch('ministry/offices/update-office/{id}', [OfficeController::class, 'update']);
 // ------------------------------------------------------------
 
 // --------------------- Healthy Center Routes ------------------------
-Route::get('centers', [HealthyCenterController::class, 'index']);
-Route::get('centers/{id}', [HealthyCenterController::class, 'getCentersByOffice']);
+Route::get('ministry/centers', [HealthyCenterController::class, 'index']);
+Route::get('ministry/centers/{id}', [HealthyCenterController::class, 'getCentersByOffice']);
 // ------------------------------------------------------------
 
 // --------------------- Directorate Routes ------------------------
@@ -86,16 +86,16 @@ Route::get('directorates/{id}', [DirectorateController::class, 'show']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------
-Route::post('auth/register', [AuthController::class, 'register']);
-Route::post('auth/login/{center_id?}', [AuthController::class, 'login']);
+Route::post('ministry/auth/register', [AuthController::class, 'register']);
+Route::post('ministry/auth/login/{center_id?}', [AuthController::class, 'login']);
 // ------------------------------------------------------------
 
 // --------------------- User Routes ------------------------
-Route::get('users/get-admin/{id}', [UserController::class, 'getAdminData']);
-Route::post('users/add-user', [UserController::class, 'store']);
-Route::patch('users/update-user/{id}', [UserController::class, 'update']);
-Route::get('users/{id}', [UserController::class, 'show']);
-Route::delete('users/delete-user/{id}', [UserController::class, 'destroy']);
+Route::get('ministry/users/get-admin/{id}', [UserController::class, 'getAdminData']);
+Route::post('ministry/users/add-user', [UserController::class, 'store']);
+Route::patch('ministry/users/update-user/{id}', [UserController::class, 'update']);
+Route::get('ministry/users/{id}', [UserController::class, 'show']);
+Route::delete('ministry/users/delete-user/{id}', [UserController::class, 'destroy']);
 // ------------------------------------------------------------
 
 // --------------------- Technical Support Routes ------------------------
@@ -124,31 +124,31 @@ Route::get('donors', [DonorController::class, 'index']);
 // ------------------------------------------------------------
 
 // --------------------- Order Routes ------------------------
-Route::get('orders/date-range', [OrderController::class, 'getDateRange']);
-Route::patch('orders/to-in-delivery/{id}', [OrderController::class, 'transferToInDelivery']);
-Route::patch('orders/to-cancelled/{id}', [OrderController::class, 'transferToCancelled']);
-Route::patch('orders/undo-cancelled/{id}', [OrderController::class, 'undoCancelled']);
-Route::get('orders/incoming', [OrderController::class, 'incomingOrders']);
-Route::get('orders/in-delivery', [OrderController::class, 'inDeliveryOrders']);
-Route::get('orders/delivered', [OrderController::class, 'deliveredOrders']);
-Route::get('orders/cancelled', [OrderController::class, 'cancelledOrders']);
+Route::get('ministry/orders/date-range', [OrderController::class, 'getDateRange']);
+Route::patch('ministry/orders/to-in-delivery/{id}', [OrderController::class, 'transferToInDelivery']);
+Route::patch('ministry/orders/to-cancelled/{id}', [OrderController::class, 'transferToCancelled']);
+Route::patch('ministry/orders/undo-cancelled/{id}', [OrderController::class, 'undoCancelled']);
+Route::get('ministry/orders/incoming', [OrderController::class, 'incomingOrders']);
+Route::get('ministry/orders/in-delivery', [OrderController::class, 'inDeliveryOrders']);
+Route::get('ministry/orders/delivered', [OrderController::class, 'deliveredOrders']);
+Route::get('ministry/orders/cancelled', [OrderController::class, 'cancelledOrders']);
 // ------------------------------------------------------------
 
 // --------------------- Mother Data Routes ------------------------
-Route::get('mothers/date-range', [MotherDataController::class, 'getDateRange']);
+Route::get('ministry/mothers/date-range', [MotherDataController::class, 'getDateRange']);
 // ------------------------------------------------------------
 
 // --------------------- Report Routes ------------------------
-Route::get('reports/centers-report/{id}', [ReportController::class, 'generateCentersReport']);
-Route::get('reports/status-report', [ReportController::class, 'generateStatusReport']);
-Route::get('reports/status-all-offices-report', [ReportController::class, 'generateStatusInAllOfficesReport']);
-Route::get('reports/status-all-centers-report', [ReportController::class, 'generateStatusInAllCentersReport']);
-Route::get('reports/offices-report', [ReportController::class, 'getOfficesReport']);
-Route::get('reports/vaccines-qty-report', [ReportController::class, 'getVaccinesQtyReport']);
-Route::get('reports/stock/vaccines-all-report', [ReportController::class, 'generateVaccinesStockAllReport']);
-Route::get('reports/stock/vaccines-custom-report', [ReportController::class, 'generateVaccinesStockCustomReport']);
-Route::get('reports/stock/vaccines-specific-donor-report', [ReportController::class, 'generateAllVaccinesStockOfSpecificDonorReport']);
-Route::get('reports/stock/vaccine-all-donors-report', [ReportController::class, 'generateSpecificVaccineStockOfAllDonorsReport']);
+Route::get('ministry/reports/centers-report/{id}', [ReportController::class, 'generateCentersReport']);
+Route::get('ministry/reports/status-report', [ReportController::class, 'generateStatusReport']);
+Route::get('ministry/reports/status-all-offices-report', [ReportController::class, 'generateStatusInAllOfficesReport']);
+Route::get('ministry/reports/status-all-centers-report', [ReportController::class, 'generateStatusInAllCentersReport']);
+Route::get('ministry/reports/offices-report', [ReportController::class, 'getOfficesReport']);
+Route::get('ministry/reports/vaccines-qty-report', [ReportController::class, 'getVaccinesQtyReport']);
+Route::get('ministry/reports/stock/vaccines-all-report', [ReportController::class, 'generateVaccinesStockAllReport']);
+Route::get('ministry/reports/stock/vaccines-custom-report', [ReportController::class, 'generateVaccinesStockCustomReport']);
+Route::get('ministry/reports/stock/vaccines-specific-donor-report', [ReportController::class, 'generateAllVaccinesStockOfSpecificDonorReport']);
+Route::get('ministry/reports/stock/vaccine-all-donors-report', [ReportController::class, 'generateSpecificVaccineStockOfAllDonorsReport']);
 // ------------------------------------------------------------
 
 

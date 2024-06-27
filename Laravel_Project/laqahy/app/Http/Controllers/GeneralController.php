@@ -23,7 +23,7 @@ class GeneralController extends Controller
             $mothersCount = Mother_data::count();
             $childrenCount = Child_data::count();
             $vaccinesCount = Vaccine_type::count();
-            $orderState = Order_state::where('order_state', 'delivered')->first();
+            $orderState = Order_state::where('order_state', 'تم التسليم')->first();
             $ordersCount = Order::where('order_state_id', $orderState->id)->count();
             $postsCount = Post::count();
 
