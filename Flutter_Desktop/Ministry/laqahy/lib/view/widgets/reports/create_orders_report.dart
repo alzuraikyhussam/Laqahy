@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/create_orders_report_controller.dart';
 import 'package:laqahy/controllers/report_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -17,12 +15,18 @@ class CreateOrdersReportDialog extends StatefulWidget {
 }
 
 class _CreateOrdersReportDialogState extends State<CreateOrdersReportDialog> {
-  CreateOrdersReportController corc = Get.put(CreateOrdersReportController());
+  ReportController rc = Get.put(ReportController());
+
+  @override
+  void initState() {
+    rc.fetchMinMaxOrdersDates();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: corc.createOrdersReportFormKey,
+      key: rc.createOrdersReportFormKey,
       child: AlertDialog(
         alignment: AlignmentDirectional.center,
         actionsAlignment: MainAxisAlignment.center,
@@ -45,7 +49,7 @@ class _CreateOrdersReportDialogState extends State<CreateOrdersReportDialog> {
                   ),
                 ),
                 Text(
-                  'تقريـر عــن الطلبــات',
+                  'تقريـر عــن الطبــات',
                   style: MyTextStyles.font18PrimaryBold,
                 ),
                 SizedBox(
@@ -55,40 +59,14 @@ class _CreateOrdersReportDialogState extends State<CreateOrdersReportDialog> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GetBuilder<CreateOrdersReportController>(
-                      builder: (controller) {
-                        return myDropDownMenuButton(
-                          width: 220,
-                          validator: corc.cityValidator,
-                          hintText: 'المحـافظـة',
-                          items: controller.cities,
-                          onChanged: (String? value) {
-                            controller.changeCitySelectedValue(value!);
-                          },
-                          searchController:
-                              controller.citySearchController.value,
-                          selectedValue: controller.citySelectedValue,
-                        );
-                      },
+                    Expanded(
+                      child: rc.registeredOfficesDropdownMenu(),
                     ),
                     SizedBox(
                       width: 15,
                     ),
-                    GetBuilder<CreateOrdersReportController>(
-                      builder: (controller) {
-                        return myDropDownMenuButton(
-                          width: 280,
-                          validator: corc.centerNameValidator,
-                          hintText: 'المـركـز الصـحـي',
-                          items: controller.centers,
-                          onChanged: (String? value) {
-                            controller.changeCenterSelectedValue(value!);
-                          },
-                          searchController:
-                              controller.centerSearchController.value,
-                          selectedValue: controller.centerSelectedValue,
-                        );
-                      },
+                    Expanded(
+                      child: rc.vaccinesDropdownMenu(),
                     ),
                   ],
                 ),
@@ -99,79 +77,34 @@ class _CreateOrdersReportDialogState extends State<CreateOrdersReportDialog> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GetBuilder<CreateOrdersReportController>(
-                      builder: (controller) {
-                        return myDropDownMenuButton(
-                          width: 165,
-                          validator: corc.orderStatusValidator,
-                          hintText: 'حـالـة الطلـب',
-                          items: controller.orderStatus,
-                          onChanged: (String? value) {
-                            controller.changeOrderStatusSelectedValue(value!);
-                          },
-                          searchController:
-                              controller.orderStatusSearchController.value,
-                          selectedValue: controller.orderStatusSelectedValue,
-                        );
-                      },
+                    rc.orderStateDropdownMenu(),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Expanded(
+                      child: rc.dateField(
+                        controller: rc.firstDateController,
+                        hintText: 'من تاريـخ',
+                        validator: rc.firstDateValidator,
+                        onPressedRefresh: () {
+                          rc.fetchMinMaxOrdersDates();
+                          Get.back();
+                        },
+                      ),
                     ),
                     SizedBox(
                       width: 15,
                     ),
-                    myTextField(
-                      width: 160,
-                      controller: corc.beginDateController,
-                      validator: corc.beginDateValidator,
-                      prefixIcon: Icons.date_range_outlined,
-                      readOnly: true,
-                      hintText: 'من تاريـخ',
-                      keyboardType: TextInputType.datetime,
-                      onChanged: (value) {},
-                      onTap: () {
-                        showDatePicker(
-                                context: context,
-                                firstDate: DateTime(2024),
-                                lastDate: DateTime.now())
-                            .then(
-                          (value) {
-                            if (value == null) {
-                              return;
-                            } else {
-                              corc.beginDateController.text =
-                                  DateFormat.yMMMd().format(value);
-                            }
-                          },
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    myTextField(
-                      width: 160,
-                      controller: corc.endDateController,
-                      validator: corc.endDateValidator,
-                      prefixIcon: Icons.date_range_outlined,
-                      readOnly: true,
-                      hintText: 'الى تاريـخ',
-                      keyboardType: TextInputType.datetime,
-                      onChanged: (value) {},
-                      onTap: () {
-                        showDatePicker(
-                                context: context,
-                                firstDate: DateTime(2024),
-                                lastDate: DateTime.now())
-                            .then(
-                          (value) {
-                            if (value == null) {
-                              return;
-                            } else {
-                              corc.endDateController.text =
-                                  DateFormat.yMMMd().format(value);
-                            }
-                          },
-                        );
-                      },
+                    Expanded(
+                      child: rc.dateField(
+                        hintText: 'الى تاريـخ',
+                        controller: rc.lastDateController,
+                        validator: rc.lastDateValidator,
+                        onPressedRefresh: () {
+                          rc.fetchMinMaxOrdersDates();
+                          Get.back();
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -183,14 +116,23 @@ class _CreateOrdersReportDialogState extends State<CreateOrdersReportDialog> {
           ),
         ),
         actions: [
-          myButton(
-            onPressed: () {
-              if (corc.createOrdersReportFormKey.currentState!.validate()) {}
-            },
-            width: 150,
-            text: 'إنشــاء تقـريــر',
-            textStyle: MyTextStyles.font16WhiteBold,
-          ),
+          Obx(() {
+            return rc.isGenerateOrdersReportLoading.value
+                ? myLoadingIndicator()
+                : myButton(
+                    onPressed: rc.isGenerateOrdersReportLoading.value
+                        ? null
+                        : () {
+                            if (rc.createOrdersReportFormKey.currentState!
+                                .validate()) {
+                              rc.handleOrdersReportOptions();
+                            }
+                          },
+                    width: 150,
+                    text: 'إنشــاء تقـريــر',
+                    textStyle: MyTextStyles.font16WhiteBold,
+                  );
+          }),
           myButton(
             width: 150,
             onPressed: () {

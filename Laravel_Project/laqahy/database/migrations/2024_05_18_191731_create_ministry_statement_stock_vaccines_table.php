@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('vaccine_type_id')->constrained('vaccine_types')->onUpdate('cascade');
             $table->integer('quantity');
             $table->foreignId('donor_id')->constrained('donors')->onUpdate('cascade');
-            $table->timestamp('date');
+            $table->timestamp('date')->useCurrent();
             $table->softDeletes();
         });
     }

@@ -60,7 +60,9 @@ class _CreateVaccinesStockReportDialogState
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(child: rc.vaccinesDropdownMenu()),
+                    Expanded(
+                      child: rc.vaccinesDropdownMenu(),
+                    ),
                     SizedBox(
                       width: 15,
                     ),
@@ -112,10 +114,10 @@ class _CreateVaccinesStockReportDialogState
         ),
         actions: [
           Obx(() {
-            return rc.isVaccinesStockDropDownMenuLoading.value
+            return rc.isGenerateVaccinesStockReportLoading.value
                 ? myLoadingIndicator()
                 : myButton(
-                    onPressed: rc.isVaccinesStockDropDownMenuLoading.value
+                    onPressed: rc.isGenerateVaccinesStockReportLoading.value
                         ? null
                         : () {
                             if (rc

@@ -10,17 +10,22 @@ import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/utils/pdf/centers_pdf_generator.dart';
 import 'package:laqahy/core/utils/pdf/offices_pdf_generator.dart';
+import 'package:laqahy/core/utils/pdf/orders_pdf_generator.dart';
 import 'package:laqahy/core/utils/pdf/status_pdf_generator.dart';
 import 'package:laqahy/core/utils/pdf/vaccines_pdf_generator.dart';
+import 'package:laqahy/core/utils/pdf/vaccines_stock_pdf_generator.dart';
 import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/child_data_model.dart';
 import 'package:laqahy/models/donor_model.dart';
 import 'package:laqahy/models/mother_data_model.dart';
 import 'package:laqahy/models/office_model.dart';
+import 'package:laqahy/models/order_model.dart';
+import 'package:laqahy/models/order_state_model.dart';
 import 'package:laqahy/models/report_card_model.dart';
 import 'package:laqahy/models/status_type_model.dart';
 import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/models/vaccine_quantity_model.dart';
+import 'package:laqahy/models/vaccine_statement_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
@@ -38,7 +43,7 @@ class ReportController extends GetxController {
   onInit() {
     fetchRegisteredOfficesInDropDownMenu();
     fetchDonors();
-    fetchVaccinesStockInDropDownMenu();
+    fetchVaccinesInDropDownMenu();
     super.onInit();
   }
 
@@ -110,6 +115,7 @@ class ReportController extends GetxController {
     selectedCenter.value = null;
     selectedDonor.value = null;
     selectedVaccine.value = null;
+    selectedOrderState.value = null;
   }
 
   // --------------------- Centers Report -------------------------------------
@@ -1135,17 +1141,20 @@ class ReportController extends GetxController {
   GlobalKey<FormState> createVaccinesStockReportFormKey =
       GlobalKey<FormState>();
 
-  var vaccinesStockDropDownMenu = <Vaccine>[].obs;
+  var vaccinesDropDownMenu = <Vaccine>[].obs;
   var selectedVaccine = Rx<Vaccine?>(null);
   var vaccinesStockErrorMsg = ''.obs;
-  var isVaccinesStockDropDownMenuLoading = false.obs;
+  var isVaccinesDropDownMenuLoading = false.obs;
 
-  var donorsDropDiwnMenu = <Donor>[].obs;
+  var donorsDropDownMenu = <Donor>[].obs;
   var selectedDonor = Rx<Donor?>(null);
   var donorErrorMsg = ''.obs;
   var isDonorLoading = false.obs;
 
-  TextEditingController vaccinesStockDropDownMenuSearchController =
+  var isGenerateVaccinesStockReportLoading = false.obs;
+  var vaccinesStock = <VaccineStatement>[].obs;
+
+  TextEditingController vaccinesDropDownMenuSearchController =
       TextEditingController();
   TextEditingController donorsDropDownMenuSearchController =
       TextEditingController();
@@ -1198,7 +1207,7 @@ class ReportController extends GetxController {
 
   Widget vaccinesDropdownMenu() {
     return Obx(() {
-      if (isVaccinesStockDropDownMenuLoading.value) {
+      if (isVaccinesDropDownMenuLoading.value) {
         return myDropDownMenuButton2(
           hintText: 'اختر اللقاح',
           items: [
@@ -1228,7 +1237,7 @@ class ReportController extends GetxController {
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
-                    fetchVaccinesStockInDropDownMenu();
+                    fetchVaccinesInDropDownMenu();
                     Get.back();
                   },
                 ));
@@ -1244,7 +1253,7 @@ class ReportController extends GetxController {
         );
       }
 
-      if (vaccinesStockDropDownMenu.isEmpty) {
+      if (vaccinesDropDownMenu.isEmpty) {
         return InkWell(
           onTap: () {
             cons.errorAudio();
@@ -1257,7 +1266,7 @@ class ReportController extends GetxController {
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
-                    fetchVaccinesStockInDropDownMenu();
+                    fetchVaccinesInDropDownMenu();
                     Get.back();
                   },
                 ));
@@ -1276,7 +1285,7 @@ class ReportController extends GetxController {
       return myDropDownMenuButton2<Vaccine>(
         hintText: 'اختر اللقاح',
         validator: vaccinesStockValidator,
-        items: vaccinesStockDropDownMenu.map((element) {
+        items: vaccinesDropDownMenu.map((element) {
           return DropdownMenuItem<Vaccine>(
             value: element,
             child: Text(
@@ -1296,7 +1305,7 @@ class ReportController extends GetxController {
             selectedVaccine.value = null;
           }
         },
-        searchController: vaccinesStockDropDownMenuSearchController,
+        searchController: vaccinesDropDownMenuSearchController,
         selectedValue: selectedVaccine.value,
       );
     });
@@ -1350,7 +1359,7 @@ class ReportController extends GetxController {
         );
       }
 
-      if (donorsDropDiwnMenu.isEmpty) {
+      if (donorsDropDownMenu.isEmpty) {
         return InkWell(
           onTap: () {
             Constants().errorAudio();
@@ -1382,7 +1391,7 @@ class ReportController extends GetxController {
       return myDropDownMenuButton2<Donor>(
         hintText: 'الجهة المانحة',
         validator: donorValidator,
-        items: donorsDropDiwnMenu.map((element) {
+        items: donorsDropDownMenu.map((element) {
           return DropdownMenuItem<Donor>(
             value: element,
             child: Text(
@@ -1404,10 +1413,10 @@ class ReportController extends GetxController {
     });
   }
 
-  void fetchVaccinesStockInDropDownMenu() async {
+  void fetchVaccinesInDropDownMenu() async {
     try {
       vaccinesStockErrorMsg('');
-      isVaccinesStockDropDownMenuLoading(true);
+      isVaccinesDropDownMenuLoading(true);
       final response = await http.get(
         Uri.parse(ApiEndpoints.getVaccineStatement),
         headers: {
@@ -1415,27 +1424,27 @@ class ReportController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        isVaccinesStockDropDownMenuLoading(false);
+        isVaccinesDropDownMenuLoading(false);
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
         List<Vaccine> fetchedVaccineStock =
             jsonData.map((e) => Vaccine.fromJson(e)).toList();
 
         fetchedVaccineStock.insert(0, Vaccine(id: 0, vaccineType: 'الكل'));
 
-        vaccinesStockDropDownMenu.assignAll(fetchedVaccineStock);
+        vaccinesDropDownMenu.assignAll(fetchedVaccineStock);
       } else {
-        isVaccinesStockDropDownMenuLoading(false);
+        isVaccinesDropDownMenuLoading(false);
         vaccinesStockErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
       }
     } on SocketException catch (_) {
-      isVaccinesStockDropDownMenuLoading(false);
+      isVaccinesDropDownMenuLoading(false);
       vaccinesStockErrorMsg(
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
-      isVaccinesStockDropDownMenuLoading(false);
+      isVaccinesDropDownMenuLoading(false);
       vaccinesStockErrorMsg('خطأ غير متوقع\n${e.toString()}');
     } finally {
-      isVaccinesStockDropDownMenuLoading(false);
+      isVaccinesDropDownMenuLoading(false);
     }
   }
 
@@ -1454,11 +1463,11 @@ class ReportController extends GetxController {
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
         List<Donor> fetchedDonor =
             jsonData.map((e) => Donor.fromJson(e)).toList();
-        donorsDropDiwnMenu.assignAll(fetchedDonor);
+        donorsDropDownMenu.assignAll(fetchedDonor);
 
         fetchedDonor.insert(0, Donor(id: 0, name: 'الكل'));
 
-        donorsDropDiwnMenu.assignAll(fetchedDonor);
+        donorsDropDownMenu.assignAll(fetchedDonor);
       } else {
         isDonorLoading(false);
         donorErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
@@ -1476,11 +1485,482 @@ class ReportController extends GetxController {
 
   void handleVaccinesStockReportOptions() {
     if (selectedVaccine.value!.id == 0 && selectedDonor.value!.id == 0) {
-      // fetchAllVaccinesOfAllDonorsReport();
+      fetchAllVaccinesStockReport();
     } else if (selectedVaccine.value!.id == 0) {
-      // fetchAllVaccinesOfSpecificDonorReport();
+      fetchAllVaccinesStockOfSpecificDonorReport();
     } else if (selectedDonor.value!.id == 0) {
-      // fetchSpecificVaccineOfAllDonorsReport();
+      fetchSpecificVaccineStockOfAllDonorsReport();
+    } else {
+      fetchVaccinesStockCustomReport();
+    }
+  }
+
+  Future<void> fetchAllVaccinesStockReport() async {
+    try {
+      isGenerateVaccinesStockReportLoading(true);
+      var response = await http.get(
+        Uri.parse(
+            '${ApiEndpoints.getAllVaccinesStockReport}?first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+
+        vaccinesStock.value =
+            jsonData.map((e) => VaccineStatement.fromJson(e)).toList();
+
+        if (adminData.isEmpty) {
+          await fetchAdminData();
+        }
+
+        await generateVaccinesStockReportPdf(
+          context: Get.context!,
+          reportName:
+              'تقرير عن حركة مخزون جميع اللقاحات الواردة من جميع الجهات المانحة من تاريخ ${firstDateController.text} الى تاريخ ${lastDateController.text}',
+        );
+      } else {
+        isGenerateVaccinesStockReportLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isGenerateVaccinesStockReportLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isGenerateVaccinesStockReportLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isGenerateVaccinesStockReportLoading(false);
+    }
+  }
+
+  Future<void> fetchVaccinesStockCustomReport() async {
+    try {
+      isGenerateVaccinesStockReportLoading(true);
+      var response = await http.get(
+        Uri.parse(
+            '${ApiEndpoints.getVaccinesStockCustomReport}?vaccine_type=${selectedVaccine.value!.vaccineTypeId}&donor=${selectedDonor.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+
+        vaccinesStock.value =
+            jsonData.map((e) => VaccineStatement.fromJson(e)).toList();
+
+        if (adminData.isEmpty) {
+          await fetchAdminData();
+        }
+
+        await generateVaccinesStockReportPdf(
+          context: Get.context!,
+          reportName:
+              'تقرير عن حركة مخزون لقاح ${selectedVaccine.value?.vaccineType} الواردة من جهة ${selectedDonor.value?.name} من تاريخ ${firstDateController.text} الى تاريخ ${lastDateController.text}',
+        );
+      } else {
+        isGenerateVaccinesStockReportLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isGenerateVaccinesStockReportLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isGenerateVaccinesStockReportLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isGenerateVaccinesStockReportLoading(false);
+    }
+  }
+
+  Future<void> fetchAllVaccinesStockOfSpecificDonorReport() async {
+    try {
+      isGenerateVaccinesStockReportLoading(true);
+      var response = await http.get(
+        Uri.parse(
+            '${ApiEndpoints.getAllVaccinesStockOfSpecificDonorReport}?donor=${selectedDonor.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+
+        vaccinesStock.value =
+            jsonData.map((e) => VaccineStatement.fromJson(e)).toList();
+
+        if (adminData.isEmpty) {
+          await fetchAdminData();
+        }
+
+        await generateVaccinesStockReportPdf(
+          context: Get.context!,
+          reportName:
+              'تقرير عن حركة مخزون جميع اللقاحات الواردة من جهة ${selectedDonor.value?.name} من تاريخ ${firstDateController.text} الى تاريخ ${lastDateController.text}',
+        );
+      } else {
+        isGenerateVaccinesStockReportLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isGenerateVaccinesStockReportLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isGenerateVaccinesStockReportLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isGenerateVaccinesStockReportLoading(false);
+    }
+  }
+
+  Future<void> fetchSpecificVaccineStockOfAllDonorsReport() async {
+    try {
+      isGenerateVaccinesStockReportLoading(true);
+      var response = await http.get(
+        Uri.parse(
+            '${ApiEndpoints.getSpecificVaccineStockOfAllDonorsReport}?vaccine_type=${selectedVaccine.value!.vaccineTypeId}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+
+        vaccinesStock.value =
+            jsonData.map((e) => VaccineStatement.fromJson(e)).toList();
+
+        if (adminData.isEmpty) {
+          await fetchAdminData();
+        }
+
+        await generateVaccinesStockReportPdf(
+          context: Get.context!,
+          reportName:
+              'تقرير عن حركة مخزون لقاح ${selectedVaccine.value?.vaccineType} الواردة من جميع الجهات المانحة من تاريخ ${firstDateController.text} الى تاريخ ${lastDateController.text}',
+        );
+      } else {
+        isGenerateVaccinesStockReportLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isGenerateVaccinesStockReportLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isGenerateVaccinesStockReportLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isGenerateVaccinesStockReportLoading(false);
+    }
+  }
+
+  Future<void> generateVaccinesStockReportPdf({
+    required BuildContext context,
+    required String reportName,
+  }) async {
+    try {
+      final VaccinesStockPdfGenerator pdfGenerator = VaccinesStockPdfGenerator(
+        reportName: reportName,
+        data: vaccinesStock,
+        managerName: adminData.first.name,
+      );
+      await pdfGenerator.generatePdf(context);
+
+      isGenerateVaccinesStockReportLoading(false);
+    } catch (e) {
+      ApiExceptionWidgets().myGeneratePdfFailureAlert();
+      isGenerateVaccinesStockReportLoading(false);
+    }
+  }
+
+// ----------------------------------------------------------
+
+// --------------------- Orders Report -------------------------------------
+
+  GlobalKey<FormState> createOrdersReportFormKey = GlobalKey<FormState>();
+
+  var orderStateDropDownMenu = <OrderState>[].obs;
+  var selectedOrderState = Rx<OrderState?>(null);
+  var orderStateErrorMsg = ''.obs;
+  var isGenerateOrdersReportLoading = false.obs;
+  var isOrderStateDropDownMenuLoading = false.obs;
+  var orders = <Order>[].obs;
+  final TextEditingController orderStateDropDownMenuSearchController =
+      TextEditingController();
+
+  //////////
+  String? orderStateValidator(value) {
+    if (value == null) {
+      return 'قم باختيار حالة الطلب';
+    }
+    return null;
+  }
+
+  Future<void> fetchMinMaxOrdersDates() async {
+    try {
+      datesErrorMsg('');
+      isDatesLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getOrdersDateRange),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isDatesLoading(false);
+        var data = json.decode(response.body);
+        firstDate.value = DateTime.parse(data['min_date']);
+        lastDate.value = DateTime.parse(data['max_date']);
+      } else {
+        isDatesLoading(false);
+        datesErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isDatesLoading(false);
+      datesErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isDatesLoading(false);
+      datesErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isDatesLoading(false);
+    }
+  }
+
+  Widget orderStateDropdownMenu() {
+    return Obx(() {
+      if (isOrderStateDropDownMenuLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'حالة الطلب',
+          items: [
+            DropdownMenuItem(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          selectedValue: null,
+          validator: orderStateValidator,
+        );
+      }
+
+      if (orderStateErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            cons.errorAudio();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: orderStateErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    fetchOrderStateInDropDownMenu();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'حالة الطلب',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: orderStateValidator,
+          ),
+        );
+      }
+
+      if (orderStateDropDownMenu.isEmpty) {
+        return InkWell(
+          onTap: () {
+            cons.errorAudio();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    fetchOrderStateInDropDownMenu();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'حالة الطلب',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: orderStateValidator,
+          ),
+        );
+      }
+
+      return myDropDownMenuButton2<OrderState>(
+        hintText: 'حالة الطلب',
+        validator: orderStateValidator,
+        items: orderStateDropDownMenu.map((element) {
+          return DropdownMenuItem<OrderState>(
+            value: element,
+            child: Text(
+              element.state,
+              style: MyTextStyles.font16BlackMedium,
+            ),
+          );
+        }).toList(),
+        onChanged: (OrderState? value) {
+          if (value != null) {
+            if (value.id == 0) {
+              selectedOrderState.value = value;
+            } else {
+              selectedOrderState.value = value;
+            }
+          } else {
+            selectedOrderState.value = null;
+          }
+        },
+        searchController: orderStateDropDownMenuSearchController,
+        selectedValue: selectedOrderState.value,
+      );
+    });
+  }
+
+  void fetchOrderStateInDropDownMenu() async {
+    try {
+      orderStateErrorMsg('');
+      isOrderStateDropDownMenuLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getOrderStates),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isOrderStateDropDownMenuLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<OrderState> fetchedOrderState =
+            jsonData.map((e) => OrderState.fromJson(e)).toList();
+
+        fetchedOrderState.insert(0, OrderState(id: 0, state: 'الكل'));
+
+        orderStateDropDownMenu.assignAll(fetchedOrderState);
+      } else {
+        isOrderStateDropDownMenuLoading(false);
+        orderStateErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isOrderStateDropDownMenuLoading(false);
+      orderStateErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isOrderStateDropDownMenuLoading(false);
+      orderStateErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isOrderStateDropDownMenuLoading(false);
+    }
+  }
+
+  void handleOrdersReportOptions() {
+    if (selectedRegisteredOffice.value!.id == 0 &&
+        selectedVaccine.value!.id == 0 &&
+        selectedOrderState.value!.id == 0) {
+      fetchAllOrdersReport();
+    } else if (selectedRegisteredOffice.value!.id == 0 &&
+        selectedVaccine.value!.id == 0) {
+      // fetchAllVaccinesOfAllOfficesOrdersReport();
+    } else if (selectedRegisteredOffice.value!.id == 0 &&
+        selectedOrderState.value!.id == 0) {
+      // fetchAllStatesOfAllOfficesOrdersReport();
+    } else if (selectedVaccine.value!.id == 0 &&
+        selectedOrderState.value!.id == 0) {
+      // fetchAllStatesOfAllVaccinesOrdersReport();
+    } else if (selectedRegisteredOffice.value!.id == 0) {
+      // fetchAllOfficesOrdersReport();
+    } else if (selectedVaccine.value!.id == 0) {
+      // fetchAllVaccinesOrdersReport();
+    } else if (selectedOrderState.value!.id == 0) {
+      // fetchAllStatesOrdersReport();
+    }
+  }
+
+  Future<void> fetchAllOrdersReport() async {
+    try {
+      isGenerateOrdersReportLoading(true);
+      var response = await http.get(
+        Uri.parse(
+            '${ApiEndpoints.getAllOrdersReport}?first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+
+        orders.value = jsonData.map((e) => Order.fromJson(e)).toList();
+
+        if (adminData.isEmpty) {
+          await fetchAdminData();
+        }
+
+        await generateOrdersReportPdf(
+          context: Get.context!,
+          reportName:
+              'تقرير عن جميع الطبات الواردة منجميع مكاتب الصحة والسكان من تاريخ ${firstDateController.text} الى تاريخ ${lastDateController.text}',
+        );
+      } else {
+        isGenerateOrdersReportLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isGenerateOrdersReportLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isGenerateOrdersReportLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isGenerateOrdersReportLoading(false);
+    }
+  }
+
+  Future<void> generateOrdersReportPdf({
+    required BuildContext context,
+    required String reportName,
+  }) async {
+    try {
+      final OrdersPdfGenerator pdfGenerator = OrdersPdfGenerator(
+        reportName: reportName,
+        data: orders,
+        managerName: adminData.first.name,
+      );
+      await pdfGenerator.generatePdf(context);
+
+      isGenerateOrdersReportLoading(false);
+    } catch (e) {
+      ApiExceptionWidgets().myGeneratePdfFailureAlert();
+      isGenerateOrdersReportLoading(false);
     }
   }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ministry_stock_vaccine;
 use App\Models\Order;
 use App\Models\Order_state;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -152,6 +153,26 @@ class OrderController extends Controller
             return response()->json([
                 'message' => 'Order transferred successfully',
             ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getDateRange()
+    {
+        try {
+
+            $minDate = Carbon::parse(Order::min('created_at'))->toDateString();
+
+            $maxDate = Carbon::parse(Order::max('created_at'))->toDateString();
+
+            return response()->json([
+                'message' => 'Date range retrieved successfully',
+                'min_date' => $minDate,
+                'max_date' => $maxDate,
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

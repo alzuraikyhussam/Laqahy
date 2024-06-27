@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Child_data;
 use App\Models\Healthy_center;
+use App\Models\Ministry_statement_stock_vaccine;
 use App\Models\Ministry_stock_vaccine;
 use App\Models\Mother_data;
 use App\Models\Office;
@@ -143,6 +144,82 @@ class ReportController extends Controller
             return response()->json([
                 'message' => 'Vaccines quantity retrieved successfully',
                 'data' => $vaccineQty,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateVaccinesStockAllReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $vaccineStock = Ministry_statement_stock_vaccine::join('vaccine_types', 'ministry_statement_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->join('donors', 'ministry_statement_stock_vaccines.donor_id', '=', 'donors.id')->select('ministry_statement_stock_vaccines.*', 'vaccine_types.vaccine_type', 'donors.donor_name')->whereBetween('ministry_statement_stock_vaccines.date', [$firstDate, $lastDate])->orderBy('ministry_statement_stock_vaccines.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Vaccines stock retrieved successfully',
+                'data' => $vaccineStock,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateVaccinesStockCustomReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $vaccineStock = Ministry_statement_stock_vaccine::join('vaccine_types', 'ministry_statement_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->join('donors', 'ministry_statement_stock_vaccines.donor_id', '=', 'donors.id')->select('ministry_statement_stock_vaccines.*', 'vaccine_types.vaccine_type', 'donors.donor_name')->where('ministry_statement_stock_vaccines.vaccine_type_id', $request->vaccine_type)->where('ministry_statement_stock_vaccines.donor_id', $request->donor)->whereBetween('ministry_statement_stock_vaccines.date', [$firstDate, $lastDate])->orderBy('ministry_statement_stock_vaccines.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Vaccines stock retrieved successfully',
+                'data' => $vaccineStock,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateAllVaccinesStockOfSpecificDonorReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $vaccineStock = Ministry_statement_stock_vaccine::join('vaccine_types', 'ministry_statement_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->join('donors', 'ministry_statement_stock_vaccines.donor_id', '=', 'donors.id')->select('ministry_statement_stock_vaccines.*', 'vaccine_types.vaccine_type', 'donors.donor_name')->where('ministry_statement_stock_vaccines.donor_id', $request->donor)->whereBetween('ministry_statement_stock_vaccines.date', [$firstDate, $lastDate])->orderBy('ministry_statement_stock_vaccines.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Vaccines stock retrieved successfully',
+                'data' => $vaccineStock,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateSpecificVaccineStockOfAllDonorsReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $vaccineStock = Ministry_statement_stock_vaccine::join('vaccine_types', 'ministry_statement_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->join('donors', 'ministry_statement_stock_vaccines.donor_id', '=', 'donors.id')->select('ministry_statement_stock_vaccines.*', 'vaccine_types.vaccine_type', 'donors.donor_name')->where('ministry_statement_stock_vaccines.vaccine_type_id','=', $request->vaccine_type)->whereBetween('ministry_statement_stock_vaccines.date', [$firstDate, $lastDate])->orderBy('ministry_statement_stock_vaccines.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Vaccines stock retrieved successfully',
+                'data' => $vaccineStock,
             ]);
         } catch (Exception $e) {
             return response()->json([

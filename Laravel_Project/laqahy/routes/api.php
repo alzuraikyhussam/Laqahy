@@ -12,6 +12,7 @@ use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderStateController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
@@ -62,6 +63,10 @@ Route::get('permissions', [PermissionTypeController::class, 'index']);
 
 // --------------------- City Routes ------------------------
 Route::get('cities', [CityController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Order State Routes ------------------------
+Route::get('order-states', [OrderStateController::class, 'index']);
 // ------------------------------------------------------------
 
 // --------------------- Office Routes ------------------------
@@ -119,6 +124,7 @@ Route::get('donors', [DonorController::class, 'index']);
 // ------------------------------------------------------------
 
 // --------------------- Order Routes ------------------------
+Route::get('orders/date-range', [OrderController::class, 'getDateRange']);
 Route::patch('orders/to-in-delivery/{id}', [OrderController::class, 'transferToInDelivery']);
 Route::patch('orders/to-cancelled/{id}', [OrderController::class, 'transferToCancelled']);
 Route::patch('orders/undo-cancelled/{id}', [OrderController::class, 'undoCancelled']);
@@ -139,6 +145,10 @@ Route::get('reports/status-all-offices-report', [ReportController::class, 'gener
 Route::get('reports/status-all-centers-report', [ReportController::class, 'generateStatusInAllCentersReport']);
 Route::get('reports/offices-report', [ReportController::class, 'getOfficesReport']);
 Route::get('reports/vaccines-qty-report', [ReportController::class, 'getVaccinesQtyReport']);
+Route::get('reports/stock/vaccines-all-report', [ReportController::class, 'generateVaccinesStockAllReport']);
+Route::get('reports/stock/vaccines-custom-report', [ReportController::class, 'generateVaccinesStockCustomReport']);
+Route::get('reports/stock/vaccines-specific-donor-report', [ReportController::class, 'generateAllVaccinesStockOfSpecificDonorReport']);
+Route::get('reports/stock/vaccine-all-donors-report', [ReportController::class, 'generateSpecificVaccineStockOfAllDonorsReport']);
 // ------------------------------------------------------------
 
 

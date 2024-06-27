@@ -39,6 +39,10 @@ class ApiEndpoints {
   static const String getCities = '$baseUrl/cities';
   // --------------------------------------------------
 
+  // --------------- Order State Endpoints -------------------
+  static const String getOrderStates = '$baseUrl/order-states';
+  // --------------------------------------------------
+
   // --------------- Directorates Endpoints -------------------
   static const String getDirectorates = '$baseUrl/directorates';
   // --------------------------------------------------
@@ -102,6 +106,7 @@ class ApiEndpoints {
       '$baseUrl/orders/to-in-delivery';
   static const String transferOrderToCancelled = '$baseUrl/orders/to-cancelled';
   static const String undoCancelled = '$baseUrl/orders/undo-cancelled';
+  static const String getOrdersDateRange = '$baseUrl/orders/date-range';
   // --------------------------------------------------
 
   // --------------- Mother Data Endpoints -------------------
@@ -110,13 +115,28 @@ class ApiEndpoints {
 
   // --------------- Reports Endpoints -------------------
   static const String getCentersReport = '$baseUrl/reports/centers-report';
+
   static const String getOfficesReport = '$baseUrl/reports/offices-report';
+
   static const String getVaccinesQtyReport =
       '$baseUrl/reports/vaccines-qty-report';
+
   static const String getStatusReport = '$baseUrl/reports/vaccines-qty-report';
   static const String getStatusInAllOfficesReport =
       '$baseUrl/reports/status-all-offices-report';
   static const String getStatusInAllCentersReport =
       '$baseUrl/reports/status-all-centers-report';
+
+  static const String getAllVaccinesStockReport =
+      '$baseUrl/reports/stock/vaccines-all-report';
+  static const String getVaccinesStockCustomReport =
+      '$baseUrl/reports/stock/vaccines-custom-report';
+  static const String getAllVaccinesStockOfSpecificDonorReport =
+      '$baseUrl/reports/stock/vaccines-specific-donor-report';
+  static const String getSpecificVaccineStockOfAllDonorsReport =
+      '$baseUrl/reports/stock/vaccine-all-donors-report';
+
+  static const String getAllOrdersReport =
+      '$baseUrl/reports/orders-all-report';
   // --------------------------------------------------
 }

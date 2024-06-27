@@ -11,7 +11,6 @@ class CreateOrdersReportController extends GetxController {
     orderStatusSearchController.close();
   }
 
-  GlobalKey<FormState> createOrdersReportFormKey = GlobalKey<FormState>();
 
   final Rx<TextEditingController> citySearchController =
       TextEditingController().obs;
