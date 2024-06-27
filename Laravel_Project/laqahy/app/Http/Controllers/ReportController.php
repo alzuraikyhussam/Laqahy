@@ -8,6 +8,7 @@ use App\Models\Ministry_statement_stock_vaccine;
 use App\Models\Ministry_stock_vaccine;
 use App\Models\Mother_data;
 use App\Models\Office;
+use App\Models\Order;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -239,6 +240,157 @@ class ReportController extends Controller
     // -------------------------------------------------------------------------------
 
     // ----------------------------- Orders Report ----------------------------------
+    public function generateAllOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = Order::join('vaccine_types', 'orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'orders.office_id', '=', 'offices.id')->join('order_states', 'orders.order_state_id', '=', 'order_states.id')->select('orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->whereBetween('orders.created_at', [$firstDate, $lastDate])->orderBy('orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateAllVaccinesOfAllOfficesOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = Order::join('vaccine_types', 'orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'orders.office_id', '=', 'offices.id')->join('order_states', 'orders.order_state_id', '=', 'order_states.id')->select('orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('orders.order_state_id', $request->order_state)->whereBetween('orders.created_at', [$firstDate, $lastDate])->orderBy('orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateAllStatesOfAllOfficesOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = Order::join('vaccine_types', 'orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'orders.office_id', '=', 'offices.id')->join('order_states', 'orders.order_state_id', '=', 'order_states.id')->select('orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('orders.vaccine_type_id', $request->vaccine_type)->whereBetween('orders.created_at', [$firstDate, $lastDate])->orderBy('orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateAllStatesOfAllVaccinesOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = Order::join('vaccine_types', 'orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'orders.office_id', '=', 'offices.id')->join('order_states', 'orders.order_state_id', '=', 'order_states.id')->select('orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('orders.office_id', $request->office)->whereBetween('orders.created_at', [$firstDate, $lastDate])->orderBy('orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateAllOfficesOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = Order::join('vaccine_types', 'orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'orders.office_id', '=', 'offices.id')->join('order_states', 'orders.order_state_id', '=', 'order_states.id')->select('orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('orders.vaccine_type_id', $request->vaccine_type)->where('orders.order_state_id', $request->order_state)->whereBetween('orders.created_at', [$firstDate, $lastDate])->orderBy('orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateAllVaccinesOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = Order::join('vaccine_types', 'orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'orders.office_id', '=', 'offices.id')->join('order_states', 'orders.order_state_id', '=', 'order_states.id')->select('orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('orders.office_id', $request->office)->where('orders.order_state_id', $request->order_state)->whereBetween('orders.created_at', [$firstDate, $lastDate])->orderBy('orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateAllStatesOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = Order::join('vaccine_types', 'orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'orders.office_id', '=', 'offices.id')->join('order_states', 'orders.order_state_id', '=', 'order_states.id')->select('orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('orders.office_id', $request->office)->where('orders.vaccine_type_id', $request->vaccine_type)->whereBetween('orders.created_at', [$firstDate, $lastDate])->orderBy('orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateCustomOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = Order::join('vaccine_types', 'orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'orders.office_id', '=', 'offices.id')->join('order_states', 'orders.order_state_id', '=', 'order_states.id')->select('orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('orders.office_id', $request->office)->where('orders.vaccine_type_id', $request->vaccine_type)->where('orders.order_state_id', $request->order_state)->whereBetween('orders.created_at', [$firstDate, $lastDate])->orderBy('orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
 
     // -------------------------------------------------------------------------------
 

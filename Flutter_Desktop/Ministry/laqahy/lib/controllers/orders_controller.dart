@@ -205,7 +205,6 @@ class OrdersController extends GetxController {
   }
 
   Future<void> transferOrderToInDelivery(int id) async {
-    print(id);
     isApprovalLoading(true);
     final order = Order(
       ministryNoteData: notesController.text,

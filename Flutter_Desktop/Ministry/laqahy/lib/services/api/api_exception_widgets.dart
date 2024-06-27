@@ -48,7 +48,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/error.json',
         title: 'خطــــأ',
         description:
-            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك حذفه حالياً',
+            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك حذف الكمية حالياً',
       ),
     );
   }
@@ -62,7 +62,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/error.json',
         title: 'خطــــأ',
         description:
-            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك تعديله حالياً',
+            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك تعديل الكمية حالياً',
       ),
     );
   }

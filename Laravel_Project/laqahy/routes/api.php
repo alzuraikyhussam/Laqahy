@@ -140,15 +140,28 @@ Route::get('ministry/mothers/date-range', [MotherDataController::class, 'getDate
 
 // --------------------- Report Routes ------------------------
 Route::get('ministry/reports/centers-report/{id}', [ReportController::class, 'generateCentersReport']);
+
 Route::get('ministry/reports/status-report', [ReportController::class, 'generateStatusReport']);
 Route::get('ministry/reports/status-all-offices-report', [ReportController::class, 'generateStatusInAllOfficesReport']);
 Route::get('ministry/reports/status-all-centers-report', [ReportController::class, 'generateStatusInAllCentersReport']);
+
 Route::get('ministry/reports/offices-report', [ReportController::class, 'getOfficesReport']);
+
 Route::get('ministry/reports/vaccines-qty-report', [ReportController::class, 'getVaccinesQtyReport']);
+
 Route::get('ministry/reports/stock/vaccines-all-report', [ReportController::class, 'generateVaccinesStockAllReport']);
 Route::get('ministry/reports/stock/vaccines-custom-report', [ReportController::class, 'generateVaccinesStockCustomReport']);
 Route::get('ministry/reports/stock/vaccines-specific-donor-report', [ReportController::class, 'generateAllVaccinesStockOfSpecificDonorReport']);
 Route::get('ministry/reports/stock/vaccine-all-donors-report', [ReportController::class, 'generateSpecificVaccineStockOfAllDonorsReport']);
+
+Route::get('ministry/reports/orders-all-report', [ReportController::class, 'generateAllOrdersReport']);
+Route::get('ministry/reports/orders-vaccines-offices-report', [ReportController::class, 'generateAllVaccinesOfAllOfficesOrdersReport']);
+Route::get('ministry/reports/orders-states-offices-report', [ReportController::class, 'generateAllStatesOfAllOfficesOrdersReport']);
+Route::get('ministry/reports/orders-states-vaccines-report', [ReportController::class, 'generateAllStatesOfAllVaccinesOrdersReport']);
+Route::get('ministry/reports/orders-offices-report', [ReportController::class, 'generateAllOfficesOrdersReport']);
+Route::get('ministry/reports/orders-vaccines-report', [ReportController::class, 'generateAllVaccinesOrdersReport']);
+Route::get('ministry/reports/orders-states-report', [ReportController::class, 'generateAllStatesOrdersReport']);
+Route::get('ministry/reports/orders-custom-report', [ReportController::class, 'generateCustomOrdersReport']);
 // ------------------------------------------------------------
 
 
