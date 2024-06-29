@@ -93,7 +93,7 @@ class PostController extends GetxController {
                 ? pictureController.text = pickImage.name
                 : updatedImage.value = image.value;
           } else {
-            Constants().errorAudio();
+            Constants().playErrorSound();
             myShowDialog(
               context: Get.context!,
               widgetName: ApiExceptionAlert(
@@ -103,7 +103,7 @@ class PostController extends GetxController {
             );
           }
         } else {
-          Constants().errorAudio();
+          Constants().playErrorSound();
 
           myShowDialog(
             context: Get.context!,
@@ -116,7 +116,7 @@ class PostController extends GetxController {
         }
       }
     } catch (e) {
-      Constants().errorAudio();
+      Constants().playErrorSound();
 
       myShowDialog(
         context: Get.context!,
@@ -131,7 +131,7 @@ class PostController extends GetxController {
 
   Future addPost(String postTitle, String postDescription) async {
     if (image.value == null) {
-      Constants().errorAudio();
+      Constants().playErrorSound();
 
       myShowDialog(
         context: Get.context!,

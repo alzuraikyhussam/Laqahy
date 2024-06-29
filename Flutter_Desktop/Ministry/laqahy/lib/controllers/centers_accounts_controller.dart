@@ -131,7 +131,7 @@ class CentersAccountsController extends GetxController {
       if (registeredOfficeErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -159,7 +159,7 @@ class CentersAccountsController extends GetxController {
       if (registeredOfficesDropDownMenu.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -231,7 +231,7 @@ class CentersAccountsController extends GetxController {
       if (unregisteredOfficeErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -259,7 +259,7 @@ class CentersAccountsController extends GetxController {
       if (unregisteredOfficesDropDownMenu.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,

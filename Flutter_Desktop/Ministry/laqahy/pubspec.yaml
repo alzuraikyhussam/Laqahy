@@ -1,5 +1,5 @@
 name: laqahy
-description: "A smart vaccination tracking system for ministry"
+description: "An intelligent vaccination operation management system for ministry in yemen."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -71,12 +71,23 @@ flutter_launcher_icons:
     icon_size: 256 # min:48, max:256, default: 48
   macos:
     generate: true
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+
+msix_config:
+  identity_name: com.sourcetech.laqahy.ministry
+  display_name: Laqahy
+  publisher_display_name: Sourcetech
+  publisher: CN=Sourcetech, O=IT, C=YE
+  version: 1.0.0.0
+  logo_path: assets/images/app-icon.png
+  certificate_path: cert.pfx
+  certificate_password: STabc$772957881
+  capabilities: internetClient, privateNetworkClientServer, location, microphone, webcam, picturesLibrary, videosLibrary, musicLibrary, documentsLibrary, enterpriseAuthentication, sharedUserCertificates, removableStorage, appointments, contacts
+
 dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
+  msix: ^3.16.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

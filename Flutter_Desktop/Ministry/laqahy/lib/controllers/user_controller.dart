@@ -306,7 +306,7 @@ class UserController extends GetxController {
     if (userId == adminId) {
       isDeleteLoading(false);
       Get.back();
-      Constants().errorAudio();
+      Constants().playErrorSound();
 
       return myShowDialog(
         context: Get.context!,

@@ -203,7 +203,7 @@ class CreateAccountController extends GetxController {
         } catch (e) {
           Get.offAll(LoginScreen());
         }
-        Constants().successAudio();
+        Constants().playSuccessSound();
         myShowDialog(
           context: Get.context!,
           widgetName: ApiExceptionAlert(

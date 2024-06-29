@@ -11,7 +11,7 @@ class ApiExceptionWidgets {
   myAddedDataSuccessAlert({
     void Function()? onPressed,
   }) {
-    Constants().successAudio();
+    Constants().playSuccessSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -26,7 +26,7 @@ class ApiExceptionWidgets {
   }
 
   myDeleteDataSuccessAlert() {
-    Constants().successAudio();
+    Constants().playSuccessSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -40,7 +40,7 @@ class ApiExceptionWidgets {
   }
 
   myCannotDeleteVaccineStatementAlert() {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -54,7 +54,7 @@ class ApiExceptionWidgets {
   }
 
   myCannotUpdateVaccineStatementAlert() {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -68,7 +68,7 @@ class ApiExceptionWidgets {
   }
 
   myUpdateDataSuccessAlert() {
-    Constants().successAudio();
+    Constants().playSuccessSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -82,7 +82,7 @@ class ApiExceptionWidgets {
   }
 
   myUnknownExceptionAlert({var statusCode, var error}) {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -96,7 +96,7 @@ class ApiExceptionWidgets {
   }
 
   myUserAlreadyExistsAlert() {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -110,7 +110,7 @@ class ApiExceptionWidgets {
   }
 
   myUserNotFoundAlert() {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -124,7 +124,7 @@ class ApiExceptionWidgets {
   }
 
   myUserNotFoundInThisCenterAlert() {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -139,7 +139,7 @@ class ApiExceptionWidgets {
   }
 
   myInvalidPasswordAlert() {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -153,7 +153,7 @@ class ApiExceptionWidgets {
   }
 
   mySocketExceptionAlert() {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -166,7 +166,7 @@ class ApiExceptionWidgets {
   }
 
   myFetchDataExceptionAlert(var statusCode) {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -179,7 +179,7 @@ class ApiExceptionWidgets {
   }
 
   myAccessDatabaseExceptionAlert(var statusCode) {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -262,7 +262,7 @@ class ApiExceptionWidgets {
   }
 
   myOrderAlert({required String title, required String description}) {
-    Constants().successAudio();
+    Constants().playSuccessSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -277,7 +277,7 @@ class ApiExceptionWidgets {
 
   myOrderWithQuantityAlert(
       {required String title, required String description, var quantity}) {
-    Constants().successAudio();
+    Constants().playSuccessSound();
     myShowDialog(
         context: Get.context!,
         widgetName: AlertDialog(
@@ -373,7 +373,7 @@ class ApiExceptionWidgets {
   }
 
   myVaccineQtyNotEnoughAlert({required var quantity}) {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
         context: Get.context!,
         widgetName: AlertDialog(
@@ -460,7 +460,7 @@ class ApiExceptionWidgets {
   }
 
   myGeneratePdfFailureAlert() {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
@@ -473,7 +473,7 @@ class ApiExceptionWidgets {
   }
 
   mySharePdfFailureAlert() {
-    Constants().errorAudio();
+    Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(

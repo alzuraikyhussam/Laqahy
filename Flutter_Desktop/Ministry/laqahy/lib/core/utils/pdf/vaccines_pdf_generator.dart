@@ -76,7 +76,7 @@ class VaccinesPdfGenerator {
           columnWidths: {
             0: const pw.FlexColumnWidth(1),
             1: const pw.FlexColumnWidth(4),
-            // 2: const pw.FlexColumnWidth(4),
+            2: const pw.FixedColumnWidth(35),
           },
           // defaultColumnWidth: const pw.IntrinsicColumnWidth(),
           cellHeight: 30,
