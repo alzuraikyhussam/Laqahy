@@ -55,7 +55,7 @@ class HomeLayoutController extends GetxController {
   }
 
   onTapLogout(context) {
-    Constants().errorAudio();
+    Constants().playErrorSound();
 
     return myAlertDialog(
       context: context,
@@ -81,7 +81,7 @@ class HomeLayoutController extends GetxController {
   }
 
   onTapExitButton(context) {
-    Constants().errorAudio();
+    Constants().playErrorSound();
 
     return myAlertDialog(
       context: context,

@@ -24,12 +24,15 @@ class _CreateVaccinesReportDialogState
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.transparent,
-      surfaceTintColor: Colors.transparent,
-      shadowColor: Colors.transparent,
+      // backgroundColor: Colors.transparent,
+      // surfaceTintColor: Colors.transparent,
+      // shadowColor: Colors.transparent,
       alignment: AlignmentDirectional.center,
-      content: Center(
-        child: myLoadingIndicator(height: 70),
+      content: SizedBox(
+        height: 100,
+        child: Center(
+          child: myLoadingIndicator(height: 60),
+        ),
       ),
     );
   }

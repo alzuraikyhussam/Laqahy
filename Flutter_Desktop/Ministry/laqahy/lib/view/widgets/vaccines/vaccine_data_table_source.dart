@@ -101,7 +101,7 @@ class VaccineRowSource extends DataTableSource {
               myIconButton(
                 icon: Icons.delete,
                 onTap: () {
-                  Constants().errorAudio();
+                  Constants().playErrorSound();
 
                   myShowDialog(
                       context: Get.context!,

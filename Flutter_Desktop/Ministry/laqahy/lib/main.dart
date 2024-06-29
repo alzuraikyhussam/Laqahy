@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/splash_screen.dart';
+import 'package:laqahy/view/widgets/reports/create_centers_report.dart';
+import 'package:laqahy/view/widgets/reports/reports.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {

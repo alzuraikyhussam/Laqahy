@@ -2,26 +2,48 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/report_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
-import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/home_layout_model.dart';
-import 'package:laqahy/models/status_type_model.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class Constants {
-  AudioPlayer audioPlayer = AudioPlayer();
   final decimalFormatter = NumberFormat.decimalPattern();
 
-  successAudio() {
-    audioPlayer.play(AssetSource('sounds/success.mp3'));
+  void playSuccessSound() async {
+    try {
+      AudioPlayer audioPlayer = AudioPlayer();
+      await audioPlayer.play(AssetSource('sounds/success.mp3'));
+    } catch (e) {
+      myShowDialog(
+        context: Get.context!,
+        widgetName: ApiExceptionAlert(
+          height: 280,
+          imageUrl: 'assets/images/error.json',
+          title: 'خطــــأ',
+          description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
+        ),
+      );
+    }
   }
 
-  errorAudio() {
-    // audioPlayer.play(AssetSource('sounds/joke-error.m4a'));
-    audioPlayer.play(AssetSource('sounds/error.mp3'));
+  void playErrorSound() async {
+    try {
+      AudioPlayer audioPlayer = AudioPlayer();
+      // audioPlayer.play(AssetSource('sounds/joke-error.m4a'));
+      await audioPlayer.play(AssetSource('sounds/error.mp3'));
+    } catch (e) {
+      myShowDialog(
+        context: Get.context!,
+        widgetName: ApiExceptionAlert(
+          height: 280,
+          imageUrl: 'assets/images/error.json',
+          title: 'خطــــأ',
+          description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
+        ),
+      );
+    }
   }
 
   static List adminHomeLayoutItems = [
@@ -179,7 +201,7 @@ class Constants {
       if (controller.genderErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -208,7 +230,7 @@ class Constants {
       if (controller.genders.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -283,7 +305,7 @@ class Constants {
       if (controller.permissionErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -312,7 +334,7 @@ class Constants {
       if (controller.permissions.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -387,7 +409,7 @@ class Constants {
       if (controller.cityErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -416,7 +438,7 @@ class Constants {
       if (controller.cities.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -476,7 +498,7 @@ class Constants {
       if (controller.selectedCityId.value == null) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
               context: Get.context!,
@@ -514,7 +536,7 @@ class Constants {
       } else if (controller.directorateErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -542,7 +564,7 @@ class Constants {
       } else if (controller.directorates.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,

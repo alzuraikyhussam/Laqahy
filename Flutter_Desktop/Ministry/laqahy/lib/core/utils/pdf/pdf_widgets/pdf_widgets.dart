@@ -60,7 +60,7 @@ class PDFWidgets {
       );
 
   myShowSavedDialog(BuildContext context, File file) {
-    Constants().successAudio();
+    Constants().playSuccessSound();
     showDialog(
       barrierDismissible: false,
       context: context,

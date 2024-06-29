@@ -6,16 +6,36 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/awareness_information.dart';
 import 'package:laqahy/view/screens/children_vaccine.dart';
+import 'package:laqahy/view/screens/mother_vaccine.dart';
+import 'package:laqahy/view/screens/settings_page.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
   List items = [
-    {'icon': Icons.child_care, 'titel': 'لقاحات الطفل '},
-    {'icon': Icons.woman_2_outlined, 'titel': 'لقاحات الام '},
-    {'icon': Icons.settings, 'titel': 'الاعدادات '},
-    {'icon': Icons.info_outline_rounded, 'titel': 'معلومات توعوية '},
+    {
+      'icon': Icons.child_care,
+      'titel': 'لقاحات الطفل ',
+      'onPressed': ChildrenVaccine()
+    },
+    {
+      'icon': Icons.woman_2_outlined,
+      'titel': 'لقاحات الام ',
+      'onPressed': MotherVaccine()
+    },
+    {
+      'icon': Icons.settings,
+      'titel': 'الاعدادات ',
+      'onPressed': SettingsScreen()
+    },
+    {
+      'icon': Icons.info_outline_rounded,
+      'titel': 'معلومات توعوية ',
+      'onPressed': AwarenessInformation()
+    },
+    {}
   ];
   @override
   Widget build(BuildContext context) {
@@ -41,6 +61,7 @@ class Home extends StatelessWidget {
                 ),
                 Container(
                   child: GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -50,9 +71,7 @@ class Home extends StatelessWidget {
                     itemCount: 4,
                     itemBuilder: (context, i) {
                       return InkWell(
-                        onTap: () {
-                          Get.to(ChildrenVaccine);
-                        },
+                        onTap: () => Get.to(items[i]['onPressed']),
                         child: Container(
                           decoration: BoxDecoration(
                             color: MyColors.primaryColor.withOpacity(0.1),

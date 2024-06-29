@@ -14,6 +14,8 @@ myAppBar({
   String? text,
   bool showBackButton = true,
   void Function()? onTap,
+  Color? backgroundColor,
+  Color? iconColor,
 }) {
   return AppBar(
     elevation: 0,
@@ -22,12 +24,12 @@ myAppBar({
             onTap: onTap,
             child: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: MyColors.blackColor,
+              color: iconColor?? MyColors.blackColor,
             ),
           )
         : null,
     centerTitle: true,
-    backgroundColor: Colors.white,
+    backgroundColor: backgroundColor ?? Colors.white,
     title: text != null
         ? Text(
             textHeightBehavior: TextHeightBehavior(

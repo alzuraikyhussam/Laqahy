@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -11,7 +12,7 @@ class MotherVaccine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(text: 'لقــاحـــات ألام'),
+      appBar: myAppBar(text: 'لقــاحـــات ألام', onTap: () => Get.back()),
       body: Column(
         children: [
           Container(
