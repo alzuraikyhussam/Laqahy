@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
           seconds: 5,
         ), () {
       // انتقل إلى الشاشة الرئيسية
-      Get.off(const WelcomeScreen());
+      Get.off(() => const WelcomeScreen());
     });
   }
 

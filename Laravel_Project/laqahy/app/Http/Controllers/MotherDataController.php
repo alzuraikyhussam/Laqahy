@@ -66,6 +66,7 @@ class MotherDataController extends Controller
                 'mother_name' => $request->mother_name,
                 'mother_phone' => $request->mother_phone,
                 'mother_identity_num' => $request->mother_identity_num,
+                'mother_password'=>'password',
                 'mother_birthDate' => $request->mother_birthDate,
                 'mother_village' => $request->mother_village,
                 'cities_id' => $request->cities_id,

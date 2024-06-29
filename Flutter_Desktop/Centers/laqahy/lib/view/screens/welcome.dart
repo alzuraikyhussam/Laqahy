@@ -97,7 +97,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     myButton(
                       width: 150,
                       onPressed: () {
-                        Get.off(LoginScreen());
+                        Get.off(() => LoginScreen());
                       },
                       text: 'تسجيـل دخـول',
                       textStyle: MyTextStyles.font16WhiteBold,

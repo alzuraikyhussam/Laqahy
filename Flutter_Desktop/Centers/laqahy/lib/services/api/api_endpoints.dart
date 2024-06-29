@@ -56,11 +56,11 @@ class ApiEndpoints {
   // --------------------------------------------------
 
   // --------------- Login Endpoints -------------------
-  static const String getUsers = '$baseUrl/users';
-  static const String getAdmin = '$baseUrl/users/get-admin';
-  static const String addUser = '$baseUrl/users/add-user';
-  static const String updateUser = '$baseUrl/users/update-user';
-  static const String deleteUser = '$baseUrl/users/delete-user';
+  static const String getUsers = '$baseUrl/ministry/users';
+  static const String getAdmin = '$baseUrl/ministry/users/get-admin';
+  static const String addUser = '$baseUrl/ministry/users/add-user';
+  static const String updateUser = '$baseUrl/ministry/users/update-user';
+  static const String deleteUser = '$baseUrl/ministry/users/delete-user';
   // --------------------------------------------------
 
   // --------------- Technical Support Endpoints -------------------
@@ -106,4 +106,8 @@ class ApiEndpoints {
   static const String getCentersReport = '$baseUrl/reports/centers-report';
   // --------------------------------------------------
   
+  // --------------- Status Endpoints -------------------
+  static const String addMotherStatusData = '$baseUrl/motherData/add-motherData';
+  // --------------------------------------------------
+
 }

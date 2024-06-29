@@ -22,7 +22,6 @@ class Mothers {
     this.healthyCenterName,
     this.cityName,
     required this.mother_village,
-
     this.directorateName,
     required this.mother_identity_num,
     required this.cities_id,
