@@ -74,14 +74,14 @@ flutter_launcher_icons:
 
 msix_config:
   identity_name: com.sourcetech.laqahy.ministry
-  display_name: Laqahy
+  display_name: لقاحي
   publisher_display_name: Sourcetech
-  publisher: CN=Sourcetech, O=IT, C=YE
   version: 1.0.0.0
   logo_path: assets/images/app-icon.png
-  certificate_path: cert.pfx
+  output_name: laqahy_ministry_setup
+  certificate_path: laqahy.pfx
   certificate_password: STabc$772957881
-  capabilities: internetClient, privateNetworkClientServer, location, microphone, webcam, picturesLibrary, videosLibrary, musicLibrary, documentsLibrary, enterpriseAuthentication, sharedUserCertificates, removableStorage, appointments, contacts
+  capabilities: internetClient, privateNetworkClientServer, location, picturesLibrary, musicLibrary, documentsLibrary, enterpriseAuthentication, sharedUserCertificates, removableStorage, appointments, wiFiControl
 
 dev_dependencies:
   flutter_lints: ^3.0.0
