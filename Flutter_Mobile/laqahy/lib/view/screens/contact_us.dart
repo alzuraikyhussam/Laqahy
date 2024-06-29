@@ -16,60 +16,62 @@ class ContactUs extends StatelessWidget {
           Get.back();
         },
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              Container(
-                width: 250,
-                child: Image.asset(
-                  'assets/images/contact-us-image.png',
-                  fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                Container(
+                  width: 250,
+                  child: Image.asset(
+                    'assets/images/contact-us-image.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              myTextField(
-                labelText: 'أدخل اسمك هنا',
-                keyboardType: TextInputType.text,
-                onChanged: (s) {},
-                width: 350,
-                prefixIcon: Icons.person_2_outlined,
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              myTextField(
-                labelText: 'بريدك الالكتروني',
-                keyboardType: TextInputType.text,
-                onChanged: (s) {},
-                width: 350,
-                prefixIcon: Icons.mail_outline,
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              myTextField(
-                labelText: 'وصف المشكلة',
-                keyboardType: TextInputType.text,
-                onChanged: (s) {},
-                width: 350,
-                prefixIcon: Icons.note_add_outlined,
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              myButton(
-                onPressed: () {},
-                text: 'ارســــال',
-                textStyle: MyTextStyles.font16WhiteBold,
-                width: 350,
-              )
-            ],
-          ),
-        ],
+                const SizedBox(
+                  height: 20,
+                ),
+                myTextField(
+                  labelText: 'أدخل اسمك هنا',
+                  keyboardType: TextInputType.text,
+                  onChanged: (s) {},
+                  width: 350,
+                  prefixIcon: Icons.person_2_outlined,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                myTextField(
+                  labelText: 'بريدك الالكتروني',
+                  keyboardType: TextInputType.text,
+                  onChanged: (s) {},
+                  width: 350,
+                  prefixIcon: Icons.mail_outline,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                myTextField(
+                  labelText: 'وصف المشكلة',
+                  keyboardType: TextInputType.text,
+                  onChanged: (s) {},
+                  width: 350,
+                  prefixIcon: Icons.note_add_outlined,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                myButton(
+                  onPressed: () {},
+                  text: 'ارســــال',
+                  textStyle: MyTextStyles.font16WhiteBold,
+                  width: 350,
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

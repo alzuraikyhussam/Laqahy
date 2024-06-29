@@ -93,7 +93,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                   Home(),
                   Login(),
                   Profile(),
-                  SettingsScreen(),
+                  // SettingsScreen(),
                 ],
               ),
             ),

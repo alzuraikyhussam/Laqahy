@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -63,49 +64,69 @@ class AwarenessInformation extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.all(10),
-                width: 350,
-                height: 130,
+                width: Get.width,
+                height: 160,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border:
                       Border.all(color: MyColors.greyColor.withOpacity(0.3)),
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      width: 120,
+                      height: Get.height,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Image.asset('assets/images/information-image.png'),
+                      child: Image.asset(
+                        'assets/images/information-image.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     const SizedBox(
                       width: 10,
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(5),
-                          width: 110,
-                          decoration: BoxDecoration(
-                              color: MyColors.primaryColor.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Text(
-                            'لقاح السل',
-                            style: MyTextStyles.font14BlackBold,
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                                color: MyColors.primaryColor.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              'لقاح السل',
+                              maxLines: 1,
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.ellipsis,
+                              style: MyTextStyles.font14BlackBold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'لقللورض',
-                          style: MyTextStyles.font14GreyBold,
-                        )
-                      ],
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Expanded(
+                            child: Text(
+                              'لقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورض',
+                              style: MyTextStyles.font14GreyBold,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Container(
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: Text('data'),
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),

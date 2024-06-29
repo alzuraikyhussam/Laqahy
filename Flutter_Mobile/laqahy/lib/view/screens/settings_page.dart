@@ -13,54 +13,57 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: myAppBar(
+        onTap: () => Get.back(),
+        backgroundColor: MyColors.primaryColor,
+        iconColor: MyColors.whiteColor,
+      ),
       body: Container(
         width: Get.width,
         height: Get.height,
         decoration: BoxDecoration(
           color: MyColors.primaryColor,
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 350,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    myCircleAvatar(),
-                    const SizedBox(
-                      height: 10,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  myCircleAvatar(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'مرحبا بك',
+                    style: MyTextStyles.font16WhiteBold,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: 200,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: MyColors.secondaryColor,
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    Text(
-                      'مرحبا بك',
+                    child: Text(
+                      'زينب محمد صالح الاشول',
                       style: MyTextStyles.font16WhiteBold,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 200,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: MyColors.secondaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Text(
-                        'زينب محمد صالح الاشول',
-                        style: MyTextStyles.font16WhiteBold,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 0,
-              ),
-              Container(
-                width: 395,
-                height: 387,
+            ),
+            SizedBox(
+              height: 0,
+            ),
+            Expanded(
+              child: Container(
+                width: Get.width,
                 decoration: BoxDecoration(
                   color: MyColors.whiteColor,
                   borderRadius: const BorderRadius.only(
@@ -74,6 +77,7 @@ class SettingsScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ListView.separated(
+                            physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return ListTile(
                                 leading: sC.items[index]['icon'],
@@ -128,8 +132,8 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -17,14 +17,6 @@ class HomeLayoutController extends GetxController {
       icon: Icons.account_box_outlined,
       title: 'البروفايل',
     ),
-    const TabItem(
-      icon: Icons.settings_outlined,
-      title: 'الاعدادات',
-    ),
-    // const TabItem(
-    //   icon: Icons.account_box_outlined,
-    //   title: 'profile',
-    // ),
   ];
 
   PageController pageController = PageController();
