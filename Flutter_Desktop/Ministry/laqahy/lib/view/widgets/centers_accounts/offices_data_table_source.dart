@@ -30,7 +30,8 @@ class OfficesAccountsRowSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              office.id.toString(),
+              // office.id.toString(),
+              (index + 1).toString(),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),

@@ -14,6 +14,8 @@ class VaccinesStockPdfGenerator {
   String? managerName;
   String? reportName;
 
+  int serialNum = 0;
+
   VaccinesStockPdfGenerator({
     required this.data,
     required this.managerName,
@@ -71,7 +73,8 @@ class VaccinesStockPdfGenerator {
                   data.donorName,
                   data.quantity,
                   data.vaccineType,
-                  data.id,
+                  // data.id,
+                  serialNum += 1,
                 ],
               )
               .toList(),

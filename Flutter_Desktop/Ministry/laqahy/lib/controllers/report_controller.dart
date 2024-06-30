@@ -947,6 +947,7 @@ class ReportController extends GetxController {
     required BuildContext context,
     required String reportName,
   }) async {
+    int serialNum = 0;
     try {
       late StatusPdfGenerator pdfGenerator;
       if (selectedStatusType.value!.id == 1) {
@@ -965,7 +966,8 @@ class ReportController extends GetxController {
                   data.identityNum,
                   data.childrenCount,
                   data.name,
-                  data.id,
+                  // data.id,
+                  serialNum += 1,
                 ],
               )
               .toList(),
@@ -999,7 +1001,8 @@ class ReportController extends GetxController {
                   data.officeName,
                   data.motherName,
                   data.name,
-                  data.id,
+                  // data.id,
+                  serialNum += 1,
                 ],
               )
               .toList(),

@@ -15,6 +15,8 @@ class OrdersPdfGenerator {
   String? managerName;
   String? reportName;
 
+  int serialNum = 0;
+
   OrdersPdfGenerator({
     required this.data,
     required this.managerName,
@@ -81,7 +83,8 @@ class OrdersPdfGenerator {
                   data.quantity,
                   data.vaccineType,
                   data.officeName,
-                  data.id,
+                  // data.id,
+                  serialNum += 1,
                 ],
               )
               .toList(),

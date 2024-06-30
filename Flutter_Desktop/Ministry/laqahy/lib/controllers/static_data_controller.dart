@@ -1,22 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/city_model.dart';
 import 'package:laqahy/models/directorate_model.dart';
 import 'package:laqahy/models/gender_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/models/permission_type_model.dart';
 import 'package:laqahy/models/login_model.dart';
-import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
-import 'package:windows_system_info/windows_system_info.dart';
 
 class StaticDataController extends GetxController {
   List<Login> userLoggedData = <Login>[].obs;

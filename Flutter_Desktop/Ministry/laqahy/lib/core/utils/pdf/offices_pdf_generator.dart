@@ -14,6 +14,8 @@ class OfficesPdfGenerator {
   final List<Office> data;
   String? reportName;
 
+  int serialNum = 0;
+
   OfficesPdfGenerator({
     required this.data,
     required this.managerName,
@@ -71,7 +73,8 @@ class OfficesPdfGenerator {
                   office.phone,
                   office.centersCount,
                   office.name,
-                  office.id,
+                  // office.id,
+                  serialNum += 1,
                 ],
               )
               .toList(),

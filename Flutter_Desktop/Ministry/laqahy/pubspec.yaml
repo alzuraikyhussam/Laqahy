@@ -38,7 +38,6 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_localizations:
     sdk: flutter
-  flutter_rating_bar: ^4.0.1
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
   get: ^4.6.6
@@ -56,7 +55,6 @@ dependencies:
   shared_preferences: ^2.2.3
   uuid: ^4.3.3
   window_manager: ^0.3.8
-  windows_system_info: ^0.0.4
 
 # flutter pub run flutter_launcher_icons
 flutter_launcher_icons:
@@ -72,22 +70,10 @@ flutter_launcher_icons:
   macos:
     generate: true
 
-msix_config:
-  identity_name: com.sourcetech.laqahy.ministry
-  display_name: لقاحي
-  publisher_display_name: Sourcetech
-  version: 1.0.0.0
-  logo_path: assets/images/app-icon.png
-  output_name: laqahy_ministry_setup
-  certificate_path: laqahy.pfx
-  certificate_password: STabc$772957881
-  capabilities: internetClient, privateNetworkClientServer, location, picturesLibrary, musicLibrary, documentsLibrary, enterpriseAuthentication, sharedUserCertificates, removableStorage, appointments, wiFiControl
-
 dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
-  msix: ^3.16.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
