@@ -18,6 +18,9 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
+
+use App\Models\Mother_data;
+
 use App\Models\Ministry_statement_stock_vaccine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -170,4 +173,12 @@ Route::get('ministry/reports/orders-custom-report', [ReportController::class, 'g
 
 // --------------------- Login Routes ------------------------
 Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
+// ------------------------------------------------------------
+
+
+
+///////////////////////////////////////// Center Route ////////////////////////////////////////////////////////////////////////////
+
+// --------------------- Mother Data Routes ------------------------
+Route::post('motherData/add-motherData', [MotherDataController::class, 'store']);
 // ------------------------------------------------------------

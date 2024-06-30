@@ -11,6 +11,8 @@ import 'package:laqahy/view/screens/splash_screen.dart';
 
 import 'package:window_manager/window_manager.dart';
 
+import 'controllers/static_data_controller.dart';
+
 // import 'view/screens/create_admin_account.dart';
 
 // import 'package:laqahy/view/screens/home.dart';
@@ -30,6 +32,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       defaultTransition: Transition.fade,
+      initialBinding: BindingsBuilder(() {
+            Get.put(StaticDataController());
+          }),
       title: 'لقـاحي',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),
@@ -53,7 +58,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }
