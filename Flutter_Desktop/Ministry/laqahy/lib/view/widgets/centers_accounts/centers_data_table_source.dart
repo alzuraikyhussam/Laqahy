@@ -29,7 +29,8 @@ class CentersAccountsRowSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              center.id.toString(),
+              // center.id.toString(),
+              (index + 1).toString(),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),

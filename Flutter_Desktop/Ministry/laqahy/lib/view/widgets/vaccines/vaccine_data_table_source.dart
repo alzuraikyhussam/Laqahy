@@ -30,7 +30,8 @@ class VaccineRowSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              vaccine.id.toString(),
+              // vaccine.id.toString(),
+              (index + 1).toString(),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),

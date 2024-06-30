@@ -1,6 +1,6 @@
 # laqahy
 
-A smart vaccination tracking system for desktop
+An intelligent vaccination operation management system for ministry in yemen.
 
 ## Getting Started
 

@@ -14,6 +14,8 @@ class CentersPdfGenerator {
   final List<HealthyCenter> centerData;
   String? officeName;
 
+  int serialNum = 0;
+
   CentersPdfGenerator({
     required this.centerData,
     required this.managerName,
@@ -73,7 +75,8 @@ class CentersPdfGenerator {
                   center.cityName,
                   center.phone,
                   center.name,
-                  center.id,
+                  // center.id,
+                  serialNum += 1,
                 ],
               )
               .toList(),

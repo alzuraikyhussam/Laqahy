@@ -30,7 +30,8 @@ class UserRowSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              user.id.toString(),
+              // user.id.toString(),
+              (index + 1).toString(),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
