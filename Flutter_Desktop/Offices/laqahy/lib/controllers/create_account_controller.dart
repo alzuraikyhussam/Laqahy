@@ -1,0 +1,236 @@
+// ignore_for_file: unused_local_variable
+
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/models/center_model.dart';
+import 'package:laqahy/models/office_model.dart';
+import 'package:laqahy/models/register_model.dart';
+import 'package:laqahy/models/login_model.dart';
+import 'package:laqahy/models/user_models.dart';
+import 'package:laqahy/services/api/api_endpoints.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
+import 'package:laqahy/view/layouts/home/home_layout.dart';
+import 'package:laqahy/view/screens/login.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+
+class CreateAccountController extends GetxController {
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+  }
+
+  @override
+  void onInit() {
+    StaticDataController controller = Get.find<StaticDataController>();
+    controller.fetchCities();
+    controller.fetchGenders();
+    super.onInit();
+  }
+
+  var fetchDataFuture = Future<void>.value().obs;
+  var isLoading = false.obs;
+
+  RxBool isVisible = false.obs;
+
+  GlobalKey<FormState> createAdminAccountFormKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+
+  changePasswordVisibility() {
+    isVisible.value = !isVisible.value;
+  }
+
+  ///////
+
+  String? nameValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يجب ادخال الاسم الرباعي';
+    } else if (RegExp(r'[^a-zA-Z\u0600-\u06FF\s]').hasMatch(value)) {
+      return 'لا يجب أن يحتوي الاسم على أرقام أو رموز';
+    } else if (!RegExp(r'^\S+(\s+\S+){3}$').hasMatch(value)) {
+      // Regular expression to match exactly four words separated by spaces
+      return 'يجب ادخال اسمك الرباعي';
+    }
+    return null;
+  }
+
+/////////////
+  TextEditingController phoneNumberController = TextEditingController();
+  String? phoneNumberValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يجب ادخال رقم الهاتف ';
+    } else if (!GetUtils.isNumericOnly(value)) {
+      return 'يجب ادخال ارقام فقط';
+    } else if (!GetUtils.isLengthEqualTo(value, 9)) {
+      return 'يجب ان يتكون من 9 ارقام';
+    }
+    return null;
+  }
+
+/////////////
+  TextEditingController birthDateController = TextEditingController();
+  String? birthDateValidator(value) {
+    if (value.isEmpty) {
+      return 'ادخل تاريخ الميلاد';
+    }
+    return null;
+  }
+
+  //////////
+  TextEditingController userNameController = TextEditingController();
+  String? userNameValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يجب ادخال اسم المستخدم';
+    } else if (!GetUtils.isUsername(value)) {
+      return 'يجب ادخال اسم مستخدم صالح';
+    }
+    return null;
+  }
+
+  //////////
+  TextEditingController passwordController = TextEditingController();
+  String? passwordValidator(value) {
+    if (value.isEmpty) {
+      return 'يجب ادخال كلمة المرور';
+    } else if (value.length < 8) {
+      return 'يجب ألا تقل عن 8 أحرف';
+    } else if (!RegExp(
+            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$')
+        .hasMatch(value)) {
+      // Check for at least one uppercase letter, one lowercase letter, one digit, and one special character
+      return 'يجب أن تحتوي على أحرف كبيرة\n وصغيرة وأرقام ورموز';
+    }
+    return null;
+  }
+
+  //////////
+  TextEditingController addressController = TextEditingController();
+  String? addressValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يجب ادخال العنوان';
+    }
+    return null;
+  }
+
+  ////////
+
+  //////////
+  TextEditingController centerAddressController = TextEditingController();
+  String? centerAddressValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يجب ادخال العنوان';
+    }
+    return null;
+  }
+
+  ////////
+
+  GlobalKey<FormState> createMinistryAccountFormKey = GlobalKey<FormState>();
+
+  /////////////
+  TextEditingController centerPhoneNumberController = TextEditingController();
+  String? centerPhoneNumberValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يجب ادخال رقم الهاتف ';
+    } else if (!GetUtils.isNumericOnly(value)) {
+      return 'يجب ادخال ارقام فقط';
+    } else if (!GetUtils.isLengthBetween(value, 6, 9)) {
+      return 'يجب أن يكون ما بين 6 الى 9 أرقام';
+    }
+    return null;
+  }
+
+  Future<void> createAccount() async {
+    StaticDataController sdc = Get.find<StaticDataController>();
+    DateTime parsedBirthDate =
+        DateFormat('MMM d, yyyy').parse(birthDateController.text);
+
+    try {
+      isLoading(true);
+      // final deviceInfo = await sdc.initWindowsSystemInfo();
+
+      final login = Login(
+        userName: nameController.text,
+        userPhone: phoneNumberController.text,
+        userBirthDate: parsedBirthDate,
+        userAddress: addressController.text,
+        userGenderId: sdc.selectedGenderId.value!,
+        userPermissionId: sdc.selectedPermissionId.value!,
+        userAccountName: userNameController.text,
+        userAccountPassword: passwordController.text,
+      );
+      var response = await http.post(
+        Uri.parse(ApiEndpoints.register),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(login.toJson()),
+      );
+
+      if (response.statusCode == 201) {
+        isLoading(false);
+
+        var data = json.decode(response.body);
+
+        // Handle user and center objects
+        Login user = Login.fromJson(data['user']);
+        Office office = Office.fromJson(data['office']);
+
+        sdc.userLoggedData.assignAll([user]);
+        sdc.officeData.assignAll([office]);
+
+        try {
+          // Save SharedPreferences
+          await sdc.storageService.setOfficeId(sdc.officeData.first.id!);
+          await sdc.storageService.setAdminId(sdc.userLoggedData.first.userId!);
+          await sdc.storageService.setRegistered(true);
+        } catch (e) {
+          Get.offAll(const LoginScreen());
+        }
+        Constants().playSuccessSound();
+        myShowDialog(
+          context: Get.context!,
+          widgetName: ApiExceptionAlert(
+            height: 280,
+            backgroundColor: MyColors.primaryColor,
+            imageUrl: 'assets/images/success.json',
+            title: 'تمت العملية بنجاح',
+            description: 'لقد تمت عملية إنشاء الحساب بنجاح',
+            onPressed: () {
+              Get.offAll(const HomeLayout());
+            },
+          ),
+        );
+
+        return;
+      } else if (response.statusCode == 401) {
+        isLoading(false);
+        ApiExceptionWidgets().myUserAlreadyExistsAlert();
+        return;
+      } else {
+        isLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isLoading(false);
+
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isLoading(false);
+    }
+  }
+}
