@@ -1,12 +1,9 @@
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'package:laqahy/view/layouts/home_layout.dart';
-import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/splash_screen.dart';
 
 import 'package:window_manager/window_manager.dart';
@@ -19,8 +16,28 @@ import 'controllers/static_data_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
+
   await windowManager.ensureInitialized();
-  appWindow.show();
+
+  WindowOptions splashWindowOptions = const WindowOptions(
+    size: Size(700, 450),
+    center: true,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: true,
+    titleBarStyle: TitleBarStyle.hidden,
+  );
+  await windowManager.waitUntilReadyToShow(splashWindowOptions, () async {
+    await windowManager.setResizable(false);
+    await windowManager.setAlwaysOnTop(true);
+    await windowManager.show();
+    await windowManager.focus();
+  });
+
   runApp(const MyApp());
 }
 
@@ -33,8 +50,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       defaultTransition: Transition.fade,
       initialBinding: BindingsBuilder(() {
-            Get.put(StaticDataController());
-          }),
+        Get.put(StaticDataController());
+      }),
       title: 'لقـاحي',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),

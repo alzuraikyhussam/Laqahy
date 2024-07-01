@@ -15,21 +15,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-    WindowOptions splashWindowOptions = const WindowOptions(
-      size: Size(700, 450),
-      center: true,
-      backgroundColor: Colors.transparent,
-      skipTaskbar: true,
-      titleBarStyle: TitleBarStyle.hidden,
-    );
-    windowManager.waitUntilReadyToShow(splashWindowOptions, () async {
-      await windowManager.setResizable(false);
-      await windowManager.setAlwaysOnTop(true);
-      await windowManager.show();
-      await windowManager.focus();
-    });
     // قم بتأخير تحميل الصفحة لبعض الوقت (مثلاً 3 ثواني)، ثم انتقل إلى الشاشة الرئيسية
     Timer(
         const Duration(
@@ -38,14 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
       // انتقل إلى الشاشة الرئيسية
       Get.off(() => const WelcomeScreen());
     });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
-
 
     return Scaffold(
       body: Container(

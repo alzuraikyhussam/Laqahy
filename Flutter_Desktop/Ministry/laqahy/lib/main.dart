@@ -18,7 +18,21 @@ void main() async {
   ]);
 
   await windowManager.ensureInitialized();
-  appWindow.show();
+  // appWindow.show();
+
+  WindowOptions splashWindowOptions = const WindowOptions(
+    size: Size(700, 450),
+    center: true,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: true,
+    titleBarStyle: TitleBarStyle.hidden,
+  );
+  await windowManager.waitUntilReadyToShow(splashWindowOptions, () async {
+    await windowManager.setResizable(false);
+    await windowManager.setAlwaysOnTop(true);
+    await windowManager.show();
+    await windowManager.focus();
+  });
 
   runApp(const MyApp());
 }
