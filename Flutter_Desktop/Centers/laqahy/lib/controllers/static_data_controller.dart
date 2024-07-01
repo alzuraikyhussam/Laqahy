@@ -7,6 +7,7 @@ import 'package:laqahy/models/city_model.dart';
 import 'package:laqahy/models/directorate_model.dart';
 import 'package:laqahy/models/gender_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:laqahy/models/mother_status_data_model.dart';
 import 'package:laqahy/models/permission_type_model.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
@@ -45,6 +46,11 @@ class StaticDataController extends GetxController {
   var selectedDirectorateId = Rx<int?>(null);
   var directorateErrorMsg = ''.obs;
   var isDirectorateLoading = false.obs;
+
+  var mothers = <Mothers>[].obs;
+  var selectedMothersId = Rx<int?>(null);
+  var motherErrorMsg = ''.obs;
+  var isMotherLoading = false.obs;
 
   @override
   void onInit() async {
@@ -208,6 +214,37 @@ class StaticDataController extends GetxController {
       directorateErrorMsg('خطأ غير متوقع\n${e.toString()}');
     } finally {
       isDirectorateLoading(false);
+    }
+  }
+
+  void fetchMothers() async {
+    try {
+      motherErrorMsg('');
+      isMotherLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getMothersData),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isMotherLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<Mothers> fetchedMothers =
+            jsonData.map((e) => Mothers.fromJson(e)).toList();
+        mothers.assignAll(fetchedMothers);
+      } else {
+        isMotherLoading(false);
+        motherErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isMotherLoading(false);
+      motherErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isMotherLoading(false);
+      motherErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isMotherLoading(false);
     }
   }
 }

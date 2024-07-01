@@ -106,8 +106,13 @@ class ApiEndpoints {
   static const String getCentersReport = '$baseUrl/reports/centers-report';
   // --------------------------------------------------
   
-  // --------------- Status Endpoints -------------------
+  // --------------- Mother Status Data Endpoints -------------------
   static const String addMotherStatusData = '$baseUrl/motherData/add-motherData';
+  static const String getMothersData = '$baseUrl/motherData/get-motherData';
+  // --------------------------------------------------
+  
+  // --------------- Child Status Data Endpoints -------------------
+  static const String addChildStatusData = '$baseUrl/childData/add-childData';
   // --------------------------------------------------
 
 }

@@ -16,7 +16,17 @@ class MotherDataController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $mother = Mother_data::get();
+            return response()->json([
+                'message' => 'Mothers retrieved successfully',
+                'data' => $mother,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -53,16 +63,16 @@ class MotherDataController extends Controller
                 ], 400);
             }
 
-            $userExists = Mother_data::where('mother_name', $request->mother_name)->orWhere('mother_identity_num', $request->mother_identity_num)->exists();
+            $motherDataExists = Mother_data::where('mother_name', $request->mother_name)->orWhere('mother_identity_num', $request->mother_identity_num)->exists();
 
-            if ($userExists) {
+            if ($motherDataExists) {
                 return response()->json([
-                    'message' => 'This user already exists',
+                    'message' => 'This mother already exists',
                 ], 401);
             }
 
             // Create record
-            $user = Mother_data::create([
+            $mother = Mother_data::create([
                 'mother_name' => $request->mother_name,
                 'mother_phone' => $request->mother_phone,
                 'mother_identity_num' => $request->mother_identity_num,
@@ -76,7 +86,7 @@ class MotherDataController extends Controller
 
             // Return created record
             return response()->json([
-                'message' => 'User created successfully',
+                'message' => 'Mother created successfully',
             ], 201);
         } catch (Exception $e) {
             return response()->json([
@@ -84,6 +94,7 @@ class MotherDataController extends Controller
 
             ], 500);
         }
+
     }
 
     /**

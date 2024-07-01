@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Child_data;
+use Exception;
+use Illuminate\Http\Request;
+
+class ChildDataController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'child_data_name' => 'required',
+                    'child_data_birthDate' => 'required',
+                    'child_data_birthplace' => 'required',
+                    'mother_data_id' => 'required',
+                    'gender_id' => 'required',
+                ],
+            );
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
+
+            $childDataExists = Child_data::where('child_data_name', $request->child_data_name)->exists();
+
+            if ($childDataExists) {
+                return response()->json([
+                    'message' => 'This child already exists',
+                ], 401);
+            }
+
+            // Create record
+            $child = Child_data::create([
+                'child_data_name' => $request->child_data_name,
+                'child_data_birthDate' => $request->child_data_birthDate,
+                'child_data_birthplace' => $request->child_data_birthplace,
+                'mother_data_id' => $request->mother_data_id,
+                'gender_id' => $request->gender_id,
+            ]);
+
+            // Return created record
+            return response()->json([
+                'message' => 'Child created successfully',
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

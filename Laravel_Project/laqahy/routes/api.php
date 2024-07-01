@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChildDataController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\DonorController;
@@ -180,5 +181,10 @@ Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
 ///////////////////////////////////////// Center Route ////////////////////////////////////////////////////////////////////////////
 
 // --------------------- Mother Data Routes ------------------------
+Route::get('motherData/get-motherData', [MotherDataController::class, 'index']);
 Route::post('motherData/add-motherData', [MotherDataController::class, 'store']);
+// ------------------------------------------------------------
+
+// --------------------- Child Data Routes ------------------------
+Route::post('childData/add-childData', [ChildDataController::class, 'store']);
 // ------------------------------------------------------------

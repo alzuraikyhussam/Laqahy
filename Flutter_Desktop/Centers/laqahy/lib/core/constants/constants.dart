@@ -55,9 +55,6 @@ class Constants {
     ),
   ];
 
-
-
-
   /////////////
   String? cityValidator(value) {
     if (value == null) {
@@ -91,8 +88,20 @@ class Constants {
     return null;
   }
 
+  /////////////
+
+  String? mothersDataValidator(value) {
+    if (value == null) {
+      return 'قم باختيار إسم الأم أولاً';
+    }
+    return null;
+  }
+
+  ////////////
+
   final TextEditingController directoratesSearchController =
       TextEditingController();
+  final TextEditingController mothersSearchController = TextEditingController();
   final TextEditingController citySearchController = TextEditingController();
   final TextEditingController permissionSearchController =
       TextEditingController();
@@ -537,4 +546,104 @@ class Constants {
     });
   }
 
+  Widget mothersDataDropdownMenu() {
+    final StaticDataController controller = Get.find<StaticDataController>();
+    return Obx(() {
+      if (controller.isMotherLoading.value) {
+        return myMothersDropDownMenuButton2(
+          hintText: 'أسم الأم',
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          selectedValue: null,
+          validator: mothersDataValidator,
+        );
+      }
+
+      if (controller.motherErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().errorAudio();
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: controller.motherErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchMothers();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myMothersDropDownMenuButton2(
+            hintText: 'أسم الأم',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: mothersDataValidator,
+          ),
+        );
+      }
+
+      if (controller.mothers.isEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().errorAudio();
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchMothers();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myMothersDropDownMenuButton2(
+            hintText: 'أسم الأم',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: mothersDataValidator,
+          ),
+        );
+      }
+
+      return myMothersDropDownMenuButton2(
+        hintText: 'أسم الأم',
+        validator: mothersDataValidator,
+        items: controller.mothers.map((element) {
+          return DropdownMenuItem(
+            value: element.id.toString(),
+            child: Text(
+              element.mother_name,
+              style: MyTextStyles.font16BlackMedium,
+            ),
+          );
+        }).toList(),
+        onChanged: (value) {
+          if (value != null) {
+            controller.selectedMothersId.value = int.tryParse(value);
+          } else {
+            controller.selectedMothersId.value = null;
+          }
+        },
+        searchController: mothersSearchController,
+        selectedValue: controller.selectedGenderId.value?.toString(),
+      );
+    });
+  }
 }
