@@ -44,6 +44,7 @@ class OfficeController extends Controller
                 [
                     'office_phone' => 'required',
                     'office_address' => 'required',
+                    'create_account_code' => 'required',
                 ],
             );
 
@@ -55,9 +56,9 @@ class OfficeController extends Controller
                 ], 400);
             }
 
-            $office->update(['office_phone' => $request->office_phone, 'office_address' => $request->office_address, 'created_at' => now(), 'updated_at' => now(),]);
+            $office->update(['office_phone' => $request->office_phone, 'create_account_code' => $request->create_account_code, 'office_address' => $request->office_address, 'created_at' => now(), 'updated_at' => now(),]);
             return response()->json([
-                'message' => 'Office updated successfully',
+                'message' => 'Office initialized successfully',
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -109,7 +110,7 @@ class OfficeController extends Controller
     public function getUnRegisteredOffices()
     {
         try {
-            $office = Office::where('office_phone', null)->get();
+            $office = Office::where('office_phone', '=', null)->get();
 
             return response()->json([
                 'message' => 'Unregistered offices retrieved successfully',

@@ -123,7 +123,21 @@ class ApiExceptionWidgets {
     );
   }
 
-  myUserNotFoundInThisCenterAlert() {
+  myUserNotFoundAlert() {
+    Constants().playErrorSound();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 270,
+        imageUrl: 'assets/images/404-error.json',
+        backgroundColor: MyColors.redColor,
+        title: 'المستخدم غير موجود',
+        description: 'المستخدم الذي أدخلته غير موجود',
+      ),
+    );
+  }
+
+  myUserNotFoundInThisOfficeAlert() {
     Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
@@ -133,7 +147,7 @@ class ApiExceptionWidgets {
         backgroundColor: MyColors.redColor,
         title: 'خطـــأ',
         description:
-            'عذراً، لا يمكنك تسجيل الدخول بهذا المستخدم لأنه غير موجود في هذا المرفق',
+            'عذراً، لا يمكنك تسجيل الدخول بهذا المستخدم لأنه غير موجود في هذا المكتب',
       ),
     );
   }

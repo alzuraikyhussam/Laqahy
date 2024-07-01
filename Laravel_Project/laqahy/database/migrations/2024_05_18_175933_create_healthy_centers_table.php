@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('healthy_centers', function (Blueprint $table) {
             $table->id();
             $table->String('healthy_center_name');
-            $table->text('healthy_center_address');
+            $table->String('create_account_code')->nullable();
             $table->String('healthy_center_phone');
-            $table->String('healthy_center_installation_code')->nullable();
+            $table->text('healthy_center_address');
             $table->foreignId('directorate_id')->constrained('directorates')->onUpdate('cascade');
             $table->foreignId('cities_id')->constrained('cities')->onUpdate('cascade');
             $table->foreignId('office_id')->constrained('offices')->onUpdate('cascade');

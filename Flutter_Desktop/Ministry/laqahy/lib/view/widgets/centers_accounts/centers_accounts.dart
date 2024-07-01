@@ -468,6 +468,16 @@ class CentersAccounts extends StatelessWidget {
                               label: Container(
                                 alignment: AlignmentDirectional.center,
                                 child: Text(
+                                  "كود التسجيل",
+                                  style: MyTextStyles.font14WhiteBold,
+                                ),
+                              ),
+                              // fixedWidth: 50,
+                            ),
+                            DataColumn2(
+                              label: Container(
+                                alignment: AlignmentDirectional.center,
+                                child: Text(
                                   "عـدد المـراكز",
                                   style: MyTextStyles.font14WhiteBold,
                                 ),

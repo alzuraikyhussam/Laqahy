@@ -6,6 +6,7 @@ use App\Models\Healthy_center;
 use App\Models\Healthy_center_account;
 use App\Models\Mother_data;
 use App\Models\Office;
+use App\Models\Office_users;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -142,6 +143,143 @@ class AuthController extends Controller
                 'message' => 'Login successfully',
                 'user' => $user,
                 'center' => $center,
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    ///////////////////Offices//////////////////////
+    public function checkVerificationCode($code)
+    {
+        try {
+
+            $office = Office::where('create_account_code', $code)->first();
+
+            if (!$office) {
+                return response()->json([
+                    'message' => 'Office not found',
+                ], 404);
+            }
+
+            return response()->json([
+                'message' => 'Office retrieved successfully',
+                'office' => $office,
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeRegister(Request $request)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'user_name' => 'required',
+                    'user_phone' => 'required',
+                    'user_address' => 'required',
+                    'user_birthDate' => 'required',
+                    'user_account_name' => 'required',
+                    'user_account_password' => 'required',
+                    'gender_id' => 'required',
+                    'permission_type_id' => 'required',
+                    'office_id' => 'required',
+                ],
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
+
+            $user = Office_users::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
+            $office = Office::where('id', $request->office_id)->first();
+
+            if ($user) {
+                return response()->json([
+                    'message' => 'This user already exists',
+                ], 401);
+            }
+
+            $user = Office_users::create([
+                'user_name' => $request->user_name,
+                'user_phone' => $request->user_phone,
+                'user_address' => $request->user_address,
+                'user_birthDate' => $request->user_birthDate,
+                'user_account_name' => $request->user_account_name,
+                'user_account_password' => $request->user_account_password,
+                'gender_id' => $request->gender_id,
+                'permission_type_id' => $request->permission_type_id,
+                'office_id' => $request->office_id,
+            ]);
+
+            $office->update(['create_account_code' => null]);
+
+            return response()->json([
+                'message' => 'Office account with admin account are created successfully',
+                'user' => $user,
+                'office' => $office,
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeLogin(Request $request, $officeId = 0)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'user_account_name' => 'required',
+                    'user_account_password' => 'required',
+                ],
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
+
+            $user = Office_users::where('user_account_name', $request->user_account_name)->first();
+
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found',
+                ], 404);
+            }
+
+            if ($officeId != 0) {
+                if ($officeId != $user->office_id) {
+                    return response()->json([
+                        'message' => 'User not found in this office',
+                    ], 402);
+                }
+            }
+
+            if (!($request->user_account_password === $user->user_account_password)) {
+                return response()->json([
+                    'message' => 'Invalid password',
+                ], 401);
+            }
+
+
+            Auth::login($user);
+            $office = Office::where('id', $user->office_id)->first();
+            return response()->json([
+                'message' => 'Login successfully',
+                'user' => $user,
+                'office' => $office,
             ], 200);
         } catch (Exception $e) {
             return response()->json([

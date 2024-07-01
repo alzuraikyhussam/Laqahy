@@ -1,16 +1,8 @@
 import 'package:intl/intl.dart';
 
 class Register {
-  int? centerId;
-  String centerName;
-  String centerPhone;
-  String centerAddress;
-  int centerDirectorateId;
-  int centerCityId;
-  // String? deviceName;
-  // String? deviceUserName;
-  // String? deviceMacAddress;
   int? userId;
+  int? officeId;
   String userName;
   String userPhone;
   String userAddress;
@@ -21,16 +13,8 @@ class Register {
   int userPermissionId;
 
   Register({
-    this.centerId,
-    required this.centerName,
-    required this.centerPhone,
-    required this.centerAddress,
-    required this.centerDirectorateId,
-    required this.centerCityId,
-    //  this.deviceName,
-    //  this.deviceUserName,
-    //  this.deviceMacAddress,
     this.userId,
+    this.officeId,
     required this.userName,
     required this.userPhone,
     required this.userAddress,
@@ -43,30 +27,20 @@ class Register {
 
   factory Register.fromJson(Map<String, dynamic> json) {
     return Register(
-      centerName: json['healthy_center_name'],
-      centerPhone: json['healthy_center_phone'],
-      centerAddress: json['healthy_center_address'],
-      centerCityId: json['cities_id'],
-      centerDirectorateId: json['directorate_id'],
-      userName: json['user_name'],
-      userPhone: json['user_phone'],
-      userAddress: json['user_address'],
-      userBirthDate: json['user_birthDate'],
-      userAccountName: json['user_account_name'],
-      userPassword: json['user_account_password'],
-      userGenderId: json['gender_id'],
-      centerId: json['healthy_center_id'],
-      userPermissionId: json['permission_type_id'],
+      userId: json['id'] ?? 0,
+      userName: json['user_name'] ?? '',
+      userPhone: json['user_phone'] ?? '',
+      userAddress: json['user_address'] ?? '',
+      userBirthDate: json['user_birthDate'] ?? '',
+      userAccountName: json['user_account_name'] ?? '',
+      userPassword: json['user_account_password'] ?? '',
+      userGenderId: json['gender_id'] ?? 0,
+      userPermissionId: json['permission_type_id'] ?? 0,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'healthy_center_name': centerName,
-      'healthy_center_phone': centerPhone,
-      'healthy_center_address': centerAddress,
-      'cities_id': centerCityId,
-      'directorate_id': centerDirectorateId,
       'user_name': userName,
       'user_phone': userPhone,
       'user_address': userAddress,
@@ -75,10 +49,7 @@ class Register {
       'user_account_password': userPassword,
       'gender_id': userGenderId,
       'permission_type_id': userPermissionId,
-      'healthy_center_id': centerId,
-      // 'device_name': deviceName,
-      // 'device_username': deviceUserName,
-      // 'MAC_address': deviceMacAddress,
+      'office_id': officeId,
     };
   }
 }

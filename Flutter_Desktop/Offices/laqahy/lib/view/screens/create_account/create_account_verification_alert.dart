@@ -83,7 +83,7 @@ class _CreateAccountVerificationAlertState
                         : () {
                             if (cav.createAccountVerification.currentState!
                                 .validate()) {
-                              cav.checkCodeVerification();
+                              cav.checkVerificationCode();
                             }
                           },
                     width: 150,

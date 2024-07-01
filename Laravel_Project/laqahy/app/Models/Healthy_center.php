@@ -12,6 +12,7 @@ class Healthy_center extends Model
     use SoftDeletes;
     protected $fillable = [
         'healthy_center_name',
+        'create_account_code',
         'healthy_center_address',
         'healthy_center_phone',
         'healthy_center_installation_code',
@@ -64,10 +65,5 @@ class Healthy_center extends Model
     public function order()
     {
         return $this->hasMany(Order::class);
-    }
-
-    public function healthy_center_accounts()
-    {
-        return $this->hasMany(Healthy_center_account::class);
     }
 }

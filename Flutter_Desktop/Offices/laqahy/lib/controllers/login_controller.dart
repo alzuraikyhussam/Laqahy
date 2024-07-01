@@ -1,18 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/controllers/static_data_controller.dart';
-import 'package:laqahy/models/center_model.dart';
-import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/models/login_model.dart';
+import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/layouts/home/home_layout.dart';
-import 'package:laqahy/view/screens/login.dart';
 
 class LoginController extends GetxController {
   RxBool isVisible = false.obs;
@@ -50,10 +47,9 @@ class LoginController extends GetxController {
         userAccountName: userNameController.text,
         userAccountPassword: passwordController.text,
       );
-      var centerId = await sdc.storageService.getOfficeId();
-      print(centerId);
+      var officeId = await sdc.storageService.getOfficeId();
       var response = await http.post(
-        Uri.parse('${ApiEndpoints.login}/$centerId'),
+        Uri.parse('${ApiEndpoints.login}/$officeId'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -64,11 +60,11 @@ class LoginController extends GetxController {
         var data = json.decode(response.body);
 
         // Handle user and center objects
-        // Login user = Login.fromJson(data['user']);
-        // HealthyCenter center = HealthyCenter.fromJson(data['center']);
+        Login user = Login.fromJson(data['user']);
+        Office center = Office.fromJson(data['office']);
 
-        // sdc.userLoggedData.assignAll([user]);
-        // sdc.officeData.assignAll([center]);
+        sdc.userLoggedData.assignAll([user]);
+        sdc.officeData.assignAll([center]);
 
         try {
           // Save SharedPreferences
@@ -78,18 +74,21 @@ class LoginController extends GetxController {
                 .setAdminId(sdc.userLoggedData.first.userId!);
             await sdc.storageService.setRegistered(true);
           }
-        } catch (_) {}
+          Get.offAll(const HomeLayout());
+          isLoading(false);
+        } catch (e) {
+          isLoading(false);
+          ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        }
 
-        Get.offAll(const HomeLayout());
-        isLoading(false);
         return;
       } else if (response.statusCode == 402) {
         isLoading(false);
-        ApiExceptionWidgets().myUserNotFoundInThisCenterAlert();
+        ApiExceptionWidgets().myUserNotFoundInThisOfficeAlert();
         return;
       } else if (response.statusCode == 404) {
         isLoading(false);
-        ApiExceptionWidgets().myCodeVerificationNotFoundAlert();
+        ApiExceptionWidgets().myUserNotFoundAlert();
         return;
       } else if (response.statusCode == 401) {
         isLoading(false);
@@ -103,12 +102,10 @@ class LoginController extends GetxController {
       }
     } on SocketException catch (_) {
       isLoading(false);
-
       ApiExceptionWidgets().mySocketExceptionAlert();
       return;
     } catch (e) {
       isLoading(false);
-      print(e);
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);

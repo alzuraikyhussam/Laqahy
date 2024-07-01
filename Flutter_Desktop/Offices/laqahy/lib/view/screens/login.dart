@@ -73,19 +73,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? exitButton()
                             : goBackButton(
                                 onTap: () {
-                                  Get.off(WelcomeScreen());
+                                  Get.off(const WelcomeScreen());
                                 },
                               ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Obx(() => Text(
                           '${controller.greeting.value} ...',
                           style: MyTextStyles.font18PrimaryBold,
                         )),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: MyTextStyles.font16BlackBold,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Form(
@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Obx(() {
@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             );
                           }),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Obx(() {
@@ -147,9 +147,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                         : () {
                                             if (lc.loginFormKey.currentState!
                                                 .validate()) {
-                                              // myShowDialog(
-                                              //     context: context,
-                                              //     widgetName: AdminVerification());
                                               lc.login();
                                             }
                                           },

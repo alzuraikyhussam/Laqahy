@@ -9,11 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/models/register_model.dart';
 import 'package:laqahy/models/login_model.dart';
-import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/layouts/home/home_layout.dart';
@@ -122,32 +120,6 @@ class CreateAccountController extends GetxController {
 
   ////////
 
-  //////////
-  TextEditingController centerAddressController = TextEditingController();
-  String? centerAddressValidator(value) {
-    if (value.trim().isEmpty) {
-      return 'يجب ادخال العنوان';
-    }
-    return null;
-  }
-
-  ////////
-
-  GlobalKey<FormState> createMinistryAccountFormKey = GlobalKey<FormState>();
-
-  /////////////
-  TextEditingController centerPhoneNumberController = TextEditingController();
-  String? centerPhoneNumberValidator(value) {
-    if (value.trim().isEmpty) {
-      return 'يجب ادخال رقم الهاتف ';
-    } else if (!GetUtils.isNumericOnly(value)) {
-      return 'يجب ادخال ارقام فقط';
-    } else if (!GetUtils.isLengthBetween(value, 6, 9)) {
-      return 'يجب أن يكون ما بين 6 الى 9 أرقام';
-    }
-    return null;
-  }
-
   Future<void> createAccount() async {
     StaticDataController sdc = Get.find<StaticDataController>();
     DateTime parsedBirthDate =
@@ -155,24 +127,25 @@ class CreateAccountController extends GetxController {
 
     try {
       isLoading(true);
-      // final deviceInfo = await sdc.initWindowsSystemInfo();
+      int officeId = sdc.officeData.first.id!;
 
-      final login = Login(
+      final register = Register(
         userName: nameController.text,
         userPhone: phoneNumberController.text,
         userBirthDate: parsedBirthDate,
         userAddress: addressController.text,
         userGenderId: sdc.selectedGenderId.value!,
-        userPermissionId: sdc.selectedPermissionId.value!,
+        userPermissionId: 1,
         userAccountName: userNameController.text,
-        userAccountPassword: passwordController.text,
+        userPassword: passwordController.text,
+        officeId: officeId,
       );
       var response = await http.post(
         Uri.parse(ApiEndpoints.register),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(login.toJson()),
+        body: jsonEncode(register.toJson()),
       );
 
       if (response.statusCode == 201) {
@@ -180,7 +153,7 @@ class CreateAccountController extends GetxController {
 
         var data = json.decode(response.body);
 
-        // Handle user and center objects
+        // Handle user and office objects
         Login user = Login.fromJson(data['user']);
         Office office = Office.fromJson(data['office']);
 
@@ -194,6 +167,7 @@ class CreateAccountController extends GetxController {
           await sdc.storageService.setRegistered(true);
         } catch (e) {
           Get.offAll(const LoginScreen());
+          return;
         }
         Constants().playSuccessSound();
         myShowDialog(

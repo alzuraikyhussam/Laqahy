@@ -1,6 +1,7 @@
 class Office {
   int? id;
   String? name;
+  String? createAccountCode;
   String? phone;
   String? address;
   int? centersCount;
@@ -9,6 +10,7 @@ class Office {
   Office({
     this.id,
     this.centersCount,
+    this.createAccountCode,
     this.createdAt,
     this.name,
     this.phone,
@@ -21,6 +23,7 @@ class Office {
       name: json['office_name'] ?? '',
       phone: json['office_phone'] ?? '',
       address: json['office_address'] ?? '',
+      createAccountCode: json['create_account_code'] ?? '',
       centersCount: json['healthy_centers_count'] ?? 0,
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])

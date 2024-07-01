@@ -9,7 +9,7 @@ class Office extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['office_name', 'office_phone', 'office_address', 'created_at', 'updated_at'];
+    protected $fillable = ['office_name', 'create_account_code', 'office_phone', 'office_address', 'created_at', 'updated_at'];
 
     public function officeStockVaccine()
     {

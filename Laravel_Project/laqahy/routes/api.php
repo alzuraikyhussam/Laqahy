@@ -168,8 +168,15 @@ Route::get('ministry/reports/orders-states-report', [ReportController::class, 'g
 Route::get('ministry/reports/orders-custom-report', [ReportController::class, 'generateCustomOrdersReport']);
 // ------------------------------------------------------------
 
+/////////////////////////////////////// Offices Routes ///////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////MOBILE Route////////////////////////////////////////////////////////////////////////////
+// --------------------- Auth Routes ------------------------
+Route::get('offices/auth/register/verify/{code}', [AuthController::class, 'checkVerificationCode']);
+Route::post('offices/auth/register', [AuthController::class, 'officeRegister']);
+Route::post('offices/auth/login/{office_id?}', [AuthController::class, 'OfficeLogin']);
+// ------------------------------------------------------------
+
+///////////////////////////////////////// MOBILE Routes ////////////////////////////////////////////////////////////////////////////
 
 
 // --------------------- Login Routes ------------------------
@@ -178,7 +185,7 @@ Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
 
 
 
-///////////////////////////////////////// Center Route ////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 
 // --------------------- Mother Data Routes ------------------------
 Route::get('motherData/get-motherData', [MotherDataController::class, 'index']);

@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:http/http.dart' as http;
+import 'package:laqahy/core/constants/constants.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/screens/create_account/create_admin_account.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class CreateAccountVerificationController extends GetxController {
   GlobalKey<FormState> createAccountVerification = GlobalKey<FormState>();
@@ -32,7 +36,7 @@ class CreateAccountVerificationController extends GetxController {
     isVisible.value = !isVisible.value;
   }
 
-  Future<void> checkCodeVerification() async {
+  Future<void> checkVerificationCode() async {
     StaticDataController sdc = Get.find<StaticDataController>();
     try {
       isVerifyLoading(true);
@@ -52,7 +56,22 @@ class CreateAccountVerificationController extends GetxController {
         sdc.officeData.assignAll([office]);
 
         Get.back();
-        Get.to(const CreateAdminAccount());
+
+        Constants().playSuccessSound();
+        myShowDialog(
+          context: Get.context!,
+          widgetName: ApiExceptionAlert(
+            height: 280,
+            backgroundColor: MyColors.primaryColor,
+            imageUrl: 'assets/images/success.json',
+            title: 'تم التحقق بنجاح',
+            description:
+                'يجب القيام بملئ الحقول التالية لإكمال عملية إنشاء الحساب',
+            onPressed: () {
+              Get.to(const CreateAdminAccount());
+            },
+          ),
+        );
 
         isVerifyLoading(false);
         return;

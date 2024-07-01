@@ -202,6 +202,7 @@ class CreateAccountController extends GetxController {
           await sdc.storageService.setRegistered(true);
         } catch (e) {
           Get.offAll(LoginScreen());
+          return;
         }
         Constants().playSuccessSound();
         myShowDialog(

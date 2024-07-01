@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('offices', function (Blueprint $table) {
             $table->id();
             $table->string('office_name');
+            $table->string('create_account_code')->nullable();
             $table->string('office_phone')->nullable();
             $table->text('office_address')->nullable();
             $table->timestamps();

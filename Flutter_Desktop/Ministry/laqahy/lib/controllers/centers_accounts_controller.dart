@@ -15,6 +15,7 @@ import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:uuid/uuid.dart';
 
 class CentersAccountsController extends GetxController {
   @override
@@ -25,6 +26,8 @@ class CentersAccountsController extends GetxController {
     fetchCenters();
     super.onInit();
   }
+
+  Uuid createAccountCode = const Uuid();
 
   PaginatorController officesTableController = PaginatorController();
   TextEditingController officeSearchController = TextEditingController();
@@ -503,16 +506,22 @@ class CentersAccountsController extends GetxController {
     var address,
   }) async {
     isUpdateLoading(true);
+
+    String code = createAccountCode.v4().substring(0, 8);
+
     final office = Office(
       phone: phone,
       address: address,
+      createAccountCode: code,
     );
+
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.updateOffice}/$officeId'));
       request.fields['_method'] = 'PATCH';
       request.fields['office_phone'] = office.phone!;
       request.fields['office_address'] = office.address!;
+      request.fields['create_account_code'] = office.createAccountCode!;
 
       var response = await request.send();
 

@@ -51,6 +51,16 @@ class OfficesAccountsRowSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
+              office.createAccountCode ?? "تم التسجيل",
+              textAlign: TextAlign.center,
+              style: MyTextStyles.font14BlackMedium,
+            ),
+          ),
+        ),
+        DataCell(
+          Container(
+            alignment: AlignmentDirectional.center,
+            child: Text(
               office.centersCount.toString(),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,

@@ -78,10 +78,13 @@ class LoginController extends GetxController {
                 .setAdminId(sdc.userLoggedData.first.userId!);
             await sdc.storageService.setRegistered(true);
           }
-        } catch (_) {}
+          Get.offAll(const HomeLayout());
+          isLoading(false);
+        } catch (e) {
+          isLoading(false);
+          ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        }
 
-        Get.offAll(const HomeLayout());
-        isLoading(false);
         return;
       } else if (response.statusCode == 402) {
         isLoading(false);
@@ -108,7 +111,6 @@ class LoginController extends GetxController {
       return;
     } catch (e) {
       isLoading(false);
-      print(e);
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);

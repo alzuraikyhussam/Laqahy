@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('office_stock_vaccines', function (Blueprint $table) {
+        Schema::create('offices_stock_vaccines', function (Blueprint $table) {
             $table->id();
             $table->foreignId('office_id')->constrained('offices')->onUpdate('cascade');
             $table->foreignId('vaccine_type_id')->constrained('vaccine_types')->onUpdate('cascade');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('office_stock_vaccines');
+        Schema::dropIfExists('offices_stock_vaccines');
     }
 };

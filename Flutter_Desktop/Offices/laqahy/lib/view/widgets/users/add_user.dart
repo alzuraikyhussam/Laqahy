@@ -1,14 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/create_account_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/users/add_user_successfully.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class AddUser extends StatefulWidget {
