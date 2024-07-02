@@ -45,4 +45,31 @@ class GeneralController extends Controller
             ], 500);
         }
     }
+
+    public function officesGetTotalCount($office_id)
+    {
+        try {
+            $centersCount = Healthy_center::where('office_id', $office_id)->count();
+            $mothersCount = Mother_data::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
+            $childrenCount = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
+            $vaccinesCount = Vaccine_type::count();
+            $orderState = Order_state::where('order_state', 'تم التسليم')->first();
+            $ordersCount = Order::where('office_id', $office_id)->where('order_state_id', $orderState->id)->count();
+
+            return response()->json([
+                'message' => 'Total Count retrieved successfully',
+                'data' => [
+                    'centers_count' => $centersCount,
+                    'mothers_count' => $mothersCount,
+                    'children_count' => $childrenCount,
+                    'vaccines_count' => $vaccinesCount,
+                    'orders_count' => $ordersCount,
+                ]
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

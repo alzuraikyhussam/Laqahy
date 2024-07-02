@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
@@ -8,6 +10,7 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
+// ignore: must_be_immutable
 class EditUser extends StatefulWidget {
   EditUser({super.key, required this.data});
 
@@ -28,7 +31,6 @@ class _EditUserState extends State<EditUser> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     sdc.selectedGenderId.value = widget.data.userGenderId;
     sdc.selectedPermissionId.value = widget.data.userPermissionId;
@@ -49,7 +51,7 @@ class _EditUserState extends State<EditUser> {
   Widget build(BuildContext context) {
     return AlertDialog(
       alignment: AlignmentDirectional.center,
-      contentPadding: EdgeInsets.all(20),
+      contentPadding: const EdgeInsets.all(20),
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
         decoration: BoxDecoration(
@@ -59,19 +61,17 @@ class _EditUserState extends State<EditUser> {
           ),
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         height: 520,
         child: Form(
           key: uc.editUserAccountFormKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: Text(
-                  'تعديل مستخدم',
-                  textAlign: TextAlign.center,
-                  style: MyTextStyles.font18PrimaryBold,
-                ),
+              Text(
+                'تعديل مستخدم',
+                textAlign: TextAlign.center,
+                style: MyTextStyles.font18PrimaryBold,
               ),
               const SizedBox(
                 height: 30,
@@ -99,7 +99,7 @@ class _EditUserState extends State<EditUser> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Column(
@@ -123,7 +123,7 @@ class _EditUserState extends State<EditUser> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Column(
@@ -133,7 +133,7 @@ class _EditUserState extends State<EditUser> {
                         'الجنس ',
                         style: MyTextStyles.font14BlackBold,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 3,
                       ),
                       Constants().gendersDropdownMenu(),
@@ -169,7 +169,7 @@ class _EditUserState extends State<EditUser> {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Column(
@@ -205,13 +205,13 @@ class _EditUserState extends State<EditUser> {
                                 'تحديد الصلاحية',
                                 style: MyTextStyles.font14BlackBold,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 3,
                               ),
                               Constants().permissionsDropdownMenu(),
                             ],
                           )
-                        : SizedBox()
+                        : const SizedBox()
                   ],
                 ),
               ),
@@ -230,7 +230,7 @@ class _EditUserState extends State<EditUser> {
                           'تاريخ الميلاد',
                           style: MyTextStyles.font14BlackBold,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 3,
                         ),
                         Container(
@@ -318,15 +318,11 @@ class _EditUserState extends State<EditUser> {
                                         birthDateController.text,
                                       );
                                     }
-                                    // myShowDialog(
-                                    //     context: context,
-                                    //     widgetName:
-                                    //         const AddUserSuccessfully());
                                   },
                             text: 'تعـــديل',
                             textStyle: MyTextStyles.font16WhiteBold);
                   }),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   myButton(

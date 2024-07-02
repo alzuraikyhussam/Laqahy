@@ -55,7 +55,7 @@ class ApiEndpoints {
   static const String login = '$baseUrl/auth/login';
   // --------------------------------------------------
 
-  // --------------- Login Endpoints -------------------
+  // --------------- User Endpoints -------------------
   static const String getUsers = '$baseUrl/ministry/users';
   static const String getAdmin = '$baseUrl/ministry/users/get-admin';
   static const String addUser = '$baseUrl/ministry/users/add-user';
@@ -105,14 +105,14 @@ class ApiEndpoints {
   // --------------- Generate Centers Report Endpoints -------------------
   static const String getCentersReport = '$baseUrl/reports/centers-report';
   // --------------------------------------------------
-  
+
   // --------------- Mother Status Data Endpoints -------------------
-  static const String addMotherStatusData = '$baseUrl/motherData/add-motherData';
+  static const String addMotherStatusData =
+      '$baseUrl/motherData/add-motherData';
   static const String getMothersData = '$baseUrl/motherData/get-motherData';
   // --------------------------------------------------
-  
+
   // --------------- Child Status Data Endpoints -------------------
   static const String addChildStatusData = '$baseUrl/childData/add-childData';
   // --------------------------------------------------
-
 }

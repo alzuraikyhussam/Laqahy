@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // --------------------- General Routes ------------------------
 Route::get('ministry/general/home-total-count', [GeneralController::class, 'getTotalCount']);
 // ------------------------------------------------------------
@@ -173,7 +174,19 @@ Route::get('ministry/reports/orders-custom-report', [ReportController::class, 'g
 // --------------------- Auth Routes ------------------------
 Route::get('offices/auth/register/verify/{code}', [AuthController::class, 'checkVerificationCode']);
 Route::post('offices/auth/register', [AuthController::class, 'officeRegister']);
-Route::post('offices/auth/login/{office_id?}', [AuthController::class, 'OfficeLogin']);
+Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'officeLogin']);
+// ------------------------------------------------------------
+
+// --------------------- General Routes ------------------------
+Route::get('offices/general/home-total-count/{office_id}', [GeneralController::class, 'officesGetTotalCount']);
+// ------------------------------------------------------------
+
+// --------------------- User Routes ------------------------
+Route::get('offices/users/get-admin/{id}', [UserController::class, 'officeGetAdminData']);
+Route::post('offices/users/add-user', [UserController::class, 'officeAddUser']);
+Route::patch('offices/users/update-user/{id}', [UserController::class, 'officeUpdateUser']);
+Route::get('offices/users/{id}', [UserController::class, 'officeShowUser']);
+Route::delete('offices/users/delete-user/{id}', [UserController::class, 'officeDestroyUser']);
 // ------------------------------------------------------------
 
 ///////////////////////////////////////// MOBILE Routes ////////////////////////////////////////////////////////////////////////////
