@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/city_model.dart';
 import 'package:laqahy/models/directorate_model.dart';
+import 'package:laqahy/models/dosage_level_model.dart';
+import 'package:laqahy/models/dosage_type_model.dart';
 import 'package:laqahy/models/gender_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/models/mother_status_data_model.dart';
@@ -51,6 +53,16 @@ class StaticDataController extends GetxController {
   var selectedMothersId = Rx<int?>(null);
   var motherErrorMsg = ''.obs;
   var isMotherLoading = false.obs;
+  
+  var dosageLevel = <DosageLevel>[].obs;
+  var selectedDosageLevelId = Rx<int?>(null);
+  var dosageLevelErrorMsg = ''.obs;
+  var isDosageLevelLoading = false.obs;
+  
+  var dosageType = <DosageType>[].obs;
+  var selectedDosageTypeId = Rx<int?>(null);
+  var dosageTypeErrorMsg = ''.obs;
+  var isDosageTypeLoading = false.obs;
 
   @override
   void onInit() async {
@@ -247,4 +259,68 @@ class StaticDataController extends GetxController {
       isMotherLoading(false);
     }
   }
+  
+  void fetchDosageLevel() async {
+    try {
+      dosageLevelErrorMsg('');
+      isDosageLevelLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getDosageLevel),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isDosageLevelLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<DosageLevel> fetchDosageLevelData =
+            jsonData.map((e) => DosageLevel.fromJson(e)).toList();
+        dosageLevel.assignAll(fetchDosageLevelData);
+      } else {
+        isDosageLevelLoading(false);
+        dosageLevelErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isDosageLevelLoading(false);
+      dosageLevelErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isDosageLevelLoading(false);
+      dosageLevelErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isDosageLevelLoading(false);
+    }
+  }
+
+  void fetchDosageType(int dosageLevelId)async {
+    try {
+      dosageTypeErrorMsg('');
+      isDosageTypeLoading(true);
+      final response = await http.get(
+        Uri.parse('${ApiEndpoints.getDosageType}/$dosageLevelId'),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isDosageTypeLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<DosageType> fetchDosageTypeData =
+            jsonData.map((e) => DosageType.fromJson(e)).toList();
+        dosageType.assignAll(fetchDosageTypeData);
+      } else {
+        isDosageTypeLoading(false);
+        dosageTypeErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isDosageTypeLoading(false);
+      dosageTypeErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isDosageTypeLoading(false);
+      dosageTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isDosageTypeLoading(false);
+    }
+  }
+
 }

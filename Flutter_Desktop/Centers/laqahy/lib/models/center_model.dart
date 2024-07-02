@@ -43,10 +43,10 @@ class HealthyCenter {
     );
   }
 
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'cities_id': cityId,
-  //     'directorate_id': directorateId,
-  //   };
-  // }
+  Map<String, dynamic> toJson() {
+    return {
+      'cities_id': cityId,
+      'directorate_id': directorateId,
+    };
+  }
 }

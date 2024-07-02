@@ -5,6 +5,8 @@ use App\Http\Controllers\ChildDataController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\DonorController;
+use App\Http\Controllers\DosageLevelsController;
+use App\Http\Controllers\DosageTypeController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HealthyCenterController;
@@ -19,7 +21,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
-
+use App\Models\Dosage_level;
 use App\Models\Mother_data;
 
 use App\Models\Ministry_statement_stock_vaccine;
@@ -188,10 +190,18 @@ Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
 ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 
 // --------------------- Mother Data Routes ------------------------
-Route::get('motherData/get-motherData', [MotherDataController::class, 'index']);
-Route::post('motherData/add-motherData', [MotherDataController::class, 'store']);
+Route::get('center/motherData/get-motherData', [MotherDataController::class, 'index']);
+Route::post('center/motherData/add-motherData', [MotherDataController::class, 'store']);
 // ------------------------------------------------------------
 
 // --------------------- Child Data Routes ------------------------
-Route::post('childData/add-childData', [ChildDataController::class, 'store']);
+Route::post('center/childData/add-childData', [ChildDataController::class, 'store']);
+// ------------------------------------------------------------
+
+// --------------------- Dosage Levels Routes ------------------------
+Route::get('center/Dosage-Level', [DosageLevelsController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Dosage Types Routes ------------------------
+Route::get('center/Dosage-type/{id}', [DosageTypeController::class, 'show']);
 // ------------------------------------------------------------

@@ -99,6 +99,24 @@ class Constants {
 
   ////////////
 
+  /////////////
+  String? dosageLevelValidator(value) {
+    if (value == null) {
+      return 'قم باختيار مرحلة الجرعة';
+    }
+    return null;
+  }
+
+//////////
+  String? dosageTypeValidator(value) {
+    if (value == null) {
+      return 'قم باختيار نوع الجرعة';
+    }
+    return null;
+  }
+
+  /////////////
+
   final TextEditingController directoratesSearchController =
       TextEditingController();
   final TextEditingController mothersSearchController = TextEditingController();
@@ -106,6 +124,8 @@ class Constants {
   final TextEditingController permissionSearchController =
       TextEditingController();
   final TextEditingController genderSearchController = TextEditingController();
+  final TextEditingController dosageLevelSearchController = TextEditingController();
+  final TextEditingController dosageTypeSearchController = TextEditingController();
 
   Widget gendersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
@@ -646,4 +666,233 @@ class Constants {
       );
     });
   }
+
+  Widget dosageLevelDropdownMenu() {
+    final StaticDataController controller = Get.find<StaticDataController>();
+
+    return Obx(() {
+      if (controller.isDosageLevelLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'مرحلة الجرعة',
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          validator: dosageLevelValidator,
+          selectedValue: null,
+        );
+      }
+
+      if (controller.dosageLevelErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().errorAudio();
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: controller.dosageLevelErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchDosageLevel();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'مرحلة الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            validator: dosageLevelValidator,
+            selectedValue: null,
+          ),
+        );
+      }
+
+      if (controller.dosageLevel.isEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().errorAudio();
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchDosageLevel();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'مرحلة الجرعة',
+            items: null,
+            onChanged: null,
+            validator: dosageLevelValidator,
+            searchController: null,
+            selectedValue: null,
+          ),
+        );
+      }
+
+      return myDropDownMenuButton2(
+        hintText: 'مرحلة الجرعة',
+        validator: dosageLevelValidator,
+        items: controller.dosageLevel.map((element) {
+          return DropdownMenuItem(
+            value: element.id.toString(),
+            child: Text(
+              element.dosage_level,
+              style: MyTextStyles.font16BlackMedium,
+            ),
+          );
+        }).toList(),
+        onChanged: (value) {
+          if (value != null) {
+            controller.selectedDosageLevelId.value = int.tryParse(value);
+            controller.fetchDosageType(controller.selectedDosageLevelId.value!);
+            controller.selectedDosageTypeId.value = null;
+          } else {
+            controller.selectedDosageLevelId.value = null;
+          }
+        },
+        searchController: dosageLevelSearchController,
+        selectedValue: controller.selectedDosageLevelId.value?.toString(),
+      );
+    });
+  }
+
+  Widget dosageTypeDropdownMenu() {
+    final StaticDataController controller = Get.find<StaticDataController>();
+
+    return Obx(() {
+      if (controller.selectedDosageLevelId.value == null) {
+        return InkWell(
+          onTap: () {
+            // Constants().errorAudio();
+            myShowDialog(
+              context: Get.context!,
+              widgetName: ApiExceptionAlert(
+                title: 'تنبيــه',
+                description: 'من فضلك، قم باختيار مرحلة الجرعة أولاً',
+                height: 280,
+              ),
+            );
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: dosageTypeValidator,
+          ),
+        );
+      } else if (controller.isDosageTypeLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'نوع الجرعة',
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          selectedValue: null,
+          validator: dosageTypeValidator,
+        );
+      } else if (controller.dosageTypeErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().errorAudio();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: controller.dosageTypeErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller
+                        .fetchDosageType(controller.selectedDosageLevelId.value!);
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: dosageTypeValidator,
+          ),
+        );
+      } else if (controller.dosageType.isEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().errorAudio();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller
+                        .fetchDosageType(controller.selectedDosageLevelId.value!);
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: dosageTypeValidator,
+          ),
+        );
+      } else {
+        return myDropDownMenuButton2(
+          hintText: 'نوع الجرعة',
+          validator: dosageTypeValidator,
+          items: controller.dosageType.map((element) {
+            return DropdownMenuItem(
+              value: element.id.toString(),
+              child: Text(
+                element.dosage_type,
+                style: MyTextStyles.font16BlackMedium,
+              ),
+            );
+          }).toList(),
+          onChanged: (value) {
+            if (value != null) {
+              controller.selectedDosageTypeId.value = int.tryParse(value);
+            } else {
+              controller.selectedDosageLevelId.value = null;
+            }
+          },
+          searchController: dosageTypeSearchController,
+          selectedValue: controller.selectedDosageTypeId.value?.toString(),
+        );
+      }
+    });
+  }
+
 }

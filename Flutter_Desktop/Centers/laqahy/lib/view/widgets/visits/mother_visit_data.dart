@@ -4,11 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/controllers/mother_visit_controller.dart';
-
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/mother_visit_data_table.dart';
+import 'package:laqahy/view/widgets/visits/mother_visit_data_table.dart';
 
 class MotherVisitData extends StatefulWidget {
   const MotherVisitData({super.key});
@@ -35,23 +35,16 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'الاســم',
+                    'اسم الأم',
                     style: MyTextStyles.font16BlackBold,
                   ),
-                  SizedBox(
-                    height: 10,
+                  const SizedBox(
+                    height: 3,
                   ),
-                  myTextField(
-                    prefixIcon: Icons.woman_2_outlined,
-                    width: 300,
-                    hintText: 'اســم الأم',
-                    keyboardType: TextInputType.text,
-                    readOnly: true,
-                    onChanged: (value) {},
-                  ),
+                  Constants().mothersDataDropdownMenu(),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Column(
@@ -61,85 +54,26 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                     'مرحلــة الـجرعــة',
                     style: MyTextStyles.font16BlackBold,
                   ),
-                  SizedBox(
-                    height: 10,
+                  const SizedBox(
+                    height: 3,
                   ),
-                  GetBuilder<MotherVisitController>(
-                    builder: (controller) {
-                      return myDropDownMenuButton(
-                        width: 280,
-                        hintText: 'اختر مرحـلة الجــرعة',
-                        items: controller.dosageLevels,
-                        onChanged: (String? value) {
-                          controller.changeDosageLevelSelectedValue(value!);
-                        },
-                        searchController:
-                            controller.dosageLevelSearchController.value,
-                        selectedValue: controller.dosageLevelSelectedValue,
-                      );
-                    },
-                  ),
+                  Constants().dosageLevelDropdownMenu(),
                 ],
               ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'نـــوع الـجرعــة',
-                style: MyTextStyles.font16PrimaryBold,
+              const SizedBox(
+                width: 20,
               ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  myCheckBox(
-                    onTap: () {
-                      setState(() {
-                        isChecked = !isChecked;
-                      });
-                    },
-                    onChanged: (selected) {
-                      setState(() {
-                        isChecked = selected;
-                      });
-                    },
-                    value: isChecked,
-                    text: 'الأولى',
+                  Text(
+                    'نــوع الـجرعــة',
+                    style: MyTextStyles.font16BlackBold,
                   ),
-                  myCheckBox(
-                    onTap: () {
-                      setState(() {
-                        isChecked = !isChecked;
-                      });
-                    },
-                    onChanged: (selected) {
-                      setState(() {
-                        isChecked = selected;
-                      });
-                    },
-                    value: isChecked,
-                    text: 'الثانية',
+                  const SizedBox(
+                    height: 3,
                   ),
-                  myCheckBox(
-                    onTap: () {
-                      setState(() {
-                        isChecked = !isChecked;
-                      });
-                    },
-                    onChanged: (selected) {
-                      setState(() {
-                        isChecked = selected;
-                      });
-                    },
-                    value: isChecked,
-                    text: 'الثالثة',
-                  ),
+                  Constants().dosageTypeDropdownMenu(),
                 ],
               ),
             ],

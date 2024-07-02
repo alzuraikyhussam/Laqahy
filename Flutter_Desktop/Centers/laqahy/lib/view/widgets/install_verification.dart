@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/create_admin_account.dart';
+import 'package:laqahy/view/screens/create_account/create_admin_account.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class InstallVerification extends StatefulWidget {
@@ -93,7 +93,7 @@ class _InstallVerificationState extends State<InstallVerification> {
         myButton(
           onPressed: () {
             // Get.offAll(HomeLayout());
-            Get.off(CreateAdminAccount());
+            Get.off(const CreateAdminAccount());
           },
           width: 150,
           text: 'مــوافــق',

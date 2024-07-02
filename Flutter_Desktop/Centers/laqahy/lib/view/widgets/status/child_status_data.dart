@@ -190,7 +190,6 @@ class _ChildStatusDataState extends State<ChildStatusData> {
                   Constants().directoratesDropdownMenu(),
                 ],
               ),
-            
             ],
           ),
           const SizedBox(
@@ -230,7 +229,6 @@ class _ChildStatusDataState extends State<ChildStatusData> {
                   textStyle: MyTextStyles.font16WhiteBold),
             ],
           ),
-        
         ],
       ),
     );

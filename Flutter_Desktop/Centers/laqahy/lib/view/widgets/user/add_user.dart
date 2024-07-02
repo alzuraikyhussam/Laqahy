@@ -72,7 +72,7 @@ class _AddUserState extends State<AddUser> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Column(
@@ -96,7 +96,7 @@ class _AddUserState extends State<AddUser> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Column(
@@ -106,7 +106,7 @@ class _AddUserState extends State<AddUser> {
                         'الجنس',
                         style: MyTextStyles.font14BlackBold,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 3,
                       ),
                       Constants().gendersDropdownMenu(),
@@ -224,7 +224,6 @@ class _AddUserState extends State<AddUser> {
                         )
                       ],
                     ),
-                    
                     const SizedBox(
                       width: 20,
                     ),
@@ -293,7 +292,6 @@ class _AddUserState extends State<AddUser> {
                       textStyle: MyTextStyles.font16WhiteBold),
                 ],
               ),
-            
             ],
           ),
         ),
