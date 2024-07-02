@@ -6,7 +6,7 @@ use App\Models\Healthy_center;
 use App\Models\Healthy_center_account;
 use App\Models\Mother_data;
 use App\Models\Office;
-use App\Models\Office_users;
+use App\Models\Offices_users;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -199,7 +199,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $user = Office_users::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
+            $user = Offices_users::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
             $office = Office::where('id', $request->office_id)->first();
 
             if ($user) {
@@ -208,7 +208,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $user = Office_users::create([
+            $user = Offices_users::create([
                 'user_name' => $request->user_name,
                 'user_phone' => $request->user_phone,
                 'user_address' => $request->user_address,
@@ -251,7 +251,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $user = Office_users::where('user_account_name', $request->user_account_name)->first();
+            $user = Offices_users::where('user_account_name', $request->user_account_name)->first();
 
             if (!$user) {
                 return response()->json([

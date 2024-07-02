@@ -1,5 +1,5 @@
 name: laqahy
-description: "A smart vaccination tracking system for centers"
+description: "An intelligent vaccination operation management system for centers in yemen."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -28,9 +28,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  audioplayers: ^6.0.0
   bitsdojo_window: ^0.1.6
   cupertino_icons: ^1.0.6
-  data_table_2: ^2.5.12
+  data_table_2: 2.5.12
   dropdown_button2: ^2.3.9
   flutter:
     sdk: flutter
@@ -87,6 +88,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/sounds/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

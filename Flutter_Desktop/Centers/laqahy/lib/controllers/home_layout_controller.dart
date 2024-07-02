@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/home_controller.dart';
+import 'package:laqahy/controllers/technical_support_controller.dart';
+import 'package:laqahy/controllers/users_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -13,19 +17,34 @@ class HomeLayoutController extends GetxController {
     if (label == 'تسجيل الخروج') {
       return onTapLogout(context);
     } else {
+      if (choose.value != label) {
+        // Delete controller
+        if (Get.isRegistered<HomeController>()) {
+          Get.delete<HomeController>();
+        }
+        if (Get.isRegistered<UserController>()) {
+          Get.delete<UserController>();
+        }
+        if (Get.isRegistered<TechnicalSupportController>()) {
+          Get.delete<TechnicalSupportController>();
+        }
+      }
+
       choose.value = label;
     }
   }
 
   onTapLogout(context) {
+    Constants().playErrorSound();
+
     return myAlertDialog(
       context: context,
       title: 'تسجيــل خــروج',
       image: 'assets/images/logout-image.png',
       text: 'هل انت متأكد من عملية تسجيل الخروج من حسابك؟',
       onConfirmBtnTap: () {
-        choose.value = 'الرئيسية';
-        Get.offAll(LoginScreen());
+        Get.back();
+        Get.offAll(() => LoginScreen());
       },
       onCancelBtnTap: () {
         Get.back();
@@ -42,6 +61,8 @@ class HomeLayoutController extends GetxController {
   }
 
   onTapExitButton(context) {
+    Constants().playErrorSound();
+
     return myAlertDialog(
       context: context,
       title: 'إغــلاق النــظـام',

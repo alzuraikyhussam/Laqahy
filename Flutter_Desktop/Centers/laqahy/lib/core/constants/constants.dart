@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/models/model.dart';
@@ -7,6 +8,41 @@ import '../../view/widgets/basic_widgets/basic_widgets.dart';
 import '../shared/styles/style.dart';
 
 class Constants {
+  void playSuccessSound() async {
+    try {
+      AudioPlayer audioPlayer = AudioPlayer();
+      await audioPlayer.play(AssetSource('sounds/success.mp3'));
+    } catch (e) {
+      myShowDialog(
+        context: Get.context!,
+        widgetName: ApiExceptionAlert(
+          height: 280,
+          imageUrl: 'assets/images/error.json',
+          title: 'خطــــأ',
+          description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
+        ),
+      );
+    }
+  }
+
+  void playErrorSound() async {
+    try {
+      AudioPlayer audioPlayer = AudioPlayer();
+      // audioPlayer.play(AssetSource('sounds/joke-error.m4a'));
+      await audioPlayer.play(AssetSource('sounds/error.mp3'));
+    } catch (e) {
+      myShowDialog(
+        context: Get.context!,
+        widgetName: ApiExceptionAlert(
+          height: 280,
+          imageUrl: 'assets/images/error.json',
+          title: 'خطــــأ',
+          description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
+        ),
+      );
+    }
+  }
+
   static List homeLayoutItems = [
     HomeLayoutListItem(
       imageName: 'assets/icons/home-gr.png',
