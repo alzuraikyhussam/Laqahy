@@ -11,7 +11,6 @@ import 'package:window_manager/window_manager.dart';
 
 import 'controllers/static_data_controller.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -73,7 +72,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: const HomeLayout(),
+      home: const SplashScreen(),
     );
   }
 }
