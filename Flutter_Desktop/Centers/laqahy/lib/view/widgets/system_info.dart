@@ -191,7 +191,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                   height: 3,
                 ),
                 Text(
-                  'Version 1.24.0.0',
+                  'Version 1.0.0',
                   style: MyTextStyles.font16SecondaryBold,
                 ),
                 SizedBox(

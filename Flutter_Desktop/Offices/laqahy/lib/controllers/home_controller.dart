@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/home_card_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_endpoints.dart';
@@ -13,6 +14,8 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+  StaticDataController sdc = Get.find<StaticDataController>();
+
   var fetchDataFuture = Future<void>.value().obs;
 
   var isLoading = false.obs;
@@ -20,23 +23,18 @@ class HomeController extends GetxController {
 
   var homeCardItems = <HomeCardItem>[
     HomeCardItem(
-      imagePath: 'assets/icons/office.png',
-      title: 'عدد المكاتب',
-      count: 0,
-    ),
-    HomeCardItem(
       imagePath: 'assets/icons/building.png',
       title: 'عدد المراكز الصحية',
       count: 0,
     ),
     HomeCardItem(
       imagePath: 'assets/icons/women-count.png',
-      title: 'إجمالي عدد الأمهات',
+      title: 'عدد حالات الأمهات',
       count: 0,
     ),
     HomeCardItem(
       imagePath: 'assets/icons/children-count.png',
-      title: 'إجمالي عدد الأطفال',
+      title: 'عدد حالات الأطفال',
       count: 0,
     ),
     HomeCardItem(
@@ -46,12 +44,7 @@ class HomeController extends GetxController {
     ),
     HomeCardItem(
       imagePath: 'assets/icons/order-icon.png',
-      title: 'عدد الطلبات',
-      count: 0,
-    ),
-    HomeCardItem(
-      imagePath: 'assets/icons/posts.png',
-      title: 'عدد الإعلانات',
+      title: 'عدد الطلبات المستلمة',
       count: 0,
     ),
   ].obs;
@@ -62,8 +55,11 @@ class HomeController extends GetxController {
     fetchDataFuture.value = Future<void>(() async {
       try {
         isLoading(true);
+
+        var officeId = await sdc.storageService.getOfficeId();
+
         var response = await http.get(
-          Uri.parse(ApiEndpoints.getTotalCount),
+          Uri.parse('${ApiEndpoints.getTotalCount}/$officeId'),
           headers: <String, String>{
             'Content-Type': 'application/json',
           },
@@ -74,13 +70,11 @@ class HomeController extends GetxController {
           Map<String, dynamic> jsonData = jsonDecode(response.body);
           Map<String, dynamic> data = jsonData['data'];
 
-          homeCardItems[0].count = data['offices_count'];
-          homeCardItems[1].count = data['centers_count'];
-          homeCardItems[2].count = data['mothers_count'];
-          homeCardItems[3].count = data['children_count'];
-          homeCardItems[4].count = data['vaccines_count'];
-          homeCardItems[5].count = data['orders_count'];
-          homeCardItems[6].count = data['posts_count'];
+          homeCardItems[0].count = data['centers_count'];
+          homeCardItems[1].count = data['mothers_count'];
+          homeCardItems[2].count = data['children_count'];
+          homeCardItems[3].count = data['vaccines_count'];
+          homeCardItems[4].count = data['orders_count'];
 
           return;
         } else {

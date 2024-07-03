@@ -22,8 +22,8 @@ class CreateAccountVerificationController extends GetxController {
   String? codeValidator(value) {
     if (value.trim().isEmpty) {
       return 'يجب ادخال كود التحقق';
-    } else if (!GetUtils.isLengthGreaterOrEqual(value, 5)) {
-      return 'يجب ألا يقل عن 5 ارقام وحروف';
+    } else if (!GetUtils.isLengthGreaterOrEqual(value, 8)) {
+      return 'يجب ألا يقل عن 8 ارقام وحروف';
     } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
       return 'يجب ألا يحتوي على رموز او أحرف عربية';
     }
@@ -55,8 +55,6 @@ class CreateAccountVerificationController extends GetxController {
 
         sdc.officeData.assignAll([office]);
 
-        Get.back();
-
         Constants().playSuccessSound();
         myShowDialog(
           context: Get.context!,
@@ -68,7 +66,8 @@ class CreateAccountVerificationController extends GetxController {
             description:
                 'يجب القيام بملئ الحقول التالية لإكمال عملية إنشاء الحساب',
             onPressed: () {
-              Get.to(const CreateAdminAccount());
+              Get.offAll(const CreateAdminAccount());
+              Get.delete<CreateAccountVerificationController>();
             },
           ),
         );

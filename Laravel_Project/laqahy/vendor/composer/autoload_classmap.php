@@ -60,7 +60,7 @@ return array(
     'App\\Models\\Mother_statement' => $baseDir . '/app/Models/Mother_statement.php',
     'App\\Models\\Office' => $baseDir . '/app/Models/Office.php',
     'App\\Models\\Office_stock_vaccine' => $baseDir . '/app/Models/Office_stock_vaccine.php',
-    'App\\Models\\Office_users' => $baseDir . '/app/Models/Office_users.php',
+    'App\\Models\\Offices_users' => $baseDir . '/app/Models/Offices_users.php',
     'App\\Models\\Order' => $baseDir . '/app/Models/Order.php',
     'App\\Models\\Order_state' => $baseDir . '/app/Models/Order_state.php',
     'App\\Models\\Permission_type' => $baseDir . '/app/Models/Permission_type.php',

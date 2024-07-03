@@ -23,7 +23,7 @@ class Office {
       name: json['office_name'] ?? '',
       phone: json['office_phone'] ?? '',
       address: json['office_address'] ?? '',
-      createAccountCode: json['create_account_code'] ?? '',
+      createAccountCode: json['create_account_code'],
       centersCount: json['healthy_centers_count'] ?? 0,
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])

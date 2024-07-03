@@ -51,9 +51,18 @@ class OfficesAccountsRowSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              office.createAccountCode ?? "تم التسجيل",
+              office.createAccountCode != null
+                  ? office.createAccountCode.toString().toUpperCase()
+                  : "تم التسجيل",
               textAlign: TextAlign.center,
-              style: MyTextStyles.font14BlackMedium,
+              style: office.createAccountCode != null
+                  ? TextStyle(
+                      letterSpacing: 2,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: MyColors.blackColor,
+                    )
+                  : MyTextStyles.font14PrimaryBold,
             ),
           ),
         ),

@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import 'package:laqahy/models/user_model.dart';
+import 'package:laqahy/models/user_models.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
@@ -28,7 +29,7 @@ class UserController extends GetxController {
   GlobalKey<FormState> editUserAccountFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
 
-  int? centerId;
+  int? officeId;
 
   String? nameValidator(value) {
     if (value.trim().isEmpty) {
@@ -114,8 +115,8 @@ class UserController extends GetxController {
 
   @override
   onInit() async {
-    centerId = await sdc.storageService.getOfficeId();
-    fetchUsers(centerId);
+    officeId = await sdc.storageService.getOfficeId();
+    fetchUsers(officeId);
     sdc.fetchGenders();
     sdc.fetchPermissions();
     super.onInit();
@@ -134,12 +135,12 @@ class UserController extends GetxController {
     }).toList();
   }
 
-  Future<void> fetchUsers(var centerId) async {
+  Future<void> fetchUsers(var officeId) async {
     try {
       isLoading(true);
       userSearchController.clear();
       final response = await http.get(
-        Uri.parse('${ApiEndpoints.getUsers}/$centerId'),
+        Uri.parse('${ApiEndpoints.getUsers}/$officeId'),
         headers: {
           'content-Type': 'application/json',
         },
@@ -163,20 +164,19 @@ class UserController extends GetxController {
     } catch (e) {
       isLoading(false);
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
-      print(e);
     } finally {
       isLoading(false);
     }
   }
 
   Future<void> addUser() async {
-    int? centerID = await sdc.storageService.getOfficeId();
+    int? officeID = await sdc.storageService.getOfficeId();
     DateTime parsedBirthDate =
         DateFormat('MMM d, yyyy').parse(birthDateController.text);
     try {
       isAddLoading(true);
       final user = User(
-        officeId: centerID!,
+        officeId: officeID!,
         name: nameController.text,
         phone: phoneNumberController.text,
         address: addressController.text,
@@ -199,7 +199,7 @@ class UserController extends GetxController {
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         clearTextFields();
-        await fetchUsers(centerId);
+        await fetchUsers(officeId);
 
         return;
       } else if (response.statusCode == 401) {
@@ -207,7 +207,6 @@ class UserController extends GetxController {
         ApiExceptionWidgets().myUserAlreadyExistsAlert();
         return;
       } else {
-        print(response.body);
         isAddLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
@@ -237,10 +236,10 @@ class UserController extends GetxController {
     var birthDate,
   ) async {
     DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthDate);
-    int? centerID = await sdc.storageService.getOfficeId();
+    int? officeID = await sdc.storageService.getOfficeId();
     isUpdateLoading(true);
     final user = User(
-      officeId: centerID!,
+      officeId: officeID!,
       name: name,
       phone: phone,
       address: address,
@@ -262,14 +261,14 @@ class UserController extends GetxController {
       request.fields['user_account_name'] = user.username;
       request.fields['user_account_password'] = user.password;
       request.fields['gender_id'] = user.userGenderId.toString();
-      request.fields['healthy_center_id'] = user.officeId.toString();
+      request.fields['office_id'] = user.officeId.toString();
       request.fields['permission_type_id'] = user.userPermissionId.toString();
 
       var response = await request.send();
 
       if (response.statusCode == 200) {
         isUpdateLoading(false);
-        await fetchUsers(centerId);
+        await fetchUsers(officeId);
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
 
@@ -324,7 +323,7 @@ class UserController extends GetxController {
         isDeleteLoading(false);
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();
-        await fetchUsers(centerId);
+        await fetchUsers(officeId);
 
         return;
       } else {
@@ -339,7 +338,6 @@ class UserController extends GetxController {
       return;
     } catch (e) {
       isDeleteLoading(false);
-      print(e);
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       return;
     } finally {

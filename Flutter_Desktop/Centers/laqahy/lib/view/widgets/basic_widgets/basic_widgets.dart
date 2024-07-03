@@ -79,12 +79,19 @@ myTextField({
   int? maxLines,
   Color? fillColor,
   TextAlign textAlign = TextAlign.start,
+  String? initialValue,
+  double? heightFactor = 2.7,
   void Function()? onTap,
+  void Function()? onTapSuffixIcon,
+  bool autofocus = false,
 }) {
   return SizedBox(
     width: width?.toDouble(),
     child: TextFormField(
+      autofocus: autofocus,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       onTap: onTap,
+      initialValue: initialValue,
       controller: controller,
       cursorColor: MyColors.primaryColor.withOpacity(0.7),
       keyboardType: keyboardType,
@@ -111,8 +118,8 @@ myTextField({
                 padding: const EdgeInsetsDirectional.only(start: 10),
                 child: Align(
                   alignment: AlignmentDirectional.topStart,
-                  widthFactor: 1.0,
-                  heightFactor: 3.0,
+                  widthFactor: 1.5,
+                  heightFactor: heightFactor,
                   child: Icon(
                     prefixIcon,
                     color: MyColors.greyColor.withOpacity(0.8),
@@ -130,7 +137,7 @@ myTextField({
             : null,
         suffixIcon: suffixIcon != null
             ? InkWell(
-                onTap: () {},
+                onTap: onTapSuffixIcon,
                 child: Icon(
                   suffixIcon,
                   color: MyColors.greyColor.withOpacity(0.8),

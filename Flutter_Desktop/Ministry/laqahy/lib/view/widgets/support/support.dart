@@ -146,7 +146,7 @@ class SupportScreen extends StatelessWidget {
                             children: [
                               Obx(() {
                                 return tsc.isLoading.value
-                                    ? myLoadingIndicator()
+                                    ? myLoadingIndicator(width: 130)
                                     : myButton(
                                         onPressed: () {
                                           if (tsc.technicalSupportFormKey

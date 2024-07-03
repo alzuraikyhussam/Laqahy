@@ -64,7 +64,7 @@ class ApiEndpoints {
   static const String login = '$baseUrl/ministry/auth/login';
   // --------------------------------------------------
 
-  // --------------- Login Endpoints -------------------
+  // --------------- User Endpoints -------------------
   static const String getUsers = '$baseUrl/ministry/users';
   static const String getAdmin = '$baseUrl/ministry/users/get-admin';
   static const String addUser = '$baseUrl/ministry/users/add-user';

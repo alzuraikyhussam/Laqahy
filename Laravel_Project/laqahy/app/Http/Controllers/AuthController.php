@@ -6,12 +6,10 @@ use App\Models\Healthy_center;
 use App\Models\Healthy_center_account;
 use App\Models\Mother_data;
 use App\Models\Office;
-use App\Models\Office_users;
+use App\Models\Offices_users;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -97,7 +95,7 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request, $centerId = 0)
+    public function login(Request $request, $center_id = 0)
     {
         try {
             $validator = Validator::make(
@@ -122,8 +120,8 @@ class AuthController extends Controller
                 ], 404);
             }
 
-            if ($centerId != 0) {
-                if ($centerId != $user->healthy_center_id) {
+            if ($center_id != 0) {
+                if ($center_id != $user->healthy_center_id) {
                     return response()->json([
                         'message' => 'User not found in this healthy center',
                     ], 402);
@@ -136,8 +134,6 @@ class AuthController extends Controller
                 ], 401);
             }
 
-
-            Auth::login($user);
             $center = Healthy_center::where('id', $user->healthy_center_id)->first();
             return response()->json([
                 'message' => 'Login successfully',
@@ -199,7 +195,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $user = Office_users::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
+            $user = Offices_users::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
             $office = Office::where('id', $request->office_id)->first();
 
             if ($user) {
@@ -208,7 +204,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $user = Office_users::create([
+            $user = Offices_users::create([
                 'user_name' => $request->user_name,
                 'user_phone' => $request->user_phone,
                 'user_address' => $request->user_address,
@@ -234,7 +230,7 @@ class AuthController extends Controller
         }
     }
 
-    public function officeLogin(Request $request, $officeId = 0)
+    public function officeLogin(Request $request, $office_id = 0)
     {
         try {
             $validator = Validator::make(
@@ -251,7 +247,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $user = Office_users::where('user_account_name', $request->user_account_name)->first();
+            $user = Offices_users::where('user_account_name', $request->user_account_name)->first();
 
             if (!$user) {
                 return response()->json([
@@ -259,8 +255,8 @@ class AuthController extends Controller
                 ], 404);
             }
 
-            if ($officeId != 0) {
-                if ($officeId != $user->office_id) {
+            if ($office_id != 0) {
+                if ($office_id != $user->office_id) {
                     return response()->json([
                         'message' => 'User not found in this office',
                     ], 402);
@@ -273,8 +269,6 @@ class AuthController extends Controller
                 ], 401);
             }
 
-
-            Auth::login($user);
             $office = Office::where('id', $user->office_id)->first();
             return response()->json([
                 'message' => 'Login successfully',
@@ -320,8 +314,6 @@ class AuthController extends Controller
                 ], 401);
             }
 
-
-            Auth::login($user);
             $motherData = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.id', $user->id)->first();
 
             return response()->json([

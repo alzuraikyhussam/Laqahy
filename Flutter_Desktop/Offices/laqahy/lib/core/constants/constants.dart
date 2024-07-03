@@ -73,11 +73,6 @@ class Constants {
       imageNameFocused: 'assets/icons/order-wh.png',
     ),
     HomeLayoutListItem(
-      imageName: 'assets/icons/posts-gr.png',
-      label: 'الإعلانات',
-      imageNameFocused: 'assets/icons/posts-wh.png',
-    ),
-    HomeLayoutListItem(
       imageName: 'assets/icons/reports-gr.png',
       label: 'التقارير',
       imageNameFocused: 'assets/icons/reports-wh.png',
@@ -109,11 +104,6 @@ class Constants {
       imageName: 'assets/icons/order-gr.png',
       label: 'الطلبات',
       imageNameFocused: 'assets/icons/order-wh.png',
-    ),
-    HomeLayoutListItem(
-      imageName: 'assets/icons/posts-gr.png',
-      label: 'الإعلانات',
-      imageNameFocused: 'assets/icons/posts-wh.png',
     ),
     HomeLayoutListItem(
       imageName: 'assets/icons/reports-gr.png',

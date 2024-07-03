@@ -28,12 +28,12 @@ class _CreateAccountVerificationAlertState
         actionsAlignment: MainAxisAlignment.center,
         content: SizedBox(
           height: 220,
-          width: 350,
+          width: 300,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(30),
+                  padding: EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -44,6 +44,9 @@ class _CreateAccountVerificationAlertState
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   'أدخــل كــود التحــقق',
                   style: MyTextStyles.font18PrimaryBold,
@@ -53,7 +56,9 @@ class _CreateAccountVerificationAlertState
                 ),
                 Obx(() {
                   return myTextField(
-                    width: 300,
+                    autofocus: true,
+                    textAlign: TextAlign.center,
+                    width: Get.width,
                     controller: cav.codeController,
                     validator: cav.codeValidator,
                     prefixIcon: Icons.password,
@@ -76,7 +81,7 @@ class _CreateAccountVerificationAlertState
         actions: [
           Obx(() {
             return cav.isVerifyLoading.value
-                ? myLoadingIndicator()
+                ? myLoadingIndicator(width: 150)
                 : myButton(
                     onPressed: cav.isVerifyLoading.value
                         ? null

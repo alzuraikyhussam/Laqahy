@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/core/utils/pdf/offices_pdf_generator.dart';
-import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/view/screens/create_account/create_ministry_account.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';

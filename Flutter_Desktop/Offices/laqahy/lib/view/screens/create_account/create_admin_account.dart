@@ -8,6 +8,7 @@ import 'package:laqahy/controllers/create_account_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/welcome.dart';
 import 'package:window_manager/window_manager.dart';
 import '../../widgets/basic_widgets/basic_widgets.dart';
 
@@ -74,7 +75,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                       myAppBarLogo(),
                       goBackButton(
                         onTap: () {
-                          Get.back();
+                          Get.off(const WelcomeScreen());
                         },
                       ),
                     ],

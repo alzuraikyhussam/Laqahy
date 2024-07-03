@@ -10,10 +10,10 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/layouts/orders_layout.dart';
 import 'package:laqahy/view/layouts/visits_layout.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/support/support.dart';
 import 'package:laqahy/view/widgets/user/users.dart';
 import 'package:laqahy/view/widgets/home.dart';
 import 'package:laqahy/view/widgets/system_info.dart';
-import 'package:laqahy/view/widgets/techincal_support.dart';
 import 'package:window_manager/window_manager.dart';
 import '../../controllers/static_data_controller.dart';
 import '../widgets/vaccinations_page.dart';
@@ -333,7 +333,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
                             } else if (hlc.choose.value == 'حول النظام') {
                               return const SystemInfoScreen();
                             } else if (hlc.choose.value == 'الدعم الفني') {
-                              return const TechnicalSupport();
+                              return const SupportScreen();
                             } else {
                               return const SizedBox();
                             }

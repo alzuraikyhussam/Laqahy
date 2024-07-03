@@ -10,17 +10,17 @@ class User {
   DateTime birthDate;
   String? genderType;
   String? permissionType;
-  String? officeName;
+  String? centerName;
   int userGenderId;
   int userPermissionId;
-  int? officeId;
+  int officeId;
 
   User({
     required this.username,
     required this.password,
     this.id,
     required this.birthDate,
-    this.officeName,
+    this.centerName,
     this.genderType,
     required this.address,
     required this.name,
@@ -28,7 +28,7 @@ class User {
     required this.phone,
     required this.userGenderId,
     required this.userPermissionId,
-    this.officeId,
+    required this.officeId,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -43,11 +43,11 @@ class User {
       username: json['user_account_name'] ?? '',
       password: json['user_account_password'] ?? '',
       genderType: json['genders_type'] ?? '',
-      officeName: json['healthy_center_name'] ?? '',
+      centerName: json['healthy_center_name'] ?? '',
       permissionType: json['permission_type'] ?? '',
       userGenderId: json['gender_id'] ?? 0,
       userPermissionId: json['permission_type_id'] ?? 0,
-      officeId: json['healthy_center_id'] ?? 0,
+      officeId: json['office_id'] ?? 0,
     );
   }
 
@@ -60,7 +60,7 @@ class User {
       'user_account_name': username,
       'user_account_password': password,
       'gender_id': userGenderId,
-      'healthy_center_id': officeId,
+      'office_id': officeId,
       'permission_type_id': userPermissionId,
     };
   }
