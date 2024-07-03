@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/visits_latout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/child_visit_data.dart';
-import 'package:laqahy/view/widgets/mother_visit_data.dart';
+import 'package:laqahy/view/widgets/visits/child_visit_data.dart';
+import 'package:laqahy/view/widgets/visits/mother_visit_data.dart';
+
+
 
 class VisitsLayout extends StatefulWidget {
   const VisitsLayout({super.key});
