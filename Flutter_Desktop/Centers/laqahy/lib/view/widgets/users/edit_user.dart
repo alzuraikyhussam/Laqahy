@@ -70,7 +70,7 @@ class _EditUserState extends State<EditUser> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'تعديل مستخدم',
+                'تعديل بيانات المستخدم',
                 textAlign: TextAlign.center,
                 style: MyTextStyles.font18PrimaryBold,
               ),

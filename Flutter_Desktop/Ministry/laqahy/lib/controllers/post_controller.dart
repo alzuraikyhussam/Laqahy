@@ -161,11 +161,10 @@ class PostController extends GetxController {
         }
         var response = await request.send();
         if (response.statusCode == 201) {
-          isLoading(false);
-          ApiExceptionWidgets().myAddedDataSuccessAlert();
           clearTextFields();
           await fetchPosts();
-
+          ApiExceptionWidgets().myAddedDataSuccessAlert();
+          isLoading(false);
           return;
         } else {
           isLoading(false);
@@ -246,12 +245,11 @@ class PostController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        isUpdatePostsLoading(false);
         updatedImage.value = null;
+        await fetchPosts();
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
-        await fetchPosts();
-
+        isUpdatePostsLoading(false);
         return;
       } else {
         isUpdatePostsLoading(false);
@@ -280,11 +278,11 @@ class PostController extends GetxController {
           await http.delete(Uri.parse('${ApiEndpoints.deletePost}/$postId'));
 
       if (request.statusCode == 200) {
-        isDeletePostsLoading(false);
+        await fetchPosts();
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();
-        await fetchPosts();
 
+        isDeletePostsLoading(false);
         return;
       } else {
         isDeletePostsLoading(false);

@@ -63,7 +63,7 @@ class _EditPostDialogState extends State<EditPostDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'تــعــديــل الإعـــلان',
+                'تــعــديــل بيــانات الإعـــلان',
                 textAlign: TextAlign.center,
                 style: MyTextStyles.font18PrimaryBold,
               ),

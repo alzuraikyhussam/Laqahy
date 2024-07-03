@@ -71,7 +71,7 @@ class _EditUserState extends State<EditUser> {
             children: [
               Container(
                 child: Text(
-                  'تعديل مستخدم',
+                  'تعديل بيانات المستخدم',
                   textAlign: TextAlign.center,
                   style: MyTextStyles.font18PrimaryBold,
                 ),

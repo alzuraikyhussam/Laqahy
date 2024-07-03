@@ -533,14 +533,14 @@ class CentersAccountsController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        isUpdateLoading(false);
+        await fetchOffices();
+        fetchRegisteredOfficesInDropDownMenu();
+        fetchUnRegisteredOfficesInDropDownMenu();
         Get.back();
         alertType == 'add'
             ? ApiExceptionWidgets().myAddedDataSuccessAlert()
             : ApiExceptionWidgets().myUpdateDataSuccessAlert();
-        await fetchOffices();
-        fetchRegisteredOfficesInDropDownMenu();
-        fetchUnRegisteredOfficesInDropDownMenu();
+        isUpdateLoading(false);
         return;
       } else {
         isUpdateLoading(false);

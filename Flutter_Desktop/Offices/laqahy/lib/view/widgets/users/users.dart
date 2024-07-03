@@ -52,7 +52,7 @@ class _UsersScreenState extends State<UsersScreen> {
                   // sortAscending: uc.sort.value,
                   showFirstLastButtons: true,
                   columnSpacing: 5,
-                  rowsPerPage: 5,
+                  // rowsPerPage: 5,
                   controller: uc.tableController,
                   headingRowDecoration: const BoxDecoration(
                     borderRadius: BorderRadiusDirectional.only(
@@ -192,7 +192,8 @@ class _UsersScreenState extends State<UsersScreen> {
                         sdc.selectedGenderId.value = null;
                         sdc.selectedPermissionId.value = null;
                         uc.clearTextFields();
-                        myShowDialog(context: context, widgetName: const AddUser());
+                        myShowDialog(
+                            context: context, widgetName: const AddUser());
                       },
                       text: 'إضــافة مستخـدم جـديــد',
                       textStyle: MyTextStyles.font16WhiteBold,

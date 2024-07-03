@@ -56,7 +56,7 @@ class _UsersScreenState extends State<UsersScreen> {
                   // sortAscending: uc.sort.value,
                   showFirstLastButtons: true,
                   columnSpacing: 5,
-                  rowsPerPage: 5,
+                  // rowsPerPage: 5,
                   controller: uc.tableController,
                   headingRowDecoration: const BoxDecoration(
                     borderRadius: BorderRadiusDirectional.only(

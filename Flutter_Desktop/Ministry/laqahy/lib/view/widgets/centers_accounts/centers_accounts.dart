@@ -210,7 +210,7 @@ class CentersAccounts extends StatelessWidget {
                               // sortAscending: cac.sort.value,
                               showFirstLastButtons: true,
                               columnSpacing: 5,
-                              rowsPerPage: 5,
+                              // rowsPerPage: 5,
                               controller: cac.centersTableController,
                               headingRowDecoration: const BoxDecoration(
                                 borderRadius: BorderRadiusDirectional.only(
@@ -410,7 +410,7 @@ class CentersAccounts extends StatelessWidget {
                           // sortAscending: cac.sort.value,
                           showFirstLastButtons: true,
                           columnSpacing: 5,
-                          rowsPerPage: 5,
+                          // rowsPerPage: 5,
                           controller: cac.officesTableController,
                           headingRowDecoration: const BoxDecoration(
                             borderRadius: BorderRadiusDirectional.only(
