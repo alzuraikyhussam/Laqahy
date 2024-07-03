@@ -53,12 +53,12 @@ class StaticDataController extends GetxController {
   var selectedMothersId = Rx<int?>(null);
   var motherErrorMsg = ''.obs;
   var isMotherLoading = false.obs;
-  
+
   var dosageLevel = <DosageLevel>[].obs;
   var selectedDosageLevelId = Rx<int?>(null);
   var dosageLevelErrorMsg = ''.obs;
   var isDosageLevelLoading = false.obs;
-  
+
   var dosageType = <DosageType>[].obs;
   var selectedDosageTypeId = Rx<int?>(null);
   var dosageTypeErrorMsg = ''.obs;
@@ -251,7 +251,8 @@ class StaticDataController extends GetxController {
       }
     } on SocketException catch (_) {
       isMotherLoading(false);
-      motherErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+      motherErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isMotherLoading(false);
       motherErrorMsg('خطأ غير متوقع\n${e.toString()}');
@@ -259,7 +260,7 @@ class StaticDataController extends GetxController {
       isMotherLoading(false);
     }
   }
-  
+
   void fetchDosageLevel() async {
     try {
       dosageLevelErrorMsg('');
@@ -282,7 +283,8 @@ class StaticDataController extends GetxController {
       }
     } on SocketException catch (_) {
       isDosageLevelLoading(false);
-      dosageLevelErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+      dosageLevelErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDosageLevelLoading(false);
       dosageLevelErrorMsg('خطأ غير متوقع\n${e.toString()}');
@@ -291,7 +293,7 @@ class StaticDataController extends GetxController {
     }
   }
 
-  void fetchDosageType(int dosageLevelId)async {
+  void fetchDosageType(int dosageLevelId) async {
     try {
       dosageTypeErrorMsg('');
       isDosageTypeLoading(true);
@@ -322,5 +324,4 @@ class StaticDataController extends GetxController {
       isDosageTypeLoading(false);
     }
   }
-
 }

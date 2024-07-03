@@ -131,14 +131,14 @@ class MotherStatusDataController extends GetxController {
     try {
       isAddLoading(true);
       final Mother = Mothers(
-      mother_name: nameController.text,
-      mother_phone: phoneNumberController.text,
-      mother_village: villageController.text,
-      mother_birthDate: parsedBirthDate,
-      mother_identity_num: identityNumberController.text,
-      cities_id: sdc.selectedCityId.value!,
-      directorate_id: sdc.selectedDirectorateId.value!,
-      healthy_center_id: centerID!,
+        mother_name: nameController.text,
+        mother_phone: phoneNumberController.text,
+        mother_village: villageController.text,
+        mother_birthDate: parsedBirthDate,
+        mother_identity_num: identityNumberController.text,
+        cities_id: sdc.selectedCityId.value!,
+        directorate_id: sdc.selectedDirectorateId.value!,
+        healthy_center_id: centerID!,
       );
       var response = await http.post(
         Uri.parse(ApiEndpoints.addMotherStatusData),
@@ -149,10 +149,10 @@ class MotherStatusDataController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        isAddLoading(false);
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         clearTextFields();
+        isAddLoading(false);
         // await fetchUsers(centerId);
 
         return;
@@ -178,5 +178,4 @@ class MotherStatusDataController extends GetxController {
       isAddLoading(false);
     }
   }
-
 }

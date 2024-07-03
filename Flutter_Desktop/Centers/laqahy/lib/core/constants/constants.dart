@@ -211,8 +211,10 @@ class Constants {
   final TextEditingController permissionSearchController =
       TextEditingController();
   final TextEditingController genderSearchController = TextEditingController();
-  final TextEditingController dosageLevelSearchController = TextEditingController();
-  final TextEditingController dosageTypeSearchController = TextEditingController();
+  final TextEditingController dosageLevelSearchController =
+      TextEditingController();
+  final TextEditingController dosageTypeSearchController =
+      TextEditingController();
 
   Widget gendersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
@@ -238,7 +240,7 @@ class Constants {
       if (controller.genderErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -267,7 +269,7 @@ class Constants {
       if (controller.genders.isEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -342,7 +344,7 @@ class Constants {
       if (controller.permissionErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -371,7 +373,7 @@ class Constants {
       if (controller.permissions.isEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -446,7 +448,7 @@ class Constants {
       if (controller.cityErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -475,7 +477,7 @@ class Constants {
       if (controller.cities.isEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -535,7 +537,7 @@ class Constants {
       if (controller.selectedCityId.value == null) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
               context: Get.context!,
@@ -573,7 +575,7 @@ class Constants {
       } else if (controller.directorateErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -601,7 +603,7 @@ class Constants {
       } else if (controller.directorates.isEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -676,7 +678,7 @@ class Constants {
       if (controller.motherErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -704,7 +706,7 @@ class Constants {
       if (controller.mothers.isEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -778,7 +780,7 @@ class Constants {
       if (controller.dosageLevelErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -806,7 +808,7 @@ class Constants {
       if (controller.dosageLevel.isEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -865,7 +867,7 @@ class Constants {
       if (controller.selectedDosageLevelId.value == null) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
             myShowDialog(
               context: Get.context!,
               widgetName: ApiExceptionAlert(
@@ -902,7 +904,7 @@ class Constants {
       } else if (controller.dosageTypeErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -912,8 +914,8 @@ class Constants {
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
-                    controller
-                        .fetchDosageType(controller.selectedDosageLevelId.value!);
+                    controller.fetchDosageType(
+                        controller.selectedDosageLevelId.value!);
                     Get.back();
                   },
                 ));
@@ -930,7 +932,7 @@ class Constants {
       } else if (controller.dosageType.isEmpty) {
         return InkWell(
           onTap: () {
-            // Constants().errorAudio();
+            Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -940,8 +942,8 @@ class Constants {
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
-                    controller
-                        .fetchDosageType(controller.selectedDosageLevelId.value!);
+                    controller.fetchDosageType(
+                        controller.selectedDosageLevelId.value!);
                     Get.back();
                   },
                 ));
@@ -981,5 +983,4 @@ class Constants {
       }
     });
   }
-
 }

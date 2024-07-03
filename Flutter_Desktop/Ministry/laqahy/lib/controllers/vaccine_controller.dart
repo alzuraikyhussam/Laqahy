@@ -133,14 +133,13 @@ class VaccineController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        isAddDonorLoading(false);
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         var data = json.decode(response.body);
         Donor donor = Donor.fromJson(data['data']);
         selectedDonorId.value = donor.id;
         fetchDonors();
-
+        isAddDonorLoading(false);
         return;
       } else if (response.statusCode == 401) {
         isAddDonorLoading(false);
@@ -377,12 +376,12 @@ class VaccineController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        isAddLoading(false);
-        Get.back();
-        ApiExceptionWidgets().myAddedDataSuccessAlert();
         await fetchVaccines();
         await fetchVaccinesStatement();
 
+        Get.back();
+        ApiExceptionWidgets().myAddedDataSuccessAlert();
+        isAddLoading(false);
         return;
       } else {
         isAddLoading(false);
@@ -420,12 +419,12 @@ class VaccineController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        isUpdateLoading(false);
-        Get.back();
-        ApiExceptionWidgets().myUpdateDataSuccessAlert();
         await fetchVaccines();
         await fetchVaccinesStatement();
+        Get.back();
+        ApiExceptionWidgets().myUpdateDataSuccessAlert();
 
+        isUpdateLoading(false);
         return;
       } else if (response.statusCode == 401) {
         isUpdateLoading(false);
@@ -457,11 +456,11 @@ class VaccineController extends GetxController {
       var request = await http
           .delete(Uri.parse('${ApiEndpoints.deleteVaccineStatement}/$id'));
       if (request.statusCode == 200) {
-        isDeleteLoading(false);
-        Get.back();
-        ApiExceptionWidgets().myDeleteDataSuccessAlert();
         await fetchVaccines();
         await fetchVaccinesStatement();
+        Get.back();
+        ApiExceptionWidgets().myDeleteDataSuccessAlert();
+        isDeleteLoading(false);
 
         return;
       } else if (request.statusCode == 401) {

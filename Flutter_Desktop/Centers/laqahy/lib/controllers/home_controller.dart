@@ -61,7 +61,6 @@ class HomeController extends GetxController {
         );
 
         if (response.statusCode == 200) {
-          isLoading(false);
           Map<String, dynamic> jsonData = jsonDecode(response.body);
           Map<String, dynamic> data = jsonData['data'];
 
@@ -69,6 +68,7 @@ class HomeController extends GetxController {
           homeCardItems[1].count = data['children_count'];
           homeCardItems[2].count = data['users_count'];
           homeCardItems[3].count = data['orders_count'];
+          isLoading(false);
 
           return;
         } else {

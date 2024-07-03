@@ -6,7 +6,6 @@ import 'package:laqahy/controllers/login_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/welcome.dart';
-import 'package:laqahy/view/widgets/admin_verification.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:window_manager/window_manager.dart';
 

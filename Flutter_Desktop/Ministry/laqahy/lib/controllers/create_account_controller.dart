@@ -184,8 +184,6 @@ class CreateAccountController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        isLoading(false);
-
         var data = json.decode(response.body);
 
         // Handle user and center objects
@@ -219,6 +217,8 @@ class CreateAccountController extends GetxController {
           ),
         );
 
+        isLoading(false);
+
         return;
       } else if (response.statusCode == 401) {
         isLoading(false);
@@ -243,5 +243,4 @@ class CreateAccountController extends GetxController {
       isLoading(false);
     }
   }
-
 }

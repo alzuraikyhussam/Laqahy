@@ -222,7 +222,7 @@ class OrdersController extends GetxController {
       if (response.statusCode == 200) {
         var data = json.decode(await response.stream.bytesToString());
         var quantity = data['quantity'];
-        isApprovalLoading(false);
+
         Get.back();
         ApiExceptionWidgets().myOrderWithQuantityAlert(
           quantity: quantity,
@@ -234,7 +234,8 @@ class OrdersController extends GetxController {
         await fetchDeliveredOrders();
         await fetchCancelledOrders();
 
-        print(quantity);
+        isApprovalLoading(false);
+
         return;
       } else if (response.statusCode == 401) {
         var data = json.decode(await response.stream.bytesToString());
@@ -277,7 +278,6 @@ class OrdersController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        isRejectLoading(false);
         Get.back();
         ApiExceptionWidgets().myOrderAlert(
           title: 'تم الرفـض بنجاح',
@@ -287,7 +287,7 @@ class OrdersController extends GetxController {
         await fetchInDeliveryOrders();
         await fetchDeliveredOrders();
         await fetchCancelledOrders();
-
+        isRejectLoading(false);
         return;
       } else {
         print(await response.stream.bytesToString());
@@ -321,7 +321,6 @@ class OrdersController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        isUndoLoading(false);
         Get.back();
         ApiExceptionWidgets().myOrderAlert(
           title: 'تم التراجع بنجاح',
@@ -331,7 +330,7 @@ class OrdersController extends GetxController {
         await fetchInDeliveryOrders();
         await fetchDeliveredOrders();
         await fetchCancelledOrders();
-
+        isUndoLoading(false);
         return;
       } else {
         print(await response.stream.bytesToString());

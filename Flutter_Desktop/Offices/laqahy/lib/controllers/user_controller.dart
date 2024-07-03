@@ -195,11 +195,12 @@ class UserController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        isAddLoading(false);
+        await fetchUsers(officeId);
+        clearTextFields();
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
-        clearTextFields();
-        await fetchUsers(officeId);
+
+        isAddLoading(false);
 
         return;
       } else if (response.statusCode == 401) {
@@ -267,11 +268,10 @@ class UserController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        isUpdateLoading(false);
         await fetchUsers(officeId);
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
-
+        isUpdateLoading(false);
         return;
       } else if (response.statusCode == 401) {
         isUpdateLoading(false);
@@ -320,11 +320,11 @@ class UserController extends GetxController {
           await http.delete(Uri.parse('${ApiEndpoints.deleteUser}/$userId'));
 
       if (request.statusCode == 200) {
-        isDeleteLoading(false);
+        await fetchUsers(officeId);
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();
-        await fetchUsers(officeId);
 
+        isDeleteLoading(false);
         return;
       } else {
         isDeleteLoading(false);

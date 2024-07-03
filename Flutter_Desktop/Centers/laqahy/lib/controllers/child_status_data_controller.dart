@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 
-
 class ChildStatusDataController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
   var child = [].obs;
@@ -94,10 +93,10 @@ class ChildStatusDataController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        isAddLoading(false);
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         clearTextFields();
+        isAddLoading(false);
         // await fetchUsers(centerId);
 
         return;
