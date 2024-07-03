@@ -228,4 +228,12 @@ Route::delete('centers/users/delete-user/{id}', [UserController::class, 'centerD
 
 // --------------------- General Routes ------------------------
 Route::get('centers/general/home-total-count/{center_id}', [GeneralController::class, 'centersGetTotalCount']);
+
+// ------------------------------------------------------------
+// --------------------- Dosage Level Routes ------------------------
+Route::get('centers/dosage-level', [DosageLevelsController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Dosage Type Routes ------------------------
+Route::get('centers/dosage-type/{id}', [DosageTypeController::class, 'show']);
 // ------------------------------------------------------------

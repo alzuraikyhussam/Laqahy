@@ -74,4 +74,14 @@ class ApiEndpoints {
   static const String addChildStatusData =
       '$baseUrl/centers/child-data/add-child';
   // --------------------------------------------------
+
+  // --------------- Dosage Level Data Endpoints -------------------
+  static const String getDosageLevel=
+      '$baseUrl/centers/dosage-level';
+  // --------------------------------------------------
+
+  // --------------- Child Status Data Endpoints -------------------
+  static const String getDosageType =
+      '$baseUrl/centers/dosage-type';
+  // --------------------------------------------------
 }
