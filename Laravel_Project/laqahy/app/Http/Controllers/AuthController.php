@@ -134,11 +134,18 @@ class AuthController extends Controller
                 ], 401);
             }
 
+            $admin = User::where([
+                ['permission_type_id', 1],
+                ['healthy_center_id', $user->healthy_center_id]
+            ])->first();
+
+
             $center = Healthy_center::where('id', $user->healthy_center_id)->first();
             return response()->json([
                 'message' => 'Login successfully',
                 'user' => $user,
                 'center' => $center,
+                'admin' => $admin,
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -269,11 +276,17 @@ class AuthController extends Controller
                 ], 401);
             }
 
+            $admin = Offices_users::where([
+                ['permission_type_id', 1],
+                ['office_id', $user->office_id]
+            ])->first();
+
             $office = Office::where('id', $user->office_id)->first();
             return response()->json([
                 'message' => 'Login successfully',
                 'user' => $user,
                 'office' => $office,
+                'admin' => $admin,
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -405,11 +418,17 @@ class AuthController extends Controller
                 ], 401);
             }
 
+            $admin = User::where([
+                ['permission_type_id', 1],
+                ['healthy_center_id', $user->healthy_center_id]
+            ])->first();
+
             $center = Healthy_center::where('id', $user->healthy_center_id)->first();
             return response()->json([
                 'message' => 'Login successfully',
                 'user' => $user,
                 'center' => $center,
+                'admin' => $admin,
             ], 200);
         } catch (Exception $e) {
             return response()->json([

@@ -210,7 +210,7 @@ class OrdersController extends GetxController {
     );
     try {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('${ApiEndpoints.deliveredConfirm}/$id'));
+          'POST', Uri.parse('${ApiEndpoints.confirmDelivered}/$id'));
       request.fields['_method'] = 'PATCH';
       request.fields['quantity'] = order.quantity.toString();
       request.fields['center_note_data'] = order.centerNoteData.toString();

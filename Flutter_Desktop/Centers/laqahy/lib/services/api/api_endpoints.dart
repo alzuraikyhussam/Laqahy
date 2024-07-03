@@ -50,13 +50,13 @@ class ApiEndpoints {
   // --------------------------------------------------
 
   // --------------- Order Endpoints -------------------
-  static const String getIncomingOrders = '$baseUrl/centers/orders/incoming';
+  static const String getOutgoingOrders = '$baseUrl/centers/orders/outgoing';
   static const String getInDeliveryOrders =
       '$baseUrl/centers/orders/in-delivery';
   static const String getDeliveredOrders = '$baseUrl/centers/orders/delivered';
   static const String getCancelledOrders = '$baseUrl/centers/orders/cancelled';
-  static const String deliveredConfirm =
-      '$baseUrl/centers/orders/delivered-confirm';
+  static const String confirmDelivered =
+      '$baseUrl/centers/orders/confirm-delivered';
   // --------------------------------------------------
 
   // --------------- Technical Support Endpoints -------------------
@@ -76,12 +76,10 @@ class ApiEndpoints {
   // --------------------------------------------------
 
   // --------------- Dosage Level Data Endpoints -------------------
-  static const String getDosageLevel=
-      '$baseUrl/centers/dosage-level';
+  static const String getDosageLevel = '$baseUrl/centers/dosage-level';
   // --------------------------------------------------
 
   // --------------- Child Status Data Endpoints -------------------
-  static const String getDosageType =
-      '$baseUrl/centers/dosage-type';
+  static const String getDosageType = '$baseUrl/centers/dosage-type';
   // --------------------------------------------------
 }

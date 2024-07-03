@@ -15,8 +15,8 @@ class StorageService {
     prefs = await SharedPreferences.getInstance();
   }
 
-  Future<void> setOfficeId(int centerId) async {
-    await prefs.setInt('officeId', centerId);
+  Future<void> setOfficeId(int officeId) async {
+    await prefs.setInt('officeId', officeId);
   }
 
   Future<void> setAdminId(int adminId) async {

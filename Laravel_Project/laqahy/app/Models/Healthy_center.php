@@ -66,4 +66,9 @@ class Healthy_center extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function healthyCenterOrder()
+    {
+        return $this->hasMany(HealthyCenterOrder::class);
+    }
 }

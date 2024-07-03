@@ -60,18 +60,19 @@ class LoginController extends GetxController {
         var data = json.decode(response.body);
 
         // Handle user and office objects
+
         Login user = Login.fromJson(data['user']);
         Office office = Office.fromJson(data['office']);
+        Login admin = Login.fromJson(data['admin']);
 
         sdc.userLoggedData.assignAll([user]);
         sdc.officeData.assignAll([office]);
+        await sdc.storageService.setAdminId(admin.userId!);
 
         try {
           // Save SharedPreferences
           if (!await sdc.storageService.isRegistered()) {
             await sdc.storageService.setOfficeId(sdc.officeData.first.id!);
-            await sdc.storageService
-                .setAdminId(sdc.userLoggedData.first.userId!);
             await sdc.storageService.setRegistered(true);
           }
           Get.offAll(const HomeLayout());

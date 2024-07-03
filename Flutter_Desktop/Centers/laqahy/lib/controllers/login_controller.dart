@@ -61,17 +61,17 @@ class LoginController extends GetxController {
 
         // Handle user and center objects
         Login user = Login.fromJson(data['user']);
+        Login admin = Login.fromJson(data['admin']);
         HealthyCenter center = HealthyCenter.fromJson(data['center']);
 
         sdc.userLoggedData.assignAll([user]);
         sdc.centerData.assignAll([center]);
+        await sdc.storageService.setAdminId(admin.userId!);
 
         try {
           // Save SharedPreferences
           if (!await sdc.storageService.isRegistered()) {
             await sdc.storageService.setCenterId(sdc.centerData.first.id!);
-            await sdc.storageService
-                .setAdminId(sdc.userLoggedData.first.userId!);
             await sdc.storageService.setRegistered(true);
           }
           Get.offAll(const HomeLayout());

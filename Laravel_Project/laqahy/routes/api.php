@@ -10,6 +10,7 @@ use App\Http\Controllers\DosageTypeController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HealthyCenterController;
+use App\Http\Controllers\HealthyCenterOrderController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
@@ -236,4 +237,12 @@ Route::get('centers/dosage-level', [DosageLevelsController::class, 'index']);
 
 // --------------------- Dosage Type Routes ------------------------
 Route::get('centers/dosage-type/{id}', [DosageTypeController::class, 'show']);
+// ------------------------------------------------------------
+
+// --------------------- Order Routes ------------------------
+Route::get('centers/orders/outgoing/{center_id}', [HealthyCenterOrderController::class, 'outgoingOrders']);
+Route::get('centers/orders/in-delivery', [HealthyCenterOrderController::class, 'inDeliveryOrders']);
+Route::get('centers/orders/delivered', [HealthyCenterOrderController::class, 'deliveredOrders']);
+Route::get('centers/orders/cancelled', [HealthyCenterOrderController::class, 'cancelledOrders']);
+Route::get('centers/orders/confirm-delivered', [HealthyCenterOrderController::class, 'confirmDeliveredOrder']);
 // ------------------------------------------------------------
