@@ -266,7 +266,7 @@ class StaticDataController extends GetxController {
       dosageLevelErrorMsg('');
       isDosageLevelLoading(true);
       final response = await http.get(
-        Uri.parse('ApiEndpoints.getDosageLeve;'),
+        Uri.parse(ApiEndpoints.getDosageLevel),
         headers: {
           'content-Type': 'application/json',
         },
@@ -298,7 +298,7 @@ class StaticDataController extends GetxController {
       dosageTypeErrorMsg('');
       isDosageTypeLoading(true);
       final response = await http.get(
-        Uri.parse('{ApiEndpoints.getDosageType}/$dosageLevelId'),
+        Uri.parse('${ApiEndpoints.getDosageType}/$dosageLevelId'),
         headers: {
           'content-Type': 'application/json',
         },
