@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:laqahy/models/model.dart';
+import 'package:laqahy/models/mother_visit_data_model.dart';
 
 class MotherVisitController extends GetxController {
   RxList<MotherVisitData> myMotherVisitFilteredData = <MotherVisitData>[].obs;

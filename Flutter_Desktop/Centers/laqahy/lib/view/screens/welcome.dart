@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/create_account/create_account_verification_alert.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:window_manager/window_manager.dart';
@@ -130,7 +133,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             width: 150,
                             backgroundColor: MyColors.greyColor,
                             onPressed: () {
-                              // Get.off(const CreateMinistryAccountScreen());
+                              myShowDialog(
+                                context: context,
+                                widgetName:
+                                    const CreateAccountVerificationAlert(),
+                              );
                             },
                             text: 'إنشـاء حسـاب',
                             textStyle: MyTextStyles.font16WhiteBold,

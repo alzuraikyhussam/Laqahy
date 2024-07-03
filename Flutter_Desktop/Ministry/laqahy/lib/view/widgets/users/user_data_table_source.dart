@@ -24,6 +24,7 @@ class UserRowSource extends DataTableSource {
     }
 
     final user = myData[index];
+    StaticDataController sdc = Get.find<StaticDataController>();
     return DataRow(
       cells: [
         DataCell(
@@ -124,11 +125,13 @@ class UserRowSource extends DataTableSource {
             children: [
               myIconButton(
                 icon: Icons.edit_rounded,
-                onTap: () {
+                onTap: () async {
+                  int? adminId = await sdc.storageService.getAdminId();
                   myShowDialog(
                     context: Get.context!,
                     widgetName: EditUser(
                       data: myData[index],
+                      adminId: adminId,
                     ),
                   );
                 },

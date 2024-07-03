@@ -12,6 +12,7 @@ use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\OfficesUsersController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStateController;
 use App\Http\Controllers\PermissionTypeController;
@@ -172,7 +173,7 @@ Route::get('ministry/reports/orders-custom-report', [ReportController::class, 'g
 /////////////////////////////////////// Offices Routes ///////////////////////////////////////////////////////////////////////////////
 
 // --------------------- Auth Routes ------------------------
-Route::get('offices/auth/register/verify/{code}', [AuthController::class, 'checkVerificationCode']);
+Route::get('offices/auth/register/verify/{code}', [AuthController::class, 'officeCheckVerificationCode']);
 Route::post('offices/auth/register', [AuthController::class, 'officeRegister']);
 Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'officeLogin']);
 // ------------------------------------------------------------
@@ -182,11 +183,11 @@ Route::get('offices/general/home-total-count/{office_id}', [GeneralController::c
 // ------------------------------------------------------------
 
 // --------------------- User Routes ------------------------
-Route::get('offices/users/get-admin/{id}', [UserController::class, 'officeGetAdminData']);
-Route::post('offices/users/add-user', [UserController::class, 'officeAddUser']);
-Route::patch('offices/users/update-user/{id}', [UserController::class, 'officeUpdateUser']);
-Route::get('offices/users/{id}', [UserController::class, 'officeShowUser']);
-Route::delete('offices/users/delete-user/{id}', [UserController::class, 'officeDestroyUser']);
+Route::get('offices/users/get-admin/{id}', [OfficesUsersController::class, 'officeGetAdminData']);
+Route::post('offices/users/add-user', [OfficesUsersController::class, 'officeAddUser']);
+Route::patch('offices/users/update-user/{id}', [OfficesUsersController::class, 'officeUpdateUser']);
+Route::get('offices/users/{id}', [OfficesUsersController::class, 'officeShowUser']);
+Route::delete('offices/users/delete-user/{id}', [OfficesUsersController::class, 'officeDestroyUser']);
 // ------------------------------------------------------------
 
 ///////////////////////////////////////// MOBILE Routes ////////////////////////////////////////////////////////////////////////////
@@ -201,10 +202,28 @@ Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
 ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 
 // --------------------- Mother Data Routes ------------------------
-Route::get('motherData/get-motherData', [MotherDataController::class, 'index']);
-Route::post('motherData/add-motherData', [MotherDataController::class, 'store']);
+Route::post('centers/mother-data/add-mother', [MotherDataController::class, 'store']);
+Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 'index']);
 // ------------------------------------------------------------
 
 // --------------------- Child Data Routes ------------------------
-Route::post('childData/add-childData', [ChildDataController::class, 'store']);
+Route::post('centers/child-data/add-child', [ChildDataController::class, 'store']);
+// ------------------------------------------------------------
+
+// --------------------- Auth Routes ------------------------
+Route::get('centers/auth/register/verify/{code}', [AuthController::class, 'centerCheckVerificationCode']);
+Route::post('centers/auth/register', [AuthController::class, 'centerRegister']);
+Route::post('centers/auth/login/{center_Id?}', [AuthController::class, 'centerLogin']);
+// ------------------------------------------------------------
+
+// --------------------- User Routes ------------------------
+Route::get('centers/users/get-admin/{id}', [UserController::class, 'centerGetAdminData']);
+Route::post('centers/users/add-user', [UserController::class, 'centerAddUser']);
+Route::patch('centers/users/update-user/{id}', [UserController::class, 'centerUpdateUser']);
+Route::get('centers/users/{id}', [UserController::class, 'centerShowUser']);
+Route::delete('centers/users/delete-user/{id}', [UserController::class, 'centerDestroyUser']);
+// ------------------------------------------------------------
+
+// --------------------- General Routes ------------------------
+Route::get('centers/general/home-total-count/{center_id}', [GeneralController::class, 'centersGetTotalCount']);
 // ------------------------------------------------------------

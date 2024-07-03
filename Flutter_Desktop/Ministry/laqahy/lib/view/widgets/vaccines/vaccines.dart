@@ -84,7 +84,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                   },
                 );
               }),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Obx(() {
@@ -145,12 +145,12 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                                     ),
                                   ),
                                   child: Text(
-                                    'بيانـات العمليـات',
+                                    'حركــة المخــزون',
                                     style: MyTextStyles.font18WhiteBold,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Container(
                                   alignment: AlignmentDirectional.centerEnd,
                                   child: myIconButton(

@@ -12,7 +12,7 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/register_model.dart';
 import 'package:laqahy/models/login_model.dart';
-import 'package:laqahy/models/user_models.dart';
+import 'package:laqahy/models/user_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/services/storage/storage_service.dart';

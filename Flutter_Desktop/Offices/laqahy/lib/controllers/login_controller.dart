@@ -59,12 +59,12 @@ class LoginController extends GetxController {
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
 
-        // Handle user and center objects
+        // Handle user and office objects
         Login user = Login.fromJson(data['user']);
-        Office center = Office.fromJson(data['office']);
+        Office office = Office.fromJson(data['office']);
 
         sdc.userLoggedData.assignAll([user]);
-        sdc.officeData.assignAll([center]);
+        sdc.officeData.assignAll([office]);
 
         try {
           // Save SharedPreferences

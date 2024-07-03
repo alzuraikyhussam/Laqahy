@@ -507,13 +507,18 @@ class CentersAccountsController extends GetxController {
   }) async {
     isUpdateLoading(true);
 
-    String code = createAccountCode.v4().substring(0, 8);
+    String? code = createAccountCode.v4().substring(0, 8);
 
-    final office = Office(
-      phone: phone,
-      address: address,
-      createAccountCode: code,
-    );
+    final office = alertType == 'edit'
+        ? Office(
+            phone: phone,
+            address: address,
+          )
+        : Office(
+            phone: phone,
+            address: address,
+            createAccountCode: code,
+          );
 
     try {
       var request = http.MultipartRequest(
@@ -521,7 +526,9 @@ class CentersAccountsController extends GetxController {
       request.fields['_method'] = 'PATCH';
       request.fields['office_phone'] = office.phone!;
       request.fields['office_address'] = office.address!;
-      request.fields['create_account_code'] = office.createAccountCode!;
+      alertType == 'add'
+          ? request.fields['create_account_code'] = office.createAccountCode!
+          : request.fields['create_account_code'] = '';
 
       var response = await request.send();
 

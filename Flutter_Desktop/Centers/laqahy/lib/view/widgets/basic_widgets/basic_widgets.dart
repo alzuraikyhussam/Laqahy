@@ -1,11 +1,15 @@
 import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:laqahy/controllers/orders_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/orders/approval_order_alert.dart';
+import 'package:laqahy/view/widgets/orders/reject_confirm_alert.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
 
@@ -328,12 +332,11 @@ myCopyRightText() {
     left: 0,
     right: 0,
     bottom: 15,
-    child: Opacity(
-      opacity: 0.5,
-      child: Text(
-        textAlign: TextAlign.center,
-        'جميع الحقوق محفوظة لدى فريق سورس تك ${DateTime.now().year} ©',
-        style: MyTextStyles.font14GreyBold,
+    child: Text(
+      textAlign: TextAlign.center,
+      'جميع الحقوق محفوظة لدى فريق سورس تك ${DateTime.now().year} ©',
+      style: MyTextStyles.font14GreyBold.copyWith(
+        color: MyColors.greyColor.withOpacity(0.5),
       ),
     ),
   );
@@ -343,7 +346,7 @@ myBackgroundWindows() {
   return Container(
     width: double.infinity,
     height: double.infinity,
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
       image: DecorationImage(
         image: AssetImage("assets/images/background.png"),
         fit: BoxFit.cover,
@@ -458,15 +461,43 @@ myIconButton({
       ),
     ),
   );
+
+  // return InkWell(
+  //   onTap: onTap,
+  //   child: Container(
+  //     padding: EdgeInsets.all(10),
+  //     decoration: BoxDecoration(
+  //       gradient: LinearGradient(
+  //         colors: gradientColors,
+  //         begin: AlignmentDirectional.topCenter,
+  //         end: AlignmentDirectional.bottomCenter,
+  //       ),
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: MyColors.greyColor.withOpacity(0.3),
+  //           blurRadius: 4,
+  //           offset: Offset(0, 4),
+  //           spreadRadius: 0,
+  //         ),
+  //       ],
+  //       borderRadius: BorderRadiusDirectional.circular(10),
+  //     ),
+  //     child: Icon(
+  //       icon,
+  //       color: MyColors.whiteColor,
+  //       size: 25,
+  //     ),
+  //   ),
+  // );
 }
 
 myHomeCards({
-  required String imageName,
+  required String imagePath,
   required String title,
-  required int value,
+  required int count,
 }) {
   return Container(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
       color: Colors.white,
       border: Border.all(
@@ -485,18 +516,19 @@ myHomeCards({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          width: 60,
           decoration: BoxDecoration(
             color: MyColors.primaryColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Image.asset(
-            imageName,
+            imagePath,
             fit: BoxFit.cover,
-            width: 40,
+            // width: 40,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Expanded(
@@ -510,129 +542,15 @@ myHomeCards({
                   style: MyTextStyles.font16BlackBold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Expanded(
                 child: Text(
-                  '$value',
+                  // '$count',
+                  Constants().decimalFormatter.format(count).toString(),
                   style: MyTextStyles.font18BlackBold,
                 ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-myPostsCard() {
-  return Container(
-    padding: EdgeInsets.all(15),
-    height: 200,
-    decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.9),
-      border: Border.all(
-        color: MyColors.greyColor.withOpacity(0.2),
-      ),
-      borderRadius: BorderRadius.circular(20),
-      boxShadow: [
-        BoxShadow(
-          color: MyColors.greyColor.withOpacity(0.2),
-          blurRadius: 5,
-          blurStyle: BlurStyle.outer,
-          offset: Offset(0, 0),
-        ),
-      ],
-    ),
-    child: Row(
-      children: [
-        Container(
-          width: 200,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Image.asset(
-            'assets/images/default-post-image.png',
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(
-          width: 20,
-        ),
-        Expanded(
-          flex: 4,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'لقــاح الســل',
-                style: MyTextStyles.font18PrimaryBold,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: Text(
-                  'ما هو لقاح السل؟ لقاح السل هو لقاح يستخدم للوقاية من مرض السل، وهو مرض يسببه البكتيريا المعروفة باسم ميكروب السل. كيف يعمل لقاح السل؟',
-                  style: MyTextStyles.font16BlackMedium,
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      gradient: LinearGradient(
-                        colors: [
-                          MyColors.primaryColor,
-                          MyColors.secondaryColor,
-                        ],
-                        begin: AlignmentDirectional.topCenter,
-                        end: AlignmentDirectional.bottomCenter,
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.av_timer_rounded,
-                      color: MyColors.whiteColor,
-                      size: 20,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '${DateFormat('hh:mm yyyy-MM-dd').format(DateTime.now())}',
-                    style: MyTextStyles.font16GreyMedium,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              myButton(
-                onPressed: () {},
-                text: 'تعـديـل',
-                textStyle: MyTextStyles.font16WhiteBold,
-                width: 100,
-              ),
-              myButton(
-                onPressed: () {},
-                text: 'حــذف',
-                textStyle: MyTextStyles.font16WhiteBold,
-                width: 100,
-                backgroundColor: MyColors.redColor,
               ),
             ],
           ),
@@ -732,125 +650,158 @@ myDropDownMenuButton({
   required TextEditingController? searchController,
   required String? selectedValue,
   double? width,
-}) {
-  return Center(
-    child: DropdownButtonHideUnderline(
-      child: DropdownButton2<String>(
-        isExpanded: true,
-        hint: Text(
-          hintText,
-          style: TextStyle(
-            fontSize: 14,
-            color: MyColors.greyColor,
-          ),
-        ),
-        items: items
-            .map((item) => DropdownMenuItem(
-                  value: item,
-                  child: Text(
-                    item,
-                    style: MyTextStyles.font16BlackMedium,
-                  ),
-                ))
-            .toList(),
-        value: selectedValue,
-        onChanged: onChanged,
-        buttonStyleData: ButtonStyleData(
-          padding: EdgeInsets.all(12),
-          height: 53,
-          width: width != null ? width.toDouble() : 200,
-          decoration: BoxDecoration(
-            color: MyColors.whiteColor.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: MyColors.greyColor.withOpacity(0.3),
-            ),
-          ),
-        ),
-        dropdownStyleData: DropdownStyleData(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          maxHeight: 150,
-          width: width,
-        ),
-        menuItemStyleData: const MenuItemStyleData(
-          height: 44,
-        ),
-
-        dropdownSearchData: DropdownSearchData(
-          searchController: searchController,
-          searchInnerWidgetHeight: 50,
-          searchInnerWidget: Container(
-            height: 50,
-            padding: const EdgeInsets.only(
-              top: 8,
-              bottom: 4,
-              right: 8,
-              left: 8,
-            ),
-            child: TextFormField(
-              expands: true,
-              maxLines: null,
-              controller: searchController,
-              decoration: InputDecoration(
-                isDense: true,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
-                ),
-                hintText: 'ابـحــث هنــا',
-                hintStyle: MyTextStyles.font14GreyMedium,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: MyColors.greyColor.withOpacity(0.3),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: MyColors.greyColor.withOpacity(0.3),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: MyColors.primaryColor.withOpacity(0.5),
-                  ),
-                ),
-                filled: true,
-                fillColor: MyColors.whiteColor.withOpacity(0.5),
-              ),
-            ),
-          ),
-          searchMatchFn: (item, searchValue) {
-            return item.value.toString().contains(searchValue);
-          },
-        ),
-        //This to clear the search value when you close the menu
-        onMenuStateChange: (isOpen) {
-          if (!isOpen) {
-            searchController?.clear();
-          }
-        },
-      ),
-    ),
-  );
-}
-
-myDropDownMenuButton2({
-  required String hintText,
-  required List<DropdownMenuItem<String>>? items,
-  required void Function(String?)? onChanged,
-  required TextEditingController? searchController,
-  required String? selectedValue,
-  double? width,
   String? Function(String?)? validator,
 }) {
   return Container(
     width: width != null ? width.toDouble() : 200,
     child: DropdownButtonFormField2<String>(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: MyColors.whiteColor.withOpacity(0.5),
+        contentPadding: EdgeInsets.zero,
+        border: InputBorder.none,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: MyColors.greyColor.withOpacity(0.3),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: MyColors.primaryColor.withOpacity(0.5),
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: MyColors.redColor,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: MyColors.redColor,
+          ),
+        ),
+      ),
+      validator: validator,
+      isExpanded: true,
+      hint: Text(
+        hintText,
+        style: TextStyle(
+          fontSize: 14,
+          color: MyColors.greyColor,
+        ),
+      ),
+      items: items
+          .map((item) => DropdownMenuItem(
+                value: item,
+                child: Text(
+                  item,
+                  style: MyTextStyles.font16BlackMedium,
+                ),
+              ))
+          .toList(),
+      value: selectedValue,
+      onChanged: onChanged,
+      buttonStyleData: ButtonStyleData(
+        padding: EdgeInsets.all(12),
+        height: 60,
+        width: width != null ? width.toDouble() : 200,
+        decoration: BoxDecoration(
+          // color: MyColors.whiteColor.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(10),
+          // border: Border.all(
+          //   color: MyColors.greyColor.withOpacity(0.3),
+          // ),
+        ),
+      ),
+
+      dropdownStyleData: DropdownStyleData(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        maxHeight: 150,
+        width: width,
+      ),
+      menuItemStyleData: const MenuItemStyleData(
+        height: 44,
+      ),
+
+      dropdownSearchData: DropdownSearchData(
+        searchController: searchController,
+        searchInnerWidgetHeight: 50,
+        searchInnerWidget: Container(
+          height: 50,
+          padding: const EdgeInsets.only(
+            top: 8,
+            bottom: 4,
+            right: 8,
+            left: 8,
+          ),
+          child: TextFormField(
+            expands: true,
+            maxLines: null,
+            controller: searchController,
+            decoration: InputDecoration(
+              isDense: true,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 8,
+              ),
+              hintText: 'ابـحــث هنــا',
+              hintStyle: MyTextStyles.font14GreyMedium,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: MyColors.greyColor.withOpacity(0.3),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: MyColors.greyColor.withOpacity(0.3),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: MyColors.primaryColor.withOpacity(0.5),
+                ),
+              ),
+              filled: true,
+              fillColor: MyColors.whiteColor.withOpacity(0.5),
+            ),
+          ),
+        ),
+        searchMatchFn: (item, searchValue) {
+          return item.value.toString().contains(searchValue);
+        },
+      ),
+      //This to clear the search value when you close the menu
+      onMenuStateChange: (isOpen) {
+        if (!isOpen) {
+          searchController?.clear();
+        }
+      },
+    ),
+  );
+}
+
+Widget myDropDownMenuButton2<T>({
+  required String hintText,
+  required List<DropdownMenuItem<T>>? items,
+  required void Function(T?)? onChanged,
+  required TextEditingController? searchController,
+  required T? selectedValue,
+  double? width,
+  String? Function(T?)? validator,
+}) {
+  return Container(
+    width: width != null ? width.toDouble() : 200,
+    child: DropdownButtonFormField2<T>(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
         filled: true,
@@ -980,6 +931,594 @@ myDropDownMenuButton2({
     ),
   );
 }
+// myDropDownMenuButton2({
+//   required String hintText,
+//   required List<DropdownMenuItem<String>>? items,
+//   required void Function(String?)? onChanged,
+//   required TextEditingController? searchController,
+//   required String? selectedValue,
+//   double? width,
+//   String? Function(String?)? validator,
+// }) {
+//   return Container(
+//     width: width != null ? width.toDouble() : 200,
+//     child: DropdownButtonFormField2<String>(
+//       autovalidateMode: AutovalidateMode.onUserInteraction,
+//       decoration: InputDecoration(
+//         filled: true,
+//         fillColor: MyColors.whiteColor.withOpacity(0.5),
+//         contentPadding: EdgeInsets.zero,
+//         border: InputBorder.none,
+//         enabledBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(10),
+//           borderSide: BorderSide(
+//             color: MyColors.greyColor.withOpacity(0.3),
+//           ),
+//         ),
+//         focusedBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(10),
+//           borderSide: BorderSide(
+//             color: MyColors.primaryColor.withOpacity(0.5),
+//           ),
+//         ),
+//         errorBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(10),
+//           borderSide: BorderSide(
+//             color: MyColors.redColor,
+//           ),
+//         ),
+//         focusedErrorBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(10),
+//           borderSide: BorderSide(
+//             color: MyColors.redColor,
+//           ),
+//         ),
+//       ),
+//       validator: validator,
+//       isExpanded: true,
+//       hint: Text(
+//         hintText,
+//         style: TextStyle(
+//           fontSize: 14,
+//           color: MyColors.greyColor,
+//         ),
+//       ),
+
+//       items: items,
+//       value: selectedValue,
+//       onChanged: onChanged,
+//       buttonStyleData: ButtonStyleData(
+//         padding: EdgeInsets.all(12),
+//         height: 60,
+//         width: width != null ? width.toDouble() : 200,
+//         decoration: BoxDecoration(
+//           // color: MyColors.whiteColor.withOpacity(0.5),
+//           borderRadius: BorderRadius.circular(10),
+//           // border: Border.all(
+//           //   color: MyColors.greyColor.withOpacity(0.3),
+//           // ),
+//         ),
+//       ),
+
+//       dropdownStyleData: DropdownStyleData(
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(10),
+//         ),
+//         maxHeight: 150,
+//         width: width,
+//       ),
+//       menuItemStyleData: const MenuItemStyleData(
+//         height: 44,
+//       ),
+
+//       dropdownSearchData: DropdownSearchData(
+//         searchController: searchController,
+//         searchInnerWidgetHeight: 50,
+//         searchInnerWidget: Container(
+//           height: 50,
+//           padding: const EdgeInsets.only(
+//             top: 8,
+//             bottom: 4,
+//             right: 8,
+//             left: 8,
+//           ),
+//           child: TextFormField(
+//             expands: true,
+//             maxLines: null,
+//             controller: searchController,
+//             decoration: InputDecoration(
+//               isDense: true,
+//               contentPadding: const EdgeInsets.symmetric(
+//                 horizontal: 10,
+//                 vertical: 8,
+//               ),
+//               hintText: 'ابـحــث هنــا',
+//               hintStyle: MyTextStyles.font14GreyMedium,
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(10),
+//                 borderSide: BorderSide(
+//                   color: MyColors.greyColor.withOpacity(0.3),
+//                 ),
+//               ),
+//               enabledBorder: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(10),
+//                 borderSide: BorderSide(
+//                   color: MyColors.greyColor.withOpacity(0.3),
+//                 ),
+//               ),
+//               focusedBorder: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(10),
+//                 borderSide: BorderSide(
+//                   color: MyColors.primaryColor.withOpacity(0.5),
+//                 ),
+//               ),
+//               filled: true,
+//               fillColor: MyColors.whiteColor.withOpacity(0.5),
+//             ),
+//           ),
+//         ),
+//         searchMatchFn: (item, searchValue) {
+//           // return item.value.toString().contains(searchValue);
+//           return item.child.toString().contains(searchValue);
+//         },
+//       ),
+
+//       //This to clear the search value when you close the menu
+//       onMenuStateChange: (isOpen) {
+//         if (!isOpen) {
+//           searchController?.clear();
+//         }
+//       },
+//     ),
+//   );
+// }
+
+myCheckBox({
+  required void Function()? onTap,
+  required void Function(bool) onChanged,
+  required bool value,
+  required String text,
+  double? width = 150,
+}) {
+  return Container(
+    width: width,
+    child: ListTile(
+      onTap: onTap,
+      minLeadingWidth: 15,
+      leading: MSHCheckbox(
+        size: 20,
+        checkedColor: MyColors.secondaryColor,
+        uncheckedColor: MyColors.greyColor,
+        value: value,
+        colorConfig: MSHColorConfig.fromCheckedUncheckedDisabled(
+          checkedColor: MyColors.primaryColor,
+        ),
+        style: MSHCheckboxStyle.stroke,
+        onChanged: onChanged,
+      ),
+      title: Text(
+        text,
+        style: MyTextStyles.font16BlackBold,
+      ),
+    ),
+  );
+}
+
+myShowDialog({
+  required BuildContext context,
+  required widgetName,
+}) {
+  return showDialog(
+    barrierDismissible: false,
+    barrierColor: MyColors.greyColor.withOpacity(0.5),
+    context: context,
+    builder: (context) {
+      return widgetName;
+    },
+  );
+}
+
+myReportsCards({
+  required String imageName,
+  required String title,
+  required void Function()? onPressed,
+  required context,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 10,
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Image.asset(
+            imageName,
+            fit: BoxFit.cover,
+            width: 40,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: MyTextStyles.font18BlackBold,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        myButton(
+          width: 120,
+          onPressed: onPressed,
+          text: 'إنـــشـــــــاء',
+          textStyle: MyTextStyles.font14WhiteBold,
+        ),
+      ],
+    ),
+  );
+}
+
+myOrdersItem({
+  int? id,
+  required String centerName,
+  required String vaccineType,
+  String? orderState,
+  required var date,
+  required String note,
+  required int quantity,
+  double? height = 250,
+}) {
+  OrdersController olc = Get.put(OrdersController());
+  return Container(
+    padding: EdgeInsets.all(25),
+    height: height,
+    decoration: BoxDecoration(
+      // color: Colors.white.withOpacity(0.9),
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 5,
+          blurStyle: BlurStyle.outer,
+          offset: Offset(0, 0),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  Text(
+                    'اسم المركز الصحي:',
+                    style: MyTextStyles.font16PrimaryBold,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: Text(
+                      centerName,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: MyTextStyles.font16BlackBold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Text(
+                    'اسم اللقــاح:',
+                    style: MyTextStyles.font16PrimaryBold,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: Text(
+                      vaccineType,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: MyTextStyles.font16BlackBold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: [
+            Text(
+              'الكميــة:',
+              style: MyTextStyles.font16PrimaryBold,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              quantity.toString(),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: MyTextStyles.font16BlackBold,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              orderState == 'cancelled'
+                  ? 'سبب الرفـض:'
+                  : orderState == 'incoming'
+                      ? 'ملاحظــة:'
+                      : 'ملاحظة الوزارة:',
+              overflow: TextOverflow.ellipsis,
+              style: MyTextStyles.font16PrimaryBold,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Expanded(
+              child: Text(
+                note,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: MyTextStyles.font16BlackBold,
+              ),
+            ),
+          ],
+        ),
+        Spacer(),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    gradient: LinearGradient(
+                      colors: [
+                        MyColors.primaryColor,
+                        MyColors.secondaryColor,
+                      ],
+                      begin: AlignmentDirectional.topCenter,
+                      end: AlignmentDirectional.bottomCenter,
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.av_timer_rounded,
+                    color: MyColors.whiteColor,
+                    size: 20,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  date,
+                  style: MyTextStyles.font16GreyBold,
+                ),
+              ],
+            ),
+            // orderState == 'incoming'
+            //     ? Row(
+            //         children: [
+            //           myButton(
+            //               width: 150,
+            //               onPressed: () {
+            //                 myShowDialog(
+            //                     context: Get.context!,
+            //                     widgetName: ApprovalOrderAlert(
+            //                       quantity: quantity,
+            //                       id: id!,
+            //                     ));
+            //               },
+            //               text: 'موافقــة',
+            //               textStyle: MyTextStyles.font16WhiteBold),
+            //           SizedBox(
+            //             width: 20,
+            //           ),
+            //           myButton(
+            //               width: 150,
+            //               backgroundColor: MyColors.redColor,
+            //               onPressed: () {
+            //                 myShowDialog(
+            //                     context: Get.context!,
+            //                     widgetName: RejectConfirmAlert(
+            //                       id: id!,
+            //                     ));
+            //               },
+            //               text: 'رفـــض',
+            //               textStyle: MyTextStyles.font16WhiteBold),
+            //         ],
+            //       )
+            //     : orderState == 'cancelled'
+            //         ? Obx(() {
+            //             return olc.isUndoLoading.value
+            //                 ? myLoadingIndicator()
+            //                 : myButton(
+            //                     // width: 150,
+            //                     backgroundColor: MyColors.greyColor,
+            //                     onPressed: olc.isUndoLoading.value
+            //                         ? null
+            //                         : () {
+            //                             olc.undoCancelledOrder(id!);
+            //                           },
+            //                     text: 'تراجــع عن الرفــض',
+            //                     textStyle: MyTextStyles.font16WhiteBold,
+            //                   );
+            //           })
+            //         : SizedBox(),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+myLoadingIndicator({
+  double height = 50,
+  double width = 120,
+}) {
+  return Container(
+    padding: EdgeInsetsDirectional.all(10),
+    height: height.toDouble(),
+    width: width.toDouble(),
+    alignment: AlignmentDirectional.center,
+    child: LoadingIndicator(
+      indicatorType: Indicator.lineScale,
+
+      /// Required, The loading type of the widget
+      colors: [
+        MyColors.secondaryColor,
+        MyColors.primaryColor,
+      ],
+
+      /// Optional, The color collections
+      strokeWidth: 2,
+
+      /// Optional, The stroke of the line, only applicable to widget which contains line
+      // backgroundColor: Colors.black,
+
+      /// Optional, Background of the widget
+      // pathBackgroundColor: Colors.black,
+
+      /// Optional, the stroke backgroundColor
+    ),
+  );
+}
+
+// myDropDownButton({
+//   required double? width,
+//   required List<String>? items,
+//   String? selectedValue,
+//   IconData? buttonIcon,
+//   double? buttonIconSize,
+//   Color? buttonIconColor,
+//   required void Function(String?)? onChanged,
+//   IconData? iconStyleData,
+//   double? iconStyleDataSize,
+//   double? dropdownStyleDataWdith,
+//   double? menuItemStyleDataHight,
+// }) {
+//   Container(
+//     margin: const EdgeInsets.only(left: 20, top: 3),
+//     width: width?.toDouble(),
+//     child: DropdownButtonHideUnderline(
+//       child: DropdownButton2<String>(
+//         isExpanded: true,
+//         hint: Row(
+//           children: [
+//             Icon(
+//               buttonIcon,
+//               size: 16,
+//               color: buttonIconColor,
+//             ),
+//             SizedBox(
+//               width: 4,
+//             ),
+//           ],
+//         ),
+//         items: items!
+//             .map(
+//               (String item) => DropdownMenuItem<String>(
+//                 value: item,
+//                 child: Text(
+//                   item,
+//                   style: MyTextStyles.font14BlackBold,
+//                   overflow: TextOverflow.ellipsis,
+//                 ),
+//               ),
+//             )
+//             .toList(),
+//         value: selectedValue,
+//         onChanged: onChanged,
+//         buttonStyleData: ButtonStyleData(
+//           height: 50,
+//           width: 160,
+//           padding: const EdgeInsets.only(left: 14, right: 14),
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(10),
+//             border: Border.all(color: MyColors.greyColor.withOpacity(0.3)),
+//             color: MyColors.whiteColor,
+//           ),
+//           elevation: 0,
+//         ),
+//         iconStyleData: IconStyleData (
+//           icon:  Icon(
+//             iconStyleData,
+//           ) ,
+
+//           iconSize: iconStyleDataSize!,
+//           iconEnabledColor: MyColors.greyColor,
+//           iconDisabledColor: MyColors.greyColor,
+//         ),
+//         dropdownStyleData: DropdownStyleData(
+//           maxHeight: 150,
+//           width: 150,
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(10),
+//             color: MyColors.whiteColor,
+//           ),
+//           // offset: const Offset(-29, 0),
+//           scrollbarTheme: ScrollbarThemeData(
+//             radius: const Radius.circular(40),
+//             thickness: MaterialStateProperty.all<double>(6),
+//             thumbVisibility: MaterialStateProperty.all<bool>(true),
+//           ),
+//         ),
+//         menuItemStyleData: MenuItemStyleData(
+//           height: menuItemStyleDataHight!,
+//           padding: const EdgeInsets.only(left: 14, right: 14),
+//         ),
+//       ),
+//     ),
+//   );
+// }
 
 myMothersDropDownMenuButton2({
   required String hintText,
@@ -1119,110 +1658,6 @@ myMothersDropDownMenuButton2({
           searchController?.clear();
         }
       },
-    ),
-  );
-}
-
-
-myCheckBox({
-  required void Function()? onTap,
-  required void Function(bool) onChanged,
-  required bool value,
-  required String text,
-  double? width = 150,
-}) {
-  return Container(
-    width: width,
-    child: ListTile(
-      onTap: onTap,
-      minLeadingWidth: 15,
-      leading: MSHCheckbox(
-        size: 20,
-        checkedColor: MyColors.secondaryColor,
-        uncheckedColor: MyColors.greyColor,
-        value: value,
-        colorConfig: MSHColorConfig.fromCheckedUncheckedDisabled(
-          checkedColor: MyColors.primaryColor,
-        ),
-        style: MSHCheckboxStyle.stroke,
-        onChanged: onChanged,
-      ),
-      title: Text(
-        text,
-        style: MyTextStyles.font16BlackBold,
-      ),
-    ),
-  );
-}
-
-myShowDialog({
-  required BuildContext context,
-  required widgetName,
-}) {
-  return showDialog(
-    barrierDismissible: false,
-    barrierColor: MyColors.greyColor.withOpacity(0.5),
-    context: context,
-    builder: (context) {
-      return widgetName;
-    },
-  );
-}
-
-myOrdersItem({
-  required Widget? content,
-  double? height = 150,
-}) {
-  return Container(
-    padding: EdgeInsets.all(25),
-    height: height,
-    decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.9),
-      border: Border.all(
-        color: MyColors.greyColor.withOpacity(0.2),
-      ),
-      borderRadius: BorderRadius.circular(20),
-      boxShadow: [
-        BoxShadow(
-          color: MyColors.greyColor.withOpacity(0.2),
-          blurRadius: 5,
-          blurStyle: BlurStyle.outer,
-          offset: Offset(0, 0),
-        ),
-      ],
-    ),
-    child: content,
-  );
-}
-
-myLoadingIndicator({
-  double height = 50,
-  double width = 120,
-}) {
-  return Container(
-    padding: EdgeInsetsDirectional.all(10),
-    height: height.toDouble(),
-    width: width.toDouble(),
-    alignment: AlignmentDirectional.center,
-    child: LoadingIndicator(
-      indicatorType: Indicator.lineScale,
-
-      /// Required, The loading type of the widget
-      colors: [
-        MyColors.secondaryColor,
-        MyColors.primaryColor,
-      ],
-
-      /// Optional, The color collections
-      strokeWidth: 2,
-
-      /// Optional, The stroke of the line, only applicable to widget which contains line
-      // backgroundColor: Colors.black,
-
-      /// Optional, Background of the widget
-      // pathBackgroundColor: Colors.black,
-
-      /// Optional, the stroke backgroundColor
     ),
   );
 }

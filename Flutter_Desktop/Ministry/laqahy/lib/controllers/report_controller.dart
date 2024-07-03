@@ -24,7 +24,7 @@ import 'package:laqahy/models/order_model.dart';
 import 'package:laqahy/models/order_state_model.dart';
 import 'package:laqahy/models/report_card_model.dart';
 import 'package:laqahy/models/status_type_model.dart';
-import 'package:laqahy/models/user_models.dart';
+import 'package:laqahy/models/user_model.dart';
 import 'package:laqahy/models/vaccine_quantity_model.dart';
 import 'package:laqahy/models/vaccine_statement_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
