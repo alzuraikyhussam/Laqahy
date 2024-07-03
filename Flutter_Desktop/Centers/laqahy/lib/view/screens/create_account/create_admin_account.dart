@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/create_admin_account_controller.dart';
+import 'package:laqahy/controllers/create_account_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/welcome.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:window_manager/window_manager.dart';
-import '../../widgets/basic_widgets/basic_widgets.dart';
 
 class CreateAdminAccount extends StatefulWidget {
   const CreateAdminAccount({super.key});
@@ -21,6 +20,8 @@ class CreateAdminAccount extends StatefulWidget {
 class _CreateAdminAccountState extends State<CreateAdminAccount> {
   @override
   void initState() {
+    StaticDataController sdc = Get.find<StaticDataController>();
+
     // TODO: implement initState
     super.initState();
     WindowOptions createAdminAccountWindowOptions = const WindowOptions(
@@ -38,11 +39,12 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
       await windowManager.show();
       await windowManager.focus();
     });
+    sdc.fetchGenders();
   }
 
   @override
   Widget build(BuildContext context) {
-    CreateAdminAccountController caac = Get.put(CreateAdminAccountController());
+    CreateAccountController cac = Get.put(CreateAccountController());
 
     return Scaffold(
       body: Stack(
@@ -61,168 +63,179 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
           SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(30),
-              child: Form(
-                key: caac.createAdminAccountFormKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        myAppBarLogo(),
-                        goBackButton(
-                          onTap: () {
-                            Get.off(WelcomeScreen());
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      alignment: AlignmentDirectional.center,
-                      child: Image.asset(
-                        'assets/images/create-admin-account-text.png',
-                        width: 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      myAppBarLogo(),
+                      goBackButton(
+                        onTap: () {
+                          Get.off(const WelcomeScreen());
+                        },
                       ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    alignment: AlignmentDirectional.center,
+                    child: Image.asset(
+                      'assets/images/create-admin-account-text.png',
+                      width: 200,
                     ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Row(
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Form(
+                    key: cac.createAdminAccountFormKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        myTextField(
-                          controller: caac.nameController,
-                          validator: caac.nameValidator,
-                          hintText: 'الاســم الكـامل',
-                          width: 300,
-                          keyboardType: TextInputType.text,
-                          onChanged: (value) {},
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        myTextField(
-                          controller: caac.phoneNumberController,
-                          validator: caac.phoneNumberValidator,
-                          hintText: 'رقــم الهـــاتف',
-                          width: 235,
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            Container(
-                              margin: const EdgeInsets.only(top: 3),
-                              child: myTextField(
-                                validator: caac.birthDateValidator,
-                                controller: caac.birthDateController,
-                                hintText: 'تاريــخ الميـلاد',
-                                prefixIcon: Icons.date_range_outlined,
-                                keyboardType: TextInputType.text,
-                                readOnly: true,
-                                width: 250,
-                                onTap: () {
-                                  showDatePicker(
-                                          context: context,
-                                          firstDate: DateTime(1950),
-                                          lastDate: DateTime.now())
-                                      .then(
-                                    (value) {
-                                      if (value == null) {
-                                        return;
-                                      } else {
-                                        caac.birthDateController.text =
-                                            DateFormat.yMMMd().format(value);
-                                      }
-                                    },
-                                  );
-                                },
-                                onChanged: (value) {},
-                              ),
-                            )
+                            myTextField(
+                              validator: cac.nameValidator,
+                              hintText: 'الاســم الرباعي',
+                              controller: cac.nameController,
+                              width: 300,
+                              prefixIcon: Icons.person_2_outlined,
+                              keyboardType: TextInputType.text,
+                              onChanged: (value) {},
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            myTextField(
+                              controller: cac.phoneNumberController,
+                              validator: cac.phoneNumberValidator,
+                              hintText: 'رقــم الهـــاتف',
+                              prefixIcon: Icons.call_outlined,
+                              width: 235,
+                              keyboardType: TextInputType.phone,
+                              onChanged: (value) {},
+                            ),
                           ],
                         ),
                         const SizedBox(
-                          width: 10,
+                          height: 15,
                         ),
-                        Constants().gendersDropdownMenu(),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
+                        Row(
+                          children: [
+                            myTextField(
+                              validator: cac.birthDateValidator,
+                              controller: cac.birthDateController,
+                              hintText: 'تاريــخ الميـلاد',
+                              prefixIcon: Icons.date_range_outlined,
+                              keyboardType: TextInputType.text,
+                              readOnly: true,
+                              width: 250,
+                              onTap: () {
+                                showDatePicker(
+                                        context: context,
+                                        firstDate: DateTime(1950),
+                                        lastDate: DateTime.now())
+                                    .then(
+                                  (value) {
+                                    if (value == null) {
+                                      return;
+                                    } else {
+                                      cac.birthDateController.text =
+                                          DateFormat.yMMMd().format(value);
+                                    }
+                                  },
+                                );
+                              },
+                              onChanged: (value) {},
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Constants().gendersDropdownMenu(),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            myTextField(
+                              validator: cac.userNameValidator,
+                              controller: cac.userNameController,
+                              hintText: 'اســم المستخدم',
+                              prefixIcon: Icons.person_pin_outlined,
+                              keyboardType: TextInputType.text,
+                              width: 250,
+                              onChanged: (value) {},
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Obx(() {
+                              return myTextField(
+                                hintText: 'كلمــة المــرور',
+                                controller: cac.passwordController,
+                                validator: cac.passwordValidator,
+                                prefixIcon: Icons.lock_outline_rounded,
+                                keyboardType: TextInputType.visiblePassword,
+                                width: 250,
+                                suffixIcon: cac.isVisible.value
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                obscureText: cac.isVisible.value ? false : true,
+                                onChanged: (value) {},
+                                onTapSuffixIcon: () {
+                                  cac.changePasswordVisibility();
+                                },
+                              );
+                            }),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
                         myTextField(
-                          controller: caac.userNameController,
-                          validator: caac.userNameValidator,
-                          hintText: 'اســم المستخــدم',
+                          hintText: 'العنـــوان',
+                          controller: cac.addressController,
+                          validator: cac.addressValidator,
+                          prefixIcon: Icons.location_on_outlined,
                           keyboardType: TextInputType.text,
-                          width: 250,
+                          width: 440,
                           onChanged: (value) {},
                         ),
                         const SizedBox(
-                          width: 10,
+                          height: 25,
                         ),
-                        myTextField(
-                          controller: caac.passwordController,
-                          validator: caac.passwordValidator,
-                          hintText: 'كلمــة المــرور',
-                          keyboardType: TextInputType.visiblePassword,
-                          width: 250,
-                          obscureText: true,
-                          onChanged: (value) {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    myTextField(
-                      controller: caac.addressController,
-                      validator: caac.addressValidator,
-                      hintText: 'العنـــوان',
-                      keyboardType: TextInputType.text,
-                      width: 440,
-                      onChanged: (value) {},
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
+                        Row(
                           children: [
                             Obx(() {
-                              return caac.isLoading.value
+                              return cac.isLoading.value
                                   ? myLoadingIndicator()
                                   : myButton(
-                                      onPressed: caac.isLoading.value
+                                      onPressed: cac.isLoading.value
                                           ? null
                                           : () {
-                                              if (caac.createAdminAccountFormKey
+                                              if (cac.createAdminAccountFormKey
                                                   .currentState!
                                                   .validate()) {
-                                                caac.createAccount();
+                                                cac.createAccount();
                                               }
                                             },
-                                      text: 'إنشـــاء الحســـاب',
+                                      text: 'إنشـــاء حســـاب',
                                       textStyle: MyTextStyles.font16WhiteBold,
                                     );
                             }),
                           ],
                         ),
-                      
-                  ],
-                ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

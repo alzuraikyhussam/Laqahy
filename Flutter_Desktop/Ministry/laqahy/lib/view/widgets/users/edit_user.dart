@@ -11,9 +11,10 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class EditUser extends StatefulWidget {
-  EditUser({super.key, required this.data});
+  EditUser({super.key, required this.data, required this.adminId});
 
-  var data;
+  dynamic data;
+  int? adminId;
 
   @override
   State<EditUser> createState() => _EditUserState();
@@ -195,11 +196,9 @@ class _EditUserState extends State<EditUser> {
                       ],
                     ),
                     SizedBox(
-                      width: widget.data == sdc.storageService.getAdminId()
-                          ? 0
-                          : 20,
+                      width: widget.data.id == widget.adminId ? 0 : 20,
                     ),
-                    widget.data == sdc.storageService.getAdminId()
+                    widget.data.id != widget.adminId
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -207,13 +206,13 @@ class _EditUserState extends State<EditUser> {
                                 'تحديد الصلاحية',
                                 style: MyTextStyles.font14BlackBold,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 3,
                               ),
                               Constants().permissionsDropdownMenu(),
                             ],
                           )
-                        : SizedBox()
+                        : const SizedBox()
                   ],
                 ),
               ),

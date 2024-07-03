@@ -4,11 +4,16 @@ class ApiEndpoints {
   // *********************************************
 
   // --------------- Total Count Endpoints -------------------
-  static const String getTotalCount = '$baseUrl/general/home-total-count';
+  static const String getTotalCount =
+      '$baseUrl/centers/general/home-total-count';
   // --------------------------------------------------
 
   // --------------- Gender Endpoints -------------------
   static const String getGenders = '$baseUrl/genders';
+  // --------------------------------------------------
+
+  // --------------- Healthy Center Endpoints -------------------
+  static const String getCenters = '$baseUrl/centers/get-centers';
   // --------------------------------------------------
 
   // --------------- City Endpoints -------------------
@@ -23,84 +28,50 @@ class ApiEndpoints {
   static const String getPermissions = '$baseUrl/permissions';
   // --------------------------------------------------
 
-  // --------------- Create Account Endpoints -------------------
-  static const String register = '$baseUrl/auth/register';
+  // --------------- Create Account Verification Endpoints -------------------
+  static const String registerVerification =
+      '$baseUrl/centers/auth/register/verify';
+  // --------------------------------------------------
+
+  // --------------- Register Endpoints -------------------
+  static const String register = '$baseUrl/centers/auth/register';
   // --------------------------------------------------
 
   // --------------- Login Endpoints -------------------
-  static const String login = '$baseUrl/auth/login';
+  static const String login = '$baseUrl/centers/auth/login';
   // --------------------------------------------------
 
   // --------------- User Endpoints -------------------
-  static const String getUsers = '$baseUrl/ministry/users';
-  static const String getAdmin = '$baseUrl/ministry/users/get-admin';
-  static const String addUser = '$baseUrl/ministry/users/add-user';
-  static const String updateUser = '$baseUrl/ministry/users/update-user';
-  static const String deleteUser = '$baseUrl/ministry/users/delete-user';
+  static const String getUsers = '$baseUrl/centers/users';
+  static const String getAdmin = '$baseUrl/centers/users/get-admin';
+  static const String addUser = '$baseUrl/centers/users/add-user';
+  static const String updateUser = '$baseUrl/centers/users/update-user';
+  static const String deleteUser = '$baseUrl/centers/users/delete-user';
+  // --------------------------------------------------
+
+  // --------------- Order Endpoints -------------------
+  static const String getIncomingOrders = '$baseUrl/centers/orders/incoming';
+  static const String getInDeliveryOrders =
+      '$baseUrl/centers/orders/in-delivery';
+  static const String getDeliveredOrders = '$baseUrl/centers/orders/delivered';
+  static const String getCancelledOrders = '$baseUrl/centers/orders/cancelled';
+  static const String deliveredConfirm =
+      '$baseUrl/centers/orders/delivered-confirm';
   // --------------------------------------------------
 
   // --------------- Technical Support Endpoints -------------------
   static const String sendMsg = '$baseUrl/support';
   // --------------------------------------------------
 
-
-
-  
-  // --------------- Mother Status Data Endpoints -------------------
-  static const String addMotherStatusData = '$baseUrl/center/motherData/add-motherData';
-  static const String getMothersData = '$baseUrl/center/motherData/get-motherData';
-
-  // --------------- Ministry Stock Vaccines Endpoints -------------------
-  static const String getVaccines = '$baseUrl/ministry/vaccines';
-  // --------------------------------------------------
-
-  // --------------- Ministry Statement Stock Vaccines Endpoints -------------------
-  static const String addVaccineQuantity =
-      '$baseUrl/ministry/vaccines/add-quantity';
-  static const String getVaccineStatement =
-      '$baseUrl/ministry/vaccines/statement';
-  static const String updateVaccineStatement =
-      '$baseUrl/ministry/vaccines/update-statement';
-  static const String deleteVaccineStatement =
-      '$baseUrl/ministry/vaccines/delete-statement';
-  // --------------------------------------------------
-
-  // --------------- Donor Endpoints -------------------
-  static const String getDonors = '$baseUrl/donors';
-  static const String addDonor = '$baseUrl/donors/add-donor';
-  // --------------------------------------------------
-
-  // --------------- Order Endpoints -------------------
-  static const String getIncomingOrders = '$baseUrl/orders/incoming';
-  static const String getInDeliveryOrders = '$baseUrl/orders/in-delivery';
-  static const String getDeliveredOrders = '$baseUrl/orders/delivered';
-  static const String getCancelledOrders = '$baseUrl/orders/cancelled';
-  static const String transferOrderToInDelivery =
-      '$baseUrl/orders/to-in-delivery';
-  static const String transferOrderToCancelled = '$baseUrl/orders/to-cancelled';
-  static const String undoCancelled = '$baseUrl/orders/undo-cancelled';
-  // --------------------------------------------------
-
-  // --------------- Generate Centers Report Endpoints -------------------
-  static const String getCentersReport = '$baseUrl/reports/centers-report';
-  // --------------------------------------------------
-
   // --------------- Mother Status Data Endpoints -------------------
   static const String addMotherStatusData =
-      '$baseUrl/motherData/add-motherData';
-  static const String getMothersData = '$baseUrl/motherData/get-motherData';
-
+      '$baseUrl/centers/mother-data/add-mother';
+  static const String getMothersData =
+      '$baseUrl/centers/mother-data/get-mother-data';
   // --------------------------------------------------
 
   // --------------- Child Status Data Endpoints -------------------
-  static const String addChildStatusData = '$baseUrl/center/childData/add-childData';
-  // --------------------------------------------------
-  
-  // --------------- Dosage Level Endpoints -------------------
-  static const String getDosageLevel = '$baseUrl/center/Dosage-Level';
-  // --------------------------------------------------
-  
-  // --------------- Dosage Type Endpoints -------------------
-  static const String getDosageType = '$baseUrl/center/Dosage-type';
+  static const String addChildStatusData =
+      '$baseUrl/centers/child-data/add-child';
   // --------------------------------------------------
 }

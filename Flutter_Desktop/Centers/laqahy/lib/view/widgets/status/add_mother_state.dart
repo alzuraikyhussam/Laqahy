@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-import '../../../controllers/users_controller.dart';
+import '../../../controllers/user_controller.dart';
 import '../basic_widgets/basic_widgets.dart';
 
 class AddMotherState extends StatefulWidget {

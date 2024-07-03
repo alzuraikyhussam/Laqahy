@@ -48,7 +48,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/error.json',
         title: 'خطــــأ',
         description:
-            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك حذفه حالياً',
+            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك حذف الكمية حالياً',
       ),
     );
   }
@@ -62,7 +62,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/error.json',
         title: 'خطــــأ',
         description:
-            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك تعديله حالياً',
+            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك تعديل الكمية حالياً',
       ),
     );
   }
@@ -109,6 +109,20 @@ class ApiExceptionWidgets {
     );
   }
 
+  myCodeVerificationNotFoundAlert() {
+    Constants().playErrorSound();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 270,
+        imageUrl: 'assets/images/404-error.json',
+        backgroundColor: MyColors.redColor,
+        title: 'كود التحقق غير صحيح',
+        description: 'يرجى التأكد من كتابة كود التحقق بشكل صحيح',
+      ),
+    );
+  }
+
   myUserNotFoundAlert() {
     Constants().playErrorSound();
     myShowDialog(
@@ -119,6 +133,21 @@ class ApiExceptionWidgets {
         backgroundColor: MyColors.redColor,
         title: 'المستخدم غير موجود',
         description: 'المستخدم الذي أدخلته غير موجود',
+      ),
+    );
+  }
+
+  myUserNotFoundInThisCenterAlert() {
+    Constants().playErrorSound();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 270,
+        imageUrl: 'assets/images/error.json',
+        backgroundColor: MyColors.redColor,
+        title: 'خطـــأ',
+        description:
+            'عذراً، لا يمكنك تسجيل الدخول بهذا المستخدم لأنه غير موجود في هذا المكتب',
       ),
     );
   }
@@ -365,7 +394,7 @@ class ApiExceptionWidgets {
           alignment: AlignmentDirectional.center,
           actionsAlignment: MainAxisAlignment.center,
           content: Container(
-            padding: const EdgeInsetsDirectional.only(
+            padding: EdgeInsetsDirectional.only(
               top: 20,
             ),
             height: 300,

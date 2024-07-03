@@ -468,7 +468,6 @@ class CentersAccounts extends StatelessWidget {
                                   style: MyTextStyles.font14WhiteBold,
                                 ),
                               ),
-                              // fixedWidth: 50,
                             ),
                             DataColumn2(
                               label: Container(
@@ -478,7 +477,6 @@ class CentersAccounts extends StatelessWidget {
                                   style: MyTextStyles.font14WhiteBold,
                                 ),
                               ),
-                              // fixedWidth: 50,
                             ),
                             DataColumn2(
                               label: Container(

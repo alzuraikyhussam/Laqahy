@@ -1,13 +1,16 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/models/model.dart';
+import 'package:intl/intl.dart';
+import 'package:laqahy/models/home_layout_model.dart';
 import '../../controllers/static_data_controller.dart';
 import '../../view/widgets/api_erxception_alert.dart';
 import '../../view/widgets/basic_widgets/basic_widgets.dart';
 import '../shared/styles/style.dart';
 
 class Constants {
+  final decimalFormatter = NumberFormat.decimalPattern();
+
   void playSuccessSound() async {
     try {
       AudioPlayer audioPlayer = AudioPlayer();
@@ -43,7 +46,7 @@ class Constants {
     }
   }
 
-  static List homeLayoutItems = [
+  static List adminHomeLayoutItems = [
     HomeLayoutListItem(
       imageName: 'assets/icons/home-gr.png',
       label: 'الرئيسية',
@@ -51,7 +54,7 @@ class Constants {
     ),
     HomeLayoutListItem(
       imageName: 'assets/icons/emp-gr.png',
-      label: 'الموظفين',
+      label: 'المستخدمين',
       imageNameFocused: 'assets/icons/emp-wh.png',
     ),
     HomeLayoutListItem(
@@ -65,9 +68,57 @@ class Constants {
       imageNameFocused: 'assets/icons/visits-wh.png',
     ),
     HomeLayoutListItem(
-      imageName: 'assets/icons/vaccine-gr.png',
+      imageName: 'assets/icons/vaccines-gr.png',
       label: 'اللقاحات',
-      imageNameFocused: 'assets/icons/vaccine-wh.png',
+      imageNameFocused: 'assets/icons/vaccines-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/order-gr.png',
+      label: 'الطلبات',
+      imageNameFocused: 'assets/icons/order-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/reports-gr.png',
+      label: 'التقارير',
+      imageNameFocused: 'assets/icons/reports-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/info-gr.png',
+      label: 'حول النظام',
+      imageNameFocused: 'assets/icons/info-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/support-gr.png',
+      label: 'الدعم الفني',
+      imageNameFocused: 'assets/icons/support-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/logout.png',
+      label: 'تسجيل الخروج',
+      imageNameFocused: 'assets/icons/logout.png',
+    ),
+  ];
+
+  static List userHomeLayoutItems = [
+    HomeLayoutListItem(
+      imageName: 'assets/icons/home-gr.png',
+      label: 'الرئيسية',
+      imageNameFocused: 'assets/icons/home-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/status-gr.png',
+      label: 'الحالات',
+      imageNameFocused: 'assets/icons/status-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/visits-gr.png',
+      label: 'الزيارات',
+      imageNameFocused: 'assets/icons/visits-wh.png',
+    ),
+    HomeLayoutListItem(
+      imageName: 'assets/icons/vaccines-gr.png',
+      label: 'اللقاحات',
+      imageNameFocused: 'assets/icons/vaccines-wh.png',
     ),
     HomeLayoutListItem(
       imageName: 'assets/icons/order-gr.png',

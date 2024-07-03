@@ -177,12 +177,12 @@ class UserController extends Controller
         }
     }
 
-    /////////////////////////////////// Offices ///////////////////////////////////////////////
+    //////////////////////////////////// Centers ////////////////////////////////////////////
 
-    public function officeShowUser($id)
+    public function centerShowUser($id)
     {
         try {
-            $user = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.genders_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $id)->get();
+            $user = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_centers', 'users.healthy_center_id', '=', 'healthy_centers.id')->select('users.*', 'genders.genders_type', 'healthy_centers.healthy_center_name', 'permission_types.permission_type')->where('users.healthy_center_id', $id)->get();
             return response()->json([
                 'message' => 'Users retrieved successfully',
                 'data' => $user,
@@ -194,7 +194,7 @@ class UserController extends Controller
         }
     }
 
-    public function officeAddUser(Request $request)
+    public function centerAddUser(Request $request)
     {
         try {
             $validator = Validator::make(
@@ -208,8 +208,7 @@ class UserController extends Controller
                     'user_account_password' => 'required',
                     'gender_id' => 'required',
                     'permission_type_id' => 'required',
-                    'office_id' => 'required',
-
+                    'healthy_center_id' => 'required',
                 ],
             );
             if ($validator->fails()) {
@@ -218,7 +217,7 @@ class UserController extends Controller
                 ], 400);
             }
 
-            $userExists = Offices_users::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
+            $userExists = User::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
 
             if ($userExists) {
                 return response()->json([
@@ -227,7 +226,7 @@ class UserController extends Controller
             }
 
             // Create record
-            $user = Offices_users::create([
+            $user = User::create([
                 'user_name' => $request->user_name,
                 'user_phone' => $request->user_phone,
                 'user_address' => $request->user_address,
@@ -236,7 +235,7 @@ class UserController extends Controller
                 'user_account_password' => $request->user_account_password,
                 'gender_id' => $request->gender_id,
                 'permission_type_id' => $request->permission_type_id,
-                'office_id' => $request->office_id,
+                'healthy_center_id' => $request->healthy_center_id,
             ]);
 
             // Return created record
@@ -251,10 +250,10 @@ class UserController extends Controller
         }
     }
 
-    public function officeUpdateUser(Request $request, string $id)
+    public function centerUpdateUser(Request $request, string $id)
     {
         try {
-            $user = Offices_users::find($id);
+            $user = User::find($id);
 
             if (!$user) {
                 return response()->json([
@@ -263,7 +262,7 @@ class UserController extends Controller
             }
 
             if ($request->user_account_name !== $user->user_account_name) {
-                if (Offices_users::where('user_account_name', $request->user_account_name)->exists()) {
+                if (User::where('user_account_name', $request->user_account_name)->exists()) {
                     return response()->json([
                         'message' => 'This username already exists',
                     ], 401);
@@ -271,7 +270,7 @@ class UserController extends Controller
             }
 
             if ($request->user_name !== $user->user_name) {
-                if (Offices_users::where('user_name', $request->user_name)->exists()) {
+                if (User::where('user_name', $request->user_name)->exists()) {
                     return response()->json([
                         'message' => 'This name already exists',
                     ], 401);
@@ -289,10 +288,10 @@ class UserController extends Controller
         }
     }
 
-    public function officeDestroyUser(string $id)
+    public function centerDestroyUser(string $id)
     {
         try {
-            $user = Offices_users::find($id);
+            $user = User::find($id);
             if (!$user) {
                 return response()->json([
                     'message' => 'User not found',
@@ -311,10 +310,10 @@ class UserController extends Controller
         }
     }
 
-    public function officeGetAdminData($id)
+    public function centerGetAdminData($id)
     {
         try {
-            $admin = Offices_users::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.genders_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.id', $id)->first();
+            $admin = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_centers', 'users.healthy_center_id', '=', 'healthy_centers.id')->select('users.*', 'genders.genders_type', 'healthy_centers.healthy_center_name', 'permission_types.permission_type')->where('users.id', $id)->first();
             return response()->json([
                 'message' => 'Admin data retrieved successfully',
                 'data' => $admin,
