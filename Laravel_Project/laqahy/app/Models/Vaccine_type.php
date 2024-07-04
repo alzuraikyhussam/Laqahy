@@ -26,9 +26,14 @@ class Vaccine_type extends Model
         return $this->hasMany(Healthy_centers_stock_vaccine::class);
     }
 
-    public function order()
+    public function officeOrder()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(OfficeOrder::class);
+    }
+
+    public function healthyCenterOrder()
+    {
+        return $this->hasMany(HealthyCenterOrder::class);
     }
 
     public function child_statement()

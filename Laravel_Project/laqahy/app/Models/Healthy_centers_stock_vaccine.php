@@ -10,12 +10,7 @@ class Healthy_centers_stock_vaccine extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = [
-        'healthy_center_id',
-        'vaccine_type_id',
-        'basic_quantity',
-        'remaining_quantity',
-    ];
+    protected $fillable = ['healthy_center_id', 'vaccine_type_id', 'quantity'];
     protected $dates = ['deleted_at'];
 
     public function healthy_center()

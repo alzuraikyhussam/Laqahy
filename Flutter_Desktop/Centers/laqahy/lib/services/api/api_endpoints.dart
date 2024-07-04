@@ -50,12 +50,13 @@ class ApiEndpoints {
   // --------------------------------------------------
 
   // --------------- Order Endpoints -------------------
+  static const String addOrder = '$baseUrl/centers/orders/add-order';
   static const String getOutgoingOrders = '$baseUrl/centers/orders/outgoing';
   static const String getInDeliveryOrders =
       '$baseUrl/centers/orders/in-delivery';
   static const String getDeliveredOrders = '$baseUrl/centers/orders/delivered';
   static const String getCancelledOrders = '$baseUrl/centers/orders/cancelled';
-  static const String confirmDelivered =
+  static const String confirmDeliveredOrder =
       '$baseUrl/centers/orders/confirm-delivered';
   // --------------------------------------------------
 

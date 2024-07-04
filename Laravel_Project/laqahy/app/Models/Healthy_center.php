@@ -62,11 +62,6 @@ class Healthy_center extends Model
         return $this->hasOne(Healthy_centers_stock_vaccine::class);
     }
 
-    public function order()
-    {
-        return $this->hasMany(Order::class);
-    }
-
     public function healthyCenterOrder()
     {
         return $this->hasMany(HealthyCenterOrder::class);

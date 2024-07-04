@@ -11,8 +11,13 @@ class Order_state extends Model
     public $timestamps = false;
     protected $fillable = ['order_state'];
 
-    public function order()
+    public function officeOrder()
     {
-        return $this->hasOne(Order::class);
+        return $this->hasOne(OfficeOrder::class);
+    }
+
+    public function healthyCenterOrder()
+    {
+        return $this->hasOne(HealthyCenterOrder::class);
     }
 }

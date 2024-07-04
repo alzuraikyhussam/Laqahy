@@ -21,9 +21,9 @@ class Office extends Model
         return $this->hasMany(Healthy_center::class);
     }
 
-    public function order()
+    public function officeOrder()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(OfficeOrder::class);
     }
 
     public function officeUser()

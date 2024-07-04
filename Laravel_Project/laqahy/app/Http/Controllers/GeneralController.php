@@ -6,7 +6,7 @@ use App\Models\Child_data;
 use App\Models\Healthy_center;
 use App\Models\Mother_data;
 use App\Models\Office;
-use App\Models\Order;
+use App\Models\OfficeOrder;
 use App\Models\Order_state;
 use App\Models\Post;
 use App\Models\User;
@@ -25,7 +25,7 @@ class GeneralController extends Controller
             $childrenCount = Child_data::count();
             $vaccinesCount = Vaccine_type::count();
             $orderState = Order_state::where('order_state', 'تم التسليم')->first();
-            $ordersCount = Order::where('order_state_id', $orderState->id)->count();
+            $ordersCount = OfficeOrder::where('order_state_id', $orderState->id)->count();
             $postsCount = Post::count();
 
             return response()->json([
@@ -57,7 +57,7 @@ class GeneralController extends Controller
             $childrenCount = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
             $vaccinesCount = Vaccine_type::count();
             $orderState = Order_state::where('order_state', 'تم التسليم')->first();
-            $ordersCount = Order::where('office_id', $office_id)->where('order_state_id', $orderState->id)->count();
+            $ordersCount = OfficeOrder::where('office_id', $office_id)->where('order_state_id', $orderState->id)->count();
 
             return response()->json([
                 'message' => 'Total Count retrieved successfully',
@@ -85,7 +85,7 @@ class GeneralController extends Controller
             $mothersCount = Mother_data::where('healthy_center_id', $center_id)->count();
             $childrenCount = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.id', $center_id)->count();
             $orderState = Order_state::where('order_state', 'تم التسليم')->first();
-            $ordersCount = 0; //Order::where('office_id', $office_id)->where('order_state_id', $orderState->id)->count();
+            $ordersCount = 0; //OfficeOrder::where('office_id', $office_id)->where('order_state_id', $orderState->id)->count();
 
             return response()->json([
                 'message' => 'Total Count retrieved successfully',

@@ -48,4 +48,18 @@ class ApiEndpoints {
   static const String updateUser = '$baseUrl/offices/users/update-user';
   static const String deleteUser = '$baseUrl/offices/users/delete-user';
   // --------------------------------------------------
+
+  // --------------- Order Endpoints -------------------
+  static const String addOrder = '$baseUrl/offices/orders/add-order';
+  static const String getOutgoingOrders = '$baseUrl/offices/orders/outgoing';
+  static const String getIncomingOrders = '$baseUrl/offices/orders/incoming';
+  static const String getInDeliveryOrders =
+      '$baseUrl/offices/orders/in-delivery';
+  static const String getDeliveredOrders = '$baseUrl/offices/orders/delivered';
+  static const String getCancelledOrders = '$baseUrl/offices/orders/cancelled';
+  static const String confirmDeliveredOrder =
+      '$baseUrl/offices/orders/confirm-delivered';
+  static const String confirmCenterOrder =
+      '$baseUrl/offices/orders/confirm-center-order';
+  // --------------------------------------------------
 }
