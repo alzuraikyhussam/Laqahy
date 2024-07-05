@@ -3,13 +3,11 @@ import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
+import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/orders/approval_order_alert.dart';
-import 'package:laqahy/view/widgets/orders/reject_confirm_alert.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
 
@@ -1180,7 +1178,7 @@ myReportsCards({
 
 myOrdersItem({
   int? id,
-  required String centerName,
+  String? centerName,
   required String vaccineType,
   String? orderState,
   required var date,
@@ -1188,9 +1186,9 @@ myOrdersItem({
   required int quantity,
   double? height = 250,
 }) {
-  OrdersController olc = Get.put(OrdersController());
+  OrdersController oc = Get.put(OrdersController());
   return Container(
-    padding: EdgeInsets.all(25),
+    padding: const EdgeInsets.all(25),
     height: height,
     decoration: BoxDecoration(
       // color: Colors.white.withOpacity(0.9),
@@ -1203,7 +1201,7 @@ myOrdersItem({
           color: MyColors.greyColor.withOpacity(0.2),
           blurRadius: 5,
           blurStyle: BlurStyle.outer,
-          offset: Offset(0, 0),
+          offset: const Offset(0, 0),
         ),
       ],
     ),
@@ -1219,15 +1217,17 @@ myOrdersItem({
               child: Row(
                 children: [
                   Text(
-                    'اسم المركز الصحي:',
+                    orderState == 'outgoing' || orderState == 'rejected'
+                        ? 'اسم المكتب:'
+                        : 'اسم المركز:',
                     style: MyTextStyles.font16PrimaryBold,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Expanded(
                     child: Text(
-                      centerName,
+                      centerName ?? 'غير معروف',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: MyTextStyles.font16BlackBold,
@@ -1243,7 +1243,7 @@ myOrdersItem({
                     'اسم اللقــاح:',
                     style: MyTextStyles.font16PrimaryBold,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Expanded(
@@ -1259,7 +1259,7 @@ myOrdersItem({
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Row(
@@ -1268,7 +1268,7 @@ myOrdersItem({
               'الكميــة:',
               style: MyTextStyles.font16PrimaryBold,
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Text(
@@ -1279,7 +1279,7 @@ myOrdersItem({
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Row(
@@ -1287,15 +1287,15 @@ myOrdersItem({
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              orderState == 'cancelled'
-                  ? 'سبب الرفـض:'
-                  : orderState == 'incoming'
-                      ? 'ملاحظــة:'
-                      : 'ملاحظة الوزارة:',
+              orderState == 'outgoing'
+                  ? 'ملاحظة المركز:'
+                  : orderState == 'rejected'
+                      ? 'سبب الرفض:'
+                      : 'ملاحظة المكتب:',
               overflow: TextOverflow.ellipsis,
               style: MyTextStyles.font16PrimaryBold,
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Expanded(
@@ -1308,7 +1308,34 @@ myOrdersItem({
             ),
           ],
         ),
-        Spacer(),
+        const Spacer(),
+        orderState == 'in_delivery'
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.info_outline_rounded,
+                    color: MyColors.greyColor,
+                    size: 25,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: Text(
+                      'لقد تم قبول طلبكم من قبل مكتب الصحة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم.',
+                      style: MyTextStyles.font14GreyBold,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              )
+            : const SizedBox(),
+        const SizedBox(
+          height: 15,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1317,7 +1344,7 @@ myOrdersItem({
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.all(3),
+                  padding: const EdgeInsets.all(3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     gradient: LinearGradient(
@@ -1335,7 +1362,7 @@ myOrdersItem({
                     size: 20,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
@@ -1344,56 +1371,89 @@ myOrdersItem({
                 ),
               ],
             ),
-            // orderState == 'incoming'
-            //     ? Row(
-            //         children: [
-            //           myButton(
-            //               width: 150,
-            //               onPressed: () {
-            //                 myShowDialog(
-            //                     context: Get.context!,
-            //                     widgetName: ApprovalOrderAlert(
-            //                       quantity: quantity,
-            //                       id: id!,
-            //                     ));
-            //               },
-            //               text: 'موافقــة',
-            //               textStyle: MyTextStyles.font16WhiteBold),
-            //           SizedBox(
-            //             width: 20,
-            //           ),
-            //           myButton(
-            //               width: 150,
-            //               backgroundColor: MyColors.redColor,
-            //               onPressed: () {
-            //                 myShowDialog(
-            //                     context: Get.context!,
-            //                     widgetName: RejectConfirmAlert(
-            //                       id: id!,
-            //                     ));
-            //               },
-            //               text: 'رفـــض',
-            //               textStyle: MyTextStyles.font16WhiteBold),
-            //         ],
-            //       )
-            //     : orderState == 'cancelled'
-            //         ? Obx(() {
-            //             return olc.isUndoLoading.value
-            //                 ? myLoadingIndicator()
-            //                 : myButton(
-            //                     // width: 150,
-            //                     backgroundColor: MyColors.greyColor,
-            //                     onPressed: olc.isUndoLoading.value
-            //                         ? null
-            //                         : () {
-            //                             olc.undoCancelledOrder(id!);
-            //                           },
-            //                     text: 'تراجــع عن الرفــض',
-            //                     textStyle: MyTextStyles.font16WhiteBold,
-            //                   );
-            //           })
-            //         : SizedBox(),
+            orderState == 'in_delivery'
+                ? Obx(() {
+                    return oc.isApprovalLoading.value
+                        ? myLoadingIndicator()
+                        : myButton(
+                            // width: 180,
+                            onPressed: () async {
+                              await oc.receivingOrderConfirm(orderId: id!);
+                            },
+                            text: 'تأكيــد اســتلام الطلــب',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                          );
+                  })
+                : const SizedBox(),
           ],
+        ),
+      ],
+    ),
+  );
+}
+
+myVaccineCards({
+  String title = 'unknown',
+  int quantity = 0,
+  required int id,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(15),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 10,
+        ),
+      ],
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          height: Get.height,
+          width: 90,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Image.asset(
+            'assets/icons/vaccines-icon.png',
+            fit: BoxFit.contain,
+          ),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'لقـاح $title',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: MyTextStyles.font16PrimaryBold,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                '$quantity',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: MyTextStyles.font18BlackBold,
+              ),
+            ],
+          ),
         ),
       ],
     ),
@@ -1402,7 +1462,7 @@ myOrdersItem({
 
 myLoadingIndicator({
   double height = 50,
-  double width = 120,
+  double width = 130,
 }) {
   return Container(
     padding: EdgeInsetsDirectional.all(10),

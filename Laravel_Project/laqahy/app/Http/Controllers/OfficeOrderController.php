@@ -59,13 +59,13 @@ class OfficeOrderController extends Controller
         }
     }
 
-    public function cancelledOrders()
+    public function rejectedOrders()
     {
         try {
-            $cancelled = OfficeOrder::join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->select('offices_orders.*', 'order_states.order_state', 'vaccine_types.vaccine_type', 'offices.office_name')->where('order_states.order_state', 'مرفوضة')->orderBy('updated_at', 'desc')->get();
+            $rejected = OfficeOrder::join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->select('offices_orders.*', 'order_states.order_state', 'vaccine_types.vaccine_type', 'offices.office_name')->where('order_states.order_state', 'مرفوضة')->orderBy('updated_at', 'desc')->get();
             return response()->json([
-                'message' => 'Cancelled orders retrieved successfully',
-                'data' => $cancelled,
+                'message' => 'Rejected orders retrieved successfully',
+                'data' => $rejected,
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -74,7 +74,7 @@ class OfficeOrderController extends Controller
         }
     }
 
-    public function transferToInDelivery(Request $request, $id)
+    public function approvalOrder(Request $request, $id)
     {
         try {
             $order = OfficeOrder::find($id);
@@ -113,7 +113,7 @@ class OfficeOrderController extends Controller
         }
     }
 
-    public function transferToCancelled(Request $request, $id)
+    public function rejectOrder(Request $request, $id)
     {
         try {
             $order = OfficeOrder::find($id);
@@ -138,7 +138,7 @@ class OfficeOrderController extends Controller
         }
     }
 
-    public function undoCancelled($id)
+    public function undoRejectedOrder($id)
     {
         try {
             $order = OfficeOrder::find($id);
@@ -245,13 +245,13 @@ class OfficeOrderController extends Controller
         }
     }
 
-    public function officeCancelledOrders($office_id)
+    public function officeRejectedOrders($office_id)
     {
         try {
-            $cancelled = OfficeOrder::join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->select('offices_orders.*', 'order_states.order_state', 'vaccine_types.vaccine_type', 'offices.office_name')->where([['order_states.order_state', 'مرفوضة'], ['offices_orders.office_id', $office_id]])->orderBy('offices_orders.updated_at', 'desc')->get();
+            $rejected = OfficeOrder::join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->select('offices_orders.*', 'order_states.order_state', 'vaccine_types.vaccine_type', 'offices.office_name')->where([['order_states.order_state', 'مرفوضة'], ['offices_orders.office_id', $office_id]])->orderBy('offices_orders.updated_at', 'desc')->get();
             return response()->json([
-                'message' => 'Cancelled orders retrieved successfully',
-                'data' => $cancelled,
+                'message' => 'Rejected orders retrieved successfully',
+                'data' => $rejected,
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -260,7 +260,7 @@ class OfficeOrderController extends Controller
         }
     }
 
-    public function officeConfirmDeliveredOrder(Request $request)
+    public function officeReceivingConfirmOrder(Request $request)
     {
         try {
 
@@ -294,7 +294,7 @@ class OfficeOrderController extends Controller
             $order->update(['order_state_id' => $orderState->id, 'delivery_date' => Carbon::now()]);
 
             return response()->json([
-                'message' => 'Order confirmed successfully',
+                'message' => 'Order received successfully',
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -342,7 +342,7 @@ class OfficeOrderController extends Controller
         }
     }
 
-    public function officeConfirmCenterOrder(Request $request, $id)
+    public function officeApprovalCenterOrder(Request $request, $id)
     {
         try {
             $order = HealthyCenterOrder::find($id);
@@ -398,7 +398,6 @@ class OfficeOrderController extends Controller
 
             return response()->json([
                 'message' => 'Order rejected successfully',
-
             ], 200);
         } catch (Exception $e) {
             return response()->json([

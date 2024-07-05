@@ -59,7 +59,7 @@ class Constants {
     ),
     HomeLayoutListItem(
       imageName: 'assets/icons/centers-accounts-gr.png',
-      label: 'حسابات المراكز',
+      label: 'حسابات المكاتب',
       imageNameFocused: 'assets/icons/centers-accounts-wh.png',
     ),
     HomeLayoutListItem(
@@ -615,5 +615,4 @@ class Constants {
       }
     });
   }
-
 }

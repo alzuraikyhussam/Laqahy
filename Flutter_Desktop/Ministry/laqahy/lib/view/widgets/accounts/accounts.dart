@@ -6,16 +6,16 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/centers_accounts/add_office_account.dart';
-import 'package:laqahy/view/widgets/centers_accounts/centers_data_table_source.dart';
-import 'package:laqahy/view/widgets/centers_accounts/offices_data_table_source.dart';
+import 'package:laqahy/view/widgets/accounts/add_office_account.dart';
+import 'package:laqahy/view/widgets/accounts/centers_data_table_source.dart';
+import 'package:laqahy/view/widgets/accounts/offices_data_table_source.dart';
 
-class CentersAccounts extends StatelessWidget {
-  const CentersAccounts({super.key});
+class AccountsPage extends StatelessWidget {
+  const AccountsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    CentersAccountsController cac = Get.put(CentersAccountsController());
+    AccountsController cac = Get.put(AccountsController());
 
     return Stack(
       children: [

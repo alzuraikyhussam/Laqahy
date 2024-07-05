@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:laqahy/models/mother_status_data_model.dart';
 import 'package:laqahy/models/permission_type_model.dart';
 import 'package:laqahy/models/login_model.dart';
+import 'package:laqahy/models/vaccine_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
 
@@ -63,6 +64,11 @@ class StaticDataController extends GetxController {
   var selectedDosageTypeId = Rx<int?>(null);
   var dosageTypeErrorMsg = ''.obs;
   var isDosageTypeLoading = false.obs;
+
+  var vaccines = <Vaccine>[].obs;
+  var selectedVaccine = Rx<Vaccine?>(null);
+  var vaccineErrorMsg = ''.obs;
+  var isVaccineLoading = false.obs;
 
   @override
   void onInit() async {
@@ -322,6 +328,39 @@ class StaticDataController extends GetxController {
       dosageTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
     } finally {
       isDosageTypeLoading(false);
+    }
+  }
+
+  void fetchVaccines() async {
+    try {
+      vaccineErrorMsg('');
+      isVaccineLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getVaccines),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isVaccineLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<Vaccine> fetchedVaccine =
+            jsonData.map((e) => Vaccine.fromJson(e)).toList();
+        vaccines.assignAll(fetchedVaccine);
+      } else {
+        print(response.body);
+        isVaccineLoading(false);
+        vaccineErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isVaccineLoading(false);
+      vaccineErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isVaccineLoading(false);
+      vaccineErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isVaccineLoading(false);
     }
   }
 }

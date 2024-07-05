@@ -28,9 +28,9 @@ class OrdersController extends GetxController {
   var deliveredOrders = <Order>[].obs;
   var fetchDeliveredOrdersFuture = Future<void>.value().obs;
 
-  var isCancelledLoading = false.obs;
-  var cancelledOrders = <Order>[].obs;
-  var fetchCancelledOrdersFuture = Future<void>.value().obs;
+  var isRejectedOrdersLoading = false.obs;
+  var rejectedOrders = <Order>[].obs;
+  var fetchRejectedOrdersFuture = Future<void>.value().obs;
 
   var isApprovalLoading = false.obs;
   var isRejectLoading = false.obs;
@@ -172,39 +172,39 @@ class OrdersController extends GetxController {
     });
   }
 
-  Future<void> fetchCancelledOrders() async {
-    fetchCancelledOrdersFuture.value = Future<void>(() async {
+  Future<void> fetchRejectedOrders() async {
+    fetchRejectedOrdersFuture.value = Future<void>(() async {
       try {
-        isCancelledLoading(true);
+        isRejectedOrdersLoading(true);
         final response = await http.get(
-          Uri.parse(ApiEndpoints.getCancelledOrders),
+          Uri.parse(ApiEndpoints.getRejectedOrders),
           headers: {
             'content-Type': 'application/json',
           },
         );
         if (response.statusCode == 200) {
-          isCancelledLoading(false);
+          isRejectedOrdersLoading(false);
           List<dynamic> jsonData = json.decode(response.body)['data'] as List;
-          cancelledOrders.value =
+          rejectedOrders.value =
               jsonData.map((e) => Order.fromJson(e)).toList();
         } else {
-          isCancelledLoading(false);
+          isRejectedOrdersLoading(false);
           ApiExceptionWidgets()
               .myAccessDatabaseExceptionAlert(response.statusCode);
         }
       } on SocketException catch (_) {
-        isCancelledLoading(false);
+        isRejectedOrdersLoading(false);
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
-        isCancelledLoading(false);
+        isRejectedOrdersLoading(false);
         ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       } finally {
-        isCancelledLoading(false);
+        isRejectedOrdersLoading(false);
       }
     });
   }
 
-  Future<void> transferOrderToInDelivery(int id) async {
+  Future<void> approvalOrder(int id) async {
     isApprovalLoading(true);
     print(quantityController.text);
     final order = Order(
@@ -213,7 +213,7 @@ class OrdersController extends GetxController {
     );
     try {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('${ApiEndpoints.transferOrderToInDelivery}/$id'));
+          'POST', Uri.parse('${ApiEndpoints.approvalOrder}/$id'));
       request.fields['_method'] = 'PATCH';
       request.fields['quantity'] = order.quantity.toString();
       request.fields['ministry_note_data'] = order.ministryNoteData.toString();
@@ -231,9 +231,6 @@ class OrdersController extends GetxController {
           description: 'لقد تمت عملية الموافقة بنجاح',
         );
         await fetchIncomingOrders();
-        await fetchInDeliveryOrders();
-        await fetchDeliveredOrders();
-        await fetchCancelledOrders();
 
         isApprovalLoading(false);
 
@@ -264,15 +261,14 @@ class OrdersController extends GetxController {
     }
   }
 
-  Future<void> transferOrderToCancelled(int id) async {
-    print(id);
+  Future<void> rejectOrder(int id) async {
     isRejectLoading(true);
     final order = Order(
       ministryNoteData: rejectReasonController.text,
     );
     try {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('${ApiEndpoints.transferOrderToCancelled}/$id'));
+          'POST', Uri.parse('${ApiEndpoints.rejectOrder}/$id'));
       request.fields['_method'] = 'PATCH';
       request.fields['ministry_note_data'] = order.ministryNoteData.toString();
 
@@ -285,9 +281,7 @@ class OrdersController extends GetxController {
           description: 'لقد تمت عملية الرفض بنجاح',
         );
         await fetchIncomingOrders();
-        await fetchInDeliveryOrders();
-        await fetchDeliveredOrders();
-        await fetchCancelledOrders();
+
         isRejectLoading(false);
         return;
       } else {
@@ -311,12 +305,12 @@ class OrdersController extends GetxController {
     }
   }
 
-  Future<void> undoCancelledOrder(int id) async {
+  Future<void> undoRejectedOrder(int id) async {
     isUndoLoading(true);
 
     try {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('${ApiEndpoints.undoCancelled}/$id'));
+          'POST', Uri.parse('${ApiEndpoints.undoRejectedOrder}/$id'));
       request.fields['_method'] = 'PATCH';
 
       var response = await request.send();
@@ -327,10 +321,8 @@ class OrdersController extends GetxController {
           title: 'تم التراجع بنجاح',
           description: 'لقد تمت عملية التراجع بنجاح',
         );
-        await fetchIncomingOrders();
-        await fetchInDeliveryOrders();
-        await fetchDeliveredOrders();
-        await fetchCancelledOrders();
+
+        await fetchRejectedOrders();
         isUndoLoading(false);
         return;
       } else {

@@ -137,11 +137,11 @@ class _OrderTabBarSideState extends State<OrderTabBarSide> {
             return Expanded(
               child: InkWell(
                 onTap: () {
-                  oc.onChangeOrder('cancelled');
-                  oc.fetchCancelledOrders();
+                  oc.onChangeOrder('rejected');
+                  oc.fetchRejectedOrders();
                 },
                 child: Container(
-                  decoration: oc.orderTapChange.value == 'cancelled'
+                  decoration: oc.orderTapChange.value == 'rejected'
                       ? BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: MyColors.secondaryColor,
@@ -155,8 +155,8 @@ class _OrderTabBarSideState extends State<OrderTabBarSide> {
                       : null,
                   child: Center(
                     child: Text(
-                      'الــملـغـيـــة',
-                      style: oc.orderTapChange.value == 'cancelled'
+                      'المــرفوضـــة',
+                      style: oc.orderTapChange.value == 'rejected'
                           ? MyTextStyles.font16WhiteBold
                           : MyTextStyles.font16SecondaryBold,
                     ),

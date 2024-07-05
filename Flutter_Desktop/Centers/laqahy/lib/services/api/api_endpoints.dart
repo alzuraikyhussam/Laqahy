@@ -41,6 +41,15 @@ class ApiEndpoints {
   static const String login = '$baseUrl/centers/auth/login';
   // --------------------------------------------------
 
+  // --------------- Vaccines Endpoints -------------------
+  static const String getVaccines = '$baseUrl/vaccines';
+  // --------------------------------------------------
+
+  // --------------- Healthy Centers Stock Vaccines Endpoints -------------------
+  static const String getVaccinesQuantity =
+      '$baseUrl/centers/vaccines-quantity';
+  // --------------------------------------------------
+
   // --------------- User Endpoints -------------------
   static const String getUsers = '$baseUrl/centers/users';
   static const String getAdmin = '$baseUrl/centers/users/get-admin';
@@ -49,15 +58,15 @@ class ApiEndpoints {
   static const String deleteUser = '$baseUrl/centers/users/delete-user';
   // --------------------------------------------------
 
-  // --------------- Order Endpoints -------------------
+// --------------- Order Endpoints -------------------
   static const String addOrder = '$baseUrl/centers/orders/add-order';
   static const String getOutgoingOrders = '$baseUrl/centers/orders/outgoing';
   static const String getInDeliveryOrders =
       '$baseUrl/centers/orders/in-delivery';
   static const String getDeliveredOrders = '$baseUrl/centers/orders/delivered';
-  static const String getCancelledOrders = '$baseUrl/centers/orders/cancelled';
-  static const String confirmDeliveredOrder =
-      '$baseUrl/centers/orders/confirm-delivered';
+  static const String getRejectedOrders = '$baseUrl/centers/orders/rejected';
+  static const String receivingOrderConfirm =
+      '$baseUrl/centers/orders/receiving-confirm';
   // --------------------------------------------------
 
   // --------------- Technical Support Endpoints -------------------

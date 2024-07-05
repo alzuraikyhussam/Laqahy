@@ -220,11 +220,10 @@ class StaticDataController extends GetxController {
 
   void fetchVaccines() async {
     try {
-      int? officeId = await storageService.getOfficeId();
       vaccineErrorMsg('');
       isVaccineLoading(true);
       final response = await http.get(
-        Uri.parse('${ApiEndpoints.getVaccines}/$officeId'),
+        Uri.parse(ApiEndpoints.getVaccines),
         headers: {
           'content-Type': 'application/json',
         },

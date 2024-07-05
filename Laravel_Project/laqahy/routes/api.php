@@ -11,6 +11,7 @@ use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HealthyCenterController;
 use App\Http\Controllers\HealthyCenterOrderController;
+use App\Http\Controllers\HealthyCenterStockVaccineController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VaccineTypesController;
 use App\Models\Dosage_level;
 use App\Models\Mother_data;
 
@@ -77,6 +79,10 @@ Route::get('cities', [CityController::class, 'index']);
 
 // --------------------- Order State Routes ------------------------
 Route::get('order-states', [OrderStateController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Vaccines types Routes ------------------------
+Route::get('vaccines', [VaccineTypesController::class, 'getVaccines']);
 // ------------------------------------------------------------
 
 // --------------------- Office Routes ------------------------
@@ -135,13 +141,13 @@ Route::get('donors', [DonorController::class, 'index']);
 
 // --------------------- Order Routes ------------------------
 Route::get('ministry/orders/date-range', [OfficeOrderController::class, 'getDateRange']);
-Route::patch('ministry/orders/to-in-delivery/{id}', [OfficeOrderController::class, 'transferToInDelivery']);
-Route::patch('ministry/orders/to-cancelled/{id}', [OfficeOrderController::class, 'transferToCancelled']);
-Route::patch('ministry/orders/undo-cancelled/{id}', [OfficeOrderController::class, 'undoCancelled']);
+Route::patch('ministry/orders/approval-order/{id}', [OfficeOrderController::class, 'approvalOrder']);
+Route::patch('ministry/orders/reject-order/{id}', [OfficeOrderController::class, 'rejectOrder']);
+Route::patch('ministry/orders/undo-reject-order/{id}', [OfficeOrderController::class, 'undoRejectedOrder']);
 Route::get('ministry/orders/incoming', [OfficeOrderController::class, 'incomingOrders']);
 Route::get('ministry/orders/in-delivery', [OfficeOrderController::class, 'inDeliveryOrders']);
 Route::get('ministry/orders/delivered', [OfficeOrderController::class, 'deliveredOrders']);
-Route::get('ministry/orders/cancelled', [OfficeOrderController::class, 'cancelledOrders']);
+Route::get('ministry/orders/rejected', [OfficeOrderController::class, 'cancelledOrders']);
 // ------------------------------------------------------------
 
 // --------------------- Mother Data Routes ------------------------
@@ -187,7 +193,7 @@ Route::get('offices/general/home-total-count/{office_id}', [GeneralController::c
 // ------------------------------------------------------------
 
 // --------------------- Office Stock Vaccines Routes ------------------------
-Route::get('offices/vaccines/{office_id}', [OfficeStockVaccineController::class, 'getVaccines']);
+Route::get('offices/vaccines-quantity/{$office_id}', [OfficeStockVaccineController::class, 'index']);
 // ------------------------------------------------------------
 
 // --------------------- User Routes ------------------------
@@ -204,9 +210,9 @@ Route::get('offices/orders/outgoing/{office_id}', [OfficeOrderController::class,
 Route::get('offices/orders/incoming/{office_id}', [OfficeOrderController::class, 'officeIncomingOrders']);
 Route::get('offices/orders/in-delivery/{office_id}', [OfficeOrderController::class, 'officeInDeliveryOrders']);
 Route::get('offices/orders/delivered/{office_id}', [OfficeOrderController::class, 'officeDeliveredOrders']);
-Route::get('offices/orders/cancelled/{office_id}', [OfficeOrderController::class, 'officeCancelledOrders']);
-Route::patch('offices/orders/confirm-delivered', [OfficeOrderController::class, 'officeConfirmDeliveredOrder']);
-Route::patch('offices/orders/confirm-center-order/{id}', [OfficeOrderController::class, 'officeConfirmCenterOrder']);
+Route::get('offices/orders/rejected/{office_id}', [OfficeOrderController::class, 'officeRejectedOrders']);
+Route::patch('offices/orders/receiving-confirm', [OfficeOrderController::class, 'officeReceivingConfirmOrder']);
+Route::patch('offices/orders/approval-center-order/{id}', [OfficeOrderController::class, 'officeApprovalCenterOrder']);
 Route::patch('offices/orders/reject-center-order/{id}', [OfficeOrderController::class, 'officeRejectCenterOrder']);
 // ------------------------------------------------------------
 
@@ -261,6 +267,10 @@ Route::post('centers/orders/add-order', [HealthyCenterOrderController::class, 'c
 Route::get('centers/orders/outgoing/{center_id}', [HealthyCenterOrderController::class, 'centerOutgoingOrders']);
 Route::get('centers/orders/in-delivery/{center_id}', [HealthyCenterOrderController::class, 'centerInDeliveryOrders']);
 Route::get('centers/orders/delivered/{center_id}', [HealthyCenterOrderController::class, 'centerDeliveredOrders']);
-Route::get('centers/orders/cancelled/{center_id}', [HealthyCenterOrderController::class, 'centerCancelledOrders']);
-Route::patch('centers/orders/confirm-delivered', [HealthyCenterOrderController::class, 'centerConfirmDeliveredOrder']);
+Route::get('centers/orders/rejected/{center_id}', [HealthyCenterOrderController::class, 'centerRejectedOrders']);
+Route::patch('centers/orders/receiving-confirm', [HealthyCenterOrderController::class, 'centerReceivingConfirmOrder']);
+// ------------------------------------------------------------
+
+// --------------------- Healthy Centers Stock Vaccines Routes ------------------------
+Route::get('centers/vaccines-quantity/{$center_id}', [HealthyCenterStockVaccineController::class, 'index']);
 // ------------------------------------------------------------

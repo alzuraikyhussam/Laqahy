@@ -29,14 +29,48 @@ class _OrderTabBarSideState extends State<OrderTabBarSide> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Obx(() {
+            return InkWell(
+              onTap: () {
+                oc.onChangedTapOrder('add');
+              },
+              child: Container(
+                width: 70,
+                decoration: oc.orderTapChange.value == 'add'
+                    ? BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: MyColors.secondaryColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: MyColors.greyColor.withOpacity(0.3),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      )
+                    : null,
+                child: Center(
+                  child: Icon(
+                    Icons.add_rounded,
+                    size: 30,
+                    color: oc.orderTapChange.value == 'add'
+                        ? MyColors.whiteColor
+                        : MyColors.secondaryColor,
+                  ),
+                ),
+              ),
+            );
+          }),
+          const SizedBox(
+            width: 10,
+          ),
+          Obx(() {
             return Expanded(
               child: InkWell(
                 onTap: () {
-                  oc.onChangeOrder('incoming');
-                  oc.fetchIncomingOrders();
+                  oc.onChangedTapOrder('outgoing');
+                  oc.fetchOutgoingOrders();
                 },
                 child: Container(
-                  decoration: oc.orderTapChange.value == 'incoming'
+                  decoration: oc.orderTapChange.value == 'outgoing'
                       ? BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: MyColors.secondaryColor,
@@ -50,8 +84,8 @@ class _OrderTabBarSideState extends State<OrderTabBarSide> {
                       : null,
                   child: Center(
                     child: Text(
-                      'الــــواردة',
-                      style: oc.orderTapChange.value == 'incoming'
+                      'الصــــادرة',
+                      style: oc.orderTapChange.value == 'outgoing'
                           ? MyTextStyles.font16WhiteBold
                           : MyTextStyles.font16SecondaryBold,
                     ),
@@ -67,7 +101,7 @@ class _OrderTabBarSideState extends State<OrderTabBarSide> {
             return Expanded(
               child: InkWell(
                 onTap: () {
-                  oc.onChangeOrder('in_delivery');
+                  oc.onChangedTapOrder('in_delivery');
                   oc.fetchInDeliveryOrders();
                 },
                 child: Container(
@@ -102,8 +136,8 @@ class _OrderTabBarSideState extends State<OrderTabBarSide> {
             return Expanded(
               child: InkWell(
                 onTap: () {
-                  oc.onChangeOrder('delivered');
-                  oc.fetchInDeliveryOrders();
+                  oc.onChangedTapOrder('delivered');
+                  oc.fetchDeliveredOrders();
                 },
                 child: Container(
                   decoration: oc.orderTapChange.value == 'delivered'
@@ -137,11 +171,11 @@ class _OrderTabBarSideState extends State<OrderTabBarSide> {
             return Expanded(
               child: InkWell(
                 onTap: () {
-                  oc.onChangeOrder('cancelled');
-                  oc.fetchCancelledOrders();
+                  oc.onChangedTapOrder('rejected');
+                  oc.fetchRejectedOrders();
                 },
                 child: Container(
-                  decoration: oc.orderTapChange.value == 'cancelled'
+                  decoration: oc.orderTapChange.value == 'rejected'
                       ? BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: MyColors.secondaryColor,
@@ -155,8 +189,8 @@ class _OrderTabBarSideState extends State<OrderTabBarSide> {
                       : null,
                   child: Center(
                     child: Text(
-                      'الــملـغـيـــة',
-                      style: oc.orderTapChange.value == 'cancelled'
+                      'المــرفوضـــة',
+                      style: oc.orderTapChange.value == 'rejected'
                           ? MyTextStyles.font16WhiteBold
                           : MyTextStyles.font16SecondaryBold,
                     ),

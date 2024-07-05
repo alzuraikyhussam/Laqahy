@@ -17,7 +17,7 @@ import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:uuid/uuid.dart';
 
-class CentersAccountsController extends GetxController {
+class AccountsController extends GetxController {
   @override
   void onInit() {
     fetchRegisteredOfficesInDropDownMenu();

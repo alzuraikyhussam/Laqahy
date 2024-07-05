@@ -210,20 +210,20 @@ class _ChildVisitDataState extends State<ChildVisitData> {
               textStyle: MyTextStyles.font16WhiteBold,
               width: 130,
             ),
-            SizedBox(
-              width: 15,
-            ),
-            myButton(
-              onPressed: () {
-                hlc.changeChoose(
-                  'الرئيسية',
-                );
-              },
-              text: 'خـــــروج',
-              textStyle: MyTextStyles.font16WhiteBold,
-              width: 130,
-              backgroundColor: MyColors.greyColor,
-            ),
+            // SizedBox(
+            //   width: 15,
+            // ),
+            // myButton(
+            //   onPressed: () {
+            //     hlc.changeChoose(
+            //       'الرئيسية',
+            //     );
+            //   },
+            //   text: 'خـــــروج',
+            //   textStyle: MyTextStyles.font16WhiteBold,
+            //   width: 130,
+            //   backgroundColor: MyColors.greyColor,
+            // ),
           ],
         ),
       ],

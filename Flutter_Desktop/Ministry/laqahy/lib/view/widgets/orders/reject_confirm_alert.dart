@@ -81,7 +81,7 @@ class _RejectConfirmAlertState extends State<RejectConfirmAlert> {
                         : () {
                             if (olc.rejectAlertFormKey.currentState!
                                 .validate()) {
-                              olc.transferOrderToCancelled(widget.id);
+                              olc.rejectOrder(widget.id);
                             }
                           },
                     width: 150,

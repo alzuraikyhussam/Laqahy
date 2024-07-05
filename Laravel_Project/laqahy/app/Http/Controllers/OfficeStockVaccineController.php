@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 
 class OfficeStockVaccineController extends Controller
 {
-    public function getVaccines($office_id)
+    public function index($office_id)
     {
         try {
-            $vaccine = Office_stock_vaccine::join('vaccine_types', 'offices_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->select('offices_stock_vaccines.*', 'vaccine_types.vaccine_type')->where('offices_stock_vaccines.office_id', $office_id)->get();
+            $vaccines = Office_stock_vaccine::join('vaccine_types', 'offices_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->select('offices_stock_vaccines.*', 'vaccine_types.vaccine_type')->where('offices_stock_vaccines.office_id', $office_id)->get();
             return response()->json([
-                'message' => 'Vaccines retrieved successfully',
-                'data' => $vaccine,
+                'message' => 'Vaccines quantity retrieved successfully',
+                'data' => $vaccines,
             ]);
         } catch (Exception $e) {
             return response()->json([

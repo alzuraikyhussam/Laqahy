@@ -52,7 +52,7 @@ class _InDeliveryOrderState extends State<InDeliveryOrder> {
                         .format(oc.inDeliveryOrders[index].updatedAt!);
                     return myOrdersItem(
                       date: parsedDate,
-                      height: 280,
+                      height: 290,
                       id: oc.inDeliveryOrders[index].id,
                       orderState: 'in_delivery',
                       officeName: oc.inDeliveryOrders[index].officeName!,

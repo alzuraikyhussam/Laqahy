@@ -49,7 +49,7 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                     oc.fetchIncomingOrders();
                     oc.fetchInDeliveryOrders();
                     oc.fetchDeliveredOrders();
-                    oc.fetchCancelledOrders();
+                    oc.fetchRejectedOrders();
                   },
                   gradientColors: [
                     MyColors.primaryColor,

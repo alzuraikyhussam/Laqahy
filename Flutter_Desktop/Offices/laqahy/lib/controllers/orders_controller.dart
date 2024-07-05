@@ -9,6 +9,8 @@ import 'package:laqahy/models/office_order_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_exception_widgets.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class OrdersController extends GetxController {
   @override
@@ -39,9 +41,9 @@ class OrdersController extends GetxController {
   var deliveredOrders = <CenterOrder>[].obs;
   var fetchDeliveredOrdersFuture = Future<void>.value().obs;
 
-  var isCancelledLoading = false.obs;
-  var cancelledOrders = <OfficeOrder>[].obs;
-  var fetchCancelledOrdersFuture = Future<void>.value().obs;
+  var isRejectedOrdersLoading = false.obs;
+  var rejectedOrders = <OfficeOrder>[].obs;
+  var fetchRejectedOrdersFuture = Future<void>.value().obs;
 
   var isApprovalLoading = false.obs;
   var isRejectLoading = false.obs;
@@ -56,7 +58,7 @@ class OrdersController extends GetxController {
   TextEditingController notesController = TextEditingController();
   TextEditingController rejectReasonController = TextEditingController();
 
-  onChangeOrder(String order) {
+  onChangedTapOrder(String order) {
     orderTapChange.value = order;
   }
 
@@ -97,7 +99,7 @@ class OrdersController extends GetxController {
       isAddLoading(true);
       final order = OfficeOrder(
         officeId: officeId,
-        vaccineTypeId: sdc.selectedVaccine.value!.vaccineTypeId,
+        vaccineTypeId: sdc.selectedVaccine.value!.id,
         quantity: int.tryParse(quantityController.text),
         officeNoteData: notesController.text,
       );
@@ -110,8 +112,13 @@ class OrdersController extends GetxController {
       );
 
       if (response.statusCode == 201) {
+        await fetchOutgoingOrders();
+
+        await ApiExceptionWidgets().myAddedDataSuccessAlert();
+
+        onChangedTapOrder('outgoing');
+
         clearTextFields();
-        ApiExceptionWidgets().myAddedDataSuccessAlert();
 
         isAddLoading(false);
 
@@ -263,39 +270,39 @@ class OrdersController extends GetxController {
     });
   }
 
-  Future<void> fetchCancelledOrders() async {
-    fetchCancelledOrdersFuture.value = Future<void>(() async {
+  Future<void> fetchRejectedOrders() async {
+    fetchRejectedOrdersFuture.value = Future<void>(() async {
       try {
-        isCancelledLoading(true);
+        isRejectedOrdersLoading(true);
         final response = await http.get(
-          Uri.parse('${ApiEndpoints.getCancelledOrders}/$officeId'),
+          Uri.parse('${ApiEndpoints.getRejectedOrders}/$officeId'),
           headers: {
             'content-Type': 'application/json',
           },
         );
         if (response.statusCode == 200) {
-          isCancelledLoading(false);
+          isRejectedOrdersLoading(false);
           List<dynamic> jsonData = json.decode(response.body)['data'] as List;
-          cancelledOrders.value =
+          rejectedOrders.value =
               jsonData.map((e) => OfficeOrder.fromJson(e)).toList();
         } else {
-          isCancelledLoading(false);
+          isRejectedOrdersLoading(false);
           ApiExceptionWidgets()
               .myAccessDatabaseExceptionAlert(response.statusCode);
         }
       } on SocketException catch (_) {
-        isCancelledLoading(false);
+        isRejectedOrdersLoading(false);
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
-        isCancelledLoading(false);
+        isRejectedOrdersLoading(false);
         ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
       } finally {
-        isCancelledLoading(false);
+        isRejectedOrdersLoading(false);
       }
     });
   }
 
-  Future<void> confirmCenterOrder(int id) async {
+  Future<void> approvalCenterOrder({required int orderId}) async {
     isApprovalLoading(true);
     final order = CenterOrder(
       officeNoteData: notesController.text,
@@ -303,7 +310,7 @@ class OrdersController extends GetxController {
     );
     try {
       var request = http.MultipartRequest(
-          'POST', Uri.parse('${ApiEndpoints.confirmCenterOrder}/$id'));
+          'POST', Uri.parse('${ApiEndpoints.approvalCenterOrder}/$orderId'));
       request.fields['_method'] = 'PATCH';
       request.fields['quantity'] = order.quantity.toString();
       request.fields['office_note_data'] = order.officeNoteData.toString();
@@ -320,11 +327,8 @@ class OrdersController extends GetxController {
           title: 'تمت الموافقة بنجاح',
           description: 'لقد تمت عملية الموافقة بنجاح',
         );
+
         await fetchIncomingOrders();
-        await fetchOutgoingOrders();
-        await fetchInDeliveryOrders();
-        await fetchDeliveredOrders();
-        await fetchCancelledOrders();
 
         isApprovalLoading(false);
 
@@ -332,8 +336,10 @@ class OrdersController extends GetxController {
       } else if (response.statusCode == 401) {
         var data = json.decode(await response.stream.bytesToString());
         var quantity = data['quantity'];
-        isApprovalLoading(false);
+
         ApiExceptionWidgets().myVaccineQtyNotEnoughAlert(quantity: quantity);
+
+        isApprovalLoading(false);
         return;
       } else {
         isApprovalLoading(false);
@@ -355,61 +361,60 @@ class OrdersController extends GetxController {
     }
   }
 
-  Future<void> confirmDeliveredOrder({required int orderId}) async {
+  Future<void> receivingOrderConfirm({required int orderId}) async {
     isApprovalLoading(true);
-    ApiExceptionWidgets().myOrderAlert(
-      title: 'تأكيــد',
-      description:
-          'لا يمكن التراجع عن هذه العملية، هل انت متأكد من استلام هذا الطلب؟',
-      btnLabel: 'تأكيــد',
-      imageUrl: 'assets/images/success.json',
-      onCancelPressed: () {
-        Get.back();
-      },
-      onPressed: () async {
-        isApprovalLoading(true);
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        title: 'تأكيــد اســتلام الطلــب',
+        description:
+            'لا يمكنك التراجع عن هذه العملية، هل انت متأكد من استلام هذا الطلب؟',
+        imageUrl: 'assets/images/warning.json',
+        onCancelPressed: () {
+          Get.back();
+        },
+        onPressed: () async {
+          isApprovalLoading(true);
 
-        final order = OfficeOrder(
-          officeId: officeId,
-          id: orderId,
-        );
-        try {
-          var request = http.MultipartRequest(
-              'POST', Uri.parse(ApiEndpoints.confirmDeliveredOrder));
-          request.fields['_method'] = 'PATCH';
-          request.fields['order_id'] = order.id.toString();
-          request.fields['office_id'] = order.officeId.toString();
+          final order = OfficeOrder(
+            officeId: officeId,
+            id: orderId,
+          );
+          try {
+            var request = http.MultipartRequest(
+                'POST', Uri.parse(ApiEndpoints.receivingOrderConfirm));
+            request.fields['_method'] = 'PATCH';
+            request.fields['order_id'] = order.id.toString();
+            request.fields['office_id'] = order.officeId.toString();
 
-          var response = await request.send();
+            var response = await request.send();
 
-          if (response.statusCode == 200) {
-            await fetchInDeliveryOrders();
-            await fetchIncomingOrders();
-            await fetchOutgoingOrders();
-            await fetchDeliveredOrders();
-            await fetchCancelledOrders();
+            if (response.statusCode == 200) {
+              await fetchInDeliveryOrders();
+
+              isApprovalLoading(false);
+              return;
+            } else {
+              print(await response.stream.bytesToString());
+
+              isApprovalLoading(false);
+              ApiExceptionWidgets()
+                  .myAccessDatabaseExceptionAlert(response.statusCode);
+              return;
+            }
+          } on SocketException catch (_) {
             isApprovalLoading(false);
+            ApiExceptionWidgets().mySocketExceptionAlert();
             return;
-          } else {
-            print(await response.stream.bytesToString());
-
+          } catch (e) {
             isApprovalLoading(false);
-            ApiExceptionWidgets()
-                .myAccessDatabaseExceptionAlert(response.statusCode);
+            ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
             return;
+          } finally {
+            isApprovalLoading(false);
           }
-        } on SocketException catch (_) {
-          isApprovalLoading(false);
-          ApiExceptionWidgets().mySocketExceptionAlert();
-          return;
-        } catch (e) {
-          isApprovalLoading(false);
-          ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
-          return;
-        } finally {
-          isApprovalLoading(false);
-        }
-      },
+        },
+      ),
     );
   }
 
@@ -432,10 +437,8 @@ class OrdersController extends GetxController {
           title: 'تم الرفـض بنجاح',
           description: 'لقد تمت عملية الرفض بنجاح',
         );
-        await fetchIncomingOrders();
-        await fetchInDeliveryOrders();
-        await fetchDeliveredOrders();
-        await fetchCancelledOrders();
+
+        await fetchRejectedOrders();
         isRejectLoading(false);
         return;
       } else {

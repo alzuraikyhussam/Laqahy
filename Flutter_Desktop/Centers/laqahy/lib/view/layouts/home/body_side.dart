@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
+import 'package:laqahy/view/layouts/orders/orders_layout.dart';
 import 'package:laqahy/view/layouts/states/states_layout.dart';
 import 'package:laqahy/view/layouts/visits/visits_layout.dart';
 import 'package:laqahy/view/widgets/home/home.dart';
 import 'package:laqahy/view/widgets/system_info/system_info.dart';
 import 'package:laqahy/view/widgets/support/support.dart';
 import 'package:laqahy/view/widgets/users/users.dart';
+import 'package:laqahy/view/widgets/vaccines/vaccines.dart';
 
 class HomeBodySide extends StatefulWidget {
   const HomeBodySide({super.key});
@@ -42,9 +44,9 @@ class _HomeBodySideState extends State<HomeBodySide> {
             } else if (hlc.choose.value == 'الزيارات') {
               return const VisitsLayout();
             } else if (hlc.choose.value == 'اللقاحات') {
-              return const SizedBox();
+              return const VaccinesScreen();
             } else if (hlc.choose.value == 'الطلبات') {
-              return const SizedBox();
+              return const OrdersLayout();
             } else if (hlc.choose.value == 'التقارير') {
               return const SizedBox();
             } else if (hlc.choose.value == 'حول النظام') {

@@ -1,18 +1,20 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class DeliveredOrder extends StatefulWidget {
-  const DeliveredOrder({super.key});
+class OutgoingOrder extends StatefulWidget {
+  const OutgoingOrder({super.key});
 
   @override
-  State<DeliveredOrder> createState() => _DeliveredOrderState();
+  State<OutgoingOrder> createState() => _OutgoingOrderState();
 }
 
-class _DeliveredOrderState extends State<DeliveredOrder> {
+class _OutgoingOrderState extends State<OutgoingOrder> {
   OrdersController oc = Get.put(OrdersController());
 
   @override
@@ -21,7 +23,7 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
       padding: const EdgeInsets.only(bottom: 50),
       child: Obx(() {
         return FutureBuilder(
-          future: oc.fetchDeliveredOrdersFuture.value,
+          future: oc.fetchOutgoingOrdersFuture.value,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -31,15 +33,15 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
               return Center(
                 child: ApiExceptionWidgets().mySnapshotError(snapshot.error,
                     onPressedRefresh: () {
-                  oc.fetchDeliveredOrders();
+                  oc.fetchOutgoingOrders();
                 }),
               );
             } else {
-              if (oc.deliveredOrders.isEmpty) {
+              if (oc.outgoingOrders.isEmpty) {
                 return ApiExceptionWidgets().myDataNotFound(
-                  text: 'لـم يتـــم العثــور على طلبــات تـم استـلامــها',
+                  text: 'لـم يتـــم العثــور على طلبــات صـــادرة',
                   onPressedRefresh: () {
-                    oc.fetchDeliveredOrders();
+                    oc.fetchOutgoingOrders();
                   },
                 );
               } else {
@@ -47,16 +49,18 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     var parsedDate = DateFormat('EEEE dd-MM-yyyy hh:mm')
-                        .format(oc.deliveredOrders[index].deliveryDate!);
+                        .format(oc.outgoingOrders[index].orderDate!);
                     return myOrdersItem(
+                      orderState: 'outgoing',
+                      id: oc.outgoingOrders[index].id!,
+                      centerName: oc.outgoingOrders[index].centerName!,
+                      vaccineType: oc.outgoingOrders[index].vaccineType!,
+                      quantity: oc.outgoingOrders[index].quantity!,
+                      note: oc.outgoingOrders[index].centerNoteData!,
                       date: parsedDate,
-                      centerName: oc.deliveredOrders[index].centerName!,
-                      vaccineType: oc.deliveredOrders[index].vaccineType!,
-                      quantity: oc.deliveredOrders[index].quantity!,
-                      note: oc.deliveredOrders[index].officeNoteData!,
                     );
                   },
-                  itemCount: oc.deliveredOrders.length,
+                  itemCount: oc.outgoingOrders.length,
                   separatorBuilder: (BuildContext context, int index) {
                     return const SizedBox(
                       height: 10,

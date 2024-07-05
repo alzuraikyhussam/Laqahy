@@ -401,14 +401,14 @@ class StateDetails extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              Container(
-                width: 130,
-                child: myButton(
-                    backgroundColor: MyColors.greyColor,
-                    onPressed: () {},
-                    text: ' خروج',
-                    textStyle: MyTextStyles.font16WhiteBold),
-              ),
+              // Container(
+              //   width: 130,
+              //   child: myButton(
+              //       backgroundColor: MyColors.greyColor,
+              //       onPressed: () {},
+              //       text: ' خروج',
+              //       textStyle: MyTextStyles.font16WhiteBold),
+              // ),
             ],
           ),
           const SizedBox(

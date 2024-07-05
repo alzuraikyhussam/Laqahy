@@ -931,7 +931,9 @@ myOrdersItem({
               child: Row(
                 children: [
                   Text(
-                    'اسم المكتب:',
+                    orderState == 'outgoing' || orderState == 'rejected'
+                        ? 'اسم المكتب:'
+                        : 'اسم المركز:',
                     style: MyTextStyles.font16PrimaryBold,
                   ),
                   const SizedBox(
@@ -939,7 +941,9 @@ myOrdersItem({
                   ),
                   Expanded(
                     child: Text(
-                      officeName ?? centerName ?? '',
+                      orderState == 'outgoing' || orderState == 'rejected'
+                          ? officeName ?? 'غير معروف'
+                          : centerName ?? 'غير معروف',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: MyTextStyles.font16BlackBold,
@@ -1003,9 +1007,9 @@ myOrdersItem({
                   ? 'ملاحظة المركز:'
                   : orderState == 'outgoing'
                       ? 'ملاحظة المكتب:'
-                      : orderState == 'cancelled'
+                      : orderState == 'rejected'
                           ? 'سبب الرفض:'
-                          : 'ملاحظة:',
+                          : 'ملاحظة الوزارة:',
               overflow: TextOverflow.ellipsis,
               style: MyTextStyles.font16PrimaryBold,
             ),
@@ -1014,7 +1018,7 @@ myOrdersItem({
             ),
             Expanded(
               child: Text(
-                'notenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenote',
+                note,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: MyTextStyles.font16BlackBold,
@@ -1022,9 +1026,7 @@ myOrdersItem({
             ),
           ],
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const Spacer(),
         orderState == 'in_delivery'
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -1040,7 +1042,7 @@ myOrdersItem({
                   ),
                   Expanded(
                     child: Text(
-                      'تم قبول طلبك من قبل الوزارة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم.',
+                      'لقد تم قبول طلبكم من قبل الوزارة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم.',
                       style: MyTextStyles.font14GreyBold,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -1048,8 +1050,10 @@ myOrdersItem({
                   ),
                 ],
               )
-            : SizedBox(),
-        const Spacer(),
+            : const SizedBox(),
+        const SizedBox(
+          height: 15,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1094,7 +1098,7 @@ myOrdersItem({
                             : myButton(
                                 width: 150,
                                 onPressed: () async {
-                                  await oc.confirmDeliveredOrder(orderId: id!);
+                                  await oc.approvalCenterOrder(orderId: id!);
                                 },
                                 text: 'موافقــة',
                                 textStyle: MyTextStyles.font16WhiteBold,
@@ -1124,9 +1128,9 @@ myOrdersItem({
                             : myButton(
                                 // width: 180,
                                 onPressed: () async {
-                                  await oc.confirmDeliveredOrder(orderId: id!);
+                                  await oc.receivingOrderConfirm(orderId: id!);
                                 },
-                                text: 'تأكيــد الاســتلام',
+                                text: 'تأكيــد اســتلام الطلــب',
                                 textStyle: MyTextStyles.font16WhiteBold,
                               );
                       })
@@ -1200,7 +1204,7 @@ myReportsCards({
 
 myLoadingIndicator({
   double height = 50,
-  double width = 120,
+  double width = 130,
 }) {
   return Container(
     padding: const EdgeInsetsDirectional.all(10),
@@ -1235,8 +1239,6 @@ myVaccineCards({
   int quantity = 0,
   required int id,
 }) {
-  VaccineController vc = Get.put(VaccineController());
-
   return Container(
     padding: const EdgeInsets.all(15),
     decoration: BoxDecoration(
@@ -1278,7 +1280,7 @@ myVaccineCards({
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'لقـاح ${title}',
+                'لقـاح $title',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: MyTextStyles.font16PrimaryBold,
@@ -1295,9 +1297,7 @@ myVaccineCards({
             ],
           ),
         ),
-      
       ],
     ),
   );
 }
-

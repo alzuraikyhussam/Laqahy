@@ -8,11 +8,8 @@ import 'package:laqahy/controllers/post_controller.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/models/post_model.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
-import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 class PostsScreen extends StatefulWidget {
   const PostsScreen({super.key});
@@ -141,45 +138,26 @@ class _PostsScreenState extends State<PostsScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          Obx(() {
-                            return pc.isLoading.value
-                                ? myLoadingIndicator()
-                                : myButton(
-                                    onPressed: pc.isLoading.value
-                                        ? null
-                                        : () {
-                                            if (pc
-                                                .createPostFormKey.currentState!
-                                                .validate()) {
-                                              pc.addPost(
-                                                pc.titleController.text,
-                                                pc.descController.text,
-                                              );
-                                            }
-                                          },
-                                    text: 'إضــافــة',
-                                    textStyle: MyTextStyles.font16WhiteBold,
-                                    width: 130,
-                                  );
-                          }),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          myButton(
-                            onPressed: () {
-                              hlc.changeChoose(
-                                'الرئيسية',
+                      Obx(() {
+                        return pc.isLoading.value
+                            ? myLoadingIndicator()
+                            : myButton(
+                                onPressed: pc.isLoading.value
+                                    ? null
+                                    : () {
+                                        if (pc.createPostFormKey.currentState!
+                                            .validate()) {
+                                          pc.addPost(
+                                            pc.titleController.text,
+                                            pc.descController.text,
+                                          );
+                                        }
+                                      },
+                                text: 'إضــافــة',
+                                textStyle: MyTextStyles.font16WhiteBold,
+                                width: 130,
                               );
-                            },
-                            text: 'خـــروج',
-                            textStyle: MyTextStyles.font16WhiteBold,
-                            width: 130,
-                            backgroundColor: MyColors.greyColor,
-                          ),
-                        ],
-                      ),
+                      }),
                     ],
                   ),
                 ),

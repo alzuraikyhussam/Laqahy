@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/view/layouts/orders/orders_layout.dart';
 import 'package:laqahy/view/widgets/home/home.dart';
-import 'package:laqahy/view/widgets/centers_accounts/centers_accounts.dart';
+import 'package:laqahy/view/widgets/accounts/accounts.dart';
 import 'package:laqahy/view/widgets/posts/posts.dart';
 import 'package:laqahy/view/widgets/reports/reports.dart';
 import 'package:laqahy/view/widgets/system_info/system_info.dart';
@@ -41,7 +41,7 @@ class _HomeBodySideState extends State<HomeBodySide> {
             } else if (hlc.choose.value == 'المستخدمين') {
               return const UsersScreen();
             } else if (hlc.choose.value == 'حسابات المراكز') {
-              return const CentersAccounts();
+              return const AccountsPage();
             } else if (hlc.choose.value == 'اللقاحات') {
               return const VaccinesScreen();
             } else if (hlc.choose.value == 'الطلبات') {

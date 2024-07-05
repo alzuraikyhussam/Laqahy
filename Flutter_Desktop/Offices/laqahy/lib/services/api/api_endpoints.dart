@@ -41,8 +41,13 @@ class ApiEndpoints {
   static const String sendMsg = '$baseUrl/support';
   // --------------------------------------------------
 
+  // --------------- Vaccines Endpoints -------------------
+  static const String getVaccines = '$baseUrl/vaccines';
+  // --------------------------------------------------
+
   // --------------- Office Stock Vaccines Endpoints -------------------
-  static const String getVaccines = '$baseUrl/offices/vaccines';
+  static const String getVaccinesQuantity =
+      '$baseUrl/offices/vaccines-quantity';
   // --------------------------------------------------
 
   // --------------- User Endpoints -------------------
@@ -60,13 +65,12 @@ class ApiEndpoints {
   static const String getInDeliveryOrders =
       '$baseUrl/offices/orders/in-delivery';
   static const String getDeliveredOrders = '$baseUrl/offices/orders/delivered';
-  static const String getCancelledOrders = '$baseUrl/offices/orders/cancelled';
-  static const String confirmDeliveredOrder =
-      '$baseUrl/offices/orders/confirm-delivered';
-  static const String confirmCenterOrder =
-      '$baseUrl/offices/orders/confirm-center-order';
+  static const String getRejectedOrders = '$baseUrl/offices/orders/rejected';
+  static const String receivingOrderConfirm =
+      '$baseUrl/offices/orders/receiving-confirm';
+  static const String approvalCenterOrder =
+      '$baseUrl/offices/orders/approval-center-order';
   static const String rejectCenterOrder =
       '$baseUrl/offices/orders/reject-center-order';
   // --------------------------------------------------
-
 }

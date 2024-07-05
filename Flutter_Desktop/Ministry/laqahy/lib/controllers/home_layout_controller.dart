@@ -30,8 +30,8 @@ class HomeLayoutController extends GetxController {
         if (Get.isRegistered<UserController>()) {
           Get.delete<UserController>();
         }
-        if (Get.isRegistered<CentersAccountsController>()) {
-          Get.delete<CentersAccountsController>();
+        if (Get.isRegistered<AccountsController>()) {
+          Get.delete<AccountsController>();
         }
         if (Get.isRegistered<VaccineController>()) {
           Get.delete<VaccineController>();

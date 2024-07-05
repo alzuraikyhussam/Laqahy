@@ -2,17 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
+import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class CancelledOrder extends StatefulWidget {
-  const CancelledOrder({super.key});
+class RejectedOrder extends StatefulWidget {
+  const RejectedOrder({super.key});
 
   @override
-  State<CancelledOrder> createState() => _CancelledOrderState();
+  State<RejectedOrder> createState() => _RejectedOrderState();
 }
 
-class _CancelledOrderState extends State<CancelledOrder> {
+class _RejectedOrderState extends State<RejectedOrder> {
   OrdersController olc = Get.put(OrdersController());
 
   @override
@@ -21,7 +22,7 @@ class _CancelledOrderState extends State<CancelledOrder> {
       padding: const EdgeInsets.only(bottom: 50),
       child: Obx(() {
         return FutureBuilder(
-          future: olc.fetchCancelledOrdersFuture.value,
+          future: olc.fetchRejectedOrdersFuture.value,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -31,15 +32,15 @@ class _CancelledOrderState extends State<CancelledOrder> {
               return Center(
                 child: ApiExceptionWidgets().mySnapshotError(snapshot.error,
                     onPressedRefresh: () {
-                  olc.fetchCancelledOrders();
+                  olc.fetchRejectedOrders();
                 }),
               );
             } else {
-              if (olc.cancelledOrders.isEmpty) {
+              if (olc.rejectedOrders.isEmpty) {
                 return ApiExceptionWidgets().myDataNotFound(
-                  text: 'لـم يتـــم العثــور على طلبــات ملغيـــة',
+                  text: 'لـم يتـــم العثــور على طلبــات مرفـوضــة',
                   onPressedRefresh: () {
-                    olc.fetchCancelledOrders();
+                    olc.fetchRejectedOrders();
                   },
                 );
               } else {
@@ -47,14 +48,14 @@ class _CancelledOrderState extends State<CancelledOrder> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     var parsedDate = DateFormat('EEEE dd-MM-yyyy hh:mm')
-                        .format(olc.cancelledOrders[index].orderDate!);
+                        .format(olc.rejectedOrders[index].orderDate!);
                     return myOrdersItem(
-                      orderState: 'cancelled',
-                      id: olc.cancelledOrders[index].id!,
-                      centerName: olc.cancelledOrders[index].centerName!,
-                      vaccineType: olc.cancelledOrders[index].vaccineType!,
-                      quantity: olc.cancelledOrders[index].quantity!,
-                      note: olc.cancelledOrders[index].centerNoteData!,
+                      orderState: 'rejected',
+                      id: olc.rejectedOrders[index].id!,
+                      centerName: olc.rejectedOrders[index].officeName!,
+                      vaccineType: olc.rejectedOrders[index].vaccineType!,
+                      quantity: olc.rejectedOrders[index].quantity!,
+                      note: olc.rejectedOrders[index].ministryNoteData!,
                       date: parsedDate,
 
                       // content: Column(
@@ -156,7 +157,7 @@ class _CancelledOrderState extends State<CancelledOrder> {
                       // ),
                     );
                   },
-                  itemCount: olc.cancelledOrders.length,
+                  itemCount: olc.rejectedOrders.length,
                   separatorBuilder: (BuildContext context, int index) {
                     return SizedBox(
                       height: 10,

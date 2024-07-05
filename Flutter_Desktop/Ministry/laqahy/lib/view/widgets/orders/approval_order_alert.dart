@@ -94,7 +94,7 @@ class _ApprovalOrderAlertState extends State<ApprovalOrderAlert> {
                         : () {
                             if (olc.approvalAlertFormKey.currentState!
                                 .validate()) {
-                              olc.transferOrderToInDelivery(widget.id);
+                              olc.approvalOrder(widget.id);
                             }
                           },
                     width: 150,

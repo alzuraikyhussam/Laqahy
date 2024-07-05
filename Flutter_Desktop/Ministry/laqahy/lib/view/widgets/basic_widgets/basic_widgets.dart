@@ -1461,7 +1461,7 @@ myOrdersItem({
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              orderState == 'cancelled'
+              orderState == 'rejected'
                   ? 'سبب الرفـض:'
                   : orderState == 'incoming'
                       ? 'ملاحظــة:'
@@ -1550,7 +1550,7 @@ myOrdersItem({
                           textStyle: MyTextStyles.font16WhiteBold),
                     ],
                   )
-                : orderState == 'cancelled'
+                : orderState == 'rejected'
                     ? Obx(() {
                         return olc.isUndoLoading.value
                             ? myLoadingIndicator()
@@ -1560,7 +1560,7 @@ myOrdersItem({
                                 onPressed: olc.isUndoLoading.value
                                     ? null
                                     : () {
-                                        olc.undoCancelledOrder(id!);
+                                        olc.undoRejectedOrder(id!);
                                       },
                                 text: 'تراجــع عن الرفــض',
                                 textStyle: MyTextStyles.font16WhiteBold,
@@ -1636,7 +1636,7 @@ myReportsCards({
 
 myLoadingIndicator({
   double height = 50,
-  double width = 120,
+  double width = 130,
 }) {
   return Container(
     padding: EdgeInsetsDirectional.all(10),

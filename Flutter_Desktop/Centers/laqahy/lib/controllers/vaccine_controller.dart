@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:http/http.dart' as http;
-import 'package:laqahy/models/vaccine_model.dart';
 import 'package:laqahy/models/vaccine_quantity_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
@@ -16,12 +15,12 @@ class VaccineController extends GetxController {
   var isLoading = false.obs;
 
   StaticDataController sdc = Get.find<StaticDataController>();
-  int? officeId;
+  int? centerId;
 
   @override
   onInit() async {
     super.onInit();
-    officeId = await sdc.storageService.getOfficeId();
+    centerId = await sdc.storageService.getCenterId();
     fetchVaccinesQuantity();
   }
 
@@ -32,7 +31,7 @@ class VaccineController extends GetxController {
       try {
         isLoading(true);
         final response = await http.get(
-          Uri.parse('${ApiEndpoints.getVaccinesQuantity}/$officeId'),
+          Uri.parse('${ApiEndpoints.getVaccinesQuantity}/$centerId'),
           headers: {
             'content-Type': 'application/json',
           },

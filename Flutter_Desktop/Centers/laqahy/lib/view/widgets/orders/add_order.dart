@@ -1,135 +1,140 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:laqahy/controllers/home_layout_controller.dart';
-// import 'package:laqahy/core/shared/styles/color.dart';
-// import 'package:laqahy/core/shared/styles/style.dart';
-// import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-// import 'package:laqahy/view/widgets/successfully_add_order.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/controllers/orders_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
+import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-// class AddOrder extends StatefulWidget {
-//   const AddOrder({super.key});
+class AddOrder extends StatefulWidget {
+  const AddOrder({super.key});
 
-//   @override
-//   State<AddOrder> createState() => _AddOrderState();
-// }
+  @override
+  State<AddOrder> createState() => _AddOrderState();
+}
 
-// class _AddOrderState extends State<AddOrder> {
-//   AddOrderController aoc = Get.put(AddOrderController());
-//   HomeLayoutController hlc = Get.put(HomeLayoutController());
+class _AddOrderState extends State<AddOrder> {
+  OrdersController oc = Get.put(OrdersController());
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Row(
-//           children: [
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'اســـم اللـقـــاح',
-//                   style: MyTextStyles.font16BlackBold,
-//                 ),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//                 GetBuilder<AddOrderController>(
-//                   builder: (controller) {
-//                     return myDropDownMenuButton(
-//                       width: 300,
-//                       hintText: 'اختر اللقــاح',
-//                       items: controller.vaccineTypes,
-//                       onChanged: (String? value) {
-//                         controller.changeVaccineTypeSelectedValue(value!);
-//                       },
-//                       searchController:
-//                           controller.vaccineTypeSearchController.value,
-//                       selectedValue: controller.vaccineTypeSelectedValue,
-//                     );
-//                   },
-//                 ),
-//               ],
-//             ),
-//             SizedBox(
-//               width: 20,
-//             ),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'الـكميــــة',
-//                   style: MyTextStyles.font16BlackBold,
-//                 ),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//                 myTextField(
-//                   prefixIcon: Icons.numbers,
-//                   width: 150,
-//                   hintText: 'حـدد الكـميــة',
-//                   keyboardType: TextInputType.number,
-//                   onChanged: (value) {},
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//         SizedBox(
-//           height: 20,
-//         ),
-//         Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               'ملاحــظات',
-//               style: MyTextStyles.font16BlackBold,
-//             ),
-//             SizedBox(
-//               height: 10,
-//             ),
-//             myTextField(
-//               width: 470,
-//               maxLines: 3,
-//               maxLength: 150,
-//               hintText: 'ملاحظات',
-//               prefixIcon: Icons.message_outlined,
-//               keyboardType: TextInputType.text,
-//               onChanged: (value) {},
-//             ),
-//           ],
-//         ),
-//         SizedBox(
-//           height: 25,
-//         ),
-//         Row(
-//           children: [
-//             myButton(
-//               onPressed: () {
-//                 myShowDialog(
-//                     context: context, widgetName: SuccessfullyAddOrder());
-//               },
-//               text: 'إضــافــة',
-//               textStyle: MyTextStyles.font16WhiteBold,
-//               width: 130,
-//             ),
-//             SizedBox(
-//               width: 15,
-//             ),
-//             myButton(
-//               onPressed: () {
-//                 hlc.changeChoose(
-//                   'الرئيسية',
-//                 );
-//               },
-//               text: 'خـــــروج',
-//               textStyle: MyTextStyles.font16WhiteBold,
-//               width: 130,
-//               backgroundColor: MyColors.greyColor,
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        width: Get.width,
+        padding: const EdgeInsetsDirectional.only(start: 5),
+        child: Column(
+          children: [
+            Form(
+              key: oc.addOrderFormKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'إرسـال طلب جـديد',
+                    style: MyTextStyles.font18PrimaryBold,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    width: 400,
+                    child: Text(
+                      'من هنا يمكنكم إرسال طلب الى مكتب الصحة والسكان في المحافظة لإمدادكم بكمية من اللقاح المطلوب.',
+                      style: MyTextStyles.font16GreyBold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'اســم اللقــاح',
+                            style: MyTextStyles.font16BlackBold,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Constants().vaccinesDropdownMenu(),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'الكميـة المطلـوبـة',
+                            style: MyTextStyles.font16BlackBold,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          myTextField(
+                            controller: oc.quantityController,
+                            validator: oc.qtyValidator,
+                            width: 200,
+                            prefixIcon: Icons.numbers,
+                            hintText: 'حدد الكمية',
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {},
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'مـلاحظــات',
+                        style: MyTextStyles.font16BlackBold,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      myTextField(
+                        controller: oc.notesController,
+                        validator: oc.notesValidator,
+                        width: 515,
+                        maxLines: 3,
+                        maxLength: 150,
+                        prefixIcon: Icons.message_outlined,
+                        hintText: 'اكتب ملاحظتك هنا',
+                        keyboardType: TextInputType.text,
+                        onChanged: (value) {},
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Obx(() {
+                    return oc.isAddLoading.value
+                        ? myLoadingIndicator()
+                        : myButton(
+                            onPressed: () {
+                              if (oc.addOrderFormKey.currentState!.validate()) {
+                                oc.addOrder();
+                              }
+                            },
+                            text: 'إرســــال الطلـــب',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                          );
+                  }),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

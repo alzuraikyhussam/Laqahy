@@ -39,7 +39,7 @@ class _RejectConfirmAlertState extends State<RejectConfirmAlert> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +54,7 @@ class _RejectConfirmAlertState extends State<RejectConfirmAlert> {
                   'هل أنت متأكد من عملية رفض الطلب؟',
                   style: MyTextStyles.font16RedBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 myTextField(

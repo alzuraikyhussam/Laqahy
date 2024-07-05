@@ -1,21 +1,19 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class IncomingOrder extends StatefulWidget {
-  const IncomingOrder({super.key});
+class RejectedOrder extends StatefulWidget {
+  const RejectedOrder({super.key});
 
   @override
-  State<IncomingOrder> createState() => _IncomingOrderState();
+  State<RejectedOrder> createState() => _RejectedOrderState();
 }
 
-class _IncomingOrderState extends State<IncomingOrder> {
-  OrdersController olc = Get.put(OrdersController());
+class _RejectedOrderState extends State<RejectedOrder> {
+  OrdersController oc = Get.put(OrdersController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class _IncomingOrderState extends State<IncomingOrder> {
       padding: const EdgeInsets.only(bottom: 50),
       child: Obx(() {
         return FutureBuilder(
-          future: olc.fetchIncomingOrdersFuture.value,
+          future: oc.fetchRejectedOrdersFuture.value,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -33,15 +31,15 @@ class _IncomingOrderState extends State<IncomingOrder> {
               return Center(
                 child: ApiExceptionWidgets().mySnapshotError(snapshot.error,
                     onPressedRefresh: () {
-                  olc.fetchIncomingOrders();
+                  oc.fetchRejectedOrders();
                 }),
               );
             } else {
-              if (olc.incomingOrders.isEmpty) {
+              if (oc.rejectedOrders.isEmpty) {
                 return ApiExceptionWidgets().myDataNotFound(
-                  text: 'لـم يتـــم العثــور على طلبــات واردة',
+                  text: 'لـم يتـــم العثــور على طلبــات مرفـوضــة',
                   onPressedRefresh: () {
-                    olc.fetchIncomingOrders();
+                    oc.fetchRejectedOrders();
                   },
                 );
               } else {
@@ -49,20 +47,20 @@ class _IncomingOrderState extends State<IncomingOrder> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     var parsedDate = DateFormat('EEEE dd-MM-yyyy hh:mm')
-                        .format(olc.incomingOrders[index].orderDate!);
+                        .format(oc.rejectedOrders[index].orderDate!);
                     return myOrdersItem(
-                      orderState: 'incoming',
-                      id: olc.incomingOrders[index].id!,
-                      centerName: olc.incomingOrders[index].centerName!,
-                      vaccineType: olc.incomingOrders[index].vaccineType!,
-                      quantity: olc.incomingOrders[index].quantity!,
-                      note: olc.incomingOrders[index].officeNoteData!,
+                      orderState: 'rejected',
+                      id: oc.rejectedOrders[index].id!,
+                      centerName: oc.rejectedOrders[index].centerName!,
+                      vaccineType: oc.rejectedOrders[index].vaccineType!,
+                      quantity: oc.rejectedOrders[index].quantity!,
+                      note: oc.rejectedOrders[index].officeNoteData!,
                       date: parsedDate,
                     );
                   },
-                  itemCount: olc.incomingOrders.length,
+                  itemCount: oc.rejectedOrders.length,
                   separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
+                    return const SizedBox(
                       height: 10,
                     );
                   },

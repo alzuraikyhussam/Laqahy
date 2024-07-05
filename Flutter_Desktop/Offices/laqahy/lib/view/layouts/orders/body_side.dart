@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/view/widgets/orders/add_order.dart';
-import 'package:laqahy/view/widgets/orders/cancelled_order.dart';
+import 'package:laqahy/view/widgets/orders/rejected_order.dart';
 import 'package:laqahy/view/widgets/orders/delivered_order.dart';
 import 'package:laqahy/view/widgets/orders/in_delivery_order.dart';
 import 'package:laqahy/view/widgets/orders/incoming_order.dart';
@@ -31,8 +31,8 @@ class _OrderBodySideState extends State<OrderBodySide> {
                         ? const InDeliveryOrder()
                         : oc.orderTapChange.value == 'delivered'
                             ? const DeliveredOrder()
-                            : oc.orderTapChange.value == 'cancelled'
-                                ? const CancelledOrder()
+                            : oc.orderTapChange.value == 'rejected'
+                                ? const RejectedOrder()
                                 : const SizedBox(),
       );
     });

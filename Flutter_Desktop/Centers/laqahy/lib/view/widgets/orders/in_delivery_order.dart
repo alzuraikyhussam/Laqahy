@@ -15,7 +15,7 @@ class InDeliveryOrder extends StatefulWidget {
 }
 
 class _InDeliveryOrderState extends State<InDeliveryOrder> {
-  OrdersController olc = Get.put(OrdersController());
+  OrdersController oc = Get.put(OrdersController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _InDeliveryOrderState extends State<InDeliveryOrder> {
       padding: const EdgeInsets.only(bottom: 50),
       child: Obx(() {
         return FutureBuilder(
-          future: olc.fetchInDeliveryOrdersFuture.value,
+          future: oc.fetchInDeliveryOrdersFuture.value,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -33,15 +33,15 @@ class _InDeliveryOrderState extends State<InDeliveryOrder> {
               return Center(
                 child: ApiExceptionWidgets().mySnapshotError(snapshot.error,
                     onPressedRefresh: () {
-                  olc.fetchInDeliveryOrders();
+                  oc.fetchInDeliveryOrders();
                 }),
               );
             } else {
-              if (olc.inDeliveryOrders.isEmpty) {
+              if (oc.inDeliveryOrders.isEmpty) {
                 return ApiExceptionWidgets().myDataNotFound(
                   text: 'لـم يتـــم العثــور على طلبــات قيـد التسليــم',
                   onPressedRefresh: () {
-                    olc.fetchInDeliveryOrders();
+                    oc.fetchInDeliveryOrders();
                   },
                 );
               } else {
@@ -49,17 +49,19 @@ class _InDeliveryOrderState extends State<InDeliveryOrder> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     var parsedDate = DateFormat('EEEE dd-MM-yyyy hh:mm')
-                        .format(olc.inDeliveryOrders[index].updatedAt!);
+                        .format(oc.inDeliveryOrders[index].updatedAt!);
                     return myOrdersItem(
                       date: parsedDate,
+                      height: 290,
+                      id: oc.inDeliveryOrders[index].id,
                       orderState: 'in_delivery',
-                      centerName: olc.inDeliveryOrders[index].centerName!,
-                      vaccineType: olc.inDeliveryOrders[index].vaccineType!,
-                      quantity: olc.inDeliveryOrders[index].quantity!,
-                      note: olc.inDeliveryOrders[index].centerNoteData!,
+                      centerName: oc.inDeliveryOrders[index].centerName!,
+                      vaccineType: oc.inDeliveryOrders[index].vaccineType!,
+                      quantity: oc.inDeliveryOrders[index].quantity!,
+                      note: oc.inDeliveryOrders[index].officeNoteData!,
                     );
                   },
-                  itemCount: olc.inDeliveryOrders.length,
+                  itemCount: oc.inDeliveryOrders.length,
                   separatorBuilder: (BuildContext context, int index) {
                     return SizedBox(
                       height: 10,

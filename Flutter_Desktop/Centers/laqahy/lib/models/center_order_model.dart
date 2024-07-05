@@ -1,4 +1,4 @@
-class Order {
+class CenterOrder {
   int? id;
   int? vaccineTypeId;
   int? centerId;
@@ -7,15 +7,13 @@ class Order {
   String? orderStateName;
   String? vaccineType;
   String? centerName;
-  String? centerNoteData;
   String? officeNoteData;
+  String? centerNoteData;
   DateTime? orderDate;
   DateTime? deliveryDate;
-  DateTime? dataDeletedFromCenter;
-  DateTime? dataDeletedFromOffice;
   DateTime? updatedAt;
 
-  Order({
+  CenterOrder({
     this.id,
     this.vaccineTypeId,
     this.vaccineType,
@@ -24,20 +22,20 @@ class Order {
     this.orderStateId,
     this.orderStateName,
     this.quantity,
-    this.centerNoteData,
+    this.officeNoteData,
     this.deliveryDate,
     this.orderDate,
-    this.officeNoteData,
+    this.centerNoteData,
     this.updatedAt,
   });
 
-  factory Order.fromJson(Map<String, dynamic> json) {
-    return Order(
+  factory CenterOrder.fromJson(Map<String, dynamic> json) {
+    return CenterOrder(
       id: json['id'] ?? 0,
       orderStateName: json['order_state'] ?? '',
       centerName: json['healthy_center_name'] ?? '',
-      centerNoteData: json['center_note_data'] ?? '',
       officeNoteData: json['office_note_data'] ?? '',
+      centerNoteData: json['center_note_data'] ?? '',
       vaccineTypeId: json['vaccine_type_id'] ?? 0,
       vaccineType: json['vaccine_type'] ?? '',
       quantity: json['quantity'] ?? 0,
@@ -57,6 +55,8 @@ class Order {
 
   Map<String, dynamic> toJson() {
     return {
+      'healthy_center_id': centerId,
+      'vaccine_type_id': vaccineTypeId,
       'quantity': quantity,
       'center_note_data': centerNoteData,
     };

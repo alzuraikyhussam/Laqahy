@@ -46,10 +46,10 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                 child: myIconButton(
                   icon: Icons.refresh_rounded,
                   onTap: () async {
-                    oc.fetchIncomingOrders();
+                    oc.fetchOutgoingOrders();
                     oc.fetchInDeliveryOrders();
                     oc.fetchDeliveredOrders();
-                    oc.fetchCancelledOrders();
+                    oc.fetchRejectedOrders();
                   },
                   gradientColors: [
                     MyColors.primaryColor,

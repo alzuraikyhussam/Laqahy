@@ -107,12 +107,11 @@ class ApiEndpoints {
   static const String getInDeliveryOrders =
       '$baseUrl/ministry/orders/in-delivery';
   static const String getDeliveredOrders = '$baseUrl/ministry/orders/delivered';
-  static const String getCancelledOrders = '$baseUrl/ministry/orders/cancelled';
-  static const String transferOrderToInDelivery =
-      '$baseUrl/ministry/orders/to-in-delivery';
-  static const String transferOrderToCancelled =
-      '$baseUrl/ministry/orders/to-cancelled';
-  static const String undoCancelled = '$baseUrl/ministry/orders/undo-cancelled';
+  static const String getRejectedOrders = '$baseUrl/ministry/orders/rejected';
+  static const String approvalOrder = '$baseUrl/ministry/orders/approval-order';
+  static const String rejectOrder = '$baseUrl/ministry/orders/reject-order';
+  static const String undoRejectedOrder =
+      '$baseUrl/ministry/orders/undo-reject-order';
   static const String getOrdersDateRange =
       '$baseUrl/ministry/orders/date-range';
   // --------------------------------------------------

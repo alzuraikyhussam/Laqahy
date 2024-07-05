@@ -37,7 +37,7 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
             } else {
               if (oc.deliveredOrders.isEmpty) {
                 return ApiExceptionWidgets().myDataNotFound(
-                  text: 'لـم يتـــم العثــور على طلبــات تـم تسليمهــا',
+                  text: 'لـم يتـــم العثــور على طلبــات تـم استـلامــها',
                   onPressedRefresh: () {
                     oc.fetchDeliveredOrders();
                   },
