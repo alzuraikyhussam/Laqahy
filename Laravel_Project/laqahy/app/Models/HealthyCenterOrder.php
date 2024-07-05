@@ -21,6 +21,8 @@ class HealthyCenterOrder extends Model
         'order_state_id',
     ];
 
+    protected $table = 'healthy_centers_orders';
+
     protected $dates = ['deleted_at'];
 
     public function healthyCenter()

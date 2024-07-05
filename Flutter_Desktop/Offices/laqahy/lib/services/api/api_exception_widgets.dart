@@ -275,16 +275,29 @@ class ApiExceptionWidgets {
     );
   }
 
-  myOrderAlert({required String title, required String description}) {
+  myOrderAlert({
+    required String title,
+    required String description,
+    String btnLabel = 'مــوافق',
+    String imageUrl = 'assets/images/success.json',
+    void Function()? onPressed,
+    void Function()? onCancelPressed,
+  }) {
     Constants().playSuccessSound();
     myShowDialog(
       context: Get.context!,
       widgetName: ApiExceptionAlert(
         height: 280,
         backgroundColor: MyColors.primaryColor,
-        imageUrl: 'assets/images/success.json',
+        imageUrl: imageUrl,
         title: title,
         description: description,
+        btnLabel: btnLabel,
+        onPressed: onPressed ??
+            () {
+              Get.back();
+            },
+        onCancelPressed: onCancelPressed,
       ),
     );
   }

@@ -15,6 +15,7 @@ class ApiExceptionAlert extends StatefulWidget {
     this.imageUrl = 'assets/images/error.json',
     this.backgroundColor,
     this.onPressed,
+    this.onCancelPressed,
     this.btnLabel = 'مــوافق',
   });
 
@@ -23,6 +24,7 @@ class ApiExceptionAlert extends StatefulWidget {
   Color? backgroundColor;
   String btnLabel;
   void Function()? onPressed;
+  void Function()? onCancelPressed;
 
   @override
   State<ApiExceptionAlert> createState() => _ApiExceptionAlertState();
@@ -85,18 +87,40 @@ class _ApiExceptionAlertState extends State<ApiExceptionAlert> {
           ],
         ),
       ),
-      actions: [
-        myButton(
-          onPressed: widget.onPressed ??
-              () {
-                Get.back();
-              },
-          width: 150,
-          backgroundColor: widget.backgroundColor ?? MyColors.redColor,
-          text: widget.btnLabel,
-          textStyle: MyTextStyles.font16WhiteBold,
-        ),
-      ],
+      actions: widget.onCancelPressed == null
+          ? [
+              myButton(
+                onPressed: widget.onPressed ??
+                    () {
+                      Get.back();
+                    },
+                width: 150,
+                backgroundColor: widget.backgroundColor ?? MyColors.redColor,
+                text: widget.btnLabel,
+                textStyle: MyTextStyles.font16WhiteBold,
+              ),
+            ]
+          : [
+              Expanded(
+                child: myButton(
+                  onPressed: widget.onPressed ??
+                      () {
+                        Get.back();
+                      },
+                  backgroundColor: widget.backgroundColor ?? MyColors.redColor,
+                  text: widget.btnLabel,
+                  textStyle: MyTextStyles.font16WhiteBold,
+                ),
+              ),
+              Expanded(
+                child: myButton(
+                  onPressed: widget.onCancelPressed,
+                  backgroundColor: MyColors.greyColor,
+                  text: 'إلغــاء الأمــر',
+                  textStyle: MyTextStyles.font16WhiteBold,
+                ),
+              ),
+            ],
     );
   }
 }

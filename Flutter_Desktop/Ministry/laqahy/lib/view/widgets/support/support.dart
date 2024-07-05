@@ -90,7 +90,7 @@ class SupportScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 15,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +100,7 @@ class SupportScreen extends StatelessWidget {
                                 style: MyTextStyles.font16BlackBold,
                               ),
                               SizedBox(
-                                height: 15,
+                                height: 10,
                               ),
                               myTextField(
                                 controller: tsc.emailController,
@@ -124,7 +124,7 @@ class SupportScreen extends StatelessWidget {
                                 style: MyTextStyles.font16BlackBold,
                               ),
                               SizedBox(
-                                height: 15,
+                                height: 10,
                               ),
                               myTextField(
                                 controller: tsc.messageController,
@@ -134,7 +134,7 @@ class SupportScreen extends StatelessWidget {
                                 maxLength: 150,
                                 prefixIcon: Icons.message_outlined,
                                 hintText: 'اكتب رسالتك هنـــا',
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.text,
                                 onChanged: (String) {},
                               ),
                             ],

@@ -21,6 +21,8 @@ class OfficeOrder extends Model
         'order_state_id',
     ];
 
+    protected $table = 'offices_orders';
+
     protected $dates = ['deleted_at'];
 
     public function office()

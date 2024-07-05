@@ -41,6 +41,10 @@ class ApiEndpoints {
   static const String sendMsg = '$baseUrl/support';
   // --------------------------------------------------
 
+  // --------------- Office Stock Vaccines Endpoints -------------------
+  static const String getVaccines = '$baseUrl/offices/vaccines';
+  // --------------------------------------------------
+
   // --------------- User Endpoints -------------------
   static const String getUsers = '$baseUrl/offices/users';
   static const String getAdmin = '$baseUrl/offices/users/get-admin';
@@ -61,5 +65,7 @@ class ApiEndpoints {
       '$baseUrl/offices/orders/confirm-delivered';
   static const String confirmCenterOrder =
       '$baseUrl/offices/orders/confirm-center-order';
+  static const String rejectCenterOrder =
+      '$baseUrl/offices/orders/reject-center-order';
   // --------------------------------------------------
 }

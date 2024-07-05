@@ -233,7 +233,7 @@ class OfficeOrderController extends Controller
     public function officeDeliveredOrders($office_id)
     {
         try {
-            $delivered = OfficeOrder::join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->select('offices_orders.*', 'order_states.order_state', 'vaccine_types.vaccine_type', 'offices.office_name')->where([['order_states.order_state', 'تم التسليم'], ['offices_orders.office_id', $office_id]])->orderBy('offices_orders.updated_at', 'desc')->get();
+            $delivered = HealthyCenterOrder::join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->select('healthy_centers_orders.*', 'order_states.order_state', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name')->where([['order_states.order_state', 'تم التسليم'], ['healthy_centers.office_id', $office_id]])->orderBy('healthy_centers_orders.updated_at', 'desc')->get();
             return response()->json([
                 'message' => 'Delivered orders retrieved successfully',
                 'data' => $delivered,
@@ -267,7 +267,6 @@ class OfficeOrderController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'vaccine_type_id' => 'required',
                     'office_id' => 'required',
                     'order_id' => 'required',
                 ],
@@ -284,7 +283,7 @@ class OfficeOrderController extends Controller
 
             $orderState = Order_state::where('order_state', 'تم التسليم')->first();
 
-            $vaccine = Office_stock_vaccine::where([['vaccine_type_id', $request->vaccine_type_id], ['office_id', $request->office_id]])->first();
+            $vaccine = Office_stock_vaccine::where([['vaccine_type_id', $order->vaccine_type_id], ['office_id', $request->office_id]])->first();
 
             $updatedVaccineQty = $vaccine->quantity + $order->quantity;
 
@@ -346,7 +345,7 @@ class OfficeOrderController extends Controller
     public function officeConfirmCenterOrder(Request $request, $id)
     {
         try {
-            $order = OfficeOrder::find($id);
+            $order = HealthyCenterOrder::find($id);
             $vaccineQty = Office_stock_vaccine::where('vaccine_type_id', $order->vaccine_type_id)->first();
             $orderState = Order_state::where('order_state', 'قيد التسليم')->first();
 
@@ -374,6 +373,32 @@ class OfficeOrderController extends Controller
             return response()->json([
                 'message' => 'Order confirmed successfully',
                 'quantity' => $vaccineQty->quantity,
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeRejectCenterOrder(Request $request, $id)
+    {
+        try {
+            $order = HealthyCenterOrder::find($id);
+
+            $orderState = Order_state::where('order_state', 'مرفوضة')->first();
+
+            if (!$order) {
+                return response()->json([
+                    'message' => 'Order not found',
+                ], 404);
+            }
+
+            $order->update(['order_state_id' => $orderState->id, 'office_note_data' => $request->office_note_data]);
+
+            return response()->json([
+                'message' => 'Order rejected successfully',
+
             ], 200);
         } catch (Exception $e) {
             return response()->json([

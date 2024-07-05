@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/home_layout_model.dart';
+import 'package:laqahy/models/vaccine_model.dart';
 import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -160,12 +161,22 @@ class Constants {
     return null;
   }
 
+  /////////////
+
+  String? vaccineValidator(value) {
+    if (value == null) {
+      return 'قم باختيار اسم اللقاح';
+    }
+    return null;
+  }
+
   final TextEditingController directoratesSearchController =
       TextEditingController();
   final TextEditingController citySearchController = TextEditingController();
   final TextEditingController permissionSearchController =
       TextEditingController();
   final TextEditingController genderSearchController = TextEditingController();
+  final TextEditingController vaccineSearchController = TextEditingController();
 
   Widget gendersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
@@ -606,4 +617,111 @@ class Constants {
     });
   }
 
+  Widget vaccinesDropdownMenu() {
+    final StaticDataController controller = Get.find<StaticDataController>();
+
+    return Obx(() {
+      if (controller.isVaccineLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'اختر اللقاح',
+          width: 300,
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          selectedValue: null,
+          validator: vaccineValidator,
+        );
+      }
+
+      if (controller.vaccineErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            Constants().playErrorSound();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: controller.vaccineErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchVaccines();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            width: 300,
+            hintText: 'اختر اللقاح',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: vaccineValidator,
+          ),
+        );
+      }
+
+      if (controller.vaccines.isEmpty) {
+        return InkWell(
+          onTap: () {
+            Constants().playErrorSound();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchVaccines();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'اختر اللقاح',
+            width: 300,
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: vaccineValidator,
+          ),
+        );
+      }
+
+      return myDropDownMenuButton2<Vaccine>(
+        hintText: 'اختر اللقاح',
+        validator: vaccineValidator,
+        width: 300,
+        items: controller.vaccines.map((element) {
+          return DropdownMenuItem<Vaccine>(
+            value: element,
+            child: Text(
+              element.vaccineType ?? '',
+              style: MyTextStyles.font16BlackMedium,
+            ),
+          );
+        }).toList(),
+        onChanged: (Vaccine? value) {
+          if (value != null) {
+            controller.selectedVaccine.value = value;
+          } else {
+            controller.selectedVaccine.value = null;
+          }
+        },
+        searchController: vaccineSearchController,
+        selectedValue: controller.selectedVaccine.value,
+      );
+    });
+  }
 }

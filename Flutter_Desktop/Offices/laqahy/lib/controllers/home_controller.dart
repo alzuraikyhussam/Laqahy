@@ -80,6 +80,7 @@ class HomeController extends GetxController {
         } else {
           isLoading(false);
           errorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+          print(response.body);
         }
       } on SocketException catch (_) {
         isLoading(false);

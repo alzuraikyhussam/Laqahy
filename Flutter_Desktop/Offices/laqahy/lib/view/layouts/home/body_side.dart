@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
+import 'package:laqahy/view/layouts/orders/orders_layout.dart';
 import 'package:laqahy/view/widgets/home/home.dart';
 import 'package:laqahy/view/widgets/system_info/system_info.dart';
 import 'package:laqahy/view/widgets/support/support.dart';
@@ -38,8 +39,7 @@ class _HomeBodySideState extends State<HomeBodySide> {
             } else if (hlc.choose.value == 'اللقاحات') {
               return const SizedBox();
             } else if (hlc.choose.value == 'الطلبات') {
-              // return const OrdersLayout();
-              return SizedBox();
+              return const OrdersLayout();
             } else if (hlc.choose.value == 'التقارير') {
               return const SizedBox();
             } else if (hlc.choose.value == 'حول النظام') {

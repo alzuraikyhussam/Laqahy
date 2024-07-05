@@ -2,9 +2,13 @@ import 'dart:io';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/orders/reject_confirm_alert.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
 
@@ -33,7 +37,7 @@ myButton({
         BoxShadow(
           color: MyColors.greyColor.withOpacity(0.3),
           blurRadius: 4,
-          offset: Offset(0, 4),
+          offset: const Offset(0, 4),
           spreadRadius: 0,
         ),
       ],
@@ -50,7 +54,7 @@ myButton({
       ),
       child: Text(
         text,
-        textHeightBehavior: TextHeightBehavior(
+        textHeightBehavior: const TextHeightBehavior(
           applyHeightToFirstAscent: true,
           applyHeightToLastDescent: false,
         ),
@@ -151,7 +155,7 @@ myTextField({
                 ),
               )
             : null,
-        contentPadding: EdgeInsetsDirectional.all(18),
+        contentPadding: const EdgeInsetsDirectional.all(18),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
@@ -234,94 +238,6 @@ myCircleAvatar({
   );
 }
 
-myTextField2({
-  double? width,
-  required String? hintText,
-  TextEditingController? controller,
-  required TextInputType? keyboardType,
-  int? maxLength,
-  bool obscureText = false,
-  required void Function(String)? onChanged,
-  bool readOnly = false,
-  String? Function(String?)? validator,
-  IconData? prefixIcon,
-  String? prefixImage,
-  IconData? suffixIcon,
-  String? suffixImage,
-  Color? color,
-}) {
-  return SizedBox(
-    width: width?.toDouble(),
-    child: TextFormField(
-      controller: controller,
-      cursorColor: MyColors.primaryColor,
-      keyboardType: keyboardType,
-      maxLength: maxLength,
-      maxLines: obscureText ? 1 : 3,
-      minLines: 1,
-      obscureText: obscureText,
-      onChanged: onChanged,
-      readOnly: readOnly,
-      validator: validator,
-      textAlign: TextAlign.start,
-      // textDirection: TextDirection.rtl,
-      style: MyTextStyles.font16BlackMedium,
-      decoration: InputDecoration(
-        prefixIcon: prefixIcon != null
-            ? Icon(
-                prefixIcon,
-                color: MyColors.greyColor,
-              )
-            : null,
-        prefix: prefixImage != null
-            ? Image.asset(
-                prefixImage,
-              )
-            : null,
-        suffixIcon: suffixIcon != null
-            ? Icon(
-                suffixIcon,
-                color: MyColors.greyColor,
-              )
-            : null,
-        suffix: suffixImage != null
-            ? InkWell(
-                onTap: () {},
-                child: Image.asset(
-                  suffixImage,
-                ),
-              )
-            : null,
-        contentPadding: EdgeInsetsDirectional.all(18),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
-        ),
-        filled: true,
-        fillColor: MyColors.secondaryColor.withOpacity(0.2),
-        hintText: hintText,
-        hintStyle: MyTextStyles.font14GreyBold,
-      ),
-    ),
-  );
-}
-
 myCopyRightText() {
   return Positioned(
     left: 0,
@@ -341,7 +257,7 @@ myBackgroundWindows() {
   return Container(
     width: double.infinity,
     height: double.infinity,
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       image: DecorationImage(
         image: AssetImage("assets/images/background.png"),
         fit: BoxFit.cover,
@@ -365,7 +281,7 @@ exitButton() {
       exit(0);
     },
     child: Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: MyColors.redColor,
@@ -392,7 +308,7 @@ goBackButton({
   return InkWell(
     onTap: onTap,
     child: Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -443,7 +359,7 @@ myIconButton({
           BoxShadow(
             color: MyColors.greyColor.withOpacity(0.3),
             blurRadius: 4,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
             spreadRadius: 0,
           ),
         ],
@@ -569,8 +485,8 @@ myAlertDialog({
 }) {
   return Alert(
     onWillPopActive: true,
-    closeIcon: SizedBox(),
-    padding: EdgeInsets.all(30),
+    closeIcon: const SizedBox(),
+    padding: const EdgeInsets.all(30),
     context: context,
     content: Container(
       width: 500,
@@ -578,14 +494,14 @@ myAlertDialog({
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(image),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Text(
             title,
             style: MyTextStyles.font18BlackBold,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
@@ -613,7 +529,7 @@ myAlertDialog({
         onPressed: onConfirmBtnTap,
         child: Text(
           confirmBtnText,
-          textHeightBehavior: TextHeightBehavior(
+          textHeightBehavior: const TextHeightBehavior(
             applyHeightToFirstAscent: true,
             applyHeightToLastDescent: false,
           ),
@@ -627,7 +543,7 @@ myAlertDialog({
         onPressed: onCancelBtnTap,
         child: Text(
           cancelBtnText,
-          textHeightBehavior: TextHeightBehavior(
+          textHeightBehavior: const TextHeightBehavior(
             applyHeightToFirstAscent: true,
             applyHeightToLastDescent: false,
           ),
@@ -702,7 +618,7 @@ myDropDownMenuButton({
       value: selectedValue,
       onChanged: onChanged,
       buttonStyleData: ButtonStyleData(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         height: 60,
         width: width != null ? width.toDouble() : 200,
         decoration: BoxDecoration(
@@ -842,7 +758,7 @@ Widget myDropDownMenuButton2<T>({
       value: selectedValue,
       onChanged: onChanged,
       buttonStyleData: ButtonStyleData(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         height: 60,
         width: width != null ? width.toDouble() : 200,
         decoration: BoxDecoration(
@@ -926,147 +842,6 @@ Widget myDropDownMenuButton2<T>({
     ),
   );
 }
-// myDropDownMenuButton2({
-//   required String hintText,
-//   required List<DropdownMenuItem<String>>? items,
-//   required void Function(String?)? onChanged,
-//   required TextEditingController? searchController,
-//   required String? selectedValue,
-//   double? width,
-//   String? Function(String?)? validator,
-// }) {
-//   return Container(
-//     width: width != null ? width.toDouble() : 200,
-//     child: DropdownButtonFormField2<String>(
-//       autovalidateMode: AutovalidateMode.onUserInteraction,
-//       decoration: InputDecoration(
-//         filled: true,
-//         fillColor: MyColors.whiteColor.withOpacity(0.5),
-//         contentPadding: EdgeInsets.zero,
-//         border: InputBorder.none,
-//         enabledBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10),
-//           borderSide: BorderSide(
-//             color: MyColors.greyColor.withOpacity(0.3),
-//           ),
-//         ),
-//         focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10),
-//           borderSide: BorderSide(
-//             color: MyColors.primaryColor.withOpacity(0.5),
-//           ),
-//         ),
-//         errorBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10),
-//           borderSide: BorderSide(
-//             color: MyColors.redColor,
-//           ),
-//         ),
-//         focusedErrorBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10),
-//           borderSide: BorderSide(
-//             color: MyColors.redColor,
-//           ),
-//         ),
-//       ),
-//       validator: validator,
-//       isExpanded: true,
-//       hint: Text(
-//         hintText,
-//         style: TextStyle(
-//           fontSize: 14,
-//           color: MyColors.greyColor,
-//         ),
-//       ),
-
-//       items: items,
-//       value: selectedValue,
-//       onChanged: onChanged,
-//       buttonStyleData: ButtonStyleData(
-//         padding: EdgeInsets.all(12),
-//         height: 60,
-//         width: width != null ? width.toDouble() : 200,
-//         decoration: BoxDecoration(
-//           // color: MyColors.whiteColor.withOpacity(0.5),
-//           borderRadius: BorderRadius.circular(10),
-//           // border: Border.all(
-//           //   color: MyColors.greyColor.withOpacity(0.3),
-//           // ),
-//         ),
-//       ),
-
-//       dropdownStyleData: DropdownStyleData(
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(10),
-//         ),
-//         maxHeight: 150,
-//         width: width,
-//       ),
-//       menuItemStyleData: const MenuItemStyleData(
-//         height: 44,
-//       ),
-
-//       dropdownSearchData: DropdownSearchData(
-//         searchController: searchController,
-//         searchInnerWidgetHeight: 50,
-//         searchInnerWidget: Container(
-//           height: 50,
-//           padding: const EdgeInsets.only(
-//             top: 8,
-//             bottom: 4,
-//             right: 8,
-//             left: 8,
-//           ),
-//           child: TextFormField(
-//             expands: true,
-//             maxLines: null,
-//             controller: searchController,
-//             decoration: InputDecoration(
-//               isDense: true,
-//               contentPadding: const EdgeInsets.symmetric(
-//                 horizontal: 10,
-//                 vertical: 8,
-//               ),
-//               hintText: 'ابـحــث هنــا',
-//               hintStyle: MyTextStyles.font14GreyMedium,
-//               border: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(10),
-//                 borderSide: BorderSide(
-//                   color: MyColors.greyColor.withOpacity(0.3),
-//                 ),
-//               ),
-//               enabledBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(10),
-//                 borderSide: BorderSide(
-//                   color: MyColors.greyColor.withOpacity(0.3),
-//                 ),
-//               ),
-//               focusedBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(10),
-//                 borderSide: BorderSide(
-//                   color: MyColors.primaryColor.withOpacity(0.5),
-//                 ),
-//               ),
-//               filled: true,
-//               fillColor: MyColors.whiteColor.withOpacity(0.5),
-//             ),
-//           ),
-//         ),
-//         searchMatchFn: (item, searchValue) {
-//           // return item.value.toString().contains(searchValue);
-//           return item.child.toString().contains(searchValue);
-//         },
-//       ),
-
-//       //This to clear the search value when you close the menu
-//       onMenuStateChange: (isOpen) {
-//         if (!isOpen) {
-//           searchController?.clear();
-//         }
-//       },
-//     ),
-//   );
-// }
 
 myCheckBox({
   required void Function()? onTap,
@@ -1113,6 +888,255 @@ myShowDialog({
   );
 }
 
+myOrdersItem({
+  int? id,
+  String? officeName,
+  String? centerName,
+  required String vaccineType,
+  String? orderState,
+  required var date,
+  required String note,
+  required int quantity,
+  double? height = 250,
+}) {
+  OrdersController oc = Get.put(OrdersController());
+  return Container(
+    padding: const EdgeInsets.all(25),
+    height: height,
+    decoration: BoxDecoration(
+      // color: Colors.white.withOpacity(0.9),
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 5,
+          blurStyle: BlurStyle.outer,
+          offset: const Offset(0, 0),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  Text(
+                    'اسم المكتب:',
+                    style: MyTextStyles.font16PrimaryBold,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: Text(
+                      officeName ?? centerName ?? '',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: MyTextStyles.font16BlackBold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Text(
+                    'اسم اللقــاح:',
+                    style: MyTextStyles.font16PrimaryBold,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: Text(
+                      vaccineType,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: MyTextStyles.font16BlackBold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: [
+            Text(
+              'الكميــة:',
+              style: MyTextStyles.font16PrimaryBold,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              quantity.toString(),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: MyTextStyles.font16BlackBold,
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              orderState == 'incoming'
+                  ? 'ملاحظة المركز:'
+                  : orderState == 'outgoing'
+                      ? 'ملاحظة المكتب:'
+                      : orderState == 'cancelled'
+                          ? 'سبب الرفض:'
+                          : 'ملاحظة:',
+              overflow: TextOverflow.ellipsis,
+              style: MyTextStyles.font16PrimaryBold,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Expanded(
+              child: Text(
+                'notenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenotenote',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: MyTextStyles.font16BlackBold,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        orderState == 'in_delivery'
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.info_outline_rounded,
+                    color: MyColors.greyColor,
+                    size: 25,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: Text(
+                      'تم قبول طلبك من قبل الوزارة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم.',
+                      style: MyTextStyles.font14GreyBold,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              )
+            : SizedBox(),
+        const Spacer(),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    gradient: LinearGradient(
+                      colors: [
+                        MyColors.primaryColor,
+                        MyColors.secondaryColor,
+                      ],
+                      begin: AlignmentDirectional.topCenter,
+                      end: AlignmentDirectional.bottomCenter,
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.av_timer_rounded,
+                    color: MyColors.whiteColor,
+                    size: 20,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  date,
+                  style: MyTextStyles.font16GreyBold,
+                ),
+              ],
+            ),
+            orderState == 'incoming'
+                ? Row(
+                    children: [
+                      Obx(() {
+                        return oc.isApprovalLoading.value
+                            ? myLoadingIndicator(width: 150)
+                            : myButton(
+                                width: 150,
+                                onPressed: () async {
+                                  await oc.confirmDeliveredOrder(orderId: id!);
+                                },
+                                text: 'موافقــة',
+                                textStyle: MyTextStyles.font16WhiteBold,
+                              );
+                      }),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      myButton(
+                          width: 150,
+                          backgroundColor: MyColors.redColor,
+                          onPressed: () {
+                            myShowDialog(
+                                context: Get.context!,
+                                widgetName: RejectConfirmAlert(
+                                  id: id!,
+                                ));
+                          },
+                          text: 'رفـــض',
+                          textStyle: MyTextStyles.font16WhiteBold),
+                    ],
+                  )
+                : orderState == 'in_delivery'
+                    ? Obx(() {
+                        return oc.isApprovalLoading.value
+                            ? myLoadingIndicator()
+                            : myButton(
+                                // width: 180,
+                                onPressed: () async {
+                                  await oc.confirmCenterOrder(id!);
+                                },
+                                text: 'تأكيــد الاســتلام',
+                                textStyle: MyTextStyles.font16WhiteBold,
+                              );
+                      })
+                    : const SizedBox(),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
 myReportsCards({
   required String imageName,
   required String title,
@@ -1150,7 +1174,7 @@ myReportsCards({
             width: 40,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(
@@ -1159,7 +1183,7 @@ myReportsCards({
           maxLines: 1,
           style: MyTextStyles.font18BlackBold,
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         myButton(
@@ -1178,7 +1202,7 @@ myLoadingIndicator({
   double width = 120,
 }) {
   return Container(
-    padding: EdgeInsetsDirectional.all(10),
+    padding: const EdgeInsetsDirectional.all(10),
     height: height.toDouble(),
     width: width.toDouble(),
     alignment: AlignmentDirectional.center,
@@ -1204,93 +1228,3 @@ myLoadingIndicator({
     ),
   );
 }
-
-
-
-// myDropDownButton({
-//   required double? width,
-//   required List<String>? items,
-//   String? selectedValue,
-//   IconData? buttonIcon,
-//   double? buttonIconSize,
-//   Color? buttonIconColor,
-//   required void Function(String?)? onChanged,
-//   IconData? iconStyleData,
-//   double? iconStyleDataSize,
-//   double? dropdownStyleDataWdith,
-//   double? menuItemStyleDataHight,
-// }) {
-//   Container(
-//     margin: const EdgeInsets.only(left: 20, top: 3),
-//     width: width?.toDouble(),
-//     child: DropdownButtonHideUnderline(
-//       child: DropdownButton2<String>(
-//         isExpanded: true,
-//         hint: Row(
-//           children: [
-//             Icon(
-//               buttonIcon,
-//               size: 16,
-//               color: buttonIconColor,
-//             ),
-//             SizedBox(
-//               width: 4,
-//             ),
-//           ],
-//         ),
-//         items: items!
-//             .map(
-//               (String item) => DropdownMenuItem<String>(
-//                 value: item,
-//                 child: Text(
-//                   item,
-//                   style: MyTextStyles.font14BlackBold,
-//                   overflow: TextOverflow.ellipsis,
-//                 ),
-//               ),
-//             )
-//             .toList(),
-//         value: selectedValue,
-//         onChanged: onChanged,
-//         buttonStyleData: ButtonStyleData(
-//           height: 50,
-//           width: 160,
-//           padding: const EdgeInsets.only(left: 14, right: 14),
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//             border: Border.all(color: MyColors.greyColor.withOpacity(0.3)),
-//             color: MyColors.whiteColor,
-//           ),
-//           elevation: 0,
-//         ),
-//         iconStyleData: IconStyleData (
-//           icon:  Icon(
-//             iconStyleData,
-//           ) ,
-
-//           iconSize: iconStyleDataSize!,
-//           iconEnabledColor: MyColors.greyColor,
-//           iconDisabledColor: MyColors.greyColor,
-//         ),
-//         dropdownStyleData: DropdownStyleData(
-//           maxHeight: 150,
-//           width: 150,
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//             color: MyColors.whiteColor,
-//           ),
-//           // offset: const Offset(-29, 0),
-//           scrollbarTheme: ScrollbarThemeData(
-//             radius: const Radius.circular(40),
-//             thickness: MaterialStateProperty.all<double>(6),
-//             thumbVisibility: MaterialStateProperty.all<bool>(true),
-//           ),
-//         ),
-//         menuItemStyleData: MenuItemStyleData(
-//           height: menuItemStyleDataHight!,
-//           padding: const EdgeInsets.only(left: 14, right: 14),
-//         ),
-//       ),
-//     ),
-//   );
-// }

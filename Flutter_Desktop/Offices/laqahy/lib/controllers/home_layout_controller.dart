@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_controller.dart';
+import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
@@ -24,6 +25,9 @@ class HomeLayoutController extends GetxController {
         }
         if (Get.isRegistered<UserController>()) {
           Get.delete<UserController>();
+        }
+        if (Get.isRegistered<OrdersController>()) {
+          Get.delete<OrdersController>();
         }
         if (Get.isRegistered<TechnicalSupportController>()) {
           Get.delete<TechnicalSupportController>();

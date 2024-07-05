@@ -17,6 +17,7 @@ use App\Http\Controllers\MotherDataController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficesUsersController;
 use App\Http\Controllers\OfficeOrderController;
+use App\Http\Controllers\OfficeStockVaccineController;
 use App\Http\Controllers\OrderStateController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
@@ -185,6 +186,10 @@ Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'officeLo
 Route::get('offices/general/home-total-count/{office_id}', [GeneralController::class, 'officesGetTotalCount']);
 // ------------------------------------------------------------
 
+// --------------------- Office Stock Vaccines Routes ------------------------
+Route::get('offices/vaccines/{office_id}', [OfficeStockVaccineController::class, 'getVaccines']);
+// ------------------------------------------------------------
+
 // --------------------- User Routes ------------------------
 Route::get('offices/users/get-admin/{id}', [OfficesUsersController::class, 'officeGetAdminData']);
 Route::post('offices/users/add-user', [OfficesUsersController::class, 'officeAddUser']);
@@ -202,6 +207,7 @@ Route::get('offices/orders/delivered/{office_id}', [OfficeOrderController::class
 Route::get('offices/orders/cancelled/{office_id}', [OfficeOrderController::class, 'officeCancelledOrders']);
 Route::patch('offices/orders/confirm-delivered', [OfficeOrderController::class, 'officeConfirmDeliveredOrder']);
 Route::patch('offices/orders/confirm-center-order/{id}', [OfficeOrderController::class, 'officeConfirmCenterOrder']);
+Route::patch('offices/orders/reject-center-order/{id}', [OfficeOrderController::class, 'officeRejectCenterOrder']);
 // ------------------------------------------------------------
 
 ///////////////////////////////////////// MOBILE Routes ////////////////////////////////////////////////////////////////////////////
