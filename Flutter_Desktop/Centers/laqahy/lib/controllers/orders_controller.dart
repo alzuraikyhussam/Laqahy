@@ -252,6 +252,7 @@ class OrdersController extends GetxController {
           isRejectedOrdersLoading(false);
           ApiExceptionWidgets()
               .myAccessDatabaseExceptionAlert(response.statusCode);
+          print(response.body);
         }
       } on SocketException catch (_) {
         isRejectedOrdersLoading(false);
