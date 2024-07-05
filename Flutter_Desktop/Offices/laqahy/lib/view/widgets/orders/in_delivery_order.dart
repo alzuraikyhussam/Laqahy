@@ -53,6 +53,7 @@ class _InDeliveryOrderState extends State<InDeliveryOrder> {
                     return myOrdersItem(
                       date: parsedDate,
                       height: 280,
+                      id: oc.inDeliveryOrders[index].id,
                       orderState: 'in_delivery',
                       officeName: oc.inDeliveryOrders[index].officeName!,
                       vaccineType: oc.inDeliveryOrders[index].vaccineType!,

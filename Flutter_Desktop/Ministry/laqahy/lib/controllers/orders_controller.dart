@@ -206,9 +206,10 @@ class OrdersController extends GetxController {
 
   Future<void> transferOrderToInDelivery(int id) async {
     isApprovalLoading(true);
+    print(quantityController.text);
     final order = Order(
       ministryNoteData: notesController.text,
-      quantity: int.tryParse(quantityController.text)!,
+      quantity: int.tryParse(quantityController.text),
     );
     try {
       var request = http.MultipartRequest(

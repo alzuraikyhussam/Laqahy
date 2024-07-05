@@ -101,24 +101,22 @@ class _ApiExceptionAlertState extends State<ApiExceptionAlert> {
               ),
             ]
           : [
-              Expanded(
-                child: myButton(
-                  onPressed: widget.onPressed ??
-                      () {
-                        Get.back();
-                      },
-                  backgroundColor: widget.backgroundColor ?? MyColors.redColor,
-                  text: widget.btnLabel,
-                  textStyle: MyTextStyles.font16WhiteBold,
-                ),
+              myButton(
+                onPressed: widget.onPressed ??
+                    () {
+                      Get.back();
+                    },
+                backgroundColor: widget.backgroundColor ?? MyColors.redColor,
+                text: widget.btnLabel,
+                textStyle: MyTextStyles.font16WhiteBold,
+                width: 150,
               ),
-              Expanded(
-                child: myButton(
-                  onPressed: widget.onCancelPressed,
-                  backgroundColor: MyColors.greyColor,
-                  text: 'إلغــاء الأمــر',
-                  textStyle: MyTextStyles.font16WhiteBold,
-                ),
+              myButton(
+                onPressed: widget.onCancelPressed,
+                backgroundColor: MyColors.greyColor,
+                text: 'إلغــاء الأمــر',
+                textStyle: MyTextStyles.font16WhiteBold,
+                width: 150,
               ),
             ],
     );

@@ -356,6 +356,7 @@ class OrdersController extends GetxController {
   }
 
   Future<void> confirmDeliveredOrder({required int orderId}) async {
+    isApprovalLoading(true);
     ApiExceptionWidgets().myOrderAlert(
       title: 'تأكيــد',
       description:

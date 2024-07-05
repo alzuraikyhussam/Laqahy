@@ -68,4 +68,5 @@ class ApiEndpoints {
   static const String rejectCenterOrder =
       '$baseUrl/offices/orders/reject-center-order';
   // --------------------------------------------------
+
 }

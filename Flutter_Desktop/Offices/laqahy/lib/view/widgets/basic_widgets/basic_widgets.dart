@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
+import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -1123,7 +1124,7 @@ myOrdersItem({
                             : myButton(
                                 // width: 180,
                                 onPressed: () async {
-                                  await oc.confirmCenterOrder(id!);
+                                  await oc.confirmDeliveredOrder(orderId: id!);
                                 },
                                 text: 'تأكيــد الاســتلام',
                                 textStyle: MyTextStyles.font16WhiteBold,
@@ -1228,3 +1229,75 @@ myLoadingIndicator({
     ),
   );
 }
+
+myVaccineCards({
+  String title = 'unknown',
+  int quantity = 0,
+  required int id,
+}) {
+  VaccineController vc = Get.put(VaccineController());
+
+  return Container(
+    padding: const EdgeInsets.all(15),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(
+        color: MyColors.greyColor.withOpacity(0.2),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: MyColors.greyColor.withOpacity(0.2),
+          blurRadius: 10,
+        ),
+      ],
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          height: Get.height,
+          width: 90,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: MyColors.primaryColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Image.asset(
+            'assets/icons/vaccines-icon.png',
+            fit: BoxFit.contain,
+          ),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'لقـاح ${title}',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: MyTextStyles.font16PrimaryBold,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                '$quantity',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: MyTextStyles.font18BlackBold,
+              ),
+            ],
+          ),
+        ),
+      
+      ],
+    ),
+  );
+}
+

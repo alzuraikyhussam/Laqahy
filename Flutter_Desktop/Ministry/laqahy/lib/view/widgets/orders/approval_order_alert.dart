@@ -61,7 +61,7 @@ class _ApprovalOrderAlertState extends State<ApprovalOrderAlert> {
                 myTextField(
                   controller: olc.quantityController,
                   validator: olc.qtyValidator,
-                  prefixIcon: Icons.source_outlined,
+                  prefixIcon: Icons.numbers,
                   hintText: 'تحديد الكمية',
                   keyboardType: TextInputType.text,
                   onChanged: (value) {},

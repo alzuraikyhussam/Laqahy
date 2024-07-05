@@ -7,6 +7,7 @@ import 'package:laqahy/view/widgets/home/home.dart';
 import 'package:laqahy/view/widgets/system_info/system_info.dart';
 import 'package:laqahy/view/widgets/support/support.dart';
 import 'package:laqahy/view/widgets/users/users.dart';
+import 'package:laqahy/view/widgets/vaccines/vaccines.dart';
 
 class HomeBodySide extends StatefulWidget {
   const HomeBodySide({super.key});
@@ -37,7 +38,7 @@ class _HomeBodySideState extends State<HomeBodySide> {
             } else if (hlc.choose.value == 'المستخدمين') {
               return const UsersScreen();
             } else if (hlc.choose.value == 'اللقاحات') {
-              return const SizedBox();
+              return const VaccinesScreen();
             } else if (hlc.choose.value == 'الطلبات') {
               return const OrdersLayout();
             } else if (hlc.choose.value == 'التقارير') {
