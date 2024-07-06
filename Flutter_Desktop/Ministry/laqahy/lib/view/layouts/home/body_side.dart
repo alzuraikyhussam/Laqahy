@@ -40,7 +40,7 @@ class _HomeBodySideState extends State<HomeBodySide> {
               return const HomeScreen();
             } else if (hlc.choose.value == 'المستخدمين') {
               return const UsersScreen();
-            } else if (hlc.choose.value == 'حسابات المراكز') {
+            } else if (hlc.choose.value == 'حسابات المكاتب') {
               return const AccountsPage();
             } else if (hlc.choose.value == 'اللقاحات') {
               return const VaccinesScreen();

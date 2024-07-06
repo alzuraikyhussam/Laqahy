@@ -45,7 +45,7 @@ class VaccineController extends GetxController {
   onInit() {
     super.onInit();
     fetchDonors();
-    fetchVaccines();
+    fetchVaccinesQuantity();
     fetchVaccinesStatement();
   }
 
@@ -289,8 +289,7 @@ class VaccineController extends GetxController {
     }).toList();
   }
 
-  Future<void> fetchVaccines() async {
-    clearTextFields();
+  Future<void> fetchVaccinesQuantity() async {
     fetchDataFuture.value = Future<void>(() async {
       try {
         isLoading(true);
@@ -325,7 +324,6 @@ class VaccineController extends GetxController {
   }
 
   Future<void> fetchVaccinesStatement() async {
-    clearTextFields();
     try {
       isTableLoading(true);
       final response = await http.get(
@@ -376,7 +374,7 @@ class VaccineController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        await fetchVaccines();
+        await fetchVaccinesQuantity();
         await fetchVaccinesStatement();
 
         Get.back();
@@ -419,7 +417,7 @@ class VaccineController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        await fetchVaccines();
+        await fetchVaccinesQuantity();
         await fetchVaccinesStatement();
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
@@ -456,7 +454,7 @@ class VaccineController extends GetxController {
       var request = await http
           .delete(Uri.parse('${ApiEndpoints.deleteVaccineStatement}/$id'));
       if (request.statusCode == 200) {
-        await fetchVaccines();
+        await fetchVaccinesQuantity();
         await fetchVaccinesStatement();
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();

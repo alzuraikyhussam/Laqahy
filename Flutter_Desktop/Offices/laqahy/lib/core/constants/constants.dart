@@ -619,7 +619,6 @@ class Constants {
 
   Widget vaccinesDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
-
     return Obx(() {
       if (controller.isVaccineLoading.value) {
         return myDropDownMenuButton2(

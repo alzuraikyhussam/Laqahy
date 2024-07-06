@@ -8,6 +8,7 @@ import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/orders/receiving_order_confirm_alert.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
 
@@ -1186,7 +1187,6 @@ myOrdersItem({
   required int quantity,
   double? height = 250,
 }) {
-  OrdersController oc = Get.put(OrdersController());
   return Container(
     padding: const EdgeInsets.all(25),
     height: height,
@@ -1217,9 +1217,7 @@ myOrdersItem({
               child: Row(
                 children: [
                   Text(
-                    orderState == 'outgoing' || orderState == 'rejected'
-                        ? 'اسم المكتب:'
-                        : 'اسم المركز:',
+                    'اسم المركز:',
                     style: MyTextStyles.font16PrimaryBold,
                   ),
                   const SizedBox(
@@ -1324,7 +1322,7 @@ myOrdersItem({
                   ),
                   Expanded(
                     child: Text(
-                      'لقد تم قبول طلبكم من قبل مكتب الصحة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم.',
+                      'لقد تم قبول طلبكم من قبل مكتب الصحة في المحافظة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم.',
                       style: MyTextStyles.font14GreyBold,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -1372,18 +1370,17 @@ myOrdersItem({
               ],
             ),
             orderState == 'in_delivery'
-                ? Obx(() {
-                    return oc.isApprovalLoading.value
-                        ? myLoadingIndicator()
-                        : myButton(
-                            // width: 180,
-                            onPressed: () async {
-                              await oc.receivingOrderConfirm(orderId: id!);
-                            },
-                            text: 'تأكيــد اســتلام الطلــب',
-                            textStyle: MyTextStyles.font16WhiteBold,
-                          );
-                  })
+                ? myButton(
+                    // width: 180,
+                    onPressed: () {
+                      myShowDialog(
+                        context: Get.context!,
+                        widgetName: ReceivingOrderConfirmAlert(orderId: id!),
+                      );
+                    },
+                    text: 'تأكيــد اســتلام الطلــب',
+                    textStyle: MyTextStyles.font16WhiteBold,
+                  )
                 : const SizedBox(),
           ],
         ),

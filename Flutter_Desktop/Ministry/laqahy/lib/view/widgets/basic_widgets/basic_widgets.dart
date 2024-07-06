@@ -1393,7 +1393,7 @@ myOrdersItem({
               child: Row(
                 children: [
                   Text(
-                    'اسم المركز الصحي:',
+                    'اسم المكتب:',
                     style: MyTextStyles.font16PrimaryBold,
                   ),
                   SizedBox(

@@ -51,10 +51,12 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                       );
                     } else {
                       if (vc.vaccines.isEmpty) {
-                        return ApiExceptionWidgets().myDataNotFound(
-                          onPressedRefresh: () {
-                            vc.fetchVaccinesQuantity();
-                          },
+                        return Center(
+                          child: ApiExceptionWidgets().myDataNotFound(
+                            onPressedRefresh: () {
+                              vc.fetchVaccinesQuantity();
+                            },
+                          ),
                         );
                       } else {
                         return GridView.builder(

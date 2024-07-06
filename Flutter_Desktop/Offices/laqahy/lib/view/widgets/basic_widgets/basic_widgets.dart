@@ -9,6 +9,8 @@ import 'package:laqahy/controllers/vaccine_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/orders/approval_center_order_alert.dart';
+import 'package:laqahy/view/widgets/orders/receiving_order_confirm_alert.dart';
 import 'package:laqahy/view/widgets/orders/reject_confirm_alert.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
@@ -931,7 +933,9 @@ myOrdersItem({
               child: Row(
                 children: [
                   Text(
-                    orderState == 'outgoing' || orderState == 'rejected'
+                    orderState == 'outgoing' ||
+                            orderState == 'rejected' ||
+                            orderState == 'in_delivery'
                         ? 'اسم المكتب:'
                         : 'اسم المركز:',
                     style: MyTextStyles.font16PrimaryBold,
@@ -941,7 +945,9 @@ myOrdersItem({
                   ),
                   Expanded(
                     child: Text(
-                      orderState == 'outgoing' || orderState == 'rejected'
+                      orderState == 'outgoing' ||
+                              orderState == 'rejected' ||
+                              orderState == 'in_delivery'
                           ? officeName ?? 'غير معروف'
                           : centerName ?? 'غير معروف',
                       overflow: TextOverflow.ellipsis,
@@ -1092,18 +1098,20 @@ myOrdersItem({
             orderState == 'incoming'
                 ? Row(
                     children: [
-                      Obx(() {
-                        return oc.isApprovalLoading.value
-                            ? myLoadingIndicator(width: 150)
-                            : myButton(
-                                width: 150,
-                                onPressed: () async {
-                                  await oc.approvalCenterOrder(orderId: id!);
-                                },
-                                text: 'موافقــة',
-                                textStyle: MyTextStyles.font16WhiteBold,
-                              );
-                      }),
+                      myButton(
+                        width: 150,
+                        onPressed: () {
+                          myShowDialog(
+                            context: Get.context!,
+                            widgetName: ApprovalCenterOrderAlert(
+                              orderId: id!,
+                              quantity: quantity,
+                            ),
+                          );
+                        },
+                        text: 'موافقــة',
+                        textStyle: MyTextStyles.font16WhiteBold,
+                      ),
                       const SizedBox(
                         width: 20,
                       ),
@@ -1122,18 +1130,18 @@ myOrdersItem({
                     ],
                   )
                 : orderState == 'in_delivery'
-                    ? Obx(() {
-                        return oc.isApprovalLoading.value
-                            ? myLoadingIndicator()
-                            : myButton(
-                                // width: 180,
-                                onPressed: () async {
-                                  await oc.receivingOrderConfirm(orderId: id!);
-                                },
-                                text: 'تأكيــد اســتلام الطلــب',
-                                textStyle: MyTextStyles.font16WhiteBold,
-                              );
-                      })
+                    ? myButton(
+                        // width: 180,
+                        onPressed: () {
+                          myShowDialog(
+                            context: Get.context!,
+                            widgetName:
+                                ReceivingOrderConfirmAlert(orderId: id!),
+                          );
+                        },
+                        text: 'تأكيــد اســتلام الطلــب',
+                        textStyle: MyTextStyles.font16WhiteBold,
+                      )
                     : const SizedBox(),
           ],
         ),

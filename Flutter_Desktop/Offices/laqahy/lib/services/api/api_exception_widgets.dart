@@ -287,6 +287,7 @@ class ApiExceptionWidgets {
         backgroundColor: MyColors.primaryColor,
         title: title,
         description: description,
+        imageUrl: 'assets/images/success.json',
       ),
     );
   }

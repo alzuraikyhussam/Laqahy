@@ -218,7 +218,7 @@ class StaticDataController extends GetxController {
     }
   }
 
-  void fetchVaccines() async {
+  Future<void> fetchVaccines() async {
     try {
       vaccineErrorMsg('');
       isVaccineLoading(true);
@@ -235,7 +235,6 @@ class StaticDataController extends GetxController {
             jsonData.map((e) => Vaccine.fromJson(e)).toList();
         vaccines.assignAll(fetchedVaccine);
       } else {
-        print(response.body);
         isVaccineLoading(false);
         vaccineErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
       }

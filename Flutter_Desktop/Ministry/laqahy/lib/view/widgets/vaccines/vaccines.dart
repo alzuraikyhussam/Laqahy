@@ -50,15 +50,17 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                       return Center(
                         child: ApiExceptionWidgets().mySnapshotError(
                             snapshot.error, onPressedRefresh: () {
-                          vc.fetchVaccines();
+                          vc.fetchVaccinesQuantity();
                         }),
                       );
                     } else {
                       if (vc.vaccines.isEmpty) {
-                        return ApiExceptionWidgets().myDataNotFound(
-                          onPressedRefresh: () {
-                            vc.fetchVaccines();
-                          },
+                        return Center(
+                          child: ApiExceptionWidgets().myDataNotFound(
+                            onPressedRefresh: () {
+                              vc.fetchVaccinesQuantity();
+                            },
+                          ),
                         );
                       } else {
                         return GridView.builder(
@@ -156,7 +158,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                                   child: myIconButton(
                                     icon: Icons.refresh_rounded,
                                     onTap: () {
-                                      vc.fetchVaccines();
+                                      vc.fetchVaccinesQuantity();
                                       vc.fetchVaccinesStatement();
                                     },
                                     gradientColors: [
