@@ -1,74 +1,142 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/mother_visit_data_model.dart';
+import 'package:laqahy/services/api/api_endpoints.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 
 class MotherVisitController extends GetxController {
-  RxList<MotherVisitData> myMotherVisitFilteredData = <MotherVisitData>[].obs;
+  StaticDataController sdc = Get.find<StaticDataController>();
 
-  List<MotherVisitData> myMotherVisitDataList = [];
-  RxBool sort = true.obs;
+  var motherStatement = [].obs;
+  var filteredMotherStatement = [].obs;
+  var isLoading = true.obs;
+  var isAddLoading = false.obs;
+  var isUpdateLoading = false.obs;
+  var isDeleteLoading = false.obs;
+  PaginatorController tableController = PaginatorController();
+  TextEditingController motherStatementSearchController = TextEditingController();
+  GlobalKey<FormState> createMotherStatementFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> editMotherStatementAccountFormKey = GlobalKey<FormState>();
+  int? centerId;
 
-  final motherVisitSearchController = TextEditingController();
+  void clearTextFields() {
+    sdc.selectedDosageLevelId.value = null;
+    sdc.selectedDosageTypeId.value = null;
+  }
 
   @override
-  onInit() {
-    myMotherVisitDataList = List<MotherVisitData>.from(myMotherVisitData);
-    myMotherVisitFilteredData.assignAll(myMotherVisitData);
+  onInit() async {
+    centerId = await sdc.storageService.getCenterId();
+    fetchMotherStatement(centerId);
+    sdc.fetchMothers();
+    sdc.fetchDosageLevel();
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-    dosageLevelSearchController.close();
+  void filterMotherStatement(String keyword) {
+    filteredMotherStatement.value = motherStatement.where((motherStatements) {
+      return motherStatements.name
+              .toString()
+              .toLowerCase()
+              .contains(keyword.toLowerCase()) ||
+          motherStatements.username
+              .toString()
+              .toLowerCase()
+              .contains(keyword.toLowerCase());
+    }).toList();
   }
 
-  String? dosageLevelSelectedValue;
-
-  final Rx<TextEditingController> dosageLevelSearchController =
-      TextEditingController().obs;
-
-  final List<String> dosageLevels = [
-    'أساسية',
-    'تنشيطية',
-  ];
-
-  changeDosageLevelSelectedValue(String selectedValue) {
-    dosageLevelSelectedValue = selectedValue;
-    update();
-  }
-
-  List<MotherVisitData> myMotherVisitData = [
-    MotherVisitData(
-      dosageType: 'الأولى',
-      fullUserName: 'شفيع احمد سعيد قائد',
-      healthCenter: 'مركز المظفر',
-      dosageDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      returnDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-    ),
-  ];
-
-  onSortColum(int columnIndex, bool ascending) {
-    if (columnIndex == 0) {
-      if (ascending) {
-        myMotherVisitFilteredData
-            .sort((a, b) => a.dosageType!.compareTo(b.dosageType!));
+  Future<void> fetchMotherStatement(var centerId) async {
+    try {
+      isLoading(true);
+      motherStatementSearchController.clear();
+      final response = await http.get(
+        Uri.parse('${ApiEndpoints.getMotherStatement}/$centerId'),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        motherStatement.value = jsonData.map((e) => MotherStatement.fromJson(e)).toList();
+        filteredMotherStatement.value = motherStatement;
+      } else if (response.statusCode == 500) {
+        isLoading(false);
+        ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
       } else {
-        myMotherVisitFilteredData
-            .sort((a, b) => b.dosageType!.compareTo(a.dosageType!));
+        isLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
       }
+    } on SocketException catch (_) {
+      isLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+    } catch (e) {
+      isLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isLoading(false);
     }
-    update();
   }
 
-  void filterMotherVisitData(String value) {
-    if (value.isEmpty) {
-      myMotherVisitFilteredData.assignAll(myMotherVisitDataList);
-    } else {
-      myMotherVisitFilteredData.assignAll(myMotherVisitDataList.where((element) =>
-          element.dosageType!.toLowerCase().contains(value.toLowerCase())));
+  Future<void> addMotherStatement() async {
+    int? centerID = await sdc.storageService.getCenterId();
+    int? userID = await sdc.userLoggedData.first.userId;
+    DateTime date_taking_dose = DateTime.now();
+    DateTime returnDate = date_taking_dose.add(const Duration(days: 28));
+    try {
+      isAddLoading(true);
+      final motherStatement = MotherStatement(
+                mother_data_id : sdc.selectedMothersId.value!,
+                healthy_center_id : centerID!,
+                user_id : userID!,
+                date_taking_dose : date_taking_dose,
+                return_date : returnDate,
+                dosage_type_id : sdc.selectedDosageTypeId.value!,
+                dosage_level_id : sdc.selectedDosageLevelId.value!,
+      );
+      var response = await http.post(
+        Uri.parse(ApiEndpoints.addMotherStatement),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(motherStatement.toJson()),
+      );
+
+      if (response.statusCode == 201) {
+        await fetchMotherStatement(centerId);
+        Get.back();
+        ApiExceptionWidgets().myAddedDataSuccessAlert();
+        clearTextFields();
+        isAddLoading(false);
+
+        return;
+      } else if (response.statusCode == 401) {
+        isAddLoading(false);
+        ApiExceptionWidgets().myUserAlreadyExistsAlert();
+        return;
+      } else {
+        isAddLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isAddLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isAddLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isAddLoading(false);
     }
   }
 }
