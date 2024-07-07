@@ -2,6 +2,7 @@ class CenterOrder {
   int? id;
   int? vaccineTypeId;
   int? centerId;
+  int? officeId;
   int? quantity;
   int? orderStateId;
   String? orderStateName;
@@ -18,6 +19,7 @@ class CenterOrder {
     this.vaccineTypeId,
     this.vaccineType,
     this.centerId,
+    this.officeId,
     this.centerName,
     this.orderStateId,
     this.orderStateName,
@@ -55,6 +57,7 @@ class CenterOrder {
 
   Map<String, dynamic> toJson() {
     return {
+      'office_id': officeId,
       'quantity': quantity,
       'office_note_data': officeNoteData,
     };

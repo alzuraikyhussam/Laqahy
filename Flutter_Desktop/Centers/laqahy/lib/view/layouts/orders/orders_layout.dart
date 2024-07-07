@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/layouts/orders/body_side.dart';
 import 'package:laqahy/view/layouts/orders/tab_bar_side.dart';
@@ -16,6 +17,7 @@ class OrdersLayout extends StatefulWidget {
 
 class _OrdersLayoutState extends State<OrdersLayout> {
   OrdersController oc = Get.put(OrdersController());
+  StaticDataController sdc = Get.find<StaticDataController>();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class _OrdersLayoutState extends State<OrdersLayout> {
                     oc.fetchInDeliveryOrders();
                     oc.fetchDeliveredOrders();
                     oc.fetchRejectedOrders();
+                    await sdc.fetchVaccines();
                   },
                   gradientColors: [
                     MyColors.primaryColor,

@@ -12,14 +12,15 @@ import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class OrdersController extends GetxController {
+  StaticDataController sdc = Get.find<StaticDataController>();
+
   @override
   void onInit() async {
+    await sdc.fetchVaccines();
     centerId = await sdc.storageService.getCenterId();
-    sdc.fetchVaccines();
+
     super.onInit();
   }
-
-  StaticDataController sdc = Get.find<StaticDataController>();
 
   int? centerId;
 
@@ -52,7 +53,6 @@ class OrdersController extends GetxController {
   GlobalKey<FormState> addOrderFormKey = GlobalKey<FormState>();
   TextEditingController quantityController = TextEditingController();
   TextEditingController notesController = TextEditingController();
-  TextEditingController rejectReasonController = TextEditingController();
 
   onChangedTapOrder(String order) {
     orderTapChange.value = order;
@@ -61,7 +61,6 @@ class OrdersController extends GetxController {
   clearTextFields() {
     quantityController.clear();
     notesController.clear();
-    rejectReasonController.clear();
     sdc.selectedVaccine.value = null;
   }
 
@@ -268,58 +267,48 @@ class OrdersController extends GetxController {
 
   Future<void> receivingOrderConfirm({required int orderId}) async {
     isApprovalLoading(true);
-    myShowDialog(
-      context: Get.context!,
-      widgetName: ApiExceptionAlert(
-        title: 'تأكيــد اســتلام الطلــب',
-        description:
-            'لا يمكنك التراجع عن هذه العملية، هل انت متأكد من استلام هذا الطلب؟',
-        imageUrl: 'assets/images/warning.json',
-        onCancelPressed: () {
-          Get.back();
-        },
-        onPressed: () async {
-          isApprovalLoading(true);
 
-          final order = CenterOrder(
-            centerId: centerId,
-            id: orderId,
-          );
-          try {
-            var request = http.MultipartRequest(
-                'POST', Uri.parse(ApiEndpoints.receivingOrderConfirm));
-            request.fields['_method'] = 'PATCH';
-            request.fields['order_id'] = order.id.toString();
-            request.fields['healthy_center_id'] = order.centerId.toString();
-
-            var response = await request.send();
-
-            if (response.statusCode == 200) {
-              await fetchInDeliveryOrders();
-
-              isApprovalLoading(false);
-              return;
-            } else {
-              print(await response.stream.bytesToString());
-
-              isApprovalLoading(false);
-              ApiExceptionWidgets()
-                  .myAccessDatabaseExceptionAlert(response.statusCode);
-              return;
-            }
-          } on SocketException catch (_) {
-            isApprovalLoading(false);
-            ApiExceptionWidgets().mySocketExceptionAlert();
-            return;
-          } catch (e) {
-            isApprovalLoading(false);
-            ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
-            return;
-          } finally {
-            isApprovalLoading(false);
-          }
-        },
-      ),
+    final order = CenterOrder(
+      centerId: centerId,
+      id: orderId,
     );
+    try {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(ApiEndpoints.receivingOrderConfirm));
+      request.fields['_method'] = 'PATCH';
+      request.fields['order_id'] = order.id.toString();
+      request.fields['healthy_center_id'] = order.centerId.toString();
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        Get.back();
+        ApiExceptionWidgets().myOrderAlert(
+          title: 'تم الاستلام بنجاح',
+          description: 'لقد تمت عملية استلام الطلب بنجاح',
+        );
+        await fetchInDeliveryOrders();
+
+        isApprovalLoading(false);
+        return;
+      } else {
+        print(await response.stream.bytesToString());
+
+        isApprovalLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isApprovalLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isApprovalLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      return;
+    } finally {
+      isApprovalLoading(false);
+    }
   }
 }

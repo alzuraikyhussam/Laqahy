@@ -51,7 +51,7 @@ class _RejectedOrderState extends State<RejectedOrder> {
                     return myOrdersItem(
                       orderState: 'rejected',
                       id: oc.rejectedOrders[index].id!,
-                      centerName: oc.rejectedOrders[index].officeName!,
+                      officeName: oc.rejectedOrders[index].officeName!,
                       vaccineType: oc.rejectedOrders[index].vaccineType!,
                       quantity: oc.rejectedOrders[index].quantity!,
                       note: oc.rejectedOrders[index].ministryNoteData!,

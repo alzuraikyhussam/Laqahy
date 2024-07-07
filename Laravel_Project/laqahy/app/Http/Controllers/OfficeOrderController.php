@@ -154,7 +154,7 @@ class OfficeOrderController extends Controller
 
             // إعادة الاستجابة بالبيانات المحدثة
             return response()->json([
-                'message' => 'Order transferred successfully',
+                'message' => 'Order undo successfully',
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -184,6 +184,45 @@ class OfficeOrderController extends Controller
     }
 
     ////////////////////////////////// Offices /////////////////////////////////////
+
+    public function officeAddOrder(Request $request)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'vaccine_type_id' => 'required',
+                    'office_id' => 'required',
+                    'quantity' => 'required',
+                ],
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
+
+            $orderState = Order_state::where('order_state', 'صادرة')->first();
+
+            $order = OfficeOrder::create([
+                'vaccine_type_id' => $request->vaccine_type_id,
+                'office_id' => $request->office_id,
+                'quantity' => $request->quantity,
+                'office_note_data' => $request->office_note_data,
+                'order_state_id' => $orderState->id,
+            ]);
+
+            return response()->json([
+                'message' => 'Order created successfully',
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+
+            ], 500);
+        }
+    }
 
     public function officeOutgoingOrders($office_id)
     {
@@ -303,50 +342,11 @@ class OfficeOrderController extends Controller
         }
     }
 
-    public function officeAddOrder(Request $request)
-    {
-        try {
-            $validator = Validator::make(
-                $request->all(),
-                [
-                    'vaccine_type_id' => 'required',
-                    'office_id' => 'required',
-                    'quantity' => 'required',
-                ],
-            );
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'message' => $validator->errors(),
-                ], 400);
-            }
-
-            $orderState = Order_state::where('order_state', 'صادرة')->first();
-
-            $order = OfficeOrder::create([
-                'vaccine_type_id' => $request->vaccine_type_id,
-                'office_id' => $request->office_id,
-                'quantity' => $request->quantity,
-                'office_note_data' => $request->office_note_data,
-                'order_state_id' => $orderState->id,
-            ]);
-
-            return response()->json([
-                'message' => 'Order created successfully',
-            ], 201);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-
-            ], 500);
-        }
-    }
-
     public function officeApprovalCenterOrder(Request $request, $id)
     {
         try {
             $order = HealthyCenterOrder::find($id);
-            $vaccineQty = Office_stock_vaccine::where('vaccine_type_id', $order->vaccine_type_id)->first();
+            $vaccineQty = Office_stock_vaccine::where([['vaccine_type_id', $order->vaccine_type_id], ['office_id', $request->office_id]])->first();
             $orderState = Order_state::where('order_state', 'قيد التسليم')->first();
 
             if (!$order) {

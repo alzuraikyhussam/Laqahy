@@ -13,14 +13,14 @@ import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class OrdersController extends GetxController {
+  StaticDataController sdc = Get.find<StaticDataController>();
+
   @override
   void onInit() async {
+    await sdc.fetchVaccines();
     officeId = await sdc.storageService.getOfficeId();
-    sdc.fetchVaccines();
     super.onInit();
   }
-
-  StaticDataController sdc = Get.find<StaticDataController>();
 
   int? officeId;
 
@@ -307,11 +307,13 @@ class OrdersController extends GetxController {
     final order = CenterOrder(
       officeNoteData: notesController.text,
       quantity: int.tryParse(quantityController.text)!,
+      officeId: officeId,
     );
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.approvalCenterOrder}/$orderId'));
       request.fields['_method'] = 'PATCH';
+      request.fields['office_id'] = order.officeId.toString();
       request.fields['quantity'] = order.quantity.toString();
       request.fields['office_note_data'] = order.officeNoteData.toString();
 
@@ -363,65 +365,55 @@ class OrdersController extends GetxController {
 
   Future<void> receivingOrderConfirm({required int orderId}) async {
     isApprovalLoading(true);
-    myShowDialog(
-      context: Get.context!,
-      widgetName: ApiExceptionAlert(
-        title: 'تأكيــد اســتلام الطلــب',
-        description:
-            'لا يمكنك التراجع عن هذه العملية، هل انت متأكد من استلام هذا الطلب؟',
-        imageUrl: 'assets/images/warning.json',
-        onCancelPressed: () {
-          Get.back();
-        },
-        onPressed: () async {
-          isApprovalLoading(true);
 
-          final order = OfficeOrder(
-            officeId: officeId,
-            id: orderId,
-          );
-          try {
-            var request = http.MultipartRequest(
-                'POST', Uri.parse(ApiEndpoints.receivingOrderConfirm));
-            request.fields['_method'] = 'PATCH';
-            request.fields['order_id'] = order.id.toString();
-            request.fields['office_id'] = order.officeId.toString();
-
-            var response = await request.send();
-
-            if (response.statusCode == 200) {
-              await fetchInDeliveryOrders();
-
-              isApprovalLoading(false);
-              return;
-            } else {
-              print(await response.stream.bytesToString());
-
-              isApprovalLoading(false);
-              ApiExceptionWidgets()
-                  .myAccessDatabaseExceptionAlert(response.statusCode);
-              return;
-            }
-          } on SocketException catch (_) {
-            isApprovalLoading(false);
-            ApiExceptionWidgets().mySocketExceptionAlert();
-            return;
-          } catch (e) {
-            isApprovalLoading(false);
-            ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
-            return;
-          } finally {
-            isApprovalLoading(false);
-          }
-        },
-      ),
+    final order = OfficeOrder(
+      officeId: officeId,
+      id: orderId,
     );
+    try {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(ApiEndpoints.receivingOrderConfirm));
+      request.fields['_method'] = 'PATCH';
+      request.fields['order_id'] = order.id.toString();
+      request.fields['office_id'] = order.officeId.toString();
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        Get.back();
+        ApiExceptionWidgets().myOrderAlert(
+          title: 'تم الاستلام بنجاح',
+          description: 'لقد تمت عملية استلام الطلب بنجاح',
+        );
+        await fetchInDeliveryOrders();
+
+        isApprovalLoading(false);
+        return;
+      } else {
+        print(await response.stream.bytesToString());
+
+        isApprovalLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        return;
+      }
+    } on SocketException catch (_) {
+      isApprovalLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isApprovalLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      return;
+    } finally {
+      isApprovalLoading(false);
+    }
   }
 
   Future<void> rejectCenterOrder(int id) async {
     isRejectLoading(true);
     final order = CenterOrder(
-      officeNoteData: notesController.text,
+      officeNoteData: rejectReasonController.text,
     );
     try {
       var request = http.MultipartRequest(
@@ -438,7 +430,7 @@ class OrdersController extends GetxController {
           description: 'لقد تمت عملية الرفض بنجاح',
         );
 
-        await fetchRejectedOrders();
+        await fetchIncomingOrders();
         isRejectLoading(false);
         return;
       } else {

@@ -103,7 +103,7 @@ class _OrderTabBarSideState extends State<OrderTabBarSide> {
               child: InkWell(
                 onTap: () {
                   oc.onChangeOrder('delivered');
-                  oc.fetchInDeliveryOrders();
+                  oc.fetchDeliveredOrders();
                 },
                 child: Container(
                   decoration: oc.orderTapChange.value == 'delivered'

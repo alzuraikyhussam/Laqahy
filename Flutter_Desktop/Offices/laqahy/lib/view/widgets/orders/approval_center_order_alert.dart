@@ -6,39 +6,43 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class RejectConfirmAlert extends StatefulWidget {
-  RejectConfirmAlert({super.key, required this.id});
+class ApprovalCenterOrderAlert extends StatefulWidget {
+  ApprovalCenterOrderAlert(
+      {super.key, required this.orderId, required this.quantity});
 
-  int id;
+  int orderId;
+  int quantity;
 
   @override
-  State<RejectConfirmAlert> createState() => _RejectConfirmAlertState();
+  State<ApprovalCenterOrderAlert> createState() =>
+      _ApprovalCenterOrderAlertState();
 }
 
-class _RejectConfirmAlertState extends State<RejectConfirmAlert> {
-  OrdersController olc = Get.put(OrdersController());
+class _ApprovalCenterOrderAlertState extends State<ApprovalCenterOrderAlert> {
+  OrdersController oc = Get.put(OrdersController());
 
   @override
   void initState() {
-    olc.clearTextFields();
+    oc.clearTextFields();
+    oc.quantityController.text = widget.quantity.toString();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: olc.rejectAlertFormKey,
+      key: oc.approvalAlertFormKey,
       child: AlertDialog(
         alignment: AlignmentDirectional.center,
         actionsAlignment: MainAxisAlignment.center,
         content: SizedBox(
-          height: 250,
+          height: 320,
           width: 350,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -50,20 +54,31 @@ class _RejectConfirmAlertState extends State<RejectConfirmAlert> {
                   ),
                 ),
                 Text(
-                  'هل أنت متأكد من عملية رفض الطلب؟',
-                  style: MyTextStyles.font16RedBold,
+                  'الموافقــة على الطلــب',
+                  style: MyTextStyles.font18PrimaryBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 myTextField(
-                  validator: olc.rejectReasonValidator,
-                  controller: olc.rejectReasonController,
+                  controller: oc.quantityController,
+                  validator: oc.qtyValidator,
+                  prefixIcon: Icons.numbers,
+                  hintText: 'تحديد الكمية',
+                  keyboardType: TextInputType.text,
+                  onChanged: (value) {},
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                myTextField(
+                  validator: oc.notesValidator,
+                  controller: oc.notesController,
                   maxLines: 2,
                   maxLength: 150,
                   heightFactor: 1.8,
-                  prefixIcon: Icons.info_outline_rounded,
-                  hintText: 'سبب الرفض',
+                  prefixIcon: Icons.message_outlined,
+                  hintText: 'ملاحظات',
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (value) {},
                 ),
@@ -73,24 +88,24 @@ class _RejectConfirmAlertState extends State<RejectConfirmAlert> {
         ),
         actions: [
           Obx(() {
-            return olc.isRejectLoading.value
-                ? myLoadingIndicator()
+            return oc.isApprovalLoading.value
+                ? myLoadingIndicator(width: 150)
                 : myButton(
-                    onPressed: olc.isRejectLoading.value
+                    onPressed: oc.isApprovalLoading.value
                         ? null
-                        : () {
-                            if (olc.rejectAlertFormKey.currentState!
+                        : () async {
+                            if (oc.approvalAlertFormKey.currentState!
                                 .validate()) {
-                              olc.rejectOrder(widget.id);
+                              await oc.approvalCenterOrder(
+                                  orderId: widget.orderId);
                             }
                           },
                     width: 150,
-                    backgroundColor: MyColors.redColor,
-                    text: 'رفـــض',
+                    text: 'موافــق',
                     textStyle: MyTextStyles.font16WhiteBold,
                   );
           }),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           myButton(

@@ -51,6 +51,7 @@ class _AddDonorState extends State<AddDonor> {
                   height: 20,
                 ),
                 myTextField(
+                  autofocus: true,
                   width: 320,
                   controller: vc.donorController,
                   validator: vc.addDonorValidator,

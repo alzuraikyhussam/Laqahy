@@ -331,7 +331,7 @@ class StaticDataController extends GetxController {
     }
   }
 
-  void fetchVaccines() async {
+  Future<void> fetchVaccines() async {
     try {
       vaccineErrorMsg('');
       isVaccineLoading(true);
