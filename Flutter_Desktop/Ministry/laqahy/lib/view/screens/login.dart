@@ -18,11 +18,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   StaticDataController controller = Get.find<StaticDataController>();
+  LoginController lc = Get.put(LoginController());
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  Widget build(BuildContext context) {
     WindowOptions loginWindowOptions = const WindowOptions(
       size: Size(800, 500),
       center: true,
@@ -37,11 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
       await windowManager.show();
       await windowManager.focus();
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    LoginController lc = Get.put(LoginController());
     return Scaffold(
       body: Stack(
         children: [

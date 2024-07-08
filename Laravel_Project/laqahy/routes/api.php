@@ -56,7 +56,7 @@ Route::get('ministry/general/home-total-count', [GeneralController::class, 'getT
 // --------------------- Post Routes ------------------------
 Route::get('ministry/posts/trashed', [PostController::class, 'trashedPosts']);
 Route::delete('ministry/posts/force-delete/{id}', [PostController::class, 'forceDelete']);
-// Route::delete('ministry/posts/force-delete-all', [PostController::class, 'forceDeleteAll']);
+Route::delete('ministry/posts/force-delete-all', [PostController::class, 'forceDeleteAll']);
 Route::patch('ministry/posts/restore/{id}', [PostController::class, 'restore']);
 Route::patch('ministry/posts/restore-all', [PostController::class, 'restoreAll']);
 Route::post('ministry/posts/add-post', [PostController::class, 'store']);

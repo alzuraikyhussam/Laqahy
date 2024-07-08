@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/view/screens/welcome.dart';
-import 'package:window_manager/window_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

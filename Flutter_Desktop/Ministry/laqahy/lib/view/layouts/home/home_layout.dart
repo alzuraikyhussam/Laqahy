@@ -23,23 +23,21 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     WindowOptions homeWindowOptions = const WindowOptions(
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
       titleBarStyle: TitleBarStyle.hidden,
     );
     windowManager.waitUntilReadyToShow(homeWindowOptions, () async {
-      await windowManager.setResizable(false);
       await windowManager.setFullScreen(true);
+      await windowManager.setResizable(false);
       await windowManager.setTitle('Laqahy | لقـاحي');
       await windowManager.show();
       await windowManager.focus();
     });
-
     windowManager.addListener(this);
     _init();
+    super.initState();
   }
 
   void _init() async {

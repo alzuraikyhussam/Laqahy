@@ -24,9 +24,14 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
   @override
   void initState() {
     StaticDataController sdc = Get.find<StaticDataController>();
-
-    // TODO: implement initState
+    sdc.fetchGenders();
     super.initState();
+  }
+
+  CreateAccountController cac = Get.put(CreateAccountController());
+
+  @override
+  Widget build(BuildContext context) {
     WindowOptions createAdminAccountWindowOptions = const WindowOptions(
       size: Size(1000, 600),
       center: true,
@@ -42,12 +47,6 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
       await windowManager.show();
       await windowManager.focus();
     });
-    sdc.fetchGenders();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    CreateAccountController cac = Get.put(CreateAccountController());
 
     return Scaffold(
       body: Stack(

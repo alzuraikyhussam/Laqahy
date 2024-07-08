@@ -24,10 +24,15 @@ class _CreateMinistryAccountScreenState
     extends State<CreateMinistryAccountScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     StaticDataController sdc = Get.find<StaticDataController>();
+    sdc.fetchCities();
+  }
 
+  CreateAccountController cac = Get.put(CreateAccountController());
+
+  @override
+  Widget build(BuildContext context) {
     WindowOptions createAccountWindowOptions = const WindowOptions(
       size: Size(900, 560),
       center: true,
@@ -42,12 +47,6 @@ class _CreateMinistryAccountScreenState
       await windowManager.show();
       await windowManager.focus();
     });
-    sdc.fetchCities();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    CreateAccountController cac = Get.put(CreateAccountController());
 
     return Scaffold(
       body: Stack(
