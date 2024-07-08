@@ -8,7 +8,7 @@ class Login {
   DateTime? userBirthDate;
   int? userGenderId;
   int? userPermissionId;
-  int? centerId;
+  int? officeId;
 
   Login({
     required this.userAccountName,
@@ -20,7 +20,7 @@ class Login {
     this.userName,
     this.userPermissionId,
     this.userPhone,
-    this.centerId,
+    this.officeId,
   });
 
   factory Login.fromJson(Map<String, dynamic> json) {
@@ -35,7 +35,7 @@ class Login {
       userAccountName: json['user_account_name'] ?? '',
       userAccountPassword: json['user_account_password'] ?? '',
       userGenderId: json['gender_id'] ?? 0,
-      centerId: json['healthy_center_id'] ?? 0,
+      officeId: json['office_id'] ?? 0,
       userPermissionId: json['permission_type_id'] ?? 0,
     );
   }

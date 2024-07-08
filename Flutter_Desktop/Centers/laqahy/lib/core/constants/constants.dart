@@ -553,7 +553,7 @@ class Constants {
             myShowDialog(
               context: Get.context!,
               widgetName: ApiExceptionAlert(
-                title: 'تنبيــه',
+                title: 'خطـــأ',
                 description: 'من فضلك، قم باختيار المحافظة أولاً',
                 height: 280,
               ),
@@ -882,7 +882,7 @@ class Constants {
             myShowDialog(
               context: Get.context!,
               widgetName: ApiExceptionAlert(
-                title: 'تنبيــه',
+                title: 'خطـــأ',
                 description: 'من فضلك، قم باختيار مرحلة الجرعة أولاً',
                 height: 280,
               ),

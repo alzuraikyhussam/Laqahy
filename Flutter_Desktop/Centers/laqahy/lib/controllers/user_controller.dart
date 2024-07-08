@@ -235,21 +235,21 @@ class UserController extends GetxController {
     var gender,
     var birthDate,
   ) async {
-    DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthDate);
-    int? centerID = await sdc.storageService.getCenterId();
-    isUpdateLoading(true);
-    final user = User(
-      centerId: centerID!,
-      name: name,
-      phone: phone,
-      address: address,
-      userGenderId: gender!,
-      username: userName,
-      password: password,
-      userPermissionId: permission,
-      birthDate: parsedBirthDate,
-    );
     try {
+      DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthDate);
+      int? centerID = await sdc.storageService.getCenterId();
+      isUpdateLoading(true);
+      final user = User(
+        centerId: centerID!,
+        name: name,
+        phone: phone,
+        address: address,
+        userGenderId: gender!,
+        username: userName,
+        password: password,
+        userPermissionId: permission,
+        birthDate: parsedBirthDate,
+      );
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.updateUser}/$userId'));
       request.fields['_method'] = 'PATCH';

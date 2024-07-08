@@ -88,7 +88,6 @@ class PostController extends Controller
 
             ], 500);
         }
-
     }
 
     /**
@@ -233,26 +232,26 @@ class PostController extends Controller
         }
     }
 
-    public function forceDeleteAll()
-    {
-        try {
-            // Retrieve all soft deleted posts and force delete them
-            $deletedCount = Post::onlyTrashed()->forceDelete();
+    // public function forceDeleteAll()
+    // {
+    //     try {
+    //         // Retrieve all soft deleted posts and force delete them
+    //         $deletedCount = Post::onlyTrashed()->forceDelete();
 
-            if ($deletedCount === 0) {
-                return response()->json(['message' => 'No soft deleted posts found.'], 404);
-            }
+    //         if ($deletedCount === 0) {
+    //             return response()->json(['message' => 'No soft deleted posts found.'], 404);
+    //         }
 
-            // Delete image
-            Storage::deleteDirectory('public/images');
+    //         // Delete image
+    //         Storage::deleteDirectory('public/images');
 
-            return response()->json(['message' => 'All soft deleted posts have been permanently deleted.'], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
+    //         return response()->json(['message' => 'All soft deleted posts have been permanently deleted.'], 200);
+    //     } catch (Exception $e) {
+    //         return response()->json([
+    //             'message' => $e->getMessage(),
+    //         ], 500);
+    //     }
+    // }
 
     public function restore($id)
     {

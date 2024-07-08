@@ -12,7 +12,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/core/utils/pdf/centers_pdf_generator.dart';
 import 'package:laqahy/core/utils/pdf/offices_pdf_generator.dart';
 import 'package:laqahy/core/utils/pdf/orders_pdf_generator.dart';
-import 'package:laqahy/core/utils/pdf/status_pdf_generator.dart';
+import 'package:laqahy/core/utils/pdf/states_pdf_generator.dart';
 import 'package:laqahy/core/utils/pdf/vaccines_pdf_generator.dart';
 import 'package:laqahy/core/utils/pdf/vaccines_stock_pdf_generator.dart';
 import 'package:laqahy/models/center_model.dart';
@@ -40,16 +40,19 @@ import 'package:http/http.dart' as http;
 import 'package:laqahy/view/widgets/reports/create_vaccines_report.dart';
 
 class ReportController extends GetxController {
+  StaticDataController sdc = Get.find<StaticDataController>();
+
   @override
-  onInit() {
+  onInit() async {
     fetchRegisteredOfficesInDropDownMenu();
     fetchDonors();
     fetchVaccinesInDropDownMenu();
     fetchOrderStateInDropDownMenu();
+    officeId = await sdc.storageService.getOfficeId();
     super.onInit();
   }
 
-  StaticDataController sdc = Get.find<StaticDataController>();
+  int? officeId;
 
   Constants cons = Constants();
 
@@ -124,7 +127,8 @@ class ReportController extends GetxController {
       if (adminData.value == null) {
         var adminId = await sdc.storageService.getAdminId();
         final response = await http.get(
-          Uri.parse('${ApiEndpoints.getAdmin}/$adminId'),
+          Uri.parse(
+              '${ApiEndpoints.getAdmin}?admin_id=$adminId&office_id=$officeId'),
           headers: {
             'content-Type': 'application/json',
           },
@@ -614,7 +618,7 @@ class ReportController extends GetxController {
             myShowDialog(
               context: Get.context!,
               widgetName: ApiExceptionAlert(
-                title: 'تنبيــه',
+                title: 'خطـــأ',
                 description: 'من فضلك، قم باختيار المكتب أولاً',
                 height: 280,
               ),
@@ -949,9 +953,9 @@ class ReportController extends GetxController {
   }) async {
     int serialNum = 0;
     try {
-      late StatusPdfGenerator pdfGenerator;
+      late StatesPdfGenerator pdfGenerator;
       if (selectedStatusType.value!.id == 1) {
-        pdfGenerator = StatusPdfGenerator(
+        pdfGenerator = StatesPdfGenerator(
           reportName: reportName,
           data: mothersData
               .map(
@@ -988,7 +992,7 @@ class ReportController extends GetxController {
         );
         await pdfGenerator.generatePdf(context);
       } else if (selectedStatusType.value!.id == 2) {
-        pdfGenerator = StatusPdfGenerator(
+        pdfGenerator = StatesPdfGenerator(
           reportName: reportName,
           data: childrenData
               .map(

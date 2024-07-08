@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/accounts_controller.dart';
 import 'package:laqahy/controllers/home_controller.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
@@ -27,6 +28,9 @@ class HomeLayoutController extends GetxController {
         if (Get.isRegistered<UserController>()) {
           Get.delete<UserController>();
         }
+        if (Get.isRegistered<AccountsController>()) {
+          Get.delete<AccountsController>();
+        }
         if (Get.isRegistered<OrdersController>()) {
           Get.delete<OrdersController>();
         }
@@ -51,7 +55,6 @@ class HomeLayoutController extends GetxController {
       image: 'assets/images/logout-image.png',
       text: 'هل انت متأكد من عملية تسجيل الخروج من حسابك؟',
       onConfirmBtnTap: () {
-        Get.back();
         Get.offAll(() => LoginScreen());
       },
       onCancelBtnTap: () {

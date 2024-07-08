@@ -115,6 +115,7 @@ class UserController extends GetxController {
 
   @override
   onInit() async {
+    isLoading(true);
     officeId = await sdc.storageService.getOfficeId();
     fetchUsers(officeId);
     sdc.fetchGenders();
@@ -196,8 +197,9 @@ class UserController extends GetxController {
 
       if (response.statusCode == 201) {
         await fetchUsers(officeId);
-        clearTextFields();
         Get.back();
+        clearTextFields();
+
         ApiExceptionWidgets().myAddedDataSuccessAlert();
 
         isAddLoading(false);
@@ -236,21 +238,21 @@ class UserController extends GetxController {
     var gender,
     var birthDate,
   ) async {
-    DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthDate);
-    int? officeID = await sdc.storageService.getOfficeId();
-    isUpdateLoading(true);
-    final user = User(
-      officeId: officeID!,
-      name: name,
-      phone: phone,
-      address: address,
-      userGenderId: gender!,
-      username: userName,
-      password: password,
-      userPermissionId: permission,
-      birthDate: parsedBirthDate,
-    );
     try {
+      DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthDate);
+      int? officeID = await sdc.storageService.getOfficeId();
+      isUpdateLoading(true);
+      final user = User(
+        officeId: officeID!,
+        name: name,
+        phone: phone,
+        address: address,
+        userGenderId: gender!,
+        username: userName,
+        password: password,
+        userPermissionId: permission,
+        birthDate: parsedBirthDate,
+      );
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.updateUser}/$userId'));
       request.fields['_method'] = 'PATCH';

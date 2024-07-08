@@ -209,7 +209,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                           onChanged: (value) {},
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 20,
                         ),
                         Row(
                           children: [

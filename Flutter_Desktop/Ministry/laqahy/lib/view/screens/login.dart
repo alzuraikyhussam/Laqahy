@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           Obx(() {
                             return lc.isLoading.value
-                                ? myLoadingIndicator()
+                                ? myLoadingIndicator(width: 150)
                                 : myButton(
                                     onPressed: lc.isLoading.value
                                         ? null

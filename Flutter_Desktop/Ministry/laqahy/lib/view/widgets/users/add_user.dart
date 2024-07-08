@@ -260,7 +260,7 @@ class _AddUserState extends State<AddUser> {
                 children: [
                   Obx(() {
                     return uc.isAddLoading.value
-                        ? myLoadingIndicator()
+                        ? myLoadingIndicator(width: 150)
                         : myButton(
                             width: 150,
                             onPressed: uc.isAddLoading.value

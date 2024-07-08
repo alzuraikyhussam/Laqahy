@@ -61,7 +61,7 @@ class _HomeTopBarSideState extends State<HomeTopBarSide> {
                   ? Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           hlc.choose.value == 'الرئيسية'
                               ? Expanded(
@@ -94,17 +94,21 @@ class _HomeTopBarSideState extends State<HomeTopBarSide> {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Obx(() => Text(
-                        controller.greeting.value,
-                        style: MyTextStyles.font16PrimaryBold,
-                      )),
-                  Text(
-                    controller.userLoggedData.first.userName!,
-                    style: MyTextStyles.font16GreyBold,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                  Expanded(
+                    child: Obx(() => Text(
+                          controller.greeting.value,
+                          style: MyTextStyles.font16PrimaryBold,
+                        )),
+                  ),
+                  Expanded(
+                    child: Text(
+                      controller.userLoggedData.first.userName!,
+                      style: MyTextStyles.font16GreyBold,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
                 ],
               ),

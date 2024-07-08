@@ -2,38 +2,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/accounts_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class AddOfficeAccount extends StatefulWidget {
-  AddOfficeAccount({
+class AddCenterAccount extends StatefulWidget {
+  const AddCenterAccount({
     super.key,
   });
 
   @override
-  State<AddOfficeAccount> createState() => _AddOfficeAccountState();
+  State<AddCenterAccount> createState() => _AddCenterAccountState();
 }
 
-class _AddOfficeAccountState extends State<AddOfficeAccount> {
+class _AddCenterAccountState extends State<AddCenterAccount> {
   AccountsController cac = Get.put(AccountsController());
-
-  @override
-  void initState() {
-    cac.fetchUnRegisteredOfficesInDropDownMenu();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: cac.addOfficeAccountFormKey,
+      key: cac.addCenterAccountFormKey,
       child: AlertDialog(
         alignment: AlignmentDirectional.center,
         actionsAlignment: MainAxisAlignment.center,
         content: SizedBox(
-          height: 280,
-          width: 520,
+          height: 290,
+          width: 500,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -50,7 +46,7 @@ class _AddOfficeAccountState extends State<AddOfficeAccount> {
                   ),
                 ),
                 Text(
-                  'إضــافة مكــتب جـديــد',
+                  'إضــافة مــركز جـديــد',
                   style: MyTextStyles.font18PrimaryBold,
                 ),
                 const SizedBox(
@@ -59,33 +55,51 @@ class _AddOfficeAccountState extends State<AddOfficeAccount> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: cac.unregisteredOfficesDropdownMenu(),
+                    myTextField(
+                      validator: cac.centerNameValidator,
+                      hintText: 'اسـم المـركز',
+                      controller: cac.centerNameController,
+                      width: 280,
+                      prefixIcon: Icons.house_outlined,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
                     ),
                     const SizedBox(
                       width: 10,
                     ),
-                    myTextField(
-                      controller: cac.phoneNumberController,
-                      validator: cac.phoneNumberValidator,
-                      width: 220,
-                      prefixIcon: Icons.phone_outlined,
-                      hintText: 'رقم الهاتف',
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) {},
+                    Expanded(
+                      child: myTextField(
+                        controller: cac.phoneNumberController,
+                        validator: cac.phoneNumberValidator,
+                        hintText: 'رقم الهاتف',
+                        prefixIcon: Icons.call_outlined,
+                        keyboardType: TextInputType.phone,
+                        onChanged: (value) {},
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                myTextField(
-                  hintText: 'العنـــوان',
-                  controller: cac.addressController,
-                  validator: cac.addressValidator,
-                  prefixIcon: Icons.location_on_outlined,
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {},
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    cac.directoratesDropdownMenu(),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: myTextField(
+                        hintText: 'العنوان',
+                        controller: cac.addressController,
+                        validator: cac.addressValidator,
+                        prefixIcon: Icons.location_on_outlined,
+                        keyboardType: TextInputType.text,
+                        onChanged: (value) {},
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -93,20 +107,15 @@ class _AddOfficeAccountState extends State<AddOfficeAccount> {
         ),
         actions: [
           Obx(() {
-            return cac.isUpdateLoading.value
+            return cac.isAddLoading.value
                 ? myLoadingIndicator(width: 150)
                 : myButton(
-                    onPressed: cac.isUpdateLoading.value
+                    onPressed: cac.isAddLoading.value
                         ? null
                         : () {
-                            if (cac.addOfficeAccountFormKey.currentState!
+                            if (cac.addCenterAccountFormKey.currentState!
                                 .validate()) {
-                              cac.updateOfficeAccount(
-                                officeId:
-                                    cac.selectedUnRegisteredOfficeId.value,
-                                phone: cac.phoneNumberController.text,
-                                address: cac.addressController.text,
-                              );
+                              cac.addCenterAccount();
                             }
                           },
                     width: 150,

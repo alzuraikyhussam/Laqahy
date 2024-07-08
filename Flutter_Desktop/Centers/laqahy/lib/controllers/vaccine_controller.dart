@@ -20,7 +20,6 @@ class VaccineController extends GetxController {
   @override
   onInit() async {
     super.onInit();
-    centerId = await sdc.storageService.getCenterId();
     fetchVaccinesQuantity();
   }
 
@@ -29,6 +28,8 @@ class VaccineController extends GetxController {
   Future<void> fetchVaccinesQuantity() async {
     fetchDataFuture.value = Future<void>(() async {
       try {
+        centerId = await sdc.storageService.getCenterId();
+
         isLoading(true);
         final response = await http.get(
           Uri.parse('${ApiEndpoints.getVaccinesQuantity}/$centerId'),

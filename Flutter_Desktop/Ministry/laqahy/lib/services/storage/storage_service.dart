@@ -15,8 +15,8 @@ class StorageService {
     prefs = await SharedPreferences.getInstance();
   }
 
-  Future<void> setCenterId(int centerId) async {
-    await prefs.setInt('centerId', centerId);
+  Future<void> setOfficeId(int officeId) async {
+    await prefs.setInt('officeId', officeId);
   }
 
   Future<void> setAdminId(int adminId) async {
@@ -29,8 +29,8 @@ class StorageService {
     controller.isRegistered.value = isRegistered;
   }
 
-  Future<int?> getCenterId() async {
-    return prefs.getInt('centerId') ?? 0;
+  Future<int?> getOfficeId() async {
+    return prefs.getInt('officeId') ?? 0;
   }
 
   Future<int?> getAdminId() async {

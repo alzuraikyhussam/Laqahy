@@ -30,7 +30,7 @@ class UserController extends GetxController {
   GlobalKey<FormState> editUserAccountFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
 
-  int? centerId;
+  int? officeId;
 
   String? nameValidator(value) {
     if (value.trim().isEmpty) {
@@ -116,8 +116,8 @@ class UserController extends GetxController {
 
   @override
   onInit() async {
-    centerId = await sdc.storageService.getCenterId();
-    fetchUsers(centerId);
+    officeId = await sdc.storageService.getOfficeId();
+    fetchUsers(officeId);
     sdc.fetchGenders();
     sdc.fetchPermissions();
     super.onInit();
@@ -136,12 +136,12 @@ class UserController extends GetxController {
     }).toList();
   }
 
-  Future<void> fetchUsers(var centerId) async {
+  Future<void> fetchUsers(var officeId) async {
     try {
       isLoading(true);
       userSearchController.clear();
       final response = await http.get(
-        Uri.parse('${ApiEndpoints.getUsers}/$centerId'),
+        Uri.parse('${ApiEndpoints.getUsers}/$officeId'),
         headers: {
           'content-Type': 'application/json',
         },
@@ -172,13 +172,13 @@ class UserController extends GetxController {
   }
 
   Future<void> addUser() async {
-    int? centerID = await sdc.storageService.getCenterId();
+    int? officeID = await sdc.storageService.getOfficeId();
     DateTime parsedBirthDate =
         DateFormat('MMM d, yyyy').parse(birthDateController.text);
     try {
       isAddLoading(true);
       final user = User(
-        centerId: centerID!,
+        officeId: officeID!,
         name: nameController.text,
         phone: phoneNumberController.text,
         address: addressController.text,
@@ -197,7 +197,7 @@ class UserController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        await fetchUsers(centerId);
+        await fetchUsers(officeId);
         Get.back();
         clearTextFields();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
@@ -238,21 +238,21 @@ class UserController extends GetxController {
     var gender,
     var birthDate,
   ) async {
-    DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthDate);
-    int? centerID = await sdc.storageService.getCenterId();
-    isUpdateLoading(true);
-    final user = User(
-      centerId: centerID!,
-      name: name,
-      phone: phone,
-      address: address,
-      userGenderId: gender!,
-      username: userName,
-      password: password,
-      userPermissionId: permission,
-      birthDate: parsedBirthDate,
-    );
     try {
+      DateTime parsedBirthDate = DateFormat('MMM d, yyyy').parse(birthDate);
+      int? officeID = await sdc.storageService.getOfficeId();
+      isUpdateLoading(true);
+      final user = User(
+        officeId: officeID!,
+        name: name,
+        phone: phone,
+        address: address,
+        userGenderId: gender!,
+        username: userName,
+        password: password,
+        userPermissionId: permission,
+        birthDate: parsedBirthDate,
+      );
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.updateUser}/$userId'));
       request.fields['_method'] = 'PATCH';
@@ -264,13 +264,13 @@ class UserController extends GetxController {
       request.fields['user_account_name'] = user.username;
       request.fields['user_account_password'] = user.password;
       request.fields['gender_id'] = user.userGenderId.toString();
-      request.fields['healthy_center_id'] = user.centerId.toString();
+      request.fields['office_id'] = user.officeId.toString();
       request.fields['permission_type_id'] = user.userPermissionId.toString();
 
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        await fetchUsers(centerId);
+        await fetchUsers(officeId);
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
         isUpdateLoading(false);
@@ -322,7 +322,7 @@ class UserController extends GetxController {
           await http.delete(Uri.parse('${ApiEndpoints.deleteUser}/$userId'));
 
       if (request.statusCode == 200) {
-        await fetchUsers(centerId);
+        await fetchUsers(officeId);
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();
         isDeleteLoading(false);

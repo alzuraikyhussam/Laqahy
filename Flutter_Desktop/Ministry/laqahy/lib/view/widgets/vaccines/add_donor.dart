@@ -67,7 +67,7 @@ class _AddDonorState extends State<AddDonor> {
         actions: [
           Obx(() {
             return vc.isAddDonorLoading.value
-                ? myLoadingIndicator()
+                ? myLoadingIndicator(width: 150)
                 : myButton(
                     onPressed: vc.isAddDonorLoading.value
                         ? null

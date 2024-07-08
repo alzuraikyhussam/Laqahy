@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/accounts/edit_center_aacount.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/users/delete_user_confirm.dart';
 import 'package:laqahy/view/widgets/users/edit_user.dart';
@@ -43,6 +44,25 @@ class CentersAccountsRowSource extends DataTableSource {
               center.name ?? "غيـر معـروف",
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
+            ),
+          ),
+        ),
+        DataCell(
+          Container(
+            alignment: AlignmentDirectional.center,
+            child: Text(
+              center.createAccountCode != null
+                  ? center.createAccountCode.toString().toUpperCase()
+                  : "تم التسجيل",
+              textAlign: TextAlign.center,
+              style: center.createAccountCode != null
+                  ? TextStyle(
+                      letterSpacing: 2,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: MyColors.blackColor,
+                    )
+                  : MyTextStyles.font14PrimaryBold,
             ),
           ),
         ),
@@ -93,6 +113,28 @@ class CentersAccountsRowSource extends DataTableSource {
               center.address,
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
+            ),
+          ),
+        ),
+        DataCell(
+          Container(
+            alignment: AlignmentDirectional.center,
+            child: myIconButton(
+              icon: Icons.edit_rounded,
+              onTap: () {
+                myShowDialog(
+                  context: Get.context!,
+                  widgetName: EditCenterAccount(
+                    data: myData[index],
+                  ),
+                );
+              },
+              gradientColors: [
+                MyColors.primaryColor,
+                MyColors.secondaryColor,
+              ],
+              padding: const EdgeInsets.all(8),
+              iconSize: 22,
             ),
           ),
         ),

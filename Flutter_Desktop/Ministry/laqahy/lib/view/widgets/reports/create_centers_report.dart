@@ -63,7 +63,7 @@ class _CreateCentersReportDialogState extends State<CreateCentersReportDialog> {
         actions: [
           Obx(() {
             return rc.isGenerateCentersReportLoading.value
-                ? myLoadingIndicator()
+                ? myLoadingIndicator(width: 150)
                 : myButton(
                     onPressed: rc.isGenerateCentersReportLoading.value
                         ? null

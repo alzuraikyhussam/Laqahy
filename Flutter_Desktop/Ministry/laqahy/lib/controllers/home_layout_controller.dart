@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/centers_accounts_controller.dart';
+import 'package:laqahy/controllers/accounts_controller.dart';
 import 'package:laqahy/controllers/post_controller.dart';
 import 'package:laqahy/controllers/home_controller.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
@@ -63,8 +63,7 @@ class HomeLayoutController extends GetxController {
       image: 'assets/images/logout-image.png',
       text: 'هل انت متأكد من عملية تسجيل الخروج من حسابك؟',
       onConfirmBtnTap: () {
-        Get.back();
-        Get.offAll(() => LoginScreen());
+        Get.offAll(() => const LoginScreen());
       },
       onCancelBtnTap: () {
         Get.back();

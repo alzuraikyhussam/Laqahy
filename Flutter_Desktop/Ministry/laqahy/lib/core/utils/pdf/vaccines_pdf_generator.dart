@@ -51,7 +51,7 @@ class VaccinesPdfGenerator {
             bottom: 15,
           ),
           child:
-              pdfWidgets.buildHeader(centerData: sdc.centerData.first.phone!),
+              pdfWidgets.buildHeader(centerData: sdc.officeData.first.phone!),
         ),
         pdfWidgets.buildTitle(title: reportName ?? ''),
         pw.SizedBox(height: 20),

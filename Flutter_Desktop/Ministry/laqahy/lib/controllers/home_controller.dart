@@ -46,7 +46,7 @@ class HomeController extends GetxController {
     ),
     HomeCardItem(
       imagePath: 'assets/icons/order-icon.png',
-      title: 'عدد الطلبات',
+      title: 'عدد الطلبات المُسلَّمة',
       count: 0,
     ),
     HomeCardItem(
@@ -58,7 +58,6 @@ class HomeController extends GetxController {
 
   Future<void> fetchHomeCardItems() async {
     errorMsg('');
-
     fetchDataFuture.value = Future<void>(() async {
       try {
         isLoading(true);

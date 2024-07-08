@@ -1,50 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/accounts_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 // ignore: must_be_immutable
-class EditOfficeAccount extends StatefulWidget {
-  EditOfficeAccount({super.key, required this.data});
+class EditCenterAccount extends StatefulWidget {
+  EditCenterAccount({super.key, required this.data});
 
   var data;
 
   @override
-  State<EditOfficeAccount> createState() => _EditOfficeAccountState();
+  State<EditCenterAccount> createState() => _EditCenterAccountState();
 }
 
-class _EditOfficeAccountState extends State<EditOfficeAccount> {
+class _EditCenterAccountState extends State<EditCenterAccount> {
   AccountsController cac = Get.put(AccountsController());
+  StaticDataController sdc = Get.find<StaticDataController>();
 
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController officeNameController = TextEditingController();
+  TextEditingController centerNameController = TextEditingController();
 
   @override
   void initState() {
-    officeNameController.text = widget.data.name;
+    centerNameController.text = widget.data.name;
     addressController.text = widget.data.address;
     phoneNumberController.text = widget.data.phone;
+    sdc.selectedDirectorateId.value = widget.data.directorateId;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: cac.editOfficeAccountFormKey,
+      key: cac.editCenterAccountFormKey,
       child: AlertDialog(
         alignment: AlignmentDirectional.center,
         actionsAlignment: MainAxisAlignment.center,
-        content: Container(
-          height: 280,
+        content: SizedBox(
+          height: 290,
           width: 500,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -56,49 +60,60 @@ class _EditOfficeAccountState extends State<EditOfficeAccount> {
                   ),
                 ),
                 Text(
-                  'تعـــديل بيـــانات المـــكتب',
+                  'تعـــديل بيـــانات المـــركز',
                   style: MyTextStyles.font18PrimaryBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    myTextField(
+                      validator: cac.centerNameValidator,
+                      hintText: 'اسـم المـركز',
+                      controller: centerNameController,
+                      width: 280,
+                      prefixIcon: Icons.house_outlined,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     Expanded(
                       child: myTextField(
-                        controller: officeNameController,
-                        hintText: 'اسم المكتب',
-                        prefixIcon: Icons.house_outlined,
-                        readOnly: true,
+                        controller: phoneNumberController,
+                        validator: cac.phoneNumberValidator,
+                        hintText: 'رقم الهاتف',
+                        prefixIcon: Icons.call_outlined,
+                        keyboardType: TextInputType.phone,
+                        onChanged: (value) {},
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    cac.directoratesDropdownMenu(),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: myTextField(
+                        hintText: 'العنوان',
+                        controller: addressController,
+                        validator: cac.addressValidator,
+                        prefixIcon: Icons.location_on_outlined,
                         keyboardType: TextInputType.text,
                         onChanged: (value) {},
                       ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    myTextField(
-                      controller: phoneNumberController,
-                      validator: cac.phoneNumberValidator,
-                      width: 200,
-                      prefixIcon: Icons.phone_outlined,
-                      hintText: 'رقم الهاتف',
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) {},
-                    ),
                   ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                myTextField(
-                  hintText: 'العنـــوان',
-                  controller: addressController,
-                  validator: cac.addressValidator,
-                  prefixIcon: Icons.location_on_outlined,
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {},
                 ),
               ],
             ),
@@ -112,13 +127,13 @@ class _EditOfficeAccountState extends State<EditOfficeAccount> {
                     onPressed: cac.isUpdateLoading.value
                         ? null
                         : () {
-                            if (cac.editOfficeAccountFormKey.currentState!
+                            if (cac.editCenterAccountFormKey.currentState!
                                 .validate()) {
-                              cac.updateOfficeAccount(
-                                officeId: widget.data.id,
+                              cac.updateCenterAccount(
+                                id: widget.data.id,
+                                centerName: centerNameController.text,
                                 phone: phoneNumberController.text,
                                 address: addressController.text,
-                                alertType: 'edit',
                               );
                             }
                           },

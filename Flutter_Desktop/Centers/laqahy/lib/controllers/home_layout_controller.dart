@@ -51,7 +51,6 @@ class HomeLayoutController extends GetxController {
       image: 'assets/images/logout-image.png',
       text: 'هل انت متأكد من عملية تسجيل الخروج من حسابك؟',
       onConfirmBtnTap: () {
-        Get.back();
         Get.offAll(() => LoginScreen());
       },
       onCancelBtnTap: () {

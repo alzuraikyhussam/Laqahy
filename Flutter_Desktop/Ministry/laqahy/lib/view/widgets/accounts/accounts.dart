@@ -1,7 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/centers_accounts_controller.dart';
+import 'package:laqahy/controllers/accounts_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
@@ -516,7 +516,7 @@ class AccountsPage extends StatelessWidget {
                                   style: MyTextStyles.font14WhiteBold,
                                 ),
                               ),
-                              fixedWidth: 120,
+                              fixedWidth: 100,
                             ),
                           ],
                           source: OfficesAccountsRowSource(

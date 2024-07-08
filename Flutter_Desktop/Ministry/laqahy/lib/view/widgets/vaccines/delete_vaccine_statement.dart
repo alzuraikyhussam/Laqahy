@@ -20,10 +20,9 @@ class DeleteVaccineStatement extends StatelessWidget {
     return AlertDialog(
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,
-      content: Container(
-        padding: EdgeInsetsDirectional.all(10),
-        height: 360,
-        width: 320,
+      content: SizedBox(
+        height: 320,
+        width: 300,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -67,30 +66,33 @@ class DeleteVaccineStatement extends StatelessWidget {
                 Obx(() {
                   return vc.isDeleteLoading.value
                       ? myLoadingIndicator()
-                      : myButton(
-                          backgroundColor: MyColors.redColor,
-                          onPressed: vc.isDeleteLoading.value
-                              ? null
-                              : () {
-                                  vc.deleteVaccineStatement(
-                                    id,
-                                  );
-                                },
-                          text: 'حـــــذف',
-                          textStyle: MyTextStyles.font16WhiteBold,
-                          width: 130,
+                      : Expanded(
+                          child: myButton(
+                            backgroundColor: MyColors.redColor,
+                            onPressed: vc.isDeleteLoading.value
+                                ? null
+                                : () {
+                                    vc.deleteVaccineStatement(
+                                      id,
+                                    );
+                                  },
+                            text: 'حـــــذف',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                          ),
                         );
                 }),
                 SizedBox(
                   width: 15,
                 ),
-                myButton(
-                  backgroundColor: MyColors.greyColor,
-                  onPressed: () {
-                    Get.back();
-                  },
-                  text: 'الغـــاء اللأمــر',
-                  textStyle: MyTextStyles.font16WhiteBold,
+                Expanded(
+                  child: myButton(
+                    backgroundColor: MyColors.greyColor,
+                    onPressed: () {
+                      Get.back();
+                    },
+                    text: 'الغـــاء اللأمــر',
+                    textStyle: MyTextStyles.font16WhiteBold,
+                  ),
                 ),
               ],
             )
