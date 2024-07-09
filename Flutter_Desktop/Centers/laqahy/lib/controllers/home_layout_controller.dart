@@ -2,7 +2,11 @@ import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/child_status_data_controller.dart';
+import 'package:laqahy/controllers/child_visit_controller.dart';
 import 'package:laqahy/controllers/home_controller.dart';
+import 'package:laqahy/controllers/mother_status_data_controller.dart';
+import 'package:laqahy/controllers/mother_visit_controller.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
@@ -29,6 +33,18 @@ class HomeLayoutController extends GetxController {
         }
         if (Get.isRegistered<OrdersController>()) {
           Get.delete<OrdersController>();
+        }
+        if (Get.isRegistered<MotherStatusDataController>()) {
+          Get.delete<MotherStatusDataController>();
+        }
+        if (Get.isRegistered<MotherVisitController>()) {
+          Get.delete<MotherVisitController>();
+        }
+        if (Get.isRegistered<ChildVisitController>()) {
+          Get.delete<ChildVisitController>();
+        }
+        if (Get.isRegistered<ChildStatusDataController>()) {
+          Get.delete<ChildStatusDataController>();
         }
         if (Get.isRegistered<VaccineController>()) {
           Get.delete<VaccineController>();

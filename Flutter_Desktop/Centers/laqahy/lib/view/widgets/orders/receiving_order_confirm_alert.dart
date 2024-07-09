@@ -30,7 +30,7 @@ class _ReceivingOrderConfirmAlertState
 
   @override
   Widget build(BuildContext context) {
-    Constants().playErrorSound();
+    // Constants().playErrorSound();
     return AlertDialog(
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,

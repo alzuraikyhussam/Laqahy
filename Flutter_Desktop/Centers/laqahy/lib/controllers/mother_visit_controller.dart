@@ -20,12 +20,15 @@ class MotherVisitController extends GetxController {
   var isUpdateLoading = false.obs;
   var isDeleteLoading = false.obs;
   PaginatorController tableController = PaginatorController();
-  TextEditingController motherStatementSearchController = TextEditingController();
+  TextEditingController motherStatementSearchController =
+      TextEditingController();
   GlobalKey<FormState> createMotherStatementFormKey = GlobalKey<FormState>();
-  GlobalKey<FormState> editMotherStatementAccountFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> editMotherStatementAccountFormKey =
+      GlobalKey<FormState>();
   int? centerId;
 
   void clearTextFields() {
+    sdc.selectedMothersId.value = null;
     sdc.selectedDosageLevelId.value = null;
     sdc.selectedDosageTypeId.value = null;
   }
@@ -33,7 +36,7 @@ class MotherVisitController extends GetxController {
   @override
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
-    fetchMotherStatement(centerId);
+    fetchMotherStatement();
     sdc.fetchMothers();
     sdc.fetchDosageLevel();
     super.onInit();
@@ -41,18 +44,14 @@ class MotherVisitController extends GetxController {
 
   void filterMotherStatement(String keyword) {
     filteredMotherStatement.value = motherStatement.where((motherStatements) {
-      return motherStatements.name
-              .toString()
-              .toLowerCase()
-              .contains(keyword.toLowerCase()) ||
-          motherStatements.username
+      return motherStatements.motherName
               .toString()
               .toLowerCase()
               .contains(keyword.toLowerCase());
     }).toList();
   }
 
-  Future<void> fetchMotherStatement(var centerId) async {
+  Future<void> fetchMotherStatement() async {
     try {
       isLoading(true);
       motherStatementSearchController.clear();
@@ -65,7 +64,8 @@ class MotherVisitController extends GetxController {
       if (response.statusCode == 200) {
         isLoading(false);
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
-        motherStatement.value = jsonData.map((e) => MotherStatement.fromJson(e)).toList();
+        motherStatement.value =
+            jsonData.map((e) => MotherStatement.fromJson(e)).toList();
         filteredMotherStatement.value = motherStatement;
       } else if (response.statusCode == 500) {
         isLoading(false);
@@ -74,6 +74,7 @@ class MotherVisitController extends GetxController {
         isLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
+        print(response.body);
       }
     } on SocketException catch (_) {
       isLoading(false);
@@ -81,6 +82,7 @@ class MotherVisitController extends GetxController {
     } catch (e) {
       isLoading(false);
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      print(e);
     } finally {
       isLoading(false);
     }
@@ -94,13 +96,13 @@ class MotherVisitController extends GetxController {
     try {
       isAddLoading(true);
       final motherStatement = MotherStatement(
-                mother_data_id : sdc.selectedMothersId.value!,
-                healthy_center_id : centerID!,
-                user_id : userID!,
-                date_taking_dose : date_taking_dose,
-                return_date : returnDate,
-                dosage_type_id : sdc.selectedDosageTypeId.value!,
-                dosage_level_id : sdc.selectedDosageLevelId.value!,
+        mother_data_id: sdc.selectedMothersId.value!,
+        healthy_center_id: centerID!,
+        user_id: userID!,
+        date_taking_dose: date_taking_dose,
+        return_date: returnDate,
+        dosage_type_id: sdc.selectedDosageTypeId.value!,
+        dosage_level_id: sdc.selectedDosageLevelId.value!,
       );
       var response = await http.post(
         Uri.parse(ApiEndpoints.addMotherStatement),
@@ -111,7 +113,7 @@ class MotherVisitController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        await fetchMotherStatement(centerId);
+        await fetchMotherStatement();
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         clearTextFields();

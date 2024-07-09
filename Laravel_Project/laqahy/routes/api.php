@@ -16,6 +16,7 @@ use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
 use App\Http\Controllers\MotherStatement;
+use App\Http\Controllers\MotherStatementController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficesUsersController;
 use App\Http\Controllers\OfficeOrderController;
@@ -234,8 +235,8 @@ Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------
-Route::post('centers/mother-statement/get-mother-statement', [MotherStatement::class, 'index']);
-Route::post('centers/mother-statement/add-mother-statement', [MotherStatement::class, 'store']);
+Route::get('centers/mother-statement/get-mother-statement/{center_id}', [MotherStatementController::class, 'show']);
+Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
 // ------------------------------------------------------------
 
 // --------------------- Child Data Routes ------------------------
