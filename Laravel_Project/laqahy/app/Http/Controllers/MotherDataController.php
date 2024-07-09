@@ -76,7 +76,7 @@ class MotherDataController extends Controller
                 'mother_name' => $request->mother_name,
                 'mother_phone' => $request->mother_phone,
                 'mother_identity_num' => $request->mother_identity_num,
-                'mother_password'=>'password',
+                'mother_password' => 'password',
                 'mother_birthDate' => $request->mother_birthDate,
                 'mother_village' => $request->mother_village,
                 'cities_id' => $request->cities_id,
@@ -94,7 +94,6 @@ class MotherDataController extends Controller
 
             ], 500);
         }
-
     }
 
     /**
@@ -134,8 +133,32 @@ class MotherDataController extends Controller
         try {
 
             $minDate = Carbon::parse(Mother_data::min('created_at'))->toDateString();
-
             $maxDate = Carbon::parse(Mother_data::max('created_at'))->toDateString();
+
+            return response()->json([
+                'message' => 'Date range retrieved successfully',
+                'min_date' => $minDate,
+                'max_date' => $maxDate,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /////////////////////////// Offices ////////////////////////////////
+
+    public function officeGetDateRange($office_id)
+    {
+        try {
+
+            $motherMinDate = Mother_data::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->min('mother_data.created_at');
+
+            $motherMaxDate = Mother_data::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->max('mother_data.created_at');
+
+            $minDate = Carbon::parse($motherMinDate)->toDateString();
+            $maxDate = Carbon::parse($motherMaxDate)->toDateString();
 
             return response()->json([
                 'message' => 'Date range retrieved successfully',

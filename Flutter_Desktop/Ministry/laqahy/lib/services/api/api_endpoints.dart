@@ -132,7 +132,7 @@ class ApiEndpoints {
       '$baseUrl/ministry/reports/vaccines-qty-report';
 
   static const String getStatusReport =
-      '$baseUrl/ministry/reports/vaccines-qty-report';
+      '$baseUrl/ministry/reports/status-report';
   static const String getStatusInAllOfficesReport =
       '$baseUrl/ministry/reports/status-all-offices-report';
   static const String getStatusInAllCentersReport =
