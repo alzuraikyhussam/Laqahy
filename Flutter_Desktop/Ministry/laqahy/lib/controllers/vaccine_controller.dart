@@ -22,8 +22,8 @@ class VaccineController extends GetxController {
   var vaccineStatement = <VaccineStatement>[].obs;
   var fetchDataFuture = Future<void>.value().obs;
   var filteredVaccines = [].obs;
-  var isLoading = false.obs;
-  var isTableLoading = false.obs;
+  var isLoading = true.obs;
+  var isTableLoading = true.obs;
   var isAddLoading = false.obs;
   var isUpdateLoading = false.obs;
   var isDeleteLoading = false.obs;

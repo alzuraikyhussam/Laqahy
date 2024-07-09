@@ -59,7 +59,7 @@ class PostController extends GetxController {
   }
 
   var isLoading = false.obs;
-  var isFetchPostsLoading = false.obs;
+  var isFetchPostsLoading = true.obs;
   var isUpdatePostsLoading = false.obs;
   var isDeletePostsLoading = false.obs;
   var image = Rx<File?>(null);

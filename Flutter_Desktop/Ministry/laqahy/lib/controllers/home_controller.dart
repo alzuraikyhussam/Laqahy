@@ -15,7 +15,7 @@ class HomeController extends GetxController {
 
   var fetchDataFuture = Future<void>.value().obs;
 
-  var isLoading = false.obs;
+  var isLoading = true.obs;
   var errorMsg = ''.obs;
 
   var homeCardItems = <HomeCardItem>[

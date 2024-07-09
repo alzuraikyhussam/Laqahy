@@ -25,29 +25,28 @@ class OrdersController extends GetxController {
   int? officeId;
 
   RxString orderTapChange = 'add'.obs;
-  var isIncomingLoading = false.obs;
+  var isIncomingLoading = true.obs;
   var incomingOrders = <CenterOrder>[].obs;
   var fetchIncomingOrdersFuture = Future<void>.value().obs;
 
-  var isOutgoingLoading = false.obs;
+  var isOutgoingLoading = true.obs;
   var outgoingOrders = <OfficeOrder>[].obs;
   var fetchOutgoingOrdersFuture = Future<void>.value().obs;
 
-  var isInDeliveryLoading = false.obs;
+  var isInDeliveryLoading = true.obs;
   var inDeliveryOrders = <OfficeOrder>[].obs;
   var fetchInDeliveryOrdersFuture = Future<void>.value().obs;
 
-  var isDeliveredLoading = false.obs;
+  var isDeliveredLoading = true.obs;
   var deliveredOrders = <CenterOrder>[].obs;
   var fetchDeliveredOrdersFuture = Future<void>.value().obs;
 
-  var isRejectedOrdersLoading = false.obs;
+  var isRejectedOrdersLoading = true.obs;
   var rejectedOrders = <OfficeOrder>[].obs;
   var fetchRejectedOrdersFuture = Future<void>.value().obs;
 
   var isApprovalLoading = false.obs;
   var isRejectLoading = false.obs;
-  var isUndoLoading = false.obs;
 
   var isAddLoading = false.obs;
 

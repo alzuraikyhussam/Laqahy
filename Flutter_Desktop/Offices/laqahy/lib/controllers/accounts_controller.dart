@@ -37,7 +37,7 @@ class AccountsController extends GetxController {
   TextEditingController centersSearchController = TextEditingController();
   var centers = [].obs;
   var filteredCenters = [].obs;
-  var isCentersLoading = false.obs;
+  var isCentersLoading = true.obs;
   var isAddLoading = false.obs;
   var isUpdateLoading = false.obs;
 
