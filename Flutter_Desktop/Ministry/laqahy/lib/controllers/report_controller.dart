@@ -363,7 +363,7 @@ class ReportController extends GetxController {
 
 // ----------------------------------------------------------
 
-// --------------------- Status Report -------------------------------------
+// --------------------- States Report -------------------------------------
 
   GlobalKey<FormState> createStatusReportFormKey = GlobalKey<FormState>();
   var isCentersLoading = false.obs;

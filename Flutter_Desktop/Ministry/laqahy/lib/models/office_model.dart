@@ -25,8 +25,8 @@ class Office {
       address: json['office_address'] ?? '',
       createAccountCode: json['create_account_code'],
       centersCount: json['healthy_centers_count'] ?? 0,
-      createdAt: json['updated_at'] != null
-          ? DateTime.parse(json['updated_at'])
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'])
           : DateTime(1970, 1, 1), // default value if null
     );
   }

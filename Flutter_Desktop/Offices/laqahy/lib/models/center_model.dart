@@ -40,8 +40,8 @@ class HealthyCenter {
       directorateName: json['directorate_name'] ?? '',
       officeName: json['office_name'] ?? '',
       createAccountCode: json['create_account_code'],
-      createdAt: json['updated_at'] != null
-          ? DateTime.parse(json['updated_at'])
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'])
           : DateTime(1970, 1, 1), // default value if null
     );
   }

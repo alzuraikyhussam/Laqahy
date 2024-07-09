@@ -492,7 +492,7 @@ class AccountsPage extends StatelessWidget {
                               label: Container(
                                 alignment: AlignmentDirectional.center,
                                 child: Text(
-                                  "تاريـخ الإنضمـام",
+                                  "تاريـخ التسجيـل",
                                   style: MyTextStyles.font14WhiteBold,
                                 ),
                               ),

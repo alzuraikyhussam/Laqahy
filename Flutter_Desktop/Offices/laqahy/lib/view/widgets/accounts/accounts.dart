@@ -183,7 +183,7 @@ class AccountsPage extends StatelessWidget {
                               label: Container(
                                 alignment: AlignmentDirectional.center,
                                 child: Text(
-                                  "كود التسجيل",
+                                  "كود التسجيـل",
                                   style: MyTextStyles.font14WhiteBold,
                                 ),
                               ),
@@ -222,7 +222,7 @@ class AccountsPage extends StatelessWidget {
                               label: Container(
                                 alignment: AlignmentDirectional.center,
                                 child: Text(
-                                  "تاريـخ الإنضمـام",
+                                  "تاريـخ التسجيـل",
                                   style: MyTextStyles.font14WhiteBold,
                                 ),
                               ),

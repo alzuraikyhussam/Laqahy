@@ -59,9 +59,10 @@ class OfficesPdfGenerator {
         pw.TableHelper.fromTextArray(
           headers: [
             'العنوان',
-            'تاريخ الإنضمام',
+            'تاريخ التسجيل',
             'رقم الهاتف',
             'عدد المراكز',
+            'كود التسجيل',
             'اسم المكتب',
             'م',
           ],
@@ -72,6 +73,7 @@ class OfficesPdfGenerator {
                   DateFormat('dd-MM-yyyy HH:mm').format(office.createdAt!),
                   office.phone,
                   office.centersCount,
+                  office.createAccountCode ?? 'تم التسجيل',
                   office.name,
                   // office.id,
                   serialNum += 1,

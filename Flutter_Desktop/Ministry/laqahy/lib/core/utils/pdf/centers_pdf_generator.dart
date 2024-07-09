@@ -59,7 +59,7 @@ class CentersPdfGenerator {
         pw.TableHelper.fromTextArray(
           headers: [
             'العنوان',
-            'تاريخ الإنضمام',
+            'تاريخ التسجيل',
             'المديرية',
             'المحافظة',
             'رقم الهاتف',
