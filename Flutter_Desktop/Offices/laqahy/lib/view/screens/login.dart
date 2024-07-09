@@ -6,7 +6,6 @@ import 'package:laqahy/controllers/login_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/welcome.dart';
-import 'package:laqahy/view/screens/create_account/create_account_verification_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -19,11 +18,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   StaticDataController controller = Get.find<StaticDataController>();
+  LoginController lc = Get.put(LoginController());
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  Widget build(BuildContext context) {
     WindowOptions loginWindowOptions = const WindowOptions(
       size: Size(800, 500),
       center: true,
@@ -38,11 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
       await windowManager.show();
       await windowManager.focus();
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    LoginController lc = Get.put(LoginController());
     return Scaffold(
       body: Stack(
         children: [

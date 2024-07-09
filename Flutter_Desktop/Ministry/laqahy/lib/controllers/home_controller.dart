@@ -31,12 +31,12 @@ class HomeController extends GetxController {
     ),
     HomeCardItem(
       imagePath: 'assets/icons/women-count.png',
-      title: 'إجمالي عدد الأمهات',
+      title: 'عدد حالات الأمهات',
       count: 0,
     ),
     HomeCardItem(
       imagePath: 'assets/icons/children-count.png',
-      title: 'إجمالي عدد الأطفال',
+      title: 'عدد حالات الأطفال',
       count: 0,
     ),
     HomeCardItem(
