@@ -55,7 +55,7 @@ class CreateAccountVerificationController extends GetxController {
 
         sdc.centerData.assignAll([center]);
 
-        Constants().playSuccessSound();
+        // Constants().playSuccessSound();
         myShowDialog(
           context: Get.context!,
           widgetName: ApiExceptionAlert(

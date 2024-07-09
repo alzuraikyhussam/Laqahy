@@ -15,6 +15,8 @@ use App\Http\Controllers\HealthyCenterStockVaccineController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
+use App\Http\Controllers\MotherStatement;
+use App\Http\Controllers\MotherStatementController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficesUsersController;
 use App\Http\Controllers\OfficeOrderController;
@@ -236,6 +238,11 @@ Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
 // --------------------- Mother Data Routes ------------------------
 Route::post('centers/mother-data/add-mother', [MotherDataController::class, 'store']);
 Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Mother Statement Routes ------------------------
+Route::get('centers/mother-statement/get-mother-statement/{center_id}', [MotherStatementController::class, 'show']);
+Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
 // ------------------------------------------------------------
 
 // --------------------- Child Data Routes ------------------------

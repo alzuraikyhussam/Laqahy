@@ -80,6 +80,13 @@ class ApiEndpoints {
       '$baseUrl/centers/mother-data/get-mother-data';
   // --------------------------------------------------
 
+  // --------------- Mother Statement Data Endpoints -------------------
+  static const String addMotherStatement =
+      '$baseUrl/centers/mother-statement/add-mother-statement';
+  static const String getMotherStatement =
+      '$baseUrl/centers/mother-statement/get-mother-statement';
+  // --------------------------------------------------
+
   // --------------- Child Status Data Endpoints -------------------
   static const String addChildStatusData =
       '$baseUrl/centers/child-data/add-child';

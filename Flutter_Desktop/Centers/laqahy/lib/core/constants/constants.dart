@@ -1,4 +1,4 @@
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -12,40 +12,40 @@ import '../shared/styles/style.dart';
 class Constants {
   final decimalFormatter = NumberFormat.decimalPattern();
 
-  void playSuccessSound() async {
-    try {
-      AudioPlayer audioPlayer = AudioPlayer();
-      await audioPlayer.play(AssetSource('sounds/success.mp3'));
-    } catch (e) {
-      myShowDialog(
-        context: Get.context!,
-        widgetName: ApiExceptionAlert(
-          height: 280,
-          imageUrl: 'assets/images/error.json',
-          title: 'خطــــأ',
-          description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
-        ),
-      );
-    }
-  }
+  // void playSuccessSound() async {
+  //   try {
+  //     AudioPlayer audioPlayer = AudioPlayer();
+  //     await audioPlayer.play(AssetSource('sounds/success.mp3'));
+  //   } catch (e) {
+  //     myShowDialog(
+  //       context: Get.context!,
+  //       widgetName: ApiExceptionAlert(
+  //         height: 280,
+  //         imageUrl: 'assets/images/error.json',
+  //         title: 'خطــــأ',
+  //         description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
+  //       ),
+  //     );
+  //   }
+  // }
 
-  void playErrorSound() async {
-    try {
-      AudioPlayer audioPlayer = AudioPlayer();
-      // audioPlayer.play(AssetSource('sounds/joke-error.m4a'));
-      await audioPlayer.play(AssetSource('sounds/error.mp3'));
-    } catch (e) {
-      myShowDialog(
-        context: Get.context!,
-        widgetName: ApiExceptionAlert(
-          height: 280,
-          imageUrl: 'assets/images/error.json',
-          title: 'خطــــأ',
-          description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
-        ),
-      );
-    }
-  }
+  // void playErrorSound() async {
+  //   try {
+  //     AudioPlayer audioPlayer = AudioPlayer();
+  //     // audioPlayer.play(AssetSource('sounds/joke-error.m4a'));
+  //     await audioPlayer.play(AssetSource('sounds/error.mp3'));
+  //   } catch (e) {
+  //     myShowDialog(
+  //       context: Get.context!,
+  //       widgetName: ApiExceptionAlert(
+  //         height: 280,
+  //         imageUrl: 'assets/images/error.json',
+  //         title: 'خطــــأ',
+  //         description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
+  //       ),
+  //     );
+  //   }
+  // }
 
   static List adminHomeLayoutItems = [
     HomeLayoutListItem(
@@ -251,7 +251,7 @@ class Constants {
       if (controller.genderErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -280,7 +280,7 @@ class Constants {
       if (controller.genders.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -355,7 +355,7 @@ class Constants {
       if (controller.permissionErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -384,7 +384,7 @@ class Constants {
       if (controller.permissions.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -459,7 +459,7 @@ class Constants {
       if (controller.cityErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -488,7 +488,7 @@ class Constants {
       if (controller.cities.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -548,7 +548,7 @@ class Constants {
       if (controller.selectedCityId.value == null) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
               context: Get.context!,
@@ -586,7 +586,7 @@ class Constants {
       } else if (controller.directorateErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -614,7 +614,7 @@ class Constants {
       } else if (controller.directorates.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -689,7 +689,7 @@ class Constants {
       if (controller.motherErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -717,7 +717,7 @@ class Constants {
       if (controller.mothers.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -791,7 +791,7 @@ class Constants {
       if (controller.dosageLevelErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -819,7 +819,7 @@ class Constants {
       if (controller.dosageLevel.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -878,7 +878,7 @@ class Constants {
       if (controller.selectedDosageLevelId.value == null) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
             myShowDialog(
               context: Get.context!,
               widgetName: ApiExceptionAlert(
@@ -915,7 +915,7 @@ class Constants {
       } else if (controller.dosageTypeErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -943,7 +943,7 @@ class Constants {
       } else if (controller.dosageType.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -1020,7 +1020,7 @@ class Constants {
       if (controller.vaccineErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -1050,7 +1050,7 @@ class Constants {
       if (controller.vaccines.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,

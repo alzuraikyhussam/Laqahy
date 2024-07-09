@@ -167,7 +167,7 @@ class CreateAccountController extends GetxController {
           Get.offAll(const LoginScreen());
           return;
         }
-        Constants().playSuccessSound();
+        // Constants().playSuccessSound();
         myShowDialog(
           context: Get.context!,
           widgetName: ApiExceptionAlert(
