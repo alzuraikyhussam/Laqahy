@@ -21,9 +21,9 @@ class DeleteUserConfirm extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
-        padding: EdgeInsetsDirectional.all(10),
-        height: 360,
-        width: 320,
+        // padding: EdgeInsetsDirectional.all(10),
+        height: 320,
+        width: 300,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -67,30 +67,33 @@ class DeleteUserConfirm extends StatelessWidget {
                 Obx(() {
                   return uc.isDeleteLoading.value
                       ? myLoadingIndicator()
-                      : myButton(
-                          backgroundColor: MyColors.redColor,
-                          onPressed: uc.isDeleteLoading.value
-                              ? null
-                              : () {
-                                  uc.deleteUser(
-                                    userId,
-                                  );
-                                },
-                          text: 'حـــــذف',
-                          textStyle: MyTextStyles.font16WhiteBold,
-                          width: 130,
+                      : Expanded(
+                          child: myButton(
+                            backgroundColor: MyColors.redColor,
+                            onPressed: uc.isDeleteLoading.value
+                                ? null
+                                : () {
+                                    uc.deleteUser(
+                                      userId,
+                                    );
+                                  },
+                            text: 'حـــــذف',
+                            textStyle: MyTextStyles.font16WhiteBold,
+                          ),
                         );
                 }),
                 SizedBox(
                   width: 15,
                 ),
-                myButton(
-                  backgroundColor: MyColors.greyColor,
-                  onPressed: () {
-                    Get.back();
-                  },
-                  text: 'الغـــاء اللأمــر',
-                  textStyle: MyTextStyles.font16WhiteBold,
+                Expanded(
+                  child: myButton(
+                    backgroundColor: MyColors.greyColor,
+                    onPressed: () {
+                      Get.back();
+                    },
+                    text: 'الغـــاء اللأمــر',
+                    textStyle: MyTextStyles.font16WhiteBold,
+                  ),
                 ),
               ],
             )

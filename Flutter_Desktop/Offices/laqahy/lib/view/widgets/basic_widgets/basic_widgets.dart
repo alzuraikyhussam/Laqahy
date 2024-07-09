@@ -1048,7 +1048,7 @@ myOrdersItem({
                   ),
                   Expanded(
                     child: Text(
-                      'لقد تم قبول طلبكم من قبل الوزارة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم.',
+                       'لقد تم قبول طلبكم من قبل الوزارة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم لكي يتم إضافة الكمية الى المخزون.',
                       style: MyTextStyles.font14GreyBold,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

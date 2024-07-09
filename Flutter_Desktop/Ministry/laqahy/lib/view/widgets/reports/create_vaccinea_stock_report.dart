@@ -115,7 +115,7 @@ class _CreateVaccinesStockReportDialogState
         actions: [
           Obx(() {
             return rc.isGenerateVaccinesStockReportLoading.value
-                ? myLoadingIndicator()
+                ? myLoadingIndicator(width: 150)
                 : myButton(
                     onPressed: rc.isGenerateVaccinesStockReportLoading.value
                         ? null

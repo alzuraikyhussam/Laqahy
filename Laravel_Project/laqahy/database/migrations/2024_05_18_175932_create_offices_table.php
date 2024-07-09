@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('office_name');
             $table->string('create_account_code')->nullable();
             $table->string('office_phone')->nullable();
+            $table->foreignId('cities_id')->constrained('cities')->onUpdate('cascade');
             $table->text('office_address')->nullable();
             $table->timestamps();
         });

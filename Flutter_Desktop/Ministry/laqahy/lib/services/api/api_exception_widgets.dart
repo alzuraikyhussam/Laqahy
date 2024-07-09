@@ -123,7 +123,7 @@ class ApiExceptionWidgets {
     );
   }
 
-  myUserNotFoundInThisCenterAlert() {
+  myUserNotFoundInThisOfficeAlert() {
     Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
@@ -133,7 +133,7 @@ class ApiExceptionWidgets {
         backgroundColor: MyColors.redColor,
         title: 'خطـــأ',
         description:
-            'عذراً، لا يمكنك تسجيل الدخول بهذا المستخدم لأنه غير موجود في هذا المرفق',
+            'عذراً، لا يمكنك تسجيل الدخول بهذا المستخدم لأنه غير موجود في هذا المكتب',
       ),
     );
   }

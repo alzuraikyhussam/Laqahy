@@ -127,7 +127,7 @@ class _EditVaccineQuantityState extends State<EditVaccineQuantity> {
         actions: [
           Obx(() {
             return vc.isUpdateLoading.value
-                ? myLoadingIndicator()
+                ? myLoadingIndicator(width: 150)
                 : myButton(
                     onPressed: vc.isUpdateLoading.value
                         ? null

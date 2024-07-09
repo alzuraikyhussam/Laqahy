@@ -156,7 +156,7 @@ class _EditUserState extends State<EditUser> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'اسم المستخدم ',
+                          'اسم المستخدم',
                           style: MyTextStyles.font14BlackBold,
                         ),
                         Container(
@@ -179,7 +179,7 @@ class _EditUserState extends State<EditUser> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'كلمة المرور ',
+                          'كلمة المرور',
                           style: MyTextStyles.font14BlackBold,
                         ),
                         Container(
@@ -299,7 +299,7 @@ class _EditUserState extends State<EditUser> {
                 children: [
                   Obx(() {
                     return uc.isUpdateLoading.value
-                        ? myLoadingIndicator()
+                        ? myLoadingIndicator(width: 150)
                         : myButton(
                             width: 150,
                             onPressed: uc.isUpdateLoading.value

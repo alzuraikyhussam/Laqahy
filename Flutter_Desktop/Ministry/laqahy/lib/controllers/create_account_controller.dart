@@ -10,6 +10,7 @@ import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/center_model.dart';
+import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/models/register_model.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:laqahy/models/user_model.dart';
@@ -155,9 +156,8 @@ class CreateAccountController extends GetxController {
 
     try {
       isLoading(true);
-      // final deviceInfo = await sdc.initWindowsSystemInfo();
 
-      final centerWithUser = Register(
+      final officeWithUser = Register(
         userName: nameController.text,
         userPhone: phoneNumberController.text,
         userAddress: addressController.text,
@@ -166,21 +166,17 @@ class CreateAccountController extends GetxController {
         userPassword: passwordController.text,
         userGenderId: sdc.selectedGenderId.value!,
         userPermissionId: 1,
-        centerName: 'وزارة الصحة والسكان',
-        centerPhone: centerPhoneNumberController.text,
-        centerAddress: centerAddressController.text,
-        centerDirectorateId: sdc.selectedDirectorateId.value!,
-        centerCityId: sdc.selectedCityId.value!,
-        // deviceName: deviceInfo[1],
-        // deviceUserName: deviceInfo[2],
-        // deviceMacAddress: deviceInfo[0],
+        officeName: 'وزارة الصحة والسكان',
+        officePhone: centerPhoneNumberController.text,
+        officeAddress: centerAddressController.text,
+        officeCityId: sdc.selectedCityId.value!,
       );
       var response = await http.post(
         Uri.parse(ApiEndpoints.register),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(centerWithUser.toJson()),
+        body: jsonEncode(officeWithUser.toJson()),
       );
 
       if (response.statusCode == 201) {
@@ -188,18 +184,18 @@ class CreateAccountController extends GetxController {
 
         // Handle user and center objects
         Login user = Login.fromJson(data['user']);
-        HealthyCenter center = HealthyCenter.fromJson(data['center']);
+        Office office = Office.fromJson(data['office']);
 
         sdc.userLoggedData.assignAll([user]);
-        sdc.centerData.assignAll([center]);
+        sdc.officeData.assignAll([office]);
 
         try {
           // Save SharedPreferences
-          await sdc.storageService.setCenterId(sdc.centerData.first.id!);
+          await sdc.storageService.setOfficeId(sdc.officeData.first.id!);
           await sdc.storageService.setAdminId(sdc.userLoggedData.first.userId!);
           await sdc.storageService.setRegistered(true);
         } catch (e) {
-          Get.offAll(LoginScreen());
+          Get.offAll(const LoginScreen());
           return;
         }
         Constants().playSuccessSound();
@@ -212,17 +208,13 @@ class CreateAccountController extends GetxController {
             title: 'تمت العملية بنجاح',
             description: 'لقد تمت عملية إنشاء الحساب بنجاح',
             onPressed: () {
-              Get.offAll(HomeLayout());
+              Get.offAll(const HomeLayout());
             },
           ),
         );
 
         isLoading(false);
 
-        return;
-      } else if (response.statusCode == 401) {
-        isLoading(false);
-        ApiExceptionWidgets().myUserAlreadyExistsAlert();
         return;
       } else {
         isLoading(false);

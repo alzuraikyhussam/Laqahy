@@ -20,7 +20,7 @@ class GeneralController extends Controller
     public function getTotalCount()
     {
         try {
-            $officesCount = Office::where('office_phone', '!=', null)->count();
+            $officesCount = Office::where([['office_phone', '!=', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->count();
             $centersCount = Healthy_center::count();
             $mothersCount = Mother_data::count();
             $childrenCount = Child_data::count();
@@ -58,7 +58,7 @@ class GeneralController extends Controller
             $childrenCount = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
             $vaccinesCount = Vaccine_type::count();
             $orderState = Order_state::where('order_state', 'تم التسليم')->first();
-            $ordersCount = OfficeOrder::where('office_id', $office_id)->where('order_state_id', $orderState->id)->count();
+            $ordersCount = HealthyCenterOrder::join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->where('order_state_id', $orderState->id)->count();
 
             return response()->json([
                 'message' => 'Total Count retrieved successfully',

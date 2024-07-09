@@ -114,7 +114,7 @@ class _CreateStatusReportDialogState extends State<CreateStatusReportDialog> {
         actions: [
           Obx(() {
             return rc.isGenerateStatusReportLoading.value
-                ? myLoadingIndicator()
+                ? myLoadingIndicator(width: 150)
                 : myButton(
                     onPressed: rc.isGenerateStatusReportLoading.value
                         ? null

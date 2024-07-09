@@ -74,7 +74,7 @@ class _RejectConfirmAlertState extends State<RejectConfirmAlert> {
         actions: [
           Obx(() {
             return olc.isRejectLoading.value
-                ? myLoadingIndicator()
+                ? myLoadingIndicator(width: 150)
                 : myButton(
                     onPressed: olc.isRejectLoading.value
                         ? null

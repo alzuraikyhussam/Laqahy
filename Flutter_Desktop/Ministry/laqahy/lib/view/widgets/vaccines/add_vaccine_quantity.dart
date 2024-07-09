@@ -124,7 +124,7 @@ class _AddVaccineQuantityState extends State<AddVaccineQuantity> {
         actions: [
           Obx(() {
             return vc.isAddLoading.value
-                ? myLoadingIndicator()
+                ? myLoadingIndicator(width: 150)
                 : myButton(
                     onPressed: vc.isAddLoading.value
                         ? null

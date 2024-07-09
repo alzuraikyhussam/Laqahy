@@ -1,18 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/center_model.dart';
-import 'package:laqahy/models/user_model.dart';
 import 'package:laqahy/models/login_model.dart';
+import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/layouts/home/home_layout.dart';
-import 'package:laqahy/view/screens/login.dart';
 
 class LoginController extends GetxController {
   RxBool isVisible = false.obs;
@@ -50,10 +48,9 @@ class LoginController extends GetxController {
         userAccountName: userNameController.text,
         userAccountPassword: passwordController.text,
       );
-      var centerId = await sdc.storageService.getCenterId();
-      print(centerId);
+      var officeId = await sdc.storageService.getOfficeId();
       var response = await http.post(
-        Uri.parse('${ApiEndpoints.login}/$centerId'),
+        Uri.parse('${ApiEndpoints.login}/$officeId'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -66,16 +63,16 @@ class LoginController extends GetxController {
         // Handle user and center objects
         Login user = Login.fromJson(data['user']);
         Login admin = Login.fromJson(data['admin']);
-        HealthyCenter center = HealthyCenter.fromJson(data['center']);
+        Office office = Office.fromJson(data['office']);
 
         sdc.userLoggedData.assignAll([user]);
-        sdc.centerData.assignAll([center]);
+        sdc.officeData.assignAll([office]);
         await sdc.storageService.setAdminId(admin.userId!);
 
         try {
           // Save SharedPreferences
           if (!await sdc.storageService.isRegistered()) {
-            await sdc.storageService.setCenterId(sdc.centerData.first.id!);
+            await sdc.storageService.setOfficeId(sdc.officeData.first.id!);
             await sdc.storageService.setRegistered(true);
           }
           Get.offAll(const HomeLayout());
@@ -88,7 +85,7 @@ class LoginController extends GetxController {
         return;
       } else if (response.statusCode == 402) {
         isLoading(false);
-        ApiExceptionWidgets().myUserNotFoundInThisCenterAlert();
+        ApiExceptionWidgets().myUserNotFoundInThisOfficeAlert();
         return;
       } else if (response.statusCode == 404) {
         isLoading(false);

@@ -52,14 +52,14 @@ class CentersPdfGenerator {
             bottom: 15,
           ),
           child:
-              pdfWidgets.buildHeader(centerData: sdc.centerData.first.phone!),
+              pdfWidgets.buildHeader(centerData: sdc.officeData.first.phone!),
         ),
         pdfWidgets.buildTitle(title: 'تقرير عن المراكز الصحية في $officeName'),
         pw.SizedBox(height: 20),
         pw.TableHelper.fromTextArray(
           headers: [
             'العنوان',
-            'تاريخ الإنضمام',
+            'تاريخ التسجيل',
             'المديرية',
             'المحافظة',
             'رقم الهاتف',

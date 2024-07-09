@@ -19,16 +19,14 @@ class DeletePostConfirm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(postId);
     PostController cpc = Get.put(PostController());
 
     return AlertDialog(
         alignment: AlignmentDirectional.center,
         actionsAlignment: MainAxisAlignment.center,
-        content: Container(
-          padding: EdgeInsetsDirectional.all(10),
-          height: 360,
-          width: 320,
+        content: SizedBox(
+          height: 320,
+          width: 300,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -72,30 +70,34 @@ class DeletePostConfirm extends StatelessWidget {
                   Obx(() {
                     return cpc.isDeletePostsLoading.value
                         ? myLoadingIndicator()
-                        : myButton(
-                            backgroundColor: MyColors.redColor,
-                            onPressed: cpc.isDeletePostsLoading.value
-                                ? null
-                                : () {
-                                    cpc.deletePost(
-                                      postId,
-                                    );
-                                  },
-                            text: 'حـــــذف',
-                            textStyle: MyTextStyles.font16WhiteBold,
-                            width: 130,
+                        : Expanded(
+                            child: myButton(
+                              backgroundColor: MyColors.redColor,
+                              onPressed: cpc.isDeletePostsLoading.value
+                                  ? null
+                                  : () {
+                                      cpc.deletePost(
+                                        postId,
+                                      );
+                                    },
+                              text: 'حـــــذف',
+                              textStyle: MyTextStyles.font16WhiteBold,
+                              width: 130,
+                            ),
                           );
                   }),
                   SizedBox(
                     width: 15,
                   ),
-                  myButton(
-                    backgroundColor: MyColors.greyColor,
-                    onPressed: () {
-                      Get.back();
-                    },
-                    text: 'الغـــاء اللأمــر',
-                    textStyle: MyTextStyles.font16WhiteBold,
+                  Expanded(
+                    child: myButton(
+                      backgroundColor: MyColors.greyColor,
+                      onPressed: () {
+                        Get.back();
+                      },
+                      text: 'الغـــاء اللأمــر',
+                      textStyle: MyTextStyles.font16WhiteBold,
+                    ),
                   ),
                 ],
               )

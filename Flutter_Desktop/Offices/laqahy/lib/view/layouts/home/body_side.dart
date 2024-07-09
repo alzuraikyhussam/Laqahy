@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/view/layouts/orders/orders_layout.dart';
+import 'package:laqahy/view/widgets/accounts/accounts.dart';
 import 'package:laqahy/view/widgets/home/home.dart';
 import 'package:laqahy/view/widgets/system_info/system_info.dart';
 import 'package:laqahy/view/widgets/support/support.dart';
@@ -37,6 +38,8 @@ class _HomeBodySideState extends State<HomeBodySide> {
               return const HomeScreen();
             } else if (hlc.choose.value == 'المستخدمين') {
               return const UsersScreen();
+            } else if (hlc.choose.value == 'حسابات المراكز') {
+              return const AccountsPage();
             } else if (hlc.choose.value == 'اللقاحات') {
               return const VaccinesScreen();
             } else if (hlc.choose.value == 'الطلبات') {

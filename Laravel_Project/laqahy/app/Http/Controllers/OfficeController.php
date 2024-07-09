@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Office;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -56,12 +57,12 @@ class OfficeController extends Controller
             }
 
             if ($request->create_account_code == null) {
-                $office->update(['office_phone' => $request->office_phone, 'office_address' => $request->office_address, 'updated_at' => now(),]);
+                $office->update(['office_phone' => $request->office_phone, 'office_address' => $request->office_address,  'updated_at' => Carbon::now(),]);
                 return response()->json([
                     'message' => 'Office updated successfully',
                 ], 200);
             } else {
-                $office->update(['office_phone' => $request->office_phone, 'create_account_code' => $request->create_account_code, 'office_address' => $request->office_address, 'created_at' => now(), 'updated_at' => now(),]);
+                $office->update(['office_phone' => $request->office_phone, 'create_account_code' => $request->create_account_code, 'office_address' => $request->office_address, 'updated_at' => Carbon::now(), 'created_at' => Carbon::now(),]);
                 return response()->json([
                     'message' => 'Office initialized successfully',
                 ], 200);
@@ -84,7 +85,7 @@ class OfficeController extends Controller
     public function getCentersCount()
     {
         try {
-            $office = Office::withCount('healthyCenter as healthy_centers_count')->where('office_phone', '!=', null)->get();
+            $office = Office::withCount('healthyCenter as healthy_centers_count')->where([['office_phone', '!=', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->get();
 
             return response()->json([
                 'message' => 'Offices retrieved successfully',
@@ -100,7 +101,7 @@ class OfficeController extends Controller
     public function getRegisteredOffices()
     {
         try {
-            $office = Office::where('office_phone', '!=', null)->get();
+            $office = Office::where([['office_phone', '!=', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->get();
 
             return response()->json([
                 'message' => 'Registered offices retrieved successfully',
@@ -116,7 +117,7 @@ class OfficeController extends Controller
     public function getUnRegisteredOffices()
     {
         try {
-            $office = Office::where('office_phone', '=', null)->get();
+            $office = Office::where([['office_phone', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->get();
 
             return response()->json([
                 'message' => 'Unregistered offices retrieved successfully',

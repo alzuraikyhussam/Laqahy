@@ -16,8 +16,8 @@ class OrdersController extends GetxController {
 
   @override
   void onInit() async {
-    await sdc.fetchVaccines();
     centerId = await sdc.storageService.getCenterId();
+    await sdc.fetchVaccines();
 
     super.onInit();
   }

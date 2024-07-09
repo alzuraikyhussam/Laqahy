@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Office extends Model
 {
     use HasFactory;
-    public $timestamps = false;
-    protected $fillable = ['office_name', 'create_account_code', 'office_phone', 'office_address', 'created_at', 'updated_at'];
+    
+    protected $fillable = ['office_name', 'cities_id', 'create_account_code', 'office_phone', 'office_address', 'created_at', 'updated_at'];
 
     public function officeStockVaccine()
     {
@@ -29,5 +29,10 @@ class Office extends Model
     public function officeUser()
     {
         return $this->hasMany(Offices_users::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(Cities::class);
     }
 }

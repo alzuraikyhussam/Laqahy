@@ -87,7 +87,7 @@ class _ApprovalOrderAlertState extends State<ApprovalOrderAlert> {
         actions: [
           Obx(() {
             return olc.isApprovalLoading.value
-                ? myLoadingIndicator()
+                ? myLoadingIndicator(width: 150)
                 : myButton(
                     onPressed: olc.isApprovalLoading.value
                         ? null

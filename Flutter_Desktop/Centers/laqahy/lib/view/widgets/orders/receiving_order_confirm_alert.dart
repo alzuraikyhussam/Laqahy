@@ -72,7 +72,7 @@ class _ReceivingOrderConfirmAlertState
                   SizedBox(
                     width: 300,
                     child: Text(
-                      'لا يمكنك التراجع عن هذه العملية، هل انت متأكد من استلام هذا الطلب؟',
+                      'لا يمكنك التراجع عن هذه العملية، هل انت متأكد من استلام الكمية بالكامل لهذا الطلب؟',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: MyTextStyles.font16GreyMedium,

@@ -129,7 +129,7 @@ class ReportController extends Controller
     public function getOfficesReport()
     {
         try {
-            $office = Office::withCount('healthyCenter as healthy_centers_count')->where('office_phone', '!=', null)->get();
+            $office = Office::withCount('healthyCenter as healthy_centers_count')->where([['office_phone', '!=', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->get();
 
             return response()->json([
                 'message' => 'Offices retrieved successfully',

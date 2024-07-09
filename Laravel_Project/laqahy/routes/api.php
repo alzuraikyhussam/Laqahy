@@ -105,15 +105,15 @@ Route::get('directorates/{id}', [DirectorateController::class, 'show']);
 
 // --------------------- Auth Routes ------------------------
 Route::post('ministry/auth/register', [AuthController::class, 'register']);
-Route::post('ministry/auth/login/{center_id?}', [AuthController::class, 'login']);
+Route::post('ministry/auth/login/{office_id?}', [AuthController::class, 'login']);
 // ------------------------------------------------------------
 
 // --------------------- User Routes ------------------------
-Route::get('ministry/users/get-admin/{id}', [UserController::class, 'getAdminData']);
-Route::post('ministry/users/add-user', [UserController::class, 'store']);
-Route::patch('ministry/users/update-user/{id}', [UserController::class, 'update']);
-Route::get('ministry/users/{id}', [UserController::class, 'show']);
-Route::delete('ministry/users/delete-user/{id}', [UserController::class, 'destroy']);
+Route::get('ministry/users/get-admin', [OfficesUsersController::class, 'getAdminData']);
+Route::post('ministry/users/add-user', [OfficesUsersController::class, 'addUser']);
+Route::patch('ministry/users/update-user/{id}', [OfficesUsersController::class, 'updateUser']);
+Route::get('ministry/users/{id}', [OfficesUsersController::class, 'showUser']);
+Route::delete('ministry/users/delete-user/{id}', [OfficesUsersController::class, 'destroyUser']);
 // ------------------------------------------------------------
 
 // --------------------- Technical Support Routes ------------------------
@@ -187,7 +187,7 @@ Route::get('ministry/reports/orders-custom-report', [ReportController::class, 'g
 // --------------------- Auth Routes ------------------------
 Route::get('offices/auth/register/verify/{code}', [AuthController::class, 'officeCheckVerificationCode']);
 Route::post('offices/auth/register', [AuthController::class, 'officeRegister']);
-Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'officeLogin']);
+Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'login']);
 // ------------------------------------------------------------
 
 // --------------------- General Routes ------------------------
@@ -198,8 +198,14 @@ Route::get('offices/general/home-total-count/{office_id}', [GeneralController::c
 Route::get('offices/vaccines-quantity/{office_id}', [OfficeStockVaccineController::class, 'index']);
 // ------------------------------------------------------------
 
+// --------------------- Healthy Center Routes ------------------------
+Route::get('offices/centers/{office_id}', [HealthyCenterController::class, 'officeGetCenters']);
+Route::post('offices/centers/add-center/{office_id}', [HealthyCenterController::class, 'officeAddCenterAccount']);
+Route::patch('offices/centers/update-center/{office_id}', [HealthyCenterController::class, 'officeUpdateCenterAccount']);
+// ------------------------------------------------------------
+
 // --------------------- User Routes ------------------------
-Route::get('offices/users/get-admin/{id}', [OfficesUsersController::class, 'officeGetAdminData']);
+Route::get('offices/users/get-admin', [OfficesUsersController::class, 'officeGetAdminData']);
 Route::post('offices/users/add-user', [OfficesUsersController::class, 'officeAddUser']);
 Route::patch('offices/users/update-user/{id}', [OfficesUsersController::class, 'officeUpdateUser']);
 Route::get('offices/users/{id}', [OfficesUsersController::class, 'officeShowUser']);

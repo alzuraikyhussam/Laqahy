@@ -44,7 +44,7 @@ class HomeController extends GetxController {
     ),
     HomeCardItem(
       imagePath: 'assets/icons/order-icon.png',
-      title: 'عدد الطلبات المستلمة',
+      title: 'عدد الطلبات المُسلَّمة',
       count: 0,
     ),
   ].obs;

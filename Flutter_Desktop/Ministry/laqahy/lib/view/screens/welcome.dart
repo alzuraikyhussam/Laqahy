@@ -19,9 +19,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   StaticDataController controller = Get.find<StaticDataController>();
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  Widget build(BuildContext context) {
     WindowOptions welcomeWindowOptions = const WindowOptions(
       size: Size(850, 500),
       center: true,
@@ -36,10 +34,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       await windowManager.show();
       await windowManager.focus();
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [

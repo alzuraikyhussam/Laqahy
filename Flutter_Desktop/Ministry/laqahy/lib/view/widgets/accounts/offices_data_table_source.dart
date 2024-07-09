@@ -90,7 +90,7 @@ class OfficesAccountsRowSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              DateFormat('dd-MM-yyyy hh:mm').format(office.createdAt),
+              DateFormat('dd-MM-yyyy HH:mm').format(office.createdAt),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),

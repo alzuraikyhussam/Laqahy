@@ -50,6 +50,12 @@ class ApiEndpoints {
       '$baseUrl/offices/vaccines-quantity';
   // --------------------------------------------------
 
+  // --------------- Healthy Center Endpoints -------------------
+  static const String getCenters = '$baseUrl/offices/centers';
+  static const String addCenterAccount = '$baseUrl/offices/centers/add-center';
+  static const String updateCenterAccount = '$baseUrl/offices/centers/update-center';
+  // --------------------------------------------------
+
   // --------------- User Endpoints -------------------
   static const String getUsers = '$baseUrl/offices/users';
   static const String getAdmin = '$baseUrl/offices/users/get-admin';

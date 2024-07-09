@@ -8,14 +8,14 @@ import 'package:laqahy/models/center_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class StatusPdfGenerator {
+class StatesPdfGenerator {
   StaticDataController sdc = Get.find<StaticDataController>();
   String? managerName;
   final List<List<dynamic>> data;
   String? reportName;
   final List tableHeader;
 
-  StatusPdfGenerator({
+  StatesPdfGenerator({
     required this.data,
     required this.tableHeader,
     required this.managerName,
@@ -52,7 +52,7 @@ class StatusPdfGenerator {
             bottom: 15,
           ),
           child:
-              pdfWidgets.buildHeader(centerData: sdc.centerData.first.phone!),
+              pdfWidgets.buildHeader(centerData: sdc.officeData.first.phone!),
         ),
         pdfWidgets.buildTitle(
           title: reportName ?? '',
@@ -147,7 +147,7 @@ class StatusPdfGenerator {
     );
 
     pdfWidgets.savePdfDocument(
-      fileName: 'status_report.pdf',
+      fileName: 'states_report.pdf',
       pdf: pdf,
     );
   }

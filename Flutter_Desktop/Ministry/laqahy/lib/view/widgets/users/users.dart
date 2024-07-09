@@ -46,7 +46,7 @@ class _UsersScreenState extends State<UsersScreen> {
                   autoRowsToHeight: true,
                   empty: ApiExceptionWidgets().myDataNotFound(
                     onPressedRefresh: () {
-                      uc.fetchUsers(uc.centerId);
+                      uc.fetchUsers(uc.officeId);
                     },
                   ),
                   horizontalMargin: 15,

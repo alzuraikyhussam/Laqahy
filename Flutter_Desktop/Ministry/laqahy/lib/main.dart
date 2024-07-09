@@ -18,7 +18,6 @@ void main() async {
   ]);
 
   await windowManager.ensureInitialized();
-  // appWindow.show();
 
   WindowOptions splashWindowOptions = const WindowOptions(
     size: Size(700, 450),

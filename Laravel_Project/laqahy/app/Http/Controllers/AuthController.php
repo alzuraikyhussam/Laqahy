@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Healthy_center;
 use App\Models\Healthy_center_account;
+use App\Models\Healthy_centers_stock_vaccine;
+use App\Models\Ministry_stock_vaccine;
 use App\Models\Mother_data;
 use App\Models\Office;
+use App\Models\Office_stock_vaccine;
 use App\Models\Offices_users;
 use App\Models\User;
+use App\Models\Vaccine_type;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +20,6 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-
         try {
             $validator = Validator::make(
                 $request->all(),
@@ -29,14 +32,10 @@ class AuthController extends Controller
                     'user_account_password' => 'required',
                     'gender_id' => 'required',
                     'permission_type_id' => 'required',
-                    'healthy_center_name' => 'required',
-                    'healthy_center_address' => 'required',
-                    'healthy_center_phone' => 'required',
-                    'directorate_id' => 'required',
+                    'office_name' => 'required',
+                    'office_phone' => 'required',
+                    'office_address' => 'required',
                     'cities_id' => 'required',
-                    // 'device_name' => 'required',
-                    // 'device_username' => 'required',
-                    // 'MAC_address' => 'required',
                 ],
             );
 
@@ -46,170 +45,12 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $user = User::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
-            $office = Office::where('office_name', 'مكتب الصحة والسكان - عدن')->first();
-
-            if ($user) {
-                return response()->json([
-                    'message' => 'This user already exists',
-                ], 401);
-            }
-
-            $center = Healthy_center::create([
-                'healthy_center_name' => $request->healthy_center_name,
-                'healthy_center_address' => $request->healthy_center_address,
-                'healthy_center_phone' => $request->healthy_center_phone,
-                'directorate_id' => $request->directorate_id,
+            $office = Office::create([
+                'office_name' => $request->office_name,
+                'office_address' => $request->office_address,
+                'office_phone' => $request->office_phone,
                 'cities_id' => $request->cities_id,
-                'office_id' => $office->id,
             ]);
-
-            // $centerAccount = Healthy_center_account::create([
-            //     'healthy_center_id' => $center->id,
-            //     'device_name' => $request->device_name,
-            //     'device_username' => $request->device_username,
-            //     'MAC_address' => $request->MAC_address,
-            // ]);
-
-            $user = User::create([
-                'user_name' => $request->user_name,
-                'user_phone' => $request->user_phone,
-                'user_address' => $request->user_address,
-                'user_birthDate' => $request->user_birthDate,
-                'user_account_name' => $request->user_account_name,
-                'user_account_password' => $request->user_account_password,
-                'gender_id' => $request->gender_id,
-                'permission_type_id' => $request->permission_type_id,
-                'healthy_center_id' => $center->id,
-            ]);
-
-            return response()->json([
-                'message' => 'Healthy center account with admin account are created successfully',
-                'user' => $user,
-                'center' => $center,
-            ], 201);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function login(Request $request, $center_id = 0)
-    {
-        try {
-            $validator = Validator::make(
-                $request->all(),
-                [
-                    'user_account_name' => 'required',
-                    'user_account_password' => 'required',
-                ],
-            );
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'message' => $validator->errors(),
-                ], 400);
-            }
-
-            $user = User::where('user_account_name', $request->user_account_name)->first();
-
-            if (!$user) {
-                return response()->json([
-                    'message' => 'User not found',
-                ], 404);
-            }
-
-            if ($center_id != 0) {
-                if ($center_id != $user->healthy_center_id) {
-                    return response()->json([
-                        'message' => 'User not found in this healthy center',
-                    ], 402);
-                }
-            }
-
-            if (!($request->user_account_password === $user->user_account_password)) {
-                return response()->json([
-                    'message' => 'Invalid password',
-                ], 401);
-            }
-
-            $admin = User::where([
-                ['permission_type_id', 1],
-                ['healthy_center_id', $user->healthy_center_id]
-            ])->first();
-
-
-            $center = Healthy_center::where('id', $user->healthy_center_id)->first();
-            return response()->json([
-                'message' => 'Login successfully',
-                'user' => $user,
-                'center' => $center,
-                'admin' => $admin,
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-    ///////////////////Offices//////////////////////
-    public function officeCheckVerificationCode($code)
-    {
-        try {
-
-            $office = Office::where('create_account_code', $code)->first();
-
-            if (!$office) {
-                return response()->json([
-                    'message' => 'Office not found',
-                ], 404);
-            }
-
-            return response()->json([
-                'message' => 'Office retrieved successfully',
-                'office' => $office,
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function officeRegister(Request $request)
-    {
-        try {
-            $validator = Validator::make(
-                $request->all(),
-                [
-                    'user_name' => 'required',
-                    'user_phone' => 'required',
-                    'user_address' => 'required',
-                    'user_birthDate' => 'required',
-                    'user_account_name' => 'required',
-                    'user_account_password' => 'required',
-                    'gender_id' => 'required',
-                    'permission_type_id' => 'required',
-                    'office_id' => 'required',
-                ],
-            );
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'message' => $validator->errors(),
-                ], 400);
-            }
-
-            $user = Offices_users::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
-            $office = Office::where('id', $request->office_id)->first();
-
-            if ($user) {
-                return response()->json([
-                    'message' => 'This user already exists',
-                ], 401);
-            }
 
             $user = Offices_users::create([
                 'user_name' => $request->user_name,
@@ -220,10 +61,17 @@ class AuthController extends Controller
                 'user_account_password' => $request->user_account_password,
                 'gender_id' => $request->gender_id,
                 'permission_type_id' => $request->permission_type_id,
-                'office_id' => $request->office_id,
+                'office_id' => $office->id,
             ]);
 
-            $office->update(['create_account_code' => null]);
+            $vaccines = Vaccine_type::all();
+
+            foreach ($vaccines as $vaccine) {
+                Ministry_stock_vaccine::create([
+                    'vaccine_type_id' => $vaccine->id,
+                    'quantity' => 0,
+                ]);
+            }
 
             return response()->json([
                 'message' => 'Office account with admin account are created successfully',
@@ -237,7 +85,9 @@ class AuthController extends Controller
         }
     }
 
-    public function officeLogin(Request $request, $office_id = 0)
+    ///////////////////Offices//////////////////////
+
+    public function login(Request $request, $office_id = 0)
     {
         try {
             $validator = Validator::make(
@@ -295,6 +145,91 @@ class AuthController extends Controller
         }
     }
 
+    public function officeCheckVerificationCode($code)
+    {
+        try {
+
+            $office = Office::where('create_account_code', $code)->first();
+
+            if (!$office) {
+                return response()->json([
+                    'message' => 'Office not found',
+                ], 404);
+            }
+
+            return response()->json([
+                'message' => 'Office retrieved successfully',
+                'office' => $office,
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeRegister(Request $request)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'user_name' => 'required',
+                    'user_phone' => 'required',
+                    'user_address' => 'required',
+                    'user_birthDate' => 'required',
+                    'user_account_name' => 'required',
+                    'user_account_password' => 'required',
+                    'gender_id' => 'required',
+                    'permission_type_id' => 'required',
+                    'office_id' => 'required',
+                ],
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
+
+            $office = Office::where('id', $request->office_id)->first();
+
+            $user = Offices_users::create([
+                'user_name' => $request->user_name,
+                'user_phone' => $request->user_phone,
+                'user_address' => $request->user_address,
+                'user_birthDate' => $request->user_birthDate,
+                'user_account_name' => $request->user_account_name,
+                'user_account_password' => $request->user_account_password,
+                'gender_id' => $request->gender_id,
+                'permission_type_id' => $request->permission_type_id,
+                'office_id' => $request->office_id,
+            ]);
+
+            $office->update(['create_account_code' => null]);
+
+            $vaccines = Vaccine_type::all();
+
+            foreach ($vaccines as $vaccine) {
+                Office_stock_vaccine::create([
+                    'office_id' => $office->id,
+                    'vaccine_type_id' => $vaccine->id,
+                    'quantity' => 0,
+                ]);
+            }
+
+            return response()->json([
+                'message' => 'Office account with admin account are created successfully',
+                'user' => $user,
+                'office' => $office,
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     /////////////////////////////// Centers ////////////////////////////////
 
     public function centerCheckVerificationCode($code)
@@ -344,14 +279,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $user = User::where('user_account_name', $request->user_account_name)->orWhere('user_name', $request->user_name)->exists();
             $center = Healthy_center::where('id', $request->healthy_center_id)->first();
-
-            if ($user) {
-                return response()->json([
-                    'message' => 'This user already exists',
-                ], 401);
-            }
 
             $user = User::create([
                 'user_name' => $request->user_name,
@@ -366,6 +294,16 @@ class AuthController extends Controller
             ]);
 
             $center->update(['create_account_code' => null]);
+
+            $vaccines = Vaccine_type::all();
+
+            foreach ($vaccines as $vaccine) {
+                Healthy_centers_stock_vaccine::create([
+                    'healthy_center_id' => $center->id,
+                    'vaccine_type_id' => $vaccine->id,
+                    'quantity' => 0,
+                ]);
+            }
 
             return response()->json([
                 'message' => 'Center account with admin account are created successfully',

@@ -109,6 +109,20 @@ class ApiExceptionWidgets {
     );
   }
 
+  myCenterAccountAlreadyExistsAlert() {
+    Constants().playErrorSound();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 270,
+        imageUrl: 'assets/images/error.json',
+        backgroundColor: MyColors.redColor,
+        title: 'المركز موجود بالفعل',
+        description: 'عذرا، المركز الصحي الذي أدخلته موجود بالفعل',
+      ),
+    );
+  }
+
   myCodeVerificationNotFoundAlert() {
     Constants().playErrorSound();
     myShowDialog(

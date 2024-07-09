@@ -8,6 +8,7 @@ import 'package:laqahy/models/city_model.dart';
 import 'package:laqahy/models/directorate_model.dart';
 import 'package:laqahy/models/gender_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/models/permission_type_model.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
@@ -15,7 +16,7 @@ import 'package:laqahy/services/storage/storage_service.dart';
 
 class StaticDataController extends GetxController {
   List<Login> userLoggedData = <Login>[].obs;
-  List<HealthyCenter> centerData = <HealthyCenter>[].obs;
+  List<Office> officeData = <Office>[].obs;
 
   late StorageService storageService;
   late var isRegistered = false.obs;

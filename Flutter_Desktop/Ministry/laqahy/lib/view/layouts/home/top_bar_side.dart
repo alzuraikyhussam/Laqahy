@@ -1,14 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
-import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/main.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -63,7 +59,7 @@ class _HomeTopBarSideState extends State<HomeTopBarSide> {
                   ? Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           hlc.choose.value == 'الرئيسية'
                               ? Expanded(
@@ -75,7 +71,7 @@ class _HomeTopBarSideState extends State<HomeTopBarSide> {
                               : const SizedBox(),
                           Expanded(
                             child: Text(
-                              controller.centerData.first.name ?? 'غير معروف',
+                              controller.officeData.first.name ?? 'غير معروف',
                               style: MyTextStyles.font18PrimaryBold,
                             ),
                           ),
@@ -96,17 +92,21 @@ class _HomeTopBarSideState extends State<HomeTopBarSide> {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Obx(() => Text(
-                        controller.greeting.value,
-                        style: MyTextStyles.font16PrimaryBold,
-                      )),
-                  Text(
-                    controller.userLoggedData.first.userName!,
-                    style: MyTextStyles.font16GreyBold,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                  Expanded(
+                    child: Obx(() => Text(
+                          controller.greeting.value,
+                          style: MyTextStyles.font16PrimaryBold,
+                        )),
+                  ),
+                  Expanded(
+                    child: Text(
+                      controller.userLoggedData.first.userName!,
+                      style: MyTextStyles.font16GreyBold,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
                 ],
               ),

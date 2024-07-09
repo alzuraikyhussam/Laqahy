@@ -10,7 +10,7 @@ class Cities extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable=['city_name'];
+    protected $fillable = ['city_name'];
 
     public function directorate()
     {
@@ -25,5 +25,10 @@ class Cities extends Model
     public function mother_data()
     {
         return $this->hasMany(Mother_data::class);
+    }
+
+    public function office()
+    {
+        return $this->hasMany(Office::class);
     }
 }
