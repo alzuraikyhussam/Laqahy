@@ -165,7 +165,7 @@ class CentersPdfGenerator {
       ),
     );
 
-    pdfWidgets.savePdfDocument(
+    await pdfWidgets.savePdfDocument(
       fileName: 'centers_report.pdf',
       pdf: pdf,
     );

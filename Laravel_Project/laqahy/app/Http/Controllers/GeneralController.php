@@ -8,6 +8,7 @@ use App\Models\HealthyCenterOrder;
 use App\Models\Mother_data;
 use App\Models\Office;
 use App\Models\OfficeOrder;
+use App\Models\Offices_users;
 use App\Models\Order_state;
 use App\Models\Post;
 use App\Models\User;
@@ -17,9 +18,10 @@ use Illuminate\Http\Request;
 
 class GeneralController extends Controller
 {
-    public function getTotalCount()
+    public function getTotalCount($office_id)
     {
         try {
+            $usersCount = Offices_users::where('office_id', $office_id)->count();
             $officesCount = Office::where([['office_phone', '!=', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->count();
             $centersCount = Healthy_center::count();
             $mothersCount = Mother_data::count();
@@ -32,6 +34,7 @@ class GeneralController extends Controller
             return response()->json([
                 'message' => 'Total Count retrieved successfully',
                 'data' => [
+                    'users_count' => $usersCount,
                     'offices_count' => $officesCount,
                     'centers_count' => $centersCount,
                     'mothers_count' => $mothersCount,
@@ -53,6 +56,7 @@ class GeneralController extends Controller
     public function officesGetTotalCount($office_id)
     {
         try {
+            $usersCount = Offices_users::where('office_id', $office_id)->count();
             $centersCount = Healthy_center::where('office_id', $office_id)->count();
             $mothersCount = Mother_data::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
             $childrenCount = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
@@ -63,6 +67,7 @@ class GeneralController extends Controller
             return response()->json([
                 'message' => 'Total Count retrieved successfully',
                 'data' => [
+                    'users_count' => $usersCount,
                     'centers_count' => $centersCount,
                     'mothers_count' => $mothersCount,
                     'children_count' => $childrenCount,

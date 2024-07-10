@@ -33,7 +33,7 @@ class _CreateStatusReportDialogState extends State<CreateStatusReportDialog> {
         actionsAlignment: MainAxisAlignment.center,
         content: SizedBox(
           height: 300,
-          width: 550,
+          width: 500,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -67,7 +67,7 @@ class _CreateStatusReportDialogState extends State<CreateStatusReportDialog> {
                       width: 15,
                     ),
                     Container(
-                      width: 150,
+                      width: 200,
                       child: rc.statusTypeDropdownMenu(),
                     ),
                   ],

@@ -165,7 +165,7 @@ class OfficesPdfGenerator {
       ),
     );
 
-    pdfWidgets.savePdfDocument(
+    await pdfWidgets.savePdfDocument(
       fileName: 'offices_report.pdf',
       pdf: pdf,
     );

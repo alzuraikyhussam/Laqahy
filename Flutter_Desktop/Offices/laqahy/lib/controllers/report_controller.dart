@@ -83,6 +83,7 @@ class ReportController extends GetxController {
     selectedStatusType.value = null;
     selectedCenter.value = null;
     selectedOrderState.value = null;
+    selectedVaccine.value = null;
   }
 
   Future<User?> fetchAdminDataIfNeeded() async {
@@ -155,6 +156,7 @@ class ReportController extends GetxController {
       );
       await pdfGenerator.generatePdf(context);
     } catch (e) {
+      Get.back();
       ApiExceptionWidgets().myGeneratePdfFailureAlert();
     }
   }
@@ -692,7 +694,6 @@ class ReportController extends GetxController {
             'م',
           ],
         );
-        await pdfGenerator.generatePdf(context);
       } else if (selectedStatusType.value!.id == 2) {
         pdfGenerator = StatesPdfGenerator(
           reportName: reportName,
@@ -725,10 +726,9 @@ class ReportController extends GetxController {
             'م',
           ],
         );
-        await pdfGenerator.generatePdf(context);
       }
 
-      isGenerateStatusReportLoading(false);
+      await pdfGenerator.generatePdf(context);
     } catch (e) {
       ApiExceptionWidgets().myGeneratePdfFailureAlert();
       isGenerateStatusReportLoading(false);

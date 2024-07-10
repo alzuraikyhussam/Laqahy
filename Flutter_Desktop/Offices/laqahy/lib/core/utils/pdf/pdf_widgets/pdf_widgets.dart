@@ -216,7 +216,7 @@ class PDFWidgets {
                       style: bodyTextStyle,
                     ),
                     pw.Text(
-                      '$printFormattedDate م',
+                      '$printFormattedDateم',
                       style: bodyTextStyle,
                     ),
                   ],
@@ -325,9 +325,9 @@ class PDFWidgets {
 
       await file.writeAsBytes(await pdf.save());
 
-      Get.back();
-
       await shareFile(file: file, name: name);
+
+      Get.back();
 
       myShowSavedDialog(Get.context!, file);
     } catch (e) {

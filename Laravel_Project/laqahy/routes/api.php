@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // --------------------- General Routes ------------------------
-Route::get('ministry/general/home-total-count', [GeneralController::class, 'getTotalCount']);
+Route::get('ministry/general/home-total-count/{office_id}', [GeneralController::class, 'getTotalCount']);
 // ------------------------------------------------------------
 
 // --------------------- Post Routes ------------------------
@@ -216,8 +216,11 @@ Route::get('offices/users/{id}', [OfficesUsersController::class, 'officeShowUser
 Route::delete('offices/users/delete-user/{id}', [OfficesUsersController::class, 'officeDestroyUser']);
 // ------------------------------------------------------------
 
+// --------------------- Health Center Order Routes ------------------------
+Route::get('offices/orders/date-range/{office_id}', [HealthyCenterOrderController::class, 'officeGetDateRange']);
+// ------------------------------------------------------------
+
 // --------------------- Order Routes ------------------------
-Route::get('offices/orders/date-range/{office_id}', [OfficeOrderController::class, 'officeGetDateRange']);
 Route::post('offices/orders/add-order', [OfficeOrderController::class, 'officeAddOrder']);
 Route::get('offices/orders/outgoing/{office_id}', [OfficeOrderController::class, 'officeOutgoingOrders']);
 Route::get('offices/orders/incoming/{office_id}', [OfficeOrderController::class, 'officeIncomingOrders']);
@@ -235,23 +238,16 @@ Route::get('offices/reports/centers-report/{office_id}', [ReportController::clas
 Route::get('offices/reports/status-report', [ReportController::class, 'officeGenerateStatusReport']);
 Route::get('offices/reports/status-all-centers-report', [ReportController::class, 'officeGenerateStatusInAllCentersReport']);
 
-// Route::get('ministry/reports/offices-report', [ReportController::class, 'getOfficesReport']);
-
 Route::get('offices/reports/vaccines-qty-report/{office_id}', [ReportController::class, 'officeGetVaccinesQtyReport']);
 
-// Route::get('ministry/reports/stock/vaccines-all-report', [ReportController::class, 'generateVaccinesStockAllReport']);
-// Route::get('ministry/reports/stock/vaccines-custom-report', [ReportController::class, 'generateVaccinesStockCustomReport']);
-// Route::get('ministry/reports/stock/vaccines-specific-donor-report', [ReportController::class, 'generateAllVaccinesStockOfSpecificDonorReport']);
-// Route::get('ministry/reports/stock/vaccine-all-donors-report', [ReportController::class, 'generateSpecificVaccineStockOfAllDonorsReport']);
-
-// Route::get('ministry/reports/orders-all-report', [ReportController::class, 'generateAllOrdersReport']);
-// Route::get('ministry/reports/orders-vaccines-offices-report', [ReportController::class, 'generateAllVaccinesOfAllOfficesOrdersReport']);
-// Route::get('ministry/reports/orders-states-offices-report', [ReportController::class, 'generateAllStatesOfAllOfficesOrdersReport']);
-// Route::get('ministry/reports/orders-states-vaccines-report', [ReportController::class, 'generateAllStatesOfAllVaccinesOrdersReport']);
-// Route::get('ministry/reports/orders-offices-report', [ReportController::class, 'generateAllOfficesOrdersReport']);
-// Route::get('ministry/reports/orders-vaccines-report', [ReportController::class, 'generateAllVaccinesOrdersReport']);
-// Route::get('ministry/reports/orders-states-report', [ReportController::class, 'generateAllStatesOrdersReport']);
-// Route::get('ministry/reports/orders-custom-report', [ReportController::class, 'generateCustomOrdersReport']);
+Route::get('offices/reports/orders-all-report', [ReportController::class, 'officeGenerateAllOrdersReport']);
+Route::get('offices/reports/orders-vaccines-centers-report', [ReportController::class, 'officeGenerateAllVaccinesOfAllCentersOrdersReport']);
+Route::get('offices/reports/orders-states-centers-report', [ReportController::class, 'officeGenerateAllStatesOfAllCentersOrdersReport']);
+Route::get('offices/reports/orders-states-vaccines-report', [ReportController::class, 'officeGenerateAllStatesOfAllVaccinesOrdersReport']);
+Route::get('offices/reports/orders-centers-report', [ReportController::class, 'officeGenerateAllCentersOrdersReport']);
+Route::get('offices/reports/orders-vaccines-report', [ReportController::class, 'officeGenerateAllVaccinesOrdersReport']);
+Route::get('offices/reports/orders-states-report', [ReportController::class, 'officeGenerateAllStatesOrdersReport']);
+Route::get('offices/reports/orders-custom-report', [ReportController::class, 'officeGenerateCustomOrdersReport']);
 // ------------------------------------------------------------
 
 ///////////////////////////////////////// MOBILE Routes ////////////////////////////////////////////////////////////////////////////

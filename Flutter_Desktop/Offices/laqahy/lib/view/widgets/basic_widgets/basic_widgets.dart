@@ -1048,7 +1048,7 @@ myOrdersItem({
                   ),
                   Expanded(
                     child: Text(
-                       'لقد تم قبول طلبكم من قبل الوزارة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم لكي يتم إضافة الكمية الى المخزون.',
+                      'لقد تم قبول طلبكم من قبل الوزارة الرجاء النقر على زر تأكبد الاستلام عند وصول الطلب إليكم لكي يتم إضافة الكمية الى المخزون.',
                       style: MyTextStyles.font14GreyBold,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -1203,7 +1203,7 @@ myReportsCards({
           width: 120,
           onPressed: onPressed,
           text: 'إنـــشـــــــاء',
-          textStyle: MyTextStyles.font14WhiteBold,
+          textStyle: MyTextStyles.font16WhiteBold,
         ),
       ],
     ),

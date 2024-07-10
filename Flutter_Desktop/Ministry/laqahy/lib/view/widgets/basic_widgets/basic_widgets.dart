@@ -1627,7 +1627,7 @@ myReportsCards({
           width: 120,
           onPressed: onPressed,
           text: 'إنـــشـــــــاء',
-          textStyle: MyTextStyles.font14WhiteBold,
+          textStyle: MyTextStyles.font16WhiteBold,
         ),
       ],
     ),

@@ -229,40 +229,23 @@ class _MotherStatusDataState extends State<MotherStatusData> {
           const SizedBox(
             height: 25,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Obx(() {
-                return mc.isAddLoading.value
-                    ? myLoadingIndicator()
-                    : myButton(
-                        width: 150,
-                        onPressed: mc.isAddLoading.value
-                            ? null
-                            : () {
-                                if (mc
-                                    .createMotherStatusDataFormKey.currentState!
-                                    .validate()) {
-                                  mc.addMotherStatusData();
-                                }
-                              },
-                        text: 'اضــافة',
-                        textStyle: MyTextStyles.font16WhiteBold);
-              }),
-              const SizedBox(
-                width: 20,
-              ),
-              myButton(
-                  width: 150,
-                  backgroundColor: MyColors.greyColor,
-                  onPressed: () {
-                    mc.clearTextFields();
-                    Get.back();
-                  },
-                  text: 'الغـــاء اللأمــر',
-                  textStyle: MyTextStyles.font16WhiteBold),
-            ],
-          ),
+          Obx(() {
+            return mc.isAddLoading.value
+                ? myLoadingIndicator()
+                : myButton(
+                    width: 150,
+                    onPressed: mc.isAddLoading.value
+                        ? null
+                        : () {
+                            if (mc
+                                .createMotherStatusDataFormKey.currentState!
+                                .validate()) {
+                              mc.addMotherStatusData();
+                            }
+                          },
+                    text: 'اضــافة',
+                    textStyle: MyTextStyles.font16WhiteBold);
+          }),
         
         ],
       ),

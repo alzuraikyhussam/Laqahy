@@ -195,40 +195,23 @@ class _ChildStatusDataState extends State<ChildStatusData> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Obx(() {
-                return csc.isAddLoading.value
-                    ? myLoadingIndicator()
-                    : myButton(
-                        width: 150,
-                        onPressed: csc.isAddLoading.value
-                            ? null
-                            : () {
-                                if (csc
-                                    .createChildStatusDataFormKey.currentState!
-                                    .validate()) {
-                                  csc.addChildStatusData();
-                                }
-                              },
-                        text: 'اضــافة',
-                        textStyle: MyTextStyles.font16WhiteBold);
-              }),
-              const SizedBox(
-                width: 20,
-              ),
-              myButton(
-                  width: 150,
-                  backgroundColor: MyColors.greyColor,
-                  onPressed: () {
-                    csc.clearTextFields();
-                    Get.back();
-                  },
-                  text: 'الغـــاء اللأمــر',
-                  textStyle: MyTextStyles.font16WhiteBold),
-            ],
-          ),
+          Obx(() {
+            return csc.isAddLoading.value
+                ? myLoadingIndicator()
+                : myButton(
+                    width: 150,
+                    onPressed: csc.isAddLoading.value
+                        ? null
+                        : () {
+                            if (csc
+                                .createChildStatusDataFormKey.currentState!
+                                .validate()) {
+                              csc.addChildStatusData();
+                            }
+                          },
+                    text: 'اضــافة',
+                    textStyle: MyTextStyles.font16WhiteBold);
+          }),
         ],
       ),
     );

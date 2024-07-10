@@ -451,27 +451,12 @@ class _AddMotherStateState extends State<AddMotherState> {
                         const SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 130,
-                              child: myButton(
-                                  onPressed: () {},
-                                  text: 'اضــــافة',
-                                  textStyle: MyTextStyles.font16WhiteBold),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Container(
-                              width: 130,
-                              child: myButton(
-                                  backgroundColor: MyColors.greyColor,
-                                  onPressed: () {},
-                                  text: 'الغــاء الأمــر',
-                                  textStyle: MyTextStyles.font16WhiteBold),
-                            ),
-                          ],
+                        Container(
+                          width: 130,
+                          child: myButton(
+                              onPressed: () {},
+                              text: 'اضــــافة',
+                              textStyle: MyTextStyles.font16WhiteBold),
                         ),
                       ],
                     ),

@@ -162,7 +162,7 @@ class VaccinesPdfGenerator {
       ),
     );
 
-    pdfWidgets.savePdfDocument(
+    await pdfWidgets.savePdfDocument(
       fileName: 'vaccines_report.pdf',
       pdf: pdf,
     );

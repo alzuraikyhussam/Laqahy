@@ -153,4 +153,28 @@ class HealthyCenterOrderController extends Controller
             ], 500);
         }
     }
+    
+    ////////////////////////////////// Offices /////////////////////////////////////
+
+    public function officeGetDateRange($office_id)
+    {
+        try {
+            $orderMinDate = HealthyCenterOrder::join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->min('healthy_centers_orders.order_date');
+
+            $orderMaxDate = HealthyCenterOrder::join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->max('healthy_centers_orders.order_date');
+
+            $minDate = Carbon::parse($orderMinDate)->toDateString();
+            $maxDate = Carbon::parse($orderMaxDate)->toDateString();
+
+            return response()->json([
+                'message' => 'Date range retrieved successfully',
+                'min_date' => $minDate,
+                'max_date' => $maxDate,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

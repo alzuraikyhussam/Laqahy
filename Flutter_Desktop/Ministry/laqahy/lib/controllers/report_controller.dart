@@ -356,7 +356,6 @@ class ReportController extends GetxController {
       isGenerateCentersReportLoading(false);
     } catch (e) {
       ApiExceptionWidgets().myGeneratePdfFailureAlert();
-      print(e);
       isGenerateCentersReportLoading(false);
     }
   }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Child_data;
 use App\Models\Healthy_center;
+use App\Models\HealthyCenterOrder;
 use App\Models\Ministry_statement_stock_vaccine;
 use App\Models\Ministry_stock_vaccine;
 use App\Models\Mother_data;
@@ -247,7 +248,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->whereBetween('offices_orders.created_at', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
+            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->whereBetween('offices_orders.order_date', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -266,7 +267,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.order_state_id', $request->order_state)->whereBetween('offices_orders.created_at', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
+            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.order_state_id', $request->order_state)->whereBetween('offices_orders.order_date', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -285,7 +286,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('offices_orders.created_at', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
+            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('offices_orders.order_date', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -304,7 +305,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.office_id', $request->office)->whereBetween('offices_orders.created_at', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
+            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.office_id', $request->office)->whereBetween('offices_orders.order_date', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -323,7 +324,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.vaccine_type_id', $request->vaccine_type)->where('offices_orders.order_state_id', $request->order_state)->whereBetween('offices_orders.created_at', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
+            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.vaccine_type_id', $request->vaccine_type)->where('offices_orders.order_state_id', $request->order_state)->whereBetween('offices_orders.order_date', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -342,7 +343,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.office_id', $request->office)->where('offices_orders.order_state_id', $request->order_state)->whereBetween('offices_orders.created_at', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
+            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.office_id', $request->office)->where('offices_orders.order_state_id', $request->order_state)->whereBetween('offices_orders.order_date', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -361,7 +362,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.office_id', $request->office)->where('offices_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('offices_orders.created_at', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
+            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.office_id', $request->office)->where('offices_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('offices_orders.order_date', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -380,7 +381,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.office_id', $request->office)->where('offices_orders.vaccine_type_id', $request->vaccine_type)->where('offices_orders.order_state_id', $request->order_state)->whereBetween('offices_orders.created_at', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
+            $orders = OfficeOrder::join('vaccine_types', 'offices_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('offices', 'offices_orders.office_id', '=', 'offices.id')->join('order_states', 'offices_orders.order_state_id', '=', 'order_states.id')->select('offices_orders.*', 'vaccine_types.vaccine_type', 'offices.office_name', 'order_states.order_state')->where('offices_orders.office_id', $request->office)->where('offices_orders.vaccine_type_id', $request->vaccine_type)->where('offices_orders.order_state_id', $request->order_state)->whereBetween('offices_orders.order_date', [$firstDate, $lastDate])->orderBy('offices_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -418,7 +419,7 @@ class ReportController extends Controller
     public function officeGetVaccinesQtyReport($office_id)
     {
         try {
-            $vaccineQty = Office_stock_vaccine::join('vaccine_types', 'offices_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->select('ministry_stock_vaccines.*', 'vaccine_types.vaccine_type')->where('offices_stock_vaccines.office_id', $office_id)->get();
+            $vaccineQty = Office_stock_vaccine::join('vaccine_types', 'offices_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->select('offices_stock_vaccines.*', 'vaccine_types.vaccine_type')->where('offices_stock_vaccines.office_id', $office_id)->get();
 
             return response()->json([
                 'message' => 'Vaccines quantity retrieved successfully',
@@ -481,6 +482,160 @@ class ReportController extends Controller
             return response()->json([
                 'message' => 'Data retrieved successfully',
                 'data' => $data,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    // -------------------------------------------------------------------------------
+
+    // ----------------------------- Orders Report ----------------------------------
+    public function officeGenerateAllOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers.office_id', $request->office_id)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeGenerateAllVaccinesOfAllCentersOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders =  HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers.office_id', $request->office_id)->where('healthy_centers_orders.order_state_id', $request->order_state)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeGenerateAllStatesOfAllCentersOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers.office_id', $request->office_id)->where('healthy_centers_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeGenerateAllStatesOfAllVaccinesOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers_orders.healthy_center_id', $request->center_id)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeGenerateAllCentersOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers.office_id', $request->office_id)->where('healthy_centers_orders.vaccine_type_id', $request->vaccine_type)->where('healthy_centers_orders.order_state_id', $request->order_state)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeGenerateAllVaccinesOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers_orders.healthy_center_id', $request->center_id)->where('healthy_centers_orders.order_state_id', $request->order_state)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeGenerateAllStatesOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders =  HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers_orders.healthy_center_id', $request->center_id)->where('healthy_centers_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function officeGenerateCustomOrdersReport(Request $request)
+    {
+        try {
+            $firstDate = Carbon::parse($request->first_date)->startOfDay();
+            $lastDate = Carbon::parse($request->last_date)->endOfDay();
+
+            $orders = HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers_orders.healthy_center_id', $request->center_id)->where('healthy_centers_orders.vaccine_type_id', $request->vaccine_type)->where('healthy_centers_orders.order_state_id', $request->order_state)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+
+            return response()->json([
+                'message' => 'Orders retrieved successfully',
+                'data' => $orders,
             ]);
         } catch (Exception $e) {
             return response()->json([

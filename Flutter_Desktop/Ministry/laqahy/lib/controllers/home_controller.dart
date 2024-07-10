@@ -2,16 +2,22 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/home_card_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_endpoints.dart';
 
 class HomeController extends GetxController {
+  StaticDataController sdc = Get.find<StaticDataController>();
+
   @override
-  void onInit() {
+  void onInit() async {
+    officeId = await sdc.storageService.getOfficeId();
     fetchHomeCardItems();
     super.onInit();
   }
+
+  int? officeId;
 
   var fetchDataFuture = Future<void>.value().obs;
 
@@ -19,6 +25,11 @@ class HomeController extends GetxController {
   var errorMsg = ''.obs;
 
   var homeCardItems = <HomeCardItem>[
+    HomeCardItem(
+      imagePath: 'assets/icons/emp-count.png',
+      title: 'عدد الموظفين',
+      count: 0,
+    ),
     HomeCardItem(
       imagePath: 'assets/icons/office.png',
       title: 'عدد المكاتب',
@@ -62,7 +73,7 @@ class HomeController extends GetxController {
       try {
         isLoading(true);
         var response = await http.get(
-          Uri.parse(ApiEndpoints.getTotalCount),
+          Uri.parse('${ApiEndpoints.getTotalCount}/$officeId'),
           headers: <String, String>{
             'Content-Type': 'application/json',
           },
@@ -72,13 +83,14 @@ class HomeController extends GetxController {
           Map<String, dynamic> jsonData = jsonDecode(response.body);
           Map<String, dynamic> data = jsonData['data'];
 
-          homeCardItems[0].count = data['offices_count'];
-          homeCardItems[1].count = data['centers_count'];
-          homeCardItems[2].count = data['mothers_count'];
-          homeCardItems[3].count = data['children_count'];
-          homeCardItems[4].count = data['vaccines_count'];
-          homeCardItems[5].count = data['orders_count'];
-          homeCardItems[6].count = data['posts_count'];
+          homeCardItems[0].count = data['users_count'];
+          homeCardItems[1].count = data['offices_count'];
+          homeCardItems[2].count = data['centers_count'];
+          homeCardItems[3].count = data['mothers_count'];
+          homeCardItems[4].count = data['children_count'];
+          homeCardItems[5].count = data['vaccines_count'];
+          homeCardItems[6].count = data['orders_count'];
+          homeCardItems[7].count = data['posts_count'];
           isLoading(false);
           return;
         } else {

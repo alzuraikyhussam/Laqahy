@@ -593,32 +593,17 @@ class _AddChildStateState extends State<AddChildState> {
                         const SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 130,
-                              child: myButton(
-                                  onPressed: () {
-                                    return myShowDialog(
-                                      context: context,
-                                      widgetName: SuccessfullyAddState(),
-                                    );
-                                  },
-                                  text: 'jj',
-                                  textStyle: MyTextStyles.font16WhiteBold),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Container(
-                              width: 130,
-                              child: myButton(
-                                  backgroundColor: MyColors.greyColor,
-                                  onPressed: () {},
-                                  text: 'الغــاء الأمــر',
-                                  textStyle: MyTextStyles.font16WhiteBold),
-                            ),
-                          ],
+                        Container(
+                          width: 130,
+                          child: myButton(
+                              onPressed: () {
+                                return myShowDialog(
+                                  context: context,
+                                  widgetName: SuccessfullyAddState(),
+                                );
+                              },
+                              text: 'jj',
+                              textStyle: MyTextStyles.font16WhiteBold),
                         ),
                       ],
                     ),

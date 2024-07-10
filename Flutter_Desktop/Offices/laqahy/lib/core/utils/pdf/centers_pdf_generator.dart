@@ -52,7 +52,8 @@ class CentersPdfGenerator {
           child:
               pdfWidgets.buildHeader(centerData: sdc.officeData.first.phone!),
         ),
-        pdfWidgets.buildTitle(title: 'تقرير عن جميع المراكز الصحية في المحافظة'),
+        pdfWidgets.buildTitle(
+            title: 'تقرير عن جميع المراكز الصحية في المحافظة'),
         pw.SizedBox(height: 20),
         pw.TableHelper.fromTextArray(
           headers: [
@@ -61,6 +62,7 @@ class CentersPdfGenerator {
             'المديرية',
             'المحافظة',
             'رقم الهاتف',
+            'كود التسجيل',
             'اسم المركز',
             'م',
           ],
@@ -72,6 +74,7 @@ class CentersPdfGenerator {
                   center.directorateName,
                   center.cityName,
                   center.phone,
+                  center.createAccountCode ?? 'تم التسجيل',
                   center.name,
                   // center.id,
                   serialNum += 1,
@@ -163,7 +166,7 @@ class CentersPdfGenerator {
       ),
     );
 
-    pdfWidgets.savePdfDocument(
+    await pdfWidgets.savePdfDocument(
       fileName: 'centers_report.pdf',
       pdf: pdf,
     );

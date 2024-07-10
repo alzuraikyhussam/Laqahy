@@ -163,7 +163,7 @@ class VaccinesStockPdfGenerator {
       ),
     );
 
-    pdfWidgets.savePdfDocument(
+    await pdfWidgets.savePdfDocument(
       fileName: 'vaccines_stock_report.pdf',
       pdf: pdf,
     );

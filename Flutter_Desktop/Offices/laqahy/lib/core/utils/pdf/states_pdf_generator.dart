@@ -144,7 +144,7 @@ class StatesPdfGenerator {
       ),
     );
 
-    pdfWidgets.savePdfDocument(
+    await pdfWidgets.savePdfDocument(
       fileName: 'states_report.pdf',
       pdf: pdf,
     );

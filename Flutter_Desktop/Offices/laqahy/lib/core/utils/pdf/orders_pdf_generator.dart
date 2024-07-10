@@ -172,7 +172,7 @@ class OrdersPdfGenerator {
       ),
     );
 
-    pdfWidgets.savePdfDocument(
+    await pdfWidgets.savePdfDocument(
       fileName: 'orders_report.pdf',
       pdf: pdf,
     );
