@@ -153,7 +153,7 @@ Route::get('ministry/orders/rejected', [OfficeOrderController::class, 'rejectedO
 // ------------------------------------------------------------
 
 // --------------------- Mother Data Routes ------------------------
-Route::get('ministry/mothers/date-range', [MotherDataController::class, 'getDateRange']);
+Route::get('ministry/mother-data/date-range', [MotherDataController::class, 'getDateRange']);
 // ------------------------------------------------------------
 
 // --------------------- Report Routes ------------------------
@@ -199,7 +199,7 @@ Route::get('offices/vaccines-quantity/{office_id}', [OfficeStockVaccineControlle
 // ------------------------------------------------------------
 
 // --------------------- Mother Data Routes ------------------------
-Route::get('offices/mothers/date-range/{office_id}', [MotherDataController::class, 'officeGetDateRange']);
+Route::get('offices/mother-data/date-range/{office_id}', [MotherDataController::class, 'officeGetDateRange']);
 // ------------------------------------------------------------
 
 // --------------------- Healthy Center Routes ------------------------
@@ -262,6 +262,7 @@ Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
 ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 
 // --------------------- Mother Data Routes ------------------------
+Route::get('centers/mother-data/date-range/{center_id}', [MotherDataController::class, 'centerGetDateRange']);
 Route::post('centers/mother-data/add-mother', [MotherDataController::class, 'store']);
 Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 'index']);
 // ------------------------------------------------------------
@@ -282,7 +283,7 @@ Route::post('centers/auth/login/{center_Id?}', [AuthController::class, 'centerLo
 // ------------------------------------------------------------
 
 // --------------------- User Routes ------------------------
-Route::get('centers/users/get-admin/{id}', [UserController::class, 'centerGetAdminData']);
+Route::get('centers/users/get-admin', [UserController::class, 'centerGetAdminData']);
 Route::post('centers/users/add-user', [UserController::class, 'centerAddUser']);
 Route::patch('centers/users/update-user/{id}', [UserController::class, 'centerUpdateUser']);
 Route::get('centers/users/{id}', [UserController::class, 'centerShowUser']);
@@ -301,6 +302,10 @@ Route::get('centers/dosage-level', [DosageLevelsController::class, 'index']);
 Route::get('centers/dosage-type/{id}', [DosageTypeController::class, 'show']);
 // ------------------------------------------------------------
 
+// --------------------- Health Center Order Routes ------------------------
+Route::get('centers/orders/date-range/{center_id}', [HealthyCenterOrderController::class, 'centerGetDateRange']);
+// ------------------------------------------------------------
+
 // --------------------- Order Routes ------------------------
 Route::post('centers/orders/add-order', [HealthyCenterOrderController::class, 'centerAddOrder']);
 Route::get('centers/orders/outgoing/{center_id}', [HealthyCenterOrderController::class, 'centerOutgoingOrders']);
@@ -312,4 +317,15 @@ Route::patch('centers/orders/receiving-confirm', [HealthyCenterOrderController::
 
 // --------------------- Healthy Centers Stock Vaccines Routes ------------------------
 Route::get('centers/vaccines-quantity/{center_id}', [HealthyCenterStockVaccineController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Report Routes ------------------------
+Route::get('centers/reports/vaccines-qty-report/{center_id}', [ReportController::class, 'centerGetVaccinesQtyReport']);
+
+Route::get('centers/reports/status-report', [ReportController::class, 'centerGenerateStatusReport']);
+
+Route::get('centers/reports/orders-all-report', [ReportController::class, 'centerGenerateAllOrdersReport']);
+Route::get('centers/reports/orders-vaccines-report', [ReportController::class, 'centerGenerateAllVaccinesOrdersReport']);
+Route::get('centers/reports/orders-states-report', [ReportController::class, 'centerGenerateAllStatesOrdersReport']);
+Route::get('centers/reports/orders-custom-report', [ReportController::class, 'centerGenerateCustomOrdersReport']);
 // ------------------------------------------------------------

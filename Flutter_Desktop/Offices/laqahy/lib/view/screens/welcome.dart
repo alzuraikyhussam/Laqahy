@@ -87,14 +87,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ? Container(
                         width: 320,
                         child: Text(
-                          'أهلاً وسهلاً بك في البرنامج الأول لمتابعة عملية التطعيم في اليمن.',
+                          'أهلاً وسهلاً بك في البرنامج الأول لإدارة عملية التطعيم في اليمن.',
                           style: MyTextStyles.font18BlackBold,
                         ),
                       )
                     : Container(
                         width: 250,
                         child: Text(
-                          'في البرنامج الأول لمتابعة عملية التطعيم في اليمن.',
+                          'في البرنامج الأول لإدارة عملية التطعيم في اليمن.',
                           style: MyTextStyles.font18BlackBold,
                         ),
                       ),

@@ -128,6 +128,8 @@ class MotherDataController extends Controller
         //
     }
 
+    /////////////////////////// Ministry ///////////////////////////////////////
+
     public function getDateRange()
     {
         try {
@@ -156,6 +158,31 @@ class MotherDataController extends Controller
             $motherMinDate = Mother_data::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->min('mother_data.created_at');
 
             $motherMaxDate = Mother_data::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->max('mother_data.created_at');
+
+            $minDate = Carbon::parse($motherMinDate)->toDateString();
+            $maxDate = Carbon::parse($motherMaxDate)->toDateString();
+
+            return response()->json([
+                'message' => 'Date range retrieved successfully',
+                'min_date' => $minDate,
+                'max_date' => $maxDate,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    ////////////////////////////////// Centers //////////////////////////////////
+
+    public function centerGetDateRange($center_id)
+    {
+        try {
+
+            $motherMinDate = Mother_data::where('mother_data.healthy_center_id', $center_id)->min('created_at');
+
+            $motherMaxDate = Mother_data::where('mother_data.healthy_center_id', $center_id)->max('created_at');
 
             $minDate = Carbon::parse($motherMinDate)->toDateString();
             $maxDate = Carbon::parse($motherMaxDate)->toDateString();

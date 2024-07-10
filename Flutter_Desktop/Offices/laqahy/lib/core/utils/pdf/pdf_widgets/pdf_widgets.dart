@@ -9,6 +9,7 @@ import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/models/office_model.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:lottie/lottie.dart';
@@ -131,7 +132,7 @@ class PDFWidgets {
   }
 
   // Build header of the PDF document
-  pw.Widget buildHeader({required String centerData}) {
+  pw.Widget buildHeader({required List<Office> officeData}) {
     return pw.Container(
       width: Get.width,
       child: pw.Row(
@@ -151,12 +152,12 @@ class PDFWidgets {
                 ),
                 pw.SizedBox(height: 5),
                 pw.Text(
-                  'وزارة الصحة والسكان',
+                  officeData.first.name ?? 'غير معروف',
                   style: headerTextStyle,
                 ),
                 pw.SizedBox(height: 5),
                 pw.Text(
-                  'رقم الهاتف: $centerData',
+                  'رقم الهاتف: $officeData',
                   style: headerTextStyle,
                 ),
               ],

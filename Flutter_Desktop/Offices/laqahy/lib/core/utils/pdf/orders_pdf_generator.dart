@@ -51,8 +51,7 @@ class OrdersPdfGenerator {
           padding: const pw.EdgeInsetsDirectional.only(
             bottom: 15,
           ),
-          child:
-              pdfWidgets.buildHeader(centerData: sdc.officeData.first.phone!),
+          child: pdfWidgets.buildHeader(officeData: sdc.officeData),
         ),
         pdfWidgets.buildTitle(
           title: reportName ?? '',

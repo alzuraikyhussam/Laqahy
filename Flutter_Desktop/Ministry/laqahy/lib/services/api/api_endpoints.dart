@@ -118,7 +118,7 @@ class ApiEndpoints {
 
   // --------------- Mother Data Endpoints -------------------
   static const String getMotherDateRange =
-      '$baseUrl/ministry/mothers/date-range';
+      '$baseUrl/ministry/mother-data/date-range';
   // --------------------------------------------------
 
   // --------------- Reports Endpoints -------------------

@@ -45,6 +45,10 @@ class ApiEndpoints {
   static const String getVaccines = '$baseUrl/vaccines';
   // --------------------------------------------------
 
+  // --------------- Order State Endpoints -------------------
+  static const String getOrderStates = '$baseUrl/order-states';
+  // --------------------------------------------------
+
   // --------------- Healthy Centers Stock Vaccines Endpoints -------------------
   static const String getVaccinesQuantity =
       '$baseUrl/centers/vaccines-quantity';
@@ -59,6 +63,7 @@ class ApiEndpoints {
   // --------------------------------------------------
 
 // --------------- Order Endpoints -------------------
+  static const String getOrdersDateRange = '$baseUrl/centers/orders/date-range';
   static const String addOrder = '$baseUrl/centers/orders/add-order';
   static const String getOutgoingOrders = '$baseUrl/centers/orders/outgoing';
   static const String getInDeliveryOrders =
@@ -78,6 +83,8 @@ class ApiEndpoints {
       '$baseUrl/centers/mother-data/add-mother';
   static const String getMothersData =
       '$baseUrl/centers/mother-data/get-mother-data';
+  static const String getMotherDateRange =
+      '$baseUrl/centers/mother-data/date-range';
   // --------------------------------------------------
 
   // --------------- Mother Statement Data Endpoints -------------------
@@ -98,5 +105,22 @@ class ApiEndpoints {
 
   // --------------- Child Status Data Endpoints -------------------
   static const String getDosageType = '$baseUrl/centers/dosage-type';
+  // --------------------------------------------------
+
+  // --------------- Reports Endpoints -------------------
+  static const String getVaccinesQtyReport =
+      '$baseUrl/centers/reports/vaccines-qty-report';
+
+  static const String getStatusReport =
+      '$baseUrl/centers/reports/status-report';
+
+  static const String getAllOrdersReport =
+      '$baseUrl/centers/reports/orders-all-report';
+  static const String getAllVaccinesOrdersReport =
+      '$baseUrl/centers/reports/orders-vaccines-report';
+  static const String getAllStatesOrdersReport =
+      '$baseUrl/centers/reports/orders-states-report';
+  static const String getCustomOrdersReport =
+      '$baseUrl/centers/reports/orders-custom-report';
   // --------------------------------------------------
 }
