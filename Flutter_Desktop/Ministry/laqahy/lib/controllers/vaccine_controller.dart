@@ -374,8 +374,8 @@ class VaccineController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        await fetchVaccinesQuantity();
-        await fetchVaccinesStatement();
+        fetchVaccinesQuantity();
+        fetchVaccinesStatement();
 
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
@@ -417,8 +417,8 @@ class VaccineController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        await fetchVaccinesQuantity();
-        await fetchVaccinesStatement();
+        fetchVaccinesQuantity();
+        fetchVaccinesStatement();
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
 

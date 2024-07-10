@@ -670,8 +670,9 @@ class Constants {
     final StaticDataController controller = Get.find<StaticDataController>();
     return Obx(() {
       if (controller.isMotherLoading.value) {
-        return myMothersDropDownMenuButton2(
-          hintText: 'أسم الأم',
+        return myDropDownMenuButton2(
+          hintText: 'اسم الأم',
+          width: 270,
           items: [
             DropdownMenuItem<String>(
               child: Center(
@@ -703,8 +704,9 @@ class Constants {
                   },
                 ));
           },
-          child: myMothersDropDownMenuButton2(
-            hintText: 'أسم الأم',
+          child: myDropDownMenuButton2(
+            hintText: 'اسم الأم',
+            width: 270,
             items: null,
             onChanged: null,
             searchController: null,
@@ -731,8 +733,9 @@ class Constants {
                   },
                 ));
           },
-          child: myMothersDropDownMenuButton2(
-            hintText: 'أسم الأم',
+          child: myDropDownMenuButton2(
+            hintText: 'اسم الأم',
+            width: 270,
             items: null,
             onChanged: null,
             searchController: null,
@@ -742,8 +745,9 @@ class Constants {
         );
       }
 
-      return myMothersDropDownMenuButton2(
-        hintText: 'أسم الأم',
+      return myDropDownMenuButton2(
+        hintText: 'اسم الأم',
+        width: 270,
         validator: mothersDataValidator,
         items: controller.mothers.map((element) {
           return DropdownMenuItem(

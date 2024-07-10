@@ -77,7 +77,7 @@ class ChildStatusDataController extends GetxController {
         DateFormat('MMM d, yyyy').parse(birthDateController.text);
     try {
       isAddLoading(true);
-      final Child = Childs(
+      final child = Childs(
         child_data_name: nameController.text,
         child_data_birthplace: birthPlaceController.text,
         child_data_birthDate: parsedBirthDate,
@@ -89,7 +89,7 @@ class ChildStatusDataController extends GetxController {
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(Child.toJson()),
+        body: jsonEncode(child.toJson()),
       );
 
       if (response.statusCode == 201) {
@@ -105,7 +105,6 @@ class ChildStatusDataController extends GetxController {
         ApiExceptionWidgets().myUserAlreadyExistsAlert();
         return;
       } else {
-        print(response.body);
         isAddLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);

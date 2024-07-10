@@ -262,8 +262,12 @@ class _MotherVisitDataState extends State<MotherVisitData> {
               child: Obx(
                 () {
                   return mvc.isLoading.value
-                      ? Center(
-                          child: myLoadingIndicator(),
+                      ? SizedBox(
+                          width: Get.width,
+                          height: 500,
+                          child: Center(
+                            child: myLoadingIndicator(),
+                          ),
                         )
                       : Container(
                           padding: const EdgeInsetsDirectional.only(

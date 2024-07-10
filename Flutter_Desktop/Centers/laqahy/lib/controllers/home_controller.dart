@@ -23,6 +23,11 @@ class HomeController extends GetxController {
 
   var homeCardItems = <HomeCardItem>[
     HomeCardItem(
+      imagePath: 'assets/icons/emp-count.png',
+      title: 'عدد المستخدمين',
+      count: 0,
+    ),
+    HomeCardItem(
       imagePath: 'assets/icons/women-count.png',
       title: 'عدد حالات الأمهات',
       count: 0,
@@ -30,11 +35,6 @@ class HomeController extends GetxController {
     HomeCardItem(
       imagePath: 'assets/icons/children-count.png',
       title: 'عدد حالات الأطفال',
-      count: 0,
-    ),
-    HomeCardItem(
-      imagePath: 'assets/icons/emp-count.png',
-      title: 'عدد الموظفين',
       count: 0,
     ),
     HomeCardItem(
@@ -64,10 +64,11 @@ class HomeController extends GetxController {
           Map<String, dynamic> jsonData = jsonDecode(response.body);
           Map<String, dynamic> data = jsonData['data'];
 
-          homeCardItems[0].count = data['mothers_count'];
-          homeCardItems[1].count = data['children_count'];
-          homeCardItems[2].count = data['users_count'];
+          homeCardItems[0].count = data['users_count'];
+          homeCardItems[1].count = data['mothers_count'];
+          homeCardItems[2].count = data['children_count'];
           homeCardItems[3].count = data['orders_count'];
+
           isLoading(false);
 
           return;

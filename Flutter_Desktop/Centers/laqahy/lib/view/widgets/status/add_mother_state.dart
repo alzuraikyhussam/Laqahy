@@ -110,7 +110,7 @@ class _AddMotherStateState extends State<AddMotherState> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '   الأسم   ',
+                                  '   الاسم   ',
                                   style: MyTextStyles.font14BlackBold,
                                 ),
                                 Container(

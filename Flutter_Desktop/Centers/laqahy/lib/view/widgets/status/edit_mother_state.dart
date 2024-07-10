@@ -105,7 +105,7 @@ class _EditeMotherStateState extends State<EditeMotherState> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '   الأسم   ',
+                                  '   الاسم   ',
                                   style: MyTextStyles.font14BlackBold,
                                 ),
                                 Container(

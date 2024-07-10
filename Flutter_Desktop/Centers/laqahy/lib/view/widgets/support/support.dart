@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 
-import '../../../core/shared/styles/color.dart';
 import '../basic_widgets/basic_widgets.dart';
 
 class SupportScreen extends StatelessWidget {
@@ -142,7 +143,7 @@ class SupportScreen extends StatelessWidget {
                           ),
                           Obx(() {
                             return tsc.isLoading.value
-                                ? myLoadingIndicator(width: 130)
+                                ? myLoadingIndicator()
                                 : myButton(
                                     onPressed: () {
                                       if (tsc

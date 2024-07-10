@@ -161,9 +161,9 @@ class PostController extends GetxController {
         }
         var response = await request.send();
         if (response.statusCode == 201) {
-          clearTextFields();
           await fetchPosts();
           ApiExceptionWidgets().myAddedDataSuccessAlert();
+          clearTextFields();
           isLoading(false);
           return;
         } else {

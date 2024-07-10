@@ -40,7 +40,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                     'assets/images/app-logo-info-system.png',
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Column(
@@ -51,7 +51,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font16BlackBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
@@ -59,7 +59,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font18PrimaryBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -67,7 +67,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font16BlackBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -75,7 +75,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font16BlackBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -83,7 +83,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font16BlackBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
@@ -91,7 +91,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font18PrimaryBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -99,7 +99,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font16BlackBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -107,7 +107,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font16BlackBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -115,7 +115,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font16BlackBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
@@ -123,7 +123,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font18PrimaryBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -131,7 +131,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font16BlackBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -139,7 +139,7 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                       style: MyTextStyles.font16BlackBold,
                       textAlign: TextAlign.justify,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
@@ -149,13 +149,13 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Container(
                   alignment: Alignment.center,
                   width: 600,
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -180,21 +180,21 @@ class _SystemInfoScreenState extends State<SystemInfoScreen> {
                     textAlign: TextAlign.justify,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 Image.asset(
                   'assets/images/window-logo.png',
                   width: 250,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 3,
                 ),
                 Text(
-                  'Version 1.0.0.0',
+                  'Version 1.0.0',
                   style: MyTextStyles.font16SecondaryBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
               ],

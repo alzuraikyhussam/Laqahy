@@ -24,7 +24,7 @@ class HomeController extends GetxController {
   var homeCardItems = <HomeCardItem>[
     HomeCardItem(
       imagePath: 'assets/icons/emp-count.png',
-      title: 'عدد الموظفين',
+      title: 'عدد المستخدمين',
       count: 0,
     ),
     HomeCardItem(

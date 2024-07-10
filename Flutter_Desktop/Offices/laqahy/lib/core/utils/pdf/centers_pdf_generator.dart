@@ -74,7 +74,7 @@ class CentersPdfGenerator {
                   center.directorateName,
                   center.cityName,
                   center.phone,
-                  center.createAccountCode ?? 'تم التسجيل',
+                  center.createAccountCode?.toUpperCase() ?? 'تم التسجيل',
                   center.name,
                   // center.id,
                   serialNum += 1,

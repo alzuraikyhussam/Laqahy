@@ -99,7 +99,7 @@ class StateDetails extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                ' الأسم :',
+                                ' الاسم :',
                                 style: MyTextStyles.font14BlackBold,
                               ),
                               const SizedBox(
@@ -281,7 +281,7 @@ class StateDetails extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                ' الأسم :',
+                                ' الاسم :',
                                 style: MyTextStyles.font14BlackBold,
                               ),
                               const SizedBox(

@@ -73,7 +73,7 @@ class OfficesPdfGenerator {
                   DateFormat('dd-MM-yyyy HH:mm').format(office.createdAt!),
                   office.phone,
                   office.centersCount,
-                  office.createAccountCode ?? 'تم التسجيل',
+                  office.createAccountCode?.toUpperCase() ?? 'تم التسجيل',
                   office.name,
                   // office.id,
                   serialNum += 1,
