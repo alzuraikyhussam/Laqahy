@@ -68,6 +68,7 @@ class HomeController extends GetxController {
   ].obs;
 
   Future<void> fetchHomeCardItems() async {
+
     errorMsg('');
     fetchDataFuture.value = Future<void>(() async {
       try {
@@ -110,4 +111,5 @@ class HomeController extends GetxController {
       }
     });
   }
+
 }

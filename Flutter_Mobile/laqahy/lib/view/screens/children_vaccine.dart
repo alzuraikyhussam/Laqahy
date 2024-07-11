@@ -1,14 +1,18 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class ChildrenVaccine extends StatelessWidget {
-  const ChildrenVaccine({super.key});
 
+class ChildrenVaccine extends StatelessWidget {
+   ChildrenVaccine({super.key});
+  // ChildrenVaccineController cc = Get.put(ChildrenVaccineController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +20,7 @@ class ChildrenVaccine extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            height: 300,
+            height: 200,
             child: Stack(
               children: [
                 Row(
@@ -96,7 +100,7 @@ class ChildrenVaccine extends StatelessWidget {
                           color: MyColors.primaryColor,
                           height: 3,
                         ),
-                        Text(' 30 يوم')
+                        Text(' 30 يوم'),
                       ],
                     ),
                   ),
@@ -184,6 +188,7 @@ class ChildrenVaccine extends StatelessWidget {
               ],
             ),
           ),
+          
         ],
       ),
     );
