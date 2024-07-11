@@ -1,10 +1,10 @@
 class MotherVaccine {
-  String? stageTitle;
+  String? levelTitle;
   int? dosageCount;
   int? dosageTakenCount;
 
   MotherVaccine({
-    required this.stageTitle,
+    required this.levelTitle,
     required this.dosageCount,
     required this.dosageTakenCount,
   });

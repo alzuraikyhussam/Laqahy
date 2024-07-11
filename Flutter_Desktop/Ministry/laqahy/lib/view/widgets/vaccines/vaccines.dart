@@ -295,6 +295,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
                         ],
                       );
               })
+           
             ],
           ),
         ),

@@ -126,18 +126,20 @@ class MotherStatementController extends Controller
     }
 
 
-    public function getMotherStatements($mother_id) {
+    public function getMotherStatements($mother_id)
+    {
 
         try {
-            $dosageTypeCount = Dosage_level::withCount('dosage_type as dosage_type_count')->get();
-         
+            $dosageCount = Dosage_level::withCount('dosage_type')->get();
+            $basicDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 1)->count();
+            $refresherDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 2)->count();
 
             return response()->json([
                 'message' => 'Mother statements retrieved successfully',
                 'data' => [
-                    'dosage_count' => $dosageTypeCount,
-                    // 'dosage_taken_count' => $usersCount,
-                    
+                    'dosage_count' => $dosageCount,
+                    'basic_dosage_taken_count' => $basicDosageTakenCount,
+                    'refresher_dosage_taken_count' => $refresherDosageTakenCount,
                 ]
             ]);
         } catch (Exception $e) {

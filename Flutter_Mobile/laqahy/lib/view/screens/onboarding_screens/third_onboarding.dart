@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/login.dart';
@@ -13,6 +14,8 @@ class ThirdOnboarding extends StatefulWidget {
 }
 
 class _ThirdOnboardingState extends State<ThirdOnboarding> {
+
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

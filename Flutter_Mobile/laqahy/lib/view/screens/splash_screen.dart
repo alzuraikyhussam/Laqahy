@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/layouts/onboarding_layout.dart';
 import 'package:laqahy/view/screens/home.dart';
+import 'package:laqahy/view/screens/login.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class MyCustomSplashScreen extends StatefulWidget {
@@ -26,11 +29,13 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
   AnimationController? _controller;
   Animation<double>? animation1;
 
+  StaticDataController sdc = Get.find<StaticDataController>();
+
   @override
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
@@ -62,8 +67,12 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
     });
 
     Timer(const Duration(seconds: 5), () {
-      setState(() {
-        Navigator.pushReplacement(context, PageTransition(OnboardingLayout()));
+      setState(() async {
+        await sdc.storageService.isRegistered()
+            ? Navigator.pushReplacement(
+                Get.context!, PageTransition(const Login()))
+            : Navigator.pushReplacement(
+                Get.context!, PageTransition(const OnboardingLayout()));
       });
     });
   }
@@ -86,7 +95,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
           Container(
             width: width,
             height: height,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/splash_background.png'),
                 fit: BoxFit.cover,
@@ -151,7 +160,6 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
                 ],
               ),
             ),
-          
           ),
 
           // Center(

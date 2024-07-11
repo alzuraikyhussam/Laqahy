@@ -254,7 +254,7 @@ Route::get('offices/reports/orders-custom-report', [ReportController::class, 'of
 
 
 // --------------------- Login Routes ------------------------
-Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
+Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']);
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------

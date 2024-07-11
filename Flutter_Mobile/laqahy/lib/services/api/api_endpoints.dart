@@ -4,7 +4,7 @@ class ApiEndpoints {
   // *********************************************
 
   // --------------- Login Endpoints -------------------
-  static const String login = '$baseUrl/mobile/login';
+  static const String login = '$baseUrl/mobile/auth/login';
   // --------------------------------------------------
 
 // --------------- Login Endpoints -------------------
