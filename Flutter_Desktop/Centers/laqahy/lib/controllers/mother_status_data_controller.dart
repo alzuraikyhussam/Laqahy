@@ -152,6 +152,7 @@ class MotherStatusDataController extends GetxController {
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         clearTextFields();
+        sdc.fetchMothers();
         isAddLoading(false);
         // await fetchUsers(centerId);
 

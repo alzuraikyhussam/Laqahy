@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChildDataController;
+use App\Http\Controllers\ChildDosageTypeController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\DonorController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VaccineTypesController;
+use App\Http\Controllers\VisitTypeController;
 use App\Models\Dosage_level;
 use App\Models\Mother_data;
 
@@ -241,12 +243,14 @@ Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------
-Route::get('centers/mother-statement/get-mother-statement/{center_id}', [MotherStatementController::class, 'show']);
+Route::get('centers/mother-statement/get-mother-statement/{centerId}', [MotherStatementController::class, 'show']);
 Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
+Route::delete('centers/mother-statement/delete-mother-statement/{motherId}', [MotherStatementController::class, 'destroy']);
 // ------------------------------------------------------------
 
 // --------------------- Child Data Routes ------------------------
 Route::post('centers/child-data/add-child', [ChildDataController::class, 'store']);
+Route::get('centers/child-data/get-child/{motherId}', [ChildDataController::class, 'show']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------
@@ -287,3 +291,17 @@ Route::patch('centers/orders/receiving-confirm', [HealthyCenterOrderController::
 // --------------------- Healthy Centers Stock Vaccines Routes ------------------------
 Route::get('centers/vaccines-quantity/{center_id}', [HealthyCenterStockVaccineController::class, 'index']);
 // ------------------------------------------------------------
+
+// --------------------- Visit Types Routes ------------------------
+Route::get('centers/get-visit-type', [VisitTypeController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Vaccines Types Routes ------------------------
+Route::get('centers/get-vaccines-data/{visitTypeId}', [VisitTypeController::class, 'getVaccinesFromVisit']);
+// ------------------------------------------------------------
+
+// --------------------- Vaccines Types Routes ------------------------
+Route::get('centers/get-dosage-type-data/{vaccineTypeId}', [ChildDosageTypeController::class, 'getDosagesFromVaccine']);
+// ------------------------------------------------------------
+
+

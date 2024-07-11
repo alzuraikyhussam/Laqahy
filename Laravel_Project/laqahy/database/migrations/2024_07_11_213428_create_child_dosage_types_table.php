@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vaccines_with_dosages', function (Blueprint $table) {
+        Schema::create('child_dosage_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vaccine_type_id')->constrained('vaccine_types')->onUpdate('cascade');
-            $table->foreignId('dosage_type_id')->constrained('dosage_types')->onUpdate('cascade');
+            $table->String('child_dosage_type');
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vaccines_with_dosages');
+        Schema::dropIfExists('child_dosage_types');
     }
 };

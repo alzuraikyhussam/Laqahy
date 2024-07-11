@@ -11,7 +11,6 @@ import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/controllers/vaccine_controller.dart';
-import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';

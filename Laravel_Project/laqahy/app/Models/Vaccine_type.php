@@ -41,9 +41,9 @@ class Vaccine_type extends Model
         return $this->hasMany(Child_statement::class);
     }
 
-    public function dosage_type()
+    public function child_dosage_type()
     {
-        return $this->belongsToMany(Dosage_type::class);
+        return $this->belongsToMany(Child_dosage_type::class);
     }
 
     public function visit_type()

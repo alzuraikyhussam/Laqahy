@@ -23,8 +23,8 @@ class MotherVisitController extends GetxController {
   TextEditingController motherStatementSearchController =
       TextEditingController();
   GlobalKey<FormState> createMotherStatementFormKey = GlobalKey<FormState>();
-  GlobalKey<FormState> editMotherStatementAccountFormKey =
-      GlobalKey<FormState>();
+  GlobalKey<FormState> editMotherStatementDataFormKey = GlobalKey<FormState>();
+
   int? centerId;
 
   void clearTextFields() {
@@ -36,7 +36,7 @@ class MotherVisitController extends GetxController {
   @override
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
-    fetchMotherStatement();
+    fetchMotherStatement(centerId!);
     sdc.fetchMothers();
     sdc.fetchDosageLevel();
     super.onInit();
@@ -45,13 +45,13 @@ class MotherVisitController extends GetxController {
   void filterMotherStatement(String keyword) {
     filteredMotherStatement.value = motherStatement.where((motherStatements) {
       return motherStatements.motherName
-              .toString()
-              .toLowerCase()
-              .contains(keyword.toLowerCase());
+          .toString()
+          .toLowerCase()
+          .contains(keyword.toLowerCase());
     }).toList();
   }
 
-  Future<void> fetchMotherStatement() async {
+  Future<void> fetchMotherStatement(int centerId) async {
     try {
       isLoading(true);
       motherStatementSearchController.clear();
@@ -82,7 +82,6 @@ class MotherVisitController extends GetxController {
     } catch (e) {
       isLoading(false);
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
-      print(e);
     } finally {
       isLoading(false);
     }
@@ -113,7 +112,7 @@ class MotherVisitController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        await fetchMotherStatement();
+        await fetchMotherStatement(centerId!);
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         clearTextFields();
@@ -128,7 +127,7 @@ class MotherVisitController extends GetxController {
         isAddLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
-        return;
+        print(response.body);
       }
     } on SocketException catch (_) {
       isAddLoading(false);
@@ -139,6 +138,38 @@ class MotherVisitController extends GetxController {
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isAddLoading(false);
+    }
+  }
+
+  Future<void> deleteMotherStatement(int motherId) async {
+    isDeleteLoading(true);
+    try {
+      var request =
+          await http.delete(Uri.parse('${ApiEndpoints.deleteMotherStatement}/$motherId'));
+
+      if (request.statusCode == 200) {
+        await fetchMotherStatement(centerId!);
+        Get.back();
+        ApiExceptionWidgets().myDeleteDataSuccessAlert();
+        isDeleteLoading(false);
+
+        return;
+      } else {
+        isDeleteLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(request.statusCode);
+        print(request.body);
+      }
+    } on SocketException catch (_) {
+      isDeleteLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isDeleteLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      return;
+    } finally {
+      isDeleteLoading(false);
     }
   }
 }

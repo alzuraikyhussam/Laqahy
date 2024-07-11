@@ -2,22 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/user_controller.dart';
+import 'package:laqahy/controllers/mother_visit_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:lottie/lottie.dart';
 
 // ignore: must_be_immutable
-class DeleteUserConfirm extends StatelessWidget {
-  DeleteUserConfirm({super.key, required this.userId});
+class DeleteMotherStatement extends StatelessWidget {
+  DeleteMotherStatement({super.key, required this.motherId});
 
-  int userId;
+  int motherId;
 
   @override
   Widget build(BuildContext context) {
-    UserController uc = Get.put(UserController());
-    print(userId);
+    MotherVisitController mvc = Get.put(MotherVisitController());
+    // print(userId);
     return AlertDialog(
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,
@@ -51,7 +51,7 @@ class DeleteUserConfirm extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      'هذا المستخدم؟',
+                      'هذه البيانات؟',
                       style: MyTextStyles.font18BlackBold,
                     ),
                   ),
@@ -66,16 +66,16 @@ class DeleteUserConfirm extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(() {
-                  return uc.isDeleteLoading.value
+                  return mvc.isDeleteLoading.value
                       ? myLoadingIndicator()
                       : Expanded(
                           child: myButton(
                             backgroundColor: MyColors.redColor,
-                            onPressed: uc.isDeleteLoading.value
+                            onPressed: mvc.isDeleteLoading.value
                                 ? null
                                 : () {
-                                    uc.deleteUser(
-                                      userId,
+                                    mvc.deleteMotherStatement(
+                                      motherId,
                                     );
                                   },
                             text: 'حـــــذف',
@@ -83,7 +83,7 @@ class DeleteUserConfirm extends StatelessWidget {
                           ),
                         );
                 }),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Expanded(

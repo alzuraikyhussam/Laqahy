@@ -49,6 +49,8 @@ class ChildStatusDataController extends GetxController {
   void clearTextFields() {
     nameController.clear();
     birthDateController.clear();
+    sdc.selectedMothersId.value = null;
+    sdc.selectedGenderId.value = null;
     sdc.selectedCityId.value = null;
     sdc.selectedDirectorateId.value = null;
     sdc.selectedMothersId.value = null;

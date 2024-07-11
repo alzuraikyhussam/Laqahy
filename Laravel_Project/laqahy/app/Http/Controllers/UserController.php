@@ -54,7 +54,7 @@ class UserController extends Controller
                         ->orWhere('user_name', $request->user_name);
                 })->exists();
 
-           
+
 
             if ($userExists) {
                 return response()->json([
@@ -126,8 +126,6 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'User updated successfully',
             ], 200);
-
-          
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

@@ -107,6 +107,7 @@ class LoginController extends GetxController {
     } catch (e) {
       isLoading(false);
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      print(e);
     } finally {
       isLoading(false);
     }

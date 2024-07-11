@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/visits/delete_mother_statement.dart';
 
 class MotherVisitRowSource extends DataTableSource {
   var myData;
@@ -21,7 +21,7 @@ class MotherVisitRowSource extends DataTableSource {
     }
 
     final motherStatementData = myData[index];
-    StaticDataController sdc = Get.find<StaticDataController>();
+    // StaticDataController sdc = Get.find<StaticDataController>();
     return DataRow(
       cells: [
         DataCell(
@@ -39,7 +39,7 @@ class MotherVisitRowSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              motherStatementData.dosage_level ?? "غيـر معـروف",
+              motherStatementData.dosage_type ?? "غيـر معـروف",
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -94,10 +94,10 @@ class MotherVisitRowSource extends DataTableSource {
               myIconButton(
                 icon: Icons.edit_rounded,
                 onTap: () async {
-                  int? adminId = await sdc.storageService.getAdminId();
+                  // int? adminId = await sdc.storageService.getAdminId();
                   // myShowDialog(
                   //   context: Get.context!,
-                  //   widgetName: EditUser(
+                  //   widgetName: EditMotherStatement(
                   //     data: myData[index],
                   //     adminId: adminId,
                   //   ),
@@ -115,11 +115,11 @@ class MotherVisitRowSource extends DataTableSource {
                 icon: Icons.delete,
                 onTap: () {
                   // Constants().playErrorSound();
-                  // myShowDialog(
-                  //     context: Get.context!,
-                  //     widgetName: DeleteUserConfirm(
-                  //       userId: user.id,
-                  //     ));
+                  myShowDialog(
+                      context: Get.context!,
+                      widgetName: DeleteMotherStatement(
+                        motherId: motherStatementData.id,
+                      ));
                 },
                 gradientColors: [
                   MyColors.redColor,

@@ -77,9 +77,19 @@ class ChildDataController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $motherId)
     {
-        //
+        try {
+            $childData = Child_data::where('mother_data_id', $motherId)->get();
+            return response()->json([
+                'message' => 'Child Data retrieved successfully',
+                'data' => $childData,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**

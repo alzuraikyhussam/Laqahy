@@ -185,7 +185,25 @@ class Constants {
     return null;
   }
 
+  /////////////
+  
+  /////////////
+
+  String? visitTypeValidator(value) {
+    if (value == null) {
+      return 'قم باختيار فترة الزيارة';
+    }
+    return null;
+  }
+
   ////////////
+  
+  String? childsDataValidator(value) {
+    if (value == null) {
+      return 'قم باختيار إسم الطفل';
+    }
+    return null;
+  }
 
   /////////////
   String? dosageLevelValidator(value) {
@@ -213,8 +231,32 @@ class Constants {
   }
 
   /////////////
+  /////////////
+
+  String? vaccineTypeValidator(value) {
+    if (value == null) {
+      return 'قم باختيار اسم اللقاح';
+    }
+    return null;
+  }
+
+  /////////////
+  /////////////
+
+  String? dosageWithVaccineValidator(value) {
+    if (value == null) {
+      return 'قم باختيار نوع الجرعة';
+    }
+    return null;
+  }
+
+  /////////////
 
   final TextEditingController directoratesSearchController =
+      TextEditingController();
+  final TextEditingController visitTypeSearchController =
+      TextEditingController();
+  final TextEditingController childrenSearchController =
       TextEditingController();
   final TextEditingController mothersSearchController = TextEditingController();
   final TextEditingController citySearchController = TextEditingController();
@@ -226,6 +268,8 @@ class Constants {
   final TextEditingController dosageTypeSearchController =
       TextEditingController();
   final TextEditingController vaccineSearchController = TextEditingController();
+  final TextEditingController vaccineTypeSearchController = TextEditingController();
+  final TextEditingController dosageWithVaccineSearchController = TextEditingController();
 
   Widget gendersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
@@ -549,7 +593,6 @@ class Constants {
         return InkWell(
           onTap: () {
             // Constants().playErrorSound();
-
             myShowDialog(
               context: Get.context!,
               widgetName: ApiExceptionAlert(
@@ -587,7 +630,6 @@ class Constants {
         return InkWell(
           onTap: () {
             // Constants().playErrorSound();
-
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -615,7 +657,6 @@ class Constants {
         return InkWell(
           onTap: () {
             // Constants().playErrorSound();
-
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -665,13 +706,15 @@ class Constants {
       }
     });
   }
-
-  Widget mothersDataDropdownMenu() {
+  
+  Widget mothersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
+
     return Obx(() {
       if (controller.isMotherLoading.value) {
-        return myMothersDropDownMenuButton2(
-          hintText: 'أسم الأم',
+        return myDropDownMenuButton2(
+          width: 270,
+          hintText: 'اسم الأم',
           items: [
             DropdownMenuItem<String>(
               child: Center(
@@ -681,8 +724,8 @@ class Constants {
           ],
           onChanged: null,
           searchController: null,
-          selectedValue: null,
           validator: mothersDataValidator,
+          selectedValue: null,
         );
       }
 
@@ -690,6 +733,7 @@ class Constants {
         return InkWell(
           onTap: () {
             // Constants().playErrorSound();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -703,13 +747,14 @@ class Constants {
                   },
                 ));
           },
-          child: myMothersDropDownMenuButton2(
-            hintText: 'أسم الأم',
+          child: myDropDownMenuButton2(
+            hintText: 'اسم الأم',
             items: null,
             onChanged: null,
             searchController: null,
-            selectedValue: null,
             validator: mothersDataValidator,
+            selectedValue: null,
+            width: 270,
           ),
         );
       }
@@ -718,6 +763,7 @@ class Constants {
         return InkWell(
           onTap: () {
             // Constants().playErrorSound();
+
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -731,19 +777,21 @@ class Constants {
                   },
                 ));
           },
-          child: myMothersDropDownMenuButton2(
-            hintText: 'أسم الأم',
+          child: myDropDownMenuButton2(
+            width: 270,
+            hintText: 'اسم الأم',
             items: null,
             onChanged: null,
+            validator: mothersDataValidator,
             searchController: null,
             selectedValue: null,
-            validator: mothersDataValidator,
           ),
         );
       }
 
-      return myMothersDropDownMenuButton2(
-        hintText: 'أسم الأم',
+      return myDropDownMenuButton2(
+        width: 270,
+        hintText: 'اسم الأم',
         validator: mothersDataValidator,
         items: controller.mothers.map((element) {
           return DropdownMenuItem(
@@ -757,13 +805,142 @@ class Constants {
         onChanged: (value) {
           if (value != null) {
             controller.selectedMothersId.value = int.tryParse(value);
+            controller.fetchChildren(controller.selectedMothersId.value!);
+            controller.selectedChildsId.value = null;
           } else {
             controller.selectedMothersId.value = null;
           }
         },
         searchController: mothersSearchController,
-        selectedValue: controller.selectedGenderId.value?.toString(),
+        selectedValue: controller.selectedMothersId.value?.toString(),
       );
+    });
+  }
+
+  Widget childsDropdownMenu() {
+    final StaticDataController controller = Get.find<StaticDataController>();
+
+    return Obx(() {
+      if (controller.selectedMothersId.value == null) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+            myShowDialog(
+              context: Get.context!,
+              widgetName: ApiExceptionAlert(
+                title: 'خطـــأ',
+                description: 'من فضلك، قم باختيار اسم الأم أولاً',
+                height: 280,
+              ),
+            );
+          },
+          child: myDropDownMenuButton2(
+            width: 270,
+            hintText: 'اسم الطفل',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: childsDataValidator,
+          ),
+        );
+      } else if (controller.isChildLoading.value) {
+        return myDropDownMenuButton2(
+          width: 270,
+          hintText: 'اسم الطفل',
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          selectedValue: null,
+          validator: childsDataValidator,
+        );
+      } else if (controller.childErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: controller.childErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller
+                        .fetchChildren(controller.selectedMothersId.value!);
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            width: 270,
+            hintText: 'اسم الطفل',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: childsDataValidator,
+          ),
+        );
+      } else if (controller.childs.isEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller
+                        .fetchChildren(controller.selectedMothersId.value!);
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            width: 270,
+            hintText: 'اسم الطفل',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: childsDataValidator,
+          ),
+        );
+      } else {
+        return myDropDownMenuButton2(
+          width: 270,
+          hintText: 'اسم الطفل',
+          validator: childsDataValidator,
+          items: controller.childs.map((element) {
+            return DropdownMenuItem(
+              value: element.id.toString(),
+              child: Text(
+                element.child_data_name,
+                style: MyTextStyles.font16BlackMedium,
+              ),
+            );
+          }).toList(),
+          onChanged: (value) {
+            if (value != null) {
+              controller.selectedChildsId.value = int.tryParse(value);
+            } else {
+              controller.selectedMothersId.value = null;
+            }
+          },
+          searchController: childrenSearchController,
+          selectedValue: controller.selectedChildsId.value?.toString(),
+        );
+      }
     });
   }
 
@@ -995,6 +1172,364 @@ class Constants {
     });
   }
 
+  Widget visitTypeDropdownMenu() {
+    final StaticDataController controller = Get.find<StaticDataController>();
+
+    return Obx(() {
+      if (controller.isVisitTypeLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'فترة الزيارة',
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          validator: visitTypeValidator,
+          selectedValue: null,
+          width: 250,
+        );
+      }
+
+      if (controller.visitTypeErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: controller.visitTypeErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchVisitType();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'فترة الزيارة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            validator: visitTypeValidator,
+            selectedValue: null,
+            width: 250,
+          ),
+        );
+      }
+
+      if (controller.visitType.isEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchVisitType();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'فترة الزيارة',
+            items: null,
+            onChanged: null,
+            validator: visitTypeValidator,
+            searchController: null,
+            selectedValue: null,
+            width: 250,
+          ),
+        );
+      }
+
+      return myDropDownMenuButton2(
+        width: 250,
+        hintText: 'فترة الزيارة',
+        validator: visitTypeValidator,
+        items: controller.visitType.map((element) {
+          return DropdownMenuItem(
+            value: element.id.toString(),
+            child: Text(
+              element.visit_period,
+              style: MyTextStyles.font16BlackMedium,
+            ),
+          );
+        }).toList(),
+        onChanged: (value) {
+          if (value != null) {
+            controller.selectedVisitType.value = int.tryParse(value);
+            controller.fetchVaccineWithVisit(controller.selectedVisitType.value!);
+            controller.selectedVaccineType.value = null;
+          } else {
+            controller.selectedVisitType.value = null;
+          }
+        },
+        searchController: visitTypeSearchController,
+        selectedValue: controller.selectedVisitType.value?.toString(),
+      );
+    });
+  }
+
+  Widget vaccineWithVisitDropdownMenu() {
+    final StaticDataController controller = Get.find<StaticDataController>();
+
+    return Obx(() {
+      if (controller.selectedVisitType.value == null) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+            myShowDialog(
+              context: Get.context!,
+              widgetName: ApiExceptionAlert(
+                title: 'خطـــأ',
+                description: 'من فضلك، قم باختيار فترة الزيارة أولاً',
+                height: 280,
+              ),
+            );
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع اللقاح',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: vaccineTypeValidator,
+          ),
+        );
+      } else if (controller.isVaccineTypeLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'نوع اللقاح',
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          selectedValue: null,
+          validator: vaccineTypeValidator,
+        );
+      } else if (controller.vaccineTypeErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: controller.vaccineTypeErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchVaccineWithVisit(
+                        controller.selectedVisitType.value!);
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع اللقاح',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: vaccineTypeValidator,
+          ),
+        );
+      } else if (controller.vaccineType.isEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchVaccineWithVisit(
+                        controller.selectedVisitType.value!);
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع اللقاح',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: vaccineTypeValidator,
+          ),
+        );
+      } else {
+        return myDropDownMenuButton2(
+          hintText: 'نوع اللقاح',
+          validator: vaccineTypeValidator,
+          items: controller.vaccineType.map((element) {
+            return DropdownMenuItem(
+              value: element.id.toString(),
+              child: Text(
+                element.vaccineType!,
+                style: MyTextStyles.font16BlackMedium,
+              ),
+            );
+          }).toList(),
+          onChanged: (value) {
+            if (value != null) {
+              controller.selectedVaccineType.value = int.tryParse(value);
+              controller.fetchDosageWithVaccine(controller.selectedVaccineType.value!);
+              controller.selectedChildDosageTypeId.value = null;
+            } else {
+              controller.selectedVaccineType.value = null;
+            }
+          },
+          searchController: vaccineTypeSearchController,
+          selectedValue: controller.selectedVaccineType.value?.toString(),
+        );
+      }
+    });
+  }
+  
+  Widget dosageWithVaccineDropdownMenu() {
+    final StaticDataController controller = Get.find<StaticDataController>();
+
+    return Obx(() {
+      if (controller.selectedChildDosageTypeId.value == null) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+            myShowDialog(
+              context: Get.context!,
+              widgetName: ApiExceptionAlert(
+                title: 'خطـــأ',
+                description: 'من فضلك، قم باختيار نوع اللقاح أولاً',
+                height: 280,
+              ),
+            );
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: dosageWithVaccineValidator,
+          ),
+        );
+      } else if (controller.isVaccineTypeLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'نوع الجرعة',
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          selectedValue: null,
+          validator: dosageWithVaccineValidator,
+        );
+      } else if (controller.childDosageTypeErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: controller.childDosageTypeErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchDosageWithVaccine(
+                        controller.selectedVaccineType.value!);
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: dosageWithVaccineValidator,
+          ),
+        );
+      } else if (controller.childDosageType.isEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذرا، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchDosageWithVaccine(
+                        controller.selectedVaccineType.value!);
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: dosageWithVaccineValidator,
+          ),
+        );
+      } else {
+        return myDropDownMenuButton2(
+          hintText: 'نوع الجرعة',
+          validator: dosageWithVaccineValidator,
+          items: controller.childDosageType.map((element) {
+            return DropdownMenuItem(
+              value: element.id.toString(),
+              child: Text(
+                element.ChildDosageType!,
+                style: MyTextStyles.font16BlackMedium,
+              ),
+            );
+          }).toList(),
+          onChanged: (value) {
+            if (value != null) {
+              controller.selectedChildDosageTypeId.value = int.tryParse(value);
+            } else {
+              controller.selectedVaccineType.value = null;
+            }
+          },
+          searchController: dosageWithVaccineSearchController,
+          selectedValue: controller.selectedChildDosageTypeId.value?.toString(),
+        );
+      }
+    });
+  }
+
   Widget vaccinesDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
 
@@ -1094,7 +1629,7 @@ class Constants {
           if (value != null) {
             controller.selectedVaccine.value = value;
           } else {
-            controller.selectedVaccine.value = null;
+            controller.selectedVisitType.value = null;
           }
         },
         searchController: vaccineSearchController,
@@ -1102,4 +1637,5 @@ class Constants {
       );
     });
   }
+
 }

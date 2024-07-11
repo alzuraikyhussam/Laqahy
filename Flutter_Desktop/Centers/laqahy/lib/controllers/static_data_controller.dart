@@ -3,16 +3,20 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:laqahy/models/center_model.dart';
+import 'package:laqahy/models/child_status_data_model.dart';
 import 'package:laqahy/models/city_model.dart';
 import 'package:laqahy/models/directorate_model.dart';
 import 'package:laqahy/models/dosage_level_model.dart';
 import 'package:laqahy/models/dosage_type_model.dart';
+import 'package:laqahy/models/dosage_with_vaccine_model.dart';
 import 'package:laqahy/models/gender_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/models/mother_status_data_model.dart';
 import 'package:laqahy/models/permission_type_model.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:laqahy/models/vaccine_model.dart';
+import 'package:laqahy/models/vaccine_with_visit_model.dart';
+import 'package:laqahy/models/visit_type_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
 
@@ -55,6 +59,11 @@ class StaticDataController extends GetxController {
   var motherErrorMsg = ''.obs;
   var isMotherLoading = false.obs;
 
+  var childs = <Childs>[].obs;
+  var selectedChildsId = Rx<int?>(null);
+  var childErrorMsg = ''.obs;
+  var isChildLoading = false.obs;
+
   var dosageLevel = <DosageLevel>[].obs;
   var selectedDosageLevelId = Rx<int?>(null);
   var dosageLevelErrorMsg = ''.obs;
@@ -64,11 +73,26 @@ class StaticDataController extends GetxController {
   var selectedDosageTypeId = Rx<int?>(null);
   var dosageTypeErrorMsg = ''.obs;
   var isDosageTypeLoading = false.obs;
+  
+  var childDosageType = <DosageWithVaccine>[].obs;
+  var selectedChildDosageTypeId = Rx<int?>(null);
+  var childDosageTypeErrorMsg = ''.obs;
+  var isChildDosageTypeLoading = false.obs;
 
   var vaccines = <Vaccine>[].obs;
   var selectedVaccine = Rx<Vaccine?>(null);
   var vaccineErrorMsg = ''.obs;
   var isVaccineLoading = false.obs;
+  
+  var vaccineType = <VaccineWithVisit>[].obs;
+  var selectedVaccineType = Rx<int?>(null);
+  var vaccineTypeErrorMsg = ''.obs;
+  var isVaccineTypeLoading = false.obs;
+  
+  var visitType = <VisitType>[].obs;
+  var selectedVisitType = Rx<int?>(null);
+  var visitTypeErrorMsg = ''.obs;
+  var isVisitTypeLoading = false.obs;
 
   @override
   void onInit() async {
@@ -234,7 +258,7 @@ class StaticDataController extends GetxController {
       isDirectorateLoading(false);
     }
   }
-
+  
   void fetchMothers() async {
     try {
       motherErrorMsg('');
@@ -257,13 +281,44 @@ class StaticDataController extends GetxController {
       }
     } on SocketException catch (_) {
       isMotherLoading(false);
-      motherErrorMsg(
-          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+      motherErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isMotherLoading(false);
       motherErrorMsg('خطأ غير متوقع\n${e.toString()}');
     } finally {
       isMotherLoading(false);
+    }
+  }
+
+  void fetchChildren(int motherId) async {
+    try {
+      childErrorMsg('');
+      isChildLoading(true);
+      final response = await http.get(
+        Uri.parse('${ApiEndpoints.getChildData}/$motherId'),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isChildLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<Childs> fetchedChildren =
+            jsonData.map((e) => Childs.fromJson(e)).toList();
+        childs.assignAll(fetchedChildren);
+      } else {
+        isChildLoading(false);
+        childErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isChildLoading(false);
+      childErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isChildLoading(false);
+      childErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isChildLoading(false);
     }
   }
 
@@ -331,6 +386,106 @@ class StaticDataController extends GetxController {
     }
   }
 
+    void fetchVisitType() async {
+    try {
+      visitTypeErrorMsg('');
+      isVisitTypeLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getVisitType),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isVisitTypeLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<VisitType> fetchVisitTypes =
+            jsonData.map((e) => VisitType.fromJson(e)).toList();
+        visitType.assignAll(fetchVisitTypes);
+      } else {
+        isVisitTypeLoading(false);
+        visitTypeErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isVisitTypeLoading(false);
+      visitTypeErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isVisitTypeLoading(false);
+      visitTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isVisitTypeLoading(false);
+    }
+  }
+
+  void fetchVaccineWithVisit(int visitTypeId) async {
+    try {
+      vaccineTypeErrorMsg('');
+      isVaccineTypeLoading(true);
+      final response = await http.get(
+        Uri.parse('${ApiEndpoints.getVaccinesType}/$visitTypeId'),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isVaccineTypeLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<VaccineWithVisit> fetchVaccineWithVisit =
+            jsonData.map((e) => VaccineWithVisit.fromJson(e)).toList();
+        vaccineType.assignAll(fetchVaccineWithVisit);
+      } else {
+        isVaccineTypeLoading(false);
+        vaccineTypeErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+        print(response.body);
+      }
+    } on SocketException catch (_) {
+      isVaccineTypeLoading(false);
+      vaccineTypeErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+        print(e);
+      isVaccineTypeLoading(false);
+      vaccineTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isVaccineTypeLoading(false);
+    }
+  }
+
+  void fetchDosageWithVaccine(int vaccineTypeId) async {
+    try {
+      childDosageTypeErrorMsg('');
+      isChildDosageTypeLoading(true);
+      final response = await http.get(
+        Uri.parse('${ApiEndpoints.getDosageTypeWithVaccine}/$vaccineTypeId'),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isChildDosageTypeLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<DosageWithVaccine> fetchDosageWithVaccine =
+            jsonData.map((e) => DosageWithVaccine.fromJson(e)).toList();
+        childDosageType.assignAll(fetchDosageWithVaccine);
+      } else {
+        isChildDosageTypeLoading(false);
+        childDosageTypeErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+        print(response.body);
+      }
+    } on SocketException catch (_) {
+      isChildDosageTypeLoading(false);
+      childDosageTypeErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+        print(e);
+      isChildDosageTypeLoading(false);
+      childDosageTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isChildDosageTypeLoading(false);
+    }
+  }
+
   Future<void> fetchVaccines() async {
     try {
       vaccineErrorMsg('');
@@ -363,4 +518,6 @@ class StaticDataController extends GetxController {
       isVaccineLoading(false);
     }
   }
+
+
 }

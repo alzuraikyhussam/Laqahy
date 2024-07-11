@@ -1,6 +1,6 @@
 class Login {
-  String userAccountName;
-  String userAccountPassword;
+  String? userAccountName;
+  String? userAccountPassword;
   int? userId;
   String? userName;
   String? userPhone;
@@ -42,8 +42,8 @@ class Login {
 
   Map<String, dynamic> toJson() {
     return {
-      'user_account_name': userAccountName,
-      'user_account_password': userAccountPassword,
+      'user_account_name': userAccountName!,
+      'user_account_password': userAccountPassword!,
     };
   }
 }

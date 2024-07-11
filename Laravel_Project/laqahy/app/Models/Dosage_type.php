@@ -26,9 +26,4 @@ class Dosage_type extends Model
         return $this->hasMany(Child_statement::class);
     }
 
-    public function vaccine_type()
-    {
-        return $this->belongsToMany(Vaccine_type::class);
-    }
-
 }

@@ -8,8 +8,6 @@ import 'package:laqahy/models/center_order_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_exception_widgets.dart';
-import 'package:laqahy/view/widgets/api_erxception_alert.dart';
-import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class OrdersController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:http/http.dart' as http;
-import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
