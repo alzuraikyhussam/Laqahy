@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/onboarding_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/login.dart';
@@ -33,6 +34,7 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
   }
 
   OnboardingController obc = Get.put(OnboardingController());
+  StaticDataController sdc = Get.find<StaticDataController>();
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (obc.currentIndex.value != 2) {
                       print(obc.currentIndex.value);
                       obc.pageController.value.nextPage(
@@ -86,6 +88,7 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                       );
                     } else {
                       Get.offAll(Login());
+                      await sdc.storageService.setRegistered(true);
                     }
                   },
                   child: Obx(

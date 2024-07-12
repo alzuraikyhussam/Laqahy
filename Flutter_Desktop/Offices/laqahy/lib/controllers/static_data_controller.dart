@@ -57,9 +57,6 @@ class StaticDataController extends GetxController {
   void onInit() async {
     updateGreeting();
     startTimer();
-    fetchPermissions();
-    fetchGenders();
-    fetchCities();
     storageService = await StorageService.getInstance();
     isRegistered.value = await storageService.isRegistered();
     super.onInit();

@@ -142,40 +142,22 @@ class SupportScreen extends StatelessWidget {
                           SizedBox(
                             height: 20,
                           ),
-                          Row(
-                            children: [
-                              Obx(() {
-                                return tsc.isLoading.value
-                                    ? myLoadingIndicator()
-                                    : myButton(
-                                        onPressed: () {
-                                          if (tsc.technicalSupportFormKey
-                                              .currentState!
-                                              .validate()) {
-                                            tsc.sendMsg();
-                                          }
-                                        },
-                                        text: 'إرســــــال',
-                                        textStyle: MyTextStyles.font16WhiteBold,
-                                        width: 130,
-                                      );
-                              }),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              myButton(
-                                onPressed: () {
-                                  hlc.changeChoose(
-                                    'الرئيسية',
+                          Obx(() {
+                            return tsc.isLoading.value
+                                ? myLoadingIndicator()
+                                : myButton(
+                                    onPressed: () {
+                                      if (tsc
+                                          .technicalSupportFormKey.currentState!
+                                          .validate()) {
+                                        tsc.sendMsg();
+                                      }
+                                    },
+                                    text: 'إرســــــال',
+                                    textStyle: MyTextStyles.font16WhiteBold,
+                                    width: 130,
                                   );
-                                },
-                                text: 'خـــروج',
-                                textStyle: MyTextStyles.font16WhiteBold,
-                                width: 130,
-                                backgroundColor: MyColors.greyColor,
-                              ),
-                            ],
-                          ),
+                          }),
                         ],
                       ),
                     ),

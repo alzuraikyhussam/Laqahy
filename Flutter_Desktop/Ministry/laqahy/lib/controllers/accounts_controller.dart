@@ -37,7 +37,7 @@ class AccountsController extends GetxController {
       TextEditingController();
   var offices = [].obs;
   var filteredOffices = [].obs;
-  var isOfficesLoading = false.obs;
+  var isOfficesLoading = true.obs;
 
   var registeredOfficesDropDownMenu = <Office>[].obs;
   var selectedRegisteredOfficeId = Rx<int?>(null);
@@ -53,7 +53,7 @@ class AccountsController extends GetxController {
   TextEditingController centersSearchController = TextEditingController();
   var centers = [].obs;
   var filteredCenters = [].obs;
-  var isCentersLoading = false.obs;
+  var isCentersLoading = true.obs;
 
   var selectedOption = 'all'.obs;
 

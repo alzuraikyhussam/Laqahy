@@ -64,6 +64,17 @@ class _HomeMenuSideState extends State<HomeMenuSide> {
                             padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
+                              boxShadow: hlc.choose.value ==
+                                      Constants
+                                          .adminHomeLayoutItems[index].label
+                                  ? [
+                                      BoxShadow(
+                                          color: MyColors.greyColor
+                                              .withOpacity(0.4),
+                                          blurRadius: 10,
+                                          offset: const Offset(0, 5)),
+                                    ]
+                                  : [],
                               gradient: hlc.choose.value == 'تسجيل الخروج'
                                   ? const LinearGradient(
                                       colors: [
@@ -132,6 +143,17 @@ class _HomeMenuSideState extends State<HomeMenuSide> {
                             padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
+                              boxShadow: hlc.choose.value ==
+                                      Constants
+                                          .adminHomeLayoutItems[index].label
+                                  ? [
+                                      BoxShadow(
+                                          color: MyColors.greyColor
+                                              .withOpacity(0.4),
+                                          blurRadius: 10,
+                                          offset: const Offset(0, 5)),
+                                    ]
+                                  : [],
                               gradient: hlc.choose.value == 'تسجيل الخروج'
                                   ? const LinearGradient(
                                       colors: [

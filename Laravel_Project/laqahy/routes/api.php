@@ -54,7 +54,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // --------------------- General Routes ------------------------
-Route::get('ministry/general/home-total-count', [GeneralController::class, 'getTotalCount']);
+Route::get('ministry/general/home-total-count/{office_id}', [GeneralController::class, 'getTotalCount']);
 // ------------------------------------------------------------
 
 // --------------------- Post Routes ------------------------
@@ -155,7 +155,7 @@ Route::get('ministry/orders/rejected', [OfficeOrderController::class, 'rejectedO
 // ------------------------------------------------------------
 
 // --------------------- Mother Data Routes ------------------------
-Route::get('ministry/mothers/date-range', [MotherDataController::class, 'getDateRange']);
+Route::get('ministry/mother-data/date-range', [MotherDataController::class, 'getDateRange']);
 // ------------------------------------------------------------
 
 // --------------------- Report Routes ------------------------
@@ -200,6 +200,10 @@ Route::get('offices/general/home-total-count/{office_id}', [GeneralController::c
 Route::get('offices/vaccines-quantity/{office_id}', [OfficeStockVaccineController::class, 'index']);
 // ------------------------------------------------------------
 
+// --------------------- Mother Data Routes ------------------------
+Route::get('offices/mother-data/date-range/{office_id}', [MotherDataController::class, 'officeGetDateRange']);
+// ------------------------------------------------------------
+
 // --------------------- Healthy Center Routes ------------------------
 Route::get('offices/centers/{office_id}', [HealthyCenterController::class, 'officeGetCenters']);
 Route::post('offices/centers/add-center/{office_id}', [HealthyCenterController::class, 'officeAddCenterAccount']);
@@ -214,6 +218,10 @@ Route::get('offices/users/{id}', [OfficesUsersController::class, 'officeShowUser
 Route::delete('offices/users/delete-user/{id}', [OfficesUsersController::class, 'officeDestroyUser']);
 // ------------------------------------------------------------
 
+// --------------------- Health Center Order Routes ------------------------
+Route::get('offices/orders/date-range/{office_id}', [HealthyCenterOrderController::class, 'officeGetDateRange']);
+// ------------------------------------------------------------
+
 // --------------------- Order Routes ------------------------
 Route::post('offices/orders/add-order', [OfficeOrderController::class, 'officeAddOrder']);
 Route::get('offices/orders/outgoing/{office_id}', [OfficeOrderController::class, 'officeOutgoingOrders']);
@@ -226,18 +234,40 @@ Route::patch('offices/orders/approval-center-order/{id}', [OfficeOrderController
 Route::patch('offices/orders/reject-center-order/{id}', [OfficeOrderController::class, 'officeRejectCenterOrder']);
 // ------------------------------------------------------------
 
+// --------------------- Report Routes ------------------------
+Route::get('offices/reports/centers-report/{office_id}', [ReportController::class, 'officeGenerateCentersReport']);
+
+Route::get('offices/reports/status-report', [ReportController::class, 'officeGenerateStatusReport']);
+Route::get('offices/reports/status-all-centers-report', [ReportController::class, 'officeGenerateStatusInAllCentersReport']);
+
+Route::get('offices/reports/vaccines-qty-report/{office_id}', [ReportController::class, 'officeGetVaccinesQtyReport']);
+
+Route::get('offices/reports/orders-all-report', [ReportController::class, 'officeGenerateAllOrdersReport']);
+Route::get('offices/reports/orders-vaccines-centers-report', [ReportController::class, 'officeGenerateAllVaccinesOfAllCentersOrdersReport']);
+Route::get('offices/reports/orders-states-centers-report', [ReportController::class, 'officeGenerateAllStatesOfAllCentersOrdersReport']);
+Route::get('offices/reports/orders-states-vaccines-report', [ReportController::class, 'officeGenerateAllStatesOfAllVaccinesOrdersReport']);
+Route::get('offices/reports/orders-centers-report', [ReportController::class, 'officeGenerateAllCentersOrdersReport']);
+Route::get('offices/reports/orders-vaccines-report', [ReportController::class, 'officeGenerateAllVaccinesOrdersReport']);
+Route::get('offices/reports/orders-states-report', [ReportController::class, 'officeGenerateAllStatesOrdersReport']);
+Route::get('offices/reports/orders-custom-report', [ReportController::class, 'officeGenerateCustomOrdersReport']);
+// ------------------------------------------------------------
+
 ///////////////////////////////////////// MOBILE Routes ////////////////////////////////////////////////////////////////////////////
 
 
 // --------------------- Login Routes ------------------------
-Route::post('mobile/login', [AuthController::class, 'mobileLogin']);
+Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']);
 // ------------------------------------------------------------
 
+// --------------------- Mother Statement Routes ------------------------
+Route::get('mobile/mother-statements/{mother_id}', [MotherStatementController::class, 'getMotherStatements']);
+// ------------------------------------------------------------
 
 
 ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 
 // --------------------- Mother Data Routes ------------------------
+Route::get('centers/mother-data/date-range/{center_id}', [MotherDataController::class, 'centerGetDateRange']);
 Route::post('centers/mother-data/add-mother', [MotherDataController::class, 'store']);
 Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 'index']);
 // ------------------------------------------------------------
@@ -260,7 +290,7 @@ Route::post('centers/auth/login/{center_Id?}', [AuthController::class, 'centerLo
 // ------------------------------------------------------------
 
 // --------------------- User Routes ------------------------
-Route::get('centers/users/get-admin/{id}', [UserController::class, 'centerGetAdminData']);
+Route::get('centers/users/get-admin', [UserController::class, 'centerGetAdminData']);
 Route::post('centers/users/add-user', [UserController::class, 'centerAddUser']);
 Route::patch('centers/users/update-user/{id}', [UserController::class, 'centerUpdateUser']);
 Route::get('centers/users/{id}', [UserController::class, 'centerShowUser']);
@@ -279,6 +309,10 @@ Route::get('centers/dosage-level', [DosageLevelsController::class, 'index']);
 Route::get('centers/dosage-type/{id}', [DosageTypeController::class, 'show']);
 // ------------------------------------------------------------
 
+// --------------------- Health Center Order Routes ------------------------
+Route::get('centers/orders/date-range/{center_id}', [HealthyCenterOrderController::class, 'centerGetDateRange']);
+// ------------------------------------------------------------
+
 // --------------------- Order Routes ------------------------
 Route::post('centers/orders/add-order', [HealthyCenterOrderController::class, 'centerAddOrder']);
 Route::get('centers/orders/outgoing/{center_id}', [HealthyCenterOrderController::class, 'centerOutgoingOrders']);
@@ -292,16 +326,13 @@ Route::patch('centers/orders/receiving-confirm', [HealthyCenterOrderController::
 Route::get('centers/vaccines-quantity/{center_id}', [HealthyCenterStockVaccineController::class, 'index']);
 // ------------------------------------------------------------
 
-// --------------------- Visit Types Routes ------------------------
-Route::get('centers/get-visit-type', [VisitTypeController::class, 'index']);
+// --------------------- Report Routes ------------------------
+Route::get('centers/reports/vaccines-qty-report/{center_id}', [ReportController::class, 'centerGetVaccinesQtyReport']);
+
+Route::get('centers/reports/status-report', [ReportController::class, 'centerGenerateStatusReport']);
+
+Route::get('centers/reports/orders-all-report', [ReportController::class, 'centerGenerateAllOrdersReport']);
+Route::get('centers/reports/orders-vaccines-report', [ReportController::class, 'centerGenerateAllVaccinesOrdersReport']);
+Route::get('centers/reports/orders-states-report', [ReportController::class, 'centerGenerateAllStatesOrdersReport']);
+Route::get('centers/reports/orders-custom-report', [ReportController::class, 'centerGenerateCustomOrdersReport']);
 // ------------------------------------------------------------
-
-// --------------------- Vaccines Types Routes ------------------------
-Route::get('centers/get-vaccines-data/{visitTypeId}', [VisitTypeController::class, 'getVaccinesFromVisit']);
-// ------------------------------------------------------------
-
-// --------------------- Vaccines Types Routes ------------------------
-Route::get('centers/get-dosage-type-data/{vaccineTypeId}', [ChildDosageTypeController::class, 'getDosagesFromVaccine']);
-// ------------------------------------------------------------
-
-

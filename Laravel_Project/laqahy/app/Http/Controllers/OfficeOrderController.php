@@ -167,9 +167,9 @@ class OfficeOrderController extends Controller
     {
         try {
 
-            $minDate = Carbon::parse(OfficeOrder::min('created_at'))->toDateString();
+            $minDate = Carbon::parse(OfficeOrder::min('order_date'))->toDateString();
 
-            $maxDate = Carbon::parse(OfficeOrder::max('created_at'))->toDateString();
+            $maxDate = Carbon::parse(OfficeOrder::max('order_date'))->toDateString();
 
             return response()->json([
                 'message' => 'Date range retrieved successfully',

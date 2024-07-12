@@ -47,7 +47,7 @@ class _VisitsSearchState extends State<VisitsSearch> {
                           ),
                         ),
                         elevation: const MaterialStatePropertyAll(0),
-                        hintText: 'أدخل أسم الأم',
+                        hintText: 'أدخل اسم الأم',
                         backgroundColor: MaterialStatePropertyAll(
                             MyColors.secondaryColor.withOpacity(0.3)),
                         controller: controller,

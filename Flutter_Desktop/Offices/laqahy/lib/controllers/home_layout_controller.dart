@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/accounts_controller.dart';
 import 'package:laqahy/controllers/home_controller.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
+import 'package:laqahy/controllers/report_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/controllers/vaccine_controller.dart';
@@ -39,6 +40,9 @@ class HomeLayoutController extends GetxController {
         }
         if (Get.isRegistered<VaccineController>()) {
           Get.delete<VaccineController>();
+        }
+        if (Get.isRegistered<ReportController>()) {
+          Get.delete<ReportController>();
         }
       }
 

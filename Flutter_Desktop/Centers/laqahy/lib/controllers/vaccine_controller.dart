@@ -12,7 +12,7 @@ class VaccineController extends GetxController {
   var vaccines = <VaccineQuantity>[].obs;
   var fetchDataFuture = Future<void>.value().obs;
   var filteredVaccines = [].obs;
-  var isLoading = false.obs;
+  var isLoading = true.obs;
 
   StaticDataController sdc = Get.find<StaticDataController>();
   int? centerId;

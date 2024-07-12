@@ -8,6 +8,7 @@ import 'package:laqahy/controllers/home_controller.dart';
 import 'package:laqahy/controllers/mother_status_data_controller.dart';
 import 'package:laqahy/controllers/mother_visit_controller.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
+import 'package:laqahy/controllers/report_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/controllers/vaccine_controller.dart';
@@ -32,6 +33,9 @@ class HomeLayoutController extends GetxController {
         }
         if (Get.isRegistered<OrdersController>()) {
           Get.delete<OrdersController>();
+        }
+        if (Get.isRegistered<ReportController>()) {
+          Get.delete<ReportController>();
         }
         if (Get.isRegistered<MotherStatusDataController>()) {
           Get.delete<MotherStatusDataController>();

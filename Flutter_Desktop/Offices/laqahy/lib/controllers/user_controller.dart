@@ -198,9 +198,9 @@ class UserController extends GetxController {
       if (response.statusCode == 201) {
         await fetchUsers(officeId);
         Get.back();
-        clearTextFields();
 
         ApiExceptionWidgets().myAddedDataSuccessAlert();
+        clearTextFields();
 
         isAddLoading(false);
 

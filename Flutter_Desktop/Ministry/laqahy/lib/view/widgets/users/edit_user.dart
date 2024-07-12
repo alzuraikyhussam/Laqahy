@@ -336,7 +336,7 @@ class _EditUserState extends State<EditUser> {
                       onPressed: () {
                         Get.back();
                       },
-                      text: 'الغـــاء اللأمــر',
+                      text: 'إلغـــاء اللأمــر',
                       textStyle: MyTextStyles.font16WhiteBold),
                 ],
               )

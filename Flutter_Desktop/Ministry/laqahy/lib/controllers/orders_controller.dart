@@ -16,19 +16,19 @@ class OrdersController extends GetxController {
   }
 
   RxString orderTapChange = 'incoming'.obs;
-  var isIncomingLoading = false.obs;
+  var isIncomingLoading = true.obs;
   var incomingOrders = <Order>[].obs;
   var fetchIncomingOrdersFuture = Future<void>.value().obs;
 
-  var isInDeliveryLoading = false.obs;
+  var isInDeliveryLoading = true.obs;
   var inDeliveryOrders = <Order>[].obs;
   var fetchInDeliveryOrdersFuture = Future<void>.value().obs;
 
-  var isDeliveredLoading = false.obs;
+  var isDeliveredLoading = true.obs;
   var deliveredOrders = <Order>[].obs;
   var fetchDeliveredOrdersFuture = Future<void>.value().obs;
 
-  var isRejectedOrdersLoading = false.obs;
+  var isRejectedOrdersLoading = true.obs;
   var rejectedOrders = <Order>[].obs;
   var fetchRejectedOrdersFuture = Future<void>.value().obs;
 
@@ -206,7 +206,6 @@ class OrdersController extends GetxController {
 
   Future<void> approvalOrder(int id) async {
     isApprovalLoading(true);
-    print(quantityController.text);
     final order = Order(
       ministryNoteData: notesController.text,
       quantity: int.tryParse(quantityController.text),

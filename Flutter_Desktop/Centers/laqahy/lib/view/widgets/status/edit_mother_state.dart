@@ -105,7 +105,7 @@ class _EditeMotherStateState extends State<EditeMotherState> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '   الأسم   ',
+                                  '   الاسم   ',
                                   style: MyTextStyles.font14BlackBold,
                                 ),
                                 Container(
@@ -443,7 +443,7 @@ class _EditeMotherStateState extends State<EditeMotherState> {
                               child: myButton(
                                   backgroundColor: MyColors.greyColor,
                                   onPressed: () {},
-                                  text: 'الغــاء الأمــر',
+                                  text: 'إلغــاء الأمــر',
                                   textStyle: MyTextStyles.font16WhiteBold),
                             ),
                           ],

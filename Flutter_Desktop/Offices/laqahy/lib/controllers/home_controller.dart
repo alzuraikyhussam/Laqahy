@@ -18,10 +18,15 @@ class HomeController extends GetxController {
 
   var fetchDataFuture = Future<void>.value().obs;
 
-  var isLoading = false.obs;
+  var isLoading = true.obs;
   var errorMsg = ''.obs;
 
   var homeCardItems = <HomeCardItem>[
+    HomeCardItem(
+      imagePath: 'assets/icons/emp-count.png',
+      title: 'عدد المستخدمين',
+      count: 0,
+    ),
     HomeCardItem(
       imagePath: 'assets/icons/building.png',
       title: 'عدد المراكز الصحية',
@@ -66,15 +71,17 @@ class HomeController extends GetxController {
         );
 
         if (response.statusCode == 200) {
-          isLoading(false);
           Map<String, dynamic> jsonData = jsonDecode(response.body);
           Map<String, dynamic> data = jsonData['data'];
 
-          homeCardItems[0].count = data['centers_count'];
-          homeCardItems[1].count = data['mothers_count'];
-          homeCardItems[2].count = data['children_count'];
-          homeCardItems[3].count = data['vaccines_count'];
-          homeCardItems[4].count = data['orders_count'];
+          homeCardItems[0].count = data['users_count'];
+          homeCardItems[1].count = data['centers_count'];
+          homeCardItems[2].count = data['mothers_count'];
+          homeCardItems[3].count = data['children_count'];
+          homeCardItems[4].count = data['vaccines_count'];
+          homeCardItems[5].count = data['orders_count'];
+
+          isLoading(false);
 
           return;
         } else {

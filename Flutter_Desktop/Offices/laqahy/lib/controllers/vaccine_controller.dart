@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:http/http.dart' as http;
-import 'package:laqahy/models/vaccine_model.dart';
 import 'package:laqahy/models/vaccine_quantity_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
@@ -13,7 +12,7 @@ class VaccineController extends GetxController {
   var vaccines = <VaccineQuantity>[].obs;
   var fetchDataFuture = Future<void>.value().obs;
   var filteredVaccines = [].obs;
-  var isLoading = false.obs;
+  var isLoading = true.obs;
 
   StaticDataController sdc = Get.find<StaticDataController>();
   int? officeId;

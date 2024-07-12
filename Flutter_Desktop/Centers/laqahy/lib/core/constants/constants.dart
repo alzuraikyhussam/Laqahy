@@ -713,8 +713,8 @@ class Constants {
     return Obx(() {
       if (controller.isMotherLoading.value) {
         return myDropDownMenuButton2(
-          width: 270,
           hintText: 'اسم الأم',
+          width: 270,
           items: [
             DropdownMenuItem<String>(
               child: Center(
@@ -749,6 +749,7 @@ class Constants {
           },
           child: myDropDownMenuButton2(
             hintText: 'اسم الأم',
+            width: 270,
             items: null,
             onChanged: null,
             searchController: null,
@@ -778,8 +779,8 @@ class Constants {
                 ));
           },
           child: myDropDownMenuButton2(
-            width: 270,
             hintText: 'اسم الأم',
+            width: 270,
             items: null,
             onChanged: null,
             validator: mothersDataValidator,
@@ -790,8 +791,8 @@ class Constants {
       }
 
       return myDropDownMenuButton2(
-        width: 270,
         hintText: 'اسم الأم',
+        width: 270,
         validator: mothersDataValidator,
         items: controller.mothers.map((element) {
           return DropdownMenuItem(

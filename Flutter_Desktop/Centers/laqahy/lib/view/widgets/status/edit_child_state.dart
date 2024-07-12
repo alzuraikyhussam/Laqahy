@@ -610,7 +610,7 @@ class _EditeChildStateState extends State<EditeChildState> {
                               child: myButton(
                                   backgroundColor: MyColors.greyColor,
                                   onPressed: () {},
-                                  text: 'الغــاء الأمــر',
+                                  text: 'إلغــاء الأمــر',
                                   textStyle: MyTextStyles.font16WhiteBold),
                             ),
                           ],

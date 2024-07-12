@@ -5,6 +5,7 @@ import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/view/layouts/orders/orders_layout.dart';
 import 'package:laqahy/view/widgets/accounts/accounts.dart';
 import 'package:laqahy/view/widgets/home/home.dart';
+import 'package:laqahy/view/widgets/reports/reports.dart';
 import 'package:laqahy/view/widgets/system_info/system_info.dart';
 import 'package:laqahy/view/widgets/support/support.dart';
 import 'package:laqahy/view/widgets/users/users.dart';
@@ -45,7 +46,7 @@ class _HomeBodySideState extends State<HomeBodySide> {
             } else if (hlc.choose.value == 'الطلبات') {
               return const OrdersLayout();
             } else if (hlc.choose.value == 'التقارير') {
-              return const SizedBox();
+              return const ReportsPage();
             } else if (hlc.choose.value == 'حول النظام') {
               return const SystemInfoScreen();
             } else if (hlc.choose.value == 'الدعم الفني') {

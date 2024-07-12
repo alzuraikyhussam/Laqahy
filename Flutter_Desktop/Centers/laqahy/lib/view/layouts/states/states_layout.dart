@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/visits_latout_controller.dart';
+import 'package:laqahy/controllers/visits_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import '../../widgets/status/child_status_data.dart';
@@ -17,7 +17,7 @@ class StatesLayout extends StatefulWidget {
 }
 
 class _StatesLayoutState extends State<StatesLayout> {
-  VisitsLayoutController vlc = Get.put(VisitsLayoutController());
+  VisitLayoutController vlc = Get.put(VisitLayoutController());
 
   @override
   Widget build(BuildContext context) {

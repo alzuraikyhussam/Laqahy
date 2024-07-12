@@ -30,6 +30,7 @@ class _UsersScreenState extends State<UsersScreen> {
   Widget build(BuildContext context) {
     return Obx(
       () {
+        
         return uc.isLoading.value
             ? Center(
                 child: myLoadingIndicator(),
@@ -206,5 +207,6 @@ class _UsersScreenState extends State<UsersScreen> {
               );
       },
     );
+  
   }
 }

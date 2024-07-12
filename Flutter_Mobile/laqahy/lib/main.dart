@@ -11,6 +11,7 @@ import 'package:laqahy/view/screens/awareness_information.dart';
 import 'package:laqahy/view/screens/chosse_child.dart';
 import 'package:laqahy/view/screens/contact_us.dart';
 import 'package:laqahy/view/screens/create_new_pass.dart';
+import 'package:laqahy/view/screens/exampel.dart';
 import 'package:laqahy/view/screens/exit_app_confirm.dart';
 import 'package:laqahy/view/screens/fingerprint_check.dart';
 import 'package:laqahy/view/screens/home.dart';
@@ -24,6 +25,8 @@ import 'package:laqahy/view/screens/settings_page.dart';
 import 'package:laqahy/view/screens/successfull_send_messeg.dart';
 import 'package:laqahy/view/screens/successfully_chang_pass.dart';
 import 'package:laqahy/view/screens/successfully_login.dart';
+
+import 'view/screens/children_vaccine.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,7 +64,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: AwarenessInformation(),
+      home: Login(),
     );
   }
 }

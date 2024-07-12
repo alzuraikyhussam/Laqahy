@@ -356,7 +356,6 @@ class ReportController extends GetxController {
       isGenerateCentersReportLoading(false);
     } catch (e) {
       ApiExceptionWidgets().myGeneratePdfFailureAlert();
-      print(e);
       isGenerateCentersReportLoading(false);
     }
   }
@@ -779,7 +778,7 @@ class ReportController extends GetxController {
         selectedCenter.value!.id == 0) {
       fetchStatusInAllOfficesReport();
     } else if (selectedCenter.value!.id == 0) {
-      fetchStatusInAllCenters();
+      fetchStatusInAllCentersReport();
     } else {
       fetchStatusReport();
     }
@@ -814,7 +813,7 @@ class ReportController extends GetxController {
           await generateStatusReportPdf(
             context: Get.context!,
             reportName:
-                'تقرير عن جميع حالات ${selectedStatusType.value!.type} في ${selectedRegisteredOffice.value?.name} - مركز ${selectedCenter.value!.name} من تاريخ ${firstDateController.text} الى تاريخ ${lastDateController.text}',
+                'تقرير عن جميع حالات ${selectedStatusType.value!.type} في ${selectedRegisteredOffice.value?.name} - ${selectedCenter.value!.name} من تاريخ ${firstDateController.text} الى تاريخ ${lastDateController.text}',
           );
         } else {
           isGenerateStatusReportLoading(false);
@@ -823,7 +822,7 @@ class ReportController extends GetxController {
           return;
         }
       } else {
-        isGenerateCentersReportLoading(false);
+        isGenerateStatusReportLoading(false);
         ApiExceptionWidgets().myUnknownExceptionAlert();
       }
     } on SocketException catch (_) {
@@ -893,7 +892,7 @@ class ReportController extends GetxController {
     }
   }
 
-  Future<void> fetchStatusInAllCenters() async {
+  Future<void> fetchStatusInAllCentersReport() async {
     try {
       isGenerateStatusReportLoading(true);
 
