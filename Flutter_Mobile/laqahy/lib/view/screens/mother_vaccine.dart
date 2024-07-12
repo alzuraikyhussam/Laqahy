@@ -15,7 +15,8 @@ import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 class MotherVaccine extends StatelessWidget {
   MotherVaccine({super.key});
 
-  MotherVaccineController mvc = Get.put(MotherVaccineController());
+  final controller = Get.lazyPut(() => MotherVaccineController(), fenix: true);
+  MotherVaccineController mvc = Get.find<MotherVaccineController>();
   StaticDataController sdc = Get.find<StaticDataController>();
 
   @override
@@ -297,7 +298,7 @@ class MotherVaccine extends StatelessWidget {
                                 ),
                               ),
                             ],
-                            rows: getMotherVaccineRowSource(
+                            rows: getMotherDosageRowSource(
                               myData: mvc.motherVaccine,
                               count: mvc.motherVaccine.length,
                             ),

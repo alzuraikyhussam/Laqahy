@@ -22,6 +22,7 @@ import 'package:laqahy/view/screens/profile.dart';
 import 'package:laqahy/view/screens/reset_password.dart';
 import 'package:laqahy/view/screens/reset_password_verification.dart';
 import 'package:laqahy/view/screens/settings_page.dart';
+import 'package:laqahy/view/screens/splash_screen.dart';
 import 'package:laqahy/view/screens/successfull_send_messeg.dart';
 import 'package:laqahy/view/screens/successfully_chang_pass.dart';
 import 'package:laqahy/view/screens/successfully_login.dart';
@@ -64,7 +65,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: Login(),
+      home: MyCustomSplashScreen(),
     );
   }
 }

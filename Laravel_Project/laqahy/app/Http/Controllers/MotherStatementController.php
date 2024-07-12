@@ -85,7 +85,7 @@ class MotherStatementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $centerId)
+    public function show(string $center_id)
     {
         try {
             $motherStatement = Mother_statement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_statements.healthy_center_id', '=', 'healthy_centers.id')->join('dosage_types', 'mother_statements.dosage_type_id', '=', 'dosage_types.id')->join('dosage_levels', 'mother_statements.dosage_level_id', '=', 'dosage_levels.id')->join('users', 'mother_statements.user_id', '=', 'users.id')->select('mother_statements.*', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'dosage_types.dosage_type', 'dosage_levels.dosage_level', 'users.user_name')->where('mother_statements.healthy_center_id', $center_id)->get();
@@ -148,7 +148,7 @@ class MotherStatementController extends Controller
 
         try {
             $dosageCount = Dosage_level::withCount('dosage_type')->get();
-            $basicDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 1)->count();
+            $basicDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 1)->count();   
             $refresherDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 2)->count();
 
             return response()->json([

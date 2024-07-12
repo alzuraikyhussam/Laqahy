@@ -66,14 +66,14 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
       });
     });
 
-    Timer(const Duration(seconds: 5), () {
-      setState(() async {
-        await sdc.storageService.isRegistered()
-            ? Navigator.pushReplacement(
-                Get.context!, PageTransition(const Login()))
-            : Navigator.pushReplacement(
-                Get.context!, PageTransition(const OnboardingLayout()));
-      });
+    Timer(const Duration(seconds: 5), () async {
+      await sdc.storageService.isRegistered()
+          ? Navigator.pushReplacement(
+              Get.context!, PageTransition(const Login()))
+          : Navigator.pushReplacement(
+              Get.context!, PageTransition(const OnboardingLayout()));
+
+      print(await sdc.storageService.isRegistered());
     });
   }
 

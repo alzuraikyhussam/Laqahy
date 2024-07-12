@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/mother_vaccine_model.dart';
 
-List<DataRow> getMotherDosageRowSource({
+List<DataRow> getChildVaccineRowSource({
   required List<MotherDosage> myData,
   required int count,
 }) {
