@@ -3,7 +3,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/mother_vaccine_model.dart';
 
 List<DataRow> getMotherVaccineRowSource({
-  required List<MotherVaccine> myData,
+  required List<MotherDosage> myData,
   required int count,
 }) {
   return List<DataRow>.generate(count, (index) {

@@ -7,7 +7,7 @@ class ApiEndpoints {
   static const String login = '$baseUrl/mobile/auth/login';
   // --------------------------------------------------
 
-// --------------- Login Endpoints -------------------
-  static const String getMotherVaccine = '$baseUrl/mobile/mother-statements';
+// --------------- Mother Statement Endpoints -------------------
+  static const String getMotherDosage = '$baseUrl/mobile/mother-statements/get-mother-dosage';
   // --------------------------------------------------
 }

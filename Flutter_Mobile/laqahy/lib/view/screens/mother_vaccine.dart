@@ -237,7 +237,7 @@ class MotherVaccine extends StatelessWidget {
                             headingRowHeight: 45,
                             empty: ApiExceptionWidgets().myDataNotFound(
                               onPressedRefresh: () {
-                                mvc.fetchMotherVaccineDataTable();
+                                mvc.fetchMotherDosageDataTable();
                               },
                             ),
                             horizontalMargin: 7,

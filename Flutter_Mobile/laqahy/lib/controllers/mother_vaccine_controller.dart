@@ -11,8 +11,8 @@ class MotherVaccineController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
   @override
   void onInit() {
-    // motherId = sdc.userLoggedData.first.id;
-    fetchMotherVaccineDataTable();
+     motherId = sdc.userLoggedData.first.id;
+    fetchMotherDosageDataTable();
     super.onInit();
   }
 
@@ -23,25 +23,25 @@ class MotherVaccineController extends GetxController {
   var isLoading = true.obs;
   var errorMsg = ''.obs;
 
-  var motherVaccine = <MotherVaccine>[
-    MotherVaccine(
+  var motherVaccine = <MotherDosage>[
+    MotherDosage(
       levelTitle: 'الجرعات الأساسية',
       dosageCount: 0,
       dosageTakenCount: 0,
     ),
-    MotherVaccine(
+    MotherDosage(
       levelTitle: 'الجرعات التنشيطية',
       dosageCount: 0,
       dosageTakenCount: 0,
     ),
   ].obs;
 
-  Future<void> fetchMotherVaccineDataTable() async {
+  Future<void> fetchMotherDosageDataTable() async {
     errorMsg('');
     try {
       isLoading(true);
       var response = await http.get(
-        Uri.parse('${ApiEndpoints.getMotherVaccine}/1'),
+        Uri.parse('${ApiEndpoints.getMotherDosage}/$motherId'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },

@@ -260,7 +260,7 @@ Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']);
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------
-Route::get('mobile/mother-statements/{mother_id}', [MotherStatementController::class, 'getMotherStatements']);
+Route::get('mobile/mother-statements/get-mother-dosage/{mother_id}', [MotherStatementController::class, 'getMotherDosage']);
 // ------------------------------------------------------------
 
 
