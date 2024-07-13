@@ -8,11 +8,10 @@ import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_endpoints.dart';
 
 class MotherVaccineController extends GetxController {
-  StaticDataController sdc = Get.find<StaticDataController>();
+  StaticDataController sdc = Get.put(StaticDataController());
   @override
   void onInit() {
-     motherId = sdc.userLoggedData.first.id;
-    fetchMotherDosageDataTable();
+    motherId = sdc.userLoggedData.first.id;
     super.onInit();
   }
 
@@ -25,12 +24,12 @@ class MotherVaccineController extends GetxController {
 
   var motherVaccine = <MotherDosage>[
     MotherDosage(
-      levelTitle: 'الجرعات الأساسية',
+      levelTitle: 'الأساسية',
       dosageCount: 0,
       dosageTakenCount: 0,
     ),
     MotherDosage(
-      levelTitle: 'الجرعات التنشيطية',
+      levelTitle: 'التنشيطية',
       dosageCount: 0,
       dosageTakenCount: 0,
     ),

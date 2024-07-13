@@ -24,7 +24,7 @@ myAppBar({
             onTap: onTap,
             child: Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: iconColor?? MyColors.blackColor,
+              color: iconColor ?? MyColors.blackColor,
             ),
           )
         : null,

@@ -3,37 +3,32 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/mother_vaccine_controller.dart';
-import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/child_vaccine_controller.dart';
+
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
-import 'package:laqahy/view/screens/mother_vaccine_data_table_source.dart';
+import 'package:laqahy/view/screens/child_vaccine_data_table_source.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 // ignore: must_be_immutable
-class MotherVaccine extends StatefulWidget {
-  MotherVaccine({super.key});
+class ChildVaccine extends StatefulWidget {
+  ChildVaccine({super.key, required this.childId});
+
+  int childId;
 
   @override
-  State<MotherVaccine> createState() => _MotherVaccineState();
+  State<ChildVaccine> createState() => _ChildVaccineState();
 }
 
-class _MotherVaccineState extends State<MotherVaccine> {
-  MotherVaccineController mvc = Get.put(MotherVaccineController());
-
-  StaticDataController sdc = Get.put(StaticDataController());
-
-  @override
-  void initState() {
-    mvc.fetchMotherDosageDataTable();
-    super.initState();
-  }
+class _ChildVaccineState extends State<ChildVaccine> {
+  ChildVaccineController cvc = Get.put(ChildVaccineController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(text: 'لقــاحـــات ألام', onTap: () => Get.back()),
+      appBar: myAppBar(text: 'لقــاحـــات الطفــــل', onTap: () => Get.back()),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -62,14 +57,14 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                   height: 10,
                                 ),
                                 Text(
-                                  'مرحباً بك',
+                                  'لقاحات طفلك',
                                   style: MyTextStyles.font14PrimaryBold,
                                 ),
                                 // SizedBox(
                                 //   height: 5,
                                 // ),
                                 Text(
-                                  sdc.userLoggedData.first.motherName ??
+                                  cvc.childData.value.childName ??
                                       'مجهول الهوية',
                                   style: MyTextStyles.font16BlackBold,
                                 ),
@@ -88,7 +83,7 @@ class _MotherVaccineState extends State<MotherVaccine> {
                       decoration: BoxDecoration(
                           color: MyColors.whiteColor,
                           borderRadius: BorderRadius.circular(15)),
-                      width: 100,
+                      width: 70,
                       height: 100,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -106,23 +101,23 @@ class _MotherVaccineState extends State<MotherVaccine> {
                             ),
                           ),
                           Text(
-                            'عدد الاطفال',
+                            'العمر',
                             style: MyTextStyles.font14PrimaryBold,
                           ),
                           Divider(
                             thickness: 3,
-                            indent: 40,
-                            endIndent: 40,
+                            indent: 25,
+                            endIndent: 25,
                             color: MyColors.primaryColor,
                             height: 3,
                           ),
-                          Text('3 طفل')
+                          Text('${cvc.childData.value.age} يوم'),
                         ],
                       ),
                     ),
                   ),
                   Positioned(
-                    right: 140,
+                    right: 105,
                     top: 80,
                     child: Container(
                       decoration: BoxDecoration(
@@ -156,7 +151,51 @@ class _MotherVaccineState extends State<MotherVaccine> {
                             color: MyColors.primaryColor,
                             height: 3,
                           ),
-                          Text('20-05-2024')
+                          Text(DateFormat('yyyy-MM-dd').format(
+                              cvc.childData.value.returnDate ??
+                                  DateTime.now())),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 210,
+                    top: 80,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: MyColors.whiteColor,
+                          borderRadius: BorderRadius.circular(15)),
+                      width: 70,
+                      height: 100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: MyColors.primaryColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            width: 35,
+                            height: 35,
+                            child: Icon(
+                              Icons.date_range_outlined,
+                              color: MyColors.primaryColor,
+                            ),
+                          ),
+                          Text(
+                            'الجنس',
+                            style: MyTextStyles.font14PrimaryBold,
+                          ),
+                          Divider(
+                            thickness: 3,
+                            indent: 25,
+                            endIndent: 25,
+                            color: MyColors.primaryColor,
+                            height: 3,
+                          ),
+                          Text(
+                            cvc.childData.value.gender ?? 'مجهول',
+                          ),
                         ],
                       ),
                     ),
@@ -165,10 +204,10 @@ class _MotherVaccineState extends State<MotherVaccine> {
               ),
             ),
             Obx(() {
-              return mvc.isLoading.value
+              return cvc.isLoading.value
                   ? SizedBox(
                       width: Get.width,
-                      height: 300,
+                      height: 320,
                       child: Center(
                         child: myLoadingIndicator(),
                       ),
@@ -234,9 +273,10 @@ class _MotherVaccineState extends State<MotherVaccine> {
                           height: 20,
                         ),
                         Container(
-                          height: 145,
+                          height: 320,
                           margin: const EdgeInsetsDirectional.only(
                             start: 15,
+                            bottom: 30,
                             end: 15,
                           ),
                           width: double.infinity,
@@ -249,9 +289,10 @@ class _MotherVaccineState extends State<MotherVaccine> {
                             headingRowHeight: 45,
                             empty: ApiExceptionWidgets().myDataNotFound(
                               onPressedRefresh: () {
-                                mvc.fetchMotherDosageDataTable();
+                                cvc.fetchChildVaccineDataTable(widget.childId);
                               },
                             ),
+
                             horizontalMargin: 7,
                             // headingTextStyle: MyTextStyles.font14WhiteBold,
                             headingRowColor:
@@ -263,6 +304,7 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                 topEnd: Radius.circular(10),
                               ),
                             ),
+
                             columns: [
                               DataColumn2(
                                 label: Container(
@@ -279,11 +321,11 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                 label: Container(
                                   alignment: AlignmentDirectional.center,
                                   child: Text(
-                                    "مرحلة الجرعة",
+                                    "اسم اللقاح",
                                     style: MyTextStyles.font14WhiteBold,
                                   ),
                                 ),
-                                // fixedWidth: 140,
+                                fixedWidth: 160,
                                 // onSort: (columnIndex, ascending) {
                                 //   uc.sort.value = ascending;
                                 //   uc.onSortColum(columnIndex, ascending);
@@ -309,9 +351,9 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                 ),
                               ),
                             ],
-                            rows: getMotherDosageRowSource(
-                              myData: mvc.motherVaccine,
-                              count: mvc.motherVaccine.length,
+                            rows: getChildVaccineRowSource(
+                              myData: cvc.childVaccines,
+                              count: cvc.childVaccines.length,
                             ),
                           ),
                         ),

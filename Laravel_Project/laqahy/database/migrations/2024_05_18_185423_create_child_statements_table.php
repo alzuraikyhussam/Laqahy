@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('return_date');
             $table->foreignId('visit_type_id')->constrained('visit_types')->onUpdate('cascade');
             $table->foreignId('vaccine_type_id')->constrained('vaccine_types')->onUpdate('cascade');
-            $table->foreignId('dosage_type_id')->constrained('dosage_types')->onUpdate('cascade');
+            $table->foreignId('child_dosage_type_id')->constrained('child_dosage_types')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -10,14 +10,14 @@ import 'package:laqahy/view/screens/home.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
-class MyCustomSplashScreen extends StatefulWidget {
-  const MyCustomSplashScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  _MyCustomSplashScreenState createState() => _MyCustomSplashScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
+class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   // ignore: unused_field
   double _fontSize = 2;
@@ -29,7 +29,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
   AnimationController? _controller;
   Animation<double>? animation1;
 
-  StaticDataController sdc = Get.find<StaticDataController>();
+  StaticDataController sdc = Get.put(StaticDataController());
 
   @override
   void initState() {
@@ -65,6 +65,8 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
         _containerOpacity = 1;
       });
     });
+
+    StaticDataController sdc = Get.put(StaticDataController());
 
     Timer(const Duration(seconds: 5), () async {
       await sdc.storageService.isRegistered()
@@ -131,17 +133,14 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
                       duration: const Duration(milliseconds: 2000),
                       curve: Curves.fastLinearToSlowEaseIn,
                       alignment: Alignment.center,
-                      width: 50,
+                      width: 40,
                       child: LoadingIndicator(
                         indicatorType: Indicator.lineScale,
 
                         /// Required, The loading type of the widget
                         colors: [
-                          MyColors.secondaryColor,
-                          MyColors.brownColor,
-                          MyColors.greyColor,
-                          MyColors.secondaryColor,
                           MyColors.primaryColor,
+                          MyColors.secondaryColor,
                         ],
 
                         /// Optional, The color collections

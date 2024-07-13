@@ -42,7 +42,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> login() async {
-    StaticDataController sdc = Get.find<StaticDataController>();
+    StaticDataController sdc = Get.put(StaticDataController());
     try {
       isLoading(true);
       final loginData = Login(
@@ -66,7 +66,7 @@ class LoginController extends GetxController {
         Login user = Login.fromJson(data['user']);
 
         sdc.userLoggedData.assignAll([user]);
-        
+
         Get.offAll(const HomeLayout());
         return;
       } else if (response.statusCode == 404) {

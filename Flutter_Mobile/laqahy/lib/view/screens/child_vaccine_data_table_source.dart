@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/models/mother_vaccine_model.dart';
+import 'package:laqahy/models/child_vaccine_dosage_model.dart';
 
 List<DataRow> getChildVaccineRowSource({
-  required List<MotherDosage> myData,
+  required List<ChildVaccineDosage> myData,
   required int count,
 }) {
   return List<DataRow>.generate(count, (index) {
@@ -23,7 +23,7 @@ List<DataRow> getChildVaccineRowSource({
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              myData[index].levelTitle ?? "غيـر معـروف",
+              myData[index].vaccineType ?? "غيـر معـروف",
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -33,7 +33,7 @@ List<DataRow> getChildVaccineRowSource({
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              myData[index].dosageCount.toString(),
+              myData[index].totalDosageCount.toString(),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -43,7 +43,7 @@ List<DataRow> getChildVaccineRowSource({
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              myData[index].dosageTakenCount.toString(),
+              myData[index].childDosageCount.toString(),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
