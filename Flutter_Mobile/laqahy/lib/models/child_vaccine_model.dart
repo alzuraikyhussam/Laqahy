@@ -1,6 +1,6 @@
 class ChildVaccine {
   int? id;
-  int? age;
+  String? age;
   String? childName;
   String? motherName;
   String? birthplace;
@@ -22,7 +22,7 @@ class ChildVaccine {
   factory ChildVaccine.fromJson(Map<String, dynamic> json) {
     return ChildVaccine(
       id: json['id'],
-      age: json['child_age'] ?? 0,
+      age: json['child_age'] ?? '',
       childName: json['child_name'],
       motherName: json['mother_name'],
       birthDate: json['child_data_birthDate'] != null

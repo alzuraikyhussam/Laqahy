@@ -1,4 +1,4 @@
-package com.vaxmobile.laqahy
+package com.sourcetech.laqahy
 
 import io.flutter.embedding.android.FlutterActivity
 

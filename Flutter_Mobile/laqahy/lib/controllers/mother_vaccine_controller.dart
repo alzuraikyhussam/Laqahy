@@ -12,7 +12,6 @@ class MotherVaccineController extends GetxController {
   @override
   void onInit() {
     motherId = sdc.userLoggedData.first.id;
-    fetchMotherDosageDataTable();
     super.onInit();
   }
 

@@ -6,7 +6,7 @@ import 'package:laqahy/models/child_vaccine_model.dart';
 import 'package:laqahy/models/child_vaccine_dosage_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
-import 'package:laqahy/view/screens/child_vaccine.dart';
+import 'package:laqahy/view/screens/child_vaccines/child_vaccine.dart';
 
 class ChildVaccineController extends GetxController {
   var isLoading = false.obs;

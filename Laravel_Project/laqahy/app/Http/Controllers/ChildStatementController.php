@@ -59,7 +59,13 @@ class ChildStatementController extends Controller
             $birthDate = Carbon::parse($child->child_data_birthDate);
             $diff = $birthDate->diff($now);
 
-            $age = $diff->days;
+            if ($diff->y) {
+                $age = $diff->y . ' سنة و ' . $diff->m . ' شهر و ' . $diff->d . ' يوم';
+            } elseif ($diff->m >= 1) {
+                $age = 'شهر و ' . $diff->d . ' يوم';
+            } else {
+                $age = $diff->days . ' يوم';
+            }
 
             // Transform vaccine dosage details array to match the expected structure
             $vaccineDosageDetails = array_values($vaccineDosageCounts);

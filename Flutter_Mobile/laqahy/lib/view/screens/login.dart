@@ -8,14 +8,14 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/reset_password.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginScreenState extends State<LoginScreen> {
   LoginController lc = Get.put(LoginController());
 
   @override
@@ -43,19 +43,18 @@ class _LoginState extends State<Login> {
           children: [
             Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  // color: MyColors.greyColor,
+                SizedBox(
                   width: width,
                   child: myCarouselSlider(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Form(
                     key: lc.loginFormKey,
                     child: Column(
@@ -63,12 +62,12 @@ class _LoginState extends State<Login> {
                         myTextField(
                           controller: lc.idNumberController,
                           validator: lc.idNumberValidator,
-                          labelText: 'أدخل الرقم الوطني',
+                          labelText: 'الرقم الوطني',
                           prefixIcon: Icons.credit_card,
                           keyboardType: TextInputType.number,
                           onChanged: (p0) {},
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Obx(() {
@@ -87,7 +86,7 @@ class _LoginState extends State<Login> {
                                 lc.changePasswordVisibility();
                               });
                         }),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Container(
@@ -95,11 +94,11 @@ class _LoginState extends State<Login> {
                           child: myTextButton(
                             text: 'نسيت كلمة المرور؟',
                             onPressed: () {
-                              Get.to(ResetPassword());
+                              Get.to(const ResetPassword());
                             },
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Row(
@@ -116,18 +115,6 @@ class _LoginState extends State<Login> {
                                                     .loginFormKey.currentState!
                                                     .validate()) {
                                                   lc.login();
-                                                  // myAwesomeDialog(
-                                                  //   context: context,
-                                                  //   title: 'مرحبــاً بعــودتك',
-                                                  //   desc:
-                                                  //       'تم تسجيل دخولك بنجاح الى التطبيق',
-                                                  //   showBtnCancel: false,
-                                                  //   btnOkText:
-                                                  //       'الذهـاب الى الصفحة الرئيسية',
-                                                  //   btnOkOnPress: () {
-                                                  //     Get.offAll(Home());
-                                                  //   },
-                                                  // );
                                                 }
                                               },
                                         text: 'تسجيل دخول',
@@ -135,7 +122,7 @@ class _LoginState extends State<Login> {
                                       );
                               },
                             )),
-                            SizedBox(
+                            const SizedBox(
                               width: 15,
                             ),
                             myIconButton(

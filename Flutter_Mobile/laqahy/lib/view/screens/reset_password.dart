@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/login.dart';
 import 'package:laqahy/view/screens/reset_password_verification.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -41,7 +40,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           shrinkWrap: true,
           children: [
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -50,14 +49,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                     'نسيت كلمة المرور',
                     style: MyTextStyles.font18BlackBold,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
                     'قم بإدخال رقم هاتفك  وسوف يتم إرسال كود التأكيد الى هاتفك .',
                     style: MyTextStyles.font16GreyMedium,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   myTextField(
@@ -66,26 +65,58 @@ class _ResetPasswordState extends State<ResetPassword> {
                     keyboardType: TextInputType.number,
                     onChanged: (p0) {},
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   myButton(
-                    onPressed: () {
-                      myAwesomeDialog(
-                        context: context,
-                        title: 'تم الإرسـال بنجـاح',
-                        desc: 'لقد تم إرسال كود التحقق الى رقم جوالك.',
-                        showBtnCancel: false,
-                        btnOkText: 'موافق',
-                        btnOkOnPress: () {
-                          // Get.back();
-                        },
-                      );
-                      Get.off(ResetPasswordVerification());
-                    },
                     width: width,
                     text: 'إعادة تعيين كلمة المرور',
                     textStyle: MyTextStyles.font14WhiteBold,
+                    onPressed: () {
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            actionsAlignment: MainAxisAlignment.center,
+                            alignment: AlignmentDirectional.center,
+                            content: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                myCircleAvatar(icon: Icons.child_care),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  'تم الإرسـال بنجـاح',
+                                  style: MyTextStyles.font18BlackBold,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'لقد تم إرسال كود التحقق الى رقم جوالك.',
+                                  style: MyTextStyles.font18BlackBold,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                              ],
+                            ),
+                            actions: [
+                              myButton(
+                                onPressed: () {
+                                  Get.off(ResetPasswordVerification());
+                                },
+                                text: 'مــــوافق',
+                                textStyle: MyTextStyles.font14WhiteBold,
+                                backgroundColor: MyColors.primaryColor,
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

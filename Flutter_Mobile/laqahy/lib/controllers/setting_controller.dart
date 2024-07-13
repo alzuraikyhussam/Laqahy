@@ -60,7 +60,7 @@ class SettingController extends GetxController {
         ),
       ),
       'label': 'الوضع المظلم',
-      'pericon': mySwitch(),
+      'pericon': mySwitchButton(),
     },
     {
       'icon': Container(

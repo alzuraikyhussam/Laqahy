@@ -58,7 +58,7 @@ class SuccessfullyChangPass extends StatelessWidget {
                   width: 200,
                   backgroundColor: MyColors.primaryColor,
                   onPressed: () {
-                    Get.to(Login);
+                    Get.to(LoginScreen);
                   },
                   text: 'تسجيل الدخول',
                   textStyle: MyTextStyles.font16WhiteBold),

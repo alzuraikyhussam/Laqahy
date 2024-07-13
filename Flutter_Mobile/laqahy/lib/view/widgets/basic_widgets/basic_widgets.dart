@@ -1,10 +1,10 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/setting_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -32,7 +32,7 @@ myAppBar({
     backgroundColor: backgroundColor ?? Colors.white,
     title: text != null
         ? Text(
-            textHeightBehavior: TextHeightBehavior(
+            textHeightBehavior: const TextHeightBehavior(
               applyHeightToFirstAscent: true,
               applyHeightToLastDescent: false,
             ),
@@ -66,7 +66,7 @@ myButton({
         BoxShadow(
           color: MyColors.greyColor.withOpacity(0.3),
           blurRadius: 4,
-          offset: Offset(0, 4),
+          offset: const Offset(0, 4),
           spreadRadius: 0,
         ),
       ],
@@ -116,7 +116,7 @@ myIconButton({
           BoxShadow(
             color: MyColors.greyColor.withOpacity(0.3),
             blurRadius: 4,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
             spreadRadius: 0,
           ),
         ],
@@ -155,6 +155,7 @@ myTextField({
   return SizedBox(
     width: width?.toDouble(),
     child: TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       onTap: onTap,
       controller: controller,
       cursorColor: MyColors.primaryColor.withOpacity(0.7),
@@ -216,7 +217,7 @@ myTextField({
                 ),
               )
             : null,
-        contentPadding: EdgeInsetsDirectional.all(18),
+        contentPadding: const EdgeInsetsDirectional.all(18),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
@@ -259,9 +260,9 @@ myTextField({
 
 myCarouselSlider() {
   return CarouselSlider.builder(
-    itemCount: 3,
+    itemCount: Constants().carouselSliderImages.length,
     options: CarouselOptions(
-      height: 220,
+      height: 200,
       aspectRatio: 16 / 9,
       viewportFraction: 0.8,
       initialPage: 0,
@@ -277,120 +278,38 @@ myCarouselSlider() {
       pageSnapping: true,
     ),
     itemBuilder: (context, itemIndex, pageViewIndex) {
-      return GestureDetector(
-        onTap: () {},
-        child: Container(
-          width: 500,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(
-            // gradient: LinearGradient(
-            //   colors: [
-            //     MyColors.primaryColor,
-            //     MyColors.secondaryColor,
-            //   ],
-            //   begin: AlignmentDirectional.topCenter,
-            //   end: AlignmentDirectional.bottomCenter,
-            // ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          // child: Text(snapshot.data[itemIndex].urlToImage),
-          child: Stack(
-            alignment: AlignmentDirectional.bottomStart,
-            children: [
-              ShadowOverlay(
-                shadowWidth: 800,
-                shadowHeight: 200,
-                shadowColor: Colors.black.withOpacity(0.3),
-                child: Image.asset(
-                  'assets/images/carousel-image.png',
-                  // 'https://www.cnet.com/a/img/resize/d88681c50c779bd709963793f699ca17147fccf4/hub/2023/09/13/1530496f-a39e-4127-b47b-4d88cb37d510/p1020938-1.jpg?auto=webp&fit=crop&height=675&width=1200',
-                  filterQuality: FilterQuality.medium,
-                  fit: BoxFit.cover,
-                  height: Get.height,
-                  width: Get.width,
-                  // errorBuilder: (BuildContext context, Object exception,
-                  //     StackTrace? stackTrace) {
-                  //   if (exception is SocketException) {
-                  //     // Handle the SocketException
-                  //     return const Center(
-                  //       child: CircularProgressIndicator(),
-                  //     );
-                  //   } else {
-                  //     // Handle other types of image errors
-                  //     return const Center(
-                  //       child: CircularProgressIndicator(),
-                  //     );
-                  //   }
-                  // },
-                ),
-              ),
-              Container(
-                padding: EdgeInsetsDirectional.only(
-                  start: 30,
-                  end: 30,
-                  bottom: 25,
-                ),
-                child: Text(
-                  'مع تطبيق لقاحي ... \nللتطعيم منظور مختلف',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              )
-            ],
-          ),
+      return Container(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        // child: Text(snapshot.data[itemIndex].urlToImage),
+        child: Image.asset(
+          Constants().carouselSliderImages[itemIndex],
+          // 'https://www.cnet.com/a/img/resize/d88681c50c779bd709963793f699ca17147fccf4/hub/2023/09/13/1530496f-a39e-4127-b47b-4d88cb37d510/p1020938-1.jpg?auto=webp&fit=crop&height=675&width=1200',
+          filterQuality: FilterQuality.medium,
+          fit: BoxFit.cover,
+          height: Get.height,
+          width: Get.width,
+          // errorBuilder: (BuildContext context, Object exception,
+          //     StackTrace? stackTrace) {
+          //   if (exception is SocketException) {
+          //     // Handle the SocketException
+          //     return const Center(
+          //       child: CircularProgressIndicator(),
+          //     );
+          //   } else {
+          //     // Handle other types of image errors
+          //     return const Center(
+          //       child: CircularProgressIndicator(),
+          //     );
+          //   }
+          // },
         ),
       );
     },
   );
 }
-
-// myMiniButton({
-//   IconData? icon,
-//   required void Function()? onPressed,
-//   Color? backgroundColor,
-// }) {
-//   return Container(
-//     decoration: BoxDecoration(
-//       gradient: LinearGradient(
-//         colors: [
-//           MyColors.primaryColor,
-//           MyColors.secondaryColor,
-//         ],
-//         begin: AlignmentDirectional.topCenter,
-//         end: AlignmentDirectional.bottomCenter,
-//       ),
-//       boxShadow: [
-//         BoxShadow(
-//           color: MyColors.greyColor.withOpacity(0.3),
-//           blurRadius: 4,
-//           offset: Offset(0, 4),
-//           spreadRadius: 0,
-//         ),
-//       ],
-//       borderRadius: BorderRadiusDirectional.circular(10),
-//     ),
-//     child: FloatingActionButton(
-//       onPressed: onPressed,
-//       backgroundColor: backgroundColor ?? Colors.transparent,
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadiusDirectional.circular(10),
-//       ),
-//       splashColor: MyColors.primaryColor,
-//       hoverColor: MyColors.primaryColor,
-//       focusColor: MyColors.primaryColor,
-//       elevation: 0,
-//       child: Icon(
-//         icon ?? Icons.arrow_back_ios_new_rounded,
-//         color: MyColors.whiteColor,
-//       ),
-//     ),
-//   );
-// }
 
 myTextButton({
   required String text,
@@ -487,62 +406,9 @@ myShowDialog({
   );
 }
 
-myAwesomeDialog({
-  required BuildContext context,
-  DialogType dialogType = DialogType.info,
-  required String? title,
-  bool showBtnCancel = true,
-  required String? desc,
-  required void Function()? btnOkOnPress,
-  String? btnOkText,
-  String? btnCancelText,
-  IconData? headerIcon,
-  bool dismissOnBackKeyPress = true,
-  bool dismissOnTouchOutside = true,
-}) {
-  return AwesomeDialog(
-    context: context,
-    // dialogType: dialogType,
-    animType: AnimType.scale,
-    title: title,
-    desc: desc,
-    padding: EdgeInsetsDirectional.only(
-      top: 15,
-      bottom: 15,
-      start: 10,
-      end: 10,
-    ),
-    alignment: AlignmentDirectional.center,
-    btnOk: myButton(
-      onPressed: btnOkOnPress,
-      text: btnOkText ?? 'موافــق',
-      textStyle: MyTextStyles.font14WhiteBold,
-    ),
-    btnCancel: showBtnCancel
-        ? myButton(
-            onPressed: () {
-              Get.back();
-            },
-            text: btnCancelText ?? 'إلغــاء الأمــر',
-            textStyle: MyTextStyles.font14WhiteBold,
-            backgroundColor: MyColors.greyColor,
-          )
-        : null,
-    customHeader: myCircleAvatar(
-      icon: headerIcon,
-    ),
-    reverseBtnOrder: true,
-    titleTextStyle: MyTextStyles.font16BlackBold,
-    descTextStyle: MyTextStyles.font14GreyMedium,
-    dialogBorderRadius: BorderRadiusDirectional.circular(10),
-    dismissOnBackKeyPress: dismissOnBackKeyPress,
-    dismissOnTouchOutside: dismissOnTouchOutside,
-  ).show();
-}
+mySwitchButton() {
+  SettingController sc = Get.put(SettingController());
 
-SettingController sc = Get.put(SettingController());
-
-mySwitch() {
   return Obx(() {
     return CupertinoSwitch(
       activeColor: MyColors.primaryColor,
@@ -561,7 +427,7 @@ myLoadingIndicator({
   double width = 120,
 }) {
   return Container(
-    padding: EdgeInsetsDirectional.all(10),
+    padding: const EdgeInsetsDirectional.all(10),
     height: height.toDouble(),
     width: width.toDouble(),
     alignment: AlignmentDirectional.center,
@@ -645,7 +511,7 @@ Widget myDropDownMenuButton2<T>({
       value: selectedValue,
       onChanged: onChanged,
       buttonStyleData: ButtonStyleData(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         height: 60,
         width: width != null ? width.toDouble() : 200,
         decoration: BoxDecoration(

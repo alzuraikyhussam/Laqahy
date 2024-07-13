@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginController extends GetxController {
   RxBool isVisible = false.obs;
@@ -62,7 +63,6 @@ class LoginController extends GetxController {
 
         var data = json.decode(response.body);
 
-        // Handle user and center objects
         Login user = Login.fromJson(data['user']);
 
         sdc.userLoggedData.assignAll([user]);
@@ -87,10 +87,10 @@ class LoginController extends GetxController {
     } on SocketException catch (_) {
       isLoading(false);
       ApiExceptionWidgets().mySocketExceptionAlert();
+      
       return;
     } catch (e) {
       isLoading(false);
-      print(e);
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);
