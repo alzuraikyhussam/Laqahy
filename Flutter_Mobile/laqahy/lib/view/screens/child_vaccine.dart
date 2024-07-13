@@ -13,16 +13,16 @@ import 'package:laqahy/view/screens/child_vaccine_data_table_source.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 // ignore: must_be_immutable
-class ChildVaccine extends StatefulWidget {
-  ChildVaccine({super.key, required this.childId});
-
-  int childId;
+class ChildVaccineScreen extends StatefulWidget {
+  ChildVaccineScreen({
+    super.key,
+  });
 
   @override
-  State<ChildVaccine> createState() => _ChildVaccineState();
+  State<ChildVaccineScreen> createState() => _ChildVaccineScreenState();
 }
 
-class _ChildVaccineState extends State<ChildVaccine> {
+class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
   ChildVaccineController cvc = Get.put(ChildVaccineController());
 
   @override
@@ -289,7 +289,8 @@ class _ChildVaccineState extends State<ChildVaccine> {
                             headingRowHeight: 45,
                             empty: ApiExceptionWidgets().myDataNotFound(
                               onPressedRefresh: () {
-                                cvc.fetchChildVaccineDataTable(widget.childId);
+                                cvc.fetchChildVaccineDataTable(
+                                    cvc.childData.value.id!);
                               },
                             ),
 

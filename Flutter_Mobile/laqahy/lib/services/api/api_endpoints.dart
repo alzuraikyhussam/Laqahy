@@ -16,4 +16,9 @@ class ApiEndpoints {
   static const String getChildVaccines =
       '$baseUrl/mobile/child-statements/get-child-vaccines';
   // --------------------------------------------------
+
+  // --------------- Child Statement Endpoints -------------------
+  static const String getChildVData =
+      '$baseUrl/mobile/child-data/get-child-data';
+  // --------------------------------------------------
 }

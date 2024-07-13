@@ -8,7 +8,7 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
 import 'package:laqahy/view/screens/Notification_page.dart';
 import 'package:laqahy/view/screens/awareness_information.dart';
-import 'package:laqahy/view/screens/chosse_child.dart';
+import 'package:laqahy/view/screens/choose_children.dart';
 import 'package:laqahy/view/screens/contact_us.dart';
 import 'package:laqahy/view/screens/create_new_pass.dart';
 import 'package:laqahy/view/screens/exampel.dart';

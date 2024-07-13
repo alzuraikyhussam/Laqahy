@@ -2,21 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
-import 'package:laqahy/models/child_data_model.dart';
+import 'package:laqahy/models/child_vaccine_model.dart';
 import 'package:laqahy/models/child_vaccine_dosage_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
+import 'package:laqahy/view/screens/child_vaccine.dart';
 
 class ChildVaccineController extends GetxController {
-  @override
-  void onInit() async {
-    await fetchChildVaccineDataTable(1);
-    super.onInit();
-  }
-
-  var isLoading = true.obs;
+  var isLoading = false.obs;
   var errorMsg = ''.obs;
-  var childData = ChildData().obs;
+  var childData = ChildVaccine().obs;
   var childVaccines = <ChildVaccineDosage>[].obs;
 
   Future<void> fetchChildVaccineDataTable(int childId) async {
@@ -32,11 +27,13 @@ class ChildVaccineController extends GetxController {
 
       if (response.statusCode == 200) {
         var data = json.decode(response.body)['data'];
-        childData.value = ChildData.fromJson(data['child_data']);
+        childData.value = ChildVaccine.fromJson(data['child_data']);
         var details = data['vaccine_dosage_details'] as List;
         childVaccines.value = details
             .map((detail) => ChildVaccineDosage.fromJson(detail))
             .toList();
+        Get.back();
+        Get.to(ChildVaccineScreen());
 
         isLoading(false);
         return;

@@ -25,15 +25,14 @@ class _MotherVaccineState extends State<MotherVaccine> {
   StaticDataController sdc = Get.put(StaticDataController());
 
   @override
-  void initState() {
-    mvc.fetchMotherDosageDataTable();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(text: 'لقــاحـــات ألام', onTap: () => Get.back()),
+      appBar: myAppBar(
+          text: 'لقــاحـــات ألام',
+          onTap: () {
+            Get.back();
+            // Get.delete<MotherVaccineController>();
+          }),
       body: SingleChildScrollView(
         child: Column(
           children: [

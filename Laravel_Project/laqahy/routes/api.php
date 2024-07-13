@@ -268,6 +268,10 @@ Route::get('mobile/mother-statements/get-mother-dosage/{mother_id}', [MotherStat
 Route::get('mobile/child-statements/get-child-vaccines/{child_id}', [ChildStatementController::class, 'getChildVaccine']);
 // ------------------------------------------------------------
 
+// --------------------- Child Data Routes ------------------------
+Route::get('mobile/child-data/get-child-data/{mother_id}', [ChildDataController::class, 'getChildren']);
+// ------------------------------------------------------------
+
 ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 
 // --------------------- Mother Data Routes ------------------------

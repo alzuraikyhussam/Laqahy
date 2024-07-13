@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/login_controller.dart';
-import 'package:laqahy/controllers/mother_vaccine_controller.dart';
+
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/home.dart';
+
 import 'package:laqahy/view/screens/reset_password.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -16,11 +16,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  
+  LoginController lc = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
-    LoginController lc = Get.put(LoginController());
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
