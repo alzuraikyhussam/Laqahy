@@ -66,7 +66,7 @@ class ChildDosageTypeController extends Controller
     public function getDosagesFromVaccine(string $vaccineTypeId)
     {
         try {
-            $vaccineWithVisit = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type',)->where('vaccines_with_dosages.vaccine_type_id',$vaccineTypeId)->get();
+            $vaccineWithVisit = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type',)->where('vaccines_with_dosages.vaccine_type_id', $vaccineTypeId)->get();
             return response()->json([
                 'message' => 'Dosage data retrieved successfully',
                 'data' => $vaccineWithVisit,

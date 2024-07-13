@@ -118,27 +118,30 @@ class _ChildVisitDataState extends State<ChildVisitData> {
             height: 25,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              myButton(
-                onPressed: () {},
-                text: 'إضــافــة',
-                textStyle: MyTextStyles.font16WhiteBold,
-                width: 130,
-              ),
-              // SizedBox(
-              //   width: 15,
-              // ),
-              // myButton(
-              //   onPressed: () {
-              //     hlc.changeChoose(
-              //       'الرئيسية',
-              //     );
-              //   },
-              //   text: 'خـــــروج',
-              //   textStyle: MyTextStyles.font16WhiteBold,
-              //   width: 130,
-              //   backgroundColor: MyColors.greyColor,
-              // ),
+              Obx(() {
+                return cvc.isAddLoading.value
+                    ? myLoadingIndicator()
+                    : myButton(
+                        width: 150,
+                        onPressed: cvc.isAddLoading.value
+                            ? null
+                            : () {
+                                if (cvc.createChildStatementDataFormKey
+                                    .currentState!
+                                    .validate()) {
+                                  cvc.addChildrenStatement();
+                                  // Get.back();
+                                }
+                                // myShowDialog(
+                                //     context: context,
+                                //     widgetName:
+                                //         const AddUserSuccessfully());
+                              },
+                        text: 'اضــافة',
+                        textStyle: MyTextStyles.font16WhiteBold);
+              }),
             ],
           ),
         ],

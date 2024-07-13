@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use App\Models\Child_data;
 use App\Models\Child_statement;
 use App\Models\Vaccine_type;
@@ -86,6 +87,60 @@ class ChildStatementController extends Controller
             // $vaccineCount = Vaccine_type::withCount('child_dosage_type')->get();
             // $childStatement = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->select('child_statements.*', 'child_data.child_data_name')->where('child_statements.id', $child_id)->get();
 
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'child_data_id' => 'required',
+                    'healthy_center_id' => 'required',
+                    'user_id' => 'required',
+                    'date_taking_dose' => 'required',
+                    'return_date' => 'required',
+                    'visit_type_id' => 'required',
+                    'vaccine_type_id' => 'required',
+                    'child_dosage_type_id' => 'required',
+
+                ],
+            );
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
+
+            $childStatementExists = Child_statement::where('visit_type_id', $request->visit_type_id)->where('vaccine_type_id', $request->vaccine_type_id)->where('child_dosage_type_id', $request->child_dosage_type_id)->exists();
+
+            if ($childStatementExists) {
+                return response()->json([
+                    'message' => 'لقد تم أخذ هذه الجرعة من قبل',
+                ], 401);
+            }
+
+            // Create record
+            $user = Child_statement::create([
+                'child_data_id' => $request->child_data_id,
+                'healthy_center_id' => $request->healthy_center_id,
+                'user_id' => $request->user_id,
+                'date_taking_dose' => $request->date_taking_dose,
+                'return_date' => $request->return_date,
+                'visit_type_id' => $request->visit_type_id,
+                'vaccine_type_id' => $request->vaccine_type_id,
+                'child_dosage_type_id' => $request->child_dosage_type_id,
+            ]);
+
+            // Return created record
+            return response()->json([
+                'message' => 'Child statement created successfully',
+            ], 201);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
