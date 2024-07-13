@@ -273,7 +273,7 @@ Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------
-Route::get('centers/mother-statement/get-mother-statement/{centerId}', [MotherStatementController::class, 'show']);
+Route::get('centers/mother-statement/get-mother-statement', [MotherStatementController::class, 'index']);
 Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
 Route::delete('centers/mother-statement/delete-mother-statement/{motherId}', [MotherStatementController::class, 'destroy']);
 // ------------------------------------------------------------

@@ -755,7 +755,7 @@ class Constants {
             searchController: null,
             validator: mothersDataValidator,
             selectedValue: null,
-            width: 270,
+            
           ),
         );
       }
