@@ -67,7 +67,8 @@ class LoginController extends GetxController {
 
         sdc.userLoggedData.assignAll([user]);
 
-        Get.offAll(const HomeLayout());
+        Get.offAll(() => const HomeLayout());
+        Get.delete<LoginController>();
         return;
       } else if (response.statusCode == 404) {
         isLoading(false);

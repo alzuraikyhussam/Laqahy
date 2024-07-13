@@ -8,8 +8,10 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/awareness_information.dart';
 import 'package:laqahy/view/screens/child_vaccine.dart';
+import 'package:laqahy/view/screens/choose_children.dart';
 import 'package:laqahy/view/screens/mother_vaccine.dart';
 import 'package:laqahy/view/screens/settings_page.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -17,24 +19,23 @@ class Home extends StatelessWidget {
     {
       'icon': Icons.child_care,
       'titel': 'لقاحات الطفل ',
-      'onPressed': ChildVaccine(
-        childId: 1,
-      )
+      'onPressed': () =>
+          myShowDialog(context: Get.context!, widgetName: ChooseChildAlert())
     },
     {
       'icon': Icons.woman_2_outlined,
       'titel': 'لقاحات الام ',
-      'onPressed': MotherVaccine()
+      'onPressed': () => Get.to(MotherVaccine())
     },
     {
       'icon': Icons.settings,
       'titel': 'الاعدادات ',
-      'onPressed': SettingsScreen()
+      'onPressed': () => Get.to(SettingsScreen())
     },
     {
       'icon': Icons.info_outline_rounded,
       'titel': 'معلومات توعوية ',
-      'onPressed': AwarenessInformation()
+      'onPressed': () => Get.to(AwarenessInformation()),
     },
     {}
   ];
@@ -73,7 +74,7 @@ class Home extends StatelessWidget {
                   itemCount: 4,
                   itemBuilder: (context, i) {
                     return InkWell(
-                      onTap: () => Get.to(items[i]['onPressed']),
+                      onTap: items[i]['onPressed'],
                       child: Container(
                         decoration: BoxDecoration(
                           color: MyColors.primaryColor.withOpacity(0.1),

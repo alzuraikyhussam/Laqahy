@@ -90,17 +90,20 @@ class _HomeLayoutState extends State<HomeLayout> {
                       ],
                     ),
                   ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(width: 1, color: MyColors.primaryColor),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(
-                      Icons.notifications_none_outlined,
-                      color: MyColors.blackColor,
+                  InkWell(
+                    onTap: () => Get.offAll(() => Login()),
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(width: 1, color: MyColors.primaryColor),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        Icons.notifications_none_outlined,
+                        color: MyColors.blackColor,
+                      ),
                     ),
                   ),
                 ],
