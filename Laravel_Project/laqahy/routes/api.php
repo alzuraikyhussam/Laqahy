@@ -287,6 +287,10 @@ Route::post('centers/child-data/add-child', [ChildDataController::class, 'store'
 Route::get('centers/child-data/get-child/{motherId}', [ChildDataController::class, 'show']);
 // ------------------------------------------------------------
 
+// --------------------- Child Statement Routes ------------------------
+Route::post('centers/child-statement/add-child-statement', [ChildStatementController::class, 'store']);
+// ------------------------------------------------------------
+
 // --------------------- Auth Routes ------------------------
 Route::get('centers/auth/register/verify/{code}', [AuthController::class, 'centerCheckVerificationCode']);
 Route::post('centers/auth/register', [AuthController::class, 'centerRegister']);
@@ -330,11 +334,21 @@ Route::patch('centers/orders/receiving-confirm', [HealthyCenterOrderController::
 Route::get('centers/vaccines-quantity/{center_id}', [HealthyCenterStockVaccineController::class, 'index']);
 // ------------------------------------------------------------
 
+// --------------------- Visit Type Routes ------------------------
+Route::get('centers/get-visit-type', [VisitTypeController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Vaccines With Visit Routes ------------------------
+Route::get('centers/get-vaccine-with-visit-type/{visitTypeId}', [VisitTypeController::class, 'getVaccinesFromVisit']);
+// ------------------------------------------------------------
+
+// --------------------- Dosage With Vaccine Routes ------------------------
+Route::get('centers/get-dosage-with-vaccine-type/{vaccineTypeId}', [ChildDosageTypeController::class, 'getDosagesFromVaccine']);
+// ------------------------------------------------------------
+
 // --------------------- Report Routes ------------------------
 Route::get('centers/reports/vaccines-qty-report/{center_id}', [ReportController::class, 'centerGetVaccinesQtyReport']);
-
 Route::get('centers/reports/status-report', [ReportController::class, 'centerGenerateStatusReport']);
-
 Route::get('centers/reports/orders-all-report', [ReportController::class, 'centerGenerateAllOrdersReport']);
 Route::get('centers/reports/orders-vaccines-report', [ReportController::class, 'centerGenerateAllVaccinesOrdersReport']);
 Route::get('centers/reports/orders-states-report', [ReportController::class, 'centerGenerateAllStatesOrdersReport']);

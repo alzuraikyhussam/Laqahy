@@ -31,90 +31,94 @@ class _MotherVisitDataState extends State<MotherVisitData> {
     return Expanded(
       child: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'اسم الأم',
-                        style: MyTextStyles.font16BlackBold,
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      Constants().mothersDropdownMenu(),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'مرحلــة الـجرعــة',
-                        style: MyTextStyles.font16BlackBold,
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      Constants().dosageLevelDropdownMenu(),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'نــوع الـجرعــة',
-                        style: MyTextStyles.font16BlackBold,
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      Constants().dosageTypeDropdownMenu(),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Obx(() {
-                    return mvc.isAddLoading.value
-                        ? myLoadingIndicator()
-                        : myButton(
-                            width: 150,
-                            onPressed: mvc.isAddLoading.value
-                                ? null
-                                : () {
-                                    if (mvc.createMotherStatementFormKey
-                                        .currentState!
-                                        .validate()) {
-                                      mvc.addMotherStatement();
-                                      // Get.back();
-                                    }
-                                    // myShowDialog(
-                                    //     context: context,
-                                    //     widgetName:
-                                    //         const AddUserSuccessfully());
-                                  },
-                            text: 'اضــافة',
-                            textStyle: MyTextStyles.font16WhiteBold);
-                  }),
-                ],
-              ),
-            ],
+          Form(
+            key: mvc.createMotherStatementFormKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'اسم الأم',
+                          style: MyTextStyles.font16BlackBold,
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Constants().mothersDropdownMenu(),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'مرحلــة الـجرعــة',
+                          style: MyTextStyles.font16BlackBold,
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Constants().dosageLevelDropdownMenu(),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'نــوع الـجرعــة',
+                          style: MyTextStyles.font16BlackBold,
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Constants().dosageTypeDropdownMenu(),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Obx(() {
+                      return mvc.isAddLoading.value
+                          ? myLoadingIndicator()
+                          : myButton(
+                              width: 150,
+                              onPressed: mvc.isAddLoading.value
+                                  ? null
+                                  : () {
+                                      if (mvc.createMotherStatementFormKey
+                                          .currentState!
+                                          .validate()) {
+                                        mvc.addMotherStatement();
+                                        // Get.back();
+                                      }
+                                      // myShowDialog(
+                                      //     context: context,
+                                      //     widgetName:
+                                      //         const AddUserSuccessfully());
+                                    },
+                              text: 'اضــافة',
+                              textStyle: MyTextStyles.font16WhiteBold);
+                    }),
+                  ],
+                ),
+              
+              ],
+            ),
           ),
           const SizedBox(
             height: 25,
@@ -122,13 +126,17 @@ class _MotherVisitDataState extends State<MotherVisitData> {
           Obx(
             () {
               return mvc.isLoading.value
-                  ? Center(
-                      child: myLoadingIndicator(),
+                  ? SizedBox(
+                      height: 550,
+                      child: Center(
+                        child: myLoadingIndicator(),
+                      ),
                     )
                   : Container(
                       padding: const EdgeInsetsDirectional.only(
                         bottom: 50,
                       ),
+                      height: 550,
                       width: double.infinity,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -155,7 +163,7 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                             topEnd: Radius.circular(10),
                           ),
                         ),
-                        header: Container(
+                        header: SizedBox(
                           width: double.infinity,
                           // padding: EdgeInsetsD)irectional.all(5),
                           child: myTextField(
@@ -200,7 +208,7 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                             label: Container(
                               alignment: AlignmentDirectional.center,
                               child: Text(
-                                "الجنـس",
+                                "المركز الصحي",
                                 style: MyTextStyles.font14WhiteBold,
                               ),
                             ),
