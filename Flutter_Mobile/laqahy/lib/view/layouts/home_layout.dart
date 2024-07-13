@@ -24,7 +24,7 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   HomeLayoutController hlc = Get.put(HomeLayoutController());
-  StaticDataController sdc = Get.find<StaticDataController>();
+  StaticDataController sdc = Get.put(StaticDataController());
 
   @override
   Widget build(BuildContext context) {

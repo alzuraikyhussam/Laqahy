@@ -18,7 +18,7 @@ class Child_statement extends Model
         'return_date',
         'visit_type_id',
         'vaccine_type_id',
-        'dosage_type_id',
+        'child_dosage_type_id',
     ];
     protected $dates = ['deleted_at'];
 
@@ -47,8 +47,8 @@ class Child_statement extends Model
         return $this->belongsTo(Vaccine_type::class);
     }
 
-    public function dosage_type()
+    public function child_dosage_type()
     {
-        return $this->belongsTo(Dosage_type::class);
+        return $this->belongsTo(Child_dosage_type::class);
     }
 }

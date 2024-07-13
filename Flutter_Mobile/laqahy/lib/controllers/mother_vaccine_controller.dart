@@ -8,11 +8,10 @@ import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_endpoints.dart';
 
 class MotherVaccineController extends GetxController {
-  StaticDataController sdc = Get.find<StaticDataController>();
+  StaticDataController sdc = Get.put(StaticDataController());
   @override
   void onInit() {
-    // motherId = sdc.userLoggedData.first.id;
-    fetchMotherVaccineDataTable();
+    motherId = sdc.userLoggedData.first.id;
     super.onInit();
   }
 
@@ -23,25 +22,25 @@ class MotherVaccineController extends GetxController {
   var isLoading = true.obs;
   var errorMsg = ''.obs;
 
-  var motherVaccine = <MotherVaccine>[
-    MotherVaccine(
-      levelTitle: 'الجرعات الأساسية',
+  var motherVaccine = <MotherDosage>[
+    MotherDosage(
+      levelTitle: 'الأساسية',
       dosageCount: 0,
       dosageTakenCount: 0,
     ),
-    MotherVaccine(
-      levelTitle: 'الجرعات التنشيطية',
+    MotherDosage(
+      levelTitle: 'التنشيطية',
       dosageCount: 0,
       dosageTakenCount: 0,
     ),
   ].obs;
 
-  Future<void> fetchMotherVaccineDataTable() async {
+  Future<void> fetchMotherDosageDataTable() async {
     errorMsg('');
     try {
       isLoading(true);
       var response = await http.get(
-        Uri.parse('${ApiEndpoints.getMotherVaccine}/1'),
+        Uri.parse('${ApiEndpoints.getMotherDosage}/$motherId'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },

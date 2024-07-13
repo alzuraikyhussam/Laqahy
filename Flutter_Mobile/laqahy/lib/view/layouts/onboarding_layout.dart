@@ -34,7 +34,7 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
   }
 
   OnboardingController obc = Get.put(OnboardingController());
-  StaticDataController sdc = Get.find<StaticDataController>();
+  StaticDataController sdc = Get.put(StaticDataController());
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
           Positioned(
             // left: 0,
             right: 40,
-            bottom: 40,
+            bottom: 35,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,7 +94,9 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                   child: Obx(
                     () => Container(
                       width: obc.currentIndex.value == 2 ? 100 : null,
-                      padding: EdgeInsets.all(15),
+                      padding: obc.currentIndex.value == 2
+                          ? EdgeInsets.all(12)
+                          : EdgeInsets.all(15),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -112,19 +114,17 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                             spreadRadius: 0,
                           ),
                         ],
-                        borderRadius: obc.currentIndex.value != 2
-                            ? BorderRadius.circular(100)
-                            : BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: obc.currentIndex.value != 2
                           ? Icon(
                               Icons.arrow_back_ios_new_rounded,
                               color: MyColors.whiteColor,
-                              size: 30,
+                              size: 25,
                             )
                           : Text(
                               'البــدء',
-                              style: MyTextStyles.font14WhiteBold,
+                              style: MyTextStyles.font16WhiteBold,
                               textAlign: TextAlign.center,
                             ),
                     ),

@@ -95,7 +95,7 @@ class MotherStatementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $centerId)
+    public function show(string $center_id)
     {
         //
     }
@@ -143,16 +143,16 @@ class MotherStatementController extends Controller
     }
 
 
-    public function getMotherStatements($mother_id)
+    public function getMotherDosage($mother_id)
     {
 
         try {
             $dosageCount = Dosage_level::withCount('dosage_type')->get();
-            $basicDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 1)->count();
+            $basicDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 1)->count();   
             $refresherDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 2)->count();
 
             return response()->json([
-                'message' => 'Mother statements retrieved successfully',
+                'message' => 'Mother dosage retrieved successfully',
                 'data' => [
                     'dosage_count' => $dosageCount,
                     'basic_dosage_taken_count' => $basicDosageTakenCount,

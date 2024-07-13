@@ -22,11 +22,12 @@ import 'package:laqahy/view/screens/profile.dart';
 import 'package:laqahy/view/screens/reset_password.dart';
 import 'package:laqahy/view/screens/reset_password_verification.dart';
 import 'package:laqahy/view/screens/settings_page.dart';
+import 'package:laqahy/view/screens/splash_screen.dart';
 import 'package:laqahy/view/screens/successfull_send_messeg.dart';
 import 'package:laqahy/view/screens/successfully_chang_pass.dart';
 import 'package:laqahy/view/screens/successfully_login.dart';
 
-import 'view/screens/children_vaccine.dart';
+import 'view/screens/child_vaccine.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,9 +41,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       defaultTransition: Transition.rightToLeft,
-      initialBinding: BindingsBuilder(() {
-        Get.put(StaticDataController());
-      }),
+      // initialBinding: BindingsBuilder(() {
+      //   Get.put(StaticDataController());
+      // }),
       title: 'لقـاحي',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),
@@ -64,7 +65,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: Login(),
+      home: SplashScreen(),
     );
   }
 }

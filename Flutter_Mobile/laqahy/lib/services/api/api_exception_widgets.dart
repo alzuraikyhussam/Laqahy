@@ -222,7 +222,7 @@ class ApiExceptionWidgets {
         children: [
           Lottie.asset(
             'assets/images/no-data.json',
-            width: 200,
+            width: 150,
             alignment: Alignment.center,
           ),
           SizedBox(

@@ -12,7 +12,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StaticDataController sdc = Get.find<StaticDataController>();
+    StaticDataController sdc = Get.put(StaticDataController());
     return Scaffold(
       body: Stack(
         children: [

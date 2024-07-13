@@ -7,10 +7,9 @@ import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/awareness_information.dart';
-import 'package:laqahy/view/screens/children_vaccine.dart';
+import 'package:laqahy/view/screens/child_vaccine.dart';
 import 'package:laqahy/view/screens/mother_vaccine.dart';
 import 'package:laqahy/view/screens/settings_page.dart';
-import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -18,7 +17,9 @@ class Home extends StatelessWidget {
     {
       'icon': Icons.child_care,
       'titel': 'لقاحات الطفل ',
-      'onPressed': ChildrenVaccine()
+      'onPressed': ChildVaccine(
+        childId: 1,
+      )
     },
     {
       'icon': Icons.woman_2_outlined,

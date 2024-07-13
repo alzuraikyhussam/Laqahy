@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChildDataController;
 use App\Http\Controllers\ChildDosageTypeController;
+use App\Http\Controllers\ChildStatementController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\DonorController;
@@ -260,9 +261,12 @@ Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']);
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------
-Route::get('mobile/mother-statements/{mother_id}', [MotherStatementController::class, 'getMotherStatements']);
+Route::get('mobile/mother-statements/get-mother-dosage/{mother_id}', [MotherStatementController::class, 'getMotherDosage']);
 // ------------------------------------------------------------
 
+// --------------------- Child Statement Routes ------------------------
+Route::get('mobile/child-statements/get-child-vaccines/{child_id}', [ChildStatementController::class, 'getChildVaccine']);
+// ------------------------------------------------------------
 
 ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 

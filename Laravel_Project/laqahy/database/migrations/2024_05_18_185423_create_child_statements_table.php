@@ -16,11 +16,11 @@ return new class extends Migration
             $table->foreignId('child_data_id')->constrained('child_data')->onUpdate('cascade');
             $table->foreignId('healthy_center_id')->constrained('healthy_centers')->onUpdate('cascade');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade');
-            $table->date('date_taking_dose');
+            $table->dateTime('date_taking_dose')->useCurrent();
             $table->date('return_date');
             $table->foreignId('visit_type_id')->constrained('visit_types')->onUpdate('cascade');
             $table->foreignId('vaccine_type_id')->constrained('vaccine_types')->onUpdate('cascade');
-            $table->foreignId('dosage_type_id')->constrained('dosage_types')->onUpdate('cascade');
+            $table->foreignId('child_dosage_type_id')->constrained('child_dosage_types')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
