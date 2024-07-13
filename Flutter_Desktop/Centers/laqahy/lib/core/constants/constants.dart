@@ -186,7 +186,7 @@ class Constants {
   }
 
   /////////////
-  
+
   /////////////
 
   String? visitTypeValidator(value) {
@@ -197,7 +197,7 @@ class Constants {
   }
 
   ////////////
-  
+
   String? childsDataValidator(value) {
     if (value == null) {
       return 'قم باختيار إسم الطفل';
@@ -268,8 +268,10 @@ class Constants {
   final TextEditingController dosageTypeSearchController =
       TextEditingController();
   final TextEditingController vaccineSearchController = TextEditingController();
-  final TextEditingController vaccineTypeSearchController = TextEditingController();
-  final TextEditingController dosageWithVaccineSearchController = TextEditingController();
+  final TextEditingController vaccineTypeSearchController =
+      TextEditingController();
+  final TextEditingController dosageWithVaccineSearchController =
+      TextEditingController();
 
   Widget gendersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
@@ -706,7 +708,7 @@ class Constants {
       }
     });
   }
-  
+
   Widget mothersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
 
@@ -755,7 +757,6 @@ class Constants {
             searchController: null,
             validator: mothersDataValidator,
             selectedValue: null,
-            width: 270,
           ),
         );
       }
@@ -1269,7 +1270,8 @@ class Constants {
         onChanged: (value) {
           if (value != null) {
             controller.selectedVisitType.value = int.tryParse(value);
-            controller.fetchVaccineWithVisit(controller.selectedVisitType.value!);
+            controller
+                .fetchVaccineWithVisit(controller.selectedVisitType.value!);
             controller.selectedVaccineType.value = null;
           } else {
             controller.selectedVisitType.value = null;
@@ -1384,7 +1386,7 @@ class Constants {
           validator: vaccineTypeValidator,
           items: controller.vaccineType.map((element) {
             return DropdownMenuItem(
-              value: element.id.toString(),
+              value: element.vaccineTypeId.toString(),
               child: Text(
                 element.vaccineType!,
                 style: MyTextStyles.font16BlackMedium,
@@ -1394,7 +1396,8 @@ class Constants {
           onChanged: (value) {
             if (value != null) {
               controller.selectedVaccineType.value = int.tryParse(value);
-              controller.fetchDosageWithVaccine(controller.selectedVaccineType.value!);
+              controller.fetchDosageWithVaccine(
+                  controller.selectedVaccineType.value!);
               controller.selectedChildDosageTypeId.value = null;
             } else {
               controller.selectedVaccineType.value = null;
@@ -1406,12 +1409,12 @@ class Constants {
       }
     });
   }
-  
+
   Widget dosageWithVaccineDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
 
     return Obx(() {
-      if (controller.selectedChildDosageTypeId.value == null) {
+      if (controller.selectedVaccineType.value == null) {
         return InkWell(
           onTap: () {
             // Constants().playErrorSound();
@@ -1433,7 +1436,7 @@ class Constants {
             validator: dosageWithVaccineValidator,
           ),
         );
-      } else if (controller.isVaccineTypeLoading.value) {
+      } else if (controller.isChildDosageTypeLoading.value) {
         return myDropDownMenuButton2(
           hintText: 'نوع الجرعة',
           items: [
@@ -1510,7 +1513,7 @@ class Constants {
           validator: dosageWithVaccineValidator,
           items: controller.childDosageType.map((element) {
             return DropdownMenuItem(
-              value: element.id.toString(),
+              value: element.ChildDosageTypeId.toString(),
               child: Text(
                 element.ChildDosageType!,
                 style: MyTextStyles.font16BlackMedium,
@@ -1638,5 +1641,4 @@ class Constants {
       );
     });
   }
-
 }

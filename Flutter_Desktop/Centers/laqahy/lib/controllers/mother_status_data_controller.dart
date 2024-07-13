@@ -120,6 +120,7 @@ class MotherStatusDataController extends GetxController {
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
     sdc.fetchMothers();
+    sdc.fetchCities();
     // sdc.fetchCities();
     super.onInit();
   }

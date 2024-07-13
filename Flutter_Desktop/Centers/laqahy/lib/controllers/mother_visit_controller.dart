@@ -36,7 +36,7 @@ class MotherVisitController extends GetxController {
   @override
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
-    fetchMotherStatement(centerId!);
+    fetchMotherStatement();
     sdc.fetchMothers();
     sdc.fetchDosageLevel();
     super.onInit();
@@ -51,12 +51,12 @@ class MotherVisitController extends GetxController {
     }).toList();
   }
 
-  Future<void> fetchMotherStatement(int centerId) async {
+  Future<void> fetchMotherStatement() async {
     try {
       isLoading(true);
       motherStatementSearchController.clear();
       final response = await http.get(
-        Uri.parse('${ApiEndpoints.getMotherStatement}/$centerId'),
+        Uri.parse(ApiEndpoints.getMotherStatement),
         headers: {
           'content-Type': 'application/json',
         },
@@ -112,7 +112,7 @@ class MotherVisitController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        await fetchMotherStatement(centerId!);
+        await fetchMotherStatement();
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         clearTextFields();
@@ -148,7 +148,7 @@ class MotherVisitController extends GetxController {
           await http.delete(Uri.parse('${ApiEndpoints.deleteMotherStatement}/$motherId'));
 
       if (request.statusCode == 200) {
-        await fetchMotherStatement(centerId!);
+        await fetchMotherStatement();
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();
         isDeleteLoading(false);

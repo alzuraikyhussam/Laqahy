@@ -73,7 +73,7 @@ class StaticDataController extends GetxController {
   var selectedDosageTypeId = Rx<int?>(null);
   var dosageTypeErrorMsg = ''.obs;
   var isDosageTypeLoading = false.obs;
-  
+
   var childDosageType = <DosageWithVaccine>[].obs;
   var selectedChildDosageTypeId = Rx<int?>(null);
   var childDosageTypeErrorMsg = ''.obs;
@@ -83,12 +83,12 @@ class StaticDataController extends GetxController {
   var selectedVaccine = Rx<Vaccine?>(null);
   var vaccineErrorMsg = ''.obs;
   var isVaccineLoading = false.obs;
-  
+
   var vaccineType = <VaccineWithVisit>[].obs;
   var selectedVaccineType = Rx<int?>(null);
   var vaccineTypeErrorMsg = ''.obs;
   var isVaccineTypeLoading = false.obs;
-  
+
   var visitType = <VisitType>[].obs;
   var selectedVisitType = Rx<int?>(null);
   var visitTypeErrorMsg = ''.obs;
@@ -255,7 +255,7 @@ class StaticDataController extends GetxController {
       isDirectorateLoading(false);
     }
   }
-  
+
   void fetchMothers() async {
     try {
       motherErrorMsg('');
@@ -278,7 +278,8 @@ class StaticDataController extends GetxController {
       }
     } on SocketException catch (_) {
       isMotherLoading(false);
-      motherErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+      motherErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isMotherLoading(false);
       motherErrorMsg('خطأ غير متوقع\n${e.toString()}');
@@ -309,8 +310,7 @@ class StaticDataController extends GetxController {
       }
     } on SocketException catch (_) {
       isChildLoading(false);
-      childErrorMsg(
-          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+      childErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isChildLoading(false);
       childErrorMsg('خطأ غير متوقع\n${e.toString()}');
@@ -383,7 +383,7 @@ class StaticDataController extends GetxController {
     }
   }
 
-    void fetchVisitType() async {
+  void fetchVisitType() async {
     try {
       visitTypeErrorMsg('');
       isVisitTypeLoading(true);
@@ -402,6 +402,7 @@ class StaticDataController extends GetxController {
       } else {
         isVisitTypeLoading(false);
         visitTypeErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+        print(response.body);
       }
     } on SocketException catch (_) {
       isVisitTypeLoading(false);
@@ -441,7 +442,7 @@ class StaticDataController extends GetxController {
       vaccineTypeErrorMsg(
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
-        print(e);
+      print(e);
       isVaccineTypeLoading(false);
       vaccineTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
     } finally {
@@ -467,7 +468,8 @@ class StaticDataController extends GetxController {
         childDosageType.assignAll(fetchDosageWithVaccine);
       } else {
         isChildDosageTypeLoading(false);
-        childDosageTypeErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+        childDosageTypeErrorMsg(
+            'فشل في تحميل البيانات\n${response.statusCode}');
         print(response.body);
       }
     } on SocketException catch (_) {
@@ -475,7 +477,7 @@ class StaticDataController extends GetxController {
       childDosageTypeErrorMsg(
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
-        print(e);
+      print(e);
       isChildDosageTypeLoading(false);
       childDosageTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
     } finally {
@@ -515,6 +517,4 @@ class StaticDataController extends GetxController {
       isVaccineLoading(false);
     }
   }
-
-
 }

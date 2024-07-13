@@ -43,10 +43,12 @@ class ApiEndpoints {
 
   // --------------- Vaccines Endpoints -------------------
   static const String getVaccines = '$baseUrl/vaccines';
-  static const String getVaccinesType = '$baseUrl/centers/get-vaccines-data';
-  static const String getDosageTypeWithVaccine = '$baseUrl/centers/get-dosage-type-data';
+  static const String getVaccinesType =
+      '$baseUrl/centers/get-vaccine-with-visit-type';
+  static const String getDosageTypeWithVaccine =
+      '$baseUrl/centers/get-dosage-with-vaccine-type';
   // --------------------------------------------------
-  
+
   // --------------- Visit Type Endpoints -------------------
   static const String getVisitType = '$baseUrl/centers/get-visit-type';
   // --------------------------------------------------
@@ -106,8 +108,7 @@ class ApiEndpoints {
   // --------------- Child Status Data Endpoints -------------------
   static const String addChildStatusData =
       '$baseUrl/centers/child-data/add-child';
-  static const String getChildData =
-      '$baseUrl/centers/child-data/get-child';
+  static const String getChildData = '$baseUrl/centers/child-data/get-child';
 
   // --------------------------------------------------
 
@@ -117,6 +118,11 @@ class ApiEndpoints {
 
   // --------------- Child Status Data Endpoints -------------------
   static const String getDosageType = '$baseUrl/centers/dosage-type';
+  // --------------------------------------------------
+
+  // --------------- Child Statements Endpoints -------------------
+  static const String addChildStatements =
+      '$baseUrl/centers/child-statement/add-child-statement';
   // --------------------------------------------------
 
   // --------------- Reports Endpoints -------------------

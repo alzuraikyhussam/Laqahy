@@ -281,7 +281,7 @@ Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------
-Route::get('centers/mother-statement/get-mother-statement/{centerId}', [MotherStatementController::class, 'show']);
+Route::get('centers/mother-statement/get-mother-statement', [MotherStatementController::class, 'index']);
 Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
 Route::delete('centers/mother-statement/delete-mother-statement/{motherId}', [MotherStatementController::class, 'destroy']);
 // ------------------------------------------------------------
@@ -289,6 +289,10 @@ Route::delete('centers/mother-statement/delete-mother-statement/{motherId}', [Mo
 // --------------------- Child Data Routes ------------------------
 Route::post('centers/child-data/add-child', [ChildDataController::class, 'store']);
 Route::get('centers/child-data/get-child/{motherId}', [ChildDataController::class, 'show']);
+// ------------------------------------------------------------
+
+// --------------------- Child Statement Routes ------------------------
+Route::post('centers/child-statement/add-child-statement', [ChildStatementController::class, 'store']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------
@@ -334,11 +338,21 @@ Route::patch('centers/orders/receiving-confirm', [HealthyCenterOrderController::
 Route::get('centers/vaccines-quantity/{center_id}', [HealthyCenterStockVaccineController::class, 'index']);
 // ------------------------------------------------------------
 
+// --------------------- Visit Type Routes ------------------------
+Route::get('centers/get-visit-type', [VisitTypeController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Vaccines With Visit Routes ------------------------
+Route::get('centers/get-vaccine-with-visit-type/{visitTypeId}', [VisitTypeController::class, 'getVaccinesFromVisit']);
+// ------------------------------------------------------------
+
+// --------------------- Dosage With Vaccine Routes ------------------------
+Route::get('centers/get-dosage-with-vaccine-type/{vaccineTypeId}', [ChildDosageTypeController::class, 'getDosagesFromVaccine']);
+// ------------------------------------------------------------
+
 // --------------------- Report Routes ------------------------
 Route::get('centers/reports/vaccines-qty-report/{center_id}', [ReportController::class, 'centerGetVaccinesQtyReport']);
-
 Route::get('centers/reports/status-report', [ReportController::class, 'centerGenerateStatusReport']);
-
 Route::get('centers/reports/orders-all-report', [ReportController::class, 'centerGenerateAllOrdersReport']);
 Route::get('centers/reports/orders-vaccines-report', [ReportController::class, 'centerGenerateAllVaccinesOrdersReport']);
 Route::get('centers/reports/orders-states-report', [ReportController::class, 'centerGenerateAllStatesOrdersReport']);
