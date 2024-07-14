@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class ChildStatementController extends Controller
 {
 
-    public function getChildVaccine($child_id)
+    public function getChildVaccines($child_id)
     {
         try {
 

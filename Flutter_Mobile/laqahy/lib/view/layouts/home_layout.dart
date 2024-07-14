@@ -11,6 +11,7 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/Notification_page.dart';
 import 'package:laqahy/view/screens/home.dart';
 import 'package:laqahy/view/screens/login.dart';
+import 'package:laqahy/view/screens/posts.dart';
 import 'package:laqahy/view/screens/profile.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -75,7 +76,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                               ),
                               Expanded(
                                 child: Text(
-                                  sdc.userLoggedData.first.motherName ??
+                                  sdc.userLoggedData.first.user.motherName ??
                                       'مجهول الهوية',
                                   style: MyTextStyles.font16BlackBold,
                                   maxLines: 1,
@@ -120,9 +121,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                 },
                 children: [
                   HomeScreen(),
-                  const NotificationScreen(),
+                  const PostsScreen(),
                   const ProfileScreen(),
-                  // SettingsScreen(),
                 ],
               ),
             ),

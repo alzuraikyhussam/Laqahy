@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child_data;
 use App\Models\Healthy_center;
 use App\Models\Healthy_center_account;
 use App\Models\Healthy_centers_stock_vaccine;
 use App\Models\Ministry_stock_vaccine;
 use App\Models\Mother_data;
+use App\Models\Mother_statement;
 use App\Models\Office;
 use App\Models\Office_stock_vaccine;
 use App\Models\Offices_users;
@@ -14,6 +16,7 @@ use App\Models\User;
 use App\Models\Vaccine_type;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -376,6 +379,7 @@ class AuthController extends Controller
     }
 
     ///////////////////MOBILE//////////////////////
+
     public function mobileLogin(Request $request)
     {
         try {
@@ -409,9 +413,14 @@ class AuthController extends Controller
 
             $motherData = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.id', $user->id)->first();
 
+            $returnDate = Mother_statement::where('mother_data_id', $motherData->id)->max('return_date');
+            $childrenCount = Child_data::where('mother_data_id', $motherData->id)->count();
+
             return response()->json([
                 'message' => 'Login successfully',
                 'user' => $motherData,
+                'return_date' => $returnDate,
+                'children_count' => $childrenCount,
             ], 200);
         } catch (Exception $e) {
             return response()->json([

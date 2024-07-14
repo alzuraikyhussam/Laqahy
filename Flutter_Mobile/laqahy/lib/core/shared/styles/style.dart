@@ -143,8 +143,8 @@ class MyTextStyles {
   // -------------------------------------------
 
   // Red Color
-  static TextStyle font16RedBold = TextStyle(
-    fontSize: 16.0,
+  static TextStyle font14RedBold = TextStyle(
+    fontSize: 14.0,
     color: MyColors.redColor,
     fontWeight: FontWeight.bold,
   );

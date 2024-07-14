@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/mother_vaccine_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
@@ -69,7 +70,7 @@ class _MotherVaccineState extends State<MotherVaccine> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     color: MyColors.secondaryColor
                                         .withOpacity(0.3),
@@ -85,7 +86,7 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
@@ -97,7 +98,7 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                           //   height: 5,
                                           // ),
                                           Text(
-                                            sdc.userLoggedData.first
+                                            sdc.userLoggedData.first.user
                                                     .motherName ??
                                                 'مجهول الهوية',
                                             style: MyTextStyles.font16BlackBold,
@@ -138,7 +139,7 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                       ),
                                     ),
                                     Text(
-                                      'عدد الاطفال',
+                                      'عدد الأطفال',
                                       style: MyTextStyles.font14PrimaryBold,
                                     ),
                                     Divider(
@@ -148,7 +149,8 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                       color: MyColors.primaryColor,
                                       height: 3,
                                     ),
-                                    Text('3 طفل')
+                                    Text(
+                                        '${sdc.userLoggedData.first.childrenCount ?? 0}'),
                                   ],
                                 ),
                               ),
@@ -190,7 +192,9 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                       color: MyColors.primaryColor,
                                       height: 3,
                                     ),
-                                    Text('20-05-2024')
+                                    Text(DateFormat('yyyy-MM-dd').format(
+                                        sdc.userLoggedData.first.returnDate ??
+                                            DateTime.now()))
                                   ],
                                 ),
                               ),
@@ -268,7 +272,7 @@ class _MotherVaccineState extends State<MotherVaccine> {
                             decoration: BoxDecoration(
                               border: Border.all(color: MyColors.primaryColor),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                                  const BorderRadius.all(Radius.circular(10)),
                             ),
                             child: DataTable2(
                               dataRowHeight: 50,

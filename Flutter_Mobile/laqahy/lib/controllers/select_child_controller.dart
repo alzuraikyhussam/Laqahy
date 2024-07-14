@@ -27,8 +27,7 @@ class SelectChildController extends GetxController {
 
   @override
   void onInit() {
-    motherId = sdc.userLoggedData.first.id;
-    fetchChildren();
+    motherId = sdc.userLoggedData.first.user.id;
     super.onInit();
   }
 
@@ -56,7 +55,8 @@ class SelectChildController extends GetxController {
             jsonData.map((e) => ChildData.fromJson(e)).toList();
 
         children.assignAll(fetchedChildren);
-        print(children.first.childName);
+
+        selectedChildId.value = children.first.id;
       } else {
         isChildLoading(false);
         childErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
@@ -67,6 +67,7 @@ class SelectChildController extends GetxController {
     } catch (e) {
       isChildLoading(false);
       childErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      print(e);
     } finally {
       isChildLoading(false);
     }

@@ -21,4 +21,12 @@ class ApiEndpoints {
   static const String getChildVData =
       '$baseUrl/mobile/child-data/get-child-data';
   // --------------------------------------------------
+
+  // --------------- Post Endpoints -------------------
+  static const String getPosts = '$baseUrl/ministry/posts';
+  // --------------------------------------------------
+
+  // --------------- Technical Support Endpoints -------------------
+  static const String sendMsg = '$baseUrl/support';
+  // --------------------------------------------------
 }

@@ -80,28 +80,31 @@ class _ResetPasswordState extends State<ResetPassword> {
                           return AlertDialog(
                             actionsAlignment: MainAxisAlignment.center,
                             alignment: AlignmentDirectional.center,
-                            content: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                myCircleAvatar(icon: Icons.child_care),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  'تم الإرسـال بنجـاح',
-                                  style: MyTextStyles.font18BlackBold,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'لقد تم إرسال كود التحقق الى رقم جوالك.',
-                                  style: MyTextStyles.font18BlackBold,
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                              ],
+                            content: SizedBox(
+                              width: Get.width,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  myCircleAvatar(icon: Icons.child_care),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    'تم الإرسـال بنجـاح',
+                                    style: MyTextStyles.font18BlackBold,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'لقد تم إرسال كود التحقق الى رقم جوالك.',
+                                    style: MyTextStyles.font18BlackBold,
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                ],
+                              ),
                             ),
                             actions: [
                               myButton(

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child_data;
 use App\Models\Dosage_level;
 use App\Models\Dosage_type;
+use App\Models\Mother_data;
 use App\Models\Mother_statement;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -148,7 +151,7 @@ class MotherStatementController extends Controller
 
         try {
             $dosageCount = Dosage_level::withCount('dosage_type')->get();
-            $basicDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 1)->count();   
+            $basicDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 1)->count();
             $refresherDosageTakenCount = Mother_statement::where('mother_data_id', $mother_id)->where('dosage_level_id', 2)->count();
 
             return response()->json([

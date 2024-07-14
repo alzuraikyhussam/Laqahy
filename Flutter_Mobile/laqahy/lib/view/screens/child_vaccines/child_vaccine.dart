@@ -51,7 +51,7 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: MyColors.secondaryColor.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(15),
@@ -64,7 +64,7 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   Text(
@@ -96,6 +96,12 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                             borderRadius: BorderRadius.circular(15)),
                         width: 70,
                         height: 100,
+                        padding: const EdgeInsetsDirectional.only(
+                          top: 5,
+                          bottom: 5,
+                          start: 2,
+                          end: 2,
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -115,6 +121,9 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                               'العمر',
                               style: MyTextStyles.font14PrimaryBold,
                             ),
+                            const SizedBox(
+                              height: 2,
+                            ),
                             Divider(
                               thickness: 3,
                               indent: 25,
@@ -122,7 +131,17 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                               color: MyColors.primaryColor,
                               height: 3,
                             ),
-                            Expanded(child: Text('${cvc.childData.value.age}')),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Text(
+                                  '${cvc.childData.value.age}',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -294,7 +313,7 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                             decoration: BoxDecoration(
                               border: Border.all(color: MyColors.primaryColor),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                                  const BorderRadius.all(Radius.circular(10)),
                             ),
                             child: DataTable2(
                               dataRowHeight: 50,

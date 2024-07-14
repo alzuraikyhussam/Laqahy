@@ -16,8 +16,14 @@ class ChooseChildAlert extends StatefulWidget {
 }
 
 class _ChooseChildAlertState extends State<ChooseChildAlert> {
-  SelectChildController csc = Get.put(SelectChildController());
+  SelectChildController scc = Get.put(SelectChildController());
   ChildVaccineController cvc = Get.put(ChildVaccineController());
+
+  @override
+  void initState() {
+    scc.fetchChildren();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +31,10 @@ class _ChooseChildAlertState extends State<ChooseChildAlert> {
       alignment: Alignment.center,
       actionsAlignment: MainAxisAlignment.center,
       content: Form(
-        key: csc.selectChildFormKey,
+        key: scc.selectChildFormKey,
         child: SizedBox(
           height: 250,
+          width: Get.width,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +57,7 @@ class _ChooseChildAlertState extends State<ChooseChildAlert> {
                 ),
                 SizedBox(
                   width: Get.width,
-                  child: csc.childrenDropdownMenu(),
+                  child: scc.childrenDropdownMenu(),
                 ),
                 const SizedBox(
                   height: 5,
@@ -68,9 +75,9 @@ class _ChooseChildAlertState extends State<ChooseChildAlert> {
                   onPressed: cvc.isLoading.value
                       ? null
                       : () {
-                          if (csc.selectChildFormKey.currentState!.validate()) {
+                          if (scc.selectChildFormKey.currentState!.validate()) {
                             cvc.fetchChildVaccineDataTable(
-                                csc.selectedChildId.value!);
+                                scc.selectedChildId.value!);
                           }
                         },
                   width: 120,

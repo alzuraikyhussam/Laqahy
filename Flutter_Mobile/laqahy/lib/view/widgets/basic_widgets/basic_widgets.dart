@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'dart:ui' as ui;
 import 'package:laqahy/controllers/setting_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/models/post_model.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:shadow_overlay/shadow_overlay.dart';
 
@@ -148,15 +154,39 @@ myTextField({
   Color? color,
   int? maxLines,
   Color? fillColor,
-  TextAlign textAlign = TextAlign.right,
+  TextAlign textAlign = TextAlign.end,
+  String? initialValue,
+  double? heightFactor = 2.7,
   void Function()? onTap,
   void Function()? onTapSuffixIcon,
+  bool autofocus = false,
+  // double? width,
+  // required String? labelText,
+  // TextEditingController? controller,
+  // required TextInputType? keyboardType,
+  // int? maxLength,
+  // bool obscureText = false,
+  // required void Function(String)? onChanged,
+  // bool readOnly = false,
+  // String? Function(String?)? validator,
+  // IconData? prefixIcon,
+  // String? prefixImage,
+  // IconData? suffixIcon,
+  // String? suffixImage,
+  // Color? color,
+  // int? maxLines,
+  // Color? fillColor,
+  // TextAlign textAlign = TextAlign.right,
+  // void Function()? onTap,
+  // void Function()? onTapSuffixIcon,
 }) {
   return SizedBox(
     width: width?.toDouble(),
     child: TextFormField(
+      autofocus: autofocus,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onTap: onTap,
+      initialValue: initialValue,
       controller: controller,
       cursorColor: MyColors.primaryColor.withOpacity(0.7),
       keyboardType: keyboardType,
@@ -166,13 +196,12 @@ myTextField({
           : maxLines == null
               ? 1
               : maxLines,
-      // minLines: minLines != null ? minLines : 1,
       obscureText: obscureText,
       onChanged: onChanged,
       readOnly: readOnly,
+      textDirection: ui.TextDirection.ltr,
       validator: validator,
       textAlign: textAlign,
-      textDirection: TextDirection.ltr,
       style: MyTextStyles.font16BlackMedium,
       decoration: InputDecoration(
         counterStyle: MyTextStyles.font14GreyBold.copyWith(
@@ -183,8 +212,8 @@ myTextField({
                 padding: const EdgeInsetsDirectional.only(start: 10),
                 child: Align(
                   alignment: AlignmentDirectional.topStart,
-                  widthFactor: 1.0,
-                  heightFactor: 3.0,
+                  widthFactor: 1.5,
+                  heightFactor: heightFactor,
                   child: Icon(
                     prefixIcon,
                     color: MyColors.greyColor.withOpacity(0.8),
@@ -255,6 +284,269 @@ myTextField({
         floatingLabelStyle: MyTextStyles.font16PrimaryBold,
       ),
     ),
+  );
+}
+
+myPostsCarouselSlider({
+  required List<Post> post,
+}) {
+  return CarouselSlider.builder(
+    itemCount: post.length,
+    options: CarouselOptions(
+      height: 200,
+      aspectRatio: 16 / 9,
+      viewportFraction: 0.8,
+      initialPage: 0,
+      enableInfiniteScroll: true,
+      reverse: false,
+      autoPlay: true,
+      autoPlayInterval: const Duration(seconds: 3),
+      autoPlayAnimationDuration: const Duration(milliseconds: 800),
+      autoPlayCurve: Curves.fastOutSlowIn,
+      enlargeCenterPage: true,
+      enlargeFactor: 0.3,
+      scrollDirection: Axis.horizontal,
+      pageSnapping: true,
+    ),
+    itemBuilder: (context, itemIndex, pageViewIndex) {
+      return GestureDetector(
+        onTap: () {},
+        child: Container(
+          width: 500,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+                MyColors.primaryColor,
+                MyColors.secondaryColor,
+              ]),
+              borderRadius: BorderRadius.circular(12)),
+          // child: Text(snapshot.data[itemIndex].urlToImage),
+          child: Stack(
+            alignment: AlignmentDirectional.bottomStart,
+            children: [
+              ShadowOverlay(
+                shadowWidth: 800,
+                shadowHeight: 200,
+                shadowColor: Colors.black.withOpacity(0.7),
+                child: Image.network(
+                  post[itemIndex].postImage,
+                  // 'https://www.cnet.com/a/img/resize/d88681c50c779bd709963793f699ca17147fccf4/hub/2023/09/13/1530496f-a39e-4127-b47b-4d88cb37d510/p1020938-1.jpg?auto=webp&fit=crop&height=675&width=1200',
+                  filterQuality: FilterQuality.medium,
+                  fit: BoxFit.cover,
+                  height: Get.height,
+                  width: Get.width,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    if (exception is SocketException) {
+                      // Handle the SocketException
+                      return Center(
+                        child: myLoadingIndicator(),
+                      );
+                    } else {
+                      // Handle other types of image errors
+                      return Center(
+                        child: myLoadingIndicator(),
+                      );
+                    }
+                  },
+                ),
+              ),
+              Container(
+                padding: const EdgeInsetsDirectional.only(
+                  start: 15,
+                  end: 15,
+                  bottom: 20,
+                  top: 5,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsetsDirectional.symmetric(
+                        horizontal: 5,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            MyColors.primaryColor,
+                            MyColors.secondaryColor,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        'وزارة الصحة والسكان',
+                        style: MyTextStyles.font14WhiteMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      post[itemIndex].postTitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: MyTextStyles.font16WhiteBold,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+myPostsListView({
+  required List<Post> post,
+}) {
+  return ListView.separated(
+    itemCount: post.length,
+    separatorBuilder: (context, index) => const SizedBox(
+      height: 10,
+    ),
+    physics: const NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    itemBuilder: (context, index) {
+      return Card(
+        child: Container(
+          width: Get.width,
+          height: 400,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: Get.width,
+                height: 180,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      MyColors.primaryColor,
+                      MyColors.secondaryColor,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Image.network(
+                  post[index].postImage,
+                  // 'https://www.cnet.com/a/img/resize/d88681c50c779bd709963793f699ca17147fccf4/hub/2023/09/13/1530496f-a39e-4127-b47b-4d88cb37d510/p1020938-1.jpg?auto=webp&fit=crop&height=675&width=1200',
+                  filterQuality: FilterQuality.medium,
+                  fit: BoxFit.cover,
+                  height: Get.height,
+                  width: Get.width,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    if (exception is SocketException) {
+                      // Handle the SocketException
+                      return Center(
+                        child: myLoadingIndicator(),
+                      );
+                    } else {
+                      // Handle other types of image errors
+                      return Center(
+                        child: myLoadingIndicator(),
+                      );
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(
+                    horizontal: 15,
+                    vertical: 10,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsetsDirectional.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              MyColors.primaryColor,
+                              MyColors.secondaryColor,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                        child: Text(
+                          'وزارة الصحة والسكان',
+                          style: MyTextStyles.font14WhiteBold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        post[index].postTitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: MyTextStyles.font16BlackBold,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: Text(
+                          '${post[index].postDescription}..',
+                          // maxLines: 3,
+                          // overflow: TextOverflow.ellipsis,
+                          style: MyTextStyles.font14GreyMedium,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.date_range_outlined,
+                            size: 20,
+                            color: MyColors.primaryColor,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            DateFormat('EE yyyy-MM-dd')
+                                .format(post[index].postPublishDate!)
+                                .toString(),
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                            style: MyTextStyles.font14GreyMedium,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
   );
 }
 
@@ -379,7 +671,7 @@ myListTile({
     trailing: trailing ??
         Icon(
           Icons.arrow_back_ios_new_rounded,
-          textDirection: TextDirection.ltr,
+          textDirection: ui.TextDirection.ltr,
           color: MyColors.greyColor,
         ),
     shape: RoundedRectangleBorder(

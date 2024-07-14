@@ -114,7 +114,7 @@ class ApiExceptionWidgets {
             maxLines: 2,
           ),
           const SizedBox(
-            height: 20,
+            height: 5,
           ),
           myTextButton(
             text: 'تحـديـــث',
@@ -148,7 +148,7 @@ class ApiExceptionWidgets {
             textAlign: TextAlign.center,
           ),
           const SizedBox(
-            height: 20,
+            height: 5,
           ),
           myTextButton(
             text: 'تحـديـــث',
