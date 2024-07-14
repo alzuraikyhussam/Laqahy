@@ -690,7 +690,6 @@ myShowDialog({
 }) {
   return showDialog(
     barrierDismissible: false,
-    barrierColor: MyColors.greyColor.withOpacity(0.5),
     context: context,
     builder: (context) {
       return widgetName;
