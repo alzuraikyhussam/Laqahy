@@ -152,7 +152,7 @@ class VaccineController extends GetxController {
             imageUrl: 'assets/images/error.json',
             backgroundColor: MyColors.redColor,
             title: 'الجهة المانحة موجودة بالفعل',
-            description: 'عذرا، هذه الجهة المانحة التي أدخلتها موجودة بالفعل',
+            description: 'عذراً، اسم الجهة المانحة التي أدخلتها موجودة بالفعل',
           ),
         );
         return;

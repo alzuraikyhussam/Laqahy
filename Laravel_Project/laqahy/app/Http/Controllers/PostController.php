@@ -2,14 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mother_data;
 use App\Models\Post;
+use App\Notifications\NewPostNotification;
+use App\Services\FcmService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
+
+    protected $fcmService;
+
+    public function __construct(FcmService $fcmService)
+    {
+        $this->fcmService = $fcmService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -47,11 +59,6 @@ class PostController extends Controller
                     'post_image' => 'required|image|mimes:png,jpg,jpeg',
                 ],
             );
-            // $request->validate([
-            //     'post_title' => 'required',
-            //     'post_description' => 'required',
-            //     'post_image' => 'required|image|mimes:png,jpg,jpeg',
-            // ]);
 
             if ($validator->fails()) {
                 return response()->json([
@@ -69,6 +76,25 @@ class PostController extends Controller
                 'post_description' => $request->post_description,
                 'post_image' => $imageName,
             ]);
+
+            // Send notification
+
+            // Get all users with FCM tokens
+            // $users = Mother_data::whereNotNull('fcm_token')->get();
+
+            // // Send notification to each user
+            // foreach ($users as $user) {
+            //     $response = $this->fcmService->sendNotification($user->fcm_token, 'New Post Created', 'A new post "' . $post->title . '" has been created.');
+
+            //     // Optionally, log or handle the response from FCM
+            //     // Log::info('FCM Notification Sent to ' . $user->email . ': ' . $response);
+            // }
+
+            $title = 'منشور جديد';
+            $body = 'تمت إضافة منشور جديد في التطبيق!';
+            $this->fcmService->sendNotificationToAllUsers($title, $body);
+
+            // -------
 
             // Return created record
             return response()->json([

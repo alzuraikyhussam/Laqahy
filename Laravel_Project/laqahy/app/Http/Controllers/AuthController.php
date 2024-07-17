@@ -388,6 +388,7 @@ class AuthController extends Controller
                 [
                     'mother_identity_num' => 'required',
                     'mother_password' => 'required',
+                    'token' => 'required',
                 ],
             );
 
@@ -416,6 +417,18 @@ class AuthController extends Controller
             $returnDate = Mother_statement::where('mother_data_id', $motherData->id)->max('return_date');
             $childrenCount = Child_data::where('mother_data_id', $motherData->id)->count();
 
+            // Set token
+            $user->fcm_token = $request->token;
+            $user->save();
+
+            $children = Child_data::where('mother_data_id', $user->id)->get();
+
+            foreach ($children as $child) {
+                $child->fcm_token = $request->token;
+                $child->save();
+            }
+            // ---------
+
             return response()->json([
                 'message' => 'Login successfully',
                 'user' => $motherData,
@@ -428,4 +441,49 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    // public function mobileSetToken(Request $request)
+    // {
+    //     try {
+    //         $validator = Validator::make(
+    //             $request->all(),
+    //             [
+    //                 'token' => 'required',
+    //                 'mother_id' => 'required',
+    //             ],
+    //         );
+
+    //         if ($validator->fails()) {
+    //             return response()->json([
+    //                 'message' => $validator->errors(),
+    //             ], 400);
+    //         }
+
+    //         $user = Mother_data::find($request->mother_id);
+
+    //         if (!$user) {
+    //             return response()->json([
+    //                 'message' => 'User not found',
+    //             ], 404);
+    //         }
+
+    //         $user->fcm_token = $request->token;
+    //         $user->save();
+
+    //         $children = Child_data::where('mother_data_id', $user->id)->get();
+
+    //         foreach ($children as $child) {
+    //             $child->fcm_token = $request->token;
+    //             $child->save();
+    //         }
+
+    //         return response()->json([
+    //             'message' => 'User updated successfully',
+    //         ], 200);
+    //     } catch (Exception $e) {
+    //         return response()->json([
+    //             'message' => $e->getMessage(),
+    //         ], 500);
+    //     }
+    // }
 }

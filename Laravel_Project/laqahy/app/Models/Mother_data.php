@@ -23,6 +23,7 @@ class Mother_data extends Authenticatable
         'cities_id',
         'directorate_id',
         'healthy_center_id',
+        'fcm_token',
     ];
 
     protected $table = 'mother_data';

@@ -48,7 +48,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/error.json',
         title: 'خطــــأ',
         description:
-            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك حذف الكمية حالياً',
+            'عذراً، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك حذف الكمية حالياً',
       ),
     );
   }
@@ -62,7 +62,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/error.json',
         title: 'خطــــأ',
         description:
-            'عذرا، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك تعديل الكمية حالياً',
+            'عذراً، لقد تم استخدام كمية من هذا اللقاح ولا يمكنك تعديل الكمية حالياً',
       ),
     );
   }
@@ -90,7 +90,7 @@ class ApiExceptionWidgets {
         backgroundColor: MyColors.redColor,
         title: 'خطأ غير متوقع',
         description:
-            'عذرا، لقد حدث خطأ غير متوقع، يجب المحاولة مرة أخرى \n${statusCode ?? error}',
+            'عذراً، لقد حدث خطأ غير متوقع، يجب المحاولة مرة أخرى \n${statusCode ?? error}',
       ),
     );
   }
@@ -104,7 +104,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/error.json',
         backgroundColor: MyColors.redColor,
         title: 'المستخدم موجود بالفعل',
-        description: 'عذرا، هذا المستخدم الذي أدخلته موجود بالفعل',
+        description: 'عذراً، المستخدم الذي أدخلته موجود بالفعل',
       ),
     );
   }
@@ -118,7 +118,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/error.json',
         backgroundColor: MyColors.redColor,
         title: 'المركز موجود بالفعل',
-        description: 'عذرا، المركز الصحي الذي أدخلته موجود بالفعل',
+        description: 'عذراً، المركز الصحي الذي أدخلته موجود بالفعل',
       ),
     );
   }
@@ -146,7 +146,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/404-error.json',
         backgroundColor: MyColors.redColor,
         title: 'المستخدم غير موجود',
-        description: 'المستخدم الذي أدخلته غير موجود',
+        description: 'عذراً، اسم المستخدم الذي أدخلته غير موجود',
       ),
     );
   }
@@ -161,7 +161,7 @@ class ApiExceptionWidgets {
         backgroundColor: MyColors.redColor,
         title: 'خطـــأ',
         description:
-            'عذراً، لا يمكنك تسجيل الدخول بهذا المستخدم لأنه غير موجود في هذا المكتب',
+            'عذراًً، لا يمكنك تسجيل الدخول بهذا المستخدم لأنه غير موجود في هذا المكتب',
       ),
     );
   }
@@ -201,7 +201,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/500-error.json',
         title: 'فشل في الوصول',
         description:
-            'عذرا، لقد حدث خطأ غير متوقع أثناء تحميل البيانات من الخادم، الرجاء المحاولة مرة أخرى \n$statusCode',
+            'عذراً، لقد حدث خطأ غير متوقع أثناء تحميل البيانات من الخادم، الرجاء المحاولة مرة أخرى \n$statusCode',
       ),
     );
   }
@@ -214,7 +214,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/500-error.json',
         title: 'فشل في الوصول',
         description:
-            'عذرا، لقد حدث خطأ ما أثناء عملية الوصول الى قاعدة البيانات\n$statusCode',
+            'عذراً، لقد حدث خطأ ما أثناء عملية الوصول الى قاعدة البيانات\n$statusCode',
       ),
     );
   }
@@ -442,7 +442,7 @@ class ApiExceptionWidgets {
                       SizedBox(
                         width: 300,
                         child: Text(
-                          'عذرا، كمية اللقاح غير كافية لتنفيذ طلبك',
+                          'عذراً، كمية اللقاح غير كافية لتنفيذ طلبك',
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: MyTextStyles.font16GreyMedium,

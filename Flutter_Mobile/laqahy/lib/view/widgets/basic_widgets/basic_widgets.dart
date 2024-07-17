@@ -416,6 +416,7 @@ myPostsListView({
         child: Container(
           width: Get.width,
           height: 400,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
           ),

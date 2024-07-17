@@ -104,7 +104,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/error.json',
         backgroundColor: MyColors.redColor,
         title: 'المستخدم موجود بالفعل',
-        description: 'عذرا، هذا المستخدم الذي أدخلته موجود بالفعل',
+        description: 'عذراً، المستخدم الذي أدخلته موجود بالفعل',
       ),
     );
   }
@@ -118,7 +118,7 @@ class ApiExceptionWidgets {
         imageUrl: 'assets/images/404-error.json',
         backgroundColor: MyColors.redColor,
         title: 'المستخدم غير موجود',
-        description: 'المستخدم الذي أدخلته غير موجود',
+        description: 'عذراً، اسم المستخدم الذي أدخلته غير موجود',
       ),
     );
   }

@@ -23,7 +23,7 @@ class Constants {
           height: 280,
           imageUrl: 'assets/images/error.json',
           title: 'خطــــأ',
-          description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
+          description: 'عذراًً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
         ),
       );
     }
@@ -41,7 +41,7 @@ class Constants {
           height: 280,
           imageUrl: 'assets/images/error.json',
           title: 'خطــــأ',
-          description: 'عذراً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
+          description: 'عذراًً، لقد حدث خطأ ما عند عملية تشغيل الصوت',
         ),
       );
     }
@@ -237,7 +237,7 @@ class Constants {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على بيانات',
+                  description: 'عذراً، لم يتم العثور على بيانات',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
@@ -341,7 +341,7 @@ class Constants {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على بيانات',
+                  description: 'عذراً، لم يتم العثور على بيانات',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
@@ -445,7 +445,7 @@ class Constants {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على بيانات',
+                  description: 'عذراً، لم يتم العثور على بيانات',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
@@ -571,7 +571,7 @@ class Constants {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على بيانات',
+                  description: 'عذراً، لم يتم العثور على بيانات',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
@@ -677,7 +677,7 @@ class Constants {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على بيانات',
+                  description: 'عذراً، لم يتم العثور على بيانات',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
