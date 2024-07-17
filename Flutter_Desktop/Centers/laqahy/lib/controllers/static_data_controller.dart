@@ -351,12 +351,12 @@ class StaticDataController extends GetxController {
     }
   }
 
-  void fetchDosageType(int dosageLevelId) async {
+  void fetchDosageType(int dosageLevelId,int motherId) async {
     try {
       dosageTypeErrorMsg('');
       isDosageTypeLoading(true);
       final response = await http.get(
-        Uri.parse('${ApiEndpoints.getDosageType}/$dosageLevelId'),
+        Uri.parse('${ApiEndpoints.getDosageType}/$dosageLevelId/$motherId'),
         headers: {
           'content-Type': 'application/json',
         },
@@ -370,6 +370,7 @@ class StaticDataController extends GetxController {
       } else {
         isDosageTypeLoading(false);
         dosageTypeErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+        print(response.body);
       }
     } on SocketException catch (_) {
       isDosageTypeLoading(false);
@@ -517,4 +518,5 @@ class StaticDataController extends GetxController {
       isVaccineLoading(false);
     }
   }
+
 }

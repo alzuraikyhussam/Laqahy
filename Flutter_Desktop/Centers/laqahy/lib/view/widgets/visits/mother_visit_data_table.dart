@@ -87,48 +87,24 @@ class MotherVisitRowSource extends DataTableSource {
           ),
         ),
         DataCell(
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              myIconButton(
-                icon: Icons.edit_rounded,
-                onTap: () async {
-                  // int? adminId = await sdc.storageService.getAdminId();
-                  // myShowDialog(
-                  //   context: Get.context!,
-                  //   widgetName: EditMotherStatement(
-                  //     data: myData[index],
-                  //     adminId: adminId,
-                  //   ),
-                  // );
-                
-                },
-                gradientColors: [
-                  MyColors.primaryColor,
-                  MyColors.secondaryColor,
-                ],
-                padding: EdgeInsets.all(8),
-                iconSize: 22,
-              ),
-              myIconButton(
-                icon: Icons.delete,
-                onTap: () {
-                  // Constants().playErrorSound();
-                  myShowDialog(
-                      context: Get.context!,
-                      widgetName: DeleteMotherStatement(
-                        motherId: motherStatementData.id,
-                      ));
-                },
-                gradientColors: [
-                  MyColors.redColor,
-                  MyColors.redColor,
-                ],
-                padding: EdgeInsets.all(8),
-                iconSize: 22,
-              ),
-            ],
+          Center(
+            child: myIconButton(
+              icon: Icons.delete,
+              onTap: () {
+                // Constants().playErrorSound();
+                myShowDialog(
+                    context: Get.context!,
+                    widgetName: DeleteMotherStatement(
+                      motherId: motherStatementData.id,
+                    ));
+              },
+              gradientColors: [
+                MyColors.redColor,
+                MyColors.redColor,
+              ],
+              padding: EdgeInsets.all(8),
+              iconSize: 22,
+            ),
           ),
         ),
       ],

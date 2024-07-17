@@ -14,14 +14,6 @@ class EditeMotherState extends StatefulWidget {
 
 class _EditeMotherStateState extends State<EditeMotherState> {
   final List<String> items = [
-    'مملكه الفول',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
   ];
 
   String? cityselectedValue;

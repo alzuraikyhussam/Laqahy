@@ -1,9 +1,14 @@
 // import 'package:audioplayers/audioplayers.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/mother_visit_controller.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/home_layout_model.dart';
 import 'package:laqahy/models/vaccine_model.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
+import 'package:laqahy/view/widgets/visits/mother_visit_data_table.dart';
 import '../../controllers/static_data_controller.dart';
 import '../../view/widgets/api_erxception_alert.dart';
 import '../../view/widgets/basic_widgets/basic_widgets.dart';
@@ -142,6 +147,8 @@ class Constants {
       imageNameFocused: 'assets/icons/logout.png',
     ),
   ];
+
+  int index = 0;
 
   /////////////
   String? cityValidator(value) {
@@ -711,7 +718,6 @@ class Constants {
 
   Widget mothersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
-
     return Obx(() {
       if (controller.isMotherLoading.value) {
         return myDropDownMenuButton2(
@@ -948,6 +954,7 @@ class Constants {
 
   Widget dosageLevelDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
+    MotherVisitController mvc = Get.put(MotherVisitController());
 
     return Obx(() {
       if (controller.isDosageLevelLoading.value) {
@@ -1038,7 +1045,10 @@ class Constants {
         onChanged: (value) {
           if (value != null) {
             controller.selectedDosageLevelId.value = int.tryParse(value);
-            controller.fetchDosageType(controller.selectedDosageLevelId.value!);
+            controller.fetchDosageType(controller.selectedDosageLevelId.value!,
+                controller.selectedMothersId.value!);
+            mvc.fetchAnyMotherStatement(controller.selectedMothersId.value!,
+                controller.selectedDosageLevelId.value!);
             controller.selectedDosageTypeId.value = null;
           } else {
             controller.selectedDosageLevelId.value = null;
@@ -1105,7 +1115,8 @@ class Constants {
                   btnLabel: 'تحــديث',
                   onPressed: () {
                     controller.fetchDosageType(
-                        controller.selectedDosageLevelId.value!);
+                        controller.selectedDosageLevelId.value!,
+                        controller.selectedMothersId.value!);
                     Get.back();
                   },
                 ));
@@ -1133,7 +1144,8 @@ class Constants {
                   btnLabel: 'تحــديث',
                   onPressed: () {
                     controller.fetchDosageType(
-                        controller.selectedDosageLevelId.value!);
+                        controller.selectedDosageLevelId.value!,
+                        controller.selectedMothersId.value!);
                     Get.back();
                   },
                 ));

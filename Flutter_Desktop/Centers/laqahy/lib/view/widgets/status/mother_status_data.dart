@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/controllers/mother_status_data_controller.dart';
 // import 'package:laqahy/controllers/mother_visit_controller.dart';
-import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
+import 'package:laqahy/view/widgets/status/child_status_data.dart';
 import '../../../core/constants/constants.dart';
 
 class MotherStatusData extends StatefulWidget {
@@ -201,7 +201,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                 validator: mc.villageValidator,
                 prefixIcon: Icons.not_listed_location,
                 width: 300,
-                hintText: 'اســم العزلة',
+                hintText: 'اســم المنطقة',
                 keyboardType: TextInputType.text,
                 readOnly: false,
                 onChanged: (value) {},
@@ -216,11 +216,13 @@ class _MotherStatusDataState extends State<MotherStatusData> {
             onTap: () {
               setState(() {
                 isChecked = !isChecked;
+                // print(isChecked);
               });
             },
             onChanged: (selected) {
               setState(() {
                 isChecked = selected;
+                // print(isChecked);
               });
             },
             value: isChecked,
@@ -230,23 +232,45 @@ class _MotherStatusDataState extends State<MotherStatusData> {
             height: 25,
           ),
           Obx(() {
-            return mc.isAddLoading.value
-                ? myLoadingIndicator()
-                : myButton(
-                    width: 150,
-                    onPressed: mc.isAddLoading.value
-                        ? null
-                        : () {
-                            if (mc
-                                .createMotherStatusDataFormKey.currentState!
-                                .validate()) {
-                              mc.addMotherStatusData();
-                            }
-                          },
-                    text: 'اضــافة',
-                    textStyle: MyTextStyles.font16WhiteBold);
-          }),
-        
+              if(isChecked)
+              {
+                if (mc.isAddLoading.value) {
+                  return myLoadingIndicator();
+                } else {
+                  return myButton(
+                      width: 150,
+                      onPressed: mc.isAddLoading.value
+                          ? null
+                          : () {
+                              if (mc.createMotherStatusDataFormKey.currentState!
+                                  .validate()) {
+                                mc.addMotherStatusData();
+                              }
+                            },
+                      text: 'اضــافة',
+                      textStyle: MyTextStyles.font16WhiteBold);
+                }
+              }
+              else
+              {
+                if (mc.isAddLoading.value) {
+                  return myLoadingIndicator();
+                } else {
+                  return myButton(
+                      width: 150,
+                      onPressed: mc.isAddLoading.value
+                          ? null
+                          : () {
+                              if (mc.createMotherStatusDataFormKey.currentState!
+                                  .validate()) {
+                                mc.addMotherStatusData();
+                              }
+                            },
+                      text: 'اضــافة',
+                      textStyle: MyTextStyles.font16WhiteBold);
+                }
+              }
+          })
         ],
       ),
     );

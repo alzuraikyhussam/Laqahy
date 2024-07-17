@@ -280,6 +280,8 @@ Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 
 Route::get('centers/mother-statement/get-mother-statement', [MotherStatementController::class, 'index']);
 Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
 Route::delete('centers/mother-statement/delete-mother-statement/{motherId}', [MotherStatementController::class, 'destroy']);
+Route::get('centers/mother-statement/get-any-mother-statement/{motherId}/{dosageLevelId}', [MotherStatementController::class, 'show']);
+
 // ------------------------------------------------------------
 
 // --------------------- Child Data Routes ------------------------
@@ -314,7 +316,7 @@ Route::get('centers/dosage-level', [DosageLevelsController::class, 'index']);
 // ------------------------------------------------------------
 
 // --------------------- Dosage Type Routes ------------------------
-Route::get('centers/dosage-type/{id}', [DosageTypeController::class, 'show']);
+Route::get('centers/dosage-type/{dosageLevelId}/{motherId}', [DosageTypeController::class, 'show']);
 // ------------------------------------------------------------
 
 // --------------------- Health Center Order Routes ------------------------

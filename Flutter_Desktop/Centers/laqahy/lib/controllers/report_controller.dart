@@ -11,7 +11,6 @@ import 'package:laqahy/core/pdf/orders_pdf_generator.dart';
 import 'package:laqahy/core/pdf/states_pdf_generator.dart';
 import 'package:laqahy/core/pdf/vaccines_pdf_generator.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/center_order_model.dart';
 import 'package:laqahy/models/child_data_model.dart';
 import 'package:laqahy/models/mother_data_model.dart';

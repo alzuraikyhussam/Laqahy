@@ -25,7 +25,7 @@ class MotherVisitController extends GetxController {
   GlobalKey<FormState> createMotherStatementFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> editMotherStatementDataFormKey = GlobalKey<FormState>();
 
-  int? centerId;
+  int? dosageLevelId;
 
   void clearTextFields() {
     sdc.selectedMothersId.value = null;
@@ -35,10 +35,10 @@ class MotherVisitController extends GetxController {
 
   @override
   onInit() async {
-    centerId = await sdc.storageService.getCenterId();
     fetchMotherStatement();
     sdc.fetchMothers();
     sdc.fetchDosageLevel();
+    clearTextFields();
     super.onInit();
   }
 
@@ -50,6 +50,7 @@ class MotherVisitController extends GetxController {
           .contains(keyword.toLowerCase());
     }).toList();
   }
+
 
   Future<void> fetchMotherStatement() async {
     try {
@@ -70,6 +71,43 @@ class MotherVisitController extends GetxController {
       } else if (response.statusCode == 500) {
         isLoading(false);
         ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
+      } else {
+        isLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        print(response.body);
+      }
+    } on SocketException catch (_) {
+      isLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+    } catch (e) {
+      isLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  Future<void> fetchAnyMotherStatement(int $dosageLevelId,int motherId) async {
+    try {
+      isLoading(true);
+      motherStatementSearchController.clear();
+      final response = await http.get(
+        Uri.parse('${ApiEndpoints.getAnyMotherStatementData}/$motherId/$dosageLevelId'),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        motherStatement.value =
+            jsonData.map((e) => MotherStatement.fromJson(e)).toList();
+        filteredMotherStatement.value = motherStatement;
+      } else if (response.statusCode == 500) {
+        isLoading(false);
+        ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
+        
       } else {
         isLoading(false);
         ApiExceptionWidgets()
@@ -144,8 +182,8 @@ class MotherVisitController extends GetxController {
   Future<void> deleteMotherStatement(int motherId) async {
     isDeleteLoading(true);
     try {
-      var request =
-          await http.delete(Uri.parse('${ApiEndpoints.deleteMotherStatement}/$motherId'));
+      var request = await http
+          .delete(Uri.parse('${ApiEndpoints.deleteMotherStatement}/$motherId'));
 
       if (request.statusCode == 200) {
         await fetchMotherStatement();

@@ -9,6 +9,7 @@ import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/mother_status_data_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
+import 'package:uuid/uuid.dart';
 
 class MotherStatusDataController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
@@ -23,6 +24,8 @@ class MotherStatusDataController extends GetxController {
   TextEditingController nameController = TextEditingController();
 
   int? centerId;
+
+  Uuid createAccountCode = const Uuid();
 
   String? nameValidator(value) {
     if (value.trim().isEmpty) {
@@ -111,7 +114,7 @@ class MotherStatusDataController extends GetxController {
   TextEditingController villageController = TextEditingController();
   String? villageValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يجب ادخال اسم العزلة';
+      return 'يجب ادخال اسم المنطقة';
     }
     return null;
   }
@@ -127,6 +130,8 @@ class MotherStatusDataController extends GetxController {
 
   Future<void> addMotherStatusData() async {
     int? centerID = await sdc.storageService.getCenterId();
+    String? password = createAccountCode.v4().substring(0, 8);
+
     DateTime parsedBirthDate =
         DateFormat('MMM d, yyyy').parse(birthDateController.text);
     try {
@@ -137,6 +142,7 @@ class MotherStatusDataController extends GetxController {
         mother_village: villageController.text,
         mother_birthDate: parsedBirthDate,
         mother_identity_num: identityNumberController.text,
+        mother_password: password,
         cities_id: sdc.selectedCityId.value!,
         directorate_id: sdc.selectedDirectorateId.value!,
         healthy_center_id: centerID!,
@@ -180,4 +186,6 @@ class MotherStatusDataController extends GetxController {
       isAddLoading(false);
     }
   }
+
+
 }

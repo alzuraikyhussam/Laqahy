@@ -5,6 +5,7 @@ class Mothers {
   String mother_name;
   String mother_phone;
   String mother_identity_num;
+  String mother_password;
   String mother_village;
   DateTime mother_birthDate;
   String? cityName;
@@ -24,6 +25,7 @@ class Mothers {
     required this.mother_village,
     this.directorateName,
     required this.mother_identity_num,
+    required this.mother_password,
     required this.cities_id,
     required this.directorate_id,
     required this.healthy_center_id,
@@ -33,6 +35,7 @@ class Mothers {
     return Mothers(
       id: json['id'],
       mother_name: json['mother_name'] ?? '',
+      mother_password: json['mother_password'] ?? '',
       mother_phone: json['mother_phone'] ?? '',
       mother_village: json['mother_village'] ?? '',
       mother_birthDate: json['mother_birthDate'] != null
@@ -55,6 +58,7 @@ class Mothers {
       'mother_village': mother_village,
       'mother_birthDate': DateFormat('yyyy-MM-dd').format(mother_birthDate),
       'mother_identity_num': mother_identity_num,
+      'mother_password': mother_password,
       'cities_id': cities_id,
       'directorate_id': directorate_id,
       'healthy_center_id': healthy_center_id,
