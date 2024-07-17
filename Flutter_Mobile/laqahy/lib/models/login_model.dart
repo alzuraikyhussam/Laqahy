@@ -10,6 +10,7 @@ class Login {
   DateTime? birthDate;
   String? directorate;
   String? city;
+  String? token;
 
   Login({
     this.id,
@@ -23,6 +24,7 @@ class Login {
     this.identityNum,
     this.healthCenterId,
     this.healthCenterName,
+    this.token,
   });
 
   factory Login.fromJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class Login {
     return {
       'mother_identity_num': identityNum,
       'mother_password': passWord,
+      'token': token,
     };
   }
 }

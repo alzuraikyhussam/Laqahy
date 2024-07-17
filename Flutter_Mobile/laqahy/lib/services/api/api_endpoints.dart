@@ -1,6 +1,6 @@
 class ApiEndpoints {
   // *********************************************
-  static const String baseUrl = 'http://10.0.2.2:8000/api';
+  static const String baseUrl = 'http://192.168.1.109:8000/api';
   // *********************************************
 
   // --------------- Login Endpoints -------------------
@@ -18,7 +18,7 @@ class ApiEndpoints {
   // --------------------------------------------------
 
   // --------------- Child Data Endpoints -------------------
-  static const String getChildVData =
+  static const String getChildData =
       '$baseUrl/mobile/child-data/get-child-data';
   // --------------------------------------------------
 

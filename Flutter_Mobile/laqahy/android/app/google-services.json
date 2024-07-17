@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "748963403939",
+    "project_id": "laqahy",
+    "storage_bucket": "laqahy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748963403939:android:295c8a251c4f0b631fc716",
+        "android_client_info": {
+          "package_name": "com.sourcetech.laqahy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSdBdWPYmB2KaUxpZpQQD-2WLJTva7QIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

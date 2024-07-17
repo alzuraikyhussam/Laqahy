@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/child_data_model.dart';
-import 'package:laqahy/models/child_vaccine_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/view/widgets/basic_widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -43,7 +42,7 @@ class SelectChildController extends GetxController {
       childErrorMsg('');
       isChildLoading(true);
       final response = await http.get(
-        Uri.parse('${ApiEndpoints.getChildVData}/$motherId'),
+        Uri.parse('${ApiEndpoints.getChildData}/$motherId'),
         headers: {
           'content-Type': 'application/json',
         },

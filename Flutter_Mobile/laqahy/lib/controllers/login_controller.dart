@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -11,7 +12,6 @@ import 'package:laqahy/models/mother_data_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
-import 'package:lottie/lottie.dart';
 
 class LoginController extends GetxController {
   RxBool isVisible = false.obs;
@@ -47,48 +47,69 @@ class LoginController extends GetxController {
     StaticDataController sdc = Get.put(StaticDataController());
     try {
       isLoading(true);
-      final loginData = Login(
-        identityNum: idNumberController.text,
-        passWord: passwordController.text,
-      );
-      var response = await http.post(
-        Uri.parse(ApiEndpoints.login),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(loginData.toJson()),
-      );
 
-      if (response.statusCode == 200) {
-        isLoading(false);
+      final fcmToken = await FirebaseMessaging.instance.getToken();
 
-        var data = json.decode(response.body);
+      if (fcmToken != null) {
+        print(fcmToken);
+        try {
+          final loginData = Login(
+            identityNum: idNumberController.text,
+            passWord: passwordController.text,
+            token: fcmToken,
+          );
+          var response = await http.post(
+            Uri.parse(ApiEndpoints.login),
+            headers: <String, String>{
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(loginData.toJson()),
+          );
 
-        MotherData user = MotherData.fromJson(data);
+          if (response.statusCode == 200) {
+            isLoading(false);
 
-        sdc.userLoggedData.assignAll([user]);
+            var data = json.decode(response.body);
 
-        Get.offAll(
-          () => const HomeLayout(),
-          transition: Transition.rightToLeft,
-          duration: const Duration(milliseconds: 3000),
-          curve: Curves.fastLinearToSlowEaseIn,
-        );
-        Get.delete<LoginController>();
-        return;
-      } else if (response.statusCode == 404) {
-        isLoading(false);
-        ApiExceptionWidgets().myUserNotFoundAlert();
-        return;
-      } else if (response.statusCode == 401) {
-        isLoading(false);
-        ApiExceptionWidgets().myInvalidPasswordAlert();
-        return;
+            MotherData user = MotherData.fromJson(data);
+
+            sdc.userLoggedData.assignAll([user]);
+
+            Get.offAll(
+              () => const HomeLayout(),
+              transition: Transition.rightToLeft,
+              duration: const Duration(milliseconds: 3000),
+              curve: Curves.fastLinearToSlowEaseIn,
+            );
+            Get.delete<LoginController>();
+            return;
+          } else if (response.statusCode == 404) {
+            isLoading(false);
+            ApiExceptionWidgets().myUserNotFoundAlert();
+            return;
+          } else if (response.statusCode == 401) {
+            isLoading(false);
+            ApiExceptionWidgets().myInvalidPasswordAlert();
+            return;
+          } else {
+            isLoading(false);
+            ApiExceptionWidgets()
+                .myAccessDatabaseExceptionAlert(response.statusCode);
+            return;
+          }
+        } on SocketException catch (_) {
+          isLoading(false);
+          ApiExceptionWidgets().mySocketExceptionAlert();
+
+          return;
+        } catch (e) {
+          isLoading(false);
+          ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        } finally {
+          isLoading(false);
+        }
       } else {
-        isLoading(false);
-        ApiExceptionWidgets()
-            .myAccessDatabaseExceptionAlert(response.statusCode);
-        return;
+        ApiExceptionWidgets().mySocketExceptionAlert();
       }
     } on SocketException catch (_) {
       isLoading(false);
