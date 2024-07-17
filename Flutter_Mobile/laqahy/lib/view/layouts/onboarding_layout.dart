@@ -26,7 +26,7 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
     // TODO: implement initState
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
@@ -60,9 +60,9 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                   obc.changeIndex(index);
                 },
                 controller: obc.pageController.value,
-                scrollBehavior: MaterialScrollBehavior(),
+                scrollBehavior: const MaterialScrollBehavior(),
                 reverse: true,
-                children: [
+                children: const [
                   FirstOnboarding(),
                   SecondOnboarding(),
                   ThirdOnboarding(),
@@ -81,13 +81,17 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                 InkWell(
                   onTap: () async {
                     if (obc.currentIndex.value != 2) {
-                      print(obc.currentIndex.value);
                       obc.pageController.value.nextPage(
-                        duration: Duration(seconds: 1),
-                        curve: Curves.easeInOut,
+                        duration: const Duration(milliseconds: 3000),
+                        curve: Curves.fastLinearToSlowEaseIn,
                       );
                     } else {
-                      Get.offAll(Login());
+                      Get.offAll(
+                        const LoginScreen(),
+                        transition: Transition.rightToLeft,
+                        duration: const Duration(milliseconds: 5000),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                      );
                       await sdc.storageService.setRegistered(true);
                     }
                   },
@@ -95,8 +99,8 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                     () => Container(
                       width: obc.currentIndex.value == 2 ? 100 : null,
                       padding: obc.currentIndex.value == 2
-                          ? EdgeInsets.all(12)
-                          : EdgeInsets.all(15),
+                          ? const EdgeInsets.all(12)
+                          : const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -110,7 +114,7 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                           BoxShadow(
                             color: MyColors.greyColor.withOpacity(0.3),
                             blurRadius: 4,
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                             spreadRadius: 0,
                           ),
                         ],
@@ -146,7 +150,7 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                   child: ListView.separated(
                     reverse: true,
                     scrollDirection: Axis.horizontal,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Obx(() => Container(
@@ -157,8 +161,8 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                               gradient: obc.currentIndex.value != index
                                   ? LinearGradient(
                                       colors: [
-                                        MyColors.primaryColor.withOpacity(0.5),
-                                        MyColors.primaryColor.withOpacity(0.5),
+                                        MyColors.primaryColor.withOpacity(0.3),
+                                        MyColors.primaryColor.withOpacity(0.3),
                                       ],
                                       begin: AlignmentDirectional.topCenter,
                                       end: AlignmentDirectional.bottomCenter,
@@ -177,14 +181,14 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                                         color:
                                             MyColors.greyColor.withOpacity(0.3),
                                         blurRadius: 5,
-                                        offset: Offset(0, 2),
+                                        offset: const Offset(0, 2),
                                         spreadRadius: 1,
                                       )
                                     : BoxShadow(
                                         color:
                                             MyColors.greyColor.withOpacity(0.2),
                                         blurRadius: 5,
-                                        offset: Offset(0, 0),
+                                        offset: const Offset(0, 0),
                                         spreadRadius: 0,
                                       ),
                               ],
@@ -193,7 +197,7 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                           ));
                     },
                     separatorBuilder: (context, index) {
-                      return SizedBox(
+                      return const SizedBox(
                         width: 5,
                       );
                     },

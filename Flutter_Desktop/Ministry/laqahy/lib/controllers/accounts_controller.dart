@@ -168,7 +168,7 @@ class AccountsController extends GetxController {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على مكاتب',
+                  description: 'عذراً، لم يتم العثور على مكاتب',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
@@ -268,7 +268,7 @@ class AccountsController extends GetxController {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على مكاتب',
+                  description: 'عذراً، لم يتم العثور على مكاتب',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {

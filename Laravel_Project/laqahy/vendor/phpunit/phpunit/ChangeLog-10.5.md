@@ -2,51 +2,6 @@
 
 All notable changes of the PHPUnit 10.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
-## [10.5.24] - 2024-06-20
-
-### Changed
-
-* [#5877](https://github.com/sebastianbergmann/phpunit/pull/5877): Use `array_pop()` instead of `array_shift()` for processing `Test` objects in `TestSuite::run()` and optimize `TestSuite::isEmpty()`
-
-## [10.5.23] - 2024-06-20
-
-### Changed
-
-* [#5875](https://github.com/sebastianbergmann/phpunit/pull/5875): Also destruct `TestCase` objects early that use a data provider
-
-## [10.5.22] - 2024-06-19
-
-### Changed
-
-* [#5871](https://github.com/sebastianbergmann/phpunit/pull/5871): Do not collect unnecessary information using `debug_backtrace()`
-
-## [10.5.21] - 2024-06-15
-
-### Changed
-
-* [#5861](https://github.com/sebastianbergmann/phpunit/pull/5861): Destroy `TestCase` object after its test was run
-
-## [10.5.20] - 2024-04-24
-
-* [#5771](https://github.com/sebastianbergmann/phpunit/issues/5771): JUnit XML logger may crash when test that is run in separate process exits unexpectedly
-* [#5819](https://github.com/sebastianbergmann/phpunit/issues/5819): Duplicate keys from different data providers are not handled properly
-
-## [10.5.19] - 2024-04-17
-
-### Fixed
-
-* [#5818](https://github.com/sebastianbergmann/phpunit/issues/5818): Calling `method()` on a test stub created using `createStubForIntersectionOfInterfaces()` throws an unexpected exception
-
-## [10.5.18] - 2024-04-14
-
-### Deprecated
-
-* [#5812](https://github.com/sebastianbergmann/phpunit/pull/5812): Support for string array keys in data sets returned by data provider methods that do not match the parameter names of the test method(s) that use(s) them
-
-### Fixed
-
-* [#5795](https://github.com/sebastianbergmann/phpunit/issues/5795): Using `@testWith` annotation may generate `PHP Warning:  Uninitialized string offset 0`
-
 ## [10.5.17] - 2024-04-05
 
 ### Changed
@@ -228,13 +183,6 @@ All notable changes of the PHPUnit 10.5 release series are documented in this fi
 
 * [#5563](https://github.com/sebastianbergmann/phpunit/issues/5563): `createMockForIntersectionOfInterfaces()` does not automatically register mock object for expectation verification
 
-[10.5.24]: https://github.com/sebastianbergmann/phpunit/compare/10.5.23...10.5.24
-[10.5.23]: https://github.com/sebastianbergmann/phpunit/compare/10.5.22...10.5.23
-[10.5.22]: https://github.com/sebastianbergmann/phpunit/compare/10.5.21...10.5.22
-[10.5.21]: https://github.com/sebastianbergmann/phpunit/compare/10.5.20...10.5.21
-[10.5.20]: https://github.com/sebastianbergmann/phpunit/compare/10.5.19...10.5.20
-[10.5.19]: https://github.com/sebastianbergmann/phpunit/compare/10.5.18...10.5.19
-[10.5.18]: https://github.com/sebastianbergmann/phpunit/compare/10.5.17...10.5.18
 [10.5.17]: https://github.com/sebastianbergmann/phpunit/compare/10.5.16...10.5.17
 [10.5.16]: https://github.com/sebastianbergmann/phpunit/compare/10.5.15...10.5.16
 [10.5.15]: https://github.com/sebastianbergmann/phpunit/compare/10.5.14...10.5.15

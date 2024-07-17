@@ -255,8 +255,7 @@ Route::get('offices/reports/orders-custom-report', [ReportController::class, 'of
 
 ///////////////////////////////////////// MOBILE Routes ////////////////////////////////////////////////////////////////////////////
 
-
-// --------------------- Login Routes ------------------------
+// --------------------- Auth Routes ------------------------
 Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']);
 // ------------------------------------------------------------
 
@@ -265,7 +264,11 @@ Route::get('mobile/mother-statements/get-mother-dosage/{mother_id}', [MotherStat
 // ------------------------------------------------------------
 
 // --------------------- Child Statement Routes ------------------------
-Route::get('mobile/child-statements/get-child-vaccines/{child_id}', [ChildStatementController::class, 'getChildVaccine']);
+Route::get('mobile/child-statements/get-child-vaccines/{child_id}', [ChildStatementController::class, 'getChildVaccines']);
+// ------------------------------------------------------------
+
+// --------------------- Child Data Routes ------------------------
+Route::get('mobile/child-data/get-child-data/{mother_id}', [ChildDataController::class, 'getChildren']);
 // ------------------------------------------------------------
 
 ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////

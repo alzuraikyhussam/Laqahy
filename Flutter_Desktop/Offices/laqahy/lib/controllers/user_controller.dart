@@ -313,7 +313,7 @@ class UserController extends GetxController {
           imageUrl: 'assets/images/error.json',
           backgroundColor: MyColors.redColor,
           title: 'خطـــأ',
-          description: 'عذرا، لا يمكنك حذف مسؤول النظام',
+          description: 'عذراً، لا يمكنك حذف مسؤول النظام',
         ),
       );
     }

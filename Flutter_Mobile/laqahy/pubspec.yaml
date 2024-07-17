@@ -28,9 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  audioplayers: ^6.0.0
   awesome_bottom_bar: ^1.2.4
-  awesome_dialog: ^3.2.0
   carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
   dropdown_button2: ^2.3.9
@@ -38,18 +36,14 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
-  flutter_rating_bar: ^4.0.1
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
   get: ^4.6.6
-  image_picker: ^1.0.7
   intl: 0.18.1
   loading_indicator: ^3.1.1
   lottie: ^3.1.0
-  motion_tab_bar_v2: ^0.3.0
   shadow_overlay: ^1.0.5
   shared_preferences: ^2.2.2
-  uuid: ^4.3.3
 
 flutter_launcher_icons:
   android: "launcher_icon"

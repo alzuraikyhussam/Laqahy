@@ -123,7 +123,7 @@ class PostController extends GetxController {
         widgetName: ApiExceptionAlert(
           title: 'خطــــــــأ',
           description:
-              'عذرا، لقد حدث خطأ ما اثناء عملية جلب الصورة من الجهاز\nحاول مرة أخرى',
+              'عذراً، لقد حدث خطأ ما اثناء عملية جلب الصورة من الجهاز\nحاول مرة أخرى',
         ),
       );
     }

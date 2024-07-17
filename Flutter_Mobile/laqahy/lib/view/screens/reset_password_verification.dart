@@ -8,7 +8,7 @@ import '../../core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class ResetPasswordVerification extends StatefulWidget {
-  const ResetPasswordVerification({super.key});
+  // const ResetPasswordVerification({super.key});
 
   @override
   State<ResetPasswordVerification> createState() =>
@@ -18,7 +18,7 @@ class ResetPasswordVerification extends StatefulWidget {
 class _ResetPasswordVerificationState extends State<ResetPasswordVerification> {
   @override
   Widget build(BuildContext context) {
-     double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: myAppBar(
@@ -73,8 +73,7 @@ class _ResetPasswordVerificationState extends State<ResetPasswordVerification> {
                   ),
                   myButton(
                     onPressed: () {
-                       Get.off(Login());
-                      
+                      Get.off(LoginScreen());
                     },
                     width: width,
                     text: 'التحقق',
@@ -84,26 +83,18 @@ class _ResetPasswordVerificationState extends State<ResetPasswordVerification> {
                     height: 15,
                   ),
                   Container(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: myTextButton(
-                          text: 'اعاده ارسال الكود؟',
-                          onPressed: () {
-                           
-                        
-                          },
-
-                  ),),
-                  
+                    alignment: AlignmentDirectional.centerStart,
+                    child: myTextButton(
+                      text: 'اعاده ارسال الكود؟',
+                      onPressed: () {},
+                    ),
+                  ),
                 ],
-                
               ),
-              
             ),
           ],
         ),
       ),
     );
-      }
-    
   }
-
+}

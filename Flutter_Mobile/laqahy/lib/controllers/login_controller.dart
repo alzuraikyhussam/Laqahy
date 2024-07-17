@@ -7,9 +7,11 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:laqahy/models/mother_data_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/layouts/home_layout.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginController extends GetxController {
   RxBool isVisible = false.obs;
@@ -62,12 +64,17 @@ class LoginController extends GetxController {
 
         var data = json.decode(response.body);
 
-        // Handle user and center objects
-        Login user = Login.fromJson(data['user']);
+        MotherData user = MotherData.fromJson(data);
 
         sdc.userLoggedData.assignAll([user]);
 
-        Get.offAll(const HomeLayout());
+        Get.offAll(
+          () => const HomeLayout(),
+          transition: Transition.rightToLeft,
+          duration: const Duration(milliseconds: 3000),
+          curve: Curves.fastLinearToSlowEaseIn,
+        );
+        Get.delete<LoginController>();
         return;
       } else if (response.statusCode == 404) {
         isLoading(false);
@@ -86,10 +93,10 @@ class LoginController extends GetxController {
     } on SocketException catch (_) {
       isLoading(false);
       ApiExceptionWidgets().mySocketExceptionAlert();
+
       return;
     } catch (e) {
       isLoading(false);
-      print(e);
       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
     } finally {
       isLoading(false);

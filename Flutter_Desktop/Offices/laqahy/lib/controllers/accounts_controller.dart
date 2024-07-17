@@ -150,7 +150,7 @@ class AccountsController extends GetxController {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على بيانات',
+                  description: 'عذراً، لم يتم العثور على بيانات',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {

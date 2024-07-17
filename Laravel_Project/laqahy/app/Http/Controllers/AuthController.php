@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child_data;
 use App\Models\Healthy_center;
 use App\Models\Healthy_center_account;
 use App\Models\Healthy_centers_stock_vaccine;
 use App\Models\Ministry_stock_vaccine;
 use App\Models\Mother_data;
+use App\Models\Mother_statement;
 use App\Models\Office;
 use App\Models\Office_stock_vaccine;
 use App\Models\Offices_users;
@@ -14,6 +16,7 @@ use App\Models\User;
 use App\Models\Vaccine_type;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -376,6 +379,7 @@ class AuthController extends Controller
     }
 
     ///////////////////MOBILE//////////////////////
+
     public function mobileLogin(Request $request)
     {
         try {
@@ -384,6 +388,7 @@ class AuthController extends Controller
                 [
                     'mother_identity_num' => 'required',
                     'mother_password' => 'required',
+                    'token' => 'required',
                 ],
             );
 
@@ -409,9 +414,26 @@ class AuthController extends Controller
 
             $motherData = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.id', $user->id)->first();
 
+            $returnDate = Mother_statement::where('mother_data_id', $motherData->id)->max('return_date');
+            $childrenCount = Child_data::where('mother_data_id', $motherData->id)->count();
+
+            // Set token
+            $user->fcm_token = $request->token;
+            $user->save();
+
+            $children = Child_data::where('mother_data_id', $user->id)->get();
+
+            foreach ($children as $child) {
+                $child->fcm_token = $request->token;
+                $child->save();
+            }
+            // ---------
+
             return response()->json([
                 'message' => 'Login successfully',
                 'user' => $motherData,
+                'return_date' => $returnDate,
+                'children_count' => $childrenCount,
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -419,4 +441,49 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    // public function mobileSetToken(Request $request)
+    // {
+    //     try {
+    //         $validator = Validator::make(
+    //             $request->all(),
+    //             [
+    //                 'token' => 'required',
+    //                 'mother_id' => 'required',
+    //             ],
+    //         );
+
+    //         if ($validator->fails()) {
+    //             return response()->json([
+    //                 'message' => $validator->errors(),
+    //             ], 400);
+    //         }
+
+    //         $user = Mother_data::find($request->mother_id);
+
+    //         if (!$user) {
+    //             return response()->json([
+    //                 'message' => 'User not found',
+    //             ], 404);
+    //         }
+
+    //         $user->fcm_token = $request->token;
+    //         $user->save();
+
+    //         $children = Child_data::where('mother_data_id', $user->id)->get();
+
+    //         foreach ($children as $child) {
+    //             $child->fcm_token = $request->token;
+    //             $child->save();
+    //         }
+
+    //         return response()->json([
+    //             'message' => 'User updated successfully',
+    //         ], 200);
+    //     } catch (Exception $e) {
+    //         return response()->json([
+    //             'message' => $e->getMessage(),
+    //         ], 500);
+    //     }
+    // }
 }

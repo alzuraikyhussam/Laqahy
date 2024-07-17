@@ -245,7 +245,7 @@ class ReportController extends GetxController {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على بيانات',
+                  description: 'عذراً، لم يتم العثور على بيانات',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: onPressedRefresh,
@@ -621,7 +621,7 @@ class ReportController extends GetxController {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على لقاحات',
+                  description: 'عذراً، لم يتم العثور على لقاحات',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
@@ -792,7 +792,7 @@ class ReportController extends GetxController {
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
                   title: 'لا تـــوجد بيـــانات',
-                  description: 'عذرا، لم يتم العثور على بيانات',
+                  description: 'عذراً، لم يتم العثور على بيانات',
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {

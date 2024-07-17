@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/layouts/onboarding_layout.dart';
-import 'package:laqahy/view/screens/home.dart';
 import 'package:laqahy/view/screens/login.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -66,16 +65,21 @@ class _SplashScreenState extends State<SplashScreen>
       });
     });
 
-    StaticDataController sdc = Get.put(StaticDataController());
-
     Timer(const Duration(seconds: 5), () async {
+      StaticDataController sdc = Get.put(StaticDataController());
       await sdc.storageService.isRegistered()
-          ? Navigator.pushReplacement(
-              Get.context!, PageTransition(const Login()))
-          : Navigator.pushReplacement(
-              Get.context!, PageTransition(const OnboardingLayout()));
-
-      print(await sdc.storageService.isRegistered());
+          ? Get.off(
+              () => const LoginScreen(),
+              transition: Transition.downToUp,
+              duration: const Duration(milliseconds: 6000),
+              curve: Curves.fastLinearToSlowEaseIn,
+            )
+          : Get.off(
+              () => const OnboardingLayout(),
+              transition: Transition.rightToLeft,
+              duration: const Duration(milliseconds: 6000),
+              curve: Curves.fastLinearToSlowEaseIn,
+            );
     });
   }
 

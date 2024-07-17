@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Validator;
 use App\Models\Child_data;
 use Exception;
@@ -114,5 +115,23 @@ class ChildDataController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getChildren($mother_id) {
+
+        try {
+            $childData = Child_data::where('mother_data_id', $mother_id)->get();
+            return response()->json([
+                'message' => 'Child Data retrieved successfully',
+                'data' => $childData,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+
+
+
     }
 }

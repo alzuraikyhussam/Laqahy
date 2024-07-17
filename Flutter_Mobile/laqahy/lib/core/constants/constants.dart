@@ -1,14 +1,8 @@
-import 'package:audioplayers/audioplayers.dart';
-
 class Constants {
-  AudioPlayer audioPlayer = AudioPlayer();
-
-  successAudio() {
-    audioPlayer.play(AssetSource('sounds/success.mp3'));
-  }
-
-  errorAudio() {
-    // audioPlayer.play(AssetSource('sounds/joke-error.m4a'));
-    audioPlayer.play(AssetSource('sounds/error.mp3'));
-  }
+  List carouselSliderImages = [
+    'assets/images/post.png',
+    'assets/images/post6.png',
+    'assets/images/post7.png',
+    'assets/images/carousel-image.png',
+  ];
 }

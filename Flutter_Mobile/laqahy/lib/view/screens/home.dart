@@ -7,64 +7,76 @@ import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/awareness_information.dart';
-import 'package:laqahy/view/screens/child_vaccine.dart';
-import 'package:laqahy/view/screens/mother_vaccine.dart';
+import 'package:laqahy/view/screens/child_vaccines/child_vaccine.dart';
+import 'package:laqahy/view/screens/child_vaccines/choose_children.dart';
+import 'package:laqahy/view/screens/contact_us.dart';
+import 'package:laqahy/view/screens/mother_vaccines/mother_vaccine.dart';
 import 'package:laqahy/view/screens/settings_page.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class Home extends StatelessWidget {
-  Home({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
   List items = [
     {
       'icon': Icons.child_care,
       'titel': 'لقاحات الطفل ',
-      'onPressed': ChildVaccine(
-        childId: 1,
-      )
+      'onPressed': () => myShowDialog(
+          context: Get.context!, widgetName: const ChooseChildAlert())
     },
     {
       'icon': Icons.woman_2_outlined,
       'titel': 'لقاحات الام ',
-      'onPressed': MotherVaccine()
+      'onPressed': () => Get.to(MotherVaccine())
     },
     {
       'icon': Icons.settings,
       'titel': 'الاعدادات ',
-      'onPressed': SettingsScreen()
+      'onPressed': () => Get.to(SettingsScreen())
     },
     {
       'icon': Icons.info_outline_rounded,
       'titel': 'معلومات توعوية ',
-      'onPressed': AwarenessInformation()
+      'onPressed': () => Get.to(const AwarenessInformationScreen()),
     },
     {}
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsetsDirectional.only(
-            start: 15,
-            end: 15,
-            bottom: 20,
-            top: 10,
+      body: Container(
+        width: Get.width,
+        height: Get.height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              'assets/images/screen-background.png',
+            ),
+            fit: BoxFit.cover,
           ),
-          child: Column(
-            children: [
-              Container(
-                // height: 150,
-                width: Get.width,
-                child: Image.asset(
-                  'assets/images/home_image.png',
-                  fit: BoxFit.cover,
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsetsDirectional.only(
+              start: 15,
+              end: 15,
+              bottom: 20,
+              top: 10,
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  // height: 150,
+                  width: Get.width,
+                  child: Image.asset(
+                    'assets/images/home_image.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                child: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                const SizedBox(
+                  height: 20,
+                ),
+                GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -73,7 +85,7 @@ class Home extends StatelessWidget {
                   itemCount: 4,
                   itemBuilder: (context, i) {
                     return InkWell(
-                      onTap: () => Get.to(items[i]['onPressed']),
+                      onTap: items[i]['onPressed'],
                       child: Container(
                         decoration: BoxDecoration(
                           color: MyColors.primaryColor.withOpacity(0.1),
@@ -101,132 +113,167 @@ class Home extends StatelessWidget {
                     );
                   },
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: 350,
-                height: 60,
-                decoration: BoxDecoration(
-                  border: Border.all(color: MyColors.greyColor),
-                  borderRadius: BorderRadius.circular(10),
+                const SizedBox(
+                  height: 20,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+                InkWell(
+                  onTap: () {
+                    Get.to(() => const ContactUsScreen());
+                  },
+                  child: Container(
+                    width: Get.width,
+                    height: 65,
+                    padding: const EdgeInsetsDirectional.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: MyColors.greyColor.withOpacity(0.5)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: MyColors.primaryColor.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            width: 35,
-                            height: 35,
-                            child: Icon(
-                              Icons.message_outlined,
-                              color: MyColors.primaryColor,
+                        Expanded(
+                          child: SizedBox(
+                            width: Get.width,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        MyColors.primaryColor.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  width: 45,
+                                  height: Get.height,
+                                  child: Icon(
+                                    Icons.message_outlined,
+                                    color: MyColors.primaryColor,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'تواصل بنا',
+                                        style: MyTextStyles.font16PrimaryBold,
+                                      ),
+                                      Text(
+                                        'خدمة دائمة على مدار 24 ساعة',
+                                        style: MyTextStyles.font14GreyBold,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'تواصل بنا',
-                              style: MyTextStyles.font16PrimaryBold,
-                            ),
-                            Text(
-                              'خدمة دائمة على مدار 24 ساعة',
-                              style: MyTextStyles.font16BlackBold,
-                            ),
-                          ],
+                        SizedBox(
+                          width: 30,
+                          child: Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            textDirection: TextDirection.ltr,
+                            color: MyColors.greyColor,
+                          ),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.arrow_back_ios_new_outlined,
-                      textDirection: TextDirection.ltr,
-                      color: MyColors.greyColor,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                width: 350,
-                height: 60,
-                decoration: BoxDecoration(
-                  border: Border.all(color: MyColors.greyColor),
-                  borderRadius: BorderRadius.circular(10),
+                const SizedBox(
+                  height: 10,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    width: Get.width,
+                    height: 65,
+                    padding: const EdgeInsetsDirectional.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: MyColors.greyColor.withOpacity(0.5)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: MyColors.primaryColor.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            width: 35,
-                            height: 35,
-                            child: Icon(
-                              Icons.info,
-                              color: MyColors.primaryColor,
+                        Expanded(
+                          child: SizedBox(
+                            width: Get.width,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        MyColors.primaryColor.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  width: 45,
+                                  height: Get.height,
+                                  child: Icon(
+                                    Icons.info_outline_rounded,
+                                    color: MyColors.primaryColor,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'حول التطبيق',
+                                        style: MyTextStyles.font16PrimaryBold,
+                                      ),
+                                      Text(
+                                        'معلومات حول التطبيق وخدماته',
+                                        style: MyTextStyles.font14GreyBold,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                         const SizedBox(
-                          width: 5,
+                          width: 10,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'حول التطبيق',
-                              style: MyTextStyles.font16PrimaryBold,
-                            ),
-                            Text(
-                              'معلومات حول التطبيق وخدماته  ',
-                              style: MyTextStyles.font16BlackBold,
-                            ),
-                            //Texst(
-                            // 'معلومات هامة حول لقاح السل'
-                            //Style: MyTextStyles.font16BlackBold,
-                            //)
-                          ],
+                        SizedBox(
+                          width: 30,
+                          child: Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            textDirection: TextDirection.ltr,
+                            color: MyColors.greyColor,
+                          ),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.arrow_back_ios_new_outlined,
-                      textDirection: TextDirection.ltr,
-                      color: MyColors.greyColor,
-                    )
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
         ),
       ),

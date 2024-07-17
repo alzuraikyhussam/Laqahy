@@ -50,7 +50,7 @@ class SuccessfullyLogin extends StatelessWidget {
                   width: 250,
                   backgroundColor: MyColors.primaryColor,
                   onPressed: () {
-                    Get.to(Home());
+                    Get.to(HomeScreen());
                   },
                   text: 'الذهاب الى الصفحة الرئيسية ',
                   textStyle: MyTextStyles.font16WhiteBold),

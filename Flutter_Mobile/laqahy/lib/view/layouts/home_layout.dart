@@ -8,12 +8,11 @@ import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/Notification_page.dart';
 import 'package:laqahy/view/screens/home.dart';
 import 'package:laqahy/view/screens/login.dart';
-import 'package:laqahy/view/screens/mother_vaccine.dart';
+import 'package:laqahy/view/screens/posts.dart';
 import 'package:laqahy/view/screens/profile.dart';
-import 'package:laqahy/view/screens/settings_page.dart';
-import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({Key? key}) : super(key: key);
@@ -52,7 +51,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           alignment: AlignmentDirectional.center,
                           // height: Get.height,
                           decoration: BoxDecoration(
-                            color: MyColors.primaryColor.withOpacity(0.3),
+                            color: MyColors.primaryColor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Icon(
@@ -77,7 +76,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                               ),
                               Expanded(
                                 child: Text(
-                                  sdc.userLoggedData.first.motherName ??
+                                  sdc.userLoggedData.first.user.motherName ??
                                       'مجهول الهوية',
                                   style: MyTextStyles.font16BlackBold,
                                   maxLines: 1,
@@ -90,17 +89,20 @@ class _HomeLayoutState extends State<HomeLayout> {
                       ],
                     ),
                   ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(width: 1, color: MyColors.primaryColor),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(
-                      Icons.notifications_none_outlined,
-                      color: MyColors.blackColor,
+                  InkWell(
+                    onTap: () => Get.offAll(() => const LoginScreen()),
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(width: 1, color: MyColors.primaryColor),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        Icons.notifications_none_outlined,
+                        color: MyColors.blackColor,
+                      ),
                     ),
                   ),
                 ],
@@ -118,10 +120,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                   hlc.visit(value);
                 },
                 children: [
-                  Home(),
-                  Login(),
-                  Profile(),
-                  // SettingsScreen(),
+                  HomeScreen(),
+                  const PostsScreen(),
+                  const ProfileScreen(),
                 ],
               ),
             ),
@@ -130,7 +131,7 @@ class _HomeLayoutState extends State<HomeLayout> {
       ),
       bottomNavigationBar: Obx(() {
         return BottomBarInspiredInside(
-          titleStyle: TextStyle(fontWeight: FontWeight.bold),
+          titleStyle: const TextStyle(fontWeight: FontWeight.bold),
           items: hlc.items,
           backgroundColor: Colors.white,
           color: MyColors.secondaryColor,
@@ -140,7 +141,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             hlc.visit(index);
             hlc.pageController.animateToPage(
               hlc.visit.value,
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               curve: Curves.easeInOut,
             );
           },

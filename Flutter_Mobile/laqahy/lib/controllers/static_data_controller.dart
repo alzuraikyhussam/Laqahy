@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:laqahy/models/login_model.dart';
+import 'package:laqahy/models/mother_data_model.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
 
 class StaticDataController extends GetxController {
-  List<Login> userLoggedData = <Login>[].obs;
+  List<MotherData> userLoggedData = <MotherData>[].obs;
 
   late StorageService storageService;
   late var isRegistered = false.obs;

@@ -64,7 +64,7 @@ class LogOut extends StatelessWidget {
               flex: 0,
               // width: 130,
               child: myTextButton(
-                text: 'الغاء الامر',
+                text: 'إلغــاء الامــر',
                 onPressed: () {},
               ),
             ),
