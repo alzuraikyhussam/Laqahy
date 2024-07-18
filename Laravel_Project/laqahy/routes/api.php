@@ -27,6 +27,7 @@ use App\Http\Controllers\OrderStateController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VaccineTypesController;
@@ -269,6 +270,12 @@ Route::get('mobile/child-statements/get-child-vaccines/{child_id}', [ChildStatem
 
 // --------------------- Child Data Routes ------------------------
 Route::get('mobile/child-data/get-child-data/{mother_id}', [ChildDataController::class, 'getChildren']);
+
+// --------------------- Reset Password Routes ------------------------
+Route::post('mobile/reset-password-verification', [ResetPasswordController::class, 'mobileVerifyResetPassword']);
+// ------------------------------------------------------------
+
+
 // ------------------------------------------------------------
 
 ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////

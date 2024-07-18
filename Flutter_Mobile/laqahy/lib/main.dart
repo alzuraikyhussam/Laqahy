@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: SplashScreen(),
+      home: ResetPasswordVerification(),
       navigatorKey: navigatorKey,
       routes: {
         '/notifications_screen': (context) => const NotificationScreen(),

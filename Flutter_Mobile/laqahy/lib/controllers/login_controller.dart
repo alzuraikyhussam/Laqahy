@@ -85,7 +85,7 @@ class LoginController extends GetxController {
             return;
           } else if (response.statusCode == 404) {
             isLoading(false);
-            ApiExceptionWidgets().myUserNotFoundAlert();
+            ApiExceptionWidgets().myDataIncorrectAlert();
             return;
           } else if (response.statusCode == 401) {
             isLoading(false);

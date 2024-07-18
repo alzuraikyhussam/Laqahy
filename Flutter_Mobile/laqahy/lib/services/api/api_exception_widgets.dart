@@ -35,6 +35,20 @@ class ApiExceptionWidgets {
     );
   }
 
+  myDataIncorrectAlert() {
+    Get.snackbar(
+      'البيانات غير صحيحه',
+      'يرجى التحقق من ادخال البيانات بشكل صحيح',
+      snackPosition: SnackPosition.TOP,
+      duration: const Duration(seconds: 10),
+      icon: Lottie.asset(
+        'assets/images/404-error.json',
+        // alignment: Alignment.center,
+        // fit: BoxFit.cover,
+      ),
+    );
+  }
+
   myInvalidPasswordAlert() {
     Get.snackbar(
       'كلمة المرور خاطئة',

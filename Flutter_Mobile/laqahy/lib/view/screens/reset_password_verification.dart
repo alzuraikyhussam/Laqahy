@@ -8,7 +8,9 @@ import '../../core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class ResetPasswordVerification extends StatefulWidget {
-  // const ResetPasswordVerification({super.key});
+  ResetPasswordVerification({super.key});
+
+  int motherId = Get.arguments;
 
   @override
   State<ResetPasswordVerification> createState() =>
