@@ -1,14 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/firebase_options.dart';
 import 'package:laqahy/services/firebase/firebase_api.dart';
-import 'package:laqahy/view/screens/notification_page.dart';
-import 'package:laqahy/view/screens/splash_screen.dart';
+import 'package:laqahy/view/screens/notifications/notifications.dart';
+import 'package:laqahy/view/screens/splash_screen/splash_screen.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -16,6 +17,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseApi().initNotifications();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 

@@ -1,0 +1,1 @@
+@echo off cd /d D:\University\Projects\Graduation_Project\Laqahy\Laravel_Project\laqahy && php artisan schedule:run >> /dev/null 2>&1

@@ -38,6 +38,7 @@ return array(
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Controllers\\VaccineTypesController' => $baseDir . '/app/Http/Controllers/VaccineTypesController.php',
     'App\\Http\\Controllers\\VisitTypeController' => $baseDir . '/app/Http/Controllers/VisitTypeController.php',
+    'App\\Jobs\\SendReminder' => $baseDir . '/app/Jobs/SendReminder.php',
     'App\\Mail\\GeneralNotificationMail' => $baseDir . '/app/Mail/GeneralNotificationMail.php',
     'App\\Mail\\SupportMail' => $baseDir . '/app/Mail/SupportMail.php',
     'App\\Models\\Child_data' => $baseDir . '/app/Models/Child_data.php',

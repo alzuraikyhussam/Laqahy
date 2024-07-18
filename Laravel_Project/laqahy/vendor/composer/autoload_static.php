@@ -783,6 +783,7 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\VaccineTypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/VaccineTypesController.php',
         'App\\Http\\Controllers\\VisitTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/VisitTypeController.php',
+        'App\\Jobs\\SendReminder' => __DIR__ . '/../..' . '/app/Jobs/SendReminder.php',
         'App\\Mail\\GeneralNotificationMail' => __DIR__ . '/../..' . '/app/Mail/GeneralNotificationMail.php',
         'App\\Mail\\SupportMail' => __DIR__ . '/../..' . '/app/Mail/SupportMail.php',
         'App\\Models\\Child_data' => __DIR__ . '/../..' . '/app/Models/Child_data.php',

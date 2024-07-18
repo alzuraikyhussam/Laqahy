@@ -8,11 +8,11 @@ import 'package:laqahy/controllers/home_layout_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/Notification_page.dart';
-import 'package:laqahy/view/screens/home.dart';
-import 'package:laqahy/view/screens/login.dart';
-import 'package:laqahy/view/screens/posts.dart';
-import 'package:laqahy/view/screens/profile.dart';
+import 'package:laqahy/view/screens/notifications/notifications.dart';
+import 'package:laqahy/view/screens/home_layout_screens/home.dart';
+import 'package:laqahy/view/screens/login/login.dart';
+import 'package:laqahy/view/screens/home_layout_screens/posts.dart';
+import 'package:laqahy/view/screens/home_layout_screens/profile.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({Key? key}) : super(key: key);

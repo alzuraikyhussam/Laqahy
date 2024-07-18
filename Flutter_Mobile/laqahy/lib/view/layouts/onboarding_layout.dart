@@ -8,7 +8,7 @@ import 'package:laqahy/controllers/onboarding_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/login.dart';
+import 'package:laqahy/view/screens/login/login.dart';
 import 'package:laqahy/view/screens/onboarding_screens/first_onboarding.dart';
 import 'package:laqahy/view/screens/onboarding_screens/second_onboarding.dart';
 import 'package:laqahy/view/screens/onboarding_screens/third_onboarding.dart';

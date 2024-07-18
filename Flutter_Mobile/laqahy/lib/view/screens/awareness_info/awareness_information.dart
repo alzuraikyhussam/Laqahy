@@ -6,8 +6,8 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class AwarenessInformationScreen extends StatelessWidget {
-  const AwarenessInformationScreen({super.key});
+class AwarenessInfoScreen extends StatelessWidget {
+  const AwarenessInfoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

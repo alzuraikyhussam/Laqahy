@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/login.dart';
+import 'package:laqahy/view/screens/login/login.dart';
 import 'package:laqahy/view/screens/reset_password.dart';
 
 import '../../core/shared/styles/style.dart';
