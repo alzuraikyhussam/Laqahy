@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/reset_password_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/reset_password_verification.dart';
@@ -13,6 +15,7 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+  ResetPasswordController rpc = Get.put(ResetPasswordController());
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -41,87 +44,75 @@ class _ResetPasswordState extends State<ResetPassword> {
           children: [
             Padding(
               padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'نسيت كلمة المرور',
-                    style: MyTextStyles.font18BlackBold,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'قم بإدخال رقم هاتفك  وسوف يتم إرسال كود التأكيد الى هاتفك .',
-                    style: MyTextStyles.font16GreyMedium,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  myTextField(
-                    labelText: 'أدخل رقم الهاتف ',
-                    prefixIcon: Icons.phone_enabled_outlined,
-                    keyboardType: TextInputType.number,
-                    onChanged: (p0) {},
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  myButton(
-                    width: width,
-                    text: 'إعادة تعيين كلمة المرور',
-                    textStyle: MyTextStyles.font14WhiteBold,
-                    onPressed: () {
-                      showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            actionsAlignment: MainAxisAlignment.center,
-                            alignment: AlignmentDirectional.center,
-                            content: SizedBox(
-                              width: Get.width,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  myCircleAvatar(icon: Icons.child_care),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    'تم الإرسـال بنجـاح',
-                                    style: MyTextStyles.font18BlackBold,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    'لقد تم إرسال كود التحقق الى رقم جوالك.',
-                                    style: MyTextStyles.font18BlackBold,
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actions: [
-                              myButton(
-                                onPressed: () {
-                                  Get.off(ResetPasswordVerification());
-                                },
-                                text: 'مــــوافق',
-                                textStyle: MyTextStyles.font14WhiteBold,
-                                backgroundColor: MyColors.primaryColor,
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
+              child: Form(
+                child: Column(
+                  key: rpc.resetPasswordFormKey,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'نسيت كلمة المرور',
+                      style: MyTextStyles.font18BlackBold,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'قم بإدخال رقم هاتفك  وسوف يتم إرسال كود التأكيد الى هاتفك .',
+                      style: MyTextStyles.font16GreyMedium,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    myTextField(
+                      controller: rpc.phoneNumberController,
+                      validator: rpc.phoneNumberValidator,
+                      labelText: 'أدخل رقم الهاتف ',
+                      prefixIcon: Icons.phone_enabled_outlined,
+                      keyboardType: TextInputType.number,
+                      onChanged: (p0) {},
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    myTextField(
+                      controller: rpc.idNumberController,
+                      validator: rpc.idNumberValidator,
+                      labelText: 'أدخل الرقم الوطني ',
+                      prefixIcon: Icons.perm_identity_outlined,
+                      keyboardType: TextInputType.number,
+                      onChanged: (p0) {},
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Obx(
+                            () {
+                              return rpc.isLoading.value
+                                  ? myLoadingIndicator()
+                                  : myButton(
+                                      onPressed: rpc.isLoading.value
+                                          ? null
+                                          : () {
+                                              if (rpc.resetPasswordFormKey
+                                                  .currentState!
+                                                  .validate()) {
+                                                rpc.resetPassword();
+                                              }
+                                            },
+                                      text: 'اعاده تعيين كلمة المرور',
+                                      textStyle: MyTextStyles.font14WhiteBold,
+                                    );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

@@ -29,4 +29,8 @@ class ApiEndpoints {
   // --------------- Technical Support Endpoints -------------------
   static const String sendMsg = '$baseUrl/support';
   // --------------------------------------------------
+
+    // --------------- Reset Password Endpoints -------------------
+  static const String resetPassword = '$baseUrl/mobile/reset-password-verification';
+  // --------------------------------------------------
 }

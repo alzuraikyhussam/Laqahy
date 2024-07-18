@@ -8,6 +8,8 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/firebase_options.dart';
 import 'package:laqahy/services/firebase/firebase_api.dart';
 import 'package:laqahy/view/screens/notification_page.dart';
+import 'package:laqahy/view/screens/reset_password.dart';
+import 'package:laqahy/view/screens/reset_password_verification.dart';
 import 'package:laqahy/view/screens/splash_screen.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -51,7 +53,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale("ar", "AE")],
       locale: const Locale("ar", "AL"),
-      home: SplashScreen(),
+      home: ResetPasswordVerification(),
       navigatorKey: navigatorKey,
       routes: {
         '/notifications_screen': (context) => const NotificationScreen(),

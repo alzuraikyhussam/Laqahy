@@ -103,25 +103,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Row(
                           children: [
-                            Expanded(child: Obx(
-                              () {
-                                return lc.isLoading.value
-                                    ? myLoadingIndicator()
-                                    : myButton(
-                                        onPressed: lc.isLoading.value
-                                            ? null
-                                            : () {
-                                                if (lc
-                                                    .loginFormKey.currentState!
-                                                    .validate()) {
-                                                  lc.login();
-                                                }
-                                              },
-                                        text: 'تسجيل دخول',
-                                        textStyle: MyTextStyles.font14WhiteBold,
-                                      );
-                              },
-                            )),
+                            Expanded(
+                              child: Obx(
+                                () {
+                                  return lc.isLoading.value
+                                      ? myLoadingIndicator()
+                                      : myButton(
+                                          onPressed: lc.isLoading.value
+                                              ? null
+                                              : () {
+                                                  if (lc.loginFormKey
+                                                      .currentState!
+                                                      .validate()) {
+                                                    lc.login();
+                                                  }
+                                                },
+                                          text: 'تسجيل دخول',
+                                          textStyle:
+                                              MyTextStyles.font14WhiteBold,
+                                        );
+                                },
+                              ),
+                           
+                            ),
                             const SizedBox(
                               width: 15,
                             ),
