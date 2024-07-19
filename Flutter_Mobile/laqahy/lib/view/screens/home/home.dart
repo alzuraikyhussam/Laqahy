@@ -1,45 +1,26 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/home_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/about_app/about_app.dart';
 import 'package:laqahy/view/screens/awareness_info/awareness_information.dart';
-import 'package:laqahy/view/screens/child_vaccines/child_vaccine.dart';
 import 'package:laqahy/view/screens/child_vaccines/choose_children.dart';
 import 'package:laqahy/view/screens/contact/contact_us.dart';
 import 'package:laqahy/view/screens/mother_vaccines/mother_vaccine.dart';
 import 'package:laqahy/view/screens/settings/settings.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-  List items = [
-    {
-      'icon': Icons.child_care,
-      'titel': 'لقاحات الطفل ',
-      'onPressed': () => myShowDialog(
-          context: Get.context!, widgetName: const ChooseChildAlert())
-    },
-    {
-      'icon': Icons.woman_2_outlined,
-      'titel': 'لقاحات الام ',
-      'onPressed': () => Get.to(MotherVaccine())
-    },
-    {
-      'icon': Icons.settings,
-      'titel': 'الاعدادات ',
-      'onPressed': () => Get.to(SettingsScreen())
-    },
-    {
-      'icon': Icons.info_outline_rounded,
-      'titel': 'معلومات توعوية ',
-      'onPressed': () => Get.to(const AwarenessInfoScreen()),
-    },
-    {}
-  ];
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  HomeController hc = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +57,7 @@ class HomeScreen extends StatelessWidget {
                   height: 20,
                 ),
                 GridView.builder(
+                  padding: EdgeInsets.zero,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -83,9 +65,9 @@ class HomeScreen extends StatelessWidget {
                       mainAxisSpacing: 15,
                       crossAxisSpacing: 15),
                   itemCount: 4,
-                  itemBuilder: (context, i) {
+                  itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: items[i]['onPressed'],
+                      onTap: hc.homeGridViewItems[index].onTap,
                       child: Container(
                         decoration: BoxDecoration(
                           color: MyColors.primaryColor.withOpacity(0.1),
@@ -96,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              items[i]['icon'],
+                              hc.homeGridViewItems[index].icon,
                               size: 60,
                               color: MyColors.primaryColor,
                             ),
@@ -104,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                               height: 20,
                             ),
                             Text(
-                              items[i]['titel'],
+                              hc.homeGridViewItems[index].title,
                               style: MyTextStyles.font14BlackBold,
                             ),
                           ],
@@ -198,7 +180,9 @@ class HomeScreen extends StatelessWidget {
                   height: 10,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => const AboutAppScreen());
+                  },
                   child: Container(
                     width: Get.width,
                     height: 65,

@@ -1,22 +1,32 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/awareness_info_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class AwarenessInfoScreen extends StatelessWidget {
+class AwarenessInfoScreen extends StatefulWidget {
   const AwarenessInfoScreen({super.key});
+
+  @override
+  State<AwarenessInfoScreen> createState() => _AwarenessInfoScreenState();
+}
+
+class _AwarenessInfoScreenState extends State<AwarenessInfoScreen> {
+  AwarenessInfoController aic = Get.put(AwarenessInfoController());
+
+  @override
+  void initState() {
+    aic.fetchAwarenessInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(
         text: 'معلومات توعوية',
-        onTap: () {
-          Get.back();
-        },
       ),
       body: Container(
         width: Get.width,
@@ -29,121 +39,110 @@ class AwarenessInfoScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.only(
+            start: 15,
+            end: 15,
+            bottom: 15,
+            top: 5,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: Get.width,
+                height: 150,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      MyColors.primaryColor.withOpacity(0.3),
+                      MyColors.secondaryColor.withOpacity(0.3),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 5),
+                      blurRadius: 5,
+                      color: MyColors.greyColor.withOpacity(0.5),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsetsDirectional.only(
+                  start: 15,
+                  top: 10,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      width: 350,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: MyColors.primaryColor.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
+                    Image.asset(
+                      'assets/images/awareness-information-image.png',
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            'assets/images/awareness-information-image.png',
+                          Text(
+                            'اكتشفي أهمية اللقاحات',
+                            style: MyTextStyles.font14WhiteBold,
                           ),
                           const SizedBox(
-                            width: 25,
+                            height: 5,
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'اكتشفي أهمية اللقاحات',
-                                style: MyTextStyles.font14PrimaryBold,
-                              ),
-                              Text(
-                                'للحفاظ على صحة عائلتك.',
-                                style: MyTextStyles.font16BlackBold,
-                              )
-                            ],
-                          )
+                          Text(
+                            'للحفاظ على صحة عائلتك.',
+                            style: MyTextStyles.font16WhiteBold,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  width: Get.width,
-                  height: 160,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border:
-                        Border.all(color: MyColors.greyColor.withOpacity(0.3)),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        width: 120,
-                        height: Get.height,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Obx(() {
+                return FutureBuilder(
+                  future: aic.fetchDataFuture.value,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return SizedBox(
+                        width: Get.width,
+                        height: 300,
+                        child: Center(
+                          child: myLoadingIndicator(),
                         ),
-                        child: Image.asset(
-                          'assets/images/information-image.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                  color: MyColors.primaryColor.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(
-                                'لقاح السل',
-                                maxLines: 1,
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.ellipsis,
-                                style: MyTextStyles.font14BlackBold,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                'لقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورضلقللورض',
-                                style: MyTextStyles.font14GreyBold,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            Container(
-                              alignment: AlignmentDirectional.centerEnd,
-                              child: Text('data'),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: ApiExceptionWidgets().mySnapshotError(
+                            snapshot.error, onPressedRefresh: () {
+                          aic.fetchAwarenessInfo();
+                        }),
+                      );
+                    } else {
+                      if (aic.awarenessInfo.isEmpty) {
+                        return ApiExceptionWidgets().myDataNotFound(
+                          onPressedRefresh: () {
+                            aic.fetchAwarenessInfo();
+                          },
+                        );
+                      } else {
+                        return myAwarenessListView(
+                          items: aic.awarenessInfo,
+                        );
+                      }
+                    }
+                  },
+                );
+              }),
+            ],
           ),
         ),
       ),

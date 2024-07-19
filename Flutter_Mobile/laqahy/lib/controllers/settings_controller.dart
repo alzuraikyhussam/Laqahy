@@ -1,54 +1,71 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
+import 'package:laqahy/models/settings_model.dart';
+import 'package:laqahy/view/screens/login/login.dart';
+import 'package:laqahy/view/widgets/basic_widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class SettingController extends GetxController {
-  RxBool switchValue = false.obs;
-  List items = [
-    {
-      'icon': Container(
+class SettingsController extends GetxController {
+  RxBool isDark = false.obs;
+
+  List<SettingsListItem> settingsListViewItems = [
+    SettingsListItem(
+      prefix: Container(
         width: 45,
         height: 45,
         decoration: BoxDecoration(
             color: MyColors.primaryColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(50)),
         child: Icon(
-          Icons.lock_outline_rounded,
+          Icons.password_rounded,
           color: MyColors.primaryColor,
         ),
       ),
-      'label': 'تغيير كلمة السر',
-      'pericon': Icon(
-        Icons.arrow_back_ios,
+      label: 'تغيير كلمة المرور',
+      suffix: Icon(
+        Icons.arrow_back_ios_new_rounded,
         textDirection: TextDirection.ltr,
         size: 20,
         color: MyColors.greyColor,
       ),
-    },
-    {
-      'icon': Container(
+      onTap: () {},
+    ),
+    SettingsListItem(
+      prefix: Container(
         width: 45,
         height: 45,
         decoration: BoxDecoration(
             color: MyColors.primaryColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(50)),
         child: Icon(
-          Icons.fingerprint_outlined,
+          Icons.fingerprint_rounded,
           color: MyColors.primaryColor,
         ),
       ),
-      'label': 'تفعيل بصمة الأصبع',
-      'pericon': Icon(
-        Icons.arrow_back_ios,
+      label: 'تفعيل بصمة الأصبع',
+      suffix: Icon(
+        Icons.arrow_back_ios_new_rounded,
         textDirection: TextDirection.ltr,
         size: 20,
         color: MyColors.greyColor,
       ),
-    },
-    {
-      'icon': Container(
+      onTap: () {
+        myShowDialog(
+          context: Get.context!,
+          widgetName: ApiExceptionAlert(
+            title: 'الميزة غير متوفرة حالياً',
+            description:
+                'عذراً، هذه الميزة غير متوفرة حالياً وسيتم تفعيلها قريباً في الإصدارات القادمة',
+            backgroundColor: MyColors.primaryColor,
+            height: 320,
+            imageUrl: 'assets/images/warning.json',
+          ),
+        );
+      },
+    ),
+    SettingsListItem(
+      prefix: Container(
         width: 45,
         height: 45,
         decoration: BoxDecoration(
@@ -59,11 +76,14 @@ class SettingController extends GetxController {
           color: MyColors.primaryColor,
         ),
       ),
-      'label': 'الوضع المظلم',
-      'pericon': mySwitchButton(),
-    },
-    {
-      'icon': Container(
+      label: 'الوضع المظلم',
+      suffix: mySwitchButton(),
+      onTap: () {
+        Get.offAll(() => const LoginScreen());
+      },
+    ),
+    SettingsListItem(
+      prefix: Container(
         width: 45,
         height: 45,
         decoration: BoxDecoration(
@@ -74,14 +94,17 @@ class SettingController extends GetxController {
           color: MyColors.redColor,
         ),
       ),
-      'label': 'تسجيل الخروج',
-      'pericon': Icon(
-        Icons.arrow_back_ios,
+      label: 'تسجيل خروج',
+      suffix: Icon(
+        Icons.arrow_back_ios_new_rounded,
         textDirection: TextDirection.ltr,
         size: 20,
         color: MyColors.greyColor,
       ),
-    },
+      onTap: () {
+        Get.offAll(() => const LoginScreen());
+      },
+    ),
   ];
 
   PageController pageController = PageController();

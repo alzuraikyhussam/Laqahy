@@ -152,12 +152,17 @@ class PDFWidgets {
                 ),
                 pw.SizedBox(height: 5),
                 pw.Text(
+                  'وزارة الصحة والسكان',
+                  style: headerTextStyle,
+                ),
+                pw.SizedBox(height: 5),
+                pw.Text(
                   officeData.first.name ?? 'غير معروف',
                   style: headerTextStyle,
                 ),
                 pw.SizedBox(height: 5),
                 pw.Text(
-                  'رقم الهاتف: $officeData',
+                  'هاتف : $officeData',
                   style: headerTextStyle,
                 ),
               ],

@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/post_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
@@ -111,7 +109,7 @@ class _PostsScreenState extends State<PostsScreen> {
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(10),
                         height: 45,
-                        width: 120,
+                        width: 150,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
@@ -127,7 +125,7 @@ class _PostsScreenState extends State<PostsScreen> {
                           ),
                         ),
                         child: Text(
-                          'آخــر الأخبــار',
+                          'آخـر المنشورات',
                           style: MyTextStyles.font16WhiteBold,
                           textAlign: TextAlign.center,
                         ),
@@ -136,7 +134,7 @@ class _PostsScreenState extends State<PostsScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(

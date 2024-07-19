@@ -33,7 +33,7 @@ class ChildVaccineController extends GetxController {
             .map((detail) => ChildVaccineDosage.fromJson(detail))
             .toList();
         Get.back();
-        Get.to(ChildVaccineScreen());
+        Get.to(const ChildVaccineScreen());
 
         isLoading(false);
         return;

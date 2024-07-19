@@ -1,6 +1,7 @@
 class ApiEndpoints {
   // *********************************************
-  static const String baseUrl = 'http://192.168.2.16:8000/api';
+  static const String baseUrl = 'http://192.168.1.104:8000/api';
+  // static const String baseUrl = 'http://10.0.2.2:8000/api';
   // *********************************************
 
   // --------------- Login Endpoints -------------------
@@ -26,11 +27,20 @@ class ApiEndpoints {
   static const String getPosts = '$baseUrl/ministry/posts';
   // --------------------------------------------------
 
+  // --------------- Awareness Information Endpoints -------------------
+  static const String getAwarenessInfo = '$baseUrl/mobile/awareness-info';
+  // --------------------------------------------------
+
+  // --------------- Notifications Endpoints -------------------
+  static const String getNotifications = '$baseUrl/mobile/notifications';
+  // --------------------------------------------------
+
   // --------------- Technical Support Endpoints -------------------
   static const String sendMsg = '$baseUrl/support';
   // --------------------------------------------------
 
-    // --------------- Reset Password Endpoints -------------------
-  static const String resetPassword = '$baseUrl/mobile/reset-password-verification';
+  // --------------- Reset Password Endpoints -------------------
+  static const String resetPassword =
+      '$baseUrl/mobile/reset-password-verification';
   // --------------------------------------------------
 }

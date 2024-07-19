@@ -151,12 +151,17 @@ class PDFWidgets {
                 ),
                 pw.SizedBox(height: 5),
                 pw.Text(
+                  centerData.first.officeName ?? 'غير معروف',
+                  style: headerTextStyle,
+                ),
+                pw.SizedBox(height: 5),
+                pw.Text(
                   centerData.first.name ?? 'غير معروف',
                   style: headerTextStyle,
                 ),
                 pw.SizedBox(height: 5),
                 pw.Text(
-                  'رقم الهاتف: ${centerData.first.phone}',
+                  'هاتف : ${centerData.first.phone}',
                   style: headerTextStyle,
                 ),
               ],

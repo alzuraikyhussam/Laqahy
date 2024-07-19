@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HomeListItems {
-  Icon icon;
+class HomeGridViewItem {
+  IconData icon;
   String title;
-  
-  
+  void Function()? onTap;
 
-  HomeListItems({
-  required this.icon ,
-  required this.title,
+  HomeGridViewItem({
+    required this.icon,
+    required this.title,
+    this.onTap,
   });
 }

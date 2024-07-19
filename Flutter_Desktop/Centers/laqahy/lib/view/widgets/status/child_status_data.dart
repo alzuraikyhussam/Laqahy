@@ -34,7 +34,7 @@ class _ChildStatusDataState extends State<ChildStatusData> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'اسم الأم',
+                    'اســـم الأم',
                     style: MyTextStyles.font16BlackBold,
                   ),
                   const SizedBox(
@@ -79,7 +79,7 @@ class _ChildStatusDataState extends State<ChildStatusData> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'مـحـل الـميـلاد',
+                    'مـكـان الـميـلاد',
                     style: MyTextStyles.font16BlackBold,
                   ),
                   const SizedBox(

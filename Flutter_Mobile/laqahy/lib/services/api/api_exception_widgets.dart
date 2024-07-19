@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/basic_widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:lottie/lottie.dart';
 
 class ApiExceptionWidgets {
-  myUnknownExceptionAlert({var statusCode, var error}) {
+  myUnknownExceptionAlert({var statusCode, var error}) async {
+    await Get.closeCurrentSnackbar();
+
     Get.snackbar(
       'خطأ غير متوقع',
       'عذرا، لقد حدث خطأ غير متوقع، يجب المحاولة مرة أخرى \n${statusCode ?? error}',
@@ -21,7 +21,9 @@ class ApiExceptionWidgets {
     );
   }
 
-  myUserNotFoundAlert() {
+  myUserNotFoundAlert() async {
+    await Get.closeCurrentSnackbar();
+
     Get.snackbar(
       'المستخدم غير موجود',
       'المستخدم الذي أدخلته غير موجود',
@@ -35,7 +37,9 @@ class ApiExceptionWidgets {
     );
   }
 
-  myDataIncorrectAlert() {
+  myDataIncorrectAlert() async {
+    await Get.closeCurrentSnackbar();
+
     Get.snackbar(
       'البيانات غير صحيحه',
       'يرجى التحقق من ادخال البيانات بشكل صحيح',
@@ -49,7 +53,9 @@ class ApiExceptionWidgets {
     );
   }
 
-  myInvalidPasswordAlert() {
+  myInvalidPasswordAlert() async {
+    await Get.closeCurrentSnackbar();
+
     Get.snackbar(
       'كلمة المرور خاطئة',
       'يجب التأكد من كتابة كلمة المرور بشكل صحيح',
@@ -63,7 +69,9 @@ class ApiExceptionWidgets {
     );
   }
 
-  mySocketExceptionAlert() {
+  mySocketExceptionAlert() async {
+    await Get.closeCurrentSnackbar();
+
     Get.snackbar(
       'لا يتوفر اتصال بالإنترنت',
       'يجب التحقق من اتصالك بالإنترنت',
@@ -77,7 +85,9 @@ class ApiExceptionWidgets {
     );
   }
 
-  myFetchDataExceptionAlert(var statusCode) {
+  myFetchDataExceptionAlert(var statusCode) async {
+    await Get.closeCurrentSnackbar();
+
     Get.snackbar(
       'فشل في الوصول',
       'عذرا، لقد حدث خطأ غير متوقع أثناء تحميل البيانات من الخادم، الرجاء المحاولة مرة أخرى \n$statusCode',
@@ -91,7 +101,9 @@ class ApiExceptionWidgets {
     );
   }
 
-  myAccessDatabaseExceptionAlert(var statusCode) {
+  myAccessDatabaseExceptionAlert(var statusCode) async {
+    await Get.closeCurrentSnackbar();
+
     Get.snackbar(
       'فشل في الوصول',
       'عذرا، لقد حدث خطأ ما أثناء عملية الوصول الى قاعدة البيانات\n$statusCode',

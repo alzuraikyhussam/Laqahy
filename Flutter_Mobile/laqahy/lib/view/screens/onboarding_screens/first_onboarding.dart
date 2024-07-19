@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/onboarding_screens/second_onboarding.dart';
 
 class FirstOnboarding extends StatefulWidget {
   const FirstOnboarding({super.key});
@@ -19,7 +17,7 @@ class _FirstOnboardingState extends State<FirstOnboarding> {
     // TODO: implement initState
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
@@ -46,7 +44,7 @@ class _FirstOnboardingState extends State<FirstOnboarding> {
           children: [
             Expanded(
               child: Container(
-                margin: EdgeInsets.all(40),
+                margin: const EdgeInsets.all(40),
                 child: SvgPicture.asset(
                   'assets/images/first-onboarding.svg',
                   fit: BoxFit.contain,
@@ -54,12 +52,12 @@ class _FirstOnboardingState extends State<FirstOnboarding> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(40),
+              padding: const EdgeInsets.all(40),
               height: 220,
               width: width,
               decoration: BoxDecoration(
                 color: MyColors.whiteColor.withOpacity(0.5),
-                borderRadius: BorderRadiusDirectional.only(
+                borderRadius: const BorderRadiusDirectional.only(
                   topStart: Radius.circular(50),
                   topEnd: Radius.circular(50),
                 ),
@@ -69,7 +67,7 @@ class _FirstOnboardingState extends State<FirstOnboarding> {
                 boxShadow: [
                   BoxShadow(
                     color: MyColors.greyColor.withOpacity(0.1),
-                    offset: Offset(10, 0),
+                    offset: const Offset(10, 0),
                     blurRadius: 30,
                   ),
                 ],

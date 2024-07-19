@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -19,14 +17,13 @@ class SelectChildController extends GetxController {
   var childErrorMsg = ''.obs;
   var isChildLoading = false.obs;
   TextEditingController childSearchController = TextEditingController();
-  StaticDataController sdc = Get.find<StaticDataController>();
+  StaticDataController sdc = Get.put(StaticDataController());
   GlobalKey<FormState> selectChildFormKey = GlobalKey<FormState>();
 
   int? motherId;
 
   @override
   void onInit() {
-    motherId = sdc.userLoggedData.first.user.id;
     super.onInit();
   }
 
@@ -39,6 +36,7 @@ class SelectChildController extends GetxController {
 
   void fetchChildren() async {
     try {
+      motherId = sdc.userLoggedData.first.user.id;
       childErrorMsg('');
       isChildLoading(true);
       final response = await http.get(
@@ -55,7 +53,9 @@ class SelectChildController extends GetxController {
 
         children.assignAll(fetchedChildren);
 
-        selectedChildId.value = children.first.id;
+        if (children.isNotEmpty) {
+          selectedChildId.value = children.first.id;
+        }
       } else {
         isChildLoading(false);
         childErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');

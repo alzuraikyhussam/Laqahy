@@ -30,7 +30,7 @@ class ChildStatusDataController extends GetxController {
       return 'لا يجب أن يحتوي الاسم على أرقام أو رموز';
     } else if (!RegExp(r'^\S+(\s+\S+){3}$').hasMatch(value)) {
       // Regular expression to match exactly four words separated by spaces
-      return 'يجب ادخال اسمك الرباعي';
+      return 'يجب ادخال الاسم الرباعي';
     }
     return null;
   }

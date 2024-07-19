@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AwarenessInfoController;
 use App\Http\Controllers\ChildDataController;
 use App\Http\Controllers\ChildDosageTypeController;
 use App\Http\Controllers\ChildStatementController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
 use App\Http\Controllers\MotherStatement;
 use App\Http\Controllers\MotherStatementController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficesUsersController;
 use App\Http\Controllers\OfficeOrderController;
@@ -258,6 +260,14 @@ Route::get('offices/reports/orders-custom-report', [ReportController::class, 'of
 
 // --------------------- Auth Routes ------------------------
 Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']);
+// ------------------------------------------------------------
+
+// --------------------- Awareness Information Routes ------------------------
+Route::get('mobile/awareness-info', [AwarenessInfoController::class, 'index']);
+// ------------------------------------------------------------
+
+// --------------------- Notifications Routes ------------------------
+Route::get('mobile/notifications/{mother_id}', [NotificationsController::class, 'show']);
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------

@@ -34,7 +34,7 @@ class MotherStatusDataController extends GetxController {
       return 'لا يجب أن يحتوي الاسم على أرقام أو رموز';
     } else if (!RegExp(r'^\S+(\s+\S+){3}$').hasMatch(value)) {
       // Regular expression to match exactly four words separated by spaces
-      return 'يجب ادخال اسمك الرباعي';
+      return 'يجب ادخال الاسم الرباعي';
     }
     return null;
   }
@@ -73,31 +73,31 @@ class MotherStatusDataController extends GetxController {
   }
 
   //////////
-  TextEditingController userNameController = TextEditingController();
-  String? userNameValidator(value) {
-    if (value.trim().isEmpty) {
-      return 'يجب ادخال اسم المستخدم';
-    } else if (!GetUtils.isUsername(value)) {
-      return 'يجب ادخال اسم مستخدم صالح';
-    }
-    return null;
-  }
+  // TextEditingController userNameController = TextEditingController();
+  // String? userNameValidator(value) {
+  //   if (value.trim().isEmpty) {
+  //     return 'يجب ادخال اسم المستخدم';
+  //   } else if (!GetUtils.isUsername(value)) {
+  //     return 'يجب ادخال اسم مستخدم صالح';
+  //   }
+  //   return null;
+  // }
 
   //////////
-  TextEditingController passwordController = TextEditingController();
-  String? passwordValidator(value) {
-    if (value.isEmpty) {
-      return 'يجب ادخال كلمة المرور';
-    } else if (value.length < 8) {
-      return 'يجب ألا تقل عن 8 أحرف';
-    } else if (!RegExp(
-            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$')
-        .hasMatch(value)) {
-      // Check for at least one uppercase letter, one lowercase letter, one digit, and one special character
-      return 'يجب أن تحتوي على أحرف كبيرة\n وصغيرة وأرقام ورموز';
-    }
-    return null;
-  }
+  // TextEditingController passwordController = TextEditingController();
+  // String? passwordValidator(value) {
+  //   if (value.isEmpty) {
+  //     return 'يجب ادخال كلمة المرور';
+  //   } else if (value.length < 8) {
+  //     return 'يجب ألا تقل عن 8 أحرف';
+  //   } else if (!RegExp(
+  //           r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$')
+  //       .hasMatch(value)) {
+  //     // Check for at least one uppercase letter, one lowercase letter, one digit, and one special character
+  //     return 'يجب أن تحتوي على أحرف كبيرة\n وصغيرة وأرقام ورموز';
+  //   }
+  //   return null;
+  // }
   //////////
 
   void clearTextFields() {
@@ -114,7 +114,7 @@ class MotherStatusDataController extends GetxController {
   TextEditingController villageController = TextEditingController();
   String? villageValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يجب ادخال اسم المنطقة';
+      return 'يجب ادخال اسم العزلة / القرية';
     }
     return null;
   }
@@ -186,6 +186,4 @@ class MotherStatusDataController extends GetxController {
       isAddLoading(false);
     }
   }
-
-
 }

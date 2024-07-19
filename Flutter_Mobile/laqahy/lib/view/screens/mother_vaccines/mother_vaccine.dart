@@ -1,7 +1,5 @@
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/mother_vaccine_controller.dart';
@@ -14,7 +12,7 @@ import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 // ignore: must_be_immutable
 class MotherVaccine extends StatefulWidget {
-  MotherVaccine({super.key});
+  const MotherVaccine({super.key});
 
   @override
   State<MotherVaccine> createState() => _MotherVaccineState();
@@ -78,35 +76,26 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                   ),
                                   width: 360,
                                   height: 130,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'مرحباً بك',
-                                            style:
-                                                MyTextStyles.font14PrimaryBold,
-                                          ),
-                                          // SizedBox(
-                                          //   height: 5,
-                                          // ),
-                                          Text(
-                                            sdc.userLoggedData.first.user
-                                                    .motherName ??
-                                                'مجهول الهوية',
-                                            style: MyTextStyles.font16BlackBold,
-                                          ),
-                                        ],
+                                      const SizedBox(
+                                        height: 10,
                                       ),
-                                      Image.asset(
-                                          'assets/images/mother-vaccine.png'),
+                                      Text(
+                                        'مرحباً بك',
+                                        style: MyTextStyles.font14PrimaryBold,
+                                      ),
+                                      // SizedBox(
+                                      //   height: 5,
+                                      // ),
+                                      Text(
+                                        sdc.userLoggedData.first.user
+                                                .motherName ??
+                                            'مجهول الهوية',
+                                        style: MyTextStyles.font16BlackBold,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -197,6 +186,12 @@ class _MotherVaccineState extends State<MotherVaccine> {
                                             DateTime.now()))
                                   ],
                                 ),
+                              ),
+                            ),
+                            Positioned(
+                              left: 30,
+                              child: Image.asset(
+                                'assets/images/mother-vaccine.png',
                               ),
                             ),
                           ],

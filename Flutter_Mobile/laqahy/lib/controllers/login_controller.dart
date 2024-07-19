@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:http/http.dart' as http;

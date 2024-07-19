@@ -1,15 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/setting_controller.dart';
+import 'package:laqahy/controllers/settings_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
-class SettingsScreen extends StatelessWidget {
-  SettingsScreen({super.key});
-  SettingController sC = SettingController();
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  SettingsController sc = SettingsController();
+  StaticDataController sdc = Get.put(StaticDataController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +43,7 @@ class SettingsScreen extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    'مرحبا بك',
+                    'مرحباً بك',
                     style: MyTextStyles.font16WhiteBold,
                   ),
                   const SizedBox(
@@ -44,22 +51,20 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    width: 200,
+                    // width: 200,
                     height: 30,
                     decoration: BoxDecoration(
                       color: MyColors.secondaryColor,
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Text(
-                      'زينب محمد صالح الاشول',
+                      sdc.userLoggedData.first.user.motherName ??
+                          'مجهول الهوية',
                       style: MyTextStyles.font16WhiteBold,
                     ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 0,
             ),
             Expanded(
               child: Container(
@@ -75,59 +80,9 @@ class SettingsScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(15),
                   child: Column(
                     children: [
-                      Expanded(
-                        child: ListView.separated(
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                leading: sC.items[index]['icon'],
-                                title: Text(
-                                  sC.items[index]['label'],
-                                ),
-                                trailing: sC.items[index]['pericon'],
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return const Divider();
-                            },
-                            itemCount: sC.items.length),
+                      mySettingsListView(
+                        items: sc.settingsListViewItems,
                       )
-
-                      // ...List.generate(
-                      //   sC.items.length,
-                      //   (index) {
-                      //     return Container(
-                      //       margin: EdgeInsets.only(bottom: 25),
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [
-                      //           Row(
-                      //             children: [
-                      //               Container(
-                      //                 width: 40,
-                      //                 height: 40,
-                      //                 decoration: BoxDecoration(
-                      //                   color: MyColors.primaryColor
-                      //                       .withOpacity(0.2),
-                      //                   borderRadius: BorderRadius.circular(50),
-                      //                 ),
-                      //                 child: sC.items[index]['icon'],
-                      //               ),
-                      //               const SizedBox(
-                      //                 width: 10,
-                      //               ),
-                      //               Text(
-                      //                 sC.items[index]['label'],
-                      //                 style: MyTextStyles.font14BlackBold,
-                      //               ),
-                      //             ],
-                      //           ),
-                      //          Obx(() => sC.items[index]['pericon'],)
-                      //         ],
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
                     ],
                   ),
                 ),

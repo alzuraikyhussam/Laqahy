@@ -72,7 +72,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                     validator: mc.identityNumberValidator,
                     prefixIcon: Icons.numbers,
                     width: 200,
-                    hintText: 'يرجا إدخال الرقم الوطني',
+                    hintText: 'الرقم الوطني',
                     keyboardType: TextInputType.text,
                     readOnly: false,
                     onChanged: (value) {},
@@ -97,7 +97,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                     validator: mc.phoneNumberValidator,
                     prefixIcon: Icons.phone_enabled_outlined,
                     width: 200,
-                    hintText: ' أدخل رقم الهاتف',
+                    hintText: 'رقم الهاتف',
                     keyboardType: TextInputType.text,
                     readOnly: false,
                     onChanged: (value) {},
@@ -190,7 +190,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'الــعزلـة',
+                'العــزلـة / القـريــة',
                 style: MyTextStyles.font16BlackBold,
               ),
               const SizedBox(
@@ -201,7 +201,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                 validator: mc.villageValidator,
                 prefixIcon: Icons.not_listed_location,
                 width: 300,
-                hintText: 'اســم المنطقة',
+                hintText: 'العزلة / القرية',
                 keyboardType: TextInputType.text,
                 readOnly: false,
                 onChanged: (value) {},

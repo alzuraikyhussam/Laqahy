@@ -157,7 +157,7 @@ class PDFWidgets {
                 ),
                 pw.SizedBox(height: 5),
                 pw.Text(
-                  'رقم الهاتف: $centerData',
+                  'هاتف : $centerData',
                   style: headerTextStyle,
                 ),
               ],

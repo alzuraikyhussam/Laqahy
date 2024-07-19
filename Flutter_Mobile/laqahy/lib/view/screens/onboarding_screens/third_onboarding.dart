@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/login/login.dart';
 
 class ThirdOnboarding extends StatefulWidget {
   const ThirdOnboarding({super.key});
@@ -36,7 +33,7 @@ class _ThirdOnboardingState extends State<ThirdOnboarding> {
           children: [
             Expanded(
               child: Container(
-                margin: EdgeInsets.all(40),
+                margin: const EdgeInsets.all(40),
                 child: SvgPicture.asset(
                   'assets/images/third-onboarding.svg',
                   fit: BoxFit.contain,
@@ -44,12 +41,12 @@ class _ThirdOnboardingState extends State<ThirdOnboarding> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(40),
+              padding: const EdgeInsets.all(40),
               height: 220,
               width: width,
               decoration: BoxDecoration(
                 color: MyColors.whiteColor.withOpacity(0.5),
-                borderRadius: BorderRadiusDirectional.only(
+                borderRadius: const BorderRadiusDirectional.only(
                   topStart: Radius.circular(50),
                   topEnd: Radius.circular(50),
                 ),
@@ -59,7 +56,7 @@ class _ThirdOnboardingState extends State<ThirdOnboarding> {
                 boxShadow: [
                   BoxShadow(
                     color: MyColors.greyColor.withOpacity(0.1),
-                    offset: Offset(10, 0),
+                    offset: const Offset(10, 0),
                     blurRadius: 30,
                   ),
                 ],

@@ -1,6 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:laqahy/main.dart';
-import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 
 class FirebaseApi {
@@ -18,10 +16,10 @@ class FirebaseApi {
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
 
-    navigatorKey.currentState?.pushNamed(
-      '/notifications_screen',
-      arguments: message,
-    );
+    // navigatorKey.currentState?.pushNamed(
+    //   '/notifications_screen',
+    //   arguments: message,
+    // );
   }
 
   Future initPushNotifications() async {

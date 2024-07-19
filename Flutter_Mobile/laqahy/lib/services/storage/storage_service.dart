@@ -1,5 +1,3 @@
-import 'package:get/get.dart';
-import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {

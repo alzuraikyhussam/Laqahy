@@ -67,7 +67,7 @@ class _ApiExceptionAlertState extends State<ApiExceptionAlert> {
                   widget.title,
                   style: MyTextStyles.font18BlackBold,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 SizedBox(

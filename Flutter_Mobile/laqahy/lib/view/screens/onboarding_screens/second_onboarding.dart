@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/screens/onboarding_screens/third_onboarding.dart';
 
 class SecondOnboarding extends StatefulWidget {
   const SecondOnboarding({super.key});
@@ -33,7 +31,7 @@ class _SecondOnboardingState extends State<SecondOnboarding> {
           children: [
             Expanded(
               child: Container(
-                margin: EdgeInsets.all(40),
+                margin: const EdgeInsets.all(40),
                 child: SvgPicture.asset(
                   'assets/images/second-onboarding.svg',
                   fit: BoxFit.contain,
@@ -41,12 +39,12 @@ class _SecondOnboardingState extends State<SecondOnboarding> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(40),
+              padding: const EdgeInsets.all(40),
               height: 220,
               width: width,
               decoration: BoxDecoration(
                 color: MyColors.whiteColor.withOpacity(0.5),
-                borderRadius: BorderRadiusDirectional.only(
+                borderRadius: const BorderRadiusDirectional.only(
                   topStart: Radius.circular(50),
                   topEnd: Radius.circular(50),
                 ),
@@ -56,7 +54,7 @@ class _SecondOnboardingState extends State<SecondOnboarding> {
                 boxShadow: [
                   BoxShadow(
                     color: MyColors.greyColor.withOpacity(0.1),
-                    offset: Offset(10, 0),
+                    offset: const Offset(10, 0),
                     blurRadius: 30,
                   ),
                 ],

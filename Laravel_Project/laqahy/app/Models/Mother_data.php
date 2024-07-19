@@ -54,4 +54,9 @@ class Mother_data extends Authenticatable
     {
         return $this->hasMany(Mother_statement::class);
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notifications::class);
+    }
 }

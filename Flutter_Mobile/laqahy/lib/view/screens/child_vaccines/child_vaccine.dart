@@ -1,7 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/child_vaccine_controller.dart';
@@ -58,30 +57,23 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                           ),
                           width: 360,
                           height: 130,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    'لقاحات طفلك',
-                                    style: MyTextStyles.font14PrimaryBold,
-                                  ),
-                                  // SizedBox(
-                                  //   height: 5,
-                                  // ),
-                                  Text(
-                                    cvc.childData.value.childName ??
-                                        'مجهول الهوية',
-                                    style: MyTextStyles.font16BlackBold,
-                                  ),
-                                ],
+                              const SizedBox(
+                                height: 10,
                               ),
-                              Image.asset('assets/images/mother-vaccine.png'),
+                              Text(
+                                'لقاحات طفلك',
+                                style: MyTextStyles.font14PrimaryBold,
+                              ),
+                              // SizedBox(
+                              //   height: 5,
+                              // ),
+                              Text(
+                                cvc.childData.value.childName ?? 'مجهول الهوية',
+                                style: MyTextStyles.font16BlackBold,
+                              ),
                             ],
                           ),
                         ),
@@ -230,6 +222,12 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                         ),
                       ),
                     ),
+                    Positioned(
+                      left: 30,
+                      child: Image.asset(
+                        'assets/images/mother-vaccine.png',
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -302,90 +300,93 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Container(
-                            height: 320,
-                            margin: const EdgeInsetsDirectional.only(
-                              start: 15,
-                              bottom: 30,
-                              end: 15,
-                            ),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: MyColors.primaryColor),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: DataTable2(
-                              dataRowHeight: 50,
-                              headingRowHeight: 45,
-                              empty: ApiExceptionWidgets().myDataNotFound(
-                                onPressedRefresh: () {
-                                  cvc.fetchChildVaccineDataTable(
-                                      cvc.childData.value.id!);
-                                },
+                          SingleChildScrollView(
+                            child: Container(
+                              height: 320,
+                              margin: const EdgeInsetsDirectional.only(
+                                start: 15,
+                                bottom: 30,
+                                end: 15,
                               ),
-
-                              horizontalMargin: 7,
-                              // headingTextStyle: MyTextStyles.font14WhiteBold,
-                              headingRowColor: MaterialStatePropertyAll(
-                                  MyColors.primaryColor),
-                              columnSpacing: 3,
-                              headingRowDecoration: const BoxDecoration(
-                                borderRadius: BorderRadiusDirectional.only(
-                                  topStart: Radius.circular(10),
-                                  topEnd: Radius.circular(10),
-                                ),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: MyColors.primaryColor),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
                               ),
+                              child: DataTable2(
+                                dataRowHeight: 50,
+                                headingRowHeight: 45,
+                                empty: ApiExceptionWidgets().myDataNotFound(
+                                  onPressedRefresh: () {
+                                    cvc.fetchChildVaccineDataTable(
+                                        cvc.childData.value.id!);
+                                  },
+                                ),
 
-                              columns: [
-                                DataColumn2(
-                                  label: Container(
-                                    alignment: AlignmentDirectional.center,
-                                    child: Text(
-                                      "م",
-                                      style: MyTextStyles.font14WhiteBold,
-                                    ),
-                                  ),
-                                  fixedWidth: 15,
-                                  // numeric: true,
-                                ),
-                                DataColumn2(
-                                  label: Container(
-                                    alignment: AlignmentDirectional.center,
-                                    child: Text(
-                                      "اسم اللقاح",
-                                      style: MyTextStyles.font14WhiteBold,
-                                    ),
-                                  ),
-                                  fixedWidth: 160,
-                                  // onSort: (columnIndex, ascending) {
-                                  //   uc.sort.value = ascending;
-                                  //   uc.onSortColum(columnIndex, ascending);
-                                  // },
-                                ),
-                                DataColumn2(
-                                  label: Container(
-                                    alignment: AlignmentDirectional.center,
-                                    child: Text(
-                                      "عدد الجُرع",
-                                      style: MyTextStyles.font14WhiteBold,
-                                    ),
-                                  ),
-                                  // fixedWidth: 50,
-                                ),
-                                DataColumn2(
-                                  label: Container(
-                                    alignment: AlignmentDirectional.center,
-                                    child: Text(
-                                      "الجُرع المأخوذة",
-                                      style: MyTextStyles.font14WhiteBold,
-                                    ),
+                                horizontalMargin: 7,
+                                // headingTextStyle: MyTextStyles.font14WhiteBold,
+                                headingRowColor: MaterialStatePropertyAll(
+                                    MyColors.primaryColor),
+                                columnSpacing: 3,
+                                headingRowDecoration: const BoxDecoration(
+                                  borderRadius: BorderRadiusDirectional.only(
+                                    topStart: Radius.circular(10),
+                                    topEnd: Radius.circular(10),
                                   ),
                                 ),
-                              ],
-                              rows: getChildVaccineRowSource(
-                                myData: cvc.childVaccines,
-                                count: cvc.childVaccines.length,
+
+                                columns: [
+                                  DataColumn2(
+                                    label: Container(
+                                      alignment: AlignmentDirectional.center,
+                                      child: Text(
+                                        "م",
+                                        style: MyTextStyles.font14WhiteBold,
+                                      ),
+                                    ),
+                                    fixedWidth: 15,
+                                    // numeric: true,
+                                  ),
+                                  DataColumn2(
+                                    label: Container(
+                                      alignment: AlignmentDirectional.center,
+                                      child: Text(
+                                        "اسم اللقاح",
+                                        style: MyTextStyles.font14WhiteBold,
+                                      ),
+                                    ),
+                                    fixedWidth: 160,
+                                    // onSort: (columnIndex, ascending) {
+                                    //   uc.sort.value = ascending;
+                                    //   uc.onSortColum(columnIndex, ascending);
+                                    // },
+                                  ),
+                                  DataColumn2(
+                                    label: Container(
+                                      alignment: AlignmentDirectional.center,
+                                      child: Text(
+                                        "عدد الجُرع",
+                                        style: MyTextStyles.font14WhiteBold,
+                                      ),
+                                    ),
+                                    // fixedWidth: 50,
+                                  ),
+                                  DataColumn2(
+                                    label: Container(
+                                      alignment: AlignmentDirectional.center,
+                                      child: Text(
+                                        "الجُرع المأخوذة",
+                                        style: MyTextStyles.font14WhiteBold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                rows: getChildVaccineRowSource(
+                                  myData: cvc.childVaccines,
+                                  count: cvc.childVaccines.length,
+                                ),
                               ),
                             ),
                           ),

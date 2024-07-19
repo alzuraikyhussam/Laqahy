@@ -43,7 +43,7 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'اسم الأم',
+                            'اســـم الأم',
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
