@@ -39,6 +39,16 @@ class MotherVisitRowSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
+              motherStatementData.dosage_level ?? "غيـر معـروف",
+              textAlign: TextAlign.center,
+              style: MyTextStyles.font14BlackMedium,
+            ),
+          ),
+        ),
+        DataCell(
+          Container(
+            alignment: AlignmentDirectional.center,
+            child: Text(
               motherStatementData.dosage_type ?? "غيـر معـروف",
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,

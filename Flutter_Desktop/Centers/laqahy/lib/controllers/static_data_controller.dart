@@ -59,7 +59,7 @@ class StaticDataController extends GetxController {
   var motherErrorMsg = ''.obs;
   var isMotherLoading = false.obs;
 
-  var childs = <Childs>[].obs;
+  var childs = <Children>[].obs;
   var selectedChildsId = Rx<int?>(null);
   var childErrorMsg = ''.obs;
   var isChildLoading = false.obs;
@@ -301,8 +301,8 @@ class StaticDataController extends GetxController {
       if (response.statusCode == 200) {
         isChildLoading(false);
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
-        List<Childs> fetchedChildren =
-            jsonData.map((e) => Childs.fromJson(e)).toList();
+        List<Children> fetchedChildren =
+            jsonData.map((e) => Children.fromJson(e)).toList();
         childs.assignAll(fetchedChildren);
       } else {
         isChildLoading(false);

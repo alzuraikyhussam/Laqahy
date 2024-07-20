@@ -153,4 +153,43 @@ class ChildStatementController extends Controller
             ], 500);
         }
     }
+
+    public function getChildStatement()
+    {
+        try {
+            $childStatement = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('healthy_centers', 'child_statements.healthy_center_id', '=', 'healthy_centers.id')->join('users', 'child_statements.user_id', '=', 'users.id')->join('visit_types', 'child_statements.visit_type_id', '=', 'visit_types.id')->join('vaccine_types', 'child_statements.vaccine_type_id', '=', 'vaccine_types.id')->join('child_dosage_types', 'child_statements.child_dosage_type_id', '=', 'child_dosage_types.id')->select('child_statements.*', 'child_data.child_data_name', 'healthy_centers.healthy_center_name', 'users.user_name','visit_types.visit_period', 'vaccine_types.vaccine_type', 'child_dosage_types.child_dosage_type')->get();
+            return response()->json([
+                'message' => 'Child statement retrieved successfully',
+                'data' => $childStatement,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function destroy(string $childId)
+    {
+
+        try {
+            $childDeleteStatement = Child_statement::find($childId);
+            if (!$childDeleteStatement) {
+                return response()->json([
+                    'message' => 'Child Data not found',
+                ], 404);
+            }
+
+            $childDeleteStatement->delete();
+
+            return response()->json([
+                'message' => 'Child Statement Data deleted successfully',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
 }

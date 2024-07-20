@@ -93,6 +93,14 @@ class ApiEndpoints {
       '$baseUrl/centers/mother-data/get-mother-data';
   static const String getMotherDateRange =
       '$baseUrl/centers/mother-data/date-range';
+  static const String getAllMotherStatusDate =
+      '$baseUrl/centers/mother-data/get-All-mother-data';
+  static const String updateMotherStatusData =
+      '$baseUrl/centers/mother-data/update-mother-status-data';
+  static const String deleteMotherStatusData =
+      '$baseUrl/centers/mother-data/delete-mother-status-data';
+  static const String printMotherStatusData =
+      '$baseUrl/centers/mother-data/print-mother-status-data';
   // --------------------------------------------------
 
   // --------------- Mother Statement Data Endpoints -------------------
@@ -111,7 +119,22 @@ class ApiEndpoints {
   static const String addChildStatusData =
       '$baseUrl/centers/child-data/add-child';
   static const String getChildData = '$baseUrl/centers/child-data/get-child';
+  static const String getAllChildrenStatusData =
+      '$baseUrl/centers/child-data/get-all-children-status-data';
+  static const String deleteChildChildrenStatusData =
+      '$baseUrl/centers/child-data/delete-children-status-data';
+  static const String updateChildChildrenStatusData =
+      '$baseUrl/centers/child-data/update-children-status-data';
 
+  // --------------------------------------------------
+
+  // --------------- Child Statements Endpoints -------------------
+  static const String getChildStatementData =
+      '$baseUrl/centers/child-statement/get-child-statement-data';
+  static const String addChildStatementData =
+      '$baseUrl/centers/child-statement/add-child-statement';
+  static const String deleteChildStatementData =
+      '$baseUrl/centers/child-statement/delete-child-statement';
   // --------------------------------------------------
 
   // --------------- Dosage Level Data Endpoints -------------------
@@ -120,11 +143,6 @@ class ApiEndpoints {
 
   // --------------- Child Status Data Endpoints -------------------
   static const String getDosageType = '$baseUrl/centers/dosage-type';
-  // --------------------------------------------------
-
-  // --------------- Child Statements Endpoints -------------------
-  static const String addChildStatements =
-      '$baseUrl/centers/child-statement/add-child-statement';
   // --------------------------------------------------
 
   // --------------- Reports Endpoints -------------------

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,8 +9,11 @@ import 'package:laqahy/models/mother_visit_data_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 
+
 class MotherVisitController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
+
+
 
   var motherStatement = [].obs;
   var filteredMotherStatement = [].obs;
@@ -23,7 +25,6 @@ class MotherVisitController extends GetxController {
   TextEditingController motherStatementSearchController =
       TextEditingController();
   GlobalKey<FormState> createMotherStatementFormKey = GlobalKey<FormState>();
-  GlobalKey<FormState> editMotherStatementDataFormKey = GlobalKey<FormState>();
 
   int? dosageLevelId;
 
@@ -50,7 +51,6 @@ class MotherVisitController extends GetxController {
           .contains(keyword.toLowerCase());
     }).toList();
   }
-
 
   Future<void> fetchMotherStatement() async {
     try {
@@ -88,12 +88,13 @@ class MotherVisitController extends GetxController {
     }
   }
 
-  Future<void> fetchAnyMotherStatement(int $dosageLevelId,int motherId) async {
+  Future<void> fetchAnyMotherStatement(int $dosageLevelId, int motherId) async {
     try {
       isLoading(true);
       motherStatementSearchController.clear();
       final response = await http.get(
-        Uri.parse('${ApiEndpoints.getAnyMotherStatementData}/$motherId/$dosageLevelId'),
+        Uri.parse(
+            '${ApiEndpoints.getAnyMotherStatementData}/$motherId/$dosageLevelId'),
         headers: {
           'content-Type': 'application/json',
         },
@@ -107,7 +108,6 @@ class MotherVisitController extends GetxController {
       } else if (response.statusCode == 500) {
         isLoading(false);
         ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
-        
       } else {
         isLoading(false);
         ApiExceptionWidgets()
@@ -153,6 +153,7 @@ class MotherVisitController extends GetxController {
         await fetchMotherStatement();
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
+        // printMotherStatementData(motherStatement);
         clearTextFields();
         isAddLoading(false);
 
@@ -210,4 +211,38 @@ class MotherVisitController extends GetxController {
       isDeleteLoading(false);
     }
   }
+
+  // Future<void> printMotherStatementData(motherStatement) async {
+  //   final pdf = pw.Document();
+
+  //   pdf.addPage(
+  //     pw.Page(
+  //       build: (pw.Context context) => pw.Column(
+  //         crossAxisAlignment: pw.CrossAxisAlignment.start,
+  //         children: [
+  //           pw.Text(
+  //               'Dosage Type: ${motherStatement.dosage_type ?? "غيـر معـروف"}'),
+  //           pw.SizedBox(height: 8),
+  //           pw.Text('Healthy Center: ${sdc.storageService.getCenterId()}'),
+  //           pw.SizedBox(height: 8),
+  //           pw.Text('User Name: ${sdc.userLoggedData.first.userName}'),
+  //           pw.SizedBox(height: 8),
+  //           pw.Text(
+  //               'Dosage Date: ${DateFormat('MMM d, yyyy').format(motherStatement.date_taking_dose!)}'),
+  //           pw.SizedBox(height: 8),
+  //           pw.Text(
+  //               'Return Date: ${DateFormat('MMM d, yyyy').format(motherStatement.return_date!)}'),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+
+  //   // Save the PDF document
+  //   final file = File('mother_statement.pdf');
+  //   await file.writeAsBytes(await pdf.save());
+
+  //   // Open the generated PDF file
+  //   await OpenFile.open('mother_statement.pdf');
+  // }
+
 }

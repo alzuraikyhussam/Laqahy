@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/visits_layout_controller.dart';
+import 'package:laqahy/controllers/state_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import '../../widgets/status/child_status_data.dart';
@@ -17,7 +17,7 @@ class StatesLayout extends StatefulWidget {
 }
 
 class _StatesLayoutState extends State<StatesLayout> {
-  VisitLayoutController vlc = Get.put(VisitLayoutController());
+  StateLayoutController slc = Get.put(StateLayoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +50,10 @@ class _StatesLayoutState extends State<StatesLayout> {
                     return Expanded(
                       child: InkWell(
                         onTap: () {
-                          vlc.onChangeVisit('m');
+                          slc.onChangedTapState('m');
                         },
                         child: Container(
-                          decoration: vlc.visitChange.value == 'm'
+                          decoration: slc.stateTapChange.value == 'm'
                               ? BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: MyColors.secondaryColor,
@@ -69,7 +69,7 @@ class _StatesLayoutState extends State<StatesLayout> {
                           child: Center(
                             child: Text(
                               'بيانات الأم',
-                              style: vlc.visitChange.value == 'm'
+                              style: slc.stateTapChange.value == 'm'
                                   ? MyTextStyles.font16WhiteBold
                                   : MyTextStyles.font16SecondaryBold,
                             ),
@@ -85,10 +85,10 @@ class _StatesLayoutState extends State<StatesLayout> {
                     return Expanded(
                       child: InkWell(
                         onTap: () {
-                          vlc.onChangeVisit('c');
+                          slc.onChangedTapState('c');
                         },
                         child: Container(
-                          decoration: vlc.visitChange.value == 'c'
+                          decoration: slc.stateTapChange.value == 'c'
                               ? BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: MyColors.secondaryColor,
@@ -104,7 +104,7 @@ class _StatesLayoutState extends State<StatesLayout> {
                           child: Center(
                             child: Text(
                               'بيانات الطفــل',
-                              style: vlc.visitChange.value == 'c'
+                              style: slc.stateTapChange.value == 'c'
                                   ? MyTextStyles.font16WhiteBold
                                   : MyTextStyles.font16SecondaryBold,
                             ),
@@ -120,9 +120,9 @@ class _StatesLayoutState extends State<StatesLayout> {
               height: 50,
             ),
             Obx(() {
-              return vlc.visitChange.value == 'm'
+              return slc.stateTapChange.value == 'm'
                   ? MotherStatusData()
-                  : vlc.visitChange.value == 'c'
+                  : slc.stateTapChange.value == 'c'
                       ? ChildStatusData()
                       : SizedBox();
             }),

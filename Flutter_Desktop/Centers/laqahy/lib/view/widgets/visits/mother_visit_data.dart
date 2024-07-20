@@ -194,6 +194,20 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                           label: Container(
                             alignment: AlignmentDirectional.center,
                             child: Text(
+                              'مرحلة الجرعة',
+                              style: MyTextStyles.font14WhiteBold,
+                            ),
+                          ),
+                          // onSort: (columnIndex, ascending) {
+                          //   uc.sort.value = ascending;
+                          //   uc.onSortColum(columnIndex, ascending);
+                          // },
+                          fixedWidth: 220,
+                        ),
+                        DataColumn2(
+                          label: Container(
+                            alignment: AlignmentDirectional.center,
+                            child: Text(
                               'نوع الجرعة',
                               style: MyTextStyles.font14WhiteBold,
                             ),

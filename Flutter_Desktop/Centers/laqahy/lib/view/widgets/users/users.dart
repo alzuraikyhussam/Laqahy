@@ -98,7 +98,7 @@ class _UsersScreenState extends State<UsersScreen> {
                       //   uc.sort.value = ascending;
                       //   uc.onSortColum(columnIndex, ascending);
                       // },
-                      fixedWidth: 220,
+                      fixedWidth: 150,
                     ),
                     DataColumn2(
                       label: Container(

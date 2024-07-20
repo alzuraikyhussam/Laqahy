@@ -240,12 +240,9 @@ Route::patch('offices/orders/reject-center-order/{id}', [OfficeOrderController::
 
 // --------------------- Report Routes ------------------------
 Route::get('offices/reports/centers-report/{office_id}', [ReportController::class, 'officeGenerateCentersReport']);
-
 Route::get('offices/reports/status-report', [ReportController::class, 'officeGenerateStatusReport']);
 Route::get('offices/reports/status-all-centers-report', [ReportController::class, 'officeGenerateStatusInAllCentersReport']);
-
 Route::get('offices/reports/vaccines-qty-report/{office_id}', [ReportController::class, 'officeGetVaccinesQtyReport']);
-
 Route::get('offices/reports/orders-all-report', [ReportController::class, 'officeGenerateAllOrdersReport']);
 Route::get('offices/reports/orders-vaccines-centers-report', [ReportController::class, 'officeGenerateAllVaccinesOfAllCentersOrdersReport']);
 Route::get('offices/reports/orders-states-centers-report', [ReportController::class, 'officeGenerateAllStatesOfAllCentersOrdersReport']);
@@ -294,6 +291,10 @@ Route::post('mobile/reset-password-verification', [ResetPasswordController::clas
 Route::get('centers/mother-data/date-range/{center_id}', [MotherDataController::class, 'centerGetDateRange']);
 Route::post('centers/mother-data/add-mother', [MotherDataController::class, 'store']);
 Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 'index']);
+Route::get('centers/mother-data/get-All-mother-data/{centerId}', [MotherDataController::class, 'showAllMothersStatusData']);
+Route::delete('centers/mother-data/delete-mother-status-data/{motherId}', [MotherDataController::class, 'destroy']);
+Route::patch('centers/mother-data/update-mother-status-data/{motherId}', [MotherDataController::class, 'update']);
+Route::get('centers/mother-data/print-mother-status-data/{identityNumber}', [MotherDataController::class, 'printMotherStatusData']);
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------
@@ -301,16 +302,20 @@ Route::get('centers/mother-statement/get-mother-statement', [MotherStatementCont
 Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
 Route::delete('centers/mother-statement/delete-mother-statement/{motherId}', [MotherStatementController::class, 'destroy']);
 Route::get('centers/mother-statement/get-any-mother-statement/{motherId}/{dosageLevelId}', [MotherStatementController::class, 'show']);
-
 // ------------------------------------------------------------
 
 // --------------------- Child Data Routes ------------------------
 Route::post('centers/child-data/add-child', [ChildDataController::class, 'store']);
 Route::get('centers/child-data/get-child/{motherId}', [ChildDataController::class, 'show']);
+Route::get('centers/child-data/get-all-children-status-data', [ChildDataController::class, 'getAllChildrenStatusData']);
+Route::delete('centers/child-data/delete-children-status-data/{childId}', [ChildDataController::class, 'destroy']);
+Route::patch('centers/child-data/update-children-status-data/{childId}', [ChildDataController::class, 'update']);
 // ------------------------------------------------------------
 
 // --------------------- Child Statement Routes ------------------------
+Route::get('centers/child-statement/get-child-statement-data', [ChildStatementController::class, 'getChildStatement']);
 Route::post('centers/child-statement/add-child-statement', [ChildStatementController::class, 'store']);
+Route::delete('centers/child-statement/delete-child-statement/{childId}', [ChildStatementController::class, 'destroy']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------

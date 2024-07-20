@@ -143,6 +143,8 @@ class MotherStatementController extends Controller
                 ], 404);
             }
 
+            
+
             $motherDeleteStatement->delete();
 
             return response()->json([

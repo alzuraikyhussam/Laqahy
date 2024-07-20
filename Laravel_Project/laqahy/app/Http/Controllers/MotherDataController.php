@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mother_data;
+use App\Models\Mother_statement;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -64,7 +65,7 @@ class MotherDataController extends Controller
                 ], 400);
             }
 
-            $motherDataExists = Mother_data::where('mother_name', $request->mother_name)->orWhere('mother_identity_num', $request->mother_identity_num)->exists();
+            $motherDataExists = Mother_data::where('mother_identity_num', $request->mother_identity_num)->exists();
 
             if ($motherDataExists) {
                 return response()->json([
@@ -85,9 +86,13 @@ class MotherDataController extends Controller
                 'healthy_center_id' => $request->healthy_center_id,
             ]);
 
+
+
             // Return created record
             return response()->json([
                 'message' => 'Mother created successfully',
+                'mother' => $mother,
+
             ], 201);
         } catch (Exception $e) {
             return response()->json([
@@ -116,17 +121,58 @@ class MotherDataController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $motherId)
     {
-        //
+        try {
+            $updateMother = Mother_data::find($motherId);
+
+            if (!$updateMother) {
+                return response()->json([
+                    'message' => 'Mother not found',
+                ], 404);
+            }
+            $updateMother->update($request->all());
+            return response()->json([
+                'message' => 'Mother updated successfully',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $motherId)
     {
-        //
+
+        try {
+            $motherStatement = Mother_statement::where('mother_data_id', $motherId)->first();
+
+            $deleteMother = Mother_data::find($motherId);
+            if (!$deleteMother) {
+                return response()->json([
+                    'message' => 'This Mother not found',
+                ], 404);
+            }
+
+            if ($motherStatement) {
+                $deleteMother->delete();
+                $motherStatement->delete();
+            }
+
+            $deleteMother->delete();
+
+            return response()->json([
+                'message' => 'Mother deleted successfully',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /////////////////////////// Ministry ///////////////////////////////////////
@@ -192,6 +238,35 @@ class MotherDataController extends Controller
                 'message' => 'Date range retrieved successfully',
                 'min_date' => $minDate,
                 'max_date' => $maxDate,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function showAllMothersStatusData(string $centerId)
+    {
+        try {
+            $mother = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->where('mother_data.healthy_center_id', $centerId)->get();
+            return response()->json([
+                'message' => 'Mothers retrieved successfully',
+                'data' => $mother,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    public function printMotherStatusData(string $identityNumber)
+    {
+        try {
+            $return_mother = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->where('mother_data.mother_identity_num',  $identityNumber)->get();
+            return response()->json([
+                'message' => 'Mothers retrieved successfully',
+                'data' => $return_mother,
             ]);
         } catch (Exception $e) {
             return response()->json([

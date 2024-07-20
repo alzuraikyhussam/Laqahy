@@ -13,11 +13,14 @@ import 'package:laqahy/services/api/api_exception_widgets.dart';
 class ChildVisitController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
   var childStatement = [].obs;
+  var filteredChildStatement = [].obs;
   var isLoading = true.obs;
   var isAddLoading = false.obs;
   var isUpdateLoading = false.obs;
   var isDeleteLoading = false.obs;
   PaginatorController tableController = PaginatorController();
+    TextEditingController childStatementSearchController =
+      TextEditingController();
   GlobalKey<FormState> createChildStatementDataFormKey = GlobalKey<FormState>();
   int? centerId;
 
@@ -25,6 +28,7 @@ class ChildVisitController extends GetxController {
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
     sdc.fetchMothers();
+    fetchChildrenStatement();
     sdc.fetchVisitType();
     super.onInit();
   }
@@ -37,6 +41,52 @@ class ChildVisitController extends GetxController {
     sdc.selectedChildDosageTypeId.value = null;
   }
 
+    void filterChildStatement(String keyword) {
+    filteredChildStatement.value = childStatement.where((childrenStatement) {
+      return childrenStatement.childName
+          .toString()
+          .toLowerCase()
+          .contains(keyword.toLowerCase());
+    }).toList();
+  }
+
+  Future<void> fetchChildrenStatement() async {
+    try {
+      isLoading(true);
+      childStatementSearchController.clear();
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getChildStatementData),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        childStatement.value =
+            jsonData.map((e) => ChildrenStatement.fromJson(e)).toList();
+        filteredChildStatement.value = childStatement;
+      } else if (response.statusCode == 500) {
+        isLoading(false);
+        ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
+        print(response.body);
+      } else {
+        isLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+        print(response.body);
+      }
+    } on SocketException catch (_) {
+      isLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+    } catch (e) {
+      isLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isLoading(false);
+    }
+  }
+
   Future<void> addChildrenStatement() async {
     int? centerID = await sdc.storageService.getCenterId();
     int? userID = await sdc.userLoggedData.first.userId;
@@ -45,7 +95,7 @@ class ChildVisitController extends GetxController {
     try {
       isAddLoading(true);
       final motherStatement = ChildrenStatement(
-        childDataId: sdc.selectedMothersId.value!,
+        childDataId: sdc.selectedChildsId.value!,
         healthyCenterId: centerID!,
         userId: userID!,
         dateTakingDose: date_taking_dose,
@@ -55,7 +105,7 @@ class ChildVisitController extends GetxController {
         vaccineTypeId: sdc.selectedVaccineType.value!,
       );
       var response = await http.post(
-        Uri.parse(ApiEndpoints.addChildStatements),
+        Uri.parse(ApiEndpoints.addChildStatementData),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -66,6 +116,7 @@ class ChildVisitController extends GetxController {
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         clearTextFields();
+        fetchChildrenStatement();
         isAddLoading(false);
 
         return;
@@ -91,4 +142,37 @@ class ChildVisitController extends GetxController {
       isAddLoading(false);
     }
   }
+
+  Future<void> deleteChildStatement(int childId) async {
+    isDeleteLoading(true);
+    try {
+      var request = await http
+          .delete(Uri.parse('${ApiEndpoints.deleteChildStatementData}/$childId'));
+
+      if (request.statusCode == 200) {
+        await fetchChildrenStatement();
+        Get.back();
+        ApiExceptionWidgets().myDeleteDataSuccessAlert();
+        isDeleteLoading(false);
+
+        return;
+      } else {
+        isDeleteLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(request.statusCode);
+        print(request.body);
+      }
+    } on SocketException catch (_) {
+      isDeleteLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isDeleteLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      return;
+    } finally {
+      isDeleteLoading(false);
+    }
+  }
+
 }

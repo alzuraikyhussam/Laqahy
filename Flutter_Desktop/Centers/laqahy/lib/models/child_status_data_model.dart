@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class Childs {
+class Children {
   int? id;
   String child_data_name;
   String child_data_birthplace;
@@ -11,7 +11,7 @@ class Childs {
   int gender_id;
 
 
-  Childs({
+  Children({
     required this.child_data_name,
     required this.child_data_birthplace,
     this.id,
@@ -22,16 +22,16 @@ class Childs {
     required this.gender_id,
   });
 
-  factory Childs.fromJson(Map<String, dynamic> json) {
-    return Childs(
+  factory Children.fromJson(Map<String, dynamic> json) {
+    return Children(
       id: json['id'],
       child_data_name: json['child_data_name'] ?? '',
       child_data_birthplace: json['child_data_birthplace'] ?? '',
       child_data_birthDate: json['child_data_birthDate'] != null
           ? DateTime.parse(json['child_data_birthDate'])
           : DateTime(1970, 1, 1), // default value if null
-      motherName: json['motherName'] ?? '',
-      genderType: json['genderType'] ?? '',
+      motherName: json['mother_name'] ?? '',
+      genderType: json['genders_type'] ?? '',
       mother_data_id: json['mother_data_id'] ?? 0,
       gender_id: json['gender_id'] ?? 0,
     );

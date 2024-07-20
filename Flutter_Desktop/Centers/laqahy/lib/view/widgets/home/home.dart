@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         'assets/images/error.json',
                         width: 100,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         maxLines: 2,
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       myButton(

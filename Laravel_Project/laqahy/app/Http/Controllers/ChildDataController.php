@@ -104,21 +104,54 @@ class ChildDataController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $childId)
     {
-        //
+        try {
+            $updateChild = Child_data::find($childId);
+
+            if (!$updateChild) {
+                return response()->json([
+                    'message' => 'Mother not found',
+                ], 404);
+            }
+            $updateChild->update($request->all());
+            return response()->json([
+                'message' => 'Mother updated successfully',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $childId)
     {
-        //
+        try {
+            $deleteChild = Child_data::find($childId);
+            if (!$deleteChild) {
+                return response()->json([
+                    'message' => 'This Mother not found',
+                ], 404);
+            }
+
+            $deleteChild->delete();
+
+            return response()->json([
+                'message' => 'Mother deleted successfully',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
-    public function getChildren($mother_id) {
-
+    public function getChildren($mother_id)
+    {
         try {
             $childData = Child_data::where('mother_data_id', $mother_id)->get();
             return response()->json([
@@ -130,8 +163,20 @@ class ChildDataController extends Controller
                 'message' => $e->getMessage(),
             ], 500);
         }
+    }
 
-
-
+    public function getAllChildrenStatusData()
+    {
+        try {
+            $childData = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')->get();
+            return response()->json([
+                'message' => 'Child Data retrieved successfully',
+                'data' => $childData,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

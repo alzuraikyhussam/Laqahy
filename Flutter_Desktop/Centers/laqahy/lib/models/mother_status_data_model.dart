@@ -42,9 +42,9 @@ class Mothers {
           ? DateTime.parse(json['mother_birthDate'])
           : DateTime(1970, 1, 1), // default value if null
       mother_identity_num: json['mother_identity_num'] ?? '',
-      cityName: json['cityName'] ?? '',
+      cityName: json['city_name'] ?? '',
       healthyCenterName: json['healthyCenterName'] ?? '',
-      directorateName: json['directorateName'] ?? '',
+      directorateName: json['directorate_name'] ?? '',
       cities_id: json['cities_id'] ?? 0,
       directorate_id: json['directorate_id'] ?? 0,
       healthy_center_id: json['healthy_center_id'] ?? 0,
