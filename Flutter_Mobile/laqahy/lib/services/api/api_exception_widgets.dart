@@ -41,7 +41,7 @@ class ApiExceptionWidgets {
     await Get.closeCurrentSnackbar();
 
     Get.snackbar(
-      'البيانات غير صحيحه',
+      'البيانات غير صحيحة',
       'يرجى التحقق من ادخال البيانات بشكل صحيح',
       snackPosition: SnackPosition.TOP,
       duration: const Duration(seconds: 10),

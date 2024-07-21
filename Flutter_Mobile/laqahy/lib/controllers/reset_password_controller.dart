@@ -4,12 +4,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
-import 'package:laqahy/view/screens/login.dart';
+import 'package:laqahy/view/screens/login/login.dart';
 import 'package:laqahy/view/screens/reset_password.dart';
+import 'package:laqahy/view/widgets/basic_widgets/api_erxception_alert.dart';
+import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class ResetPasswordController extends GetxController {
   var isLoading = false.obs;
@@ -138,13 +141,25 @@ class ResetPasswordController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        Get.offAll(
-          () => const LoginScreen(),
-        );
-
         isLoading(false);
 
-        Get.delete<ResetPasswordController>();
+        myShowDialog(
+          context: Get.context!,
+          widgetName: ApiExceptionAlert(
+            title: 'تمت العملية بنجاح',
+            description: 'لقد تمت عملبة اعادة تعيين كلمة المرور بنجاح',
+            backgroundColor: MyColors.primaryColor,
+            height: 280,
+            imageUrl: 'assets/images/success.json',
+            onPressed: () {
+              Get.offAll(
+                () => const LoginScreen(),
+              );
+
+              Get.delete<ResetPasswordController>();
+            },
+          ),
+        );
 
         return;
       } else {

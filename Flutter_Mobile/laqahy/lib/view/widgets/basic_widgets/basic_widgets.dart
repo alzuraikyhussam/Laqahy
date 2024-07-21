@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
@@ -991,17 +992,24 @@ myProfileListTile({
             ),
             borderRadius: BorderRadius.circular(5),
           ),
-          child: Text(
-            label,
-            style: MyTextStyles.font14WhiteBold,
+          child: Expanded(
+            child: Text(
+              label,
+              style: MyTextStyles.font14WhiteBold,
+            ),
           ),
         ),
         const SizedBox(
           width: 15,
         ),
-        Text(
-          value,
-          style: style ?? MyTextStyles.font16BlackBold,
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(
+              value,
+              style: style ?? MyTextStyles.font16BlackBold,
+            ),
+          ),
         ),
       ],
     ),
