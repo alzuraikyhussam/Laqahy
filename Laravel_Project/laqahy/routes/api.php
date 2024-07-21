@@ -280,6 +280,7 @@ Route::get('mobile/child-data/get-child-data/{mother_id}', [ChildDataController:
 
 // --------------------- Reset Password Routes ------------------------
 Route::post('mobile/reset-password-verification', [ResetPasswordController::class, 'mobileVerifyResetPassword']);
+Route::patch('mobile/reset-password', [ResetPasswordController::class, 'mobileResetPassword']);
 // ------------------------------------------------------------
 
 

@@ -5,7 +5,7 @@ import 'package:laqahy/controllers/login_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 
-import 'package:laqahy/view/screens/reset_password.dart';
+import 'package:laqahy/view/screens/reset_password_verification.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: myTextButton(
                             text: 'نسيت كلمة المرور؟',
                             onPressed: () {
-                              Get.to(const ResetPassword());
+                              Get.to(const ResetPasswordVerification());
                             },
                           ),
                         ),
@@ -103,25 +103,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Row(
                           children: [
-                            Expanded(child: Obx(
-                              () {
-                                return lc.isLoading.value
-                                    ? myLoadingIndicator()
-                                    : myButton(
-                                        onPressed: lc.isLoading.value
-                                            ? null
-                                            : () {
-                                                if (lc
-                                                    .loginFormKey.currentState!
-                                                    .validate()) {
-                                                  lc.login();
-                                                }
-                                              },
-                                        text: 'تسجيل دخول',
-                                        textStyle: MyTextStyles.font14WhiteBold,
-                                      );
-                              },
-                            )),
+                            Expanded(
+                              child: Obx(
+                                () {
+                                  return lc.isLoading.value
+                                      ? myLoadingIndicator()
+                                      : myButton(
+                                          onPressed: lc.isLoading.value
+                                              ? null
+                                              : () {
+                                                  if (lc.loginFormKey
+                                                      .currentState!
+                                                      .validate()) {
+                                                    lc.login();
+                                                  }
+                                                },
+                                          text: 'تسجيل دخول',
+                                          textStyle:
+                                              MyTextStyles.font14WhiteBold,
+                                        );
+                                },
+                              ),
+                            ),
                             const SizedBox(
                               width: 15,
                             ),

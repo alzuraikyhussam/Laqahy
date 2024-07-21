@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/reset_password_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/login.dart';
+import 'package:laqahy/view/screens/reset_password_verification.dart';
+
+import '../../core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class ResetPassword extends StatefulWidget {
-  const ResetPassword({super.key});
+  ResetPassword({super.key, required this.motherId});
+
+  int motherId;
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
@@ -40,46 +46,62 @@ class _ResetPasswordState extends State<ResetPassword> {
           shrinkWrap: true,
           children: [
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(20),
               child: Form(
+                key: rpc.resetPasswordFormKey,
                 child: Column(
-                  key: rpc.resetPasswordFormKey,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'نسيت كلمة المرور',
+                      'تغيير كلمة المرور',
                       style: MyTextStyles.font18BlackBold,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 10,
                     ),
                     Text(
-                      'قم بإدخال رقم هاتفك  وسوف يتم إرسال كود التأكيد الى هاتفك .',
+                      ' قم بأدخال كلمة مرور جديدة لحسابك',
                       style: MyTextStyles.font16GreyMedium,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 30,
                     ),
-                    myTextField(
-                      controller: rpc.phoneNumberController,
-                      validator: rpc.phoneNumberValidator,
-                      labelText: 'أدخل رقم الهاتف ',
-                      prefixIcon: Icons.phone_enabled_outlined,
-                      keyboardType: TextInputType.number,
-                      onChanged: (p0) {},
-                    ),
-                    const SizedBox(
+                    Obx(() {
+                      return myTextField(
+                          controller: rpc.passwordController,
+                          validator: rpc.passwordValidator,
+                          labelText: 'ادخل كلمة المرور الجديدة',
+                          prefixIcon: Icons.password_outlined,
+                          suffixIcon: rpc.isVisible.value
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: rpc.isVisible.value ? false : true,
+                          onChanged: (p0) {},
+                          onTapSuffixIcon: () {
+                            rpc.changePasswordVisibility();
+                          });
+                    }),
+                    SizedBox(
                       height: 15,
                     ),
-                    myTextField(
-                      controller: rpc.idNumberController,
-                      validator: rpc.idNumberValidator,
-                      labelText: 'أدخل الرقم الوطني ',
-                      prefixIcon: Icons.perm_identity_outlined,
-                      keyboardType: TextInputType.number,
-                      onChanged: (p0) {},
-                    ),
+                    Obx(() {
+                      return myTextField(
+                          controller: rpc.passwordController2,
+                          validator: rpc.passwordValidator2,
+                          labelText: 'أعد ادخال كلمة المرور',
+                          prefixIcon: Icons.password_outlined,
+                          suffixIcon: rpc.isVisible2.value
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: rpc.isVisible2.value ? false : true,
+                          onChanged: (p0) {},
+                          onTapSuffixIcon: () {
+                            rpc.changePasswordVisibility2();
+                          });
+                    }),
                     const SizedBox(
                       height: 15,
                     ),
@@ -97,10 +119,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                                               if (rpc.resetPasswordFormKey
                                                   .currentState!
                                                   .validate()) {
-                                                rpc.resetPassword();
+                                                rpc.resetPassword(motherId: widget.motherId);
                                               }
                                             },
-                                      text: 'اعاده تعيين كلمة المرور',
+                                      text: 'اعادة تعيين كلمة المرور',
                                       textStyle: MyTextStyles.font14WhiteBold,
                                     );
                             },

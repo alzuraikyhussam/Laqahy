@@ -1,6 +1,5 @@
 class ApiEndpoints {
   // *********************************************
-  // static const String baseUrl = 'http://192.168.1.104:8000/api';
   static const String baseUrl = 'http://10.0.2.2:8000/api';
   // *********************************************
 
@@ -40,7 +39,8 @@ class ApiEndpoints {
   // --------------------------------------------------
 
   // --------------- Reset Password Endpoints -------------------
-  static const String resetPassword =
+  static const String resetPasswordVerify =
       '$baseUrl/mobile/reset-password-verification';
+  static const String resetPassword = '$baseUrl/mobile/reset-password';
   // --------------------------------------------------
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/screens/reset_password.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class CreateNewPasswordScreen extends StatefulWidget {

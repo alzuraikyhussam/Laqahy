@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/firebase_options.dart';
 import 'package:laqahy/services/firebase/firebase_api.dart';
-import 'package:laqahy/view/screens/notifications/notifications.dart';
-import 'package:laqahy/view/screens/profile/profile.dart';
 
 import 'package:laqahy/view/screens/splash_screen/splash_screen.dart';
 
