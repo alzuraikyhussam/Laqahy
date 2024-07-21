@@ -25,6 +25,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
 
   // MotherVisitController mvc = Get.put(MotherVisitController());
   HomeLayoutController hlc = Get.put(HomeLayoutController());
+<<<<<<< Updated upstream
   StateLayoutController slc = Get.put(StateLayoutController());
 
   @override
@@ -116,6 +117,31 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                         ],
                       ),
                     ],
+=======
+  MotherStatusDataController mc = Get.put(MotherStatusDataController());
+
+  @override
+  void initState() {
+    mc.clearTextFields();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: mc.createMotherStatusDataFormKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'الاسم الرباعي',
+                    style: MyTextStyles.font16BlackBold,
+>>>>>>> Stashed changes
                   ),
                   const SizedBox(
                     height: 20,
@@ -197,6 +223,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                   const SizedBox(
                     height: 20,
                   ),
+<<<<<<< Updated upstream
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -225,6 +252,13 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                   myCheckBox(
                     width: 200,
 <<<<<<< Updated upstream
+=======
+                  myTextField(
+                    controller: mc.identityNumberController,
+                    validator: mc.identityNumberValidator,
+                    prefixIcon: Icons.numbers,
+                    width: 250,
+>>>>>>> Stashed changes
                     hintText: 'الرقم الوطني',
                     keyboardType: TextInputType.text,
                     readOnly: false,
@@ -239,7 +273,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'رقم الهاتف',
+                    'رقم الجوال',
                     style: MyTextStyles.font16BlackBold,
                   ),
                   const SizedBox(
@@ -248,9 +282,9 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                   myTextField(
                     controller: mc.phoneNumberController,
                     validator: mc.phoneNumberValidator,
-                    prefixIcon: Icons.phone_enabled_outlined,
+                    prefixIcon: Icons.phone_android_outlined,
                     width: 200,
-                    hintText: 'رقم الهاتف',
+                    hintText: 'رقم الجوال',
                     keyboardType: TextInputType.text,
                     readOnly: false,
                     onChanged: (value) {},
@@ -316,6 +350,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                   })
                 ],
               ),
+<<<<<<< Updated upstream
             ),
             const SizedBox(
               height: 20,
@@ -329,11 +364,55 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                       child: myLoadingIndicator(),
                     ),
 <<<<<<< Updated upstream
+=======
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'تاريخ الميلاد',
+                    style: MyTextStyles.font16BlackBold,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  myTextField(
+                    validator: mc.birthDateValidator,
+                    controller: mc.birthDateController,
+                    hintText: 'تاريــخ الميـلاد',
+                    prefixIcon: Icons.date_range_outlined,
+                    keyboardType: TextInputType.text,
+                    readOnly: true,
+                    width: 250,
+                    onTap: () {
+                      showDatePicker(
+                              context: context,
+                              firstDate: DateTime(1950),
+                              lastDate: DateTime.now())
+                          .then(
+                        (value) {
+                          if (value == null) {
+                            return;
+                          } else {
+                            mc.birthDateController.text =
+                                DateFormat.yMMMd().format(value);
+                          }
+                        },
+                      );
+                    },
+                    onChanged: (value) {},
+>>>>>>> Stashed changes
                   )
                 ],
               ),
               const SizedBox(
-                width: 25,
+                width: 20,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -343,13 +422,13 @@ class _MotherStatusDataState extends State<MotherStatusData> {
                     style: MyTextStyles.font16BlackBold,
                   ),
                   const SizedBox(
-                    height: 3,
+                    height: 10,
                   ),
                   Constants().citiesDropdownMenu(),
                 ],
               ),
               const SizedBox(
-                width: 25,
+                width: 20,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -382,7 +461,7 @@ class _MotherStatusDataState extends State<MotherStatusData> {
               myTextField(
                 controller: mc.villageController,
                 validator: mc.villageValidator,
-                prefixIcon: Icons.not_listed_location,
+                prefixIcon: Icons.location_history_outlined,
                 width: 300,
                 hintText: 'العزلة / القرية',
                 keyboardType: TextInputType.text,
@@ -412,9 +491,10 @@ class _MotherStatusDataState extends State<MotherStatusData> {
             text: 'هـل لـديـك طـفـل؟',
           ),
           const SizedBox(
-            height: 25,
+            height: 20,
           ),
           Obx(() {
+<<<<<<< Updated upstream
               if(isChecked)
               {
                 if (mc.isAddLoading.value) {
@@ -567,6 +647,45 @@ class _MotherStatusDataState extends State<MotherStatusData> {
             ),
           ],
         ),
+=======
+            if (isChecked) {
+              if (mc.isAddLoading.value) {
+                return myLoadingIndicator();
+              } else {
+                return myButton(
+                    width: 150,
+                    onPressed: mc.isAddLoading.value
+                        ? null
+                        : () {
+                            if (mc.createMotherStatusDataFormKey.currentState!
+                                .validate()) {
+                              mc.addMotherStatusData();
+                            }
+                          },
+                    text: 'اضــافة',
+                    textStyle: MyTextStyles.font16WhiteBold);
+              }
+            } else {
+              if (mc.isAddLoading.value) {
+                return myLoadingIndicator();
+              } else {
+                return myButton(
+                    width: 150,
+                    onPressed: mc.isAddLoading.value
+                        ? null
+                        : () {
+                            if (mc.createMotherStatusDataFormKey.currentState!
+                                .validate()) {
+                              mc.addMotherStatusData();
+                            }
+                          },
+                    text: 'اضــافة',
+                    textStyle: MyTextStyles.font16WhiteBold);
+              }
+            }
+          })
+        ],
+>>>>>>> Stashed changes
       ),
     );
   }

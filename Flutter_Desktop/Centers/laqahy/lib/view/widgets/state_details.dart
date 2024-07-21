@@ -194,7 +194,7 @@ class StateDetails extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                '  رقم الهاتف :',
+                                ' رقم الجوال :',
                                 style: MyTextStyles.font14BlackBold,
                               ),
                               const SizedBox(

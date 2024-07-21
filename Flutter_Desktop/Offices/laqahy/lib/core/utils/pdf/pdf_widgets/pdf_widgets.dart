@@ -162,7 +162,7 @@ class PDFWidgets {
                 ),
                 pw.SizedBox(height: 5),
                 pw.Text(
-                  'هاتف : $officeData',
+                  'هاتف : ${officeData.first.phone}',
                   style: headerTextStyle,
                 ),
               ],

@@ -23,7 +23,7 @@ class CreateAccountVerificationController extends GetxController {
     if (value.trim().isEmpty) {
       return 'يجب ادخال كود التحقق';
     } else if (!GetUtils.isLengthGreaterOrEqual(value, 8)) {
-      return 'يجب ألا يقل عن 8 ارقام وحروف';
+      return 'يجب ألا يقل عن 8 ارقام او حروف';
     } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
       return 'يجب ألا يحتوي على رموز او أحرف عربية';
     }

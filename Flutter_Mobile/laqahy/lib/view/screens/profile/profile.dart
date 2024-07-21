@@ -35,19 +35,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             SizedBox(
               width: Get.width,
-              height: 260,
+              height: 280,
               child: Stack(
                 children: [
                   SizedBox(
                     width: Get.width,
-                    height: 220,
+                    height: 250,
                     child: Image.asset(
                       'assets/images/curve.png',
                       fit: BoxFit.cover,
                     ),
                   ),
                   Positioned(
-                    top: 50,
+                    top: 45,
                     child: Container(
                       padding: const EdgeInsetsDirectional.all(15),
                       child: Column(
@@ -75,6 +75,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             sdc.userLoggedData.first.user.motherName ??
                                 'مجهول الهوية',
                             style: MyTextStyles.font16WhiteBold,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            'الرقم الوطني: ${sdc.userLoggedData.first.user.identityNum}',
+                            style: MyTextStyles.font14WhiteMedium,
                           ),
                         ],
                       ),

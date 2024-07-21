@@ -64,7 +64,7 @@ class ChildStatementController extends Controller
             } elseif ($diff->m >= 1) {
                 $age = 'شهر و ' . $diff->d . ' يوم';
             } else {
-                $age = $diff->days . ' يوم';
+                $age = $diff->days . 'يوم';
             }
 
             // Transform vaccine dosage details array to match the expected structure

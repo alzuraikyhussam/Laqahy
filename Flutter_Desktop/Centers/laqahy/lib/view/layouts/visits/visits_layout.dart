@@ -20,6 +20,12 @@ class _VisitsLayoutState extends State<VisitsLayout> {
   VisitLayoutController vlc = Get.put(VisitLayoutController());
 
   @override
+  void initState() {
+    vlc.onChangeVisit('m');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [

@@ -1,21 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
-import 'package:laqahy/core/pdf/pdf_widgets/pdf_widgets.dart';
+import 'package:laqahy/core/utils/pdf/pdf_widgets/pdf_widgets.dart';
+import 'package:laqahy/models/center_order_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class StatesPdfGenerator {
+class OrdersPdfGenerator {
   StaticDataController sdc = Get.find<StaticDataController>();
+  final List<CenterOrder> data;
   String? managerName;
-  final List<List<dynamic>> data;
   String? reportName;
-  final List tableHeader;
 
-  StatesPdfGenerator({
+  int serialNum = 0;
+
+  OrdersPdfGenerator({
     required this.data,
-    required this.tableHeader,
     required this.managerName,
     required this.reportName,
   });
@@ -57,8 +59,34 @@ class StatesPdfGenerator {
         ),
         pw.SizedBox(height: 20),
         pw.TableHelper.fromTextArray(
-          headers: tableHeader,
-          data: data,
+          headers: [
+            'تاريخ التسليم',
+            'تاريخ الطلب',
+            'حالة الطلب',
+            'الكمية',
+            'اسم اللقاح',
+            'اسم المركز',
+            'م',
+          ],
+          data: data
+              .map(
+                (data) => [
+                  data.deliveryDate == null
+                      ? ''
+                      : DateFormat('dd-MM-yyyy HH:mm')
+                          .format(data.deliveryDate!),
+                  data.orderDate == null
+                      ? ''
+                      : DateFormat('dd-MM-yyyy HH:mm').format(data.orderDate!),
+                  data.orderStateName,
+                  data.quantity,
+                  data.vaccineType,
+                  data.centerName,
+                  // data.id,
+                  serialNum += 1,
+                ],
+              )
+              .toList(),
           headerStyle: tableHeaderTextStyle,
           cellStyle: tableBodyTextStyle,
           headerDecoration: const pw.BoxDecoration(
@@ -145,7 +173,7 @@ class StatesPdfGenerator {
     );
 
     await pdfWidgets.savePdfDocument(
-      fileName: 'states_report.pdf',
+      fileName: 'orders_report.pdf',
       pdf: pdf,
     );
   }
