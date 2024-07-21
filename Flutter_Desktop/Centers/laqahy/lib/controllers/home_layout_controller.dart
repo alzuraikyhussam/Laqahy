@@ -37,9 +37,6 @@ class HomeLayoutController extends GetxController {
         if (Get.isRegistered<ReportController>()) {
           Get.delete<ReportController>();
         }
-        if (Get.isRegistered<MotherStatusDataController>()) {
-          Get.delete<MotherStatusDataController>();
-        }
         if (Get.isRegistered<MotherVisitController>()) {
           Get.delete<MotherVisitController>();
         }
@@ -52,11 +49,11 @@ class HomeLayoutController extends GetxController {
         if (Get.isRegistered<ChildVisitController>()) {
           Get.delete<ChildVisitController>();
         }
-        if (Get.isRegistered<ChildStatusDataController>()) {
-          Get.delete<ChildStatusDataController>();
-        }
         if (Get.isRegistered<VaccineController>()) {
           Get.delete<VaccineController>();
+        }
+        if (Get.isRegistered<TechnicalSupportController>()) {
+          Get.delete<TechnicalSupportController>();
         }
         if (Get.isRegistered<TechnicalSupportController>()) {
           Get.delete<TechnicalSupportController>();

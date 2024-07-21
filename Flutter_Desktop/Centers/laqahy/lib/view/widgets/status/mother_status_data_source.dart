@@ -132,8 +132,8 @@ class MotherStatusDataSource extends DataTableSource {
               myIconButton(
                 icon: Icons.delete,
                 onTap: () {
+                  
                   // Constants().playErrorSound();
-
                   myShowDialog(
                       context: Get.context!,
                       widgetName: DeleteMotherStatusConfirm(
@@ -151,8 +151,8 @@ class MotherStatusDataSource extends DataTableSource {
                 icon: Icons.print,
                 onTap: () async {
                   // Constants().playErrorSound();
-                  final  List  data;
-                  print(myData[index]);
+                  // final  List  data;
+                  // print(myData[index]);
                   // MotherStatusDataPdfGenerator mpg =
                   //     MotherStatusDataPdfGenerator(
                   //         data: myData[index], reportName: 'بيانات الحالة');

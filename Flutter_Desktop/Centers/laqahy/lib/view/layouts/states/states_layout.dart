@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/state_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
+import 'package:laqahy/view/widgets/status/mothers_status.dart';
 import '../../widgets/status/child_status_data.dart';
 import '../../widgets/status/mother_status_data.dart';
 
@@ -21,7 +22,7 @@ class _StatesLayoutState extends State<StatesLayout> {
 
   @override
   void initState() {
-    vlc.onChangeVisit('m');
+    slc.onChangedTapState('m');
     super.initState();
   }
 
@@ -123,11 +124,11 @@ class _StatesLayoutState extends State<StatesLayout> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             Obx(() {
               return slc.stateTapChange.value == 'm'
-                  ? MotherStatusData()
+                  ? MotherStatusScreen()
                   : slc.stateTapChange.value == 'c'
                       ? ChildStatusData()
                       : SizedBox();

@@ -21,7 +21,7 @@ class _VisitsLayoutState extends State<VisitsLayout> {
 
   @override
   void initState() {
-    vlc.onChangeVisit('m');
+    vlc.onChangedTapVisit('m');
     super.initState();
   }
 

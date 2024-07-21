@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
-import 'package:laqahy/core/pdf/mother_status_data_pdf_generator.dart';
+import 'package:laqahy/core/utils/pdf/mother_status_data_pdf_generator.dart';
 import 'package:laqahy/models/mother_status_data_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
@@ -80,33 +80,6 @@ class MotherStatusDataController extends GetxController {
     return null;
   }
 
-  //////////
-  // TextEditingController userNameController = TextEditingController();
-  // String? userNameValidator(value) {
-  //   if (value.trim().isEmpty) {
-  //     return 'يجب ادخال اسم المستخدم';
-  //   } else if (!GetUtils.isUsername(value)) {
-  //     return 'يجب ادخال اسم مستخدم صالح';
-  //   }
-  //   return null;
-  // }
-
-  //////////
-  // TextEditingController passwordController = TextEditingController();
-  // String? passwordValidator(value) {
-  //   if (value.isEmpty) {
-  //     return 'يجب ادخال كلمة المرور';
-  //   } else if (value.length < 8) {
-  //     return 'يجب ألا تقل عن 8 أحرف';
-  //   } else if (!RegExp(
-  //           r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$')
-  //       .hasMatch(value)) {
-  //     // Check for at least one uppercase letter, one lowercase letter, one digit, and one special character
-  //     return 'يجب أن تحتوي على أحرف كبيرة\n وصغيرة وأرقام ورموز';
-  //   }
-  //   return null;
-  // }
-  //////////
 
   void clearTextFields() {
     nameController.clear();
@@ -244,8 +217,39 @@ class MotherStatusDataController extends GetxController {
       isAddLoading(false);
     }
   }
-<<<<<<< Updated upstream
-=======
+
+  Future<void> deleteMotherStatusData(int motherId) async {
+    isDeleteLoading(true);
+    try {
+      var request = await http.delete(
+          Uri.parse('${ApiEndpoints.deleteMotherStatusData}/$motherId'));
+
+      if (request.statusCode == 200) {
+        await fetchAllMothersStatusData(centerId!);
+        Get.back();
+        ApiExceptionWidgets().myDeleteDataSuccessAlert();
+        isDeleteLoading(false);
+
+        return;
+      } else {
+        isDeleteLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(request.statusCode);
+        print(request.body);
+      }
+    } on SocketException catch (_) {
+      isDeleteLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+      return;
+    } catch (e) {
+      isDeleteLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      return;
+    } finally {
+      isDeleteLoading(false);
+    }
+  }
+
 
   Future<void> updateMotherStatusData(
     var motherId,
@@ -288,7 +292,7 @@ class MotherStatusDataController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        await fetchAllMothersStatusData(centerId!);
+        // await fetchAllMothersStatusData(centerId!);
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
         sdc.fetchMothers();
@@ -318,37 +322,6 @@ class MotherStatusDataController extends GetxController {
     }
   }
 
-  Future<void> deleteMotherStatusData(int motherId) async {
-    isDeleteLoading(true);
-    try {
-      var request = await http.delete(
-          Uri.parse('${ApiEndpoints.deleteMotherStatusData}/$motherId'));
-
-      if (request.statusCode == 200) {
-        await fetchAllMothersStatusData(centerId!);
-        Get.back();
-        ApiExceptionWidgets().myDeleteDataSuccessAlert();
-        isDeleteLoading(false);
-
-        return;
-      } else {
-        isDeleteLoading(false);
-        ApiExceptionWidgets()
-            .myAccessDatabaseExceptionAlert(request.statusCode);
-        print(request.body);
-      }
-    } on SocketException catch (_) {
-      isDeleteLoading(false);
-      ApiExceptionWidgets().mySocketExceptionAlert();
-      return;
-    } catch (e) {
-      isDeleteLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
-      return;
-    } finally {
-      isDeleteLoading(false);
-    }
-  }
 
   Future<void> printMotherStatusData(String identityNumber) async {
     try {
@@ -386,5 +359,4 @@ class MotherStatusDataController extends GetxController {
       isLoading(false);
     }
   }
->>>>>>> Stashed changes
 }
