@@ -25,6 +25,12 @@ class _ChildStatusDataState extends State<ChildStatusData> {
   HomeLayoutController hlc = Get.put(HomeLayoutController());
 
   @override
+  void initState() {
+    csc.clearTextFields();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
@@ -55,14 +61,18 @@ class _ChildStatusDataState extends State<ChildStatusData> {
 >>>>>>> Stashed changes
                   ),
                   const SizedBox(
+<<<<<<< Updated upstream
                     width: 25,
+=======
+                    height: 10,
+>>>>>>> Stashed changes
                   ),
 <<<<<<< Updated upstream
                   Constants().mothersDropdownMenu(),
                 ],
               ),
               const SizedBox(
-                width: 25,
+                width: 20,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,10 +149,15 @@ class _ChildStatusDataState extends State<ChildStatusData> {
                 ],
               ),
               const SizedBox(
+<<<<<<< Updated upstream
                 height: 20,
+=======
+                width: 20,
+>>>>>>> Stashed changes
               ),
               Row(
                 children: [
+<<<<<<< Updated upstream
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -221,6 +236,55 @@ class _ChildStatusDataState extends State<ChildStatusData> {
                       ),
                       Constants().gendersDropdownMenu(),
                     ],
+=======
+                  Text(
+                    'تاريخ الميلاد',
+                    style: MyTextStyles.font16BlackBold,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  myTextField(
+                    validator: csc.birthDateValidator,
+                    controller: csc.birthDateController,
+                    hintText: 'تاريــخ الميـلاد',
+                    prefixIcon: Icons.date_range_outlined,
+                    keyboardType: TextInputType.text,
+                    readOnly: true,
+                    width: 250,
+                    onTap: () {
+                      showDatePicker(
+                              context: context,
+                              firstDate: DateTime(1950),
+                              lastDate: DateTime.now())
+                          .then(
+                        (value) {
+                          if (value == null) {
+                            return;
+                          } else {
+                            csc.birthDateController.text =
+                                DateFormat.yMMMd().format(value);
+                          }
+                        },
+                      );
+                    },
+                    onChanged: (value) {},
+                  )
+                ],
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'الـجـنـس',
+                    style: MyTextStyles.font16BlackBold,
+                  ),
+                  const SizedBox(
+                    height: 10,
+>>>>>>> Stashed changes
                   ),
                 ],
               ),
@@ -392,8 +456,67 @@ class _ChildStatusDataState extends State<ChildStatusData> {
               
             ],
           ),
+<<<<<<< Updated upstream
         ),
       
+=======
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'الـمـحافـظة',
+                    style: MyTextStyles.font16BlackBold,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Constants().citiesDropdownMenu(),
+                ],
+              ),
+              const SizedBox(
+                width: 25,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'الـمـديريـة',
+                    style: MyTextStyles.font16BlackBold,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Constants().directoratesDropdownMenu(),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Obx(() {
+            return csc.isAddLoading.value
+                ? myLoadingIndicator()
+                : myButton(
+                    width: 150,
+                    onPressed: csc.isAddLoading.value
+                        ? null
+                        : () {
+                            if (csc.createChildStatusDataFormKey.currentState!
+                                .validate()) {
+                              csc.addChildStatusData();
+                            }
+                          },
+                    text: 'اضــافة',
+                    textStyle: MyTextStyles.font16WhiteBold);
+          }),
+        ],
+>>>>>>> Stashed changes
       ),
     );
   }

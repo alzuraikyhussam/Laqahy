@@ -58,7 +58,7 @@ class SettingsController extends GetxController {
             description:
                 'عذراً، هذه الميزة غير متوفرة حالياً وسيتم تفعيلها قريباً في الإصدارات القادمة',
             backgroundColor: MyColors.primaryColor,
-            height: 320,
+            height: 300,
             imageUrl: 'assets/images/warning.json',
           ),
         );
@@ -78,9 +78,7 @@ class SettingsController extends GetxController {
       ),
       label: 'الوضع المظلم',
       suffix: mySwitchButton(),
-      onTap: () {
-        Get.offAll(() => const LoginScreen());
-      },
+      onTap: () {},
     ),
     SettingsListItem(
       prefix: Container(

@@ -26,6 +26,12 @@ class _ChildVisitDataState extends State<ChildVisitData> {
   HomeLayoutController hlc = Get.put(HomeLayoutController());
   ChildVisitController cvc = Get.put(ChildVisitController());
 
+    @override
+  void initState() {
+    cvc.clearTextFields();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(

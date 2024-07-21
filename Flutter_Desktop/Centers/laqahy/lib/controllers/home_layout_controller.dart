@@ -43,6 +43,12 @@ class HomeLayoutController extends GetxController {
         if (Get.isRegistered<MotherVisitController>()) {
           Get.delete<MotherVisitController>();
         }
+        if (Get.isRegistered<MotherStatusDataController>()) {
+          Get.delete<MotherStatusDataController>();
+        }
+        if (Get.isRegistered<ChildStatusDataController>()) {
+          Get.delete<ChildStatusDataController>();
+        }
         if (Get.isRegistered<ChildVisitController>()) {
           Get.delete<ChildVisitController>();
         }

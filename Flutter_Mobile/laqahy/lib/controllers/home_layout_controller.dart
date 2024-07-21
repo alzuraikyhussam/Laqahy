@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class HomeLayoutController extends GetxController {
   List<TabItem> items = [
     const TabItem(
-      icon: Icons.home,
+      icon: Icons.home_outlined,
       title: 'الرئيسية',
     ),
     const TabItem(

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
-import 'package:laqahy/core/pdf/pdf_widgets/pdf_widgets.dart';
+import 'package:laqahy/core/utils/pdf/pdf_widgets/pdf_widgets.dart';
 import 'package:laqahy/models/vaccine_quantity_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;

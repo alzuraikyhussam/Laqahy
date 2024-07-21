@@ -49,7 +49,7 @@ class MotherStatusDataController extends GetxController {
   TextEditingController phoneNumberController = TextEditingController();
   String? phoneNumberValidator(value) {
     if (value.trim().isEmpty) {
-      return 'يجب ادخال رقم الهاتف ';
+      return 'يجب ادخال رقم الجوال ';
     } else if (!GetUtils.isNumericOnly(value)) {
       return 'يجب ادخال ارقام فقط';
     } else if (!GetUtils.isLengthEqualTo(value, 9)) {
@@ -65,6 +65,8 @@ class MotherStatusDataController extends GetxController {
       return 'يجب ادخال الرقم الوطني ';
     } else if (!GetUtils.isNumericOnly(value)) {
       return 'يجب ادخال ارقام فقط';
+    } else if (!GetUtils.isLengthBetween(value, 6, 9)) {
+      return 'يجب أن يكون ما بين 8 الى 12 رقم';
     }
     return null;
   }

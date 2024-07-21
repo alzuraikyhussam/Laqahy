@@ -98,6 +98,7 @@ class LoginController extends GetxController {
         isLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
+        print(response.body);
         return;
       }
     } on SocketException catch (_) {

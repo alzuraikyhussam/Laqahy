@@ -282,7 +282,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $center = Healthy_center::where('id', $request->healthy_center_id)->first();
+            $center = Healthy_center::join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'offices.office_name')->where('healthy_centers.id', $request->healthy_center_id)->first();
 
             $user = User::create([
                 'user_name' => $request->user_name,
@@ -364,7 +364,9 @@ class AuthController extends Controller
                 ['healthy_center_id', $user->healthy_center_id]
             ])->first();
 
-            $center = Healthy_center::where('id', $user->healthy_center_id)->first();
+
+            $center = Healthy_center::join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'offices.office_name')->where('healthy_centers.id', $user->healthy_center_id)->first();
+
             return response()->json([
                 'message' => 'Login successfully',
                 'user' => $user,

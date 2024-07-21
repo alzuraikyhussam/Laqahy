@@ -25,6 +25,12 @@ class _MotherVisitDataState extends State<MotherVisitData> {
   StaticDataController sdc = Get.put(StaticDataController());
 
   @override
+  void initState() {
+    mvc.clearTextFields();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
