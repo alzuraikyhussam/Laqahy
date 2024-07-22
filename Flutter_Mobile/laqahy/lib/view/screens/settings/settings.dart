@@ -68,23 +68,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             Expanded(
-              child: Container(
-                width: Get.width,
-                decoration: BoxDecoration(
-                  color: MyColors.whiteColor,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
+              child: SingleChildScrollView(
+                padding: EdgeInsets.zero,
+                child: Container(
+                  width: Get.width,
+                  height: Get.height,
+                  decoration: BoxDecoration(
+                    color: MyColors.whiteColor,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    children: [
-                      mySettingsListView(
-                        items: sc.settingsListViewItems,
-                      )
-                    ],
+                  child: mySettingsListView(
+                    items: sc.settingsListViewItems,
                   ),
                 ),
               ),

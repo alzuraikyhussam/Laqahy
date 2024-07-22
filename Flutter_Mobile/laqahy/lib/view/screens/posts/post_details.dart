@@ -135,7 +135,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                     ),
                     Text(
                       widget.title,
-                      style: MyTextStyles.font16BlackBold,
+                      style: MyTextStyles.font16PrimaryBold,
                     ),
                     const SizedBox(
                       height: 5,

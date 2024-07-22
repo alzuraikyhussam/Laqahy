@@ -104,7 +104,7 @@ class _AwarenessInfoDetailsScreenState
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 15,
                     ),
                     Text(
                       widget.description,

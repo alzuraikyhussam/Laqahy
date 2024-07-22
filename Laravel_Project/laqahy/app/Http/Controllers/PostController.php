@@ -79,19 +79,8 @@ class PostController extends Controller
 
             // Send notification
 
-            // Get all users with FCM tokens
-            // $users = Mother_data::whereNotNull('fcm_token')->get();
-
-            // // Send notification to each user
-            // foreach ($users as $user) {
-            //     $response = $this->fcmService->sendNotification($user->fcm_token, 'New Post Created', 'A new post "' . $post->title . '" has been created.');
-
-            //     // Optionally, log or handle the response from FCM
-            //     // Log::info('FCM Notification Sent to ' . $user->email . ': ' . $response);
-            // }
-
-            $title = 'منشور جديد';
-            $body = 'تمت إضافة منشور جديد في التطبيق!';
+            $title = $post->post_title;
+            $body = $post->post_description;
             $this->fcmService->sendNotificationToAllUsers($title, $body);
 
             // -------

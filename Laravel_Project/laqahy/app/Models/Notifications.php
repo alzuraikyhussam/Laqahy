@@ -11,7 +11,7 @@ class Notifications extends Model
     use HasFactory;
 
     use SoftDeletes;
-    protected $fillable = ['notification_title', 'notification_description', 'mother_id'];
+    protected $fillable = ['notification_title', 'notification_description', 'mother_data_id'];
     protected $dates = ['deleted_at'];
 
     public function mother_data()

@@ -2,7 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Child_statement;
+use App\Models\Mother_statement;
+use App\Models\Notifications;
+use App\Services\FcmService;
+use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class SendReminder extends Command
 {
@@ -25,35 +31,55 @@ class SendReminder extends Command
      */
     public function handle()
     {
-        info("Cron Job running at == " . now());
+        try {
 
-        // $fcmService = new FcmService();
-        // Log::info('SendReminder job executed at: ' . now());
+            $fcmService = new FcmService();
+
+            $mothers = Mother_statement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->select('mother_statements.*', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('mother_statements.return_date', now()->toDateString())->whereNotNull('mother_data.fcm_token')->get();
+
+            $children = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->select('child_statements.*', 'child_data.child_data_name', 'child_data.mother_data_id', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('child_statements.return_date', now()->toDateString())->whereNotNull('mother_data.fcm_token')->get();
+
+            foreach ($mothers as $mother) {
+                info("Cron Job mothers running at == " . now());
+
+                $mother_name = Str::of($mother->mother_name)->words(2, '');
 
 
-        // $mothers = Mother_statement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->select('mother_statements.*', 'mother_data.mother_name')->whereDate('mother_statements.return_date', now()->toDateString())->get();
-        // $children = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->select('child_statements.*', 'child_data.child_name')->whereDate('child_statements.return_date', now()->toDateString())->get();
+                $title = 'تذكير بموعد العودة';
+                $body = 'عزيزتي ' . $mother_name . ' لقد حان موعد العودة لأخذ جرعة اللقاح الخاصة بك ';
 
-        // foreach ($mothers as $mother) {
+                // Send notification
+                $fcmService->sendNotification($mother->fcm_token, $title, $body);
 
-        //     if ($mother->fcm_token) {
-        //         $title = 'تذكير بموعد العودة';
-        //         $body = 'عزيزتي ' . $mother->mother_name . ' لقد حان موعد العودة لأخذ جرعة القاح الخاصة بك ';
 
-        //         // Send notification
-        //         $fcmService->sendNotification($mother->fcm_token, $title, $body);
-        //     }
-        // }
+                Notifications::create([
+                    'mother_data_id' => $mother->id,
+                    'notification_title' => $title,
+                    'notification_description' => $body,
+                ]);
+            }
 
-        // foreach ($children as $child) {
+            foreach ($children as $child) {
+                info("Cron Job children running at == " . now());
 
-        //     if ($child->fcm_token) {
-        //         $title = 'تذكير بموعد العودة';
-        //         $body = 'عزيزتي ' . $mother->mother_name . ' لقد حان موعد تطعيم طفلك ' . $child->child_name;
+                $mother_name = Str::of($child->mother_name)->words(2, '');
+                $child_name = Str::of($child->child_data_name)->words(2, '');
 
-        //         // Send notification
-        //         $fcmService->sendNotification($child->fcm_token, $title, $body);
-        //     }
-        // }
+
+                $title = 'تذكير بموعد العودة';
+                $body = 'عزيزتي ' . $mother_name . ' لقد حان موعد العودة لتطعيم طفلك ' . $child_name;
+
+                // Send notification
+                $fcmService->sendNotification($child->fcm_token, $title, $body);
+
+
+                Notifications::create([
+                    'mother_data_id' => $child->mother_data_id,
+                    'notification_title' => $title,
+                    'notification_description' => $body,
+                ]);
+            }
+        } catch (Exception $e) {
+        }
     }
 }

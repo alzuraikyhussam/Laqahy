@@ -16,7 +16,7 @@ class Child_data extends Model
         'child_data_birthplace',
         'child_data_birthDate',
         'gender_id',
-        'fcm_token',
+        // 'fcm_token',
     ];
     protected $dates = ['deleted_at'];
     protected $table = 'child_data';

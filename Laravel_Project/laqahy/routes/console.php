@@ -9,14 +9,5 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-// Schedule::command('job:dispatch-send-reminder-job')->everySecond();
-
-Schedule::command('app:send-reminder')->everyMinute();
-// Schedule::job(new SendReminder(new FcmService))->dailyAt('23:16');
-
-
-
-
-
-
-// Schedule::command('job:dispatch-send-reminder-job')->everySecond();
+// Schedule::command('app:send-reminder')->dailyAt('22:48');
+Schedule::command('app:send-reminder')->daily();

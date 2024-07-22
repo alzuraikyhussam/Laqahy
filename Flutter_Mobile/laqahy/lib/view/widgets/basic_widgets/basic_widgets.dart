@@ -410,7 +410,8 @@ mySettingsListView({
 }) {
   return ListView.separated(
     shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
+    padding: const EdgeInsets.all(15),
+    // physics: const NeverScrollableScrollPhysics(),
     itemBuilder: (context, index) {
       return ListTile(
         onTap: items[index].onTap,
@@ -447,7 +448,7 @@ myAwarenessListView({
           child: Container(
             width: Get.width,
             height: 150,
-            padding: const EdgeInsetsDirectional.all(10),
+            padding: const EdgeInsetsDirectional.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -477,10 +478,10 @@ myAwarenessListView({
                         textAlign: TextAlign.start,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: MyTextStyles.font16BlackBold,
+                        style: MyTextStyles.font16PrimaryBold,
                       ),
                       const SizedBox(
-                        height: 3,
+                        height: 5,
                       ),
                       Expanded(
                         child: Text(
@@ -491,40 +492,6 @@ myAwarenessListView({
                       ),
                       const SizedBox(
                         height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Get.to(
-                                () => AwarenessInfoDetailsScreen(
-                                  title: items[index].title,
-                                  description: items[index].description,
-                                ),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsetsDirectional.symmetric(
-                                horizontal: 8,
-                                vertical: 3,
-                              ),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    MyColors.primaryColor,
-                                    MyColors.secondaryColor,
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                'قراءة المزيد',
-                                style: MyTextStyles.font14WhiteBold,
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),
@@ -761,7 +728,7 @@ myPostsListView({
                           post[index].postTitle,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: MyTextStyles.font16BlackBold,
+                          style: MyTextStyles.font16PrimaryBold,
                         ),
                         const SizedBox(
                           height: 10,
@@ -992,11 +959,9 @@ myProfileListTile({
             ),
             borderRadius: BorderRadius.circular(5),
           ),
-          child: Expanded(
-            child: Text(
-              label,
-              style: MyTextStyles.font14WhiteBold,
-            ),
+          child: Text(
+            label,
+            style: MyTextStyles.font14WhiteBold,
           ),
         ),
         const SizedBox(

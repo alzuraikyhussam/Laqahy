@@ -423,12 +423,12 @@ class AuthController extends Controller
             $user->fcm_token = $request->token;
             $user->save();
 
-            $children = Child_data::where('mother_data_id', $user->id)->get();
+            // $children = Child_data::where('mother_data_id', $user->id)->get();
 
-            foreach ($children as $child) {
-                $child->fcm_token = $request->token;
-                $child->save();
-            }
+            // foreach ($children as $child) {
+            //     $child->fcm_token = $request->token;
+            //     $child->save();
+            // }
             // ---------
 
             return response()->json([
