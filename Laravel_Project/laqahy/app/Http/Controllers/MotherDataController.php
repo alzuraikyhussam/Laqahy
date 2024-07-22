@@ -147,32 +147,7 @@ class MotherDataController extends Controller
      */
     public function destroy(string $motherId)
     {
-
-        try {
-            $motherStatement = Mother_statement::where('mother_data_id', $motherId)->first();
-
-            $deleteMother = Mother_data::find($motherId);
-            if (!$deleteMother) {
-                return response()->json([
-                    'message' => 'This Mother not found',
-                ], 404);
-            }
-
-            if ($motherStatement) {
-                $deleteMother->delete();
-                $motherStatement->delete();
-            }
-
-            $deleteMother->delete();
-
-            return response()->json([
-                'message' => 'Mother deleted successfully',
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
+        //
     }
 
     /////////////////////////// Ministry ///////////////////////////////////////

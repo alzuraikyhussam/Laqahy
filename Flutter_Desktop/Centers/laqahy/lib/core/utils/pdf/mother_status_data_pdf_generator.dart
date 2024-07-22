@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/core/utils/pdf/pdf_widgets/pdf_widgets.dart';
-import 'package:laqahy/models/mother_status_data_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:laqahy/controllers/static_data_controller.dart';

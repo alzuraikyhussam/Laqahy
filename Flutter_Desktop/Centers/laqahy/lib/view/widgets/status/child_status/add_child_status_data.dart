@@ -11,32 +11,16 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 // ignore: must_be_immutable
-class EditChildStatusData extends StatefulWidget {
-  EditChildStatusData({super.key, required this.childData});
-
-  dynamic childData;
+class AddChildStatusData extends StatefulWidget {
+  const AddChildStatusData({super.key});
 
   @override
-  State<EditChildStatusData> createState() => _EditChildStatusDataState();
+  State<AddChildStatusData> createState() => _AddChildStatusDataState();
 }
 
+class _AddChildStatusDataState extends State<AddChildStatusData> {
 StaticDataController sdc = Get.put(StaticDataController());
 ChildStatusDataController csc = Get.put(ChildStatusDataController());
-
-class _EditChildStatusDataState extends State<EditChildStatusData> {
-  TextEditingController nameCon = TextEditingController();
-  TextEditingController birthPlaceCon = TextEditingController();
-  TextEditingController birthDateCon = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    nameCon.text = widget.childData.child_data_name;
-    birthPlaceCon.text = widget.childData.child_data_birthplace;
-    sdc.selectedMothersId.value = widget.childData.mother_data_id;
-    // sdc.selectedGenderId.value = widget.childData.gender_id;
-    birthDateCon.text = DateFormat('MMM d, yyyy').format(widget.childData.child_data_birthDate);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,22 +37,25 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: 450,
+        height: 500,
         child: Form(
-          key: csc.editChildStatusDataFormKey,
+          key: csc.createChildStatusDataFormKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               Container(
                 margin: const EdgeInsets.all(25),
                 child: Text(
-                  'تعديل بيانات الطفل',
+                  'إضـــافــــة بيانات الطفل',
                   textAlign: TextAlign.center,
                   style: MyTextStyles.font18PrimaryBold,
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +87,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                         height: 10,
                       ),
                       myTextField(
-                        controller: nameCon,
+                        controller: csc.nameController,
                         validator: csc.nameValidator,
                         prefixIcon: Icons.child_care,
                         width: 300,
@@ -117,6 +104,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                 height: 20,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,7 +117,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                         height: 10,
                       ),
                       myTextField(
-                        controller: birthPlaceCon,
+                        controller: csc.birthPlaceController,
                         validator: csc.birthPlaceValidator,
                         prefixIcon: Icons.place_outlined,
                         width: 200,
@@ -154,12 +142,12 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                         margin: const EdgeInsets.only(top: 3),
                         child: myTextField(
                           validator: csc.birthDateValidator,
-                          controller: birthDateCon,
+                          controller: csc.birthDateController,
                           hintText: 'تاريــخ الميـلاد',
                           prefixIcon: Icons.date_range_outlined,
                           keyboardType: TextInputType.text,
                           readOnly: true,
-                          width: 250,
+                          width: 200,
                           onTap: () {
                             showDatePicker(
                                     context: context,
@@ -206,28 +194,21 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Obx(() {
-                    if (csc.isUpdateLoading.value) {
+                    if (csc.isAddLoading.value) {
                       return myLoadingIndicator();
                     } else {
                       return myButton(
                           width: 150,
-                          onPressed: csc.isUpdateLoading.value
+                          onPressed: csc.isAddLoading.value
                               ? null
                               : () {
                                   if (csc
-                                      .editChildStatusDataFormKey.currentState!
+                                      .createChildStatusDataFormKey.currentState!
                                       .validate()) {
-                                    csc.updateChildStatusData(
-                                      widget.childData.id,
-                                      nameCon.text,
-                                      birthPlaceCon.text,
-                                      birthDateCon.text,
-                                      sdc.selectedMothersId.value!,
-                                      sdc.selectedGenderId.value!,
-                                    );
+                                    csc.addChildStatusData();
                                   }
                                 },
-                          text: 'تعـــديل',
+                          text: 'إضـــافــــة',
                           textStyle: MyTextStyles.font16WhiteBold);
                     }
                   }),

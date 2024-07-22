@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/child_visit_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/visits/delete_child_statement.dart';
-import 'package:laqahy/view/widgets/visits/delete_mother_statement.dart';
 
 class ChildVisitRowSource extends DataTableSource {
   var myData;
@@ -23,8 +21,6 @@ class ChildVisitRowSource extends DataTableSource {
     }
 
     final childStatementData = myData[index];
-    // StaticDataController sdc = Get.find<StaticDataController>();
-      ChildVisitController cvc = Get.put(ChildVisitController());
     return DataRow(
       cells: [
         DataCell(

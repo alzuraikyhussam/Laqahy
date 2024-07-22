@@ -299,10 +299,9 @@ Route::get('centers/mother-data/print-mother-status-data/{identityNumber}', [Mot
 // ------------------------------------------------------------
 
 // --------------------- Mother Statement Routes ------------------------
-Route::get('centers/mother-statement/get-mother-statement', [MotherStatementController::class, 'index']);
 Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
 Route::delete('centers/mother-statement/delete-mother-statement/{motherId}', [MotherStatementController::class, 'destroy']);
-Route::get('centers/mother-statement/get-any-mother-statement/{motherId}/{dosageLevelId}', [MotherStatementController::class, 'show']);
+Route::get('centers/mother-statement/get-mother-statement/{motherId}', [MotherStatementController::class, 'show']);
 // ------------------------------------------------------------
 
 // --------------------- Child Data Routes ------------------------
@@ -314,7 +313,7 @@ Route::patch('centers/child-data/update-children-status-data/{childId}', [ChildD
 // ------------------------------------------------------------
 
 // --------------------- Child Statement Routes ------------------------
-Route::get('centers/child-statement/get-child-statement-data', [ChildStatementController::class, 'getChildStatement']);
+Route::get('centers/child-statement/get-child-statement-data/{childId}', [ChildStatementController::class, 'getChildStatement']);
 Route::post('centers/child-statement/add-child-statement', [ChildStatementController::class, 'store']);
 Route::delete('centers/child-statement/delete-child-statement/{childId}', [ChildStatementController::class, 'destroy']);
 // ------------------------------------------------------------
@@ -371,7 +370,7 @@ Route::get('centers/get-vaccine-with-visit-type/{visitTypeId}', [VisitTypeContro
 // ------------------------------------------------------------
 
 // --------------------- Dosage With Vaccine Routes ------------------------
-Route::get('centers/get-dosage-with-vaccine-type/{vaccineTypeId}', [ChildDosageTypeController::class, 'getDosagesFromVaccine']);
+Route::get('centers/get-dosage-with-vaccine-type/{vaccineTypeId}/{childId}', [ChildDosageTypeController::class, 'show']);
 // ------------------------------------------------------------
 
 // --------------------- Report Routes ------------------------

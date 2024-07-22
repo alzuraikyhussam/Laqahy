@@ -451,12 +451,12 @@ class StaticDataController extends GetxController {
     }
   }
 
-  void fetchDosageWithVaccine(int vaccineTypeId) async {
+  void fetchDosageWithVaccine(int vaccineTypeId,int childId) async {
     try {
       childDosageTypeErrorMsg('');
       isChildDosageTypeLoading(true);
       final response = await http.get(
-        Uri.parse('${ApiEndpoints.getDosageTypeWithVaccine}/$vaccineTypeId'),
+        Uri.parse('${ApiEndpoints.getDosageTypeWithVaccine}/$vaccineTypeId/$childId'),
         headers: {
           'content-Type': 'application/json',
         },

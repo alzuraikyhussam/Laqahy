@@ -55,9 +55,6 @@ class ChildStatusDataController extends GetxController {
     birthDateController.clear();
     sdc.selectedMothersId.value = null;
     sdc.selectedGenderId.value = null;
-    sdc.selectedCityId.value = null;
-    sdc.selectedDirectorateId.value = null;
-    sdc.selectedMothersId.value = null;
     birthPlaceController.clear();
   }
 
@@ -74,9 +71,7 @@ class ChildStatusDataController extends GetxController {
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
     fetchAllChildrenStatusData();
-    sdc.fetchGenders();
-    // fetchUsers(centerId);
-    // sdc.fetchCities();
+    clearTextFields();
     super.onInit();
   }
 
@@ -174,7 +169,6 @@ class ChildStatusDataController extends GetxController {
     }
   }
 
-
   Future<void> updateChildStatusData(
     var childId,
     var name,
@@ -209,7 +203,6 @@ class ChildStatusDataController extends GetxController {
         await fetchAllChildrenStatusData();
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
-        sdc.fetchMothers();
         isUpdateLoading(false);
         clearTextFields();
         return;
@@ -235,7 +228,6 @@ class ChildStatusDataController extends GetxController {
       isUpdateLoading(false);
     }
   }
-
 
   Future<void> deleteChildStatusData(int childId) async {
     isDeleteLoading(true);

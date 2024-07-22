@@ -32,19 +32,20 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
   @override
   void initState() {
     super.initState();
+    sdc.fetchCities();
+    sdc.fetchDirectorates(widget.motherData.cities_id);
     nameCon = TextEditingController(text: widget.motherData.mother_name);
     villageCon = TextEditingController(text: widget.motherData.mother_village);
     identityNumberCon =
         TextEditingController(text: widget.motherData.mother_identity_num);
     phoneCon = TextEditingController(text: widget.motherData.mother_phone);
-
     birthDateCon.text =
         DateFormat('MMM d, yyyy').format(widget.motherData.mother_birthDate);
     sdc.selectedCityId.value = widget.motherData.cities_id;
     sdc.selectedDirectorateId.value = widget.motherData.directorate_id;
   }
 
-  MotherStatusDataController emsc =
+  MotherStatusDataController msc =
       Get.put(MotherStatusDataController());
 
   @override
@@ -64,9 +65,9 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
               borderRadius: BorderRadius.circular(20),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            height: 520,
+            height: 555,
             child: Form(
-              key: emsc.editMotherStatusDataFormKey,
+              key: msc.editMotherStatusDataFormKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -95,7 +96,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                           ),
                           myTextField(
                             controller: nameCon,
-                            validator: emsc.nameValidator,
+                            validator: msc.nameValidator,
                             prefixIcon: Icons.woman,
                             width: 300,
                             hintText: 'اســم الأم',
@@ -120,7 +121,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                           ),
                           myTextField(
                             controller: identityNumberCon,
-                            validator: emsc.identityNumberValidator,
+                            validator: msc.identityNumberValidator,
                             prefixIcon: Icons.numbers,
                             width: 200,
                             hintText: 'يرجا إدخال الرقم الوطني',
@@ -145,7 +146,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                           ),
                           myTextField(
                             controller: phoneCon,
-                            validator: emsc.phoneNumberValidator,
+                            validator: msc.phoneNumberValidator,
                             prefixIcon: Icons.phone_enabled_outlined,
                             width: 200,
                             hintText: ' أدخل رقم الهاتف',
@@ -161,6 +162,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                     height: 20,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -172,13 +174,13 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                           Container(
                             margin: const EdgeInsets.only(top: 3),
                             child: myTextField(
-                              validator: emsc.birthDateValidator,
+                              validator: msc.birthDateValidator,
                               controller: birthDateCon,
                               hintText: 'تاريــخ الميـلاد',
                               prefixIcon: Icons.date_range_outlined,
                               keyboardType: TextInputType.text,
                               readOnly: true,
-                              width: 250,
+                              width: 200,
                               onTap: () {
                                 showDatePicker(
                                         context: context,
@@ -189,7 +191,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                                     if (value == null) {
                                       return;
                                     } else {
-                                      emsc.birthDateController.text =
+                                      msc.birthDateController.text =
                                           DateFormat.yMMMd().format(value);
                                     }
                                   },
@@ -249,7 +251,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                       ),
                       myTextField(
                         controller: villageCon,
-                        validator: emsc.villageValidator,
+                        validator: msc.villageValidator,
                         prefixIcon: Icons.not_listed_location,
                         width: 300,
                         hintText: 'اســم المنطقة',
@@ -266,18 +268,18 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Obx(() {
-                        if (emsc.isUpdateLoading.value) {
+                        if (msc.isUpdateLoading.value) {
                           return myLoadingIndicator();
                         } else {
                           return myButton(
                               width: 150,
-                              onPressed: emsc.isUpdateLoading.value
+                              onPressed: msc.isUpdateLoading.value
                                   ? null
                                   : () {
-                                      if (emsc
+                                      if (msc
                                           .editMotherStatusDataFormKey.currentState!
                                           .validate()) {
-                                        emsc.updateMotherStatusData(
+                                        msc.updateMotherStatusData(
                                             widget.motherData.id,
                                             nameCon.text,
                                             phoneCon.text,
@@ -299,7 +301,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                           width: 150,
                           backgroundColor: MyColors.greyColor,
                           onPressed: () {
-                            emsc.clearTextFields();
+                            msc.clearTextFields();
                             Get.back();
                           },
                           text: 'إلغـــاء اللأمــر',

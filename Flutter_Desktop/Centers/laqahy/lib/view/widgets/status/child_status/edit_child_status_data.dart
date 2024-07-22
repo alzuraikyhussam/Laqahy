@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:laqahy/controllers/mother_status_data_controller.dart';
+import 'package:laqahy/controllers/child_status_data_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
@@ -11,19 +11,34 @@ import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 // ignore: must_be_immutable
-class AddMotherStatement extends StatefulWidget {
-  AddMotherStatement({super.key});
+class EditChildStatusData extends StatefulWidget {
+  EditChildStatusData({super.key, required this.childData});
 
-  dynamic motherData;
+  dynamic childData;
 
   @override
-  State<AddMotherStatement> createState() => _AddMotherStatementState();
+  State<EditChildStatusData> createState() => _EditChildStatusDataState();
 }
 
-class _AddMotherStatementState extends State<AddMotherStatement> {
-  StaticDataController sdc = Get.put(StaticDataController());
+StaticDataController sdc = Get.put(StaticDataController());
+ChildStatusDataController csc = Get.put(ChildStatusDataController());
 
-  MotherStatusDataController msc = Get.put(MotherStatusDataController());
+class _EditChildStatusDataState extends State<EditChildStatusData> {
+  TextEditingController nameCon = TextEditingController();
+  TextEditingController birthPlaceCon = TextEditingController();
+  TextEditingController birthDateCon = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    sdc.fetchMothers();
+    sdc.fetchGenders();
+    nameCon.text = widget.childData.child_data_name;
+    birthPlaceCon.text = widget.childData.child_data_birthplace;
+    sdc.selectedMothersId.value = widget.childData.mother_data_id;
+    sdc.selectedGenderId.value = widget.childData.gender_id;
+    birthDateCon.text = DateFormat('MMM d, yyyy').format(widget.childData.child_data_birthDate);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +55,16 @@ class _AddMotherStatementState extends State<AddMotherStatement> {
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: 520,
+        height: 450,
         child: Form(
-          key: msc.editMotherStatusDataFormKey,
+          key: csc.editChildStatusDataFormKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 margin: const EdgeInsets.all(25),
                 child: Text(
-                  'تعديل بيانات الأم',
+                  'تعديل بيانات الطفل',
                   textAlign: TextAlign.center,
                   style: MyTextStyles.font18PrimaryBold,
                 ),
@@ -58,73 +73,40 @@ class _AddMotherStatementState extends State<AddMotherStatement> {
                 height: 30,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'الاســم',
+                        'اسم الأم',
+                        style: MyTextStyles.font16BlackBold,
+                      ),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      Constants().mothersDropdownMenu(),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 25,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'اســم الــطفــل',
                         style: MyTextStyles.font16BlackBold,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       myTextField(
-                        controller: msc.nameController,
-                        validator: msc.nameValidator,
-                        prefixIcon: Icons.woman,
+                        controller: nameCon,
+                        validator: csc.nameValidator,
+                        prefixIcon: Icons.child_care,
                         width: 300,
-                        hintText: 'اســم الأم',
-                        keyboardType: TextInputType.text,
-                        readOnly: false,
-                        onChanged: (value) {},
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'الرقم الوطني',
-                        style: MyTextStyles.font16BlackBold,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      myTextField(
-                        controller: msc.identityNumberController,
-                        validator: msc.identityNumberValidator,
-                        prefixIcon: Icons.numbers,
-                        width: 200,
-                        hintText: 'يرجا إدخال الرقم الوطني',
-                        keyboardType: TextInputType.text,
-                        readOnly: false,
-                        onChanged: (value) {},
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'رقم الهاتف',
-                        style: MyTextStyles.font16BlackBold,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      myTextField(
-                        controller: msc.phoneNumberController,
-                        validator: msc.phoneNumberValidator,
-                        prefixIcon: Icons.phone_enabled_outlined,
-                        width: 200,
-                        hintText: ' أدخل رقم الهاتف',
+                        hintText: 'اســم الــطفــل',
                         keyboardType: TextInputType.text,
                         readOnly: false,
                         onChanged: (value) {},
@@ -142,14 +124,39 @@ class _AddMotherStatementState extends State<AddMotherStatement> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
+                        'مـحـل الـميـلاد',
+                        style: MyTextStyles.font16BlackBold,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      myTextField(
+                        controller: birthPlaceCon,
+                        validator: csc.birthPlaceValidator,
+                        prefixIcon: Icons.place_outlined,
+                        width: 200,
+                        hintText: 'مـكـان الـميـلاد',
+                        keyboardType: TextInputType.text,
+                        readOnly: false,
+                        onChanged: (value) {},
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 25,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
                         'تاريخ الميلاد',
                         style: MyTextStyles.font14BlackBold,
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 3),
                         child: myTextField(
-                          validator: msc.birthDateValidator,
-                          controller: msc.birthDateController,
+                          validator: csc.birthDateValidator,
+                          controller: birthDateCon,
                           hintText: 'تاريــخ الميـلاد',
                           prefixIcon: Icons.date_range_outlined,
                           keyboardType: TextInputType.text,
@@ -165,7 +172,7 @@ class _AddMotherStatementState extends State<AddMotherStatement> {
                                 if (value == null) {
                                   return;
                                 } else {
-                                  msc.birthDateController.text =
+                                  csc.birthDateController.text =
                                       DateFormat.yMMMd().format(value);
                                 }
                               },
@@ -183,81 +190,46 @@ class _AddMotherStatementState extends State<AddMotherStatement> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'الـمـحافـظة',
+                        'الـجـنـس',
                         style: MyTextStyles.font16BlackBold,
                       ),
                       const SizedBox(
                         height: 3,
                       ),
-                      Constants().citiesDropdownMenu(),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 25,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'الـمـديريـة',
-                        style: MyTextStyles.font16BlackBold,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Constants().directoratesDropdownMenu(),
+                      Constants().gendersDropdownMenu(),
                     ],
                   ),
                 ],
               ),
               const SizedBox(
-                height: 20,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'الــمنطقــة',
-                    style: MyTextStyles.font16BlackBold,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  myTextField(
-                    controller: msc.villageController,
-                    validator: msc.villageValidator,
-                    prefixIcon: Icons.not_listed_location,
-                    width: 300,
-                    hintText: 'اســم المنطقة',
-                    keyboardType: TextInputType.text,
-                    readOnly: false,
-                    onChanged: (value) {},
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
+                height: 40,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Obx(() {
-                    if (msc.isUpdateLoading.value) {
+                    if (csc.isUpdateLoading.value) {
                       return myLoadingIndicator();
                     } else {
                       return myButton(
                           width: 150,
-                          onPressed: msc.isUpdateLoading.value
+                          onPressed: csc.isUpdateLoading.value
                               ? null
                               : () {
-                                  if (msc.createMotherStatusDataFormKey
-                                      .currentState!
+                                  if (csc
+                                      .editChildStatusDataFormKey.currentState!
                                       .validate()) {
-                                    msc.clearTextFields();
-                                    msc.addMotherStatusData();
+                                    csc.updateChildStatusData(
+                                      widget.childData.id,
+                                      nameCon.text,
+                                      birthPlaceCon.text,
+                                      birthDateCon.text,
+                                      sdc.selectedMothersId.value!,
+                                      sdc.selectedGenderId.value!,
+                                    );
                                   }
                                 },
-                          text: 'إضــــافـــة',
+                          text: 'تعـــديل',
                           textStyle: MyTextStyles.font16WhiteBold);
                     }
                   }),
@@ -268,6 +240,7 @@ class _AddMotherStatementState extends State<AddMotherStatement> {
                       width: 150,
                       backgroundColor: MyColors.greyColor,
                       onPressed: () {
+                        csc.clearTextFields();
                         Get.back();
                       },
                       text: 'إلغـــاء اللأمــر',

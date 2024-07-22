@@ -130,24 +130,7 @@ class ChildDataController extends Controller
      */
     public function destroy(string $childId)
     {
-        try {
-            $deleteChild = Child_data::find($childId);
-            if (!$deleteChild) {
-                return response()->json([
-                    'message' => 'This Mother not found',
-                ], 404);
-            }
-
-            $deleteChild->delete();
-
-            return response()->json([
-                'message' => 'Mother deleted successfully',
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
+        // 
     }
 
     public function getChildren($mother_id)

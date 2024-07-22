@@ -36,10 +36,10 @@ class MotherVisitController extends GetxController {
 
   @override
   onInit() async {
-    fetchMotherStatement();
+    clearTextFields();
+    fetchMotherStatement(sdc.selectedMothersId.value!);
     sdc.fetchMothers();
     sdc.fetchDosageLevel();
-    clearTextFields();
     super.onInit();
   }
 
@@ -52,49 +52,12 @@ class MotherVisitController extends GetxController {
     }).toList();
   }
 
-  Future<void> fetchMotherStatement() async {
+  Future<void> fetchMotherStatement(int motherId) async {
     try {
       isLoading(true);
       motherStatementSearchController.clear();
       final response = await http.get(
-        Uri.parse(ApiEndpoints.getMotherStatement),
-        headers: {
-          'content-Type': 'application/json',
-        },
-      );
-      if (response.statusCode == 200) {
-        isLoading(false);
-        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
-        motherStatement.value =
-            jsonData.map((e) => MotherStatement.fromJson(e)).toList();
-        filteredMotherStatement.value = motherStatement;
-      } else if (response.statusCode == 500) {
-        isLoading(false);
-        ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
-      } else {
-        isLoading(false);
-        ApiExceptionWidgets()
-            .myAccessDatabaseExceptionAlert(response.statusCode);
-        print(response.body);
-      }
-    } on SocketException catch (_) {
-      isLoading(false);
-      ApiExceptionWidgets().mySocketExceptionAlert();
-    } catch (e) {
-      isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  Future<void> fetchAnyMotherStatement(int $dosageLevelId, int motherId) async {
-    try {
-      isLoading(true);
-      motherStatementSearchController.clear();
-      final response = await http.get(
-        Uri.parse(
-            '${ApiEndpoints.getAnyMotherStatementData}/$motherId/$dosageLevelId'),
+        Uri.parse('${ApiEndpoints.getMotherStatement}/$motherId'),
         headers: {
           'content-Type': 'application/json',
         },
@@ -150,11 +113,12 @@ class MotherVisitController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        await fetchMotherStatement();
+        await fetchMotherStatement(sdc.selectedMothersId.value!);
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
         // printMotherStatementData(motherStatement);
-        clearTextFields();
+        sdc.selectedDosageLevelId.value = null;
+        sdc.selectedDosageTypeId.value = null;
         isAddLoading(false);
 
         return;
@@ -187,7 +151,7 @@ class MotherVisitController extends GetxController {
           .delete(Uri.parse('${ApiEndpoints.deleteMotherStatement}/$motherId'));
 
       if (request.statusCode == 200) {
-        await fetchMotherStatement();
+        await fetchMotherStatement(sdc.selectedMothersId.value!);
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();
         isDeleteLoading(false);
@@ -211,38 +175,5 @@ class MotherVisitController extends GetxController {
       isDeleteLoading(false);
     }
   }
-
-  // Future<void> printMotherStatementData(motherStatement) async {
-  //   final pdf = pw.Document();
-
-  //   pdf.addPage(
-  //     pw.Page(
-  //       build: (pw.Context context) => pw.Column(
-  //         crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //         children: [
-  //           pw.Text(
-  //               'Dosage Type: ${motherStatement.dosage_type ?? "غيـر معـروف"}'),
-  //           pw.SizedBox(height: 8),
-  //           pw.Text('Healthy Center: ${sdc.storageService.getCenterId()}'),
-  //           pw.SizedBox(height: 8),
-  //           pw.Text('User Name: ${sdc.userLoggedData.first.userName}'),
-  //           pw.SizedBox(height: 8),
-  //           pw.Text(
-  //               'Dosage Date: ${DateFormat('MMM d, yyyy').format(motherStatement.date_taking_dose!)}'),
-  //           pw.SizedBox(height: 8),
-  //           pw.Text(
-  //               'Return Date: ${DateFormat('MMM d, yyyy').format(motherStatement.return_date!)}'),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-
-  //   // Save the PDF document
-  //   final file = File('mother_statement.pdf');
-  //   await file.writeAsBytes(await pdf.save());
-
-  //   // Open the generated PDF file
-  //   await OpenFile.open('mother_statement.pdf');
-  // }
 
 }

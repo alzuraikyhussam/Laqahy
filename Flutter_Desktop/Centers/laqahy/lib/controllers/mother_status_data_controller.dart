@@ -81,6 +81,15 @@ class MotherStatusDataController extends GetxController {
   }
 
 
+  //////////
+  TextEditingController villageController = TextEditingController();
+  String? villageValidator(value) {
+    if (value.trim().isEmpty) {
+      return 'يجب ادخال اسم العزلة / القرية';
+    }
+    return null;
+  }
+
   void clearTextFields() {
     nameController.clear();
     identityNumberController.clear();
@@ -91,22 +100,12 @@ class MotherStatusDataController extends GetxController {
     villageController.clear();
   }
 
-  //////////
-  TextEditingController villageController = TextEditingController();
-  String? villageValidator(value) {
-    if (value.trim().isEmpty) {
-      return 'يجب ادخال اسم العزلة / القرية';
-    }
-    return null;
-  }
-
   @override
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
     password = createAccountCode.v4().substring(0, 8);
     fetchAllMothersStatusData(centerId!);
-    sdc.fetchMothers();
-    sdc.fetchCities();
+    clearTextFields();
     super.onInit();
   }
 
@@ -155,9 +154,9 @@ class MotherStatusDataController extends GetxController {
 
   Future<void> addMotherStatusData() async {
     int? centerID = await sdc.storageService.getCenterId();
-
     DateTime parsedBirthDate =
         DateFormat('MMM d, yyyy').parse(birthDateController.text);
+
     try {
       isAddLoading(true);
       final Mother = Mothers(
@@ -188,9 +187,9 @@ class MotherStatusDataController extends GetxController {
         // Mothers motherData = Mothers.fromJson(data['mother']);
         // print(data);
 
-        clearTextFields();
         sdc.fetchMothers();
         fetchAllMothersStatusData(centerId!);
+        clearTextFields();
         isAddLoading(false);
         // await fetchUsers(centerId);
         return;
@@ -250,7 +249,6 @@ class MotherStatusDataController extends GetxController {
     }
   }
 
-
   Future<void> updateMotherStatusData(
     var motherId,
     var name,
@@ -296,6 +294,7 @@ class MotherStatusDataController extends GetxController {
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
         sdc.fetchMothers();
+        fetchAllMothersStatusData(sdc.centerData.first.id!);
         isUpdateLoading(false);
         clearTextFields();
         return;
@@ -321,7 +320,6 @@ class MotherStatusDataController extends GetxController {
       isUpdateLoading(false);
     }
   }
-
 
   Future<void> printMotherStatusData(String identityNumber) async {
     try {

@@ -71,43 +71,6 @@ class DosageTypeController extends Controller
                 'message' => $e->getMessage(),
             ], 500);
         }
-
-
-
-        // try {
-        //     $motherStatement = Mother_statement::join('dosage_types', 'mother_statements.dosage_type_id', '!=', 'dosage_types.id')
-        //         ->select('dosage_types.*')
-        //         ->where('dosage_types.dosage_level_id', $dosageLevelId)
-        //         ->where('mother_statements.id',$motherId)
-        //         ->whereNotIn('dosage_types.id', function ($query) {
-        //             $query->select('dosage_type_id')
-        //                 ->from('mother_statements')
-        //                 ->whereNull('mother_statements.deleted_at');
-
-        //         })
-        //         ->distinct()
-        //         ->get();
-        //     return response()->json([
-        //         'message' => 'Mother statement retrieved successfully',
-        //         'data' => $motherStatement,
-        //     ]);
-        // } catch (Exception $e) {
-        //     return response()->json([
-        //         'message' => $e->getMessage(),
-        //     ], 500);
-        // }
-        // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // try {
-        //     $Dosage_type = Dosage_type::where('dosage_level_id', $dosageLevelId)->get();
-        //     return response()->json([
-        //         'message' => 'Dosages type retrieved successfully',
-        //         'data' => $Dosage_type,
-        //     ]);
-        // } catch (Exception $e) {
-        //     return response()->json([
-        //         'message' => $e->getMessage(),
-        //     ], 500);
-        // }
     }
 
     /**
