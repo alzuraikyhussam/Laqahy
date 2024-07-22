@@ -110,8 +110,6 @@ class ApiEndpoints {
       '$baseUrl/centers/mother-statement/get-mother-statement';
   static const String deleteMotherStatement =
       '$baseUrl/centers/mother-statement/delete-mother-statement';
-  static const String getAnyMotherStatementData =
-      '$baseUrl/centers/mother-statement/get-any-mother-statement';
 
   // --------------------------------------------------
 

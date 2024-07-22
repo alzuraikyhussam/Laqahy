@@ -31,21 +31,17 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
   @override
   void initState() {
     super.initState();
+    sdc.fetchMothers();
+    sdc.fetchGenders();
     nameCon.text = widget.childData.child_data_name;
     birthPlaceCon.text = widget.childData.child_data_birthplace;
-    // sdc.selectedMothersId.value = widget.childData.mother_data_id;
-    // sdc.selectedGenderId.value = widget.childData.gender_id;
+    sdc.selectedMothersId.value = widget.childData.mother_data_id;
+    sdc.selectedGenderId.value = widget.childData.gender_id;
     birthDateCon.text = DateFormat('MMM d, yyyy').format(widget.childData.child_data_birthDate);
   }
 
   @override
   Widget build(BuildContext context) {
-    nameCon.text = widget.childData.child_data_name;
-    birthPlaceCon.text = widget.childData.child_data_birthplace;
-    // sdc.selectedMothersId.value = widget.childData.mother_data_id;
-    // sdc.selectedGenderId.value = widget.childData.gender_id;
-    birthDateCon.text =
-        DateFormat('MMM d, yyyy').format(widget.childData.child_data_birthDate);
     return AlertDialog(
       alignment: AlignmentDirectional.center,
       contentPadding: const EdgeInsets.all(20),

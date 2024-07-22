@@ -4,13 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/status/delete_child_status_data_confirm.dart';
-import 'package:laqahy/view/widgets/status/edit_child_status_data.dart';
+import 'package:laqahy/view/widgets/status/mother_status/edit_mother_status_data.dart';
 
-class ChildrenStatusDataSource extends DataTableSource {
+class MotherStatusDataSource extends DataTableSource {
   var myData;
   final count;
-  ChildrenStatusDataSource({
+  MotherStatusDataSource({
     required this.myData,
     required this.count,
   });
@@ -21,7 +20,7 @@ class ChildrenStatusDataSource extends DataTableSource {
       return null;
     }
 
-    final child = myData[index];
+    final mother = myData[index];
     // StaticDataController sdc = Get.find<StaticDataController>();
     return DataRow(
       cells: [
@@ -40,7 +39,7 @@ class ChildrenStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              child.child_data_name ?? "غيـر معـروف",
+              mother.mother_name ?? "غيـر معـروف",
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -50,7 +49,7 @@ class ChildrenStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              child.motherName,
+              mother.mother_phone,
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -60,7 +59,7 @@ class ChildrenStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              child.child_data_birthplace,
+              mother.mother_identity_num,
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -70,7 +69,7 @@ class ChildrenStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              DateFormat('MMM d,yyyy').format(child.child_data_birthDate),
+              DateFormat('MMM d,yyyy').format(mother.mother_birthDate),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -80,7 +79,27 @@ class ChildrenStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              child.genderType,
+              mother.cityName,
+              textAlign: TextAlign.center,
+              style: MyTextStyles.font14BlackMedium,
+            ),
+          ),
+        ),
+        DataCell(
+          Container(
+            alignment: AlignmentDirectional.center,
+            child: Text(
+              mother.directorateName.toString(),
+              textAlign: TextAlign.center,
+              style: MyTextStyles.font14BlackMedium,
+            ),
+          ),
+        ),
+        DataCell(
+          Container(
+            alignment: AlignmentDirectional.center,
+            child: Text(
+              mother.mother_village,
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -97,32 +116,14 @@ class ChildrenStatusDataSource extends DataTableSource {
                   // int? adminId = await sdc.storageService.getAdminId();
                   myShowDialog(
                     context: Get.context!,
-                    widgetName: EditChildStatusData(
-                      childData: myData[index],
+                    widgetName: EditMotherStatusData(
+                      motherData: myData[index],
                     ),
                   );
                 },
                 gradientColors: [
                   MyColors.primaryColor,
                   MyColors.secondaryColor,
-                ],
-                padding: EdgeInsets.all(8),
-                iconSize: 22,
-              ),
-              myIconButton(
-                icon: Icons.delete,
-                onTap: () {
-                  // Constants().playErrorSound();
-
-                  myShowDialog(
-                      context: Get.context!,
-                      widgetName: DeleteChildStatusConfirm(
-                        childId: child.id,
-                      ));
-                },
-                gradientColors: [
-                  MyColors.redColor,
-                  MyColors.redColor,
                 ],
                 padding: EdgeInsets.all(8),
                 iconSize: 22,

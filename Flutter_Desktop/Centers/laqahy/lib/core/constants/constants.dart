@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/child_visit_controller.dart';
+import 'package:laqahy/controllers/mother_visit_controller.dart';
 import 'package:laqahy/models/home_layout_model.dart';
 import 'package:laqahy/models/vaccine_model.dart';
 import '../../controllers/static_data_controller.dart';
@@ -713,6 +715,8 @@ class Constants {
 
   Widget mothersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
+    MotherVisitController mvc = Get.put(MotherVisitController());
+
     return Obx(() {
       if (controller.isMotherLoading.value) {
         return myDropDownMenuButton2(
@@ -809,6 +813,7 @@ class Constants {
           if (value != null) {
             controller.selectedMothersId.value = int.tryParse(value);
             controller.fetchChildren(controller.selectedMothersId.value!);
+            mvc.fetchMotherStatement(controller.selectedMothersId.value!);
             controller.selectedChildsId.value = null;
           } else {
             controller.selectedMothersId.value = null;
@@ -822,6 +827,7 @@ class Constants {
 
   Widget childsDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
+  ChildVisitController cvc = Get.put(ChildVisitController());
 
     return Obx(() {
       if (controller.selectedMothersId.value == null) {
@@ -936,6 +942,8 @@ class Constants {
           onChanged: (value) {
             if (value != null) {
               controller.selectedChildsId.value = int.tryParse(value);
+              cvc.fetchChildrenStatement(controller.selectedChildsId.value!);
+
             } else {
               controller.selectedMothersId.value = null;
             }
@@ -1404,7 +1412,8 @@ class Constants {
             if (value != null) {
               controller.selectedVaccineType.value = int.tryParse(value);
               controller.fetchDosageWithVaccine(
-                  controller.selectedVaccineType.value!);
+                  controller.selectedVaccineType.value!,
+                  controller.selectedChildsId.value!);
               controller.selectedChildDosageTypeId.value = null;
             } else {
               controller.selectedVaccineType.value = null;
@@ -1472,7 +1481,8 @@ class Constants {
                   btnLabel: 'تحــديث',
                   onPressed: () {
                     controller.fetchDosageWithVaccine(
-                        controller.selectedVaccineType.value!);
+                        controller.selectedVaccineType.value!,
+                        controller.selectedChildsId.value!);
                     Get.back();
                   },
                 ));
@@ -1500,7 +1510,8 @@ class Constants {
                   btnLabel: 'تحــديث',
                   onPressed: () {
                     controller.fetchDosageWithVaccine(
-                        controller.selectedVaccineType.value!);
+                        controller.selectedVaccineType.value!,
+                        controller.selectedChildsId.value!);
                     Get.back();
                   },
                 ));

@@ -4,13 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/status/delete_mother_status_confirm.dart';
-import 'package:laqahy/view/widgets/status/edit_mother_status_data.dart';
+import 'package:laqahy/view/widgets/status/child_status/edit_child_status_data.dart';
 
-class MotherStatusDataSource extends DataTableSource {
+class ChildrenStatusDataSource extends DataTableSource {
   var myData;
   final count;
-  MotherStatusDataSource({
+  ChildrenStatusDataSource({
     required this.myData,
     required this.count,
   });
@@ -21,7 +20,7 @@ class MotherStatusDataSource extends DataTableSource {
       return null;
     }
 
-    final mother = myData[index];
+    final child = myData[index];
     // StaticDataController sdc = Get.find<StaticDataController>();
     return DataRow(
       cells: [
@@ -40,7 +39,7 @@ class MotherStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              mother.mother_name ?? "غيـر معـروف",
+              child.child_data_name ?? "غيـر معـروف",
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -50,7 +49,7 @@ class MotherStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              mother.mother_phone,
+              child.motherName,
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -60,7 +59,7 @@ class MotherStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              mother.mother_identity_num,
+              child.child_data_birthplace,
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -70,7 +69,7 @@ class MotherStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              DateFormat('MMM d,yyyy').format(mother.mother_birthDate),
+              DateFormat('MMM d,yyyy').format(child.child_data_birthDate),
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -80,32 +79,12 @@ class MotherStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              mother.cityName,
+              child.genderType,
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
           ),
         ),
-        DataCell(
-          Container(
-            alignment: AlignmentDirectional.center,
-            child: Text(
-              mother.directorateName.toString(),
-              textAlign: TextAlign.center,
-              style: MyTextStyles.font14BlackMedium,
-            ),
-          ),
-        ),
-        // DataCell(
-        //   Container(
-        //     alignment: AlignmentDirectional.center,
-        //     child: Text(
-        //       mother.mother_village,
-        //       textAlign: TextAlign.center,
-        //       style: MyTextStyles.font14BlackMedium,
-        //     ),
-        //   ),
-        // ),
         DataCell(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -117,8 +96,8 @@ class MotherStatusDataSource extends DataTableSource {
                   // int? adminId = await sdc.storageService.getAdminId();
                   myShowDialog(
                     context: Get.context!,
-                    widgetName: EditMotherStatusData(
-                      motherData: myData[index],
+                    widgetName: EditChildStatusData(
+                      childData: myData[index],
                     ),
                   );
                 },
@@ -130,29 +109,11 @@ class MotherStatusDataSource extends DataTableSource {
                 iconSize: 22,
               ),
               myIconButton(
-                icon: Icons.delete,
-                onTap: () {
-                  // Constants().playErrorSound();
-
-                  myShowDialog(
-                      context: Get.context!,
-                      widgetName: DeleteMotherStatusConfirm(
-                        motherId: mother.id,
-                      ));
-                },
-                gradientColors: [
-                  MyColors.redColor,
-                  MyColors.redColor,
-                ],
-                padding: EdgeInsets.all(8),
-                iconSize: 22,
-              ),
-              myIconButton(
                 icon: Icons.print,
                 onTap: () async {
                   // Constants().playErrorSound();
-                  final  List  data;
-                  print(myData[index]);
+                  // final  List  data;
+                  // print(myData[index]);
                   // MotherStatusDataPdfGenerator mpg =
                   //     MotherStatusDataPdfGenerator(
                   //         data: myData[index], reportName: 'بيانات الحالة');

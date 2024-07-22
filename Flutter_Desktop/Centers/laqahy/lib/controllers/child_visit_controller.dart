@@ -19,7 +19,7 @@ class ChildVisitController extends GetxController {
   var isUpdateLoading = false.obs;
   var isDeleteLoading = false.obs;
   PaginatorController tableController = PaginatorController();
-    TextEditingController childStatementSearchController =
+  TextEditingController childStatementSearchController =
       TextEditingController();
   GlobalKey<FormState> createChildStatementDataFormKey = GlobalKey<FormState>();
   int? centerId;
@@ -28,7 +28,7 @@ class ChildVisitController extends GetxController {
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
     sdc.fetchMothers();
-    fetchChildrenStatement();
+    fetchChildrenStatement(sdc.selectedChildsId.value!);
     sdc.fetchVisitType();
     super.onInit();
   }
@@ -41,7 +41,7 @@ class ChildVisitController extends GetxController {
     sdc.selectedChildDosageTypeId.value = null;
   }
 
-    void filterChildStatement(String keyword) {
+  void filterChildStatement(String keyword) {
     filteredChildStatement.value = childStatement.where((childrenStatement) {
       return childrenStatement.childName
           .toString()
@@ -50,12 +50,12 @@ class ChildVisitController extends GetxController {
     }).toList();
   }
 
-  Future<void> fetchChildrenStatement() async {
+  Future<void> fetchChildrenStatement(int childId) async {
     try {
       isLoading(true);
       childStatementSearchController.clear();
       final response = await http.get(
-        Uri.parse(ApiEndpoints.getChildStatementData),
+        Uri.parse('${ApiEndpoints.getChildStatementData}/$childId'),
         headers: {
           'content-Type': 'application/json',
         },
@@ -115,8 +115,10 @@ class ChildVisitController extends GetxController {
       if (response.statusCode == 201) {
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
-        clearTextFields();
-        fetchChildrenStatement();
+        fetchChildrenStatement(sdc.selectedChildsId.value!);
+        sdc.selectedVisitType.value = null;
+        sdc.selectedVaccineType.value = null;
+        sdc.selectedChildDosageTypeId.value = null;
         isAddLoading(false);
 
         return;
@@ -146,11 +148,11 @@ class ChildVisitController extends GetxController {
   Future<void> deleteChildStatement(int childId) async {
     isDeleteLoading(true);
     try {
-      var request = await http
-          .delete(Uri.parse('${ApiEndpoints.deleteChildStatementData}/$childId'));
+      var request = await http.delete(
+          Uri.parse('${ApiEndpoints.deleteChildStatementData}/$childId'));
 
       if (request.statusCode == 200) {
-        await fetchChildrenStatement();
+        await fetchChildrenStatement(sdc.selectedChildsId.value!);
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();
         isDeleteLoading(false);
@@ -174,5 +176,4 @@ class ChildVisitController extends GetxController {
       isDeleteLoading(false);
     }
   }
-
 }
