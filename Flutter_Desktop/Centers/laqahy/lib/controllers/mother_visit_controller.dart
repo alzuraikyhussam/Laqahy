@@ -5,15 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/utils/pdf/mother_visit_data_pdf_generator.dart';
 import 'package:laqahy/models/mother_visit_data_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 
-
 class MotherVisitController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
-
-
 
   var motherStatement = [].obs;
   var filteredMotherStatement = [].obs;
@@ -37,7 +35,6 @@ class MotherVisitController extends GetxController {
   @override
   onInit() async {
     clearTextFields();
-    fetchMotherStatement(sdc.selectedMothersId.value!);
     sdc.fetchMothers();
     sdc.fetchDosageLevel();
     super.onInit();
@@ -113,10 +110,10 @@ class MotherVisitController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        await fetchMotherStatement(sdc.selectedMothersId.value!);
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
-        // printMotherStatementData(motherStatement);
+        printMotherVisitData(sdc.selectedMothersId.value!.toString(),sdc.selectedDosageLevelId.value!.toString(),sdc.selectedDosageTypeId.value!.toString());
+        await fetchMotherStatement(sdc.selectedMothersId.value!);
         sdc.selectedDosageLevelId.value = null;
         sdc.selectedDosageTypeId.value = null;
         isAddLoading(false);
@@ -173,6 +170,44 @@ class MotherVisitController extends GetxController {
       return;
     } finally {
       isDeleteLoading(false);
+    }
+  }
+
+  Future<void> printMotherVisitData(String mother_data_id,String dosageLevel,String dosageType) async {
+    try {
+      isLoading(true);
+      motherStatementSearchController.clear();
+      final response = await http.get(
+        Uri.parse('${ApiEndpoints.printMotherVisitData}/$mother_data_id/$dosageLevel/$dosageType'),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        motherStatement.value =
+            jsonData.map((e) => MotherStatement.fromJson(e)).toList();
+
+        MotherVisitDataPdfGenerator mpg = MotherVisitDataPdfGenerator(
+            data: motherStatement, reportName: 'بيانات زيارة الام');
+        await mpg.generatePdf(Get.context!);
+      } else if (response.statusCode == 500) {
+        isLoading(false);
+        ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
+      } else {
+        isLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+      }
+    } on SocketException catch (_) {
+      isLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+    } catch (e) {
+      isLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isLoading(false);
     }
   }
 

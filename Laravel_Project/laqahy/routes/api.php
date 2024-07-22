@@ -302,6 +302,7 @@ Route::get('centers/mother-data/print-mother-status-data/{identityNumber}', [Mot
 Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
 Route::delete('centers/mother-statement/delete-mother-statement/{motherId}', [MotherStatementController::class, 'destroy']);
 Route::get('centers/mother-statement/get-mother-statement/{motherId}', [MotherStatementController::class, 'show']);
+Route::get('centers/mother-Statement/print-mother-statement-data/{motherId}/{dosageLevel}/{dosageType}', [MotherStatementController::class, 'printMotherStatementData']);
 // ------------------------------------------------------------
 
 // --------------------- Child Data Routes ------------------------
@@ -316,6 +317,7 @@ Route::patch('centers/child-data/update-children-status-data/{childId}', [ChildD
 Route::get('centers/child-statement/get-child-statement-data/{childId}', [ChildStatementController::class, 'getChildStatement']);
 Route::post('centers/child-statement/add-child-statement', [ChildStatementController::class, 'store']);
 Route::delete('centers/child-statement/delete-child-statement/{childId}', [ChildStatementController::class, 'destroy']);
+Route::get('centers/child-Statement/print-child-statement-data/{childDataId}/{visitTypeId}/{vaccineTypeId}/{childDosageType}', [ChildStatementController::class, 'printChildStatementData']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------

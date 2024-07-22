@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:laqahy/controllers/mother_status_data_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -21,7 +23,9 @@ class MotherStatusDataSource extends DataTableSource {
     }
 
     final mother = myData[index];
-    // StaticDataController sdc = Get.find<StaticDataController>();
+    StaticDataController sdc = Get.find<StaticDataController>();
+    MotherStatusDataController msc = Get.put(MotherStatusDataController());
+
     return DataRow(
       cells: [
         DataCell(
@@ -131,13 +135,8 @@ class MotherStatusDataSource extends DataTableSource {
               myIconButton(
                 icon: Icons.print,
                 onTap: () async {
-                  // Constants().playErrorSound();
-                  // final  List  data;
-                  // print(myData[index]);
-                  // MotherStatusDataPdfGenerator mpg =
-                  //     MotherStatusDataPdfGenerator(
-                  //         data: myData[index], reportName: 'بيانات الحالة');
-                  // await mpg.generatePdf(Get.context!);
+                  msc.printMotherStatusData(mother.mother_identity_num);
+                  msc.fetchAllMothersStatusData(sdc.centerData.first.id!);
                 },
                 gradientColors: [
                   MyColors.greyColor,

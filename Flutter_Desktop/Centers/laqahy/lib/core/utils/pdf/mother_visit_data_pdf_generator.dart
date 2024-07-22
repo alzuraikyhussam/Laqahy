@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -10,14 +9,13 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:laqahy/core/utils/pdf/pdf_widgets/pdf_widgets.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
-import 'package:share_plus/share_plus.dart';
 
-class MotherStatusDataPdfGenerator {
+class MotherVisitDataPdfGenerator {
   StaticDataController sdc = Get.find<StaticDataController>();
   final List data;
   String? reportName;
 
-  MotherStatusDataPdfGenerator({
+  MotherVisitDataPdfGenerator({
     required this.data,
     required this.reportName,
   });
@@ -25,8 +23,7 @@ class MotherStatusDataPdfGenerator {
   Future<void> generatePdf(BuildContext context) async {
     final pdf = pw.Document();
     final PDFWidgets pdfWidgets = PDFWidgets();
-    final pageSize =
-        PdfPageFormat(7.25 * PdfPageFormat.cm, 13 * PdfPageFormat.cm);
+    final pageSize = PdfPageFormat(13 * PdfPageFormat.cm, 7 * PdfPageFormat.cm);
 
     await pdfWidgets.init();
 
@@ -79,7 +76,7 @@ class MotherStatusDataPdfGenerator {
                 border: pw.Border.all(),
               ),
               width: Get.width,
-              padding: const pw.EdgeInsets.all(7),
+              padding: const pw.EdgeInsets.all(4),
               // color: PdfColors.grey200,
               alignment: pw.Alignment.center,
               child: pw.Text(
@@ -89,76 +86,114 @@ class MotherStatusDataPdfGenerator {
               ),
             ),
             pw.SizedBox(height: 15),
-            pw.Column(
-              mainAxisAlignment: pw.MainAxisAlignment.start,
+            pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
-                pw.Row(
+                pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.center,
                   children: [
-                    pw.Text('اسم الام : '),
-                    pw.SizedBox(width: 3),
-                    pw.Text('${data.first.mother_name}')
-                  ],
-                ),
-                pw.SizedBox(height: 7),
-                pw.Row(
-                  children: [
-                    pw.Text('رقم الهاتف : '),
-                    pw.SizedBox(width: 3),
-                    pw.Text('${data.first.mother_phone}')
-                  ],
-                ),
-                pw.SizedBox(height: 7),
-                pw.Row(
-                  children: [
-                    pw.Text('تاريخ الميلاد : '),
-                    pw.SizedBox(width: 3),
-                    pw.Text(
-                        '${DateFormat('yyyy-MM-dd').format(data.first.mother_birthDate)}')
-                  ],
-                ),
-                pw.SizedBox(height: 7),
-                pw.Row(
-                  children: [
-                    pw.Text('الــمدينة : '),
-                    pw.SizedBox(width: 3),
-                    pw.Text('${data.first.cityName}')
-                  ],
-                ),
-                pw.SizedBox(height: 7),
-                pw.Row(
-                  children: [
-                    pw.Text('المديرية: '),
-                    pw.SizedBox(width: 3),
-                    pw.Text('${data.first.directorateName}')
-                  ],
-                ),
-                pw.SizedBox(height: 7),
-                pw.Row(
-                  children: [
-                    pw.Text('اسم المستخدم : '),
-                    pw.SizedBox(width: 3),
-                    pw.Text('${data.first.mother_identity_num}')
-                  ],
-                ),
-                pw.SizedBox(height: 7),
-                pw.Row(
-                  children: [
-                    pw.Text('كلمة المرور : '),
-                    pw.SizedBox(width: 3),
-                    pw.Text('${data.first.mother_password}')
-                  ],
-                ),
-                pw.SizedBox(height: 50),
-                pw.Container(
-                  alignment: pw.Alignment.center,
-                  child: pw.Text(
-                    'تم طباعة هذا التقرير بواسطة نظام لقاحي',
-                    style: pw.TextStyle(
-                      color: PdfColor.fromHex('#269D89'),
-                      fontSize: 10,
-                      fontWeight: pw.FontWeight.bold,
+                    pw.Row(
+                      children: [
+                        pw.Text(
+                          'اسم الحالة  : ',
+                          style: pw.TextStyle(fontSize: 10),
+                        ),
+                        pw.SizedBox(
+                          width: 3,
+                        ),
+                        pw.Text(
+                          '${data.first.motherName}',
+                          style: pw.TextStyle(fontSize: 10),
+                        ),
+                      ],
                     ),
-                  ),
+                    pw.SizedBox(
+                      height: 10,
+                    ),
+                    pw.Row(
+                      children: [
+                        pw.Text(
+                          'المركز الصحي  : ',
+                          style: pw.TextStyle(fontSize: 10),
+                        ),
+                        pw.SizedBox(
+                          width: 3,
+                        ),
+                        pw.Text(
+                          '${data.first.healthy_center}',
+                          style: pw.TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    pw.SizedBox(
+                      height: 20,
+                    ),
+                    pw.Row(
+                      children: [
+                        pw.Text(
+                          'العامل الصحي  : ',
+                          style: pw.TextStyle(fontSize: 5),
+                        ),
+                        pw.SizedBox(
+                          width: 3,
+                        ),
+                        pw.Text(
+                          '${data.first.userName}',
+                          style: pw.TextStyle(fontSize: 5),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                // pw.Spacer(),
+                pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.center,
+                  children: [
+                    pw.Row(
+                      children: [
+                        pw.Text(
+                          'مرحلة الجرعة  : ',
+                          style: pw.TextStyle(fontSize: 10),
+                        ),
+                        pw.SizedBox(
+                          width: 3,
+                        ),
+                        pw.Text(
+                          '${data.first.dosage_level}',
+                          style: pw.TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    pw.SizedBox(
+                      height: 10,
+                    ),
+                    pw.Row(
+                      children: [
+                        pw.Text(
+                          'نوع الجرعة  : ',
+                          style: pw.TextStyle(fontSize: 10),
+                        ),
+                        pw.SizedBox(
+                          width: 3,
+                        ),
+                        pw.Text(
+                          '${data.first.dosage_type}',
+                          style: pw.TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    pw.SizedBox(
+                      height: 20,
+                    ),
+                    pw.Row(
+                      children: [
+                        pw.Text(
+                          "توقيع العامل الصحي",
+                          style: pw.TextStyle(fontSize: 5),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -198,16 +233,6 @@ class MotherStatusDataPdfGenerator {
       ),
     );
 
-    Future<void> shareFile({required File file, required String name}) async {
-      try {
-        // Share PDF
-        await Share.shareXFiles([XFile(file.path)], text: name);
-      } catch (e) {
-        Get.back();
-        ApiExceptionWidgets().mySharePdfFailureAlert();
-      }
-    }
-
     savePdfDocument({required String fileName, required pdf}) async {
       // Generate file name based on current date and time
       String formattedDate =
@@ -219,8 +244,6 @@ class MotherStatusDataPdfGenerator {
         final output = await getApplicationDocumentsDirectory();
         final file = File('${output.path}/$name');
         await file.writeAsBytes(await pdf.save());
-        await shareFile(file: file, name: name);
-
         Get.back();
       } catch (e) {
         Get.back();

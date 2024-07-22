@@ -40,27 +40,30 @@ class ChildDosageTypeController extends Controller
     public function show(string $vaccineTypeId, string $childId)
     {
         try {
-            // Check if the mother exists
+            // Check if the child exists
             $child = Child_statement::where('child_data_id', $childId)->first();
 
             if (!$child) {
-                // If the mother is not found, return all the dosage types for the given dosage level ID
-                $vaccineWithVisit = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type',)->where('vaccines_with_dosages.vaccine_type_id', $vaccineTypeId)->get();
+                // If the child is not found, return all the vaccine dosage types for the given vaccine type ID
+                $vaccineWithVisit = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')
+                    ->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type')
+                    ->where('vaccines_with_dosages.vaccine_type_id', $vaccineTypeId)
+                    ->get();
                 return response()->json([
                     'message' => 'Dosage types retrieved successfully',
                     'data' => $vaccineWithVisit,
                 ]);
             }
 
-            // Get the dosage types that the mother has not taken
+            // Get the vaccine dosage types that the child has not taken
             $childStatement = Vaccines_with_dosage::whereNotIn('id', function ($query) use ($childId) {
                 $query->select('child_dosage_type_id')
                     ->from('child_statements')
                     ->where('child_statements.child_data_id', $childId)
                     ->whereNull('child_statements.deleted_at');
             })
-                ->where('vaccine_type_id', $vaccineTypeId)
-                ->get();
+            ->where('vaccine_type_id', $vaccineTypeId)
+            ->get();
 
             return response()->json([
                 'message' => 'Child statement retrieved successfully',

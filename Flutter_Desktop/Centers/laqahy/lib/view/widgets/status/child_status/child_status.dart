@@ -104,7 +104,7 @@ class _ChildStatusScreenState extends State<ChildStatusScreen> {
                       //   uc.sort.value = ascending;
                       //   uc.onSortColum(columnIndex, ascending);
                       // },
-                      fixedWidth: 220,
+                      fixedWidth: 300,
                     ),
                     DataColumn2(
                       label: Container(
@@ -114,7 +114,7 @@ class _ChildStatusScreenState extends State<ChildStatusScreen> {
                           style: MyTextStyles.font14WhiteBold,
                         ),
                       ),
-                      // fixedWidth: 50,
+                      fixedWidth: 300,
                     ),
                     DataColumn2(
                       label: Container(
@@ -124,7 +124,7 @@ class _ChildStatusScreenState extends State<ChildStatusScreen> {
                           style: MyTextStyles.font14WhiteBold,
                         ),
                       ),
-                      // fixedWidth: 120,
+                      fixedWidth: 200,
                     ),
                     DataColumn2(
                       label: Container(
