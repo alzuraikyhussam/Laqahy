@@ -79,10 +79,32 @@ class MotherVisitDataPdfGenerator {
               padding: const pw.EdgeInsets.all(4),
               // color: PdfColors.grey200,
               alignment: pw.Alignment.center,
-              child: pw.Text(
-                reportName ?? '',
-                textAlign: pw.TextAlign.center,
-                style: headerTextStyle,
+              child: pw.Row(
+                children: [
+                  pw.Row(
+                    children: [
+                      pw.Text(
+                        'الرقم التسلسلي  : ',
+                        style: pw.TextStyle(fontSize: 10),
+                      ),
+                      pw.SizedBox(
+                        width: 3,
+                      ),
+                      pw.Text(
+                        '${data.first.id}',
+                        style: pw.TextStyle(fontSize: 10),
+                      ),
+                    ],
+                  ),
+                  pw.SizedBox(
+                    width: 50,
+                  ),
+                  pw.Text(
+                    reportName ?? '',
+                    textAlign: pw.TextAlign.center,
+                    style: headerTextStyle,
+                  ),
+                ],
               ),
             ),
             pw.SizedBox(height: 15),
@@ -217,10 +239,10 @@ class MotherVisitDataPdfGenerator {
             boldItalic: ttf,
           ),
           pageFormat: pageSize.copyWith(
-            marginLeft: 10,
-            marginRight: 10,
-            marginTop: 10,
-            marginBottom: 10,
+            marginLeft: 7,
+            marginRight: 7,
+            marginTop: 7,
+            marginBottom: 7,
           ),
           textDirection: pw.TextDirection.rtl,
         ),
@@ -233,7 +255,8 @@ class MotherVisitDataPdfGenerator {
       ),
     );
 
-    savePdfDocument({required String fileName, required pdf}) async {
+    Future<void> savePdfDocument(
+        {required String fileName, required pdf}) async {
       // Generate file name based on current date and time
       String formattedDate =
           DateFormat('dd_MM_yyyy_HH_mm_ss').format(DateTime.now());
@@ -244,6 +267,7 @@ class MotherVisitDataPdfGenerator {
         final output = await getApplicationDocumentsDirectory();
         final file = File('${output.path}/$name');
         await file.writeAsBytes(await pdf.save());
+
         Get.back();
       } catch (e) {
         Get.back();

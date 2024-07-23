@@ -169,7 +169,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                         children: [
                           Text(
                             'تاريخ الميلاد',
-                            style: MyTextStyles.font14BlackBold,
+                            style: MyTextStyles.font16BlackBold,
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 3),

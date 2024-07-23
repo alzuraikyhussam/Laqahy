@@ -58,6 +58,8 @@ dependencies:
   open_file: ^3.3.2
   url_launcher: ^6.3.0
   buffer: ^1.2.3
+  win32: ^5.5.0
+  ffi: ^2.1.2
 
   
 

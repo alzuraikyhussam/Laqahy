@@ -44,7 +44,6 @@ class ChildDosageTypeController extends Controller
             $child = Child_statement::where('child_data_id', $childId)->first();
 
             if (!$child) {
-                // If the child is not found, return all the vaccine dosage types for the given vaccine type ID
                 $vaccineWithVisit = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')
                     ->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type')
                     ->where('vaccines_with_dosages.vaccine_type_id', $vaccineTypeId)
@@ -56,14 +55,16 @@ class ChildDosageTypeController extends Controller
             }
 
             // Get the vaccine dosage types that the child has not taken
-            $childStatement = Vaccines_with_dosage::whereNotIn('id', function ($query) use ($childId) {
-                $query->select('child_dosage_type_id')
-                    ->from('child_statements')
-                    ->where('child_statements.child_data_id', $childId)
-                    ->whereNull('child_statements.deleted_at');
-            })
-            ->where('vaccine_type_id', $vaccineTypeId)
-            ->get();
+            $childStatement = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')
+                ->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type')
+                ->whereNotIn('child_dosage_type_id', function ($query) use ($childId) {
+                    $query->select('child_dosage_type_id')
+                        ->from('child_statements')
+                        ->where('child_statements.child_data_id', $childId)
+                        ->whereNull('child_statements.deleted_at');
+                })
+                ->where('vaccines_with_dosages.vaccine_type_id', $vaccineTypeId)
+                ->get();
 
             return response()->json([
                 'message' => 'Child statement retrieved successfully',
