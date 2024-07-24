@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-   
+
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 3));
 
@@ -106,24 +106,18 @@ class _SplashScreenState extends State<SplashScreen>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AnimatedOpacity(
-                    duration: const Duration(milliseconds: 5000),
-                    curve: Curves.fastLinearToSlowEaseIn,
-                    opacity: _containerOpacity,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 2000),
-                      curve: Curves.fastLinearToSlowEaseIn,
-                      height: width / _containerSize,
-                      width: width / _containerSize,
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                        'assets/images/splash-screen-logo.png',
-                      ),
+                  Container(
+                    // height: height,
+                    width: width,
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      'assets/images/animation-logo.gif',
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  // const SizedBox(
+                  //   height: 15,
+                  // ),
                   AnimatedOpacity(
                     duration: const Duration(milliseconds: 5000),
                     curve: Curves.fastLinearToSlowEaseIn,

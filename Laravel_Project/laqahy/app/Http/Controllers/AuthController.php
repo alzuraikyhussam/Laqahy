@@ -444,48 +444,50 @@ class AuthController extends Controller
         }
     }
 
-    // public function mobileSetToken(Request $request)
-    // {
-    //     try {
-    //         $validator = Validator::make(
-    //             $request->all(),
-    //             [
-    //                 'token' => 'required',
-    //                 'mother_id' => 'required',
-    //             ],
-    //         );
+    public function mobileLoginWithFingerprint(Request $request)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'mother_id' => 'required',
+                    'token' => 'required',
+                ],
+            );
 
-    //         if ($validator->fails()) {
-    //             return response()->json([
-    //                 'message' => $validator->errors(),
-    //             ], 400);
-    //         }
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors(),
+                ], 400);
+            }
 
-    //         $user = Mother_data::find($request->mother_id);
+            $user = Mother_data::find($request->mother_id);
 
-    //         if (!$user) {
-    //             return response()->json([
-    //                 'message' => 'User not found',
-    //             ], 404);
-    //         }
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found',
+                ], 404);
+            }
 
-    //         $user->fcm_token = $request->token;
-    //         $user->save();
+            $motherData = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.id', $user->id)->first();
 
-    //         $children = Child_data::where('mother_data_id', $user->id)->get();
+            $returnDate = Mother_statement::where('mother_data_id', $motherData->id)->max('return_date');
+            $childrenCount = Child_data::where('mother_data_id', $motherData->id)->count();
 
-    //         foreach ($children as $child) {
-    //             $child->fcm_token = $request->token;
-    //             $child->save();
-    //         }
+            // Set token
+            $user->fcm_token = $request->token;
+            $user->save();
 
-    //         return response()->json([
-    //             'message' => 'User updated successfully',
-    //         ], 200);
-    //     } catch (Exception $e) {
-    //         return response()->json([
-    //             'message' => $e->getMessage(),
-    //         ], 500);
-    //     }
-    // }
+            return response()->json([
+                'message' => 'Login successfully',
+                'user' => $motherData,
+                'return_date' => $returnDate,
+                'children_count' => $childrenCount,
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

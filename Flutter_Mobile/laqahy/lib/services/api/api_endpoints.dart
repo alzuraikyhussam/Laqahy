@@ -1,10 +1,15 @@
 class ApiEndpoints {
   // *********************************************
-  static const String baseUrl = 'http://10.0.2.2:8000/api';
+  // static const String baseUrl = 'http://10.0.2.2:8000/api';
+  static const String baseUrl = 'https://laqahy.com/api';
   // *********************************************
 
-  // --------------- Login Endpoints -------------------
+  // --------------- Auth Endpoints -------------------
   static const String login = '$baseUrl/mobile/auth/login';
+  static const String enableFingerprint =
+      '$baseUrl/mobile/auth/enable-fingerprint';
+  static const String loginWithFingerprint =
+      '$baseUrl/mobile/auth/fingerprint-login';
   // --------------------------------------------------
 
   // --------------- Mother Statement Endpoints -------------------

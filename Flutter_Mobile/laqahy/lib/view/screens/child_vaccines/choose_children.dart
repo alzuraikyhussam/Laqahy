@@ -70,7 +70,7 @@ class _ChooseChildAlertState extends State<ChooseChildAlert> {
       actions: [
         Obx(() {
           return cvc.isLoading.value
-              ? myLoadingIndicator(width: 120)
+              ? myLoadingIndicator()
               : myButton(
                   onPressed: cvc.isLoading.value
                       ? null
@@ -80,19 +80,11 @@ class _ChooseChildAlertState extends State<ChooseChildAlert> {
                                 scc.selectedChildId.value!);
                           }
                         },
-                  width: 120,
                   text: 'مــــوافق',
-                  textStyle: MyTextStyles.font16WhiteBold,
+                  textStyle: MyTextStyles.font14WhiteBold,
                 );
         }),
-        myButton(
-          onPressed: () {
-            Get.back();
-          },
-          text: 'إلـغــاء الأمـــر',
-          textStyle: MyTextStyles.font14WhiteBold,
-          backgroundColor: MyColors.greyColor,
-        ),
+        
       ],
     );
   }

@@ -88,7 +88,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                     ),
                   ),
                   Positioned(
-                    top: 20,
+                    top: 30,
                     right: 5,
                     child: IconButton(
                       color: MyColors.whiteColor,

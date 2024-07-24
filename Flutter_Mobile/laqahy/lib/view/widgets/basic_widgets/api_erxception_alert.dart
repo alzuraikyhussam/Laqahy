@@ -65,7 +65,7 @@ class _ApiExceptionAlertState extends State<ApiExceptionAlert> {
               children: [
                 Text(
                   widget.title,
-                  style: MyTextStyles.font18BlackBold,
+                  style: MyTextStyles.font16BlackBold,
                 ),
                 const SizedBox(
                   height: 15,
@@ -76,7 +76,7 @@ class _ApiExceptionAlertState extends State<ApiExceptionAlert> {
                     widget.description,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: MyTextStyles.font16GreyMedium,
+                    style: MyTextStyles.font14GreyMedium,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -94,7 +94,7 @@ class _ApiExceptionAlertState extends State<ApiExceptionAlert> {
           width: 150,
           backgroundColor: widget.backgroundColor ?? MyColors.redColor,
           text: widget.btnLabel,
-          textStyle: MyTextStyles.font16WhiteBold,
+          textStyle: MyTextStyles.font14WhiteBold,
         ),
       ],
     );

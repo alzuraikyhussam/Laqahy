@@ -35,9 +35,9 @@ class SendReminder extends Command
 
             $fcmService = new FcmService();
 
-            $mothers = Mother_statement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->select('mother_statements.*', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('mother_statements.return_date', now()->toDateString())->whereNotNull('mother_data.fcm_token')->get();
+            $mothers = Mother_statement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->select('mother_statements.*', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('mother_statements.return_date', today()->addDays(2)->toDateString())->whereNotNull('mother_data.fcm_token')->get();
 
-            $children = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->select('child_statements.*', 'child_data.child_data_name', 'child_data.mother_data_id', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('child_statements.return_date', now()->toDateString())->whereNotNull('mother_data.fcm_token')->get();
+            $children = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->select('child_statements.*', 'child_data.child_data_name', 'child_data.mother_data_id', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('child_statements.return_date', today()->addDays(2)->toDateString())->whereNotNull('mother_data.fcm_token')->get();
 
             foreach ($mothers as $mother) {
                 info("Cron Job mothers running at == " . now());

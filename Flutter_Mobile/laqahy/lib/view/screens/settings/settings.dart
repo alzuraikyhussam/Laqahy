@@ -39,30 +39,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  myCircleAvatar(),
+                  Container(
+                    width: 130,
+                    height: 130,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(
+                        width: 5,
+                        color: MyColors.secondaryColor,
+                      ),
+                      image: const DecorationImage(
+                        image: AssetImage(
+                          'assets/images/profile-image.png',
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Text(
-                    'مرحباً بك',
+                    // 'sdc.userLoggedData.first.user.motherName' ??
+                    //     'مجهول الهوية',
+                    sdc.userLoggedData.first.user.motherName ?? 'مجهول الهوية',
                     style: MyTextStyles.font16WhiteBold,
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    // width: 200,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: MyColors.secondaryColor,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      sdc.userLoggedData.first.user.motherName ??
-                          'مجهول الهوية',
-                      style: MyTextStyles.font16WhiteBold,
-                    ),
+                  Text(
+                    // 'الرقم الوطني:',
+                    'الرقم الوطني: ${sdc.userLoggedData.first.user.identityNum}',
+                    style: MyTextStyles.font14WhiteMedium,
                   ),
                 ],
               ),

@@ -8,7 +8,7 @@
 PRODUCT_NAME = laqahy
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.sourcetech.laqahy.ministry
+PRODUCT_BUNDLE_IDENTIFIER = sourcetech.ministry.laqahy
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 com.sourcetech. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 sourcetech.ministry. All rights reserved.

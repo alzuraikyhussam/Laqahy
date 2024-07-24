@@ -257,6 +257,7 @@ Route::get('offices/reports/orders-custom-report', [ReportController::class, 'of
 
 // --------------------- Auth Routes ------------------------
 Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']);
+Route::post('mobile/auth/fingerprint-login', [AuthController::class, 'mobileLoginWithFingerprint']);
 // ------------------------------------------------------------
 
 // --------------------- Awareness Information Routes ------------------------

@@ -100,7 +100,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                               }
                             },
                             text: 'إرســــــال',
-                            textStyle: MyTextStyles.font16WhiteBold,
+                            textStyle: MyTextStyles.font14WhiteBold,
                             width: Get.width,
                           );
                   }),

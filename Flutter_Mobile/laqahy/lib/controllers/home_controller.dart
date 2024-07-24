@@ -17,6 +17,7 @@ class HomeController extends GetxController {
       onTap: () {
         Get.delete<SelectChildController>();
         myShowDialog(
+          barrierDismissible: true,
           context: Get.context!,
           widgetName: const ChooseChildAlert(),
         );

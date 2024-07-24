@@ -107,41 +107,43 @@ class _AwarenessInfoScreenState extends State<AwarenessInfoScreen> {
               const SizedBox(
                 height: 20,
               ),
-              Obx(() {
-                return FutureBuilder(
-                  future: aic.fetchDataFuture.value,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return SizedBox(
-                        width: Get.width,
-                        height: 300,
-                        child: Center(
-                          child: myLoadingIndicator(),
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: ApiExceptionWidgets().mySnapshotError(
-                            snapshot.error, onPressedRefresh: () {
-                          aic.fetchAwarenessInfo();
-                        }),
-                      );
-                    } else {
-                      if (aic.awarenessInfo.isEmpty) {
-                        return ApiExceptionWidgets().myDataNotFound(
-                          onPressedRefresh: () {
+              Expanded(
+                child: Obx(() {
+                  return FutureBuilder(
+                    future: aic.fetchDataFuture.value,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SizedBox(
+                          width: Get.width,
+                          height: 300,
+                          child: Center(
+                            child: myLoadingIndicator(),
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: ApiExceptionWidgets().mySnapshotError(
+                              snapshot.error, onPressedRefresh: () {
                             aic.fetchAwarenessInfo();
-                          },
+                          }),
                         );
                       } else {
-                        return myAwarenessListView(
-                          items: aic.awarenessInfo,
-                        );
+                        if (aic.awarenessInfo.isEmpty) {
+                          return ApiExceptionWidgets().myDataNotFound(
+                            onPressedRefresh: () {
+                              aic.fetchAwarenessInfo();
+                            },
+                          );
+                        } else {
+                          return myAwarenessListView(
+                            items: aic.awarenessInfo,
+                          );
+                        }
                       }
-                    }
-                  },
-                );
-              }),
+                    },
+                  );
+                }),
+              ),
             ],
           ),
         ),

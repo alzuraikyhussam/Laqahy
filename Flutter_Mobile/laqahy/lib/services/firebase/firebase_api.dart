@@ -9,7 +9,7 @@ class FirebaseApi {
       await _firebaseMessaging.requestPermission();
       initPushNotifications();
     } catch (e) {
-      ApiExceptionWidgets().myUnknownExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
     }
   }
 
@@ -27,7 +27,7 @@ class FirebaseApi {
       FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
       FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
     } catch (e) {
-      ApiExceptionWidgets().myUnknownExceptionAlert();
+      ApiExceptionWidgets().mySocketExceptionAlert();
     }
   }
 }

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_biometrics/flutter_biometrics.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/login_controller.dart';
 
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 
-import 'package:laqahy/view/screens/reset_password_verification.dart';
+import 'package:laqahy/view/screens/reset_password/reset_password_verification.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:local_auth/local_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -130,50 +128,23 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(
                               width: 15,
                             ),
-                            myIconButton(
-                              onPressed: () {},
-                              icon: Icons.fingerprint_rounded,
-                              backgroundColor: [
-                                MyColors.secondaryColor,
-                                MyColors.secondaryColor
-                              ],
-                              onTap: () async {
-                                final LocalAuthentication auth =
-                                    LocalAuthentication();
-                                var statusMsg = '';
-                                bool authAvailable =
-                                    await auth.canCheckBiometrics;
-                                if (!authAvailable) {
-                                  statusMsg = 'not';
-                                  return;
-                                }
-
-                                List<BiometricType> availableBiometricTypes =
-                                    await auth.getAvailableBiometrics();
-                                if (!availableBiometricTypes
-                                    .contains(BiometricType.fingerprint)) {
-                                  statusMsg = 'fingerprint not available';
-                                  return;
-                                }
-
-                                String? biometricData;
-                                try {
-                                  biometricData = await FlutterBiometrics()
-                                      .createKeys(
-                                          reason:
-                                              'Please authenticate to generate key');
-                                  statusMsg = 'success';
-                                } catch (e) {
-                                  print(e);
-                                  statusMsg = 'failed: $e';
-                                  return;
-                                }
-
-                                if (biometricData != null) {
-                                  // Send biometric data to the server
-                                }
-                              },
-                            ),
+                            Obx(() {
+                              return lc.isLoginWithFingerprintLoading.value
+                                  ? myLoadingIndicator(width: 60)
+                                  : myIconButton(
+                                      icon: Icons.fingerprint_rounded,
+                                      backgroundColor: [
+                                        MyColors.secondaryColor,
+                                        MyColors.secondaryColor
+                                      ],
+                                      onTap:
+                                          lc.isLoginWithFingerprintLoading.value
+                                              ? null
+                                              : () {
+                                                  lc.checkBiometrics();
+                                                },
+                                    );
+                            }),
                           ],
                         ),
                       ],

@@ -3,14 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/login_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/screens/login/login.dart';
-import 'package:laqahy/view/screens/reset_password.dart';
+import 'package:laqahy/view/screens/reset_password/reset_password.dart';
 import 'package:laqahy/view/widgets/basic_widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
@@ -22,7 +21,7 @@ class ResetPasswordController extends GetxController {
   TextEditingController phoneNumberController = TextEditingController();
   String? phoneNumberValidator(value) {
     if (value.isEmpty) {
-      return 'يجب ادخال  رقم الهاتف';
+      return 'يجب ادخال رقم الجوال';
     }
     return null;
   }

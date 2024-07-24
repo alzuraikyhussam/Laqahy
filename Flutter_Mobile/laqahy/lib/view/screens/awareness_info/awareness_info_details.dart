@@ -65,7 +65,7 @@ class _AwarenessInfoDetailsScreenState
                     ),
                   ),
                   Positioned(
-                    top: 20,
+                    top: 30,
                     right: 5,
                     child: IconButton(
                       color: MyColors.whiteColor,
@@ -81,37 +81,39 @@ class _AwarenessInfoDetailsScreenState
             const SizedBox(
               height: 10,
             ),
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsetsDirectional.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsetsDirectional.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: MyColors.primaryColor.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          widget.title,
+                          textAlign: TextAlign.start,
+                          style: MyTextStyles.font16BlackBold,
+                        ),
                       ),
-                      decoration: BoxDecoration(
-                        color: MyColors.primaryColor.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(5),
+                      const SizedBox(
+                        height: 15,
                       ),
-                      child: Text(
-                        widget.title,
-                        textAlign: TextAlign.start,
-                        style: MyTextStyles.font16BlackBold,
+                      Text(
+                        widget.description,
+                        style: MyTextStyles.font14GreyMedium,
+                        textAlign: TextAlign.justify,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      widget.description,
-                      style: MyTextStyles.font14GreyMedium,
-                      textAlign: TextAlign.justify,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
 import 'package:laqahy/controllers/settings_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -17,8 +19,10 @@ import 'package:laqahy/models/notifications_model.dart';
 import 'package:laqahy/models/post_model.dart';
 import 'package:laqahy/models/settings_model.dart';
 import 'package:laqahy/view/screens/awareness_info/awareness_info_details.dart';
+import 'package:laqahy/view/screens/login/login.dart';
 import 'package:laqahy/view/screens/posts/post_details.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shadow_overlay/shadow_overlay.dart';
 
 myAppBar({
@@ -104,7 +108,6 @@ myButton({
 }
 
 myIconButton({
-  required void Function()? onPressed,
   double? width = 60,
   required IconData? icon,
   List<Color>? backgroundColor,
@@ -414,6 +417,8 @@ mySettingsListView({
     // physics: const NeverScrollableScrollPhysics(),
     itemBuilder: (context, index) {
       return ListTile(
+        splashColor: MyColors.greyColor,
+        hoverColor: MyColors.greyColor,
         onTap: items[index].onTap,
         leading: items[index].prefix,
         title: Text(
@@ -489,9 +494,6 @@ myAwarenessListView({
                           textAlign: TextAlign.start,
                           style: MyTextStyles.font14GreyMedium,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
                       ),
                     ],
                   ),
@@ -918,9 +920,10 @@ myListTile({
 myShowDialog({
   required BuildContext context,
   required widgetName,
+  bool barrierDismissible = false,
 }) {
   return showDialog(
-    barrierDismissible: false,
+    barrierDismissible: barrierDismissible,
     context: context,
     builder: (context) {
       return widgetName;
@@ -982,6 +985,7 @@ myProfileListTile({
 }
 
 SettingsController sc = Get.put(SettingsController());
+StaticDataController sdc = Get.put(StaticDataController());
 
 mySwitchButton() {
   return Obx(() {
@@ -991,7 +995,9 @@ mySwitchButton() {
       value: sc.isDark.value,
       onChanged: (val) {
         sc.isDark.value = val;
-        print(sc.isDark);
+        final isDarkMode = Get.isDarkMode;
+        Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
+        sdc.storageService.setIsDark(!isDarkMode);
       },
     );
   });
@@ -1169,4 +1175,145 @@ Widget myDropDownMenuButton2<T>({
       },
     ),
   );
+}
+
+myLogoutConfirmDialog() {
+  return AlertDialog(
+    alignment: AlignmentDirectional.center,
+    actionsAlignment: MainAxisAlignment.center,
+    content: SizedBox(
+      height: 225,
+      width: Get.width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: SizedBox(
+              height: 150,
+              width: Get.width,
+              child: Lottie.asset(
+                'assets/images/question.json',
+
+                // alignment: Alignment.center,
+                // fit: BoxFit.cover,
+              ),
+              // Image.asset(
+              //   widget.imageUrl,
+              //   width: 130,
+              //   fit: BoxFit.contain,
+              // ),
+            ),
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'تأكيد تسجيل الخروج',
+                  style: MyTextStyles.font16BlackBold,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Expanded(
+                  child: Text(
+                    'هل انتِ متأكدة من عملية تسجيل الخروج؟',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: MyTextStyles.font14GreyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+    actions: [
+      myButton(
+        backgroundColor: MyColors.redColor,
+        onPressed: () async {
+          await Get.closeCurrentSnackbar();
+          Get.offAll(() => const LoginScreen());
+        },
+        text: 'تسجيل خروج',
+        textStyle: MyTextStyles.font14WhiteBold,
+      ),
+    ],
+  );
+}
+
+Future<bool> myExitAppConfirmDialog(context) async {
+  return await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            alignment: AlignmentDirectional.center,
+            actionsAlignment: MainAxisAlignment.center,
+            content: SizedBox(
+              height: 240,
+              width: Get.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: SizedBox(
+                      height: 150,
+                      width: Get.width,
+                      child: Lottie.asset(
+                        'assets/images/question.json',
+
+                        // alignment: Alignment.center,
+                        // fit: BoxFit.cover,
+                      ),
+                      // Image.asset(
+                      //   widget.imageUrl,
+                      //   width: 130,
+                      //   fit: BoxFit.contain,
+                      // ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'تأكيد الخروج',
+                          style: MyTextStyles.font16BlackBold,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Expanded(
+                          child: Text(
+                            'هل انتِ متأكدة من عملية الخروج من التطبيق؟',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: MyTextStyles.font14GreyMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              myButton(
+                backgroundColor: MyColors.redColor,
+                onPressed: () async {
+                  await Get.closeCurrentSnackbar();
+                  Get.back(result: true);
+                },
+                text: 'نعم، خروج',
+                textStyle: MyTextStyles.font14WhiteBold,
+              ),
+            ],
+          );
+        },
+      ) ??
+      false;
 }
