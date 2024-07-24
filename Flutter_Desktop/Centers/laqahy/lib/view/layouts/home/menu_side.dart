@@ -145,7 +145,7 @@ class _HomeMenuSideState extends State<HomeMenuSide> {
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: hlc.choose.value ==
                                       Constants
-                                          .adminHomeLayoutItems[index].label
+                                          .userHomeLayoutItems[index].label
                                   ? [
                                       BoxShadow(
                                           color: MyColors.greyColor
