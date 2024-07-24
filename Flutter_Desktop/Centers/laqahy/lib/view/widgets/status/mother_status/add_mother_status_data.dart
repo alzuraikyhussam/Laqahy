@@ -101,7 +101,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                             validator: msc.identityNumberValidator,
                             prefixIcon: Icons.numbers,
                             width: 200,
-                            hintText: 'يرجا إدخال الرقم الوطني',
+                            hintText: 'أدخل الرقم الوطني',
                             keyboardType: TextInputType.text,
                             readOnly: false,
                             onChanged: (value) {},
