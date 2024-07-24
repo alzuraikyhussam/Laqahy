@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           myCopyRightText(),
           SingleChildScrollView(
-            child: Get.width,
+            
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: Column(
