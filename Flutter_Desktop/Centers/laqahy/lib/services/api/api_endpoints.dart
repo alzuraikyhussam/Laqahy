@@ -91,6 +91,8 @@ class ApiEndpoints {
       '$baseUrl/centers/mother-data/add-mother';
   static const String getMothersData =
       '$baseUrl/centers/mother-data/get-mother-data';
+  static const String getAllMothersData =
+      '$baseUrl/centers/mother-data/get-all-mother-data';
   static const String getMotherDateRange =
       '$baseUrl/centers/mother-data/date-range';
   static const String getAllMotherStatusDate =

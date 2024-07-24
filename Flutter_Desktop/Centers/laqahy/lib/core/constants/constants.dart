@@ -163,6 +163,14 @@ class Constants {
     return null;
   }
 
+//////////
+  String? allMotherValidator(value) {
+    if (value == null) {
+      return 'قم باختيار اسم الام من فضلك';
+    }
+    return null;
+  }
+
   /////////////
   String? genderValidator(value) {
     if (value == null) {
@@ -257,6 +265,8 @@ class Constants {
   /////////////
 
   final TextEditingController directoratesSearchController =
+      TextEditingController();
+  final TextEditingController allMotherStatusDataSearchController =
       TextEditingController();
   final TextEditingController visitTypeSearchController =
       TextEditingController();
@@ -749,7 +759,7 @@ class Constants {
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
-                    controller.fetchMothers();
+                    controller.fetchMothers(controller.centerData.first.id!);
                     Get.back();
                   },
                 ));
@@ -779,7 +789,7 @@ class Constants {
                   height: 280,
                   btnLabel: 'تحــديث',
                   onPressed: () {
-                    controller.fetchMothers();
+                    controller.fetchMothers(controller.centerData.first.id!);
                     Get.back();
                   },
                 ));
@@ -825,12 +835,124 @@ class Constants {
     });
   }
 
-  Widget childsDropdownMenu() {
+  Widget allMothersDropdownMenu() {
     final StaticDataController controller = Get.find<StaticDataController>();
-  ChildVisitController cvc = Get.put(ChildVisitController());
+    MotherVisitController mvc = Get.put(MotherVisitController());
 
     return Obx(() {
-      if (controller.selectedMothersId.value == null) {
+      if (controller.isAllMotherLoading.value) {
+        return myDropDownMenuButton2(
+          hintText: 'اسم الأم',
+          width: 270,
+          items: [
+            DropdownMenuItem<String>(
+              child: Center(
+                child: myLoadingIndicator(),
+              ),
+            ),
+          ],
+          onChanged: null,
+          searchController: null,
+          validator: allMotherValidator,
+          selectedValue: null,
+        );
+      }
+
+      if (controller.allMotherErrorMsg.isNotEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'حدث خطأ ما',
+                  description: controller.allMotherErrorMsg.value,
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchAllMothers();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'اسم الأم',
+            width: 270,
+            items: null,
+            onChanged: null,
+            searchController: null,
+            validator: allMotherValidator,
+            selectedValue: null,
+          ),
+        );
+      }
+
+      if (controller.allMothers.isEmpty) {
+        return InkWell(
+          onTap: () {
+            // Constants().playErrorSound();
+
+            myShowDialog(
+                context: Get.context!,
+                widgetName: ApiExceptionAlert(
+                  title: 'لا تـــوجد بيـــانات',
+                  description: 'عذراً، لم يتم العثور على بيانات',
+                  height: 280,
+                  btnLabel: 'تحــديث',
+                  onPressed: () {
+                    controller.fetchAllMothers();
+                    Get.back();
+                  },
+                ));
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'اسم الأم',
+            width: 270,
+            items: null,
+            onChanged: null,
+            validator: allMotherValidator,
+            searchController: null,
+            selectedValue: null,
+          ),
+        );
+      }
+
+      return myDropDownMenuButton2(
+        hintText: 'اسم الأم',
+        width: 270,
+        validator: allMotherValidator,
+        items: controller.allMothers.map((element) {
+          return DropdownMenuItem(
+            value: element.id.toString(),
+            child: Text(
+              element.mother_name,
+              style: MyTextStyles.font16BlackMedium,
+            ),
+          );
+        }).toList(),
+        onChanged: (value) {
+          if (value != null) {
+            controller.selectedAllMothersId.value = int.tryParse(value);
+            controller.fetchChildren(controller.selectedAllMothersId.value!);
+            mvc.fetchMotherStatement(controller.selectedAllMothersId.value!);
+            controller.selectedChildsId.value = null;
+          } else {
+            controller.selectedAllMothersId.value = null;
+          }
+        },
+        searchController: allMotherStatusDataSearchController,
+        selectedValue: controller.selectedAllMothersId.value?.toString(),
+      );
+    });
+  }
+
+  Widget childsDropdownMenu() {
+    final StaticDataController controller = Get.find<StaticDataController>();
+    ChildVisitController cvc = Get.put(ChildVisitController());
+
+    return Obx(() {
+      if (controller.selectedAllMothersId.value == null) {
         return InkWell(
           onTap: () {
             // Constants().playErrorSound();
@@ -882,7 +1004,7 @@ class Constants {
                   btnLabel: 'تحــديث',
                   onPressed: () {
                     controller
-                        .fetchChildren(controller.selectedMothersId.value!);
+                        .fetchChildren(controller.selectedAllMothersId.value!);
                     Get.back();
                   },
                 ));
@@ -910,7 +1032,7 @@ class Constants {
                   btnLabel: 'تحــديث',
                   onPressed: () {
                     controller
-                        .fetchChildren(controller.selectedMothersId.value!);
+                        .fetchChildren(controller.selectedAllMothersId.value!);
                     Get.back();
                   },
                 ));
@@ -943,9 +1065,8 @@ class Constants {
             if (value != null) {
               controller.selectedChildsId.value = int.tryParse(value);
               cvc.fetchChildrenStatement(controller.selectedChildsId.value!);
-
             } else {
-              controller.selectedMothersId.value = null;
+              controller.selectedAllMothersId.value = null;
             }
           },
           searchController: childrenSearchController,
@@ -1049,7 +1170,7 @@ class Constants {
           if (value != null) {
             controller.selectedDosageLevelId.value = int.tryParse(value);
             controller.fetchDosageType(controller.selectedDosageLevelId.value!,
-                controller.selectedMothersId.value!);
+                controller.selectedAllMothersId.value!);
             // mvc.fetchAnyMotherStatement(controller.selectedMothersId.value!,
             //     controller.selectedDosageLevelId.value!);
             controller.selectedDosageTypeId.value = null;
@@ -1148,7 +1269,7 @@ class Constants {
                   onPressed: () {
                     controller.fetchDosageType(
                         controller.selectedDosageLevelId.value!,
-                        controller.selectedMothersId.value!);
+                        controller.selectedAllMothersId.value!);
                     Get.back();
                   },
                 ));
@@ -1413,6 +1534,7 @@ class Constants {
               controller.selectedVaccineType.value = int.tryParse(value);
               controller.fetchDosageWithVaccine(
                   controller.selectedVaccineType.value!,
+                  controller.selectedVisitType.value!,
                   controller.selectedChildsId.value!);
               controller.selectedChildDosageTypeId.value = null;
             } else {
@@ -1482,6 +1604,7 @@ class Constants {
                   onPressed: () {
                     controller.fetchDosageWithVaccine(
                         controller.selectedVaccineType.value!,
+                        controller.selectedVisitType.value!,
                         controller.selectedChildsId.value!);
                     Get.back();
                   },
@@ -1511,6 +1634,7 @@ class Constants {
                   onPressed: () {
                     controller.fetchDosageWithVaccine(
                         controller.selectedVaccineType.value!,
+                        controller.selectedVisitType.value!,
                         controller.selectedChildsId.value!);
                     Get.back();
                   },

@@ -187,7 +187,7 @@ class MotherStatusDataController extends GetxController {
         // Mothers motherData = Mothers.fromJson(data['mother']);
         // print(data);
 
-        sdc.fetchMothers();
+        sdc.fetchMothers(sdc.centerData.first.id!);
         fetchAllMothersStatusData(centerId!);
         clearTextFields();
         isAddLoading(false);
@@ -293,7 +293,7 @@ class MotherStatusDataController extends GetxController {
         // await fetchAllMothersStatusData(centerId!);
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
-        sdc.fetchMothers();
+        sdc.fetchMothers(sdc.centerData.first.id!);
         fetchAllMothersStatusData(sdc.centerData.first.id!);
         isUpdateLoading(false);
         clearTextFields();

@@ -15,7 +15,22 @@ class MotherDataController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $healthyCenterId)
+    {
+        try {
+            $mother = Mother_data::where('healthy_center_id', $healthyCenterId)->get();
+            return response()->json([
+                'message' => 'Mothers retrieved successfully',
+                'data' => $mother,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getAllMotherStatusData()
     {
         try {
             $mother = Mother_data::get();

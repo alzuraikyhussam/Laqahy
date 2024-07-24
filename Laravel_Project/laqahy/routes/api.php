@@ -291,7 +291,8 @@ Route::patch('mobile/reset-password', [ResetPasswordController::class, 'mobileRe
 // --------------------- Mother Data Routes ------------------------
 Route::get('centers/mother-data/date-range/{center_id}', [MotherDataController::class, 'centerGetDateRange']);
 Route::post('centers/mother-data/add-mother', [MotherDataController::class, 'store']);
-Route::get('centers/mother-data/get-mother-data', [MotherDataController::class, 'index']);
+Route::get('centers/mother-data/get-all-mother-data', [MotherDataController::class, 'getAllMotherStatusData']);
+Route::get('centers/mother-data/get-mother-data/{healthyCenterId}', [MotherDataController::class, 'index']);
 Route::get('centers/mother-data/get-All-mother-data/{centerId}', [MotherDataController::class, 'showAllMothersStatusData']);
 Route::delete('centers/mother-data/delete-mother-status-data/{motherId}', [MotherDataController::class, 'destroy']);
 Route::patch('centers/mother-data/update-mother-status-data/{motherId}', [MotherDataController::class, 'update']);
@@ -372,7 +373,7 @@ Route::get('centers/get-vaccine-with-visit-type/{visitTypeId}', [VisitTypeContro
 // ------------------------------------------------------------
 
 // --------------------- Dosage With Vaccine Routes ------------------------
-Route::get('centers/get-dosage-with-vaccine-type/{vaccineTypeId}/{childId}', [ChildDosageTypeController::class, 'show']);
+Route::get('centers/get-dosage-with-vaccine-type/{vaccineTypeId}/{visitType}/{childId}', [ChildDosageTypeController::class, 'show']);
 // ------------------------------------------------------------
 
 // --------------------- Report Routes ------------------------

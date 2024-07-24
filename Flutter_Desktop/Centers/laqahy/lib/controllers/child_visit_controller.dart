@@ -28,14 +28,14 @@ class ChildVisitController extends GetxController {
   @override
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
-    sdc.fetchMothers();
+    sdc.fetchAllMothers();
     sdc.fetchVisitType();
     super.onInit();
   }
 
   void clearTextFields() {
     sdc.selectedChildsId.value = null;
-    sdc.selectedMothersId.value = null;
+    sdc.selectedAllMothersId.value = null;
     sdc.selectedVisitType.value = null;
     sdc.selectedVaccineType.value = null;
     sdc.selectedChildDosageTypeId.value = null;

@@ -113,6 +113,7 @@ class ChildVisitDataPdfGenerator {
               children: [
                 pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.center,
+                  
                   children: [
                     pw.Row(
                       children: [
@@ -148,20 +149,20 @@ class ChildVisitDataPdfGenerator {
                       ],
                     ),
                     pw.SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     pw.Row(
                       children: [
                         pw.Text(
                           'العامل الصحي  : ',
-                          style: pw.TextStyle(fontSize: 5),
+                          style: pw.TextStyle(fontSize: 7),
                         ),
                         pw.SizedBox(
                           width: 3,
                         ),
                         pw.Text(
                           '${data.first.userName}',
-                          style: pw.TextStyle(fontSize: 5),
+                          style: pw.TextStyle(fontSize: 7),
                         ),
                       ],
                     ),
@@ -170,6 +171,7 @@ class ChildVisitDataPdfGenerator {
                 // pw.Spacer(),
                 pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.center,
+
                   children: [
                     pw.Row(
                       children: [
@@ -205,13 +207,13 @@ class ChildVisitDataPdfGenerator {
                       ],
                     ),
                     pw.SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     pw.Row(
                       children: [
                         pw.Text(
                           "توقيع العامل الصحي",
-                          style: pw.TextStyle(fontSize: 5),
+                          style: pw.TextStyle(fontSize: 7),
                         ),
                       ],
                     ),

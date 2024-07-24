@@ -58,6 +58,11 @@ class StaticDataController extends GetxController {
   var selectedMothersId = Rx<int?>(null);
   var motherErrorMsg = ''.obs;
   var isMotherLoading = false.obs;
+  
+  var allMothers = <Mothers>[].obs;
+  var selectedAllMothersId = Rx<int?>(null);
+  var allMotherErrorMsg = ''.obs;
+  var isAllMotherLoading = false.obs;
 
   var childs = <Children>[].obs;
   var selectedChildsId = Rx<int?>(null);
@@ -256,12 +261,12 @@ class StaticDataController extends GetxController {
     }
   }
 
-  void fetchMothers() async {
+  void fetchMothers(int healthyCenterId) async {
     try {
       motherErrorMsg('');
       isMotherLoading(true);
       final response = await http.get(
-        Uri.parse(ApiEndpoints.getMothersData),
+        Uri.parse('${ApiEndpoints.getMothersData}/$healthyCenterId'),
         headers: {
           'content-Type': 'application/json',
         },
@@ -285,6 +290,38 @@ class StaticDataController extends GetxController {
       motherErrorMsg('خطأ غير متوقع\n${e.toString()}');
     } finally {
       isMotherLoading(false);
+    }
+  }
+
+  void fetchAllMothers() async {
+    try {
+      allMotherErrorMsg('');
+      isAllMotherLoading(true);
+      final response = await http.get(
+        Uri.parse(ApiEndpoints.getAllMothersData),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isAllMotherLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        List<Mothers> fetchedAllMothers =
+            jsonData.map((e) => Mothers.fromJson(e)).toList();
+        allMothers.assignAll(fetchedAllMothers);
+      } else {
+        isAllMotherLoading(false);
+        allMotherErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+      }
+    } on SocketException catch (_) {
+      isAllMotherLoading(false);
+      allMotherErrorMsg(
+          'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
+    } catch (e) {
+      isAllMotherLoading(false);
+      allMotherErrorMsg('خطأ غير متوقع\n${e.toString()}');
+    } finally {
+      isAllMotherLoading(false);
     }
   }
 
@@ -451,13 +488,13 @@ class StaticDataController extends GetxController {
     }
   }
 
-  void fetchDosageWithVaccine(int vaccineTypeId, int childId) async {
+  void fetchDosageWithVaccine(int vaccineTypeId,int visitType, int childId) async {
     try {
       childDosageTypeErrorMsg('');
       isChildDosageTypeLoading(true);
       final response = await http.get(
         Uri.parse(
-            '${ApiEndpoints.getDosageTypeWithVaccine}/$vaccineTypeId/$childId'),
+            '${ApiEndpoints.getDosageTypeWithVaccine}/$vaccineTypeId/$visitType/$childId'),
         headers: {
           'content-Type': 'application/json',
         },

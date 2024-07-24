@@ -27,7 +27,7 @@ class MotherVisitController extends GetxController {
   int? dosageLevelId;
 
   void clearTextFields() {
-    sdc.selectedMothersId.value = null;
+    sdc.selectedAllMothersId.value = null;
     sdc.selectedDosageLevelId.value = null;
     sdc.selectedDosageTypeId.value = null;
   }
@@ -35,7 +35,7 @@ class MotherVisitController extends GetxController {
   @override
   onInit() async {
     clearTextFields();
-    sdc.fetchMothers();
+    sdc.fetchAllMothers();
     sdc.fetchDosageLevel();
     super.onInit();
   }
@@ -93,7 +93,7 @@ class MotherVisitController extends GetxController {
     try {
       isAddLoading(true);
       final motherStatement = MotherStatement(
-        mother_data_id: sdc.selectedMothersId.value!,
+        mother_data_id: sdc.selectedAllMothersId.value!,
         healthy_center_id: centerID!,
         user_id: userID!,
         date_taking_dose: date_taking_dose,
@@ -112,8 +112,8 @@ class MotherVisitController extends GetxController {
       if (response.statusCode == 201) {
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
-        printMotherVisitData(sdc.selectedMothersId.value!.toString(),sdc.selectedDosageLevelId.value!.toString(),sdc.selectedDosageTypeId.value!.toString());
-        await fetchMotherStatement(sdc.selectedMothersId.value!);
+        printMotherVisitData(sdc.selectedAllMothersId.value!.toString(),sdc.selectedDosageLevelId.value!.toString(),sdc.selectedDosageTypeId.value!.toString());
+        await fetchMotherStatement(sdc.selectedAllMothersId.value!);
         sdc.selectedDosageLevelId.value = null;
         sdc.selectedDosageTypeId.value = null;
         isAddLoading(false);

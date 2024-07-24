@@ -37,7 +37,7 @@ class ChildDosageTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $vaccineTypeId, string $childId)
+    public function show(string $vaccineTypeId,string $visitTypeId, string $childId)
     {
         try {
             // Check if the child exists
@@ -57,10 +57,11 @@ class ChildDosageTypeController extends Controller
             // Get the vaccine dosage types that the child has not taken
             $childStatement = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')
                 ->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type')
-                ->whereNotIn('child_dosage_type_id', function ($query) use ($childId) {
+                ->whereNotIn('child_dosage_type_id', function ($query) use ($childId,$visitTypeId) {
                     $query->select('child_dosage_type_id')
                         ->from('child_statements')
                         ->where('child_statements.child_data_id', $childId)
+                        ->where('child_statements.visit_type_id',$visitTypeId)
                         ->whereNull('child_statements.deleted_at');
                 })
                 ->where('vaccines_with_dosages.vaccine_type_id', $vaccineTypeId)

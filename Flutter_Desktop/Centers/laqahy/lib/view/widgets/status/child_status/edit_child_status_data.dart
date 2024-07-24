@@ -31,11 +31,11 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
   @override
   void initState() {
     super.initState();
-    sdc.fetchMothers();
+    sdc.fetchAllMothers();
     sdc.fetchGenders();
     nameCon.text = widget.childData.child_data_name;
     birthPlaceCon.text = widget.childData.child_data_birthplace;
-    sdc.selectedMothersId.value = widget.childData.mother_data_id;
+    sdc.selectedAllMothersId.value = widget.childData.mother_data_id;
     sdc.selectedGenderId.value = widget.childData.gender_id;
     birthDateCon.text = DateFormat('MMM d, yyyy').format(widget.childData.child_data_birthDate);
   }
@@ -85,7 +85,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                       const SizedBox(
                         height: 3,
                       ),
-                      Constants().mothersDropdownMenu(),
+                      Constants().allMothersDropdownMenu(),
                     ],
                   ),
                   const SizedBox(

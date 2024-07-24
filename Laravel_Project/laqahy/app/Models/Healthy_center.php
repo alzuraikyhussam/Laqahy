@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Healthy_center extends Model
@@ -65,5 +66,9 @@ class Healthy_center extends Model
     public function healthyCenterOrder()
     {
         return $this->hasMany(HealthyCenterOrder::class);
+    }
+    public function child_data(): HasManyThrough
+    {
+        return $this->hasManyThrough(Child_data::class, Mother_data::class);
     }
 }

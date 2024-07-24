@@ -55,7 +55,7 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                           const SizedBox(
                             height: 3,
                           ),
-                          Constants().mothersDropdownMenu(),
+                          Constants().allMothersDropdownMenu(),
                         ],
                       ),
                       const SizedBox(
@@ -125,7 +125,7 @@ class _MotherVisitDataState extends State<MotherVisitData> {
             ),
             Obx(
               () {
-                if (sdc.selectedMothersId.value == null) {
+                if (sdc.selectedAllMothersId.value == null) {
                   return Container(
                     padding: const EdgeInsetsDirectional.only(
                       bottom: 50,
