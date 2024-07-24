@@ -1,15 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:laqahy/core/utils/pdf/pdf_widgets/pdf_widgets.dart';
+import 'package:laqahy/services/api/api_exception_widgets.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:laqahy/core/utils/pdf/pdf_widgets/pdf_widgets.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MotherStatusDataPdfGenerator {
   StaticDataController sdc = Get.find<StaticDataController>();
-  final  List  data;
+  final List data;
   String? reportName;
 
   MotherStatusDataPdfGenerator({
@@ -177,10 +182,10 @@ class MotherStatusDataPdfGenerator {
             boldItalic: ttf,
           ),
           pageFormat: pageSize.copyWith(
-            marginLeft: 20,
-            marginRight: 20,
-            marginTop: 20,
-            marginBottom: 20,
+            marginLeft: 7,
+            marginRight: 7,
+            marginTop: 7,
+            marginBottom: 7,
           ),
           textDirection: pw.TextDirection.rtl,
         ),
@@ -193,11 +198,44 @@ class MotherStatusDataPdfGenerator {
       ),
     );
 
+    Future<void> shareFile({required File file, required String name}) async {
+      try {
+        // Share PDF
+        await Share.shareXFiles([XFile(file.path)], text: name);
+      } catch (e) {
+        Get.back();
+        ApiExceptionWidgets().mySharePdfFailureAlert();
+      }
+    }
+
+    savePdfDocument({required String fileName, required pdf}) async {
+      // Generate file name based on current date and time
+      String formattedDate =
+          DateFormat('dd_MM_yyyy_HH_mm_ss').format(DateTime.now());
+      String name =
+          '${formattedDate}_$fileName'; // Example: "19_06_2024_17:30_offices_report.pdf"
+
+      try {
+        final output = await getApplicationDocumentsDirectory();
+        final file = File('${output.path}/$name');
+        await file.writeAsBytes(await pdf.save());
+        await shareFile(file: file, name: name);
+
+        Get.back();
+      } catch (e) {
+        Get.back();
+        ApiExceptionWidgets().myGeneratePdfFailureAlert();
+      }
+    }
+
     await pdfWidgets.savePdfDocument(
       fileName: 'MotherStatusData.pdf',
       pdf: pdf,
     );
 
-    
+    // void printerPdf() async
+    // {
+    //   await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => await pdf.save());
+    // }
   }
 }

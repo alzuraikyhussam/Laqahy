@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/utils/pdf/child_visit_data_pdf_generator.dart';
 import 'package:laqahy/models/child_visit_data_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
@@ -27,15 +28,14 @@ class ChildVisitController extends GetxController {
   @override
   onInit() async {
     centerId = await sdc.storageService.getCenterId();
-    sdc.fetchMothers();
-    fetchChildrenStatement(sdc.selectedChildsId.value!);
+    sdc.fetchAllMothers();
     sdc.fetchVisitType();
     super.onInit();
   }
 
   void clearTextFields() {
     sdc.selectedChildsId.value = null;
-    sdc.selectedMothersId.value = null;
+    sdc.selectedAllMothersId.value = null;
     sdc.selectedVisitType.value = null;
     sdc.selectedVaccineType.value = null;
     sdc.selectedChildDosageTypeId.value = null;
@@ -115,6 +115,12 @@ class ChildVisitController extends GetxController {
       if (response.statusCode == 201) {
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
+        printChildVisitData(
+          sdc.selectedChildsId.value.toString(),
+          sdc.selectedVisitType.value.toString(),
+          sdc.selectedVaccineType.value.toString(),
+          sdc.selectedChildDosageTypeId.value.toString(),
+        );
         fetchChildrenStatement(sdc.selectedChildsId.value!);
         sdc.selectedVisitType.value = null;
         sdc.selectedVaccineType.value = null;
@@ -174,6 +180,46 @@ class ChildVisitController extends GetxController {
       return;
     } finally {
       isDeleteLoading(false);
+    }
+  }
+
+  Future<void> printChildVisitData(String childDataId, String visitTypeId,
+      String vaccineTypeId, String childDosageTypeId) async {
+    try {
+      isLoading(true);
+      childStatementSearchController.clear();
+      final response = await http.get(
+        Uri.parse(
+            '${ApiEndpoints.printChildVisitData}/$childDataId/$visitTypeId/$vaccineTypeId/$childDosageTypeId'),
+        headers: {
+          'content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        isLoading(false);
+        List<dynamic> jsonData = json.decode(response.body)['data'] as List;
+        childStatement.value =
+            jsonData.map((e) => ChildrenStatement.fromJson(e)).toList();
+
+        ChildVisitDataPdfGenerator mpg = ChildVisitDataPdfGenerator(
+            data: childStatement, reportName: 'بيانات زيارة الطفل');
+        await mpg.generatePdf(Get.context!);
+      } else if (response.statusCode == 500) {
+        isLoading(false);
+        ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);
+      } else {
+        isLoading(false);
+        ApiExceptionWidgets()
+            .myAccessDatabaseExceptionAlert(response.statusCode);
+      }
+    } on SocketException catch (_) {
+      isLoading(false);
+      ApiExceptionWidgets().mySocketExceptionAlert();
+    } catch (e) {
+      isLoading(false);
+      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+    } finally {
+      isLoading(false);
     }
   }
 }

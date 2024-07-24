@@ -108,24 +108,6 @@ class ChildrenStatusDataSource extends DataTableSource {
                 padding: EdgeInsets.all(8),
                 iconSize: 22,
               ),
-              myIconButton(
-                icon: Icons.print,
-                onTap: () async {
-                  // Constants().playErrorSound();
-                  // final  List  data;
-                  // print(myData[index]);
-                  // MotherStatusDataPdfGenerator mpg =
-                  //     MotherStatusDataPdfGenerator(
-                  //         data: myData[index], reportName: 'بيانات الحالة');
-                  // await mpg.generatePdf(Get.context!);
-                },
-                gradientColors: [
-                  MyColors.greyColor,
-                  MyColors.greyColor,
-                ],
-                padding: EdgeInsets.all(8),
-                iconSize: 22,
-              ),
             ],
           ),
         ),

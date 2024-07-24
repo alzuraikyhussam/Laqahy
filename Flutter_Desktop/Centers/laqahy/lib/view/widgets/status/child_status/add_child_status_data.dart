@@ -70,7 +70,7 @@ ChildStatusDataController csc = Get.put(ChildStatusDataController());
                       const SizedBox(
                         height: 3,
                       ),
-                      Constants().mothersDropdownMenu(),
+                      Constants().allMothersDropdownMenu(),
                     ],
                   ),
                   const SizedBox(
@@ -136,7 +136,7 @@ ChildStatusDataController csc = Get.put(ChildStatusDataController());
                     children: [
                       Text(
                         'تاريخ الميلاد',
-                        style: MyTextStyles.font14BlackBold,
+                        style: MyTextStyles.font16BlackBold,
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 3),

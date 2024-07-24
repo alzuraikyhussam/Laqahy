@@ -53,7 +53,7 @@ class ChildStatusDataController extends GetxController {
   void clearTextFields() {
     nameController.clear();
     birthDateController.clear();
-    sdc.selectedMothersId.value = null;
+    sdc.selectedAllMothersId.value = null;
     sdc.selectedGenderId.value = null;
     birthPlaceController.clear();
   }
@@ -106,6 +106,7 @@ class ChildStatusDataController extends GetxController {
         isLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
+            // print(response.body);
       }
     } on SocketException catch (_) {
       isLoading(false);
@@ -127,7 +128,7 @@ class ChildStatusDataController extends GetxController {
         child_data_name: nameController.text,
         child_data_birthplace: birthPlaceController.text,
         child_data_birthDate: parsedBirthDate,
-        mother_data_id: sdc.selectedMothersId.value!,
+        mother_data_id: sdc.selectedAllMothersId.value!,
         gender_id: sdc.selectedGenderId.value!,
       );
       var response = await http.post(

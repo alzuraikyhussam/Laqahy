@@ -91,6 +91,8 @@ class ApiEndpoints {
       '$baseUrl/centers/mother-data/add-mother';
   static const String getMothersData =
       '$baseUrl/centers/mother-data/get-mother-data';
+  static const String getAllMothersData =
+      '$baseUrl/centers/mother-data/get-all-mother-data';
   static const String getMotherDateRange =
       '$baseUrl/centers/mother-data/date-range';
   static const String getAllMotherStatusDate =
@@ -110,7 +112,8 @@ class ApiEndpoints {
       '$baseUrl/centers/mother-statement/get-mother-statement';
   static const String deleteMotherStatement =
       '$baseUrl/centers/mother-statement/delete-mother-statement';
-
+  static const String printMotherVisitData =
+      '$baseUrl/centers/mother-Statement/print-mother-statement-data';
   // --------------------------------------------------
 
   // --------------- Child Status Data Endpoints -------------------
@@ -123,7 +126,8 @@ class ApiEndpoints {
       '$baseUrl/centers/child-data/delete-children-status-data';
   static const String updateChildChildrenStatusData =
       '$baseUrl/centers/child-data/update-children-status-data';
-
+        static const String printChildVisitData =
+      '$baseUrl/centers/child-Statement/print-child-statement-data';
   // --------------------------------------------------
 
   // --------------- Child Statements Endpoints -------------------

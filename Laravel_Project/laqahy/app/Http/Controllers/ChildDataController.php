@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
 use App\Models\Child_data;
+use App\Models\Healthy_center;
+use App\Models\Mother_data;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -81,7 +83,15 @@ class ChildDataController extends Controller
     public function show(string $motherId)
     {
         try {
-            $childData = Child_data::where('mother_data_id', $motherId)->get();
+
+            $childData = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')
+            ->where('child_data.mother_data_id',$motherId)->get();
+
+            // $motherData = Mother_data::select('mother_data.id')->where('healthy_center_id', $healthyCenterId)->get();
+
+            // $childData = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')
+            //     ->where('mother_data.id', $motherData)->get();
+
             return response()->json([
                 'message' => 'Child Data retrieved successfully',
                 'data' => $childData,
@@ -130,7 +140,7 @@ class ChildDataController extends Controller
      */
     public function destroy(string $childId)
     {
-        // 
+        //
     }
 
     public function getChildren($mother_id)

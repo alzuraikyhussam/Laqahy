@@ -80,7 +80,6 @@ class MotherStatusDataController extends GetxController {
     return null;
   }
 
-
   //////////
   TextEditingController villageController = TextEditingController();
   String? villageValidator(value) {
@@ -105,6 +104,7 @@ class MotherStatusDataController extends GetxController {
     centerId = await sdc.storageService.getCenterId();
     password = createAccountCode.v4().substring(0, 8);
     fetchAllMothersStatusData(centerId!);
+    sdc.fetchCities();
     clearTextFields();
     super.onInit();
   }
@@ -180,14 +180,14 @@ class MotherStatusDataController extends GetxController {
 
       if (response.statusCode == 201) {
         Get.back();
-        // printMotherStatusData(mothers.first.mother_identity_num);
+        printMotherStatusData(identityNumberController.text);
         ApiExceptionWidgets().myAddedDataSuccessAlert();
 
         // var data = json.decode(response.body);
         // Mothers motherData = Mothers.fromJson(data['mother']);
         // print(data);
 
-        sdc.fetchMothers();
+        sdc.fetchMothers(sdc.centerData.first.id!);
         fetchAllMothersStatusData(centerId!);
         clearTextFields();
         isAddLoading(false);
@@ -293,7 +293,7 @@ class MotherStatusDataController extends GetxController {
         // await fetchAllMothersStatusData(centerId!);
         Get.back();
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
-        sdc.fetchMothers();
+        sdc.fetchMothers(sdc.centerData.first.id!);
         fetchAllMothersStatusData(sdc.centerData.first.id!);
         isUpdateLoading(false);
         clearTextFields();
