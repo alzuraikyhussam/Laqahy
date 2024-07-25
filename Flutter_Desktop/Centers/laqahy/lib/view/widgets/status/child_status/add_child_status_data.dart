@@ -37,197 +37,196 @@ class _AddChildStatusDataState extends State<AddChildStatusData> {
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: 500,
-        child: Form(
-          key: csc.createChildStatusDataFormKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                margin: const EdgeInsets.all(25),
-                child: Text(
-                  'إضـافة بيانات الطفل',
-                  textAlign: TextAlign.center,
-                  style: MyTextStyles.font18PrimaryBold,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
+        height: 450,
+        child: Center(
+          child: Form(
+            key: csc.createChildStatusDataFormKey,
+            child: SingleChildScrollView(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'اسم الأم',
-                        style: MyTextStyles.font16BlackBold,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Constants().allMothersDropdownMenu(),
-                    ],
+                  Text(
+                    'إضـافة بيانات الطفل',
+                    textAlign: TextAlign.center,
+                    style: MyTextStyles.font18PrimaryBold,
                   ),
                   const SizedBox(
-                    width: 25,
+                    height: 40,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'اسـم الطفـل',
-                        style: MyTextStyles.font16BlackBold,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'اسم الأم',
+                              style: MyTextStyles.font16BlackBold,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Constants().allMothersDropdownMenu(),
+                          ],
+                        ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      myTextField(
-                        controller: csc.nameController,
-                        validator: csc.nameValidator,
-                        prefixIcon: Icons.child_care_rounded,
-                        width: 300,
-                        hintText: 'اســم الــطفــل',
-                        keyboardType: TextInputType.text,
-                        readOnly: false,
-                        onChanged: (value) {},
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'مـكـان الـميـلاد',
-                        style: MyTextStyles.font16BlackBold,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      myTextField(
-                        controller: csc.birthPlaceController,
-                        validator: csc.birthPlaceValidator,
-                        prefixIcon: Icons.place_outlined,
-                        width: 200,
-                        hintText: 'مـكـان الـميـلاد',
-                        keyboardType: TextInputType.text,
-                        readOnly: false,
-                        onChanged: (value) {},
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'اسـم الطفـل',
+                              style: MyTextStyles.font16BlackBold,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            myTextField(
+                              controller: csc.nameController,
+                              validator: csc.nameValidator,
+                              prefixIcon: Icons.child_care_rounded,
+                              width: 300,
+                              hintText: 'اســم الــطفــل',
+                              keyboardType: TextInputType.text,
+                              readOnly: false,
+                              onChanged: (value) {},
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(
-                    width: 25,
+                    height: 20,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'تاريخ الميلاد',
-                        style: MyTextStyles.font16BlackBold,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'مـكـان الـميـلاد',
+                            style: MyTextStyles.font16BlackBold,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          myTextField(
+                            controller: csc.birthPlaceController,
+                            validator: csc.birthPlaceValidator,
+                            prefixIcon: Icons.place_outlined,
+                            width: 200,
+                            hintText: 'مـكـان الـميـلاد',
+                            keyboardType: TextInputType.text,
+                            readOnly: false,
+                            onChanged: (value) {},
+                          ),
+                        ],
                       ),
                       const SizedBox(
-                        height: 10,
+                        width: 25,
                       ),
-                      myTextField(
-                        validator: csc.birthDateValidator,
-                        controller: csc.birthDateController,
-                        hintText: 'تاريــخ الميـلاد',
-                        prefixIcon: Icons.date_range_outlined,
-                        keyboardType: TextInputType.text,
-                        readOnly: true,
-                        width: 200,
-                        onTap: () {
-                          showDatePicker(
-                                  context: context,
-                                  firstDate: DateTime(1950),
-                                  lastDate: DateTime.now())
-                              .then(
-                            (value) {
-                              if (value == null) {
-                                return;
-                              } else {
-                                csc.birthDateController.text =
-                                    DateFormat.yMMMd().format(value);
-                              }
-                            },
-                          );
-                        },
-                        onChanged: (value) {},
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 25,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'الـجـنـس',
-                        style: MyTextStyles.font16BlackBold,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Constants().gendersDropdownMenu(),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Obx(() {
-                    if (csc.isAddLoading.value) {
-                      return myLoadingIndicator(width: 150);
-                    } else {
-                      return myButton(
-                          width: 150,
-                          onPressed: csc.isAddLoading.value
-                              ? null
-                              : () {
-                                  if (csc.createChildStatusDataFormKey
-                                      .currentState!
-                                      .validate()) {
-                                    csc.addChildStatusData();
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'تاريخ الميلاد',
+                            style: MyTextStyles.font16BlackBold,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          myTextField(
+                            validator: csc.birthDateValidator,
+                            controller: csc.birthDateController,
+                            hintText: 'تاريــخ الميـلاد',
+                            prefixIcon: Icons.date_range_outlined,
+                            keyboardType: TextInputType.text,
+                            readOnly: true,
+                            width: 200,
+                            onTap: () {
+                              showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime(1950),
+                                      lastDate: DateTime.now())
+                                  .then(
+                                (value) {
+                                  if (value == null) {
+                                    return;
+                                  } else {
+                                    csc.birthDateController.text =
+                                        DateFormat.yMMMd().format(value);
                                   }
                                 },
-                          text: 'إضـــافــــة',
-                          textStyle: MyTextStyles.font16WhiteBold);
-                    }
-                  }),
-                  const SizedBox(
-                    width: 20,
+                              );
+                            },
+                            onChanged: (value) {},
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 25,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'الـجـنـس',
+                            style: MyTextStyles.font16BlackBold,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Constants().gendersDropdownMenu(),
+                        ],
+                      ),
+                    ],
                   ),
-                  myButton(
-                      width: 150,
-                      backgroundColor: MyColors.greyColor,
-                      onPressed: () {
-                        csc.clearTextFields();
-                        Get.back();
-                      },
-                      text: 'إلغـــاء الأمــر',
-                      textStyle: MyTextStyles.font16WhiteBold),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Obx(() {
+                        if (csc.isAddLoading.value) {
+                          return myLoadingIndicator(width: 150);
+                        } else {
+                          return myButton(
+                              width: 150,
+                              onPressed: csc.isAddLoading.value
+                                  ? null
+                                  : () {
+                                      if (csc.createChildStatusDataFormKey
+                                          .currentState!
+                                          .validate()) {
+                                        csc.addChildStatusData();
+                                      }
+                                    },
+                              text: 'إضـــافــــة',
+                              textStyle: MyTextStyles.font16WhiteBold);
+                        }
+                      }),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      myButton(
+                          width: 150,
+                          backgroundColor: MyColors.greyColor,
+                          onPressed: () {
+                            csc.clearTextFields();
+                            Get.back();
+                          },
+                          text: 'إلغـــاء الأمــر',
+                          textStyle: MyTextStyles.font16WhiteBold),
+                    ],
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),

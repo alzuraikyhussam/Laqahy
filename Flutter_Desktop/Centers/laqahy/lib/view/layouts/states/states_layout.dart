@@ -48,7 +48,7 @@ class _StatesLayoutState extends State<StatesLayout> {
               ),
               width: 450,
               height: 60,
-              padding: EdgeInsetsDirectional.all(3),
+              padding: const EdgeInsetsDirectional.all(3),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -125,16 +125,13 @@ class _StatesLayoutState extends State<StatesLayout> {
             const SizedBox(
               height: 20,
             ),
-            SizedBox(
-              width: Get.width,
-              child: Obx(() {
-                return slc.stateTapChange.value == 'm'
-                    ? MotherStatusScreen()
-                    : slc.stateTapChange.value == 'c'
-                        ? ChildStatusScreen()
-                        : SizedBox();
-              }),
-            ),
+            Obx(() {
+              return slc.stateTapChange.value == 'm'
+                  ? const MotherStatusScreen()
+                  : slc.stateTapChange.value == 'c'
+                      ? const ChildStatusScreen()
+                      : const SizedBox();
+            }),
           ],
         ),
       ],

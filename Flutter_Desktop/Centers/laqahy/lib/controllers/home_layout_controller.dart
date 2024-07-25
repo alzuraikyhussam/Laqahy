@@ -9,9 +9,11 @@ import 'package:laqahy/controllers/mother_status_data_controller.dart';
 import 'package:laqahy/controllers/mother_visit_controller.dart';
 import 'package:laqahy/controllers/orders_controller.dart';
 import 'package:laqahy/controllers/report_controller.dart';
+import 'package:laqahy/controllers/state_layout_controller.dart';
 import 'package:laqahy/controllers/technical_support_controller.dart';
 import 'package:laqahy/controllers/user_controller.dart';
 import 'package:laqahy/controllers/vaccine_controller.dart';
+import 'package:laqahy/controllers/visit_layout_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/view/screens/login.dart';
@@ -35,6 +37,12 @@ class HomeLayoutController extends GetxController {
         if (Get.isRegistered<OrdersController>()) {
           Get.delete<OrdersController>();
         }
+        if (Get.isRegistered<StateLayoutController>()) {
+          Get.delete<StateLayoutController>();
+        }
+        if (Get.isRegistered<VisitLayoutController>()) {
+          Get.delete<VisitLayoutController>();
+        }
         if (Get.isRegistered<ReportController>()) {
           Get.delete<ReportController>();
         }
@@ -52,9 +60,6 @@ class HomeLayoutController extends GetxController {
         }
         if (Get.isRegistered<VaccineController>()) {
           Get.delete<VaccineController>();
-        }
-        if (Get.isRegistered<TechnicalSupportController>()) {
-          Get.delete<TechnicalSupportController>();
         }
         if (Get.isRegistered<TechnicalSupportController>()) {
           Get.delete<TechnicalSupportController>();

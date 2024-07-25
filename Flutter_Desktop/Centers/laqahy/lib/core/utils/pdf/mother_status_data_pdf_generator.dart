@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -209,18 +210,18 @@ class MotherStatusDataPdfGenerator {
     // }
 
     savePdfDocument({required String fileName, required pdf}) async {
-      // Generate file name based on current date and time
+     
       String formattedDate =
           DateFormat('dd_MM_yyyy_HH_mm_ss').format(DateTime.now());
       String name =
           '${formattedDate}_$fileName'; // Example: "19_06_2024_17:30_offices_report.pdf"
 
       try {
-        final output = await getTemporaryDirectory();
+        final output = await getApplicationDocumentsDirectory();
         final file = File('${output.path}/$name');
-        await file.writeAsBytes(await pdf.save());
-        // await shareFile(file: file, name: name);
 
+        await file.writeAsBytes(await pdf.save());
+        await OpenFile.open(file.path);
         Get.back();
       } catch (e) {
         Get.back();

@@ -117,8 +117,7 @@ class MotherVisitController extends GetxController {
             sdc.selectedDosageLevelId.value!.toString(),
             sdc.selectedDosageTypeId.value!.toString());
         await fetchMotherStatement(sdc.selectedAllMothersId.value!);
-        sdc.selectedDosageLevelId.value = null;
-        sdc.selectedDosageTypeId.value = null;
+        clearTextFields();
         isAddLoading(false);
 
         return;

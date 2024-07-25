@@ -38,7 +38,7 @@ class _ChildStatusScreenState extends State<ChildStatusScreen> {
                 padding: const EdgeInsetsDirectional.only(
                   bottom: 50,
                 ),
-                height: 550,
+                height: 600,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),

@@ -844,7 +844,7 @@ class Constants {
       if (controller.isAllMotherLoading.value) {
         return myDropDownMenuButton2(
           hintText: 'اسم الأم',
-          width: 270,
+          width: 300,
           items: [
             DropdownMenuItem<String>(
               child: Center(
@@ -879,7 +879,7 @@ class Constants {
           },
           child: myDropDownMenuButton2(
             hintText: 'اسم الأم',
-            width: 270,
+            width: 300,
             items: null,
             onChanged: null,
             searchController: null,
@@ -909,7 +909,7 @@ class Constants {
           },
           child: myDropDownMenuButton2(
             hintText: 'اسم الأم',
-            width: 270,
+            width: 300,
             items: null,
             onChanged: null,
             validator: allMotherValidator,
@@ -921,7 +921,7 @@ class Constants {
 
       return myDropDownMenuButton2(
         hintText: 'اسم الأم',
-        width: 270,
+        width: 300,
         validator: allMotherValidator,
         items: controller.allMothers.map((element) {
           return DropdownMenuItem(
@@ -1211,6 +1211,28 @@ class Constants {
             validator: dosageTypeValidator,
           ),
         );
+      } else if (controller.selectedAllMothersId.value == null) {
+        return InkWell(
+          onTap: () {
+            Constants().playErrorSound();
+            myShowDialog(
+              context: Get.context!,
+              widgetName: ApiExceptionAlert(
+                title: 'خطـــأ',
+                description: 'من فضلك، قم باختيار اسم الأم أولاً',
+                height: 280,
+              ),
+            );
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: dosageTypeValidator,
+          ),
+        );
       } else if (controller.isDosageTypeLoading.value) {
         return myDropDownMenuButton2(
           hintText: 'نوع الجرعة',
@@ -1241,7 +1263,7 @@ class Constants {
                   onPressed: () {
                     controller.fetchDosageType(
                         controller.selectedDosageLevelId.value!,
-                        controller.selectedMothersId.value!);
+                        controller.selectedAllMothersId.value!);
                     Get.back();
                   },
                 ));
@@ -1562,6 +1584,50 @@ class Constants {
               widgetName: ApiExceptionAlert(
                 title: 'خطـــأ',
                 description: 'من فضلك، قم باختيار نوع اللقاح أولاً',
+                height: 280,
+              ),
+            );
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: dosageWithVaccineValidator,
+          ),
+        );
+      } else if (controller.selectedVisitType.value == null) {
+        return InkWell(
+          onTap: () {
+            Constants().playErrorSound();
+            myShowDialog(
+              context: Get.context!,
+              widgetName: ApiExceptionAlert(
+                title: 'خطـــأ',
+                description: 'من فضلك، قم باختيار فترة الزيارة أولاً',
+                height: 280,
+              ),
+            );
+          },
+          child: myDropDownMenuButton2(
+            hintText: 'نوع الجرعة',
+            items: null,
+            onChanged: null,
+            searchController: null,
+            selectedValue: null,
+            validator: dosageWithVaccineValidator,
+          ),
+        );
+      } else if (controller.selectedChildsId.value == null) {
+        return InkWell(
+          onTap: () {
+            Constants().playErrorSound();
+            myShowDialog(
+              context: Get.context!,
+              widgetName: ApiExceptionAlert(
+                title: 'خطـــأ',
+                description: 'من فضلك، قم باختيار اسم الطفل أولاً',
                 height: 280,
               ),
             );

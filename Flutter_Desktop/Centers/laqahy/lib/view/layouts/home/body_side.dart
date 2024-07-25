@@ -25,41 +25,45 @@ class _HomeBodySideState extends State<HomeBodySide> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        width: Get.width,
-        padding: hlc.choose.value == 'الرئيسية'
-            ? const EdgeInsets.all(30)
-            : const EdgeInsetsDirectional.only(
-                top: 30,
-                bottom: 0,
-                end: 30,
-                start: 30,
-              ),
-        child: Obx(
-          () {
-            if (hlc.choose.value == 'الرئيسية') {
-              return const HomeScreen();
-            } else if (hlc.choose.value == 'المستخدمين') {
-              return const UsersScreen();
-            } else if (hlc.choose.value == 'الحالات') {
-              return const StatesLayout();
-            } else if (hlc.choose.value == 'الزيارات') {
-              return const VisitsLayout();
-            } else if (hlc.choose.value == 'اللقاحات') {
-              return const VaccinesScreen();
-            } else if (hlc.choose.value == 'الطلبات') {
-              return const OrdersLayout();
-            } else if (hlc.choose.value == 'التقارير') {
-              return const ReportsPage();
-            } else if (hlc.choose.value == 'حول النظام') {
-              return const SystemInfoScreen();
-            } else if (hlc.choose.value == 'الدعم الفني') {
-              return const SupportScreen();
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
+      child: Obx(
+        () {
+          return Container(
+            width: double.infinity,
+            padding: hlc.choose.value == 'الرئيسية'
+                ? const EdgeInsets.all(30)
+                : const EdgeInsetsDirectional.only(
+                    top: 30,
+                    bottom: 0,
+                    end: 30,
+                    start: 30,
+                  ),
+            child: Obx(
+              () {
+                if (hlc.choose.value == 'الرئيسية') {
+                  return const HomeScreen();
+                } else if (hlc.choose.value == 'المستخدمين') {
+                  return const UsersScreen();
+                } else if (hlc.choose.value == 'الحالات') {
+                  return const StatesLayout();
+                } else if (hlc.choose.value == 'الزيارات') {
+                  return const VisitsLayout();
+                } else if (hlc.choose.value == 'اللقاحات') {
+                  return const VaccinesScreen();
+                } else if (hlc.choose.value == 'الطلبات') {
+                  return const OrdersLayout();
+                } else if (hlc.choose.value == 'التقارير') {
+                  return const ReportsPage();
+                } else if (hlc.choose.value == 'حول النظام') {
+                  return const SystemInfoScreen();
+                } else if (hlc.choose.value == 'الدعم الفني') {
+                  return const SupportScreen();
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
+          );
+        },
       ),
     );
   }

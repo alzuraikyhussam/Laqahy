@@ -126,9 +126,7 @@ class ChildVisitController extends GetxController {
           sdc.selectedChildDosageTypeId.value.toString(),
         );
         fetchChildrenStatement(sdc.selectedChildsId.value!);
-        sdc.selectedVisitType.value = null;
-        sdc.selectedVaccineType.value = null;
-        sdc.selectedChildDosageTypeId.value = null;
+        clearTextFields();
         isAddLoading(false);
 
         return;

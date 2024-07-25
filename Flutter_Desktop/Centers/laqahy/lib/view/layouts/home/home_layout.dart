@@ -62,7 +62,7 @@ class _HomeLayoutState extends State<HomeLayout> with WindowListener {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return Scaffold(
       body: Stack(
         children: [
           myBackgroundWindows(),

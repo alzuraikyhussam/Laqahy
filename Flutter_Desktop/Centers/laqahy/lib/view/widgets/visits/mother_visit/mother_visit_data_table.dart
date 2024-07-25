@@ -5,7 +5,7 @@ import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/visits/delete_mother_statement.dart';
+import 'package:laqahy/view/widgets/visits/mother_visit/delete_mother_statement.dart';
 
 class MotherVisitRowSource extends DataTableSource {
   var myData;
@@ -106,7 +106,7 @@ class MotherVisitRowSource extends DataTableSource {
                 myShowDialog(
                     context: Get.context!,
                     widgetName: DeleteMotherStatement(
-                      motherId: motherStatementData.id,
+                      motherId: motherStatementData.mother_data_id,
                     ));
               },
               gradientColors: [

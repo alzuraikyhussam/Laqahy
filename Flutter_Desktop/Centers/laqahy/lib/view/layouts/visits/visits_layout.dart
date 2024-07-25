@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:laqahy/controllers/visit_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
-import 'package:laqahy/view/widgets/visits/child_visit_data.dart';
-import 'package:laqahy/view/widgets/visits/mother_visit_data.dart';
+import 'package:laqahy/view/widgets/visits/child_visit/child_visit_data.dart';
+import 'package:laqahy/view/widgets/visits/mother_visit/mother_visit_data.dart';
 
 class VisitsLayout extends StatefulWidget {
   const VisitsLayout({super.key});
@@ -125,18 +125,13 @@ class _VisitsLayoutState extends State<VisitsLayout> {
             const SizedBox(
               height: 50,
             ),
-            Expanded(
-              child: SizedBox(
-                width: Get.width,
-                child: Obx(() {
-                  return vlc.visitTapChange.value == 'm'
-                      ? MotherVisitData()
-                      : vlc.visitTapChange.value == 'c'
-                          ? ChildVisitData()
-                          : SizedBox();
-                }),
-              ),
-            ),
+            Obx(() {
+              return vlc.visitTapChange.value == 'm'
+                  ? MotherVisitData()
+                  : vlc.visitTapChange.value == 'c'
+                      ? ChildVisitData()
+                      : SizedBox();
+            }),
           ],
         ),
       ],

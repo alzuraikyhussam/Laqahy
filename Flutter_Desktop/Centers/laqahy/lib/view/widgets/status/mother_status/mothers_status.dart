@@ -100,7 +100,7 @@ class _MotherStatusScreenState extends State<MotherStatusScreen> {
                           style: MyTextStyles.font14WhiteBold,
                         ),
                       ),
-                      fixedWidth:200,
+                      fixedWidth: 200,
                     ),
                     DataColumn2(
                       label: Container(

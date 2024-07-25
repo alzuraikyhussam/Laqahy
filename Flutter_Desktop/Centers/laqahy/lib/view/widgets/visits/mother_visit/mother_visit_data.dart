@@ -1,36 +1,32 @@
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/controllers/child_visit_controller.dart';
-import 'package:laqahy/controllers/home_layout_controller.dart';
+import 'package:laqahy/controllers/mother_visit_controller.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
-
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
-import 'package:laqahy/view/widgets/visits/child_visit_data_table.dart';
+import 'package:laqahy/view/widgets/visits/mother_visit/mother_visit_data_table.dart';
 
-class ChildVisitData extends StatefulWidget {
-  const ChildVisitData({super.key});
+class MotherVisitData extends StatefulWidget {
+  const MotherVisitData({super.key});
 
   @override
-  State<ChildVisitData> createState() => _ChildVisitDataState();
+  State<MotherVisitData> createState() => _MotherVisitDataState();
 }
 
-class _ChildVisitDataState extends State<ChildVisitData> {
+class _MotherVisitDataState extends State<MotherVisitData> {
   bool isChecked = false;
-  HomeLayoutController hlc = Get.put(HomeLayoutController());
-  ChildVisitController cvc = Get.put(ChildVisitController());
+
+  MotherVisitController mvc = Get.put(MotherVisitController());
   StaticDataController sdc = Get.put(StaticDataController());
 
   @override
   void initState() {
-    cvc.clearTextFields();
+    mvc.clearTextFields();
     super.initState();
   }
 
@@ -39,12 +35,13 @@ class _ChildVisitDataState extends State<ChildVisitData> {
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Form(
-              key: cvc.createChildStatementDataFormKey,
+              key: mvc.createMotherStatementFormKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -68,33 +65,13 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'اســـم الطـفــل',
+                            'مرحلــة الـجرعــة',
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          Constants().childsDropdownMenu(),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'فــترة الـزيـــارة',
-                            style: MyTextStyles.font16BlackBold,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Constants().visitTypeDropdownMenu(),
+                          Constants().dosageLevelDropdownMenu(),
                         ],
                       ),
                       const SizedBox(
@@ -104,31 +81,15 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'نـــوع الـلقـــاح',
+                            'نــوع الـجرعــة',
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          Constants().vaccineWithVisitDropdownMenu(),
+                          Constants().dosageTypeDropdownMenu(),
                         ],
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'نـــوع الـجرعــة',
-                        style: MyTextStyles.font16PrimaryBold,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Constants().dosageWithVaccineDropdownMenu(),
                     ],
                   ),
                   const SizedBox(
@@ -138,25 +99,18 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Obx(() {
-                        return cvc.isAddLoading.value
-                            ? myLoadingIndicator(
-                                width: 150,
-                              )
+                        return mvc.isAddLoading.value
+                            ? myLoadingIndicator()
                             : myButton(
                                 width: 150,
-                                onPressed: cvc.isAddLoading.value
+                                onPressed: mvc.isAddLoading.value
                                     ? null
                                     : () {
-                                        if (cvc.createChildStatementDataFormKey
+                                        if (mvc.createMotherStatementFormKey
                                             .currentState!
                                             .validate()) {
-                                          cvc.addChildrenStatement();
-                                          // Get.back();
+                                          mvc.addMotherStatement();
                                         }
-                                        // myShowDialog(
-                                        //     context: context,
-                                        //     widgetName:
-                                        //         const AddUserSuccessfully());
                                       },
                                 text: 'اضــافة',
                                 textStyle: MyTextStyles.font16WhiteBold);
@@ -171,7 +125,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
             ),
             Obx(
               () {
-                if (sdc.selectedChildsId.value == null) {
+                if (sdc.selectedAllMothersId.value == null) {
                   return Container(
                     padding: const EdgeInsetsDirectional.only(
                       bottom: 50,
@@ -185,8 +139,8 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                       autoRowsToHeight: true,
                       empty: ApiExceptionWidgets().myDataNotFound(
                         onPressedRefresh: () {
-                          cvc.fetchChildrenStatement(
-                              sdc.selectedChildsId.value!);
+                          mvc.fetchMotherStatement(
+                              sdc.selectedMothersId.value!);
                         },
                       ),
                       horizontalMargin: 15,
@@ -197,7 +151,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                       showFirstLastButtons: true,
                       columnSpacing: 5,
                       // rowsPerPage: 5,
-                      controller: cvc.tableController,
+                      controller: mvc.tableController,
                       headingRowDecoration: const BoxDecoration(
                         borderRadius: BorderRadiusDirectional.only(
                           topStart: Radius.circular(10),
@@ -209,14 +163,14 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                         // padding: EdgeInsetsD)irectional.all(5),
                         child: myTextField(
                           onTap: () {
-                            cvc.tableController.goToFirstPage();
-                            print(cvc.tableController.currentRowIndex);
+                            mvc.tableController.goToFirstPage();
+                            print(mvc.tableController.currentRowIndex);
                           },
                           hintText: 'اكتــب هنــا للبحـــث',
                           prefixIcon: Icons.search,
-                          controller: cvc.childStatementSearchController,
+                          controller: mvc.motherStatementSearchController,
                           keyboardType: TextInputType.text,
-                          onChanged: cvc.filterChildStatement,
+                          onChanged: mvc.filterMotherStatement,
                         ),
                       ),
                       columns: [
@@ -235,7 +189,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                           label: Container(
                             alignment: AlignmentDirectional.center,
                             child: Text(
-                              'مرحلة الزيارة',
+                              'مرحلة الجرعة',
                               style: MyTextStyles.font14WhiteBold,
                             ),
                           ),
@@ -249,7 +203,21 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                           label: Container(
                             alignment: AlignmentDirectional.center,
                             child: Text(
-                              "نوع اللقاح",
+                              'نوع الجرعة',
+                              style: MyTextStyles.font14WhiteBold,
+                            ),
+                          ),
+                          // onSort: (columnIndex, ascending) {
+                          //   uc.sort.value = ascending;
+                          //   uc.onSortColum(columnIndex, ascending);
+                          // },
+                          // fixedWidth: 220,
+                        ),
+                        DataColumn2(
+                          label: Container(
+                            alignment: AlignmentDirectional.center,
+                            child: Text(
+                              "المركز الصحي",
                               style: MyTextStyles.font14WhiteBold,
                             ),
                           ),
@@ -259,11 +227,11 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                           label: Container(
                             alignment: AlignmentDirectional.center,
                             child: Text(
-                              "نوع الجرعة",
+                              "العامل الصحي",
                               style: MyTextStyles.font14WhiteBold,
                             ),
                           ),
-                          // fixedWidth: 120,
+                          fixedWidth: 250,
                         ),
                         DataColumn2(
                           label: Container(
@@ -289,26 +257,6 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                           label: Container(
                             alignment: AlignmentDirectional.center,
                             child: Text(
-                              "العامل الصحي",
-                              style: MyTextStyles.font14WhiteBold,
-                            ),
-                          ),
-                          fixedWidth: 220,
-                        ),
-                        DataColumn2(
-                          label: Container(
-                            alignment: AlignmentDirectional.center,
-                            child: Text(
-                              "المركز الصحي",
-                              style: MyTextStyles.font14WhiteBold,
-                            ),
-                          ),
-                          // fixedWidth: 100,
-                        ),
-                        DataColumn2(
-                          label: Container(
-                            alignment: AlignmentDirectional.center,
-                            child: Text(
                               "العمليات",
                               style: MyTextStyles.font14WhiteBold,
                             ),
@@ -316,14 +264,14 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                           // fixedWidth: 130,
                         ),
                       ],
-                      source: ChildVisitRowSource(
-                        myData: cvc.filteredChildStatement,
-                        count: cvc.filteredChildStatement.length,
+                      source: MotherVisitRowSource(
+                        myData: mvc.filteredMotherStatement,
+                        count: mvc.filteredMotherStatement.length,
                       ),
                     ),
                   );
                 } else {
-                  if (cvc.isLoading.value) {
+                  if (mvc.isLoading.value) {
                     return SizedBox(
                       height: 550,
                       child: Center(
@@ -344,8 +292,8 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                         autoRowsToHeight: true,
                         empty: ApiExceptionWidgets().myDataNotFound(
                           onPressedRefresh: () {
-                            cvc.fetchChildrenStatement(
-                                sdc.selectedChildsId.value!);
+                            mvc.fetchMotherStatement(
+                                sdc.selectedMothersId.value!);
                           },
                         ),
                         horizontalMargin: 15,
@@ -356,7 +304,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                         showFirstLastButtons: true,
                         columnSpacing: 5,
                         // rowsPerPage: 5,
-                        controller: cvc.tableController,
+                        controller: mvc.tableController,
                         headingRowDecoration: const BoxDecoration(
                           borderRadius: BorderRadiusDirectional.only(
                             topStart: Radius.circular(10),
@@ -368,14 +316,14 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                           // padding: EdgeInsetsD)irectional.all(5),
                           child: myTextField(
                             onTap: () {
-                              cvc.tableController.goToFirstPage();
-                              print(cvc.tableController.currentRowIndex);
+                              mvc.tableController.goToFirstPage();
+                              print(mvc.tableController.currentRowIndex);
                             },
                             hintText: 'اكتــب هنــا للبحـــث',
                             prefixIcon: Icons.search,
-                            controller: cvc.childStatementSearchController,
+                            controller: mvc.motherStatementSearchController,
                             keyboardType: TextInputType.text,
-                            onChanged: cvc.filterChildStatement,
+                            onChanged: mvc.filterMotherStatement,
                           ),
                         ),
                         columns: [
@@ -394,7 +342,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                             label: Container(
                               alignment: AlignmentDirectional.center,
                               child: Text(
-                                'مرحلة الزيارة',
+                                'مرحلة الجرعة',
                                 style: MyTextStyles.font14WhiteBold,
                               ),
                             ),
@@ -402,13 +350,27 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                             //   uc.sort.value = ascending;
                             //   uc.onSortColum(columnIndex, ascending);
                             // },
-                            // fixedWidth: 220,
+                            fixedWidth: 220,
                           ),
                           DataColumn2(
                             label: Container(
                               alignment: AlignmentDirectional.center,
                               child: Text(
-                                "نوع اللقاح",
+                                'نوع الجرعة',
+                                style: MyTextStyles.font14WhiteBold,
+                              ),
+                            ),
+                            // onSort: (columnIndex, ascending) {
+                            //   uc.sort.value = ascending;
+                            //   uc.onSortColum(columnIndex, ascending);
+                            // },
+                            fixedWidth: 220,
+                          ),
+                          DataColumn2(
+                            label: Container(
+                              alignment: AlignmentDirectional.center,
+                              child: Text(
+                                "المركز الصحي",
                                 style: MyTextStyles.font14WhiteBold,
                               ),
                             ),
@@ -418,7 +380,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                             label: Container(
                               alignment: AlignmentDirectional.center,
                               child: Text(
-                                "نوع الجرعة",
+                                "العامل الصحي",
                                 style: MyTextStyles.font14WhiteBold,
                               ),
                             ),
@@ -448,26 +410,6 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                             label: Container(
                               alignment: AlignmentDirectional.center,
                               child: Text(
-                                "العامل الصحي",
-                                style: MyTextStyles.font14WhiteBold,
-                              ),
-                            ),
-                            fixedWidth: 220,
-                          ),
-                          DataColumn2(
-                            label: Container(
-                              alignment: AlignmentDirectional.center,
-                              child: Text(
-                                "المركز الصحي",
-                                style: MyTextStyles.font14WhiteBold,
-                              ),
-                            ),
-                            // fixedWidth: 100,
-                          ),
-                          DataColumn2(
-                            label: Container(
-                              alignment: AlignmentDirectional.center,
-                              child: Text(
                                 "العمليات",
                                 style: MyTextStyles.font14WhiteBold,
                               ),
@@ -475,9 +417,9 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                             // fixedWidth: 130,
                           ),
                         ],
-                        source: ChildVisitRowSource(
-                          myData: cvc.filteredChildStatement,
-                          count: cvc.filteredChildStatement.length,
+                        source: MotherVisitRowSource(
+                          myData: mvc.filteredMotherStatement,
+                          count: mvc.filteredMotherStatement.length,
                         ),
                       ),
                     );

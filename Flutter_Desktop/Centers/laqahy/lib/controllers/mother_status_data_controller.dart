@@ -180,7 +180,7 @@ class MotherStatusDataController extends GetxController {
 
       if (response.statusCode == 201) {
         Get.back();
-        printMotherStatusData(identityNumberController.text);
+        await printMotherStatusData(identityNumberController.text);
         ApiExceptionWidgets().myAddedDataSuccessAlert();
 
         // var data = json.decode(response.body);
