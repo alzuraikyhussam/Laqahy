@@ -44,6 +44,7 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
             children: [
               SizedBox(
                 height: 200,
+                width: Get.width,
                 child: Stack(
                   children: [
                     Row(

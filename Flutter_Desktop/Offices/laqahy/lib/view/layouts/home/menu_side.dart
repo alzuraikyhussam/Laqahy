@@ -65,8 +65,7 @@ class _HomeMenuSideState extends State<HomeMenuSide> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: hlc.choose.value ==
-                                      Constants
-                                          .adminHomeLayoutItems[index].label
+                                      Constants.userHomeLayoutItems[index].label
                                   ? [
                                       BoxShadow(
                                           color: MyColors.greyColor

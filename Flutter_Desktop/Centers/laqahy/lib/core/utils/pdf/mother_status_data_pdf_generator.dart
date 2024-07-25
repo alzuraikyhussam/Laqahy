@@ -119,7 +119,7 @@ class MotherStatusDataPdfGenerator {
                 pw.SizedBox(height: 7),
                 pw.Row(
                   children: [
-                    pw.Text('الــمدينة : '),
+                    pw.Text('المحافظة : '),
                     pw.SizedBox(width: 3),
                     pw.Text('${data.first.cityName}')
                   ],
@@ -198,15 +198,15 @@ class MotherStatusDataPdfGenerator {
       ),
     );
 
-    Future<void> shareFile({required File file, required String name}) async {
-      try {
-        // Share PDF
-        await Share.shareXFiles([XFile(file.path)], text: name);
-      } catch (e) {
-        Get.back();
-        ApiExceptionWidgets().mySharePdfFailureAlert();
-      }
-    }
+    // Future<void> shareFile({required File file, required String name}) async {
+    //   try {
+    //     // Share PDF
+    //     await Share.shareXFiles([XFile(file.path)], text: name);
+    //   } catch (e) {
+    //     Get.back();
+    //     ApiExceptionWidgets().mySharePdfFailureAlert();
+    //   }
+    // }
 
     savePdfDocument({required String fileName, required pdf}) async {
       // Generate file name based on current date and time
@@ -216,10 +216,10 @@ class MotherStatusDataPdfGenerator {
           '${formattedDate}_$fileName'; // Example: "19_06_2024_17:30_offices_report.pdf"
 
       try {
-        final output = await getApplicationDocumentsDirectory();
+        final output = await getTemporaryDirectory();
         final file = File('${output.path}/$name');
         await file.writeAsBytes(await pdf.save());
-        await shareFile(file: file, name: name);
+        // await shareFile(file: file, name: name);
 
         Get.back();
       } catch (e) {
@@ -228,8 +228,8 @@ class MotherStatusDataPdfGenerator {
       }
     }
 
-    await pdfWidgets.savePdfDocument(
-      fileName: 'MotherStatusData.pdf',
+    await savePdfDocument(
+      fileName: 'mother_status_data.pdf',
       pdf: pdf,
     );
 

@@ -266,7 +266,7 @@ class MotherVisitDataPdfGenerator {
           '${formattedDate}_$fileName'; // Example: "19_06_2024_17:30_offices_report.pdf"
 
       try {
-        final output = await getApplicationDocumentsDirectory();
+        final output = await getTemporaryDirectory();
         final file = File('${output.path}/$name');
         await file.writeAsBytes(await pdf.save());
 
@@ -277,8 +277,8 @@ class MotherVisitDataPdfGenerator {
       }
     }
 
-    await pdfWidgets.savePdfDocument(
-      fileName: 'MotherStatusData.pdf',
+    await savePdfDocument(
+      fileName: 'mother_visit_data.pdf',
       pdf: pdf,
     );
 

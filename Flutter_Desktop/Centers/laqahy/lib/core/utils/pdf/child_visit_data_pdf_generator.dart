@@ -113,7 +113,6 @@ class ChildVisitDataPdfGenerator {
               children: [
                 pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.center,
-                  
                   children: [
                     pw.Row(
                       children: [
@@ -171,7 +170,6 @@ class ChildVisitDataPdfGenerator {
                 // pw.Spacer(),
                 pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.center,
-
                   children: [
                     pw.Row(
                       children: [
@@ -265,7 +263,7 @@ class ChildVisitDataPdfGenerator {
           '${formattedDate}_$fileName'; // Example: "19_06_2024_17:30_offices_report.pdf"
 
       try {
-        final output = await getApplicationDocumentsDirectory();
+        final output = await getTemporaryDirectory();
         final file = File('${output.path}/$name');
         await file.writeAsBytes(await pdf.save());
         Get.back();
@@ -275,8 +273,8 @@ class ChildVisitDataPdfGenerator {
       }
     }
 
-    await pdfWidgets.savePdfDocument(
-      fileName: 'MotherStatusData.pdf',
+    await savePdfDocument(
+      fileName: 'child_visit_data.pdf',
       pdf: pdf,
     );
 

@@ -37,7 +37,8 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
     birthPlaceCon.text = widget.childData.child_data_birthplace;
     sdc.selectedAllMothersId.value = widget.childData.mother_data_id;
     sdc.selectedGenderId.value = widget.childData.gender_id;
-    birthDateCon.text = DateFormat('MMM d, yyyy').format(widget.childData.child_data_birthDate);
+    birthDateCon.text =
+        DateFormat('MMM d, yyyy').format(widget.childData.child_data_birthDate);
   }
 
   @override
@@ -60,6 +61,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
           key: csc.editChildStatusDataFormKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 margin: const EdgeInsets.all(25),
@@ -83,7 +85,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                         style: MyTextStyles.font16BlackBold,
                       ),
                       const SizedBox(
-                        height: 3,
+                        height: 10,
                       ),
                       Constants().allMothersDropdownMenu(),
                     ],
@@ -95,7 +97,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'اســم الــطفــل',
+                        'اسـم الـطفـل',
                         style: MyTextStyles.font16BlackBold,
                       ),
                       const SizedBox(
@@ -104,7 +106,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                       myTextField(
                         controller: nameCon,
                         validator: csc.nameValidator,
-                        prefixIcon: Icons.child_care,
+                        prefixIcon: Icons.child_care_rounded,
                         width: 300,
                         hintText: 'اســم الــطفــل',
                         keyboardType: TextInputType.text,
@@ -124,7 +126,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'مـحـل الـميـلاد',
+                        'مـكـان الـميـلاد',
                         style: MyTextStyles.font16BlackBold,
                       ),
                       const SizedBox(
@@ -150,36 +152,36 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                     children: [
                       Text(
                         'تاريخ الميلاد',
-                        style: MyTextStyles.font14BlackBold,
+                        style: MyTextStyles.font16BlackBold,
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 3),
-                        child: myTextField(
-                          validator: csc.birthDateValidator,
-                          controller: birthDateCon,
-                          hintText: 'تاريــخ الميـلاد',
-                          prefixIcon: Icons.date_range_outlined,
-                          keyboardType: TextInputType.text,
-                          readOnly: true,
-                          width: 250,
-                          onTap: () {
-                            showDatePicker(
-                                    context: context,
-                                    firstDate: DateTime(1950),
-                                    lastDate: DateTime.now())
-                                .then(
-                              (value) {
-                                if (value == null) {
-                                  return;
-                                } else {
-                                  csc.birthDateController.text =
-                                      DateFormat.yMMMd().format(value);
-                                }
-                              },
-                            );
-                          },
-                          onChanged: (value) {},
-                        ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      myTextField(
+                        validator: csc.birthDateValidator,
+                        controller: birthDateCon,
+                        hintText: 'تاريــخ الميـلاد',
+                        prefixIcon: Icons.date_range_outlined,
+                        keyboardType: TextInputType.text,
+                        readOnly: true,
+                        width: 250,
+                        onTap: () {
+                          showDatePicker(
+                                  context: context,
+                                  firstDate: DateTime(1950),
+                                  lastDate: DateTime.now())
+                              .then(
+                            (value) {
+                              if (value == null) {
+                                return;
+                              } else {
+                                csc.birthDateController.text =
+                                    DateFormat.yMMMd().format(value);
+                              }
+                            },
+                          );
+                        },
+                        onChanged: (value) {},
                       )
                     ],
                   ),
@@ -194,7 +196,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                         style: MyTextStyles.font16BlackBold,
                       ),
                       const SizedBox(
-                        height: 3,
+                        height: 10,
                       ),
                       Constants().gendersDropdownMenu(),
                     ],
@@ -202,14 +204,16 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                 ],
               ),
               const SizedBox(
-                height: 40,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Obx(() {
                     if (csc.isUpdateLoading.value) {
-                      return myLoadingIndicator();
+                      return myLoadingIndicator(
+                        width: 150,
+                      );
                     } else {
                       return myButton(
                           width: 150,
@@ -224,7 +228,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                                       nameCon.text,
                                       birthPlaceCon.text,
                                       birthDateCon.text,
-                                      sdc.selectedMothersId.value!,
+                                      sdc.selectedAllMothersId.value!,
                                       sdc.selectedGenderId.value!,
                                     );
                                   }
@@ -243,7 +247,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                         csc.clearTextFields();
                         Get.back();
                       },
-                      text: 'إلغـــاء اللأمــر',
+                      text: 'إلغـــاء الأمــــر',
                       textStyle: MyTextStyles.font16WhiteBold),
                 ],
               )

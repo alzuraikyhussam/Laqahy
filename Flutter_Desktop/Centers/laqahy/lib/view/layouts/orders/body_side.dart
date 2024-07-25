@@ -18,20 +18,23 @@ class _OrderBodySideState extends State<OrderBodySide> {
   OrdersController oc = Get.put(OrdersController());
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Expanded(
-        child: oc.orderTapChange.value == 'add'
-            ? const AddOrder()
-            : oc.orderTapChange.value == 'outgoing'
-                ? const OutgoingOrder()
-                : oc.orderTapChange.value == 'in_delivery'
-                    ? const InDeliveryOrder()
-                    : oc.orderTapChange.value == 'delivered'
-                        ? const DeliveredOrder()
-                        : oc.orderTapChange.value == 'rejected'
-                            ? const RejectedOrder()
-                            : const SizedBox(),
-      );
-    });
+    return SizedBox(
+      width: Get.width,
+      child: Obx(() {
+        return Expanded(
+          child: oc.orderTapChange.value == 'add'
+              ? const AddOrder()
+              : oc.orderTapChange.value == 'outgoing'
+                  ? const OutgoingOrder()
+                  : oc.orderTapChange.value == 'in_delivery'
+                      ? const InDeliveryOrder()
+                      : oc.orderTapChange.value == 'delivered'
+                          ? const DeliveredOrder()
+                          : oc.orderTapChange.value == 'rejected'
+                              ? const RejectedOrder()
+                              : const SizedBox(),
+        );
+      }),
+    );
   }
 }

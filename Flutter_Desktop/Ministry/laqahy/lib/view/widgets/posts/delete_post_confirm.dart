@@ -95,7 +95,7 @@ class DeletePostConfirm extends StatelessWidget {
                       onPressed: () {
                         Get.back();
                       },
-                      text: 'إلغـــاء اللأمــر',
+                      text: 'إلغـــاء الأمـــر',
                       textStyle: MyTextStyles.font16WhiteBold,
                     ),
                   ),

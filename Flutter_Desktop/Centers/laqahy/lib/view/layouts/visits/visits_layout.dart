@@ -125,13 +125,18 @@ class _VisitsLayoutState extends State<VisitsLayout> {
             const SizedBox(
               height: 50,
             ),
-            Obx(() {
-              return vlc.visitTapChange.value == 'm'
-                  ? MotherVisitData()
-                  : vlc.visitTapChange.value == 'c'
-                      ? ChildVisitData()
-                      : SizedBox();
-            }),
+            Expanded(
+              child: SizedBox(
+                width: Get.width,
+                child: Obx(() {
+                  return vlc.visitTapChange.value == 'm'
+                      ? MotherVisitData()
+                      : vlc.visitTapChange.value == 'c'
+                          ? ChildVisitData()
+                          : SizedBox();
+                }),
+              ),
+            ),
           ],
         ),
       ],

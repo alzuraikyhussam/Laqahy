@@ -40,7 +40,7 @@ class _MotherVisitDataState extends State<MotherVisitData> {
             Form(
               key: mvc.createMotherStatementFormKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -49,17 +49,17 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'اســـم الأم',
+                            'اســم الأم',
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           Constants().allMothersDropdownMenu(),
                         ],
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 25,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,13 +69,13 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           Constants().dosageLevelDropdownMenu(),
                         ],
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 25,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +85,7 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           Constants().dosageTypeDropdownMenu(),
                         ],

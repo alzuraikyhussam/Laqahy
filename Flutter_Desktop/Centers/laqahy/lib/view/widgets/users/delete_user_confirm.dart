@@ -92,7 +92,7 @@ class DeleteUserConfirm extends StatelessWidget {
                     onPressed: () {
                       Get.back();
                     },
-                    text: 'إلغـــاء اللأمــر',
+                    text: 'إلغـــاء الأمــــر',
                     textStyle: MyTextStyles.font16WhiteBold,
                   ),
                 ),

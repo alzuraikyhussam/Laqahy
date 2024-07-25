@@ -45,8 +45,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
     sdc.selectedDirectorateId.value = widget.motherData.directorate_id;
   }
 
-  MotherStatusDataController msc =
-      Get.put(MotherStatusDataController());
+  MotherStatusDataController msc = Get.put(MotherStatusDataController());
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +84,11 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                   Row(
                     children: [
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'الاســم',
+                            'الاســم الرباعي',
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
@@ -107,7 +107,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                         ],
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 25,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,7 +124,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                             validator: msc.identityNumberValidator,
                             prefixIcon: Icons.numbers,
                             width: 200,
-                            hintText: 'يرجا إدخال الرقم الوطني',
+                            hintText: 'أدخل الرقم الوطني',
                             keyboardType: TextInputType.text,
                             readOnly: false,
                             onChanged: (value) {},
@@ -132,7 +132,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                         ],
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 25,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -171,34 +171,34 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                             'تاريخ الميلاد',
                             style: MyTextStyles.font16BlackBold,
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 3),
-                            child: myTextField(
-                              validator: msc.birthDateValidator,
-                              controller: birthDateCon,
-                              hintText: 'تاريــخ الميـلاد',
-                              prefixIcon: Icons.date_range_outlined,
-                              keyboardType: TextInputType.text,
-                              readOnly: true,
-                              width: 200,
-                              onTap: () {
-                                showDatePicker(
-                                        context: context,
-                                        firstDate: DateTime(1950),
-                                        lastDate: DateTime.now())
-                                    .then(
-                                  (value) {
-                                    if (value == null) {
-                                      return;
-                                    } else {
-                                      msc.birthDateController.text =
-                                          DateFormat.yMMMd().format(value);
-                                    }
-                                  },
-                                );
-                              },
-                              onChanged: (value) {},
-                            ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          myTextField(
+                            validator: msc.birthDateValidator,
+                            controller: birthDateCon,
+                            hintText: 'تاريــخ الميـلاد',
+                            prefixIcon: Icons.date_range_outlined,
+                            keyboardType: TextInputType.text,
+                            readOnly: true,
+                            width: 200,
+                            onTap: () {
+                              showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime(1950),
+                                      lastDate: DateTime.now())
+                                  .then(
+                                (value) {
+                                  if (value == null) {
+                                    return;
+                                  } else {
+                                    msc.birthDateController.text =
+                                        DateFormat.yMMMd().format(value);
+                                  }
+                                },
+                              );
+                            },
+                            onChanged: (value) {},
                           )
                         ],
                       ),
@@ -213,7 +213,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           Constants().citiesDropdownMenu(),
                         ],
@@ -252,7 +252,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                       myTextField(
                         controller: villageCon,
                         validator: msc.villageValidator,
-                        prefixIcon: Icons.not_listed_location,
+                        prefixIcon: Icons.location_history_outlined,
                         width: 300,
                         hintText: 'اســم المنطقة',
                         keyboardType: TextInputType.text,
@@ -269,15 +269,17 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                     children: [
                       Obx(() {
                         if (msc.isUpdateLoading.value) {
-                          return myLoadingIndicator();
+                          return myLoadingIndicator(
+                            width: 150,
+                          );
                         } else {
                           return myButton(
                               width: 150,
                               onPressed: msc.isUpdateLoading.value
                                   ? null
                                   : () {
-                                      if (msc
-                                          .editMotherStatusDataFormKey.currentState!
+                                      if (msc.editMotherStatusDataFormKey
+                                          .currentState!
                                           .validate()) {
                                         msc.updateMotherStatusData(
                                             widget.motherData.id,
@@ -304,7 +306,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                             msc.clearTextFields();
                             Get.back();
                           },
-                          text: 'إلغـــاء اللأمــر',
+                          text: 'إلغـــاء الأمــــر',
                           textStyle: MyTextStyles.font16WhiteBold),
                     ],
                   )

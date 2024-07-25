@@ -26,6 +26,7 @@ class _HomeBodySideState extends State<HomeBodySide> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
+        width: Get.width,
         padding: hlc.choose.value == 'الرئيسية'
             ? const EdgeInsets.all(30)
             : const EdgeInsetsDirectional.only(

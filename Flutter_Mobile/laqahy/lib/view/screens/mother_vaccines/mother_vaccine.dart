@@ -62,6 +62,7 @@ class _MotherVaccineState extends State<MotherVaccine> {
                     children: [
                       SizedBox(
                         height: 200,
+                        width: Get.width,
                         child: Stack(
                           children: [
                             Row(

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/models/center_model.dart';
@@ -59,7 +60,7 @@ class PDFWidgets {
       );
 
   myShowSavedDialog(BuildContext context, File file) {
-    // Constants().playSuccessSound();
+    Constants().playSuccessSound();
     showDialog(
       barrierDismissible: false,
       context: context,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
@@ -110,7 +111,7 @@ class ChildVisitRowSource extends DataTableSource {
             child: myIconButton(
               icon: Icons.delete,
               onTap: () {
-                // Constants().playErrorSound();
+                Constants().playErrorSound();
                 myShowDialog(
                     context: Get.context!,
                     widgetName: DeleteChildStatement(

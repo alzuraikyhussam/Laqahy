@@ -148,10 +148,10 @@ class SettingsController extends GetxController {
       canCheckBiometrics = false;
     }
 
-    List<BiometricType> availableBiomerticTypes =
+    List<BiometricType> availableBiometricTypes =
         await auth.getAvailableBiometrics();
 
-    if (availableBiomerticTypes.isEmpty) {
+    if (availableBiometricTypes.isEmpty) {
       showBiometricNotAvailableDialog();
     } else if (!canCheckBiometrics) {
       showBiometricNotEnabledDialog();

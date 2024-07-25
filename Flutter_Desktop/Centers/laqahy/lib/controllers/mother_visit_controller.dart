@@ -42,7 +42,7 @@ class MotherVisitController extends GetxController {
 
   void filterMotherStatement(String keyword) {
     filteredMotherStatement.value = motherStatement.where((motherStatements) {
-      return motherStatements.motherName
+      return motherStatements.dosage_level
           .toString()
           .toLowerCase()
           .contains(keyword.toLowerCase());
@@ -112,7 +112,10 @@ class MotherVisitController extends GetxController {
       if (response.statusCode == 201) {
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
-        printMotherVisitData(sdc.selectedAllMothersId.value!.toString(),sdc.selectedDosageLevelId.value!.toString(),sdc.selectedDosageTypeId.value!.toString());
+        printMotherVisitData(
+            sdc.selectedAllMothersId.value!.toString(),
+            sdc.selectedDosageLevelId.value!.toString(),
+            sdc.selectedDosageTypeId.value!.toString());
         await fetchMotherStatement(sdc.selectedAllMothersId.value!);
         sdc.selectedDosageLevelId.value = null;
         sdc.selectedDosageTypeId.value = null;
@@ -173,12 +176,14 @@ class MotherVisitController extends GetxController {
     }
   }
 
-  Future<void> printMotherVisitData(String mother_data_id,String dosageLevel,String dosageType) async {
+  Future<void> printMotherVisitData(
+      String mother_data_id, String dosageLevel, String dosageType) async {
     try {
       isLoading(true);
       motherStatementSearchController.clear();
       final response = await http.get(
-        Uri.parse('${ApiEndpoints.printMotherVisitData}/$mother_data_id/$dosageLevel/$dosageType'),
+        Uri.parse(
+            '${ApiEndpoints.printMotherVisitData}/$mother_data_id/$dosageLevel/$dosageType'),
         headers: {
           'content-Type': 'application/json',
         },
@@ -210,5 +215,4 @@ class MotherVisitController extends GetxController {
       isLoading(false);
     }
   }
-
 }

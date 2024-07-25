@@ -9,11 +9,8 @@ import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/firebase_options.dart';
 import 'package:laqahy/services/firebase/firebase_api.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
-import 'package:laqahy/view/screens/login/login.dart';
-import 'package:laqahy/view/screens/settings/settings.dart';
 
 import 'package:laqahy/view/screens/splash_screen/splash_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // final navigatorKey = GlobalKey<NavigatorState>();
 

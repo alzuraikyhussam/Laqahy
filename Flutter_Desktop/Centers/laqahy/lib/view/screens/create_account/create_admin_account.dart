@@ -100,7 +100,7 @@ class _CreateAdminAccountState extends State<CreateAdminAccount> {
                           children: [
                             myTextField(
                               validator: cac.nameValidator,
-                              hintText: 'الاســم الرباعي',
+                              hintText: 'الاســم الرباعي الرباعي',
                               controller: cac.nameController,
                               width: 300,
                               prefixIcon: Icons.person_2_outlined,

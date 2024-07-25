@@ -1,8 +1,8 @@
 class Constants {
   List carouselSliderImages = [
-    'assets/images/post.png',
-    'assets/images/post6.png',
-    'assets/images/post7.png',
+    'assets/images/post.jpg',
+    'assets/images/post6.jpg',
+    'assets/images/post7.jpg',
     'assets/images/carousel-image.png',
   ];
 }

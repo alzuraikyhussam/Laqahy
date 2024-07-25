@@ -43,6 +43,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
             child: Form(
               key: msc.createMotherStatusDataFormKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(
@@ -51,7 +52,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                   Container(
                     margin: const EdgeInsets.all(25),
                     child: Text(
-                      'اضـــافـــة بــيـــانـــات الأم',
+                      'اضــافــة بـيــانـات الأم',
                       textAlign: TextAlign.center,
                       style: MyTextStyles.font18PrimaryBold,
                     ),
@@ -65,7 +66,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'الاســم',
+                            'الاســم الرباعي',
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
@@ -84,7 +85,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                         ],
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 25,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,7 +110,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                         ],
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 25,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -148,34 +149,34 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                             'تاريخ الميلاد',
                             style: MyTextStyles.font16BlackBold,
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 3),
-                            child: myTextField(
-                              validator: msc.birthDateValidator,
-                              controller: msc.birthDateController,
-                              hintText: 'تاريــخ الميـلاد',
-                              prefixIcon: Icons.date_range_outlined,
-                              keyboardType: TextInputType.text,
-                              readOnly: true,
-                              width: 200,
-                              onTap: () {
-                                showDatePicker(
-                                        context: context,
-                                        firstDate: DateTime(1950),
-                                        lastDate: DateTime.now())
-                                    .then(
-                                  (value) {
-                                    if (value == null) {
-                                      return;
-                                    } else {
-                                      msc.birthDateController.text =
-                                          DateFormat.yMMMd().format(value);
-                                    }
-                                  },
-                                );
-                              },
-                              onChanged: (value) {},
-                            ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          myTextField(
+                            validator: msc.birthDateValidator,
+                            controller: msc.birthDateController,
+                            hintText: 'تاريــخ الميـلاد',
+                            prefixIcon: Icons.date_range_outlined,
+                            keyboardType: TextInputType.text,
+                            readOnly: true,
+                            width: 200,
+                            onTap: () {
+                              showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime(1950),
+                                      lastDate: DateTime.now())
+                                  .then(
+                                (value) {
+                                  if (value == null) {
+                                    return;
+                                  } else {
+                                    msc.birthDateController.text =
+                                        DateFormat.yMMMd().format(value);
+                                  }
+                                },
+                              );
+                            },
+                            onChanged: (value) {},
                           )
                         ],
                       ),
@@ -190,7 +191,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           Constants().citiesDropdownMenu(),
                         ],
@@ -229,7 +230,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                       myTextField(
                         controller: msc.villageController,
                         validator: msc.villageValidator,
-                        prefixIcon: Icons.not_listed_location,
+                        prefixIcon: Icons.location_history_outlined,
                         width: 300,
                         hintText: 'اســم المنطقة',
                         keyboardType: TextInputType.text,
@@ -246,7 +247,9 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                     children: [
                       Obx(() {
                         if (msc.isAddLoading.value) {
-                          return myLoadingIndicator();
+                          return myLoadingIndicator(
+                            width: 150,
+                          );
                         } else {
                           return myButton(
                               width: 150,
@@ -273,7 +276,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                             msc.clearTextFields();
                             Get.back();
                           },
-                          text: 'إلغـــاء اللأمــر',
+                          text: 'إلغـــاء الأمــــر',
                           textStyle: MyTextStyles.font16WhiteBold),
                     ],
                   )

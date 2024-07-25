@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
+import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/login_model.dart';
@@ -166,7 +167,7 @@ class CreateAccountController extends GetxController {
           Get.offAll(const LoginScreen());
           return;
         }
-        // Constants().playSuccessSound();
+        Constants().playSuccessSound();
         myShowDialog(
           context: Get.context!,
           widgetName: ApiExceptionAlert(

@@ -92,7 +92,7 @@ class DeleteMotherStatement extends StatelessWidget {
                     onPressed: () {
                       Get.back();
                     },
-                    text: 'الغـــاء اللأمــر',
+                    text: 'الغـــاء الأمــــر',
                     textStyle: MyTextStyles.font16WhiteBold,
                   ),
                 ),

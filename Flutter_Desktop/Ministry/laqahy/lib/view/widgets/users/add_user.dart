@@ -289,7 +289,7 @@ class _AddUserState extends State<AddUser> {
                       onPressed: () {
                         Get.back();
                       },
-                      text: 'إلغـــاء اللأمــر',
+                      text: 'إلغـــاء الأمـــر',
                       textStyle: MyTextStyles.font16WhiteBold),
                 ],
               ),

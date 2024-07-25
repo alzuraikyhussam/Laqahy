@@ -125,13 +125,16 @@ class _StatesLayoutState extends State<StatesLayout> {
             const SizedBox(
               height: 20,
             ),
-            Obx(() {
-              return slc.stateTapChange.value == 'm'
-                  ? MotherStatusScreen()
-                  : slc.stateTapChange.value == 'c'
-                      ? ChildStatusScreen()
-                      : SizedBox();
-            }),
+            SizedBox(
+              width: Get.width,
+              child: Obx(() {
+                return slc.stateTapChange.value == 'm'
+                    ? MotherStatusScreen()
+                    : slc.stateTapChange.value == 'c'
+                        ? ChildStatusScreen()
+                        : SizedBox();
+              }),
+            ),
           ],
         ),
       ],

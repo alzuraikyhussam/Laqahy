@@ -44,6 +44,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
               key: cvc.createChildStatementDataFormKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
                     children: [
@@ -51,17 +52,17 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'اســـم الأم',
+                            'اســم الأم',
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           Constants().allMothersDropdownMenu(),
                         ],
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 25,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +72,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           Constants().childsDropdownMenu(),
                         ],
@@ -91,13 +92,13 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           Constants().visitTypeDropdownMenu(),
                         ],
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 25,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +108,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                             style: MyTextStyles.font16BlackBold,
                           ),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           Constants().vaccineWithVisitDropdownMenu(),
                         ],
@@ -125,7 +126,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                         style: MyTextStyles.font16PrimaryBold,
                       ),
                       const SizedBox(
-                        height: 3,
+                        height: 10,
                       ),
                       Constants().dosageWithVaccineDropdownMenu(),
                     ],
@@ -138,7 +139,9 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                     children: [
                       Obx(() {
                         return cvc.isAddLoading.value
-                            ? myLoadingIndicator()
+                            ? myLoadingIndicator(
+                                width: 150,
+                              )
                             : myButton(
                                 width: 150,
                                 onPressed: cvc.isAddLoading.value

@@ -205,7 +205,7 @@ class _EditPostDialogState extends State<EditPostDialog> {
                       Get.back();
                       cpc.updatedImage.value = null;
                     },
-                    text: 'إلغـــاء اللأمــر',
+                    text: 'إلغـــاء الأمـــر',
                     textStyle: MyTextStyles.font16WhiteBold,
                   ),
                 ],

@@ -43,10 +43,14 @@ class ChildVisitController extends GetxController {
 
   void filterChildStatement(String keyword) {
     filteredChildStatement.value = childStatement.where((childrenStatement) {
-      return childrenStatement.childName
-          .toString()
-          .toLowerCase()
-          .contains(keyword.toLowerCase());
+      return childrenStatement.visitType
+              .toString()
+              .toLowerCase()
+              .contains(keyword.toLowerCase()) ||
+          childrenStatement.vaccineType
+              .toString()
+              .toLowerCase()
+              .contains(keyword.toLowerCase());
     }).toList();
   }
 

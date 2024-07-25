@@ -1236,6 +1236,7 @@ myLogoutConfirmDialog() {
         onPressed: () async {
           await Get.closeCurrentSnackbar();
           Get.offAll(() => const LoginScreen());
+          Get.delete<SettingsController>();
         },
         text: 'تسجيل خروج',
         textStyle: MyTextStyles.font14WhiteBold,
