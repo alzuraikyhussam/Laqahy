@@ -314,8 +314,9 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                                 border:
                                     Border.all(color: MyColors.primaryColor),
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
+                                    const BorderRadius.all(Radius.circular(12)),
                               ),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: DataTable2(
                                 dataRowHeight: 50,
                                 headingRowHeight: 45,

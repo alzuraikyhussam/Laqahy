@@ -153,7 +153,7 @@ class ApiExceptionWidgets {
 
   myDataNotFound({
     required void Function()? onPressedRefresh,
-    String text = 'لم يتـم العثور على نتائج',
+    String text = 'لم يتـم العثور على بيانات',
   }) {
     return Center(
       child: Column(
@@ -170,7 +170,7 @@ class ApiExceptionWidgets {
           ),
           Text(
             text,
-            style: MyTextStyles.font16GreyBold,
+            style: MyTextStyles.font14GreyBold,
             textAlign: TextAlign.center,
           ),
           const SizedBox(

@@ -27,7 +27,7 @@ class MotherVisitController extends GetxController {
   int? dosageLevelId;
 
   void clearTextFields() {
-    sdc.selectedAllMothersId.value = null;
+    // sdc.selectedAllMothersId.value = null;
     sdc.selectedDosageLevelId.value = null;
     sdc.selectedDosageTypeId.value = null;
   }
@@ -146,11 +146,12 @@ class MotherVisitController extends GetxController {
   Future<void> deleteMotherStatement(int motherId) async {
     isDeleteLoading(true);
     try {
+      print(motherId);
       var request = await http
           .delete(Uri.parse('${ApiEndpoints.deleteMotherStatement}/$motherId'));
 
       if (request.statusCode == 200) {
-        await fetchMotherStatement(sdc.selectedMothersId.value!);
+        await fetchMotherStatement(sdc.selectedAllMothersId.value!);
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();
         isDeleteLoading(false);

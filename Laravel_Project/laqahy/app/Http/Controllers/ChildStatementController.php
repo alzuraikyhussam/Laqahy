@@ -55,16 +55,19 @@ class ChildStatementController extends Controller
             }
 
             $returnDate = Child_statement::where('child_data_id', $child_id)->max('return_date');
+            
             $now = Carbon::now();
             $birthDate = Carbon::parse($child->child_data_birthDate);
             $diff = $birthDate->diff($now);
-
-            if ($diff->y) {
-                $age = $diff->y . ' سنة و ' . $diff->m . ' شهر و ' . $diff->d . ' يوم';
-            } elseif ($diff->m >= 1) {
-                $age = 'شهر و ' . $diff->d . ' يوم';
+            
+           if ($diff->y) {
+                $age = $diff->y . ' سنة' . ($diff->m ? ' و ' . $diff->m . ' شهر' : '') . ($diff->d ? ' و ' . $diff->d . ' يوم' : '');
+            } elseif ($diff->m) {
+                $age = $diff->m . ' شهر' . ($diff->d ? ' و ' . $diff->d . ' يوم' : '');
+            } elseif ($diff->d) {
+                $age = $diff->d . ' يوم';
             } else {
-                $age = $diff->days . 'يوم';
+                $age = 'اليوم';
             }
 
             // Transform vaccine dosage details array to match the expected structure

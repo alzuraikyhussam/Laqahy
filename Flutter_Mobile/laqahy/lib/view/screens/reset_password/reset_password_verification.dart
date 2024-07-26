@@ -59,7 +59,7 @@ class _ResetPasswordVerificationState extends State<ResetPasswordVerification> {
                     height: 10,
                   ),
                   Text(
-                    'أدخلي رقم جوالك والرقم الوطني من أجل عملية التحقق أولاً.',
+                    'أدخلي رقم جوالك والرقم الوطني من أجل عملية التحقق أولا',
                     style: MyTextStyles.font16GreyMedium,
                   ),
                   const SizedBox(

@@ -9,5 +9,5 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-// Schedule::command('app:send-reminder')->dailyAt('22:48');
+// Schedule::command('app:send-reminder')->everyMinute();
 Schedule::command('app:send-reminder')->dailyAt('09:00');

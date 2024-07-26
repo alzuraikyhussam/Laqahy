@@ -146,7 +146,7 @@ class ResetPasswordController extends GetxController {
           context: Get.context!,
           widgetName: ApiExceptionAlert(
             title: 'تمت العملية بنجاح',
-            description: 'لقد تمت عملبة اعادة تعيين كلمة المرور بنجاح',
+            description: 'لقد تمت عملية اعادة تعيين كلمة المرور بنجاح',
             backgroundColor: MyColors.primaryColor,
             height: 280,
             imageUrl: 'assets/images/success.json',

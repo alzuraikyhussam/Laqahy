@@ -76,8 +76,6 @@ class LoginController extends GetxController {
           );
 
           if (response.statusCode == 200) {
-            await Get.closeCurrentSnackbar();
-
             var data = json.decode(response.body);
 
             MotherData user = MotherData.fromJson(data);
@@ -88,11 +86,13 @@ class LoginController extends GetxController {
 
             sdc.storageService.setMotherId(motherId!);
 
+            await Get.closeCurrentSnackbar();
+
             Get.offAll(
               () => const HomeLayout(),
               transition: Transition.rightToLeft,
-              duration: const Duration(milliseconds: 3000),
-              curve: Curves.fastLinearToSlowEaseIn,
+              duration: const Duration(milliseconds: 1500),
+              curve: Curves.easeInOut,
             );
             isLoading(false);
             Get.delete<LoginController>();
@@ -193,8 +193,6 @@ class LoginController extends GetxController {
           // fit: BoxFit.cover,
         ),
       );
-      isFingerprintEnabled.value = false;
-      toggleFingerprint(false);
     } else {
       try {
         isLoginWithFingerprintLoading(true);
@@ -220,11 +218,13 @@ class LoginController extends GetxController {
 
             toggleFingerprint(true);
 
+            await Get.closeCurrentSnackbar();
+
             Get.offAll(
               () => const HomeLayout(),
               transition: Transition.rightToLeft,
-              duration: const Duration(milliseconds: 3000),
-              curve: Curves.fastLinearToSlowEaseIn,
+              duration: const Duration(milliseconds: 1500),
+              curve: Curves.easeInOut,
             );
             Get.delete<LoginController>();
 

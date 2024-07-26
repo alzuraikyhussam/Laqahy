@@ -264,11 +264,12 @@ class _MotherVaccineState extends State<MotherVaccine> {
                               start: 15,
                               end: 15,
                             ),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               border: Border.all(color: MyColors.primaryColor),
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
+                                  const BorderRadius.all(Radius.circular(12)),
                             ),
                             child: DataTable2(
                               dataRowHeight: 50,

@@ -57,7 +57,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     height: 10,
                   ),
                   Text(
-                    '.أدخلي كلمة مرور جديدة لحسابك',
+                    'أدخلي كلمة مرور جديدة لحسابك',
                     style: MyTextStyles.font16GreyMedium,
                   ),
                   const SizedBox(

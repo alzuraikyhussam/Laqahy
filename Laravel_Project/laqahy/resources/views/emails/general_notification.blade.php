@@ -25,7 +25,7 @@
         }
 
         .header img {
-            width: 600px;
+            width: 250px;
             /* Adjust the size as needed */
         }
 
@@ -45,11 +45,11 @@
 <body dir="rtl">
     <div class="container">
         <div class="header">
-            <img src="{{ asset('logo.png') }}" alt="App Logo">
+            <img src="https://laqahy.com/storage/logo.png" alt="App Logo">
             <h1>تأكيد استلام الطلب</h1>
         </div>
         <div class="content">
-            <p>السيد/السيدة {{ $recipientName }},</p>
+            <p>السيد/ة {{ $recipientName }},</p>
             <p>نود أن نعلمكم بأننا قد استلمنا طلب الدعم الخاص بكم، وسنعمل على معالجته في أقرب وقت ممكن.</p>
             <p>يرجى العلم بأننا نقدر تقديراً كبيراً لثقتكم بنا، ونحن هنا لمساعدتكم في حل أي مشكلة تواجهكم.</p>
             <p>شكراً لتواصلكم معنا ولتفهمكم.</p>

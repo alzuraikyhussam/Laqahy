@@ -775,6 +775,7 @@ myPostsCard({
               ),
               myButton(
                 onPressed: () {
+                  Constants().playErrorSound();
                   myShowDialog(
                       context: context,
                       widgetName: DeletePostConfirm(

@@ -8,6 +8,7 @@ import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/visits/mother_visit/mother_visit_data_table.dart';
 
@@ -139,8 +140,21 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                       autoRowsToHeight: true,
                       empty: ApiExceptionWidgets().myDataNotFound(
                         onPressedRefresh: () {
-                          mvc.fetchMotherStatement(
-                              sdc.selectedMothersId.value!);
+                          if (sdc.selectedAllMothersId.value == null) {
+                            Constants().playErrorSound();
+                            myShowDialog(
+                              context: Get.context!,
+                              widgetName: ApiExceptionAlert(
+                                title: 'خطـــأ',
+                                description:
+                                    'من فضلك، قم باختيار اسم الام أولاً',
+                                height: 280,
+                              ),
+                            );
+                          } else {
+                            mvc.fetchMotherStatement(
+                                sdc.selectedAllMothersId.value!);
+                          }
                         },
                       ),
                       horizontalMargin: 15,
@@ -293,7 +307,7 @@ class _MotherVisitDataState extends State<MotherVisitData> {
                         empty: ApiExceptionWidgets().myDataNotFound(
                           onPressedRefresh: () {
                             mvc.fetchMotherStatement(
-                                sdc.selectedMothersId.value!);
+                                sdc.selectedAllMothersId.value!);
                           },
                         ),
                         horizontalMargin: 15,

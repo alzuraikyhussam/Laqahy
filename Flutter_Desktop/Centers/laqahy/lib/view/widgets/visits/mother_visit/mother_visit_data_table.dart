@@ -106,7 +106,7 @@ class MotherVisitRowSource extends DataTableSource {
                 myShowDialog(
                     context: Get.context!,
                     widgetName: DeleteMotherStatement(
-                      motherId: motherStatementData.mother_data_id,
+                      id: motherStatementData.id,
                     ));
               },
               gradientColors: [
