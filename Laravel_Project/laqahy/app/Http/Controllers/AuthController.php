@@ -107,22 +107,23 @@ class AuthController extends Controller
                 ], 400);
             }
 
+            $user = Offices_users::where('user_account_name', $request->user_account_name)->first();
+
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found',
+                ], 404);
+            }
 
             if ($office_id != 0) {
-                // if ($office_id != $user->office_id) {
-                //     return response()->json([
-                //         'message' => 'User not found in this office',
-                //     ], 402);
-                // }
-                $user = Offices_users::where('user_account_name', $request->user_account_name)->where('office_id', $office_id)->first();
-    
-                if (!$user) {
+                if ($office_id != $user->office_id) {
                     return response()->json([
-                        'message' => 'User not found',
-                    ], 404);
+                        'message' => 'User not found in this office',
+                    ], 402);
                 }
-                
-                if (!($request->user_account_password === $user->user_account_password)) {
+            }
+
+            if (!($request->user_account_password === $user->user_account_password)) {
                 return response()->json([
                     'message' => 'Invalid password',
                 ], 401);
@@ -140,37 +141,6 @@ class AuthController extends Controller
                 'office' => $office,
                 'admin' => $admin,
             ], 200);
-            
-            } else{
-                $user = Offices_users::where('user_account_name', $request->user_account_name)->first();
-    
-                if (!$user) {
-                    return response()->json([
-                        'message' => 'User not found',
-                    ], 404);
-                }
-                
-                if (!($request->user_account_password === $user->user_account_password)) {
-                return response()->json([
-                    'message' => 'Invalid password',
-                ], 401);
-            }
-
-            $admin = Offices_users::where([
-                ['permission_type_id', 1],
-                ['office_id', $user->office_id]
-            ])->first();
-
-            $office = Office::where('id', $user->office_id)->first();
-            return response()->json([
-                'message' => 'Login successfully',
-                'user' => $user,
-                'office' => $office,
-                'admin' => $admin,
-            ], 200);
-            }
-
-            
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -367,24 +337,23 @@ class AuthController extends Controller
                 ], 400);
             }
 
-           
+            $user = User::where('user_account_name', $request->user_account_name)->first();
+
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found',
+                ], 404);
+            }
 
             if ($center_id != 0) {
-                // if ($center_id != $user->healthy_center_id) {
-                //     return response()->json([
-                //         'message' => 'User not found in this center',
-                //     ], 402);
-                // }
-                
-                 $user = User::where('user_account_name', $request->user_account_name)->where('healthy_center_id', $center_id)->first();
-
-                if (!$user) {
+                if ($center_id != $user->healthy_center_id) {
                     return response()->json([
-                        'message' => 'User not found',
-                    ], 404);
+                        'message' => 'User not found in this center',
+                    ], 402);
                 }
-                
-                 if (!($request->user_account_password === $user->user_account_password)) {
+            }
+
+            if (!($request->user_account_password === $user->user_account_password)) {
                 return response()->json([
                     'message' => 'Invalid password',
                 ], 401);
@@ -404,31 +373,6 @@ class AuthController extends Controller
                 'center' => $center,
                 'admin' => $admin,
             ], 200);
-                
-            } else{
-                 if (!($request->user_account_password === $user->user_account_password)) {
-                return response()->json([
-                    'message' => 'Invalid password',
-                ], 401);
-            }
-
-            $admin = User::where([
-                ['permission_type_id', 1],
-                ['healthy_center_id', $user->healthy_center_id]
-            ])->first();
-
-
-            $center = Healthy_center::join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'offices.office_name')->where('healthy_centers.id', $user->healthy_center_id)->first();
-
-            return response()->json([
-                'message' => 'Login successfully',
-                'user' => $user,
-                'center' => $center,
-                'admin' => $admin,
-            ], 200);
-            }
-
-           
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
