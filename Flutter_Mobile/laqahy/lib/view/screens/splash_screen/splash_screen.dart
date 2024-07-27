@@ -66,13 +66,13 @@ class _SplashScreenState extends State<SplashScreen>
           ? Get.off(
               () => const LoginScreen(),
               transition: Transition.downToUp,
-              duration: const Duration(milliseconds: 1500),
+              duration: const Duration(milliseconds: 1000),
               curve: Curves.easeInOut,
             )
           : Get.off(
               () => const OnboardingLayout(),
               transition: Transition.rightToLeft,
-              duration: const Duration(milliseconds: 1500),
+              duration: const Duration(milliseconds: 1000),
               curve: Curves.easeInOut,
             );
     });

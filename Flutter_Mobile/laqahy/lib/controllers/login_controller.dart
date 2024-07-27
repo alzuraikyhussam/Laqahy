@@ -91,7 +91,7 @@ class LoginController extends GetxController {
             Get.offAll(
               () => const HomeLayout(),
               transition: Transition.rightToLeft,
-              duration: const Duration(milliseconds: 1500),
+              duration: const Duration(milliseconds: 1000),
               curve: Curves.easeInOut,
             );
             isLoading(false);
@@ -223,7 +223,7 @@ class LoginController extends GetxController {
             Get.offAll(
               () => const HomeLayout(),
               transition: Transition.rightToLeft,
-              duration: const Duration(milliseconds: 1500),
+              duration: const Duration(milliseconds: 1000),
               curve: Curves.easeInOut,
             );
             Get.delete<LoginController>();

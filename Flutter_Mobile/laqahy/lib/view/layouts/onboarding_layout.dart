@@ -79,14 +79,14 @@ class _OnboardingLayoutState extends State<OnboardingLayout> {
                   onTap: () async {
                     if (obc.currentIndex.value != 2) {
                       obc.pageController.value.nextPage(
-                        duration: const Duration(milliseconds: 1500),
+                        duration: const Duration(milliseconds: 1000),
                         curve: Curves.easeInOut,
                       );
                     } else {
                       Get.offAll(
                         const LoginScreen(),
                         transition: Transition.rightToLeft,
-                        duration: const Duration(milliseconds: 1500),
+                        duration: const Duration(milliseconds: 1000),
                         curve: Curves.easeInOut,
                       );
                       await sdc.storageService.setRegistered(true);
