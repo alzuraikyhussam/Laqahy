@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/child_visit_controller.dart';
+import 'package:laqahy/controllers/mother_visit_controller.dart';
+import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/controllers/visit_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -18,6 +21,7 @@ class VisitsLayout extends StatefulWidget {
 
 class _VisitsLayoutState extends State<VisitsLayout> {
   VisitLayoutController vlc = Get.put(VisitLayoutController());
+  StaticDataController sdc = Get.put(StaticDataController());
 
   @override
   void initState() {
@@ -57,6 +61,7 @@ class _VisitsLayoutState extends State<VisitsLayout> {
                       child: InkWell(
                         onTap: () {
                           vlc.onChangedTapVisit('m');
+                          sdc.fetchAllMothers();
                         },
                         child: Container(
                           decoration: vlc.visitTapChange.value == 'm'
@@ -92,6 +97,7 @@ class _VisitsLayoutState extends State<VisitsLayout> {
                       child: InkWell(
                         onTap: () {
                           vlc.onChangedTapVisit('c');
+                          sdc.fetchAllMothers();
                         },
                         child: Container(
                           decoration: vlc.visitTapChange.value == 'c'

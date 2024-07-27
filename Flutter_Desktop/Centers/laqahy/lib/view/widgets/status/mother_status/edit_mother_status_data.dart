@@ -192,7 +192,7 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                                       if (value == null) {
                                         return;
                                       } else {
-                                        msc.birthDateController.text =
+                                        birthDateCon.text =
                                             DateFormat.yMMMd().format(value);
                                       }
                                     },
@@ -284,8 +284,8 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                                             msc.updateMotherStatusData(
                                                 widget.motherData.id,
                                                 nameCon.text,
-                                                phoneCon.text,
                                                 identityNumberCon.text,
+                                                phoneCon.text,
                                                 birthDateCon.text,
                                                 sdc.selectedCityId.value!,
                                                 sdc.selectedDirectorateId

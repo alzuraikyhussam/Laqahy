@@ -38,7 +38,7 @@ class _EditUserState extends State<EditUser> {
     nameController = TextEditingController(text: widget.data.name);
     addressController = TextEditingController(text: widget.data.address);
     userNameController = TextEditingController(text: widget.data.username);
-    // passwordController = TextEditingController(text: widget.data.password);
+    passwordController = TextEditingController(text: widget.data.password);
     phoneController = TextEditingController(text: widget.data.phone);
     birthDateController.text =
         DateFormat('MMM d, yyyy').format(widget.data.birthDate);
@@ -180,17 +180,25 @@ class _EditUserState extends State<EditUser> {
                           'كلمة المرور ',
                           style: MyTextStyles.font14BlackBold,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 3),
-                          child: myTextField(
-                              controller: passwordController,
-                              validator: uc.passwordValidator,
-                              width: 230,
-                              prefixIcon: Icons.password_outlined,
-                              hintText: 'كلمة المرور',
-                              keyboardType: TextInputType.visiblePassword,
-                              onChanged: (value) {}),
-                        )
+                        Obx(() => Container(
+                              margin: const EdgeInsets.only(top: 3),
+                              child: myTextField(
+                                controller: passwordController,
+                                validator: uc.passwordValidator,
+                                width: 230,
+                                prefixIcon: Icons.password_outlined,
+                                obscureText: uc.isVisible.value ? false : true,
+                                suffixIcon: uc.isVisible.value
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                hintText: 'كلمة المرور',
+                                keyboardType: TextInputType.visiblePassword,
+                                onChanged: (value) {},
+                                onTapSuffixIcon: () {
+                                  uc.changePasswordVisibility();
+                                },
+                              ),
+                            )),
                       ],
                     ),
                     SizedBox(

@@ -692,6 +692,19 @@ myPostsCard({
           child: Image.network(
             image,
             fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              if (error is SocketException) {
+                // Handle the SocketException
+                return Center(
+                  child: myLoadingIndicator(),
+                );
+              } else {
+                // Handle other types of image errors
+                return Center(
+                  child: myLoadingIndicator(),
+                );
+              }
+            },
           ),
         ),
         SizedBox(

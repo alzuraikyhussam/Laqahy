@@ -22,7 +22,7 @@ class Offices_users extends Model
         'office_id',
     ];
 
-    protected $hidden = ['user_account_password'];
+    // protected $hidden = ['user_account_password'];
 
     protected $dates = ['deleted_at'];
 

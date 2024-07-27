@@ -53,7 +53,7 @@ class MotherStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              mother.mother_phone,
+              mother.mother_identity_num,
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -63,7 +63,7 @@ class MotherStatusDataSource extends DataTableSource {
           Container(
             alignment: AlignmentDirectional.center,
             child: Text(
-              mother.mother_identity_num,
+              mother.mother_phone,
               textAlign: TextAlign.center,
               style: MyTextStyles.font14BlackMedium,
             ),
@@ -135,7 +135,7 @@ class MotherStatusDataSource extends DataTableSource {
               myIconButton(
                 icon: Icons.print,
                 onTap: () async {
-                 await msc.printMotherStatusData(mother.mother_identity_num);
+                  await msc.printMotherStatusData(mother.mother_identity_num);
                   msc.fetchAllMothersStatusData(sdc.centerData.first.id!);
                 },
                 gradientColors: [

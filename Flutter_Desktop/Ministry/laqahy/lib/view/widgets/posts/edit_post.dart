@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -144,10 +146,36 @@ class _EditPostDialogState extends State<EditPostDialog> {
                               ? Image.network(
                                   widget.image,
                                   fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    if (error is SocketException) {
+                                      // Handle the SocketException
+                                      return Center(
+                                        child: myLoadingIndicator(),
+                                      );
+                                    } else {
+                                      // Handle other types of image errors
+                                      return Center(
+                                        child: myLoadingIndicator(),
+                                      );
+                                    }
+                                  },
                                 )
                               : Image.file(
                                   cpc.updatedImage.value!,
                                   fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    if (error is SocketException) {
+                                      // Handle the SocketException
+                                      return Center(
+                                        child: myLoadingIndicator(),
+                                      );
+                                    } else {
+                                      // Handle other types of image errors
+                                      return Center(
+                                        child: myLoadingIndicator(),
+                                      );
+                                    }
+                                  },
                                 );
                         }),
                       ),

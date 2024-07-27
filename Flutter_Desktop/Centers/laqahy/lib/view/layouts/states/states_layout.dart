@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:laqahy/controllers/child_status_data_controller.dart';
+import 'package:laqahy/controllers/mother_status_data_controller.dart';
 import 'package:laqahy/controllers/state_layout_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -18,6 +20,8 @@ class StatesLayout extends StatefulWidget {
 
 class _StatesLayoutState extends State<StatesLayout> {
   StateLayoutController slc = Get.put(StateLayoutController());
+  MotherStatusDataController msc = Get.put(MotherStatusDataController());
+  ChildStatusDataController csc = Get.put(ChildStatusDataController());
 
   @override
   void initState() {
@@ -57,6 +61,7 @@ class _StatesLayoutState extends State<StatesLayout> {
                       child: InkWell(
                         onTap: () {
                           slc.onChangedTapState('m');
+                          msc.fetchAllMothersStatusData(msc.centerId!);
                         },
                         child: Container(
                           decoration: slc.stateTapChange.value == 'm'
@@ -92,6 +97,7 @@ class _StatesLayoutState extends State<StatesLayout> {
                       child: InkWell(
                         onTap: () {
                           slc.onChangedTapState('c');
+                          csc.fetchAllChildrenStatusData();
                         },
                         child: Container(
                           decoration: slc.stateTapChange.value == 'c'

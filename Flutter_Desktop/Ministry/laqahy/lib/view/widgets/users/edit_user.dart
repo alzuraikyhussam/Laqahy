@@ -33,16 +33,16 @@ class _EditUserState extends State<EditUser> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     sdc.selectedGenderId.value = widget.data.userGenderId;
     sdc.selectedPermissionId.value = widget.data.userPermissionId;
     nameController = TextEditingController(text: widget.data.name);
     addressController = TextEditingController(text: widget.data.address);
     userNameController = TextEditingController(text: widget.data.username);
-    // passwordController = TextEditingController(text: widget.data.password);
+    passwordController = TextEditingController(text: widget.data.password);
     phoneController = TextEditingController(text: widget.data.phone);
     birthDateController.text =
         DateFormat('MMM d, yyyy').format(widget.data.birthDate);
-    ;
   }
 
   UserController uc = Get.put(UserController());
@@ -52,7 +52,7 @@ class _EditUserState extends State<EditUser> {
   Widget build(BuildContext context) {
     return AlertDialog(
       alignment: AlignmentDirectional.center,
-      contentPadding: EdgeInsets.all(20),
+      contentPadding: const EdgeInsets.all(20),
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
         decoration: BoxDecoration(
@@ -62,7 +62,7 @@ class _EditUserState extends State<EditUser> {
           ),
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         height: 520,
         child: Form(
           key: uc.editUserAccountFormKey,
@@ -102,7 +102,7 @@ class _EditUserState extends State<EditUser> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Column(
@@ -126,7 +126,7 @@ class _EditUserState extends State<EditUser> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Column(
@@ -136,7 +136,7 @@ class _EditUserState extends State<EditUser> {
                         'الجنس ',
                         style: MyTextStyles.font14BlackBold,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 3,
                       ),
                       Constants().gendersDropdownMenu(),
@@ -172,7 +172,7 @@ class _EditUserState extends State<EditUser> {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Column(
@@ -182,17 +182,25 @@ class _EditUserState extends State<EditUser> {
                           'كلمة المرور',
                           style: MyTextStyles.font14BlackBold,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 3),
-                          child: myTextField(
-                              controller: passwordController,
-                              validator: uc.passwordValidator,
-                              width: 230,
-                              prefixIcon: Icons.password_outlined,
-                              hintText: 'كلمة المرور',
-                              keyboardType: TextInputType.visiblePassword,
-                              onChanged: (value) {}),
-                        )
+                        Obx(() => Container(
+                              margin: const EdgeInsets.only(top: 3),
+                              child: myTextField(
+                                controller: passwordController,
+                                validator: uc.passwordValidator,
+                                width: 230,
+                                prefixIcon: Icons.password_outlined,
+                                obscureText: uc.isVisible.value ? false : true,
+                                suffixIcon: uc.isVisible.value
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                hintText: 'كلمة المرور',
+                                keyboardType: TextInputType.visiblePassword,
+                                onChanged: (value) {},
+                                onTapSuffixIcon: () {
+                                  uc.changePasswordVisibility();
+                                },
+                              ),
+                            )),
                       ],
                     ),
                     SizedBox(
@@ -231,7 +239,7 @@ class _EditUserState extends State<EditUser> {
                           'تاريخ الميلاد',
                           style: MyTextStyles.font14BlackBold,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 3,
                         ),
                         Container(
@@ -327,7 +335,7 @@ class _EditUserState extends State<EditUser> {
                             text: 'تعـــديل',
                             textStyle: MyTextStyles.font16WhiteBold);
                   }),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   myButton(

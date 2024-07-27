@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen>
       });
     });
 
-    Timer(const Duration(seconds: 5), () async {
+    Timer(const Duration(seconds: 4), () async {
       StaticDataController sdc = Get.put(StaticDataController());
       await sdc.storageService.isRegistered()
           ? Get.off(

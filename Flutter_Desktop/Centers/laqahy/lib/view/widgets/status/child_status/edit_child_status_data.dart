@@ -178,7 +178,7 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                                   if (value == null) {
                                     return;
                                   } else {
-                                    csc.birthDateController.text =
+                                    birthDateCon.text =
                                         DateFormat.yMMMd().format(value);
                                   }
                                 },

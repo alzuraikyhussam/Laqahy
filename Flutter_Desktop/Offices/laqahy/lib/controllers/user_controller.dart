@@ -29,6 +29,11 @@ class UserController extends GetxController {
   GlobalKey<FormState> editUserAccountFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
 
+  RxBool isVisible = false.obs;
+  changePasswordVisibility() {
+    isVisible.value = !isVisible.value;
+  }
+
   int? officeId;
 
   String? nameValidator(value) {
