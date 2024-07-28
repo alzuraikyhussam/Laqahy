@@ -81,7 +81,7 @@ class HomeController extends GetxController {
         errorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
       } catch (e) {
         isLoading(false);
-        errorMsg('خطأ غير متوقع\n${e.toString()}');
+        errorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
       } finally {
         isLoading(false);
       }

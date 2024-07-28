@@ -22,6 +22,8 @@ class VisitsLayout extends StatefulWidget {
 class _VisitsLayoutState extends State<VisitsLayout> {
   VisitLayoutController vlc = Get.put(VisitLayoutController());
   StaticDataController sdc = Get.put(StaticDataController());
+  MotherVisitController mvc = Get.put(MotherVisitController());
+  ChildVisitController cvc = Get.put(ChildVisitController());
 
   @override
   void initState() {
@@ -41,104 +43,114 @@ class _VisitsLayoutState extends State<VisitsLayout> {
             width: 450,
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: MyColors.whiteColor,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: MyColors.greyColor.withOpacity(0.1)),
-              ),
-              width: 450,
-              height: 60,
-              padding: EdgeInsetsDirectional.all(3),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Obx(() {
-                    return Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          vlc.onChangedTapVisit('m');
-                          sdc.fetchAllMothers();
-                        },
-                        child: Container(
-                          decoration: vlc.visitTapChange.value == 'm'
-                              ? BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: MyColors.secondaryColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          MyColors.greyColor.withOpacity(0.3),
-                                      blurRadius: 10,
-                                    ),
-                                  ],
-                                )
-                              : null,
-                          child: Center(
-                            child: Text(
-                              'بيانات الأم',
-                              style: vlc.visitTapChange.value == 'm'
-                                  ? MyTextStyles.font16WhiteBold
-                                  : MyTextStyles.font16SecondaryBold,
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: 3),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: MyColors.whiteColor,
+                  borderRadius: BorderRadius.circular(10),
+                  border:
+                      Border.all(color: MyColors.greyColor.withOpacity(0.1)),
+                ),
+                width: 450,
+                height: 60,
+                padding: EdgeInsetsDirectional.all(3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Obx(() {
+                      return Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            vlc.onChangedTapVisit('m');
+                            sdc.selectedAllMothersId.value = null;
+                            sdc.selectedMothersId.value = null;
+                            mvc.filteredMotherStatement.clear();
+                            sdc.fetchAllMothers();
+                          },
+                          child: Container(
+                            decoration: vlc.visitTapChange.value == 'm'
+                                ? BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: MyColors.secondaryColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            MyColors.greyColor.withOpacity(0.3),
+                                        blurRadius: 10,
+                                      ),
+                                    ],
+                                  )
+                                : null,
+                            child: Center(
+                              child: Text(
+                                'بيانات الأم',
+                                style: vlc.visitTapChange.value == 'm'
+                                    ? MyTextStyles.font16WhiteBold
+                                    : MyTextStyles.font16SecondaryBold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Obx(() {
-                    return Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          vlc.onChangedTapVisit('c');
-                          sdc.fetchAllMothers();
-                        },
-                        child: Container(
-                          decoration: vlc.visitTapChange.value == 'c'
-                              ? BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: MyColors.secondaryColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          MyColors.greyColor.withOpacity(0.3),
-                                      blurRadius: 10,
-                                    ),
-                                  ],
-                                )
-                              : null,
-                          child: Center(
-                            child: Text(
-                              'بيانات الطفــل',
-                              style: vlc.visitTapChange.value == 'c'
-                                  ? MyTextStyles.font16WhiteBold
-                                  : MyTextStyles.font16SecondaryBold,
+                      );
+                    }),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Obx(() {
+                      return Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            vlc.onChangedTapVisit('c');
+                            sdc.selectedChildsId.value = null;
+                            sdc.selectedAllMothersId.value = null;
+                            cvc.filteredChildStatement.clear();
+                            sdc.fetchAllMothers();
+                          },
+                          child: Container(
+                            decoration: vlc.visitTapChange.value == 'c'
+                                ? BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: MyColors.secondaryColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            MyColors.greyColor.withOpacity(0.3),
+                                        blurRadius: 10,
+                                      ),
+                                    ],
+                                  )
+                                : null,
+                            child: Center(
+                              child: Text(
+                                'بيانات الطفــل',
+                                style: vlc.visitTapChange.value == 'c'
+                                    ? MyTextStyles.font16WhiteBold
+                                    : MyTextStyles.font16SecondaryBold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  })
-                ],
+                      );
+                    })
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Obx(() {
-              return vlc.visitTapChange.value == 'm'
-                  ? MotherVisitData()
-                  : vlc.visitTapChange.value == 'c'
-                      ? ChildVisitData()
-                      : SizedBox();
-            }),
-          ],
+              const SizedBox(
+                height: 50,
+              ),
+              Obx(() {
+                return vlc.visitTapChange.value == 'm'
+                    ? MotherVisitData()
+                    : vlc.visitTapChange.value == 'c'
+                        ? ChildVisitData()
+                        : SizedBox();
+              }),
+            ],
+          ),
         ),
       ],
     );

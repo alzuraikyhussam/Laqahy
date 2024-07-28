@@ -3,10 +3,14 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
+    <ROW Property="AI_PRODUCTNAME_ARP" Value="[|ProductName]"/>
+    <ROW Property="AI_UNINSTALLER" Value="msiexec.exe"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
-    <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
+    <ROW Property="ARPCONTACT" Value="sourcetechno2022@gmail.com"/>
+    <ROW Property="ARPNOREPAIR" Value="1" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPPRODUCTICON" Value="windowsicon.exe" Type="8"/>
+    <ROW Property="ARPSYSTEMCOMPONENT" Value="1"/>
     <ROW Property="AiEmbeddedUI" Value="1"/>
     <ROW Property="AiWinUI" Value="1"/>
     <ROW Property="AppLogoIcon" Value="applogo.png" MultiBuildValue="DefaultBuild:appicon.png" Type="1" MsiKey="AppLogoIcon"/>
@@ -14,7 +18,7 @@
     <ROW Property="Manufacturer" Value="Sourcetech Inc."/>
     <ROW Property="ProductCode" Value="1033:{C2BC2700-F693-426A-BB2D-B262BB7565BA} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
-    <ROW Property="ProductName" Value="Laqahy"/>
+    <ROW Property="ProductName" Value="Laqahy Offices"/>
     <ROW Property="ProductVersion" Value="1.0.0" Options="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{9E113D6C-4674-4616-B2B4-0C0C05CF9DB5}"/>
@@ -66,40 +70,40 @@
     <ROW Component="ProductInformation" Value="{21478D05-AD55-4C54-B56D-C53F3215D65E}"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="AI_CustomARPName" ComponentId="{6FDA5088-4AD4-4726-A76A-D48321684D2B}" Directory_="APPDIR" Attributes="4" KeyPath="DisplayName" Options="1"/>
     <ROW Component="AI_ExePath" ComponentId="{618DE919-1DEE-494D-929D-09844218860D}" Directory_="APPDIR" Attributes="4" KeyPath="AI_ExePath"/>
     <ROW Component="APPDIR" ComponentId="{CB0A92DE-7644-4921-AD80-16BE873FFCF8}" Directory_="APPDIR" Attributes="0"/>
-    <ROW Component="AssetManifest.bin" ComponentId="{38295296-C3EA-4273-BF5C-C2B747A09902}" Directory_="flutter_assets_Dir" Attributes="0" KeyPath="AssetManifest.bin" Type="0"/>
-    <ROW Component="CupertinoIcons.ttf" ComponentId="{0655CDB8-EE5E-4E54-8E73-A3E07A83824D}" Directory_="assets_1_Dir" Attributes="0" Type="0"/>
-    <ROW Component="MaterialIconsRegular.otf" ComponentId="{5D260DC3-09C7-48DA-A03F-82AFEB95B8D0}" Directory_="fonts_1_Dir" Attributes="0" KeyPath="MaterialIconsRegular.otf" Type="0"/>
+    <ROW Component="AssetManifest.bin" ComponentId="{8224EA97-1961-4CE9-A67B-B41858E0A07C}" Directory_="flutter_assets_Dir" Attributes="0" KeyPath="AssetManifest.bin" Type="0"/>
+    <ROW Component="CupertinoIcons.ttf" ComponentId="{6FA7960C-B11D-4896-8069-D749343E0299}" Directory_="assets_1_Dir" Attributes="0" Type="0"/>
+    <ROW Component="MaterialIconsRegular.otf" ComponentId="{60974B22-4930-4D47-9316-21D6DD4873E8}" Directory_="fonts_1_Dir" Attributes="0" KeyPath="MaterialIconsRegular.otf" Type="0"/>
     <ROW Component="ProductInformation" ComponentId="{21478D05-AD55-4C54-B56D-C53F3215D65E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
-    <ROW Component="SHORTCUTDIR" ComponentId="{9E863689-EDD8-47A8-B6BC-4666A763D396}" Directory_="SHORTCUTDIR" Attributes="0"/>
-    <ROW Component="TajawalMedium.ttf" ComponentId="{AE989A3D-CEA7-4274-BB12-E1667535D33A}" Directory_="fonts_Dir" Attributes="0" Type="0"/>
-    <ROW Component="addvaccinesicon.png" ComponentId="{C1913EA2-E3BA-4E51-AC6D-0BDAA8C90F4D}" Directory_="icons_Dir" Attributes="0" KeyPath="addvaccinesicon.png" Type="0"/>
-    <ROW Component="app.so" ComponentId="{261080BC-A7C2-4150-BF87-76066F3A1A27}" Directory_="data_Dir" Attributes="0" KeyPath="app.so" Type="0"/>
-    <ROW Component="audioplayers_windows_plugin.dll" ComponentId="{49A1F45A-BE4B-4CE0-95C5-AB1EC26DD2F7}" Directory_="APPDIR" Attributes="256" KeyPath="audioplayers_windows_plugin.dll"/>
-    <ROW Component="bitsdojo_window_windows_plugin.lib" ComponentId="{2A1C6667-04E7-471F-8F8F-EB71A37F35FC}" Directory_="APPDIR" Attributes="0" KeyPath="bitsdojo_window_windows_plugin.lib" Type="0"/>
-    <ROW Component="close.png" ComponentId="{D1E9A508-F085-475D-803E-41DE2FA76708}" Directory_="x_Dir" Attributes="0" KeyPath="close.png" Type="0"/>
-    <ROW Component="close.png_1" ComponentId="{72A6DC02-A107-4D71-9801-3738D0B4E770}" Directory_="x_1_Dir" Attributes="0" KeyPath="close.png_1" Type="0"/>
-    <ROW Component="close.png_2" ComponentId="{D66223E9-C9BC-4F8D-B90D-E931F1E7FD65}" Directory_="images_1_Dir" Attributes="0" KeyPath="close.png_2" Type="0"/>
-    <ROW Component="error.json" ComponentId="{528ED7E4-CC09-41D1-8828-93F6A4ACDDDF}" Directory_="images_Dir" Attributes="0" KeyPath="error.json" Type="0"/>
-    <ROW Component="error.mp3" ComponentId="{F66276EE-2AAB-4CB9-B17A-9B6B2D2E90B0}" Directory_="sounds_Dir" Attributes="0" KeyPath="error.mp3" Type="0"/>
-    <ROW Component="fabrands400.ttf" ComponentId="{E8F30DAA-5FC9-4432-80D3-138E06BD6DB8}" Directory_="fonts_2_Dir" Attributes="0" Type="0"/>
-    <ROW Component="file_selector_windows_plugin.dll" ComponentId="{096F5B47-A4E1-499A-98B3-858DA3F43328}" Directory_="APPDIR" Attributes="256" KeyPath="file_selector_windows_plugin.dll"/>
-    <ROW Component="flutter_windows.dll" ComponentId="{E347E86B-6498-4C17-8D51-931A46BC07E4}" Directory_="APPDIR" Attributes="256" KeyPath="flutter_windows.dll"/>
-    <ROW Component="ic_chrome_close.png" ComponentId="{833D6B59-EC35-4AAE-A5C8-DDCCE2FFB140}" Directory_="images_2_Dir" Attributes="0" KeyPath="ic_chrome_close.png" Type="0"/>
-    <ROW Component="ink_sparkle.frag" ComponentId="{B9D2C9D4-E398-46A5-A28E-FF0251EAB1F5}" Directory_="shaders_Dir" Attributes="0" KeyPath="ink_sparkle.frag" Type="0"/>
-    <ROW Component="laqahy.exe" ComponentId="{66631424-224D-4917-9A9A-12393F0AB414}" Directory_="APPDIR" Attributes="256" KeyPath="laqahy.exe"/>
-    <ROW Component="screen_retriever_plugin.dll" ComponentId="{0E116F71-4B84-4CFA-B03A-C4977912DC11}" Directory_="APPDIR" Attributes="256" KeyPath="screen_retriever_plugin.dll"/>
-    <ROW Component="share_plus_plugin.dll" ComponentId="{9EDB397B-396E-4A47-B590-655D822C823F}" Directory_="APPDIR" Attributes="256" KeyPath="share_plus_plugin.dll"/>
-    <ROW Component="url_launcher_windows_plugin.dll" ComponentId="{E851EAC0-4253-490E-B568-E745FD0DCA7F}" Directory_="APPDIR" Attributes="256" KeyPath="url_launcher_windows_plugin.dll"/>
-    <ROW Component="window_manager_plugin.dll" ComponentId="{619BF238-EA12-44BE-A64E-2501C2C771A8}" Directory_="APPDIR" Attributes="256" KeyPath="window_manager_plugin.dll"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{857A909F-CD2A-4795-A7B0-A84273DD7751}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="TajawalMedium.ttf" ComponentId="{E4C61063-EDDB-4368-AD17-0AD9F1209465}" Directory_="fonts_Dir" Attributes="0" Type="0"/>
+    <ROW Component="addvaccinesicon.png" ComponentId="{3F82A2C5-05EA-4131-876E-461979C5ADF8}" Directory_="icons_Dir" Attributes="0" KeyPath="addvaccinesicon.png" Type="0"/>
+    <ROW Component="app.so" ComponentId="{B00C490A-0C2C-46A3-9B98-D60B49033ABA}" Directory_="data_Dir" Attributes="0" KeyPath="app.so" Type="0"/>
+    <ROW Component="audioplayers_windows_plugin.dll" ComponentId="{7865B672-D859-410E-BEDD-AD2DE04FB1C7}" Directory_="APPDIR" Attributes="256" KeyPath="audioplayers_windows_plugin.dll"/>
+    <ROW Component="bitsdojo_window_windows_plugin.lib" ComponentId="{C617E8FD-3B69-44CA-8A22-549327583A5B}" Directory_="APPDIR" Attributes="0" KeyPath="bitsdojo_window_windows_plugin.lib" Type="0"/>
+    <ROW Component="close.png" ComponentId="{69E4078F-5BBC-4397-AA22-5A222808F5BE}" Directory_="x_Dir" Attributes="0" KeyPath="close.png" Type="0"/>
+    <ROW Component="close.png_1" ComponentId="{603C03DF-A332-4268-9074-F18D08A634FB}" Directory_="x_1_Dir" Attributes="0" KeyPath="close.png_1" Type="0"/>
+    <ROW Component="close.png_2" ComponentId="{8F7CDC42-1817-4A36-96E0-77087F15ED11}" Directory_="images_1_Dir" Attributes="0" KeyPath="close.png_2" Type="0"/>
+    <ROW Component="error.json" ComponentId="{947FC7AC-B97A-46FE-91B8-5BFBEDDF34E4}" Directory_="images_Dir" Attributes="0" KeyPath="error.json" Type="0"/>
+    <ROW Component="error.mp3" ComponentId="{AC705FFF-215C-4123-AD0A-4025632A9F50}" Directory_="sounds_Dir" Attributes="0" KeyPath="error.mp3" Type="0"/>
+    <ROW Component="fabrands400.ttf" ComponentId="{AA550801-6614-4D1E-9E95-A8DAF4776491}" Directory_="fonts_2_Dir" Attributes="0" Type="0"/>
+    <ROW Component="file_selector_windows_plugin.dll" ComponentId="{0E6BDD3C-3F9A-4AC7-AF86-09E47083FD4C}" Directory_="APPDIR" Attributes="256" KeyPath="file_selector_windows_plugin.dll"/>
+    <ROW Component="flutter_windows.dll" ComponentId="{13668C47-CD27-4496-8AEB-4283F5C24326}" Directory_="APPDIR" Attributes="256" KeyPath="flutter_windows.dll"/>
+    <ROW Component="ic_chrome_close.png" ComponentId="{705A8246-9123-448E-9B19-E280071F0A4B}" Directory_="images_2_Dir" Attributes="0" KeyPath="ic_chrome_close.png" Type="0"/>
+    <ROW Component="ink_sparkle.frag" ComponentId="{A9ED24F2-0858-49A8-84A3-760673EB00CA}" Directory_="shaders_Dir" Attributes="0" KeyPath="ink_sparkle.frag" Type="0"/>
+    <ROW Component="laqahy.exe" ComponentId="{E732D4C5-5628-41FB-9D9D-6D2D48860B7C}" Directory_="APPDIR" Attributes="256" KeyPath="laqahy.exe"/>
+    <ROW Component="screen_retriever_plugin.dll" ComponentId="{884C1E46-AB40-44FC-85D8-FE19AD67E80F}" Directory_="APPDIR" Attributes="256" KeyPath="screen_retriever_plugin.dll"/>
+    <ROW Component="share_plus_plugin.dll" ComponentId="{7CD3CE4E-21AC-4BB1-8AB6-E515B37853DA}" Directory_="APPDIR" Attributes="256" KeyPath="share_plus_plugin.dll"/>
+    <ROW Component="url_launcher_windows_plugin.dll" ComponentId="{E6E8773B-5150-4332-A20C-FA9761538F32}" Directory_="APPDIR" Attributes="256" KeyPath="url_launcher_windows_plugin.dll"/>
+    <ROW Component="window_manager_plugin.dll" ComponentId="{FE02F676-B149-4934-A0D0-4C12E0A98654}" Directory_="APPDIR" Attributes="256" KeyPath="window_manager_plugin.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="window_manager_plugin.dll" Component_="window_manager_plugin.dll" FileName="WINDOW~1.DLL|window_manager_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Offices\laqahy\build\windows\x64\runner\Release\window_manager_plugin.dll" SelfReg="false"/>
     <ROW File="app.so" Component_="app.so" FileName="app.so" Attributes="0" SourcePath="..\..\Flutter_Desktop\Offices\laqahy\build\windows\x64\runner\Release\data\app.so" SelfReg="false"/>
     <ROW File="AssetManifest.bin" Component_="AssetManifest.bin" FileName="ASSETM~1.BIN|AssetManifest.bin" Attributes="0" SourcePath="..\..\Flutter_Desktop\Offices\laqahy\build\windows\x64\runner\Release\data\flutter_assets\AssetManifest.bin" SelfReg="false"/>
     <ROW File="AssetManifest.json" Component_="AssetManifest.bin" FileName="ASSETM~1.JSO|AssetManifest.json" Attributes="0" SourcePath="..\..\Flutter_Desktop\Offices\laqahy\build\windows\x64\runner\Release\data\flutter_assets\AssetManifest.json" SelfReg="false"/>
@@ -230,6 +234,7 @@
     <ROW File="screen_retriever_plugin.dll" Component_="screen_retriever_plugin.dll" FileName="SCREEN~1.DLL|screen_retriever_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Offices\laqahy\build\windows\x64\runner\Release\screen_retriever_plugin.dll" SelfReg="false"/>
     <ROW File="share_plus_plugin.dll" Component_="share_plus_plugin.dll" FileName="SHARE_~1.DLL|share_plus_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Offices\laqahy\build\windows\x64\runner\Release\share_plus_plugin.dll" SelfReg="false"/>
     <ROW File="url_launcher_windows_plugin.dll" Component_="url_launcher_windows_plugin.dll" FileName="URL_LA~1.DLL|url_launcher_windows_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Offices\laqahy\build\windows\x64\runner\Release\url_launcher_windows_plugin.dll" SelfReg="false"/>
+    <ROW File="window_manager_plugin.dll" Component_="window_manager_plugin.dll" FileName="WINDOW~1.DLL|window_manager_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Offices\laqahy\build\windows\x64\runner\Release\window_manager_plugin.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -271,6 +276,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
     <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
+    <ROW Name="ShortcutFlags.dll" SourcePath="&lt;AI_CUSTACTS&gt;ShortcutFlags.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="appicon.png" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\assets\images\app-icon.png"/>
     <ROW Name="lzmaextractor.dll" SourcePath="&lt;AI_CUSTACTS&gt;lzmaextractor.dll"/>
@@ -329,6 +335,7 @@
     <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_ApplyShortcutFlags" Type="3073" Source="ShortcutFlags.dll" Target="UpdateShortcutFlags" WithoutSeq="true"/>
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_ChooseTextStyles" Type="1" Source="aicustact.dll" Target="ChooseTextStyles"/>
     <ROW Action="AI_DATA_SETTER" Type="51" Source="CustomActionData" Target="[AI_SETUPEXEPATH]"/>
@@ -343,14 +350,22 @@
     <ROW Action="AI_ExtractFiles" Type="1" Source="Prereq.dll" Target="ExtractSourceFiles" AdditionalSeq="AI_DATA_SETTER"/>
     <ROW Action="AI_ExtractLzma" Type="1025" Source="lzmaextractor.dll" Target="ExtractLZMAFiles"/>
     <ROW Action="AI_FindExeLzma" Type="1" Source="lzmaextractor.dll" Target="FindEXE"/>
+    <ROW Action="AI_GetArpIconPath" Type="1" Source="aicustact.dll" Target="GetArpIconPath"/>
     <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_PRESERVE_INSTALL_TYPE" Type="65" Source="aicustact.dll" Target="PreserveInstallType"/>
+    <ROW Action="AI_PinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="PinShortcuts"/>
+    <ROW Action="AI_PinToStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="PinToStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_PinToTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="PinToTaskbar" WithoutSeq="true"/>
+    <ROW Action="AI_PrepareShortcutFlags" Type="1" Source="ShortcutFlags.dll" Target="PrepareActionData"/>
     <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH" Target="[AI_SETUPEXEPATH_ORIGINAL]"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="AI_UnpinFromStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinFromTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromTaskbar" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="UnpinShortcuts"/>
     <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[AppDataFolder][Manufacturer]\[ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
@@ -359,7 +374,6 @@
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
     <ROW Feature_="MainFeature" Component_="ProductInformation"/>
     <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
-    <ROW Feature_="MainFeature" Component_="window_manager_plugin.dll"/>
     <ROW Feature_="MainFeature" Component_="app.so"/>
     <ROW Feature_="MainFeature" Component_="AssetManifest.bin"/>
     <ROW Feature_="MainFeature" Component_="TajawalMedium.ttf"/>
@@ -380,8 +394,10 @@
     <ROW Feature_="MainFeature" Component_="flutter_windows.dll"/>
     <ROW Feature_="MainFeature" Component_="laqahy.exe"/>
     <ROW Feature_="MainFeature" Component_="screen_retriever_plugin.dll"/>
+    <ROW Feature_="MainFeature" Component_="AI_CustomARPName"/>
     <ROW Feature_="MainFeature" Component_="share_plus_plugin.dll"/>
     <ROW Feature_="MainFeature" Component_="url_launcher_windows_plugin.dll"/>
+    <ROW Feature_="MainFeature" Component_="window_manager_plugin.dll"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
@@ -405,6 +421,10 @@
     <ROW Action="AI_DeleteLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="6599" Builds="DefaultBuild"/>
     <ROW Action="AI_ExtractFiles" Sequence="1399" Builds="DefaultBuild"/>
     <ROW Action="AI_DATA_SETTER" Sequence="1398"/>
+    <ROW Action="AI_GetArpIconPath" Sequence="1401"/>
+    <ROW Action="AI_PrepareShortcutFlags" Condition="(VersionNT &gt; 501) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="4501"/>
+    <ROW Action="AI_PinShortcuts" Condition="(VersionNT &gt; 600) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="6499"/>
+    <ROW Action="AI_UnpinShortcuts" Condition="(VersionNT &gt; 600) AND (REMOVE = &quot;ALL&quot;)" Sequence="3199"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_PRESERVE_INSTALL_TYPE" Sequence="199"/>
@@ -434,18 +454,42 @@
     <ROW Registry="AI_ExePath" Root="-1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Value="[AI_SETUPEXEPATH]" Component_="AI_ExePath"/>
     <ROW Registry="AdvancedInstaller" Root="-1" Key="Software\Caphyon\Advanced Installer" Name="\"/>
     <ROW Registry="Caphyon" Root="-1" Key="Software\Caphyon" Name="\"/>
+    <ROW Registry="Comments" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="Comments" Value="[ARPCOMMENTS]" Component_="AI_CustomARPName"/>
+    <ROW Registry="Contact" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="Contact" Value="[ARPCONTACT]" Component_="AI_CustomARPName"/>
+    <ROW Registry="CurrentVersion" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion" Name="\"/>
+    <ROW Registry="DisplayIcon" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="DisplayIcon" Value="[ARP_ICON_PATH]" Component_="AI_CustomARPName"/>
+    <ROW Registry="DisplayName" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="DisplayName" Value="[AI_PRODUCTNAME_ARP]" Component_="AI_CustomARPName"/>
+    <ROW Registry="DisplayVersion" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="DisplayVersion" Value="[ProductVersion]" Component_="AI_CustomARPName"/>
+    <ROW Registry="EstimatedSize" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="EstimatedSize" Value="#[AI_ARP_SIZE]" Component_="AI_CustomARPName" VirtualValue="#"/>
+    <ROW Registry="HelpLink" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="HelpLink" Value="[ARPHELPLINK]" Component_="AI_CustomARPName"/>
+    <ROW Registry="HelpTelephone" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="HelpTelephone" Value="[ARPHELPTELEPHONE]" Component_="AI_CustomARPName"/>
+    <ROW Registry="InstallLocation" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="InstallLocation" Value="[APPDIR]" Component_="AI_CustomARPName"/>
     <ROW Registry="LZMA" Root="-1" Key="Software\Caphyon\Advanced Installer\LZMA" Name="\"/>
     <ROW Registry="Manufacturer" Root="-1" Key="Software\[Manufacturer]" Name="\"/>
+    <ROW Registry="Microsoft" Root="-1" Key="Software\Microsoft" Name="\"/>
+    <ROW Registry="ModifyPath" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="ModifyPath" Value="[AI_UNINSTALLER] /i [ProductCode] AI_UNINSTALLER_CTP=1" Component_="AI_CustomARPName"/>
+    <ROW Registry="NoRepair" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="NoRepair" Value="#1" Component_="AI_CustomARPName" VirtualValue="#"/>
     <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
     <ROW Registry="ProductCode" Root="-1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]" Name="\"/>
     <ROW Registry="ProductName" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="\"/>
+    <ROW Registry="ProductNameProductVersion" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="\"/>
     <ROW Registry="ProductVersion" Root="-1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="\"/>
+    <ROW Registry="Publisher" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="Publisher" Value="[Manufacturer]" Component_="AI_CustomARPName"/>
+    <ROW Registry="Readme" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="Readme" Value="[ARPREADME]" Component_="AI_CustomARPName"/>
     <ROW Registry="Software" Root="-1" Key="Software" Name="\"/>
+    <ROW Registry="URLInfoAbout" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="URLInfoAbout" Value="[ARPURLINFOABOUT]" Component_="AI_CustomARPName"/>
+    <ROW Registry="URLUpdateInfo" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="URLUpdateInfo" Value="[ARPURLUPDATEINFO]" Component_="AI_CustomARPName"/>
+    <ROW Registry="Uninstall" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall" Name="\"/>
+    <ROW Registry="UninstallPath" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="UninstallPath" Value="[AI_UNINSTALLER] /x [ProductCode] AI_UNINSTALLER_CTP=1" Component_="AI_CustomARPName"/>
+    <ROW Registry="UninstallString" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="UninstallString" Value="[AI_UNINSTALLER] /x [ProductCode] AI_UNINSTALLER_CTP=1" Component_="AI_CustomARPName"/>
     <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+    <ROW Registry="VersionMajor" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="VersionMajor" Value="#1" Component_="AI_CustomARPName" VirtualValue="#"/>
+    <ROW Registry="VersionMinor" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="VersionMinor" Value="#0" Component_="AI_CustomARPName" VirtualValue="#"/>
+    <ROW Registry="Windows" Root="-1" Key="Software\Microsoft\Windows" Name="\"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
-    <ROW Shortcut="_" Directory_="SHORTCUTDIR" Name="LAQAHY~1|Laqahy - Offices" Component_="laqahy.exe" Target="[#laqahy.exe]" Hotkey="0" Icon_="windowsicon.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="__1" Directory_="DesktopFolder" Name="LAQAHY~1|Laqahy - Offices" Component_="laqahy.exe" Target="[#laqahy.exe]" Hotkey="0" Icon_="windowsicon.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="LaqahyOffices" Directory_="SHORTCUTDIR" Name="LAQAHY~1|Laqahy - Offices" Component_="laqahy.exe" Target="[#laqahy.exe]" Hotkey="0" Icon_="windowsicon.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR" CustomFlags="1"/>
+    <ROW Shortcut="LaqahyOffices_1" Directory_="DesktopFolder" Name="LAQAHY~1|Laqahy - Offices" Component_="laqahy.exe" Target="[#laqahy.exe]" Hotkey="0" Icon_="windowsicon.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR" CustomFlags="1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="appinstaller"/>

@@ -90,7 +90,7 @@ class CreateAccountVerificationController extends GetxController {
       return;
     } catch (e) {
       isVerifyLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isVerifyLoading(false);
     }

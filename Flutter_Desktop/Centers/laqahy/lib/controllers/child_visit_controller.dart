@@ -34,8 +34,8 @@ class ChildVisitController extends GetxController {
   }
 
   void clearTextFields() {
-    sdc.selectedChildsId.value = null;
-    sdc.selectedAllMothersId.value = null;
+    // sdc.selectedChildsId.value = null;
+    // sdc.selectedAllMothersId.value = null;
     sdc.selectedVisitType.value = null;
     sdc.selectedVaccineType.value = null;
     sdc.selectedChildDosageTypeId.value = null;
@@ -85,7 +85,7 @@ class ChildVisitController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }
@@ -119,13 +119,14 @@ class ChildVisitController extends GetxController {
       if (response.statusCode == 201) {
         Get.back();
         ApiExceptionWidgets().myAddedDataSuccessAlert();
+        await fetchChildrenStatement(sdc.selectedChildsId.value!);
         printChildVisitData(
           sdc.selectedChildsId.value.toString(),
           sdc.selectedVisitType.value.toString(),
           sdc.selectedVaccineType.value.toString(),
           sdc.selectedChildDosageTypeId.value.toString(),
         );
-        fetchChildrenStatement(sdc.selectedChildsId.value!);
+
         clearTextFields();
         isAddLoading(false);
 
@@ -147,17 +148,17 @@ class ChildVisitController extends GetxController {
       return;
     } catch (e) {
       isAddLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isAddLoading(false);
     }
   }
 
-  Future<void> deleteChildStatement(int childId) async {
+  Future<void> deleteChildStatement(int id) async {
     isDeleteLoading(true);
     try {
-      var request = await http.delete(
-          Uri.parse('${ApiEndpoints.deleteChildStatementData}/$childId'));
+      var request = await http
+          .delete(Uri.parse('${ApiEndpoints.deleteChildStatementData}/$id'));
 
       if (request.statusCode == 200) {
         await fetchChildrenStatement(sdc.selectedChildsId.value!);
@@ -178,7 +179,7 @@ class ChildVisitController extends GetxController {
       return;
     } catch (e) {
       isDeleteLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isDeleteLoading(false);
@@ -219,7 +220,7 @@ class ChildVisitController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }

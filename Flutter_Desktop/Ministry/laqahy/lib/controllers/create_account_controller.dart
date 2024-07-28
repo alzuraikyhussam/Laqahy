@@ -230,7 +230,7 @@ class CreateAccountController extends GetxController {
     } catch (e) {
       isLoading(false);
 
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }

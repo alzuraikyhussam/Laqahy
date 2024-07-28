@@ -79,7 +79,7 @@ class LoginController extends GetxController {
           isLoading(false);
         } catch (e) {
           isLoading(false);
-          ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+          ApiExceptionWidgets().myUnknownExceptionAlert();
         }
 
         return;
@@ -107,7 +107,7 @@ class LoginController extends GetxController {
       return;
     } catch (e) {
       isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }

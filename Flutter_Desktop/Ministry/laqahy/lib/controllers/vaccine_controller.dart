@@ -112,7 +112,7 @@ class VaccineController extends GetxController {
       donorErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDonorLoading(false);
-      donorErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      donorErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isDonorLoading(false);
     }
@@ -168,7 +168,7 @@ class VaccineController extends GetxController {
       return;
     } catch (e) {
       isAddDonorLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isAddDonorLoading(false);
     }
@@ -316,7 +316,7 @@ class VaccineController extends GetxController {
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isLoading(false);
       }
@@ -351,7 +351,7 @@ class VaccineController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isTableLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isTableLoading(false);
     }
@@ -393,7 +393,7 @@ class VaccineController extends GetxController {
       return;
     } catch (e) {
       isAddLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isAddLoading(false);
     }
@@ -441,7 +441,7 @@ class VaccineController extends GetxController {
       return;
     } catch (e) {
       isUpdateLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isUpdateLoading(false);
@@ -478,7 +478,7 @@ class VaccineController extends GetxController {
       return;
     } catch (e) {
       isDeleteLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isDeleteLoading(false);

@@ -10,9 +10,9 @@ import 'package:lottie/lottie.dart';
 
 // ignore: must_be_immutable
 class DeleteChildStatement extends StatelessWidget {
-  DeleteChildStatement({super.key, required this.childId});
+  DeleteChildStatement({super.key, required this.id});
 
-  int childId;
+  int id;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class DeleteChildStatement extends StatelessWidget {
                                 ? null
                                 : () {
                                     cvc.deleteChildStatement(
-                                      childId,
+                                      id,
                                     );
                                   },
                             text: 'حـــــذف',

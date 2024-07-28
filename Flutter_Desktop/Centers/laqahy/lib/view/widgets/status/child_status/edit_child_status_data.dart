@@ -247,8 +247,8 @@ class _EditChildStatusDataState extends State<EditChildStatusData> {
                           width: 150,
                           backgroundColor: MyColors.greyColor,
                           onPressed: () {
-                            csc.clearTextFields();
                             Get.back();
+                            csc.clearTextFields();
                           },
                           text: 'إلغـــاء الأمــــر',
                           textStyle: MyTextStyles.font16WhiteBold),

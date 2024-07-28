@@ -304,8 +304,8 @@ class _EditMotherStatusDataState extends State<EditMotherStatusData> {
                               width: 150,
                               backgroundColor: MyColors.greyColor,
                               onPressed: () {
-                                msc.clearTextFields();
                                 Get.back();
+                                msc.clearTextFields();
                               },
                               text: 'إلغـــاء الأمــــر',
                               textStyle: MyTextStyles.font16WhiteBold),

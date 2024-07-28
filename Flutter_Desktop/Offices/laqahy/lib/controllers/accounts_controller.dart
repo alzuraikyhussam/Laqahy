@@ -221,7 +221,7 @@ class AccountsController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isCentersLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isCentersLoading(false);
     }
@@ -272,7 +272,7 @@ class AccountsController extends GetxController {
       return;
     } catch (e) {
       isAddLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isAddLoading(false);
     }
@@ -329,7 +329,7 @@ class AccountsController extends GetxController {
       return;
     } catch (e) {
       isUpdateLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isUpdateLoading(false);

@@ -106,14 +106,14 @@ class ChildStatusDataController extends GetxController {
         isLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
-            // print(response.body);
+        // print(response.body);
       }
     } on SocketException catch (_) {
       isLoading(false);
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }
@@ -164,7 +164,7 @@ class ChildStatusDataController extends GetxController {
       return;
     } catch (e) {
       isAddLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isAddLoading(false);
     }
@@ -223,7 +223,7 @@ class ChildStatusDataController extends GetxController {
       return;
     } catch (e) {
       isUpdateLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isUpdateLoading(false);
@@ -255,7 +255,7 @@ class ChildStatusDataController extends GetxController {
       return;
     } catch (e) {
       isDeleteLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isDeleteLoading(false);

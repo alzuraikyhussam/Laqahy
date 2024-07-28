@@ -58,7 +58,7 @@ class StaticDataController extends GetxController {
   var selectedMothersId = Rx<int?>(null);
   var motherErrorMsg = ''.obs;
   var isMotherLoading = false.obs;
-  
+
   var allMothers = <Mothers>[].obs;
   var selectedAllMothersId = Rx<int?>(null);
   var allMotherErrorMsg = ''.obs;
@@ -160,7 +160,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isGenderLoading(false);
-      genderErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      genderErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isGenderLoading(false);
     }
@@ -192,7 +192,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isPermissionLoading(false);
-      permissionErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      permissionErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isPermissionLoading(false);
     }
@@ -223,7 +223,7 @@ class StaticDataController extends GetxController {
       cityErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isCityLoading(false);
-      cityErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      cityErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isCityLoading(false);
     }
@@ -255,7 +255,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDirectorateLoading(false);
-      directorateErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      directorateErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isDirectorateLoading(false);
     }
@@ -287,7 +287,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isMotherLoading(false);
-      motherErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      motherErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isMotherLoading(false);
     }
@@ -319,7 +319,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isAllMotherLoading(false);
-      allMotherErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      allMotherErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isAllMotherLoading(false);
     }
@@ -350,7 +350,7 @@ class StaticDataController extends GetxController {
       childErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isChildLoading(false);
-      childErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      childErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isChildLoading(false);
     }
@@ -382,7 +382,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDosageLevelLoading(false);
-      dosageLevelErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      dosageLevelErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isDosageLevelLoading(false);
     }
@@ -415,7 +415,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDosageTypeLoading(false);
-      dosageTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      dosageTypeErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isDosageTypeLoading(false);
     }
@@ -448,7 +448,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isVisitTypeLoading(false);
-      visitTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      visitTypeErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isVisitTypeLoading(false);
     }
@@ -482,13 +482,14 @@ class StaticDataController extends GetxController {
     } catch (e) {
       print(e);
       isVaccineTypeLoading(false);
-      vaccineTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      vaccineTypeErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isVaccineTypeLoading(false);
     }
   }
 
-  void fetchDosageWithVaccine(int vaccineTypeId,int visitType, int childId) async {
+  void fetchDosageWithVaccine(
+      int vaccineTypeId, int visitType, int childId) async {
     try {
       childDosageTypeErrorMsg('');
       isChildDosageTypeLoading(true);
@@ -518,7 +519,8 @@ class StaticDataController extends GetxController {
     } catch (e) {
       print(e);
       isChildDosageTypeLoading(false);
-      childDosageTypeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      childDosageTypeErrorMsg(
+          'لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isChildDosageTypeLoading(false);
     }
@@ -551,7 +553,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isVaccineLoading(false);
-      vaccineErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      vaccineErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isVaccineLoading(false);
     }

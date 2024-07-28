@@ -343,7 +343,8 @@ class AccountsController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isRegisteredOfficesDropDownMenuLoading(false);
-      registeredOfficeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      registeredOfficeErrorMsg(
+          'لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
       print(registeredOfficesDropDownMenu);
     } finally {
       isRegisteredOfficesDropDownMenuLoading(false);
@@ -379,7 +380,8 @@ class AccountsController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isUnRegisteredOfficesDropDownMenuLoading(false);
-      unregisteredOfficeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      unregisteredOfficeErrorMsg(
+          'لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isUnRegisteredOfficesDropDownMenuLoading(false);
     }
@@ -428,7 +430,7 @@ class AccountsController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isOfficesLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       print(e);
     } finally {
       isOfficesLoading(false);
@@ -460,7 +462,7 @@ class AccountsController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isCentersLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       print(e);
     } finally {
       isCentersLoading(false);
@@ -492,7 +494,7 @@ class AccountsController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isCentersLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       print(e);
     } finally {
       isCentersLoading(false);
@@ -554,7 +556,7 @@ class AccountsController extends GetxController {
       return;
     } catch (e) {
       isUpdateLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isUpdateLoading(false);

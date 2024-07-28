@@ -967,7 +967,7 @@ class Constants {
             );
           },
           child: myDropDownMenuButton2(
-            width: 270,
+            width: 300,
             hintText: 'اسم الطفل',
             items: null,
             onChanged: null,
@@ -978,7 +978,7 @@ class Constants {
         );
       } else if (controller.isChildLoading.value) {
         return myDropDownMenuButton2(
-          width: 270,
+          width: 300,
           hintText: 'اسم الطفل',
           items: [
             DropdownMenuItem<String>(
@@ -1011,7 +1011,7 @@ class Constants {
                 ));
           },
           child: myDropDownMenuButton2(
-            width: 270,
+            width: 300,
             hintText: 'اسم الطفل',
             items: null,
             onChanged: null,
@@ -1039,7 +1039,7 @@ class Constants {
                 ));
           },
           child: myDropDownMenuButton2(
-            width: 270,
+            width: 300,
             hintText: 'اسم الطفل',
             items: null,
             onChanged: null,
@@ -1050,7 +1050,7 @@ class Constants {
         );
       } else {
         return myDropDownMenuButton2(
-          width: 270,
+          width: 300,
           hintText: 'اسم الطفل',
           validator: childsDataValidator,
           items: controller.childs.map((element) {
@@ -1066,6 +1066,7 @@ class Constants {
             if (value != null) {
               controller.selectedChildsId.value = int.tryParse(value);
               cvc.fetchChildrenStatement(controller.selectedChildsId.value!);
+            
             } else {
               controller.selectedAllMothersId.value = null;
             }

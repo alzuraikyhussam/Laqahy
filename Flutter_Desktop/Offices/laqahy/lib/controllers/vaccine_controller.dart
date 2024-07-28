@@ -55,7 +55,7 @@ class VaccineController extends GetxController {
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isLoading(false);
       }

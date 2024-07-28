@@ -41,104 +41,108 @@ class _StatesLayoutState extends State<StatesLayout> {
             width: 450,
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: MyColors.whiteColor,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: MyColors.greyColor.withOpacity(0.1)),
-              ),
-              width: 450,
-              height: 60,
-              padding: const EdgeInsetsDirectional.all(3),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Obx(() {
-                    return Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          slc.onChangedTapState('m');
-                          msc.fetchAllMothersStatusData(msc.centerId!);
-                        },
-                        child: Container(
-                          decoration: slc.stateTapChange.value == 'm'
-                              ? BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: MyColors.secondaryColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          MyColors.greyColor.withOpacity(0.3),
-                                      blurRadius: 10,
-                                    ),
-                                  ],
-                                )
-                              : null,
-                          child: Center(
-                            child: Text(
-                              'بيانات الأم',
-                              style: slc.stateTapChange.value == 'm'
-                                  ? MyTextStyles.font16WhiteBold
-                                  : MyTextStyles.font16SecondaryBold,
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: 3),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: MyColors.whiteColor,
+                  borderRadius: BorderRadius.circular(10),
+                  border:
+                      Border.all(color: MyColors.greyColor.withOpacity(0.1)),
+                ),
+                width: 450,
+                height: 60,
+                padding: const EdgeInsetsDirectional.all(3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Obx(() {
+                      return Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            slc.onChangedTapState('m');
+                            msc.fetchAllMothersStatusData(msc.centerId!);
+                          },
+                          child: Container(
+                            decoration: slc.stateTapChange.value == 'm'
+                                ? BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: MyColors.secondaryColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            MyColors.greyColor.withOpacity(0.3),
+                                        blurRadius: 10,
+                                      ),
+                                    ],
+                                  )
+                                : null,
+                            child: Center(
+                              child: Text(
+                                'بيانات الأم',
+                                style: slc.stateTapChange.value == 'm'
+                                    ? MyTextStyles.font16WhiteBold
+                                    : MyTextStyles.font16SecondaryBold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Obx(() {
-                    return Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          slc.onChangedTapState('c');
-                          csc.fetchAllChildrenStatusData();
-                        },
-                        child: Container(
-                          decoration: slc.stateTapChange.value == 'c'
-                              ? BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: MyColors.secondaryColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          MyColors.greyColor.withOpacity(0.3),
-                                      blurRadius: 10,
-                                    ),
-                                  ],
-                                )
-                              : null,
-                          child: Center(
-                            child: Text(
-                              'بيانات الطفــل',
-                              style: slc.stateTapChange.value == 'c'
-                                  ? MyTextStyles.font16WhiteBold
-                                  : MyTextStyles.font16SecondaryBold,
+                      );
+                    }),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Obx(() {
+                      return Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            slc.onChangedTapState('c');
+                            csc.fetchAllChildrenStatusData();
+                          },
+                          child: Container(
+                            decoration: slc.stateTapChange.value == 'c'
+                                ? BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: MyColors.secondaryColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            MyColors.greyColor.withOpacity(0.3),
+                                        blurRadius: 10,
+                                      ),
+                                    ],
+                                  )
+                                : null,
+                            child: Center(
+                              child: Text(
+                                'بيانات الطفــل',
+                                style: slc.stateTapChange.value == 'c'
+                                    ? MyTextStyles.font16WhiteBold
+                                    : MyTextStyles.font16SecondaryBold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  })
-                ],
+                      );
+                    })
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Obx(() {
-              return slc.stateTapChange.value == 'm'
-                  ? const MotherStatusScreen()
-                  : slc.stateTapChange.value == 'c'
-                      ? const ChildStatusScreen()
-                      : const SizedBox();
-            }),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Obx(() {
+                return slc.stateTapChange.value == 'm'
+                    ? const MotherStatusScreen()
+                    : slc.stateTapChange.value == 'c'
+                        ? const ChildStatusScreen()
+                        : const SizedBox();
+              }),
+            ],
+          ),
         ),
       ],
     );

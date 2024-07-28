@@ -33,6 +33,13 @@ class MotherVisitController extends GetxController {
   }
 
   @override
+  void onClose() {
+    sdc.selectedAllMothersId.value = null;
+    sdc.selectedChildsId.value = null;
+    super.onClose();
+  }
+
+  @override
   onInit() async {
     clearTextFields();
     sdc.fetchAllMothers();
@@ -79,7 +86,7 @@ class MotherVisitController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }
@@ -137,21 +144,22 @@ class MotherVisitController extends GetxController {
       return;
     } catch (e) {
       isAddLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isAddLoading(false);
     }
   }
 
-  Future<void> deleteMotherStatement(int motherId) async {
+  Future<void> deleteMotherStatement(int id) async {
     isDeleteLoading(true);
     try {
-      print(motherId);
+      print(id);
       var request = await http
-          .delete(Uri.parse('${ApiEndpoints.deleteMotherStatement}/$motherId'));
+          .delete(Uri.parse('${ApiEndpoints.deleteMotherStatement}/$id'));
 
       if (request.statusCode == 200) {
         await fetchMotherStatement(sdc.selectedAllMothersId.value!);
+
         Get.back();
         ApiExceptionWidgets().myDeleteDataSuccessAlert();
         isDeleteLoading(false);
@@ -169,7 +177,7 @@ class MotherVisitController extends GetxController {
       return;
     } catch (e) {
       isDeleteLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isDeleteLoading(false);
@@ -210,7 +218,7 @@ class MotherVisitController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }

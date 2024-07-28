@@ -81,7 +81,7 @@ class ApiExceptionWidgets {
     );
   }
 
-  myUnknownExceptionAlert({var statusCode, var error}) {
+  myUnknownExceptionAlert({var statusCode}) {
     Constants().playErrorSound();
     myShowDialog(
       context: Get.context!,
@@ -90,7 +90,7 @@ class ApiExceptionWidgets {
         backgroundColor: MyColors.redColor,
         title: 'خطأ غير متوقع',
         description:
-            'عذراً، لقد حدث خطأ غير متوقع، يجب المحاولة مرة أخرى \n${statusCode ?? error}',
+            'عذراً، لقد حدث خطأ غير متوقع، يجب المحاولة مرة أخرى \n$statusCode',
       ),
     );
   }

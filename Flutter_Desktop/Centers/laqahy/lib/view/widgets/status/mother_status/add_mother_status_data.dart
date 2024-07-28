@@ -23,6 +23,13 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
   MotherStatusDataController msc = Get.put(MotherStatusDataController());
 
   @override
+  void initState() {
+    sdc.fetchGenders();
+    sdc.fetchCities();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: AlertDialog(
@@ -122,7 +129,7 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                               validator: msc.phoneNumberValidator,
                               prefixIcon: Icons.phone_enabled_outlined,
                               width: 200,
-                              hintText: ' أدخل رقم الهاتف',
+                              hintText: 'أدخل رقم الهاتف',
                               keyboardType: TextInputType.text,
                               readOnly: false,
                               onChanged: (value) {},
@@ -268,8 +275,8 @@ class _AddMotherStatusDataState extends State<AddMotherStatusData> {
                             width: 150,
                             backgroundColor: MyColors.greyColor,
                             onPressed: () {
-                              msc.clearTextFields();
                               Get.back();
+                              msc.clearTextFields();
                             },
                             text: 'إلغـــاء الأمــــر',
                             textStyle: MyTextStyles.font16WhiteBold),

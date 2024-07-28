@@ -292,7 +292,8 @@ class ReportController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isRegisteredOfficesDropDownMenuLoading(false);
-      registeredOfficeErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      registeredOfficeErrorMsg(
+          'لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
       print(registeredOfficesDropDownMenu);
     } finally {
       isRegisteredOfficesDropDownMenuLoading(false);
@@ -337,7 +338,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateCentersReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateCentersReportLoading(false);
     }
@@ -600,7 +601,7 @@ class ReportController extends GetxController {
       datesErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDatesLoading(false);
-      datesErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      datesErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
       print(e);
     } finally {
       isDatesLoading(false);
@@ -766,7 +767,7 @@ class ReportController extends GetxController {
             'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
       } catch (e) {
         isCentersLoading(false);
-        centersErrorMsg('خطأ غير متوقع\n${e.toString()}');
+        centersErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
       } finally {
         isCentersLoading(false);
       }
@@ -832,7 +833,7 @@ class ReportController extends GetxController {
     } catch (e) {
       isGenerateStatusReportLoading(false);
       print(e);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateStatusReportLoading(false);
     }
@@ -886,7 +887,7 @@ class ReportController extends GetxController {
     } catch (e) {
       isGenerateStatusReportLoading(false);
       print(e);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateStatusReportLoading(false);
     }
@@ -940,7 +941,7 @@ class ReportController extends GetxController {
     } catch (e) {
       isGenerateStatusReportLoading(false);
       print(e);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateStatusReportLoading(false);
     }
@@ -1074,7 +1075,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       Get.back();
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {}
   }
 
@@ -1137,7 +1138,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       Get.back();
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {}
   }
 
@@ -1222,7 +1223,7 @@ class ReportController extends GetxController {
       datesErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDatesLoading(false);
-      datesErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      datesErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isDatesLoading(false);
     }
@@ -1465,7 +1466,7 @@ class ReportController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isVaccinesDropDownMenuLoading(false);
-      vaccinesErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      vaccinesErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isVaccinesDropDownMenuLoading(false);
     }
@@ -1500,7 +1501,7 @@ class ReportController extends GetxController {
       donorErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDonorLoading(false);
-      donorErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      donorErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isDonorLoading(false);
     }
@@ -1560,7 +1561,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateVaccinesStockReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateVaccinesStockReportLoading(false);
     }
@@ -1608,7 +1609,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateVaccinesStockReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateVaccinesStockReportLoading(false);
     }
@@ -1656,7 +1657,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateVaccinesStockReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateVaccinesStockReportLoading(false);
     }
@@ -1704,7 +1705,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateVaccinesStockReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateVaccinesStockReportLoading(false);
     }
@@ -1776,7 +1777,7 @@ class ReportController extends GetxController {
       datesErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDatesLoading(false);
-      datesErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      datesErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isDatesLoading(false);
     }
@@ -1917,7 +1918,7 @@ class ReportController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isOrderStateDropDownMenuLoading(false);
-      orderStateErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      orderStateErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isOrderStateDropDownMenuLoading(false);
     }
@@ -1989,7 +1990,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateOrdersReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateOrdersReportLoading(false);
     }
@@ -2036,7 +2037,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateOrdersReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateOrdersReportLoading(false);
     }
@@ -2083,7 +2084,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateOrdersReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateOrdersReportLoading(false);
     }
@@ -2130,7 +2131,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateOrdersReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateOrdersReportLoading(false);
     }
@@ -2177,7 +2178,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateOrdersReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateOrdersReportLoading(false);
     }
@@ -2224,7 +2225,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateOrdersReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateOrdersReportLoading(false);
     }
@@ -2271,7 +2272,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateOrdersReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateOrdersReportLoading(false);
     }
@@ -2318,7 +2319,7 @@ class ReportController extends GetxController {
       return;
     } catch (e) {
       isGenerateOrdersReportLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isGenerateOrdersReportLoading(false);
     }

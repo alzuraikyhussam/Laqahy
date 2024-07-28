@@ -129,7 +129,6 @@ class MotherStatusDataController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-       
         isLoading(false);
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
         mothers.value = jsonData.map((e) => Mothers.fromJson(e)).toList();
@@ -147,7 +146,7 @@ class MotherStatusDataController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }
@@ -212,7 +211,7 @@ class MotherStatusDataController extends GetxController {
     } catch (e) {
       print(e);
       isAddLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isAddLoading(false);
     }
@@ -243,7 +242,7 @@ class MotherStatusDataController extends GetxController {
       return;
     } catch (e) {
       isDeleteLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isDeleteLoading(false);
@@ -315,7 +314,7 @@ class MotherStatusDataController extends GetxController {
       return;
     } catch (e) {
       isUpdateLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isUpdateLoading(false);
@@ -353,7 +352,7 @@ class MotherStatusDataController extends GetxController {
       ApiExceptionWidgets().mySocketExceptionAlert();
     } catch (e) {
       isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }

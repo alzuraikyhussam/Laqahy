@@ -134,7 +134,7 @@ class OrdersController extends GetxController {
       return;
     } catch (e) {
       isAddLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isAddLoading(false);
     }
@@ -166,7 +166,7 @@ class OrdersController extends GetxController {
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isIncomingLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isIncomingLoading(false);
       }
@@ -198,7 +198,7 @@ class OrdersController extends GetxController {
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isOutgoingLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isOutgoingLoading(false);
       }
@@ -230,7 +230,7 @@ class OrdersController extends GetxController {
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isInDeliveryLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isInDeliveryLoading(false);
       }
@@ -262,7 +262,7 @@ class OrdersController extends GetxController {
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isDeliveredLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isDeliveredLoading(false);
       }
@@ -294,7 +294,7 @@ class OrdersController extends GetxController {
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isRejectedOrdersLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isRejectedOrdersLoading(false);
       }
@@ -355,7 +355,7 @@ class OrdersController extends GetxController {
       return;
     } catch (e) {
       isApprovalLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isApprovalLoading(false);
@@ -402,7 +402,7 @@ class OrdersController extends GetxController {
       return;
     } catch (e) {
       isApprovalLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isApprovalLoading(false);
@@ -445,7 +445,7 @@ class OrdersController extends GetxController {
       return;
     } catch (e) {
       isRejectLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isRejectLoading(false);

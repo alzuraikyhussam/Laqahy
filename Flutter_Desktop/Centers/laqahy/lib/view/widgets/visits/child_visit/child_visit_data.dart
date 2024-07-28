@@ -12,6 +12,7 @@ import 'package:laqahy/core/shared/styles/color.dart';
 
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
+import 'package:laqahy/view/widgets/api_erxception_alert.dart';
 import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:laqahy/view/widgets/visits/child_visit/child_visit_data_table.dart';
 
@@ -185,8 +186,21 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                       autoRowsToHeight: true,
                       empty: ApiExceptionWidgets().myDataNotFound(
                         onPressedRefresh: () {
-                          cvc.fetchChildrenStatement(
-                              sdc.selectedChildsId.value!);
+                          if (sdc.selectedChildsId.value == null) {
+                            Constants().playErrorSound();
+                            myShowDialog(
+                              context: Get.context!,
+                              widgetName: ApiExceptionAlert(
+                                title: 'خطـــأ',
+                                description:
+                                    'من فضلك، قم باختيار اسم الطفل أولاً',
+                                height: 280,
+                              ),
+                            );
+                          } else {
+                            cvc.fetchChildrenStatement(
+                                sdc.selectedChildsId.value!);
+                          }
                         },
                       ),
                       horizontalMargin: 15,
@@ -325,7 +339,7 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                 } else {
                   if (cvc.isLoading.value) {
                     return SizedBox(
-                      height: 550,
+                      height: 300,
                       child: Center(
                         child: myLoadingIndicator(),
                       ),
@@ -344,8 +358,21 @@ class _ChildVisitDataState extends State<ChildVisitData> {
                         autoRowsToHeight: true,
                         empty: ApiExceptionWidgets().myDataNotFound(
                           onPressedRefresh: () {
-                            cvc.fetchChildrenStatement(
-                                sdc.selectedChildsId.value!);
+                            if (sdc.selectedChildsId.value == null) {
+                              Constants().playErrorSound();
+                              myShowDialog(
+                                context: Get.context!,
+                                widgetName: ApiExceptionAlert(
+                                  title: 'خطـــأ',
+                                  description:
+                                      'من فضلك، قم باختيار اسم الطفل أولاً',
+                                  height: 280,
+                                ),
+                              );
+                            } else {
+                              cvc.fetchChildrenStatement(
+                                  sdc.selectedChildsId.value!);
+                            }
                           },
                         ),
                         horizontalMargin: 15,

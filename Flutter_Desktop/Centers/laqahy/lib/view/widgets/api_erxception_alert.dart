@@ -37,7 +37,7 @@ class _ApiExceptionAlertState extends State<ApiExceptionAlert> {
       alignment: AlignmentDirectional.center,
       actionsAlignment: MainAxisAlignment.center,
       content: Container(
-        padding: EdgeInsetsDirectional.only(
+        padding: const EdgeInsetsDirectional.only(
           top: 20,
         ),
         height: widget.height.toDouble(),
@@ -45,7 +45,7 @@ class _ApiExceptionAlertState extends State<ApiExceptionAlert> {
         child: Column(
           children: [
             Center(
-              child: Container(
+              child: SizedBox(
                 height: 150,
                 width: Get.width,
                 child: Lottie.asset(

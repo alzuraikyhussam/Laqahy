@@ -179,7 +179,7 @@ class PostController extends GetxController {
         return null;
       } catch (e) {
         isLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isLoading(false);
       }
@@ -215,7 +215,7 @@ class PostController extends GetxController {
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isFetchPostsLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isFetchPostsLoading(false);
       }
@@ -263,7 +263,7 @@ class PostController extends GetxController {
       return;
     } catch (e) {
       isUpdatePostsLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isUpdatePostsLoading(false);
@@ -296,7 +296,7 @@ class PostController extends GetxController {
       return;
     } catch (e) {
       isDeletePostsLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
       return;
     } finally {
       isDeletePostsLoading(false);

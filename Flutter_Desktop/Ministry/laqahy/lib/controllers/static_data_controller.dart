@@ -109,7 +109,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isGenderLoading(false);
-      genderErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      genderErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isGenderLoading(false);
     }
@@ -141,7 +141,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isPermissionLoading(false);
-      permissionErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      permissionErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isPermissionLoading(false);
     }
@@ -172,7 +172,7 @@ class StaticDataController extends GetxController {
       cityErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isCityLoading(false);
-      cityErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      cityErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isCityLoading(false);
     }
@@ -204,7 +204,7 @@ class StaticDataController extends GetxController {
           'لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isDirectorateLoading(false);
-      directorateErrorMsg('خطأ غير متوقع\n${e.toString()}');
+      directorateErrorMsg('لقد حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى');
     } finally {
       isDirectorateLoading(false);
     }

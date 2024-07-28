@@ -23,6 +23,13 @@ class _AddChildStatusDataState extends State<AddChildStatusData> {
   ChildStatusDataController csc = Get.put(ChildStatusDataController());
 
   @override
+  void initState() {
+    sdc.fetchAllMothers();
+    sdc.fetchGenders();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       alignment: AlignmentDirectional.center,
@@ -217,8 +224,8 @@ class _AddChildStatusDataState extends State<AddChildStatusData> {
                           width: 150,
                           backgroundColor: MyColors.greyColor,
                           onPressed: () {
-                            csc.clearTextFields();
                             Get.back();
+                            csc.clearTextFields();
                           },
                           text: 'إلغـــاء الأمــر',
                           textStyle: MyTextStyles.font16WhiteBold),
