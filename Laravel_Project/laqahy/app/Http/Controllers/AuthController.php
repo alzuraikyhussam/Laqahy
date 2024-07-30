@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Models\Vaccine_type;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -135,8 +136,13 @@ class AuthController extends Controller
             ])->first();
 
             $office = Office::where('id', $user->office_id)->first();
+
+            // إنشاء توكن Sanctum
+            $token = $user->createToken('Office Personal Access Token')->plainTextToken;
+
             return response()->json([
                 'message' => 'Login successfully',
+                'token' => $token,
                 'user' => $user,
                 'office' => $office,
                 'admin' => $admin,
@@ -367,8 +373,12 @@ class AuthController extends Controller
 
             $center = Healthy_center::join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'offices.office_name')->where('healthy_centers.id', $user->healthy_center_id)->first();
 
+            // إنشاء توكن Sanctum
+            $token = $user->createToken('Centers Personal Access Token')->plainTextToken;
+
             return response()->json([
                 'message' => 'Login successfully',
+                'token' => $token,
                 'user' => $user,
                 'center' => $center,
                 'admin' => $admin,
@@ -423,16 +433,12 @@ class AuthController extends Controller
             $user->fcm_token = $request->token;
             $user->save();
 
-            // $children = Child_data::where('mother_data_id', $user->id)->get();
-
-            // foreach ($children as $child) {
-            //     $child->fcm_token = $request->token;
-            //     $child->save();
-            // }
-            // ---------
+            // إنشاء توكن Sanctum
+            $token = $user->createToken('Personal Access Token')->plainTextToken;
 
             return response()->json([
                 'message' => 'Login successfully',
+                'token' => $token,
                 'user' => $motherData,
                 'return_date' => $returnDate,
                 'children_count' => $childrenCount,

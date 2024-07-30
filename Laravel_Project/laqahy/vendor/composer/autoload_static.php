@@ -243,8 +243,8 @@ class ComposerStaticInit615bf00273bd08b80edfe7d642a8a670
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Whoops\\' => 
         array (
@@ -408,8 +408,8 @@ class ComposerStaticInit615bf00273bd08b80edfe7d642a8a670
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -751,7 +751,9 @@ class ComposerStaticInit615bf00273bd08b80edfe7d642a8a670
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\SendReminder' => __DIR__ . '/../..' . '/app/Console/Commands/SendReminder.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
+        'App\\Http\\Controllers\\AwarenessInfoController' => __DIR__ . '/../..' . '/app/Http/Controllers/AwarenessInfoController.php',
         'App\\Http\\Controllers\\ChildDataController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChildDataController.php',
         'App\\Http\\Controllers\\ChildDosageTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChildDosageTypeController.php',
         'App\\Http\\Controllers\\ChildStatementController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChildStatementController.php',
@@ -771,6 +773,7 @@ class ComposerStaticInit615bf00273bd08b80edfe7d642a8a670
         'App\\Http\\Controllers\\MinistryStockVaccineController' => __DIR__ . '/../..' . '/app/Http/Controllers/MinistryStockVaccineController.php',
         'App\\Http\\Controllers\\MotherDataController' => __DIR__ . '/../..' . '/app/Http/Controllers/MotherDataController.php',
         'App\\Http\\Controllers\\MotherStatementController' => __DIR__ . '/../..' . '/app/Http/Controllers/MotherStatementController.php',
+        'App\\Http\\Controllers\\NotificationsController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotificationsController.php',
         'App\\Http\\Controllers\\OfficeController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfficeController.php',
         'App\\Http\\Controllers\\OfficeOrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfficeOrderController.php',
         'App\\Http\\Controllers\\OfficeStockVaccineController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfficeStockVaccineController.php',
@@ -779,13 +782,14 @@ class ComposerStaticInit615bf00273bd08b80edfe7d642a8a670
         'App\\Http\\Controllers\\PermissionTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionTypeController.php',
         'App\\Http\\Controllers\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostController.php',
         'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportController.php',
+        'App\\Http\\Controllers\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/ResetPasswordController.php',
         'App\\Http\\Controllers\\TechnicalSupportController' => __DIR__ . '/../..' . '/app/Http/Controllers/TechnicalSupportController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\VaccineTypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/VaccineTypesController.php',
         'App\\Http\\Controllers\\VisitTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/VisitTypeController.php',
-        'App\\Jobs\\SendReminder' => __DIR__ . '/../..' . '/app/Jobs/SendReminder.php',
         'App\\Mail\\GeneralNotificationMail' => __DIR__ . '/../..' . '/app/Mail/GeneralNotificationMail.php',
         'App\\Mail\\SupportMail' => __DIR__ . '/../..' . '/app/Mail/SupportMail.php',
+        'App\\Models\\AwarenessInfo' => __DIR__ . '/../..' . '/app/Models/AwarenessInfo.php',
         'App\\Models\\Child_data' => __DIR__ . '/../..' . '/app/Models/Child_data.php',
         'App\\Models\\Child_dosage_type' => __DIR__ . '/../..' . '/app/Models/Child_dosage_type.php',
         'App\\Models\\Child_statement' => __DIR__ . '/../..' . '/app/Models/Child_statement.php',
@@ -802,6 +806,7 @@ class ComposerStaticInit615bf00273bd08b80edfe7d642a8a670
         'App\\Models\\Ministry_stock_vaccine' => __DIR__ . '/../..' . '/app/Models/Ministry_stock_vaccine.php',
         'App\\Models\\Mother_data' => __DIR__ . '/../..' . '/app/Models/Mother_data.php',
         'App\\Models\\Mother_statement' => __DIR__ . '/../..' . '/app/Models/Mother_statement.php',
+        'App\\Models\\Notifications' => __DIR__ . '/../..' . '/app/Models/Notifications.php',
         'App\\Models\\Office' => __DIR__ . '/../..' . '/app/Models/Office.php',
         'App\\Models\\OfficeOrder' => __DIR__ . '/../..' . '/app/Models/OfficeOrder.php',
         'App\\Models\\Office_stock_vaccine' => __DIR__ . '/../..' . '/app/Models/Office_stock_vaccine.php',
