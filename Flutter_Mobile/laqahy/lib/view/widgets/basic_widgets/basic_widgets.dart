@@ -428,7 +428,12 @@ mySettingsListView({
       );
     },
     separatorBuilder: (context, index) {
-      return const Divider();
+      return Divider(
+        thickness: 0.5,
+        color: MyColors.greyColor,
+        indent: 10,
+        endIndent: 10,
+      );
     },
     itemCount: items.length,
   );
@@ -984,24 +989,20 @@ myProfileListTile({
   );
 }
 
-SettingsController sc = Get.put(SettingsController());
-StaticDataController sdc = Get.put(StaticDataController());
+// StaticDataController sdc = Get.put(StaticDataController());
 
-mySwitchButton() {
-  return Obx(() {
-    return CupertinoSwitch(
-      activeColor: MyColors.primaryColor,
-      trackColor: MyColors.primaryColor.withOpacity(0.2),
-      value: sc.isDark.value,
-      onChanged: (val) {
-        sc.isDark.value = val;
-        final isDarkMode = Get.isDarkMode;
-        Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
-        sdc.storageService.setIsDark(!isDarkMode);
-      },
-    );
-  });
-}
+// mySwitchButton() {
+//   return Obx(() {
+//     return CupertinoSwitch(
+//       activeColor: MyColors.primaryColor,
+//       trackColor: MyColors.primaryColor.withOpacity(0.2),
+//       value: sdc.isDark.value,
+//       onChanged: (val) {
+//         sdc.toggleTheme();
+//       },
+//     );
+//   });
+// }
 
 myLoadingIndicator({
   double height = 50,

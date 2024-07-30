@@ -13,18 +13,6 @@ class FirstOnboarding extends StatefulWidget {
 
 class _FirstOnboardingState extends State<FirstOnboarding> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -79,7 +67,6 @@ class _FirstOnboardingState extends State<FirstOnboarding> {
                     'احصلي على تذكيرات بمواعيد اللقاحات لك ولطفلك.',
                     style: MyTextStyles.font18BlackBold,
                   ),
-                  
                 ],
               ),
             ),

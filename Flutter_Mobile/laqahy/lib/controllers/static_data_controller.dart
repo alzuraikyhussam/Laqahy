@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/models/mother_data_model.dart';
 import 'package:laqahy/services/storage/storage_service.dart';
@@ -15,9 +16,10 @@ class StaticDataController extends GetxController {
 
   @override
   void onInit() async {
+    storageService = await StorageService.getInstance();
     updateGreeting();
     startTimer();
-    storageService = await StorageService.getInstance();
+
     super.onInit();
   }
 

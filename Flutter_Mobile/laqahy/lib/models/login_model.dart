@@ -44,6 +44,7 @@ class Login {
       healthCenterName: json['healthy_center_name'],
     );
   }
+  
   Map<String, dynamic> toJson() {
     return {
       'mother_identity_num': identityNum,

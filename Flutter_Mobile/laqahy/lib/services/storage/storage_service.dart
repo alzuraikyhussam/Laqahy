@@ -29,14 +29,6 @@ class StorageService {
     return prefs.getBool('isFingerprintEnabled') ?? false;
   }
 
-  Future<void> setIsDark(bool isDark) async {
-    await prefs.setBool('isDark', isDark);
-  }
-
-  Future<bool> isDark() async {
-    return prefs.getBool('isDark') ?? false;
-  }
-
   Future<void> setMotherId(int motherId) async {
     await prefs.setInt('motherId', motherId);
   }

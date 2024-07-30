@@ -348,7 +348,7 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                                         style: MyTextStyles.font14WhiteBold,
                                       ),
                                     ),
-                                    fixedWidth: 15,
+                                    fixedWidth: 20,
                                     // numeric: true,
                                   ),
                                   DataColumn2(

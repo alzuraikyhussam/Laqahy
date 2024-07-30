@@ -18,18 +18,6 @@ class OnboardingLayout extends StatefulWidget {
 }
 
 class _OnboardingLayoutState extends State<OnboardingLayout> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-  }
-
   OnboardingController obc = Get.put(OnboardingController());
   StaticDataController sdc = Get.put(StaticDataController());
 

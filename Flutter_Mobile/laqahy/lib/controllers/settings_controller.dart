@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
@@ -14,10 +14,20 @@ import 'package:lottie/lottie.dart';
 class SettingsController extends GetxController {
   StaticDataController sdc = Get.put(StaticDataController());
 
+  @override
+  void onClose() {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+    super.onClose();
+  }
+
   // final LocalAuthentication auth = LocalAuthentication();
   // var statusMsg = ''.obs;
   // var isFingerprintAvailable = false.obs;
-  RxBool isDark = false.obs;
 
   PageController pageController = PageController();
 
@@ -87,22 +97,22 @@ class SettingsController extends GetxController {
         // );
       },
     ),
-    SettingsListItem(
-      prefix: Container(
-        width: 45,
-        height: 45,
-        decoration: BoxDecoration(
-            color: MyColors.primaryColor.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(50)),
-        child: Icon(
-          Icons.dark_mode_outlined,
-          color: MyColors.primaryColor,
-        ),
-      ),
-      label: 'الوضع المظلم',
-      suffix: mySwitchButton(),
-      onTap: () {},
-    ),
+    // SettingsListItem(
+    //   prefix: Container(
+    //     width: 45,
+    //     height: 45,
+    //     decoration: BoxDecoration(
+    //         color: MyColors.primaryColor.withOpacity(0.2),
+    //         borderRadius: BorderRadius.circular(50)),
+    //     child: Icon(
+    //       Icons.dark_mode_outlined,
+    //       color: MyColors.primaryColor,
+    //     ),
+    //   ),
+    //   label: 'الوضع المظلم',
+    //   suffix: mySwitchButton(),
+    //   onTap: () {},
+    // ),
     SettingsListItem(
       prefix: Container(
         width: 45,

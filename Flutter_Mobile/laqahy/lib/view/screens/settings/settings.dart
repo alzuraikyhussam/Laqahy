@@ -15,11 +15,17 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  SettingsController sc = SettingsController();
+  SettingsController sc = Get.put(SettingsController());
   StaticDataController sdc = Get.put(StaticDataController());
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
     return Scaffold(
       appBar: myAppBar(
         onTap: () => Get.back(),

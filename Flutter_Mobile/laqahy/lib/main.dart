@@ -8,7 +8,6 @@ import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/firebase_options.dart';
 import 'package:laqahy/services/firebase/firebase_api.dart';
-import 'package:laqahy/services/storage/storage_service.dart';
 
 import 'package:laqahy/view/screens/splash_screen/splash_screen.dart';
 
@@ -16,8 +15,6 @@ import 'package:laqahy/view/screens/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  StorageService storageService = await StorageService.getInstance();
-  bool isDark = await storageService.isDark();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseApi().initNotifications();
   SystemChrome.setPreferredOrientations([
@@ -26,20 +23,15 @@ void main() async {
   ]);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  runApp(MyApp(
-    isDark: isDark,
-  ));
+  runApp(MyApp());
 }
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.isDark});
-
-  bool isDark;
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -50,14 +42,6 @@ class MyApp extends StatelessWidget {
         Get.put(StaticDataController());
       }),
       title: 'لقـاحي',
-      // theme: ThemeData.light(useMaterial3: true).copyWith(
-      //   primaryColor: MyColors.primaryColor,
-      // ),
-      // darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
-      //   primaryColor: MyColors.primaryColor,
-      // ),
-
-      themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.secondaryColor),
         fontFamily: 'Tajawal',

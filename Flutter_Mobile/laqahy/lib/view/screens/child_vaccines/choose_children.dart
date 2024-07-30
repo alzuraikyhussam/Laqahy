@@ -70,7 +70,7 @@ class _ChooseChildAlertState extends State<ChooseChildAlert> {
       actions: [
         Obx(() {
           return cvc.isLoading.value
-              ? myLoadingIndicator()
+              ? myLoadingIndicator(height: 55)
               : myButton(
                   onPressed: cvc.isLoading.value
                       ? null
@@ -84,7 +84,6 @@ class _ChooseChildAlertState extends State<ChooseChildAlert> {
                   textStyle: MyTextStyles.font14WhiteBold,
                 );
         }),
-        
       ],
     );
   }

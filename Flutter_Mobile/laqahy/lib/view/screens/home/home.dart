@@ -20,10 +20,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   HomeController hc = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       body: Container(
         width: Get.width,
