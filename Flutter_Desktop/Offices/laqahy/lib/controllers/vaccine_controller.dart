@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:http/http.dart' as http;
@@ -17,10 +18,14 @@ class VaccineController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
   int? officeId;
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   onInit() async {
-    super.onInit();
+    sanctumToken = await storage.read(key: 'token');
     fetchVaccinesQuantity();
+    super.onInit();
   }
 
   /////////////
@@ -35,6 +40,7 @@ class VaccineController extends GetxController {
           Uri.parse('${ApiEndpoints.getVaccinesQuantity}/$officeId'),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {

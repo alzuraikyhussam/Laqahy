@@ -84,7 +84,7 @@ class MotherDataController extends Controller
 
             if ($motherDataExists) {
                 return response()->json([
-                    'message' => 'This mother already exists',
+                    'message' => 'This identity number already exists',
                 ], 401);
             }
 
@@ -100,7 +100,6 @@ class MotherDataController extends Controller
                 'directorate_id' => $request->directorate_id,
                 'healthy_center_id' => $request->healthy_center_id,
             ]);
-
 
 
             // Return created record

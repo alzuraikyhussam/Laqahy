@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/login_model.dart';
@@ -20,6 +21,8 @@ class LoginController extends GetxController {
     loadSettings();
     super.onInit();
   }
+
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
 
   RxBool isVisible = false.obs;
   var isLoading = false.obs;
@@ -77,6 +80,8 @@ class LoginController extends GetxController {
 
           if (response.statusCode == 200) {
             var data = json.decode(response.body);
+
+            await storage.write(key: 'token', value: data['token']);
 
             MotherData user = MotherData.fromJson(data);
 
@@ -208,9 +213,9 @@ class LoginController extends GetxController {
           );
 
           if (response.statusCode == 200) {
-            isLoginWithFingerprintLoading(false);
-
             var data = json.decode(response.body);
+
+            await storage.write(key: 'token', value: data['token']);
 
             MotherData user = MotherData.fromJson(data);
 
@@ -226,6 +231,8 @@ class LoginController extends GetxController {
               duration: const Duration(milliseconds: 1000),
               curve: Curves.easeInOut,
             );
+
+            isLoginWithFingerprintLoading(false);
             Get.delete<LoginController>();
 
             return;
@@ -268,142 +275,4 @@ class LoginController extends GetxController {
       ),
     );
   }
-
-  // Future<void> loginWithFingerprint() async {
-  //   try {
-  //     SettingsController sc = Get.put(SettingsController());
-
-  //     await sc.checkBiometricAvailability();
-
-  //     if (!sc.isFingerprintAvailable.value) {
-  //       await Get.closeCurrentSnackbar();
-  //       Get.snackbar(
-  //         'خطــــــأ',
-  //         sc.statusMsg.value,
-  //         snackPosition: SnackPosition.TOP,
-  //         duration: const Duration(seconds: 10),
-  //         icon: Lottie.asset(
-  //           'assets/images/error.json',
-  //           // alignment: Alignment.center,
-  //           // fit: BoxFit.cover,
-  //         ),
-  //       );
-  //       return;
-  //     }
-
-  //     await FlutterBiometrics().createKeys(reason: 'التحقق من البصمة');
-
-  //     String payload = 'payload_to_sign';
-  //     String payloadBase64 = base64Encode(utf8.encode(payload));
-
-  //     String? biometricData = await FlutterBiometrics().sign(
-  //       payload: payloadBase64,
-  //       reason: 'التحقق من البصمة',
-  //     );
-
-  //     if (biometricData != null) {
-  //       await verifyFingerprint(biometricData);
-  //     }
-  //   } catch (e) {
-  //     await Get.closeCurrentSnackbar();
-  //     Get.snackbar(
-  //       'خطــــــأ',
-  //       'فشل في عملية التحقق من البصمة.',
-  //       snackPosition: SnackPosition.TOP,
-  //       duration: const Duration(seconds: 10),
-  //       icon: Lottie.asset(
-  //         'assets/images/error.json',
-  //         // alignment: Alignment.center,
-  //         // fit: BoxFit.cover,
-  //       ),
-  //     );
-  //   }
-  // }
-
-  // Future<void> verifyFingerprint(String biometricData) async {
-  //   bool hasEnabledFingerprint =
-  //       await sdc.storageService.isFingerprintEnabled();
-
-  //   if (hasEnabledFingerprint) {
-  //     try {
-  //       final fcmToken = await FirebaseMessaging.instance.getToken();
-  //       if (fcmToken != null) {
-  //         try {
-  //           isLoginWithFingerprintLoading(true);
-  //           var response = await http.post(
-  //             Uri.parse(ApiEndpoints.loginWithFingerprint),
-  //             headers: <String, String>{
-  //               'Content-Type': 'application/json',
-  //             },
-  //             body: json.encode({
-  //               'fingerprint': biometricData,
-  //               'token': fcmToken,
-  //             }),
-  //           );
-  //           if (response.statusCode == 200) {
-  //             var data = json.decode(response.body);
-
-  //             MotherData user = MotherData.fromJson(data);
-
-  //             sdc.userLoggedData.assignAll([user]);
-
-  //             await Get.closeCurrentSnackbar();
-
-  //             Get.offAll(
-  //               () => const HomeLayout(),
-  //               transition: Transition.rightToLeft,
-  //               duration: const Duration(milliseconds: 3000),
-  //               curve: Curves.fastLinearToSlowEaseIn,
-  //             );
-
-  //             isLoginWithFingerprintLoading(false);
-
-  //             Get.delete<LoginController>();
-  //             Get.delete<SettingsController>();
-  //           } else if (response.statusCode == 404) {
-  //             ApiExceptionWidgets().myDataIncorrectAlert();
-  //             isLoginWithFingerprintLoading(false);
-  //             return;
-  //           } else {
-  //             ApiExceptionWidgets()
-  //                 .myAccessDatabaseExceptionAlert(response.statusCode);
-  //             isLoginWithFingerprintLoading(false);
-  //             return;
-  //           }
-  //         } on SocketException catch (_) {
-  //           ApiExceptionWidgets().mySocketExceptionAlert();
-  //           isLoginWithFingerprintLoading(false);
-
-  //           return;
-  //         } catch (e) {
-  //           ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
-  //           isLoginWithFingerprintLoading(false);
-  //         }
-  //       } else {
-  //         ApiExceptionWidgets().mySocketExceptionAlert();
-  //         isLoginWithFingerprintLoading(false);
-  //       }
-  //     } on SocketException catch (_) {
-  //       ApiExceptionWidgets().mySocketExceptionAlert();
-  //       isLoginWithFingerprintLoading(false);
-
-  //       return;
-  //     } catch (e) {
-  //       ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
-  //       isLoginWithFingerprintLoading(false);
-  //     }
-  //   } else {
-  //     await Get.closeCurrentSnackbar();
-  //     myShowDialog(
-  //       context: Get.context!,
-  //       widgetName: ApiExceptionAlert(
-  //         title: 'خطــــــأ',
-  //         description: 'يجب القيام بعملية تفعيل البصمة أولاً',
-  //         backgroundColor: MyColors.redColor,
-  //         height: 280,
-  //         imageUrl: 'assets/images/error.json',
-  //       ),
-  //     );
-  //   }
-  // }
 }

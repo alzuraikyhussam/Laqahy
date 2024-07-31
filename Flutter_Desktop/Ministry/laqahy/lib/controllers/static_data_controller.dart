@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/city_model.dart';
 import 'package:laqahy/models/directorate_model.dart';
 import 'package:laqahy/models/gender_model.dart';
@@ -48,8 +48,12 @@ class StaticDataController extends GetxController {
   var directorateErrorMsg = ''.obs;
   var isDirectorateLoading = false.obs;
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     updateGreeting();
     startTimer();
     storageService = await StorageService.getInstance();

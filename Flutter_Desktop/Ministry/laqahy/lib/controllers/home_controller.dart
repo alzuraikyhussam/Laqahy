@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/home_card_model.dart';
@@ -10,8 +11,12 @@ import 'package:laqahy/services/api/api_endpoints.dart';
 class HomeController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     officeId = await sdc.storageService.getOfficeId();
     fetchHomeCardItems();
     super.onInit();
@@ -76,6 +81,7 @@ class HomeController extends GetxController {
           Uri.parse('${ApiEndpoints.getTotalCount}/$officeId'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
 

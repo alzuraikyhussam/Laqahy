@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
@@ -99,8 +100,12 @@ class MotherStatusDataController extends GetxController {
     villageController.clear();
   }
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     centerId = await sdc.storageService.getCenterId();
     password = createAccountCode.v4().substring(0, 8);
     fetchAllMothersStatusData(centerId!);
@@ -126,6 +131,7 @@ class MotherStatusDataController extends GetxController {
         Uri.parse('${ApiEndpoints.getAllMotherStatusDate}/$centerId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -174,6 +180,7 @@ class MotherStatusDataController extends GetxController {
         Uri.parse(ApiEndpoints.addMotherStatusData),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode(Mother.toJson()),
       );
@@ -195,7 +202,7 @@ class MotherStatusDataController extends GetxController {
         return;
       } else if (response.statusCode == 401) {
         isAddLoading(false);
-        ApiExceptionWidgets().myUserAlreadyExistsAlert();
+        ApiExceptionWidgets().myIdentityNumAlreadyExistsAlert();
         return;
       } else {
         print(response.body);
@@ -221,7 +228,12 @@ class MotherStatusDataController extends GetxController {
     isDeleteLoading(true);
     try {
       var request = await http.delete(
-          Uri.parse('${ApiEndpoints.deleteMotherStatusData}/$motherId'));
+        Uri.parse('${ApiEndpoints.deleteMotherStatusData}/$motherId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
+        },
+      );
 
       if (request.statusCode == 200) {
         await fetchAllMothersStatusData(centerId!);
@@ -275,6 +287,10 @@ class MotherStatusDataController extends GetxController {
       );
       var request = http.MultipartRequest('POST',
           Uri.parse('${ApiEndpoints.updateMotherStatusData}/$motherId'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['mother_name'] = mother.mother_name;
       request.fields['mother_phone'] = mother.mother_phone;
@@ -300,7 +316,7 @@ class MotherStatusDataController extends GetxController {
         return;
       } else if (response.statusCode == 401) {
         isUpdateLoading(false);
-        ApiExceptionWidgets().myUserAlreadyExistsAlert();
+        ApiExceptionWidgets().myIdentityNumAlreadyExistsAlert();
         return;
       } else {
         isUpdateLoading(false);
@@ -329,6 +345,7 @@ class MotherStatusDataController extends GetxController {
         Uri.parse('${ApiEndpoints.printMotherStatusData}/$identityNumber'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {

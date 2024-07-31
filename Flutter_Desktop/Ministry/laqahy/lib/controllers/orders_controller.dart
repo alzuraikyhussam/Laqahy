@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/models/order_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
@@ -10,10 +11,14 @@ import 'package:laqahy/services/api/api_exception_widgets.dart';
 
 class OrdersController extends GetxController {
   @override
-  void onInit() {
+  void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     fetchIncomingOrders();
     super.onInit();
   }
+
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
 
   RxString orderTapChange = 'incoming'.obs;
   var isIncomingLoading = true.obs;
@@ -84,6 +89,7 @@ class OrdersController extends GetxController {
           Uri.parse(ApiEndpoints.getIncomingOrders),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -116,6 +122,7 @@ class OrdersController extends GetxController {
           Uri.parse(ApiEndpoints.getInDeliveryOrders),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -148,6 +155,7 @@ class OrdersController extends GetxController {
           Uri.parse(ApiEndpoints.getDeliveredOrders),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -180,6 +188,7 @@ class OrdersController extends GetxController {
           Uri.parse(ApiEndpoints.getRejectedOrders),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -213,6 +222,10 @@ class OrdersController extends GetxController {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.approvalOrder}/$id'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['quantity'] = order.quantity.toString();
       request.fields['ministry_note_data'] = order.ministryNoteData.toString();
@@ -268,6 +281,10 @@ class OrdersController extends GetxController {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.rejectOrder}/$id'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['ministry_note_data'] = order.ministryNoteData.toString();
 
@@ -310,6 +327,10 @@ class OrdersController extends GetxController {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.undoRejectedOrder}/$id'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
 
       var response = await request.send();

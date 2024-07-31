@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/core/constants/constants.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
@@ -41,12 +42,16 @@ class VaccineController extends GetxController {
   GlobalKey<FormState> addDonorFormKey = GlobalKey<FormState>();
   PaginatorController tableController = PaginatorController();
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
-  onInit() {
-    super.onInit();
+  onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     fetchDonors();
     fetchVaccinesQuantity();
     fetchVaccinesStatement();
+    super.onInit();
   }
 
   void clearTextFields() {
@@ -95,6 +100,7 @@ class VaccineController extends GetxController {
         Uri.parse(ApiEndpoints.getDonors),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -128,6 +134,7 @@ class VaccineController extends GetxController {
         Uri.parse(ApiEndpoints.addDonor),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode(donor.toJson()),
       );
@@ -297,6 +304,7 @@ class VaccineController extends GetxController {
           Uri.parse(ApiEndpoints.getVaccines),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -330,6 +338,7 @@ class VaccineController extends GetxController {
         Uri.parse(ApiEndpoints.getVaccineStatement),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -369,6 +378,7 @@ class VaccineController extends GetxController {
         Uri.parse(ApiEndpoints.addVaccineQuantity),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode(vaccineQty.toJson()),
       );
@@ -409,6 +419,10 @@ class VaccineController extends GetxController {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.updateVaccineStatement}/$id'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['vaccine_type_id'] = statement.vaccineTypeId.toString();
       request.fields['quantity'] = statement.quantity.toString();
@@ -451,8 +465,13 @@ class VaccineController extends GetxController {
   Future<void> deleteVaccineStatement(int id) async {
     try {
       isDeleteLoading(true);
-      var request = await http
-          .delete(Uri.parse('${ApiEndpoints.deleteVaccineStatement}/$id'));
+      var request = await http.delete(
+        Uri.parse('${ApiEndpoints.deleteVaccineStatement}/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
+        },
+      );
       if (request.statusCode == 200) {
         await fetchVaccinesQuantity();
         await fetchVaccinesStatement();

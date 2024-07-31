@@ -109,6 +109,20 @@ class ApiExceptionWidgets {
     );
   }
 
+  myIdentityNumAlreadyExistsAlert() {
+    Constants().playErrorSound();
+    myShowDialog(
+      context: Get.context!,
+      widgetName: ApiExceptionAlert(
+        height: 270,
+        imageUrl: 'assets/images/error.json',
+        backgroundColor: MyColors.redColor,
+        title: 'الرقم الوطني مُكرر',
+        description: 'لا يمكن تكرار الرقم الوطني، يجب التأكد من صحة الرقم',
+      ),
+    );
+  }
+
   myCodeVerificationNotFoundAlert() {
     Constants().playErrorSound();
     myShowDialog(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/mother_vaccine_model.dart';
@@ -9,8 +10,13 @@ import 'package:laqahy/services/api/api_endpoints.dart';
 
 class MotherVaccineController extends GetxController {
   StaticDataController sdc = Get.put(StaticDataController());
+
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
-  void onInit() {
+  void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     motherId = sdc.userLoggedData.first.user.id;
     super.onInit();
   }
@@ -43,6 +49,7 @@ class MotherVaccineController extends GetxController {
         Uri.parse('${ApiEndpoints.getMotherDosage}/$motherId'),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
 

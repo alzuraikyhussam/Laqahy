@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/models/child_vaccine_model.dart';
 import 'package:laqahy/models/child_vaccine_dosage_model.dart';
@@ -9,6 +10,15 @@ import 'package:http/http.dart' as http;
 import 'package:laqahy/view/screens/child_vaccines/child_vaccine.dart';
 
 class ChildVaccineController extends GetxController {
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
+  @override
+  void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
+    super.onInit();
+  }
+
   var isLoading = false.obs;
   var errorMsg = ''.obs;
   var childData = ChildVaccine().obs;
@@ -22,6 +32,7 @@ class ChildVaccineController extends GetxController {
         Uri.parse('${ApiEndpoints.getChildVaccines}/$childId'),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
 

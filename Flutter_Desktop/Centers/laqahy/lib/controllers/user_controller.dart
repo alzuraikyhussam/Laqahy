@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -118,8 +119,12 @@ class UserController extends GetxController {
     return null;
   }
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     centerId = await sdc.storageService.getCenterId();
     fetchUsers(centerId);
     sdc.fetchGenders();
@@ -148,6 +153,7 @@ class UserController extends GetxController {
         Uri.parse('${ApiEndpoints.getUsers}/$centerId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -195,6 +201,7 @@ class UserController extends GetxController {
         Uri.parse(ApiEndpoints.addUser),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode(user.toJson()),
       );
@@ -257,6 +264,10 @@ class UserController extends GetxController {
       );
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.updateUser}/$userId'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['user_name'] = user.name;
       request.fields['user_phone'] = user.phone;
@@ -321,8 +332,13 @@ class UserController extends GetxController {
       );
     }
     try {
-      var request =
-          await http.delete(Uri.parse('${ApiEndpoints.deleteUser}/$userId'));
+      var request = await http.delete(
+        Uri.parse('${ApiEndpoints.deleteUser}/$userId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
+        },
+      );
 
       if (request.statusCode == 200) {
         await fetchUsers(centerId);

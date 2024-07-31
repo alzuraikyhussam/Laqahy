@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
@@ -11,6 +12,9 @@ import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:laqahy/services/api/api_exception_widgets.dart';
 
 class ChildStatusDataController extends GetxController {
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   StaticDataController sdc = Get.find<StaticDataController>();
   var children = [].obs;
   var isLoading = true.obs;
@@ -69,6 +73,7 @@ class ChildStatusDataController extends GetxController {
 
   @override
   onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     centerId = await sdc.storageService.getCenterId();
     fetchAllChildrenStatusData();
     clearTextFields();
@@ -92,6 +97,7 @@ class ChildStatusDataController extends GetxController {
         Uri.parse(ApiEndpoints.getAllChildrenStatusData),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -135,6 +141,7 @@ class ChildStatusDataController extends GetxController {
         Uri.parse(ApiEndpoints.addChildStatusData),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode(child.toJson()),
       );
@@ -148,11 +155,13 @@ class ChildStatusDataController extends GetxController {
         // await fetchUsers(centerId);
 
         return;
-      } else if (response.statusCode == 401) {
-        isAddLoading(false);
-        ApiExceptionWidgets().myUserAlreadyExistsAlert();
-        return;
-      } else {
+      }
+      //  else if (response.statusCode == 401) {
+      //   isAddLoading(false);
+      //   ApiExceptionWidgets().myUserAlreadyExistsAlert();
+      //   return;
+      // }
+      else {
         isAddLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
@@ -190,6 +199,10 @@ class ChildStatusDataController extends GetxController {
       );
       var request = http.MultipartRequest('POST',
           Uri.parse('${ApiEndpoints.updateChildChildrenStatusData}/$childId'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['child_data_name'] = child.child_data_name;
       request.fields['child_data_birthplace'] = child.child_data_birthplace;
@@ -206,10 +219,6 @@ class ChildStatusDataController extends GetxController {
         ApiExceptionWidgets().myUpdateDataSuccessAlert();
         isUpdateLoading(false);
         clearTextFields();
-        return;
-      } else if (response.statusCode == 401) {
-        isUpdateLoading(false);
-        ApiExceptionWidgets().myUserAlreadyExistsAlert();
         return;
       } else {
         isUpdateLoading(false);
@@ -234,7 +243,12 @@ class ChildStatusDataController extends GetxController {
     isDeleteLoading(true);
     try {
       var request = await http.delete(
-          Uri.parse('${ApiEndpoints.deleteChildChildrenStatusData}/$childId'));
+        Uri.parse('${ApiEndpoints.deleteChildChildrenStatusData}/$childId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
+        },
+      );
 
       if (request.statusCode == 200) {
         await fetchAllChildrenStatusData();

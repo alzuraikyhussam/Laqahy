@@ -5,6 +5,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
@@ -20,8 +21,12 @@ import 'package:uuid/uuid.dart';
 class AccountsController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     fetchCenters();
     sdc.fetchDirectorates(sdc.officeData.first.cityId!);
     super.onInit();
@@ -204,6 +209,7 @@ class AccountsController extends GetxController {
         Uri.parse('${ApiEndpoints.getCenters}/$officeId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -243,6 +249,7 @@ class AccountsController extends GetxController {
         Uri.parse('${ApiEndpoints.addCenterAccount}/$officeId'),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode(center.toJson()),
       );
@@ -296,6 +303,10 @@ class AccountsController extends GetxController {
       );
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.updateCenterAccount}/$officeId'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['id'] = center.id.toString();
       request.fields['healthy_center_name'] = center.name.toString();

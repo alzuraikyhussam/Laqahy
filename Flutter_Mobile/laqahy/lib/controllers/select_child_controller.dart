@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
@@ -22,8 +23,12 @@ class SelectChildController extends GetxController {
 
   int? motherId;
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
-  void onInit() {
+  void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     super.onInit();
   }
 
@@ -43,6 +48,7 @@ class SelectChildController extends GetxController {
         Uri.parse('${ApiEndpoints.getChildData}/$motherId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {

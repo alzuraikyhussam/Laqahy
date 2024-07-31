@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/models/center_model.dart';
 import 'package:laqahy/models/child_status_data_model.dart';
@@ -99,8 +100,12 @@ class StaticDataController extends GetxController {
   var visitTypeErrorMsg = ''.obs;
   var isVisitTypeLoading = false.obs;
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     updateGreeting();
     startTimer();
     storageService = await StorageService.getInstance();
@@ -269,6 +274,7 @@ class StaticDataController extends GetxController {
         Uri.parse('${ApiEndpoints.getMothersData}/$healthyCenterId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -301,6 +307,7 @@ class StaticDataController extends GetxController {
         Uri.parse(ApiEndpoints.getAllMothersData),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -333,6 +340,7 @@ class StaticDataController extends GetxController {
         Uri.parse('${ApiEndpoints.getChildData}/$motherId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -364,6 +372,7 @@ class StaticDataController extends GetxController {
         Uri.parse(ApiEndpoints.getDosageLevel),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -396,6 +405,7 @@ class StaticDataController extends GetxController {
         Uri.parse('${ApiEndpoints.getDosageType}/$dosageLevelId/$motherId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -429,6 +439,7 @@ class StaticDataController extends GetxController {
         Uri.parse(ApiEndpoints.getVisitType),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -462,6 +473,7 @@ class StaticDataController extends GetxController {
         Uri.parse('${ApiEndpoints.getVaccinesType}/$visitTypeId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -498,6 +510,7 @@ class StaticDataController extends GetxController {
             '${ApiEndpoints.getDosageTypeWithVaccine}/$vaccineTypeId/$visitType/$childId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -534,6 +547,7 @@ class StaticDataController extends GetxController {
         Uri.parse(ApiEndpoints.getVaccines),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {

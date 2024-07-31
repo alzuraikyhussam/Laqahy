@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
@@ -35,8 +36,12 @@ import 'package:laqahy/view/widgets/reports/create_vaccines_report.dart';
 class ReportController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     officeId = await sdc.storageService.getOfficeId();
     fetchOrderStateInDropDownMenu();
     fetchVaccinesInDropDownMenu();
@@ -95,6 +100,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getAdmin}?admin_id=$adminId&office_id=$officeId'),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
 
@@ -121,6 +127,7 @@ class ReportController extends GetxController {
           Uri.parse('${ApiEndpoints.getCentersReport}/$officeId'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
 
@@ -384,6 +391,7 @@ class ReportController extends GetxController {
         Uri.parse('${ApiEndpoints.getMotherDateRange}/$officeId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -512,6 +520,7 @@ class ReportController extends GetxController {
         Uri.parse('${ApiEndpoints.getCenters}/$officeId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -558,6 +567,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getStatusReport}?status_type=${selectedStatusType.value!.id}&center_id=${selectedCenter.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -611,6 +621,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getStatusInAllCentersReport}?status_type=${selectedStatusType.value!.id}&office_id=$officeId&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -751,6 +762,7 @@ class ReportController extends GetxController {
           Uri.parse('${ApiEndpoints.getVaccinesQtyReport}/$officeId'),
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
 
@@ -949,6 +961,7 @@ class ReportController extends GetxController {
         Uri.parse(ApiEndpoints.getVaccines),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -984,6 +997,7 @@ class ReportController extends GetxController {
         Uri.parse('${ApiEndpoints.getOrdersDateRange}/$officeId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -1120,6 +1134,7 @@ class ReportController extends GetxController {
         Uri.parse(ApiEndpoints.getOrderStates),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -1185,6 +1200,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getAllOrdersReport}?office_id=$officeId&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -1232,6 +1248,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getAllVaccinesOfAllCentersOrdersReport}?office_id=$officeId&order_state=${selectedOrderState.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -1279,6 +1296,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getAllStatesOfAllCentersOrdersReport}?office_id=$officeId&vaccine_type=${selectedVaccine.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -1326,6 +1344,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getAllStatesOfAllVaccinesOrdersReport}?center_id=${selectedCenter.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -1373,6 +1392,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getAllCentersOrdersReport}?office_id=$officeId&vaccine_type=${selectedVaccine.value!.id}&order_state=${selectedOrderState.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -1420,6 +1440,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getAllVaccinesOrdersReport}?center_id=${selectedCenter.value!.id}&order_state=${selectedOrderState.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -1467,6 +1488,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getAllStatesOrdersReport}?center_id=${selectedCenter.value!.id}&vaccine_type=${selectedVaccine.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -1514,6 +1536,7 @@ class ReportController extends GetxController {
               '${ApiEndpoints.getCustomOrdersReport}?center_id=${selectedCenter.value!.id}&vaccine_type=${selectedVaccine.value!.id}&order_state=${selectedOrderState.value!.id}&first_date=${firstDateController.text}&last_date=${lastDateController.text}'),
           headers: <String, String>{
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {

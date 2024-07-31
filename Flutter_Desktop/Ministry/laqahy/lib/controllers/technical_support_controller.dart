@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/core/constants/constants.dart';
@@ -17,6 +18,15 @@ class TechnicalSupportController extends GetxController {
   TextEditingController nameController = TextEditingController();
 
   var isLoading = false.obs;
+
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
+  @override
+  void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
+    super.onInit();
+  }
 
   String? nameValidator(value) {
     if (value.trim().isEmpty) {
@@ -61,6 +71,7 @@ class TechnicalSupportController extends GetxController {
         Uri.parse(ApiEndpoints.sendMsg),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode({
           'name': nameController.text,

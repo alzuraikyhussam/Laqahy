@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/constants/constants.dart';
@@ -19,13 +20,17 @@ import 'package:uuid/uuid.dart';
 
 class AccountsController extends GetxController {
   @override
-  void onInit() {
+  void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     fetchRegisteredOfficesInDropDownMenu();
     fetchUnRegisteredOfficesInDropDownMenu();
     fetchOffices();
     fetchCenters();
     super.onInit();
   }
+
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
 
   Uuid createAccountCode = const Uuid();
 
@@ -320,6 +325,7 @@ class AccountsController extends GetxController {
         Uri.parse(ApiEndpoints.getRegisteredOffices),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -359,6 +365,7 @@ class AccountsController extends GetxController {
         Uri.parse(ApiEndpoints.getUnRegisteredOffices),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -413,6 +420,7 @@ class AccountsController extends GetxController {
         Uri.parse(ApiEndpoints.getOfficesCentersCount),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -445,6 +453,7 @@ class AccountsController extends GetxController {
         Uri.parse(ApiEndpoints.getCenters),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -477,6 +486,7 @@ class AccountsController extends GetxController {
         Uri.parse('${ApiEndpoints.getCentersByOffice}/$officeId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -525,6 +535,10 @@ class AccountsController extends GetxController {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.updateOffice}/$officeId'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['office_phone'] = office.phone!;
       request.fields['office_address'] = office.address!;

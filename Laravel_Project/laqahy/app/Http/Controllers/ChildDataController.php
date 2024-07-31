@@ -49,13 +49,13 @@ class ChildDataController extends Controller
                 ], 400);
             }
 
-            $childDataExists = Child_data::where('child_data_name', $request->child_data_name)->exists();
+            // $childDataExists = Child_data::where('child_data_name', $request->child_data_name)->exists();
 
-            if ($childDataExists) {
-                return response()->json([
-                    'message' => 'This child already exists',
-                ], 401);
-            }
+            // if ($childDataExists) {
+            //     return response()->json([
+            //         'message' => 'This child already exists',
+            //     ], 401);
+            // }
 
             // Create record
             $child = Child_data::create([
@@ -121,12 +121,12 @@ class ChildDataController extends Controller
 
             if (!$updateChild) {
                 return response()->json([
-                    'message' => 'Mother not found',
+                    'message' => 'Child not found',
                 ], 404);
             }
             $updateChild->update($request->all());
             return response()->json([
-                'message' => 'Mother updated successfully',
+                'message' => 'Child updated successfully',
             ], 200);
         } catch (Exception $e) {
             return response()->json([

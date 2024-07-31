@@ -77,8 +77,12 @@ class AuthController extends Controller
                 ]);
             }
 
+            // إنشاء توكن Sanctum
+            $token = $user->createToken('Office Personal Access Token')->plainTextToken;
+
             return response()->json([
                 'message' => 'Office account with admin account are created successfully',
+                'token' => $token,
                 'user' => $user,
                 'office' => $office,
             ], 201);
@@ -227,8 +231,12 @@ class AuthController extends Controller
                 ]);
             }
 
+            // إنشاء توكن Sanctum
+            $token = $user->createToken('Office Personal Access Token')->plainTextToken;
+
             return response()->json([
                 'message' => 'Office account with admin account are created successfully',
+                'token' => $token,
                 'user' => $user,
                 'office' => $office,
             ], 201);
@@ -314,8 +322,12 @@ class AuthController extends Controller
                 ]);
             }
 
+            // إنشاء توكن Sanctum
+            $token = $user->createToken('Center Personal Access Token')->plainTextToken;
+
             return response()->json([
                 'message' => 'Center account with admin account are created successfully',
+                'token' => $token,
                 'user' => $user,
                 'center' => $center,
             ], 201);
@@ -374,7 +386,7 @@ class AuthController extends Controller
             $center = Healthy_center::join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'offices.office_name')->where('healthy_centers.id', $user->healthy_center_id)->first();
 
             // إنشاء توكن Sanctum
-            $token = $user->createToken('Centers Personal Access Token')->plainTextToken;
+            $token = $user->createToken('Center Personal Access Token')->plainTextToken;
 
             return response()->json([
                 'message' => 'Login successfully',
@@ -484,8 +496,12 @@ class AuthController extends Controller
             $user->fcm_token = $request->token;
             $user->save();
 
+            // إنشاء توكن Sanctum
+            $token = $user->createToken('Personal Access Token')->plainTextToken;
+
             return response()->json([
                 'message' => 'Login successfully',
+                'token' => $token,
                 'user' => $motherData,
                 'return_date' => $returnDate,
                 'children_count' => $childrenCount,

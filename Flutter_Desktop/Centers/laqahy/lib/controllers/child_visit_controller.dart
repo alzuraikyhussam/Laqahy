@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/controllers/static_data_controller.dart';
@@ -25,8 +26,12 @@ class ChildVisitController extends GetxController {
   GlobalKey<FormState> createChildStatementDataFormKey = GlobalKey<FormState>();
   int? centerId;
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     centerId = await sdc.storageService.getCenterId();
     sdc.fetchAllMothers();
     sdc.fetchVisitType();
@@ -62,6 +67,7 @@ class ChildVisitController extends GetxController {
         Uri.parse('${ApiEndpoints.getChildStatementData}/$childId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -112,6 +118,7 @@ class ChildVisitController extends GetxController {
         Uri.parse(ApiEndpoints.addChildStatementData),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode(motherStatement.toJson()),
       );
@@ -157,8 +164,13 @@ class ChildVisitController extends GetxController {
   Future<void> deleteChildStatement(int id) async {
     isDeleteLoading(true);
     try {
-      var request = await http
-          .delete(Uri.parse('${ApiEndpoints.deleteChildStatementData}/$id'));
+      var request = await http.delete(
+        Uri.parse('${ApiEndpoints.deleteChildStatementData}/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
+        },
+      );
 
       if (request.statusCode == 200) {
         await fetchChildrenStatement(sdc.selectedChildsId.value!);
@@ -196,6 +208,7 @@ class ChildVisitController extends GetxController {
             '${ApiEndpoints.printChildVisitData}/$childDataId/$visitTypeId/$vaccineTypeId/$childDosageTypeId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {

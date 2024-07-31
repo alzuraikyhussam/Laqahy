@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/models/center_order_model.dart';
@@ -9,14 +10,16 @@ import 'package:laqahy/models/office_order_model.dart';
 import 'package:laqahy/services/api/api_endpoints.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/services/api/api_exception_widgets.dart';
-import 'package:laqahy/view/widgets/api_erxception_alert.dart';
-import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 
 class OrdersController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     officeId = await sdc.storageService.getOfficeId();
     await sdc.fetchVaccines();
     super.onInit();
@@ -106,6 +109,7 @@ class OrdersController extends GetxController {
         Uri.parse(ApiEndpoints.addOrder),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode(order.toJson()),
       );
@@ -148,6 +152,7 @@ class OrdersController extends GetxController {
           Uri.parse('${ApiEndpoints.getIncomingOrders}/$officeId'),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -181,6 +186,7 @@ class OrdersController extends GetxController {
           Uri.parse('${ApiEndpoints.getOutgoingOrders}/$officeId'),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -213,6 +219,7 @@ class OrdersController extends GetxController {
           Uri.parse('${ApiEndpoints.getInDeliveryOrders}/$officeId'),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -245,6 +252,7 @@ class OrdersController extends GetxController {
           Uri.parse('${ApiEndpoints.getDeliveredOrders}/$officeId'),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -277,6 +285,7 @@ class OrdersController extends GetxController {
           Uri.parse('${ApiEndpoints.getRejectedOrders}/$officeId'),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -311,6 +320,10 @@ class OrdersController extends GetxController {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.approvalCenterOrder}/$orderId'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['office_id'] = order.officeId.toString();
       request.fields['quantity'] = order.quantity.toString();
@@ -372,6 +385,10 @@ class OrdersController extends GetxController {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse(ApiEndpoints.receivingOrderConfirm));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['order_id'] = order.id.toString();
       request.fields['office_id'] = order.officeId.toString();
@@ -417,6 +434,10 @@ class OrdersController extends GetxController {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.rejectCenterOrder}/$id'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['office_note_data'] = order.officeNoteData.toString();
 

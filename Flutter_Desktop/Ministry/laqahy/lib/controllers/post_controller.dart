@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:laqahy/core/constants/constants.dart';
@@ -18,8 +19,12 @@ class PostController extends GetxController {
   var posts = <Post>[].obs;
   var fetchDataFuture = Future<void>.value().obs;
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
-  onInit() {
+  onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     fetchPosts();
     super.onInit();
   }
@@ -151,9 +156,13 @@ class PostController extends GetxController {
       );
       try {
         var request =
-            http.MultipartRequest('POST', Uri.parse(ApiEndpoints.addPost))
-              ..fields['post_title'] = post.postTitle
-              ..fields['post_description'] = post.postDescription;
+            http.MultipartRequest('POST', Uri.parse(ApiEndpoints.addPost));
+        // Add headers to the request
+        request.headers['Content-Type'] = 'application/json';
+        request.headers['Authorization'] = 'Bearer $sanctumToken';
+
+        request.fields['post_title'] = post.postTitle;
+        request.fields['post_description'] = post.postDescription;
 
         if (post.postImage != null) {
           request.files.add(await http.MultipartFile.fromPath(
@@ -194,6 +203,7 @@ class PostController extends GetxController {
           Uri.parse(ApiEndpoints.getPosts),
           headers: {
             'content-Type': 'application/json',
+            'Authorization': 'Bearer $sanctumToken',
           },
         );
         if (response.statusCode == 200) {
@@ -233,6 +243,10 @@ class PostController extends GetxController {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('${ApiEndpoints.updatePost}/$postId'));
+      // Add headers to the request
+      request.headers['Content-Type'] = 'application/json';
+      request.headers['Authorization'] = 'Bearer $sanctumToken';
+
       request.fields['_method'] = 'PATCH';
       request.fields['post_title'] = post.postTitle;
       request.fields['post_description'] = post.postDescription;
@@ -274,8 +288,13 @@ class PostController extends GetxController {
     isDeletePostsLoading(true);
 
     try {
-      var request =
-          await http.delete(Uri.parse('${ApiEndpoints.deletePost}/$postId'));
+      var request = await http.delete(
+        Uri.parse('${ApiEndpoints.deletePost}/$postId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
+        },
+      );
 
       if (request.statusCode == 200) {
         await fetchPosts();

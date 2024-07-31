@@ -21,8 +21,4 @@ class HomeLayoutController extends GetxController {
   PageController pageController = PageController();
 
   var visit = 0.obs;
-  Color colorSelect = const Color(0XFF0686F8);
-  Color color = const Color(0XFF7AC0FF);
-  Color color2 = const Color(0XFF96B1FD);
-  Color bgColor = const Color(0XFF1752FE);
 }

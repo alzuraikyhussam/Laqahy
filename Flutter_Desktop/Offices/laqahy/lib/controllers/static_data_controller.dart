@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:laqahy/models/city_model.dart';
 import 'package:laqahy/models/directorate_model.dart';
@@ -53,8 +54,12 @@ class StaticDataController extends GetxController {
   var vaccineErrorMsg = ''.obs;
   var isVaccineLoading = false.obs;
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   void onInit() async {
+    sanctumToken = await storage.read(key: 'token');
     updateGreeting();
     startTimer();
     storageService = await StorageService.getInstance();
@@ -223,6 +228,7 @@ class StaticDataController extends GetxController {
         Uri.parse(ApiEndpoints.getVaccines),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {

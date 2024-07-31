@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,6 +34,8 @@ class CreateAccountController extends GetxController {
     controller.fetchGenders();
     super.onInit();
   }
+
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
 
   var fetchDataFuture = Future<void>.value().obs;
   var isLoading = false.obs;
@@ -150,6 +153,8 @@ class CreateAccountController extends GetxController {
 
       if (response.statusCode == 201) {
         var data = json.decode(response.body);
+
+        await storage.write(key: 'token', value: data['token']);
 
         // Handle user and center objects
         Login user = Login.fromJson(data['user']);

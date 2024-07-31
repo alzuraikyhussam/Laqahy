@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/controllers/static_data_controller.dart';
@@ -39,9 +40,13 @@ class MotherVisitController extends GetxController {
     super.onClose();
   }
 
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+  String? sanctumToken;
+
   @override
   onInit() async {
     clearTextFields();
+    sanctumToken = await storage.read(key: 'token');
     sdc.fetchAllMothers();
     sdc.fetchDosageLevel();
     super.onInit();
@@ -64,6 +69,7 @@ class MotherVisitController extends GetxController {
         Uri.parse('${ApiEndpoints.getMotherStatement}/$motherId'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {
@@ -112,6 +118,7 @@ class MotherVisitController extends GetxController {
         Uri.parse(ApiEndpoints.addMotherStatement),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
         body: jsonEncode(motherStatement.toJson()),
       );
@@ -154,8 +161,13 @@ class MotherVisitController extends GetxController {
     isDeleteLoading(true);
     try {
       print(id);
-      var request = await http
-          .delete(Uri.parse('${ApiEndpoints.deleteMotherStatement}/$id'));
+      var request = await http.delete(
+        Uri.parse('${ApiEndpoints.deleteMotherStatement}/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
+        },
+      );
 
       if (request.statusCode == 200) {
         await fetchMotherStatement(sdc.selectedAllMothersId.value!);
@@ -194,6 +206,7 @@ class MotherVisitController extends GetxController {
             '${ApiEndpoints.printMotherVisitData}/$mother_data_id/$dosageLevel/$dosageType'),
         headers: {
           'content-Type': 'application/json',
+          'Authorization': 'Bearer $sanctumToken',
         },
       );
       if (response.statusCode == 200) {

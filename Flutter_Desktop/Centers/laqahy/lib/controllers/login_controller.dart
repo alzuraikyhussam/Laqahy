@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laqahy/controllers/static_data_controller.dart';
@@ -12,6 +13,8 @@ import 'package:laqahy/services/api/api_exception_widgets.dart';
 import 'package:laqahy/view/layouts/home/home_layout.dart';
 
 class LoginController extends GetxController {
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
+
   RxBool isVisible = false.obs;
   var isLoading = false.obs;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -58,6 +61,8 @@ class LoginController extends GetxController {
 
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
+
+        await storage.write(key: 'token', value: data['token']);
 
         // Handle user and center objects
         Login user = Login.fromJson(data['user']);
