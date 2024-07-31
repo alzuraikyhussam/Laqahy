@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +10,6 @@ import 'package:laqahy/controllers/static_data_controller.dart';
 import 'package:laqahy/core/shared/styles/color.dart';
 import 'package:laqahy/core/shared/styles/style.dart';
 import 'package:laqahy/view/screens/home/home.dart';
-import 'package:laqahy/view/screens/login/login.dart';
 import 'package:laqahy/view/screens/notifications/notifications.dart';
 import 'package:laqahy/view/screens/posts/posts.dart';
 import 'package:laqahy/view/screens/profile/profile.dart';

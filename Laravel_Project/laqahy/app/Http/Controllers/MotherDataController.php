@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mother_data;
-use App\Models\Mother_statement;
-use Exception;
-use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MotherDataController extends Controller
 {
@@ -18,7 +17,8 @@ class MotherDataController extends Controller
     public function index(string $healthyCenterId)
     {
         try {
-            $mother = Mother_data::where('healthy_center_id', $healthyCenterId)->get();
+            // $mother = Mother_data::where('healthy_center_id', $healthyCenterId)->get();
+            $mother = Mother_data::get();
             return response()->json([
                 'message' => 'Mothers retrieved successfully',
                 'data' => $mother,
@@ -101,7 +101,6 @@ class MotherDataController extends Controller
                 'healthy_center_id' => $request->healthy_center_id,
             ]);
 
-
             // Return created record
             return response()->json([
                 'message' => 'Mother created successfully',
@@ -145,6 +144,17 @@ class MotherDataController extends Controller
                     'message' => 'Mother not found',
                 ], 404);
             }
+
+            if ($request->mother_identity_num !== $updateMother->mother_identity_num) {
+                $userExists = Mother_data::where('mother_identity_num', $request->mother_identity_num)
+                    ->exists();
+                if ($userExists) {
+                    return response()->json([
+                        'message' => 'This identity number already exists',
+                    ], 401);
+                }
+            }
+
             $updateMother->update($request->all());
             return response()->json([
                 'message' => 'Mother updated successfully',
@@ -238,7 +248,7 @@ class MotherDataController extends Controller
     public function showAllMothersStatusData(string $centerId)
     {
         try {
-            $mother = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->where('mother_data.healthy_center_id', $centerId)->get();
+            $mother = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->get();
             return response()->json([
                 'message' => 'Mothers retrieved successfully',
                 'data' => $mother,
@@ -252,7 +262,7 @@ class MotherDataController extends Controller
     public function printMotherStatusData(string $identityNumber)
     {
         try {
-            $return_mother = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->where('mother_data.mother_identity_num',  $identityNumber)->get();
+            $return_mother = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->where('mother_data.mother_identity_num', $identityNumber)->get();
             return response()->json([
                 'message' => 'Mothers retrieved successfully',
                 'data' => $return_mother,

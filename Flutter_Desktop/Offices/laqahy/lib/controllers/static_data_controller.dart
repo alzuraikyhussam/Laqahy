@@ -221,6 +221,7 @@ class StaticDataController extends GetxController {
   }
 
   Future<void> fetchVaccines() async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       vaccineErrorMsg('');
       isVaccineLoading(true);

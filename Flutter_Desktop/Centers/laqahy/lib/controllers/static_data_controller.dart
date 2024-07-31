@@ -267,6 +267,7 @@ class StaticDataController extends GetxController {
   }
 
   void fetchMothers(int healthyCenterId) async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       motherErrorMsg('');
       isMotherLoading(true);
@@ -300,6 +301,7 @@ class StaticDataController extends GetxController {
   }
 
   void fetchAllMothers() async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       allMotherErrorMsg('');
       isAllMotherLoading(true);
@@ -319,6 +321,7 @@ class StaticDataController extends GetxController {
       } else {
         isAllMotherLoading(false);
         allMotherErrorMsg('فشل في تحميل البيانات\n${response.statusCode}');
+        print(response.body);
       }
     } on SocketException catch (_) {
       isAllMotherLoading(false);
@@ -333,6 +336,7 @@ class StaticDataController extends GetxController {
   }
 
   void fetchChildren(int motherId) async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       childErrorMsg('');
       isChildLoading(true);
@@ -365,6 +369,7 @@ class StaticDataController extends GetxController {
   }
 
   void fetchDosageLevel() async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       dosageLevelErrorMsg('');
       isDosageLevelLoading(true);
@@ -398,6 +403,7 @@ class StaticDataController extends GetxController {
   }
 
   void fetchDosageType(int dosageLevelId, int motherId) async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       dosageTypeErrorMsg('');
       isDosageTypeLoading(true);
@@ -432,6 +438,7 @@ class StaticDataController extends GetxController {
   }
 
   void fetchVisitType() async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       visitTypeErrorMsg('');
       isVisitTypeLoading(true);
@@ -466,6 +473,7 @@ class StaticDataController extends GetxController {
   }
 
   void fetchVaccineWithVisit(int visitTypeId) async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       vaccineTypeErrorMsg('');
       isVaccineTypeLoading(true);
@@ -502,6 +510,7 @@ class StaticDataController extends GetxController {
 
   void fetchDosageWithVaccine(
       int vaccineTypeId, int visitType, int childId) async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       childDosageTypeErrorMsg('');
       isChildDosageTypeLoading(true);
@@ -540,6 +549,7 @@ class StaticDataController extends GetxController {
   }
 
   Future<void> fetchVaccines() async {
+    sanctumToken = await storage.read(key: 'token');
     try {
       vaccineErrorMsg('');
       isVaccineLoading(true);

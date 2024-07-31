@@ -66,7 +66,7 @@ class MotherStatusDataController extends GetxController {
       return 'يجب ادخال الرقم الوطني ';
     } else if (!GetUtils.isNumericOnly(value)) {
       return 'يجب ادخال ارقام فقط';
-    } else if (!GetUtils.isLengthBetween(value, 6, 9)) {
+    } else if (!GetUtils.isLengthBetween(value, 8, 12)) {
       return 'يجب أن يكون ما بين 8 الى 12 رقم';
     }
     return null;
@@ -209,6 +209,7 @@ class MotherStatusDataController extends GetxController {
         isAddLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
+
         return;
       }
     } on SocketException catch (_) {
@@ -320,6 +321,7 @@ class MotherStatusDataController extends GetxController {
         return;
       } else {
         isUpdateLoading(false);
+        print(await response.stream.bytesToString());
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
         return;

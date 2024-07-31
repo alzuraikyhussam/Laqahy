@@ -201,7 +201,7 @@ class SettingsController extends GetxController {
       );
       Get.back();
       isFingerprintEnabled.value = false;
-      toggleFingerprint(false);
+      // toggleFingerprint(false);
     } else {
       await Get.closeCurrentSnackbar();
       Get.back();

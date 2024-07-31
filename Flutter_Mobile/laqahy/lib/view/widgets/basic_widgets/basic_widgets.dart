@@ -1235,8 +1235,8 @@ myLogoutConfirmDialog() {
       myButton(
         backgroundColor: MyColors.redColor,
         onPressed: () async {
-          await Get.closeCurrentSnackbar();
           Get.offAll(() => const LoginScreen());
+          await Get.closeCurrentSnackbar();
           Get.delete<SettingsController>();
         },
         text: 'تسجيل خروج',
@@ -1307,7 +1307,6 @@ Future<bool> myExitAppConfirmDialog(context) async {
               myButton(
                 backgroundColor: MyColors.redColor,
                 onPressed: () async {
-                  await Get.closeCurrentSnackbar();
                   Get.back(result: true);
                 },
                 text: 'نعم، خروج',
