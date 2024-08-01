@@ -46,11 +46,9 @@ class _ChooseChildAlertState extends State<ChooseChildAlert> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  child: Text(
-                    'اختاري طفلك',
-                    style: MyTextStyles.font18BlackBold,
-                  ),
+                Text(
+                  'اختاري طفلك',
+                  style: MyTextStyles.font18BlackBold,
                 ),
                 const SizedBox(
                   height: 10,

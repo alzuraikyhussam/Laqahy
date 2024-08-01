@@ -17,7 +17,7 @@ class SelectChildController extends GetxController {
   var selectedChildId = Rx<int?>(null);
   var childErrorMsg = ''.obs;
   var isChildLoading = false.obs;
-  TextEditingController childSearchController = TextEditingController();
+  final TextEditingController childSearchController = TextEditingController();
   StaticDataController sdc = Get.put(StaticDataController());
   GlobalKey<FormState> selectChildFormKey = GlobalKey<FormState>();
 
@@ -25,12 +25,6 @@ class SelectChildController extends GetxController {
 
   final FlutterSecureStorage storage = const FlutterSecureStorage();
   String? sanctumToken;
-
-  @override
-  void onInit() async {
-    sanctumToken = await storage.read(key: 'token');
-    super.onInit();
-  }
 
   String? childValidator(value) {
     if (value == null) {
@@ -41,9 +35,10 @@ class SelectChildController extends GetxController {
 
   void fetchChildren() async {
     try {
-      motherId = sdc.userLoggedData.first.user.id;
       childErrorMsg('');
       isChildLoading(true);
+      sanctumToken = await storage.read(key: 'token');
+      motherId = sdc.userLoggedData.first.user.id;
       final response = await http.get(
         Uri.parse('${ApiEndpoints.getChildData}/$motherId'),
         headers: {
@@ -71,8 +66,7 @@ class SelectChildController extends GetxController {
       childErrorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isChildLoading(false);
-      childErrorMsg('خطأ غير متوقع\n${e.toString()}');
-      print(e);
+      childErrorMsg('خطأ غير متوقع');
     } finally {
       isChildLoading(false);
     }

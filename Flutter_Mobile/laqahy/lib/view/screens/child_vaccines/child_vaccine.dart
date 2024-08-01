@@ -359,7 +359,7 @@ class _ChildVaccineScreenState extends State<ChildVaccineScreen> {
                                         style: MyTextStyles.font14WhiteBold,
                                       ),
                                     ),
-                                    fixedWidth: 160,
+                                    fixedWidth: 150,
                                     // onSort: (columnIndex, ascending) {
                                     //   uc.sort.value = ascending;
                                     //   uc.onSortColum(columnIndex, ascending);

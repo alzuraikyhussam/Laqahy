@@ -457,7 +457,7 @@ myAwarenessListView({
         child: Card(
           child: Container(
             width: Get.width,
-            height: 150,
+            // height: 161,
             padding: const EdgeInsetsDirectional.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -465,7 +465,7 @@ myAwarenessListView({
               children: [
                 Container(
                   width: 130,
-                  height: Get.height,
+                  // height: Get.height,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -493,12 +493,12 @@ myAwarenessListView({
                       const SizedBox(
                         height: 5,
                       ),
-                      Expanded(
-                        child: Text(
-                          items[index].description,
-                          textAlign: TextAlign.start,
-                          style: MyTextStyles.font14GreyMedium,
-                        ),
+                      Text(
+                        items[index].description,
+                        textAlign: TextAlign.start,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                        style: MyTextStyles.font14GreyMedium,
                       ),
                     ],
                   ),
@@ -651,7 +651,7 @@ myPostsListView({
         child: Card(
           child: Container(
             width: Get.width,
-            height: 400,
+            // height: 400,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -696,87 +696,83 @@ myPostsListView({
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.symmetric(
-                      horizontal: 15,
-                      vertical: 10,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsetsDirectional.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(
+                    horizontal: 15,
+                    vertical: 10,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsetsDirectional.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              MyColors.primaryColor,
+                              MyColors.secondaryColor,
+                            ],
                           ),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                MyColors.primaryColor,
-                                MyColors.secondaryColor,
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          'وزارة الصحة والسكان',
+                          style: MyTextStyles.font14WhiteBold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        post[index].postTitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: MyTextStyles.font16PrimaryBold,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        post[index].postDescription,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: MyTextStyles.font14GreyMedium,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.date_range_outlined,
+                            size: 20,
+                            color: MyColors.primaryColor,
                           ),
-                          child: Text(
-                            'وزارة الصحة والسكان',
-                            style: MyTextStyles.font14WhiteBold,
+                          const SizedBox(
+                            width: 5,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          post[index].postTitle,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: MyTextStyles.font16PrimaryBold,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            '${post[index].postDescription}..',
-                            // maxLines: 3,
-                            // overflow: TextOverflow.ellipsis,
+                          Text(
+                            DateFormat('EE yyyy-MM-dd')
+                                .format(post[index].postPublishDate!)
+                                .toString(),
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
                             style: MyTextStyles.font14GreyMedium,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.date_range_outlined,
-                              size: 20,
-                              color: MyColors.primaryColor,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              DateFormat('EE yyyy-MM-dd')
-                                  .format(post[index].postPublishDate!)
-                                  .toString(),
-                              maxLines: 1,
-                              overflow: TextOverflow.fade,
-                              style: MyTextStyles.font14GreyMedium,
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],

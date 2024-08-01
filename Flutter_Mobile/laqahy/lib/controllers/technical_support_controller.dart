@@ -108,7 +108,7 @@ class TechnicalSupportController extends GetxController {
       return;
     } catch (e) {
       isLoading(false);
-      ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+      ApiExceptionWidgets().myUnknownExceptionAlert();
     } finally {
       isLoading(false);
     }

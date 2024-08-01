@@ -13,12 +13,6 @@ class ChildVaccineController extends GetxController {
   final FlutterSecureStorage storage = const FlutterSecureStorage();
   String? sanctumToken;
 
-  @override
-  void onInit() async {
-    sanctumToken = await storage.read(key: 'token');
-    super.onInit();
-  }
-
   var isLoading = false.obs;
   var errorMsg = ''.obs;
   var childData = ChildVaccine().obs;
@@ -28,6 +22,7 @@ class ChildVaccineController extends GetxController {
     errorMsg('');
     try {
       isLoading(true);
+      sanctumToken = await storage.read(key: 'token');
       var response = await http.get(
         Uri.parse('${ApiEndpoints.getChildVaccines}/$childId'),
         headers: <String, String>{
@@ -57,7 +52,7 @@ class ChildVaccineController extends GetxController {
       errorMsg('لا يتوفر اتصال بالإنترنت، يجب التحقق من اتصالك بالإنترنت');
     } catch (e) {
       isLoading(false);
-      errorMsg('خطأ غير متوقع\n${e.toString()}');
+      errorMsg('خطأ غير متوقع');
     } finally {
       isLoading(false);
     }

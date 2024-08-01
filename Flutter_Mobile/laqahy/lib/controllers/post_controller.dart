@@ -13,13 +13,6 @@ class PostController extends GetxController {
   final FlutterSecureStorage storage = const FlutterSecureStorage();
   String? sanctumToken;
 
-  @override
-  onInit() async {
-    sanctumToken = await storage.read(key: 'token');
-    fetchPosts();
-    super.onInit();
-  }
-
   var isLoading = true.obs;
   var posts = <Post>[].obs;
   var fetchDataFuture = Future<void>.value().obs;
@@ -28,6 +21,7 @@ class PostController extends GetxController {
     fetchDataFuture.value = Future<void>(() async {
       try {
         isLoading(true);
+        sanctumToken = await storage.read(key: 'token');
         final response = await http.get(
           Uri.parse(ApiEndpoints.getPosts),
           headers: {
@@ -54,7 +48,7 @@ class PostController extends GetxController {
         ApiExceptionWidgets().mySocketExceptionAlert();
       } catch (e) {
         isLoading(false);
-        ApiExceptionWidgets().myUnknownExceptionAlert(error: e.toString());
+        ApiExceptionWidgets().myUnknownExceptionAlert();
       } finally {
         isLoading(false);
       }

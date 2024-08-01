@@ -5,12 +5,12 @@ import 'package:laqahy/view/widgets/basic_widgets/basic_widgets.dart';
 import 'package:lottie/lottie.dart';
 
 class ApiExceptionWidgets {
-  myUnknownExceptionAlert({var statusCode, var error}) async {
+  myUnknownExceptionAlert({var statusCode,}) async {
     await Get.closeCurrentSnackbar();
 
     Get.snackbar(
       'خطأ غير متوقع',
-      'عذرا، لقد حدث خطأ غير متوقع، يجب المحاولة مرة أخرى \n${statusCode ?? error}',
+      'عذرا، لقد حدث خطأ غير متوقع، يجب المحاولة مرة أخرى \n$statusCode',
       snackPosition: SnackPosition.TOP,
       duration: const Duration(seconds: 10),
       icon: Lottie.asset(
