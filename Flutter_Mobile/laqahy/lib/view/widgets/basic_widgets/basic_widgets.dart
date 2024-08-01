@@ -457,7 +457,7 @@ myAwarenessListView({
         child: Card(
           child: Container(
             width: Get.width,
-            // height: 161,
+            height: 161,
             padding: const EdgeInsetsDirectional.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -465,7 +465,7 @@ myAwarenessListView({
               children: [
                 Container(
                   width: 130,
-                  // height: Get.height,
+                  height: Get.height,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -496,7 +496,7 @@ myAwarenessListView({
                       Text(
                         items[index].description,
                         textAlign: TextAlign.start,
-                        maxLines: 4,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: MyTextStyles.font14GreyMedium,
                       ),

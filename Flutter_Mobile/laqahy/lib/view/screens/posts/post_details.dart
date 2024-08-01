@@ -131,14 +131,14 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 15,
                     ),
                     Text(
                       widget.title,
                       style: MyTextStyles.font16PrimaryBold,
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,

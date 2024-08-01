@@ -92,7 +92,7 @@ class _AwarenessInfoDetailsScreenState
                       Container(
                         padding: const EdgeInsetsDirectional.symmetric(
                           horizontal: 10,
-                          vertical: 5,
+                          vertical: 10,
                         ),
                         decoration: BoxDecoration(
                           color: MyColors.primaryColor.withOpacity(0.3),
@@ -100,7 +100,7 @@ class _AwarenessInfoDetailsScreenState
                         ),
                         child: Text(
                           widget.title,
-                          textAlign: TextAlign.start,
+                          textAlign: TextAlign.center,
                           style: MyTextStyles.font16BlackBold,
                         ),
                       ),
