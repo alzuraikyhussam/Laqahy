@@ -136,7 +136,7 @@ class MotherStatusDataSource extends DataTableSource {
                 icon: Icons.print,
                 onTap: () async {
                   await msc.printMotherStatusData(mother.mother_identity_num);
-                  msc.fetchAllMothersStatusData(sdc.centerData.first.id!);
+                  // msc.fetchAllMothersStatusData(sdc.centerData.first.id!);
                 },
                 gradientColors: [
                   MyColors.greyColor,

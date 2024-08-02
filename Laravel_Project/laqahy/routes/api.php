@@ -103,7 +103,7 @@ Route::get('directorates/{id}', [DirectorateController::class, 'show']);
 Route::middleware('auth:sanctum')->group(function () {
 
     /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+   
     // --------------------- General Routes ------------------------
     Route::get('ministry/general/home-total-count/{office_id}', [GeneralController::class, 'getTotalCount']);
     // ------------------------------------------------------------

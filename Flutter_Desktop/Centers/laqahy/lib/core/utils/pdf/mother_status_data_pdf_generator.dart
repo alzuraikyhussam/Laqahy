@@ -18,6 +18,9 @@ class MotherStatusDataPdfGenerator {
   final List data;
   String? reportName;
 
+  String printFormattedDate =
+      DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now());
+
   MotherStatusDataPdfGenerator({
     required this.data,
     required this.reportName,
@@ -62,7 +65,7 @@ class MotherStatusDataPdfGenerator {
             pw.Header(
               level: 0,
               padding: const pw.EdgeInsetsDirectional.only(
-                bottom: 15,
+                bottom: 10,
               ),
               child: pw.Center(
                 child: pw.Container(
@@ -93,6 +96,17 @@ class MotherStatusDataPdfGenerator {
             pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.start,
               children: [
+                pw.Row(
+                  children: [
+                    pw.Text('تاريخ الطباعة : '),
+                    pw.SizedBox(width: 3),
+                    pw.Text(
+                      printFormattedDate,
+                      style: pw.TextStyle(fontSize: 10),
+                    ),
+                  ],
+                ),
+                pw.SizedBox(height: 7),
                 pw.Row(
                   children: [
                     pw.Text('اسم الام : '),
@@ -210,14 +224,13 @@ class MotherStatusDataPdfGenerator {
     // }
 
     savePdfDocument({required String fileName, required pdf}) async {
-     
       String formattedDate =
           DateFormat('dd_MM_yyyy_HH_mm_ss').format(DateTime.now());
       String name =
           '${formattedDate}_$fileName'; // Example: "19_06_2024_17:30_offices_report.pdf"
 
       try {
-        final output = await getApplicationDocumentsDirectory();
+        final output = await getTemporaryDirectory();
         final file = File('${output.path}/$name');
 
         await file.writeAsBytes(await pdf.save());

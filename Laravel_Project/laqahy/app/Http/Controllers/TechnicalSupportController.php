@@ -29,7 +29,7 @@ class TechnicalSupportController extends Controller
             $data = $request->only('name', 'email', 'message');
 
             // Send support message
-            Mail::to('sourcetechno2022@gmail.com')->send(new SupportMail($data));
+            Mail::to('sourcetech@laqahy.com')->send(new SupportMail($data));
 
             // Send notification email
             Mail::to($data['email'])->send(new GeneralNotificationMail($data['name']));

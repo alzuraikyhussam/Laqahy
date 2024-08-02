@@ -15,6 +15,7 @@ import 'package:laqahy/services/api/api_exception_widgets.dart';
 class ChildVisitController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
   var childStatement = [].obs;
+  var printedChildStatement = [].obs;
   var filteredChildStatement = [].obs;
   var isLoading = true.obs;
   var isAddLoading = false.obs;
@@ -99,7 +100,7 @@ class ChildVisitController extends GetxController {
 
   Future<void> addChildrenStatement() async {
     int? centerID = await sdc.storageService.getCenterId();
-    int? userID = await sdc.userLoggedData.first.userId;
+    int? userID = sdc.userLoggedData.first.userId;
     DateTime date_taking_dose = DateTime.now();
     DateTime returnDate = date_taking_dose.add(const Duration(days: 28));
     try {
@@ -124,30 +125,26 @@ class ChildVisitController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        Get.back();
-        ApiExceptionWidgets().myAddedDataSuccessAlert();
-        await fetchChildrenStatement(sdc.selectedChildsId.value!);
-        printChildVisitData(
+        await printChildVisitData(
           sdc.selectedChildsId.value.toString(),
           sdc.selectedVisitType.value.toString(),
           sdc.selectedVaccineType.value.toString(),
           sdc.selectedChildDosageTypeId.value.toString(),
         );
 
+        ApiExceptionWidgets().myAddedDataSuccessAlert();
+
+        await fetchChildrenStatement(sdc.selectedChildsId.value!);
+
         clearTextFields();
+
         isAddLoading(false);
 
-        return;
-      } else if (response.statusCode == 401) {
-        isAddLoading(false);
-        ApiExceptionWidgets().myUserAlreadyExistsAlert();
-        print(response.body);
         return;
       } else {
         isAddLoading(false);
         ApiExceptionWidgets()
             .myAccessDatabaseExceptionAlert(response.statusCode);
-        print(response.body);
       }
     } on SocketException catch (_) {
       isAddLoading(false);
@@ -212,14 +209,14 @@ class ChildVisitController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        isLoading(false);
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
-        childStatement.value =
+        printedChildStatement.value =
             jsonData.map((e) => ChildrenStatement.fromJson(e)).toList();
 
         ChildVisitDataPdfGenerator mpg = ChildVisitDataPdfGenerator(
-            data: childStatement, reportName: 'بيانات زيارة الطفل');
+            data: printedChildStatement, reportName: 'بيانات زيارة الطفل');
         await mpg.generatePdf(Get.context!);
+        isLoading(false);
       } else if (response.statusCode == 500) {
         isLoading(false);
         ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);

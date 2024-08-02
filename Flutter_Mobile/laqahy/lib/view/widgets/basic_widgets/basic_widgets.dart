@@ -1084,7 +1084,6 @@ Widget myDropDownMenuButton2<T>({
           color: MyColors.greyColor,
         ),
       ),
-
       items: items,
       value: selectedValue,
       onChanged: onChanged,
@@ -1100,7 +1099,6 @@ Widget myDropDownMenuButton2<T>({
           // ),
         ),
       ),
-
       dropdownStyleData: DropdownStyleData(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -1116,7 +1114,7 @@ Widget myDropDownMenuButton2<T>({
         searchController: searchController,
         searchInnerWidgetHeight: 50,
         searchInnerWidget: Container(
-          height: 50,
+          height: 60,
           padding: const EdgeInsets.only(
             top: 8,
             bottom: 4,

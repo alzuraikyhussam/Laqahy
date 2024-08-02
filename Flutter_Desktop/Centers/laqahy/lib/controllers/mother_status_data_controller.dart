@@ -16,6 +16,7 @@ import 'package:uuid/uuid.dart';
 class MotherStatusDataController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
   var mothers = [].obs;
+  var printedMotherData = [].obs;
   var filteredMothersStatusData = [].obs;
   var isLoading = true.obs;
   var isAddLoading = false.obs;
@@ -351,13 +352,14 @@ class MotherStatusDataController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        isLoading(false);
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
-        mothers.value = jsonData.map((e) => Mothers.fromJson(e)).toList();
+        printedMotherData.value =
+            jsonData.map((e) => Mothers.fromJson(e)).toList();
 
         MotherStatusDataPdfGenerator mpg = MotherStatusDataPdfGenerator(
-            data: mothers, reportName: 'بيانات الحالة');
+            data: printedMotherData, reportName: 'بيانات الحالة');
         await mpg.generatePdf(Get.context!);
+        isLoading(false);
       } else if (response.statusCode == 500) {
         isLoading(false);
         ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);

@@ -17,8 +17,7 @@ class SelectChildController extends GetxController {
   var selectedChildId = Rx<int?>(null);
   var childErrorMsg = ''.obs;
   var isChildLoading = false.obs;
-  final Rx<TextEditingController> childSearchController =
-      TextEditingController().obs;
+  final TextEditingController childSearchController = TextEditingController();
   StaticDataController sdc = Get.put(StaticDataController());
   GlobalKey<FormState> selectChildFormKey = GlobalKey<FormState>();
 
@@ -165,7 +164,7 @@ class SelectChildController extends GetxController {
             selectedChildId.value = null;
           }
         },
-        searchController: childSearchController.value,
+        searchController: childSearchController,
         selectedValue: selectedChildId.value?.toString(),
       );
     });

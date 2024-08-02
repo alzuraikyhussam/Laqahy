@@ -21,10 +21,13 @@ class ChildVisitDataPdfGenerator {
     required this.reportName,
   });
 
+  String printFormattedDate =
+      DateFormat('HH:mm dd-MM-yyyy').format(DateTime.now());
+
   Future<void> generatePdf(BuildContext context) async {
     final pdf = pw.Document();
     final PDFWidgets pdfWidgets = PDFWidgets();
-    final pageSize = PdfPageFormat(13 * PdfPageFormat.cm, 7 * PdfPageFormat.cm);
+    const pageSize = PdfPageFormat(13 * PdfPageFormat.cm, 7 * PdfPageFormat.cm);
 
     await pdfWidgets.init();
 
@@ -46,7 +49,7 @@ class ChildVisitDataPdfGenerator {
     // Build content of the PDF document
     pw.Widget buildContent(pw.Context context) {
       return pw.Container(
-        padding: pw.EdgeInsets.all(7),
+        padding: const pw.EdgeInsets.all(7),
         width: Get.width,
         height: Get.height,
         decoration: pw.BoxDecoration(
@@ -59,7 +62,7 @@ class ChildVisitDataPdfGenerator {
             pw.Header(
               level: 0,
               padding: const pw.EdgeInsetsDirectional.only(
-                bottom: 15,
+                bottom: 10,
               ),
               child: pw.Center(
                 child: pw.Container(
@@ -81,11 +84,13 @@ class ChildVisitDataPdfGenerator {
               // color: PdfColors.grey200,
               alignment: pw.Alignment.center,
               child: pw.Row(
+                crossAxisAlignment: pw.CrossAxisAlignment.center,
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
                   pw.Row(
                     children: [
                       pw.Text(
-                        'الرقم التسلسلي  : ',
+                        'رقم الحالة : ',
                         style: pw.TextStyle(fontSize: 10),
                       ),
                       pw.SizedBox(
@@ -97,13 +102,17 @@ class ChildVisitDataPdfGenerator {
                       ),
                     ],
                   ),
-                  pw.SizedBox(
-                    width: 80,
-                  ),
+                  // pw.SizedBox(
+                  //   width: 90,
+                  // ),
                   pw.Text(
                     reportName ?? '',
                     textAlign: pw.TextAlign.center,
                     style: headerTextStyle,
+                  ),
+                  pw.Text(
+                    printFormattedDate,
+                    style: pw.TextStyle(fontSize: 10),
                   ),
                 ],
               ),
@@ -111,22 +120,24 @@ class ChildVisitDataPdfGenerator {
             pw.SizedBox(height: 15),
             pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
                 pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.center,
+                  mainAxisAlignment: pw.MainAxisAlignment.start,
                   children: [
                     pw.Row(
                       children: [
                         pw.Text(
                           'اسم الطفل  : ',
-                          style: pw.TextStyle(fontSize: 10),
+                          style: const pw.TextStyle(fontSize: 10),
                         ),
                         pw.SizedBox(
                           width: 3,
                         ),
                         pw.Text(
                           '${data.first.childName}',
-                          style: pw.TextStyle(fontSize: 10),
+                          style: const pw.TextStyle(fontSize: 10),
                         ),
                       ],
                     ),
@@ -137,32 +148,32 @@ class ChildVisitDataPdfGenerator {
                       children: [
                         pw.Text(
                           'نوع اللقاح  : ',
-                          style: pw.TextStyle(fontSize: 10),
+                          style: const pw.TextStyle(fontSize: 10),
                         ),
                         pw.SizedBox(
                           width: 3,
                         ),
                         pw.Text(
                           '${data.first.vaccineType}',
-                          style: pw.TextStyle(fontSize: 10),
+                          style: const pw.TextStyle(fontSize: 10),
                         ),
                       ],
                     ),
                     pw.SizedBox(
-                      height: 10,
+                      height: 15,
                     ),
-                    pw.Row(
+                    pw.Column(
                       children: [
                         pw.Text(
-                          'العامل الصحي  : ',
-                          style: pw.TextStyle(fontSize: 7),
+                          'العامل الصحي',
+                          style: pw.TextStyle(fontSize: 8),
                         ),
                         pw.SizedBox(
-                          width: 3,
+                          height: 3,
                         ),
                         pw.Text(
                           '${data.first.userName}',
-                          style: pw.TextStyle(fontSize: 7),
+                          style: pw.TextStyle(fontSize: 8),
                         ),
                       ],
                     ),
@@ -171,19 +182,20 @@ class ChildVisitDataPdfGenerator {
                 // pw.Spacer(),
                 pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.center,
+                  mainAxisAlignment: pw.MainAxisAlignment.start,
                   children: [
                     pw.Row(
                       children: [
                         pw.Text(
                           'نوع الزيارة  : ',
-                          style: pw.TextStyle(fontSize: 10),
+                          style: const pw.TextStyle(fontSize: 10),
                         ),
                         pw.SizedBox(
                           width: 3,
                         ),
                         pw.Text(
                           '${data.first.visitType}',
-                          style: pw.TextStyle(fontSize: 10),
+                          style: const pw.TextStyle(fontSize: 10),
                         ),
                       ],
                     ),
@@ -194,25 +206,25 @@ class ChildVisitDataPdfGenerator {
                       children: [
                         pw.Text(
                           'نوع الجرعة  : ',
-                          style: pw.TextStyle(fontSize: 10),
+                          style: const pw.TextStyle(fontSize: 10),
                         ),
                         pw.SizedBox(
                           width: 3,
                         ),
                         pw.Text(
                           '${data.first.childDosageType}',
-                          style: pw.TextStyle(fontSize: 10),
+                          style: const pw.TextStyle(fontSize: 10),
                         ),
                       ],
                     ),
                     pw.SizedBox(
-                      height: 10,
+                      height: 15,
                     ),
                     pw.Row(
                       children: [
                         pw.Text(
                           "توقيع العامل الصحي",
-                          style: pw.TextStyle(fontSize: 7),
+                          style: pw.TextStyle(fontSize: 8),
                         ),
                       ],
                     ),
@@ -264,7 +276,7 @@ class ChildVisitDataPdfGenerator {
           '${formattedDate}_$fileName'; // Example: "19_06_2024_17:30_offices_report.pdf"
 
       try {
-        final output = await getApplicationDocumentsDirectory();
+        final output = await getTemporaryDirectory();
         final file = File('${output.path}/$name');
 
         await file.writeAsBytes(await pdf.save());

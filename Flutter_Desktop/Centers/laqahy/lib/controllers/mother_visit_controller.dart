@@ -15,6 +15,7 @@ class MotherVisitController extends GetxController {
   StaticDataController sdc = Get.find<StaticDataController>();
 
   var motherStatement = [].obs;
+  var printedMotherStatement = [].obs;
   var filteredMotherStatement = [].obs;
   var isLoading = true.obs;
   var isAddLoading = false.obs;
@@ -100,7 +101,7 @@ class MotherVisitController extends GetxController {
 
   Future<void> addMotherStatement() async {
     int? centerID = await sdc.storageService.getCenterId();
-    int? userID = await sdc.userLoggedData.first.userId;
+    int? userID = sdc.userLoggedData.first.userId;
     DateTime date_taking_dose = DateTime.now();
     DateTime returnDate = date_taking_dose.add(const Duration(days: 28));
     try {
@@ -124,14 +125,17 @@ class MotherVisitController extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        Get.back();
-        ApiExceptionWidgets().myAddedDataSuccessAlert();
-        printMotherVisitData(
+        await printMotherVisitData(
             sdc.selectedAllMothersId.value!.toString(),
             sdc.selectedDosageLevelId.value!.toString(),
             sdc.selectedDosageTypeId.value!.toString());
+
+        ApiExceptionWidgets().myAddedDataSuccessAlert();
+
         await fetchMotherStatement(sdc.selectedAllMothersId.value!);
+
         clearTextFields();
+
         isAddLoading(false);
 
         return;
@@ -210,14 +214,14 @@ class MotherVisitController extends GetxController {
         },
       );
       if (response.statusCode == 200) {
-        isLoading(false);
         List<dynamic> jsonData = json.decode(response.body)['data'] as List;
-        motherStatement.value =
+        printedMotherStatement.value =
             jsonData.map((e) => MotherStatement.fromJson(e)).toList();
 
         MotherVisitDataPdfGenerator mpg = MotherVisitDataPdfGenerator(
-            data: motherStatement, reportName: 'بيانات زيارة الام');
+            data: printedMotherStatement, reportName: 'بيانات زيارة الام');
         await mpg.generatePdf(Get.context!);
+        isLoading(false);
       } else if (response.statusCode == 500) {
         isLoading(false);
         ApiExceptionWidgets().myFetchDataExceptionAlert(response.statusCode);

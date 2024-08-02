@@ -1066,7 +1066,6 @@ class Constants {
             if (value != null) {
               controller.selectedChildsId.value = int.tryParse(value);
               cvc.fetchChildrenStatement(controller.selectedChildsId.value!);
-            
             } else {
               controller.selectedAllMothersId.value = null;
             }
@@ -1461,6 +1460,7 @@ class Constants {
             );
           },
           child: myDropDownMenuButton2(
+            width: 280,
             hintText: 'نوع اللقاح',
             items: null,
             onChanged: null,
@@ -1471,6 +1471,7 @@ class Constants {
         );
       } else if (controller.isVaccineTypeLoading.value) {
         return myDropDownMenuButton2(
+          width: 280,
           hintText: 'نوع اللقاح',
           items: [
             DropdownMenuItem<String>(
@@ -1504,6 +1505,7 @@ class Constants {
                 ));
           },
           child: myDropDownMenuButton2(
+            width: 280,
             hintText: 'نوع اللقاح',
             items: null,
             onChanged: null,
@@ -1532,6 +1534,7 @@ class Constants {
                 ));
           },
           child: myDropDownMenuButton2(
+            width: 280,
             hintText: 'نوع اللقاح',
             items: null,
             onChanged: null,
@@ -1542,6 +1545,7 @@ class Constants {
         );
       } else {
         return myDropDownMenuButton2(
+          width: 280,
           hintText: 'نوع اللقاح',
           validator: vaccineTypeValidator,
           items: controller.vaccineType.map((element) {

@@ -107,24 +107,38 @@ class ChildVisitRowSource extends DataTableSource {
           ),
         ),
         DataCell(
-          Center(
-            child: myIconButton(
-              icon: Icons.delete,
-              onTap: () {
-                Constants().playErrorSound();
-                myShowDialog(
-                    context: Get.context!,
-                    widgetName: DeleteChildStatement(
-                      id: childStatementData.id,
-                    ));
-              },
-              gradientColors: [
-                MyColors.redColor,
-                MyColors.redColor,
-              ],
-              padding: EdgeInsets.all(8),
-              iconSize: 22,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              myIconButton(
+                icon: Icons.delete,
+                onTap: () {
+                  Constants().playErrorSound();
+                  myShowDialog(
+                      context: Get.context!,
+                      widgetName: DeleteChildStatement(
+                        id: childStatementData.id,
+                      ));
+                },
+                gradientColors: [
+                  MyColors.redColor,
+                  MyColors.redColor,
+                ],
+                padding: EdgeInsets.all(8),
+                iconSize: 22,
+              ),
+              myIconButton(
+                icon: Icons.print,
+                onTap: () async {},
+                gradientColors: [
+                  MyColors.greyColor,
+                  MyColors.greyColor,
+                ],
+                padding: EdgeInsets.all(8),
+                iconSize: 22,
+              ),
+            ],
           ),
         ),
       ],
