@@ -1158,7 +1158,8 @@ Widget myDropDownMenuButton2<T>({
         ),
         searchMatchFn: (item, searchValue) {
           // return item.value.toString().contains(searchValue);
-          return item.child.toString().contains(searchValue);
+          var itemText = (item.child as Text).data?.toLowerCase() ?? '';
+          return itemText.contains(searchValue.toLowerCase());
         },
       ),
 
