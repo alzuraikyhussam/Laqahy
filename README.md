@@ -1,2 +1,2 @@
 # Laqahy
-## Laqahy vaccination tracking system for desktop and mobile application.
+## Laqahy is vaccination management system ERP.
