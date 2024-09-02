@@ -125,6 +125,15 @@ class MotherVisitController extends GetxController {
       );
 
       if (response.statusCode == 201) {
+        // var data = json.decode(response.body);
+        // var quantity = data['quantity'];
+
+        // ApiExceptionWidgets().myAddedDosageWithQuantityAlert(
+        //   quantity: quantity,
+        //   title: 'تمت العملية بنجاح',
+        //   description: 'لقد تمت عملية إضافة الجرعة بنجاح',
+        // );
+
         await printMotherVisitData(
             sdc.selectedAllMothersId.value!.toString(),
             sdc.selectedDosageLevelId.value!.toString(),
@@ -139,7 +148,15 @@ class MotherVisitController extends GetxController {
         isAddLoading(false);
 
         return;
-      } else if (response.statusCode == 401) {
+      }
+      // else if (response.statusCode == 405) {
+      //   var data = json.decode(response.body);
+      //   var quantity = data['quantity'];
+      //   ApiExceptionWidgets().myVaccineQtyNotEnoughAlert(quantity: quantity);
+      //   isAddLoading(false);
+      //   return;
+      // }
+      else if (response.statusCode == 401) {
         isAddLoading(false);
         ApiExceptionWidgets().myUserAlreadyExistsAlert();
         return;

@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class Offices_users extends Authenticatable
 {
@@ -24,13 +23,12 @@ class Offices_users extends Authenticatable
         'gender_id',
         'permission_type_id',
         'office_id',
+        'deleted_at',
     ];
 
     // protected $hidden = ['user_account_password'];
 
     protected $dates = ['deleted_at'];
-
-
 
     public function permission_type()
     {

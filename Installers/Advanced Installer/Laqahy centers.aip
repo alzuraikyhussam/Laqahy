@@ -85,41 +85,38 @@
     <ROW Component="AI_INSTALLPERUSER" ComponentId="{850DEA46-04A8-425D-B054-9621B44DFB37}" Directory_="APPDIR" Attributes="4" KeyPath="AI_INSTALLPERUSER" Options="1"/>
     <ROW Component="AI_SHORTCUTSREG" ComponentId="{ED2587CC-F915-4852-B8C6-A76F1FA1C72A}" Directory_="APPDIR" Attributes="4" KeyPath="AI_SHORTCUTSREG" Options="1"/>
     <ROW Component="APPDIR" ComponentId="{CB0A92DE-7644-4921-AD80-16BE873FFCF8}" Directory_="APPDIR" Attributes="0"/>
-    <ROW Component="AssetManifest.bin" ComponentId="{18E3FCD8-C0DB-42D7-AFD2-AB3CF8B956F2}" Directory_="flutter_assets_Dir" Attributes="0" KeyPath="AssetManifest.bin" Type="0"/>
-    <ROW Component="CupertinoIcons.ttf" ComponentId="{5EE35114-4272-45AB-923F-F97A49076203}" Directory_="assets_1_Dir" Attributes="0" Type="0"/>
-    <ROW Component="MaterialIconsRegular.otf" ComponentId="{4524CB9B-738D-4FDC-A922-7E516CE64CCB}" Directory_="fonts_1_Dir" Attributes="0" KeyPath="MaterialIconsRegular.otf" Type="0"/>
+    <ROW Component="AssetManifest.bin" ComponentId="{49600E0E-1CCF-4BBA-BB2B-AC6F7C8562E4}" Directory_="flutter_assets_Dir" Attributes="0" KeyPath="AssetManifest.bin" Type="0"/>
+    <ROW Component="CupertinoIcons.ttf" ComponentId="{11791DD6-4715-40D9-849A-BD6E563E9D5A}" Directory_="assets_1_Dir" Attributes="0" Type="0"/>
+    <ROW Component="MaterialIconsRegular.otf" ComponentId="{B6AB4B6E-DDB7-4D32-8E00-87312F1A0EE5}" Directory_="fonts_1_Dir" Attributes="0" KeyPath="MaterialIconsRegular.otf" Type="0"/>
     <ROW Component="ProductInformation" ComponentId="{21478D05-AD55-4C54-B56D-C53F3215D65E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
-    <ROW Component="SHORTCUTDIR" ComponentId="{DEE922BA-C6B1-4EEA-B669-EE81F827FC15}" Directory_="SHORTCUTDIR" Attributes="0"/>
-    <ROW Component="TajawalMedium.ttf" ComponentId="{C2D9042C-075D-48F5-802E-AD971C0B9792}" Directory_="fonts_Dir" Attributes="0" Type="0"/>
-    <ROW Component="addvaccinesicon.png" ComponentId="{D5162A92-BB0D-4A29-B450-9EDA10530E2E}" Directory_="icons_Dir" Attributes="0" KeyPath="addvaccinesicon.png" Type="0"/>
-    <ROW Component="app.so" ComponentId="{B3796EB7-5892-463C-B810-A8DB12053FB7}" Directory_="data_Dir" Attributes="0" KeyPath="app.so" Type="0"/>
-    <ROW Component="audioplayers_windows_plugin.dll" ComponentId="{EB59F750-6AC9-4E45-96D4-4547A949A335}" Directory_="APPDIR" Attributes="256" KeyPath="audioplayers_windows_plugin.dll"/>
-    <ROW Component="bitsdojo_window_windows_plugin.lib" ComponentId="{E4B9CB3B-7CF1-4355-A289-065BAD26AE93}" Directory_="APPDIR" Attributes="0" KeyPath="bitsdojo_window_windows_plugin.lib" Type="0"/>
-    <ROW Component="close.png" ComponentId="{21A1ACCF-E921-428B-AC40-3C90B09A7F06}" Directory_="x_Dir" Attributes="0" KeyPath="close.png" Type="0"/>
-    <ROW Component="close.png_1" ComponentId="{1B41FE55-2751-44D6-BEF3-330308F1B040}" Directory_="x_1_Dir" Attributes="0" KeyPath="close.png_1" Type="0"/>
-    <ROW Component="close.png_2" ComponentId="{31409293-FE36-4507-B4C1-46A1307104D2}" Directory_="images_1_Dir" Attributes="0" KeyPath="close.png_2" Type="0"/>
-    <ROW Component="error.json" ComponentId="{670CB0FB-DE41-423F-B61B-FDD0ED23755B}" Directory_="images_Dir" Attributes="0" KeyPath="error.json" Type="0"/>
-    <ROW Component="error.mp3" ComponentId="{77274368-6746-46BC-ADD2-4535EBAF64FE}" Directory_="sounds_Dir" Attributes="0" KeyPath="error.mp3" Type="0"/>
-    <ROW Component="fabrands400.ttf" ComponentId="{25677447-211E-4B79-AB6A-658F5E28BCB5}" Directory_="fonts_2_Dir" Attributes="0" Type="0"/>
-    <ROW Component="file_selector_windows_plugin.dll" ComponentId="{3D384512-1114-436D-91F6-07F6628E490E}" Directory_="APPDIR" Attributes="256" KeyPath="file_selector_windows_plugin.dll"/>
-    <ROW Component="flutter_secure_storage_windows_plugin.dll" ComponentId="{B1CFDBD0-CBE3-437C-BF35-5BAFD94AFC8F}" Directory_="APPDIR" Attributes="256" KeyPath="flutter_secure_storage_windows_plugin.dll"/>
-    <ROW Component="flutter_windows.dll" ComponentId="{62BFD701-5148-4FCC-8398-9F66F243BB18}" Directory_="APPDIR" Attributes="256" KeyPath="flutter_windows.dll"/>
-    <ROW Component="ic_chrome_close.png" ComponentId="{7A8E20CE-3225-4585-92A9-20C1FF519CA2}" Directory_="images_2_Dir" Attributes="0" KeyPath="ic_chrome_close.png" Type="0"/>
-    <ROW Component="ink_sparkle.frag" ComponentId="{18DC8AF2-B429-4E6B-A947-79E9C2D17C92}" Directory_="shaders_Dir" Attributes="0" KeyPath="ink_sparkle.frag" Type="0"/>
-    <ROW Component="laqahy.exe" ComponentId="{D84D8FB9-CE9F-4A7D-9FBD-C8B1A2DB89D1}" Directory_="APPDIR" Attributes="256" KeyPath="laqahy.exe"/>
-    <ROW Component="screen_retriever_plugin.dll" ComponentId="{03C9A3FA-2DF2-4A10-A66F-F5A32EB5F3C2}" Directory_="APPDIR" Attributes="256" KeyPath="screen_retriever_plugin.dll"/>
-    <ROW Component="share_plus_plugin.dll" ComponentId="{827C1686-BF21-49E2-970C-09858E536CF1}" Directory_="APPDIR" Attributes="256" KeyPath="share_plus_plugin.dll"/>
-    <ROW Component="url_launcher_windows_plugin.dll" ComponentId="{7C2FC62A-0FA0-4F39-A81C-768A7C12D5D5}" Directory_="APPDIR" Attributes="256" KeyPath="url_launcher_windows_plugin.dll"/>
-    <ROW Component="window_manager_plugin.dll" ComponentId="{064E00CA-B1DB-4AB2-ACEA-54ECE7982E03}" Directory_="APPDIR" Attributes="256" KeyPath="window_manager_plugin.dll"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{FADCA9D5-775F-4E35-B2B8-F59428250DE6}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="TajawalMedium.ttf" ComponentId="{1BA24AB3-C769-4740-919B-EF76AD646548}" Directory_="fonts_Dir" Attributes="0" Type="0"/>
+    <ROW Component="addvaccinesicon.png" ComponentId="{C1975933-5EAF-48BE-BB20-9335EA386DB8}" Directory_="icons_Dir" Attributes="0" KeyPath="addvaccinesicon.png" Type="0"/>
+    <ROW Component="app.so" ComponentId="{24D56996-7BC0-48DF-8BEA-733C3A4DA89E}" Directory_="data_Dir" Attributes="0" KeyPath="app.so" Type="0"/>
+    <ROW Component="audioplayers_windows_plugin.dll" ComponentId="{C33A6E71-5FB5-422D-9B40-EA81D6249DAA}" Directory_="APPDIR" Attributes="256" KeyPath="audioplayers_windows_plugin.dll"/>
+    <ROW Component="bitsdojo_window_windows_plugin.lib" ComponentId="{9A4182D5-2451-4407-AC59-01EA4A7C2975}" Directory_="APPDIR" Attributes="0" KeyPath="bitsdojo_window_windows_plugin.lib" Type="0"/>
+    <ROW Component="close.png" ComponentId="{D2C2D2A0-1FCC-4EC5-92CA-D224DB6F11FA}" Directory_="x_Dir" Attributes="0" KeyPath="close.png" Type="0"/>
+    <ROW Component="close.png_1" ComponentId="{5B7A61E8-B349-4CFF-8E59-60C0EF194421}" Directory_="x_1_Dir" Attributes="0" KeyPath="close.png_1" Type="0"/>
+    <ROW Component="close.png_2" ComponentId="{B74D6334-427C-4EE2-B49F-D60D98E0DA79}" Directory_="images_1_Dir" Attributes="0" KeyPath="close.png_2" Type="0"/>
+    <ROW Component="error.json" ComponentId="{5E4543D3-EFAB-46B4-AA6E-929FE19F0CB3}" Directory_="images_Dir" Attributes="0" KeyPath="error.json" Type="0"/>
+    <ROW Component="error.mp3" ComponentId="{F257D8CA-3C7B-4380-93E1-BD2D9E7B364D}" Directory_="sounds_Dir" Attributes="0" KeyPath="error.mp3" Type="0"/>
+    <ROW Component="fabrands400.ttf" ComponentId="{0814CCAA-51AB-46FB-A7C8-6B409A5DA5EE}" Directory_="fonts_2_Dir" Attributes="0" Type="0"/>
+    <ROW Component="file_selector_windows_plugin.dll" ComponentId="{29903061-712F-4082-AF0F-048358CA33C5}" Directory_="APPDIR" Attributes="256" KeyPath="file_selector_windows_plugin.dll"/>
+    <ROW Component="flutter_secure_storage_windows_plugin.dll" ComponentId="{2F27AFC1-38ED-495F-B047-1F8965879B59}" Directory_="APPDIR" Attributes="256" KeyPath="flutter_secure_storage_windows_plugin.dll"/>
+    <ROW Component="flutter_windows.dll" ComponentId="{01EDFFE4-0879-4E2A-BBDB-06BDFF461920}" Directory_="APPDIR" Attributes="256" KeyPath="flutter_windows.dll"/>
+    <ROW Component="ic_chrome_close.png" ComponentId="{DDB28EF3-DEA1-4BCC-B69F-551F3902361A}" Directory_="images_2_Dir" Attributes="0" KeyPath="ic_chrome_close.png" Type="0"/>
+    <ROW Component="ink_sparkle.frag" ComponentId="{87ECB817-2E49-4BDC-BE73-18B4C0B824BB}" Directory_="shaders_Dir" Attributes="0" KeyPath="ink_sparkle.frag" Type="0"/>
+    <ROW Component="laqahy.exe" ComponentId="{23A19F9D-A55E-4C3A-903D-043037992416}" Directory_="APPDIR" Attributes="256" KeyPath="laqahy.exe"/>
+    <ROW Component="screen_retriever_plugin.dll" ComponentId="{5BED5FD4-CF0B-47E7-8040-59058C004766}" Directory_="APPDIR" Attributes="256" KeyPath="screen_retriever_plugin.dll"/>
+    <ROW Component="share_plus_plugin.dll" ComponentId="{7A66BFEE-8EDF-4E84-8033-E584FF958538}" Directory_="APPDIR" Attributes="256" KeyPath="share_plus_plugin.dll"/>
+    <ROW Component="url_launcher_windows_plugin.dll" ComponentId="{6D59C937-CDD4-4914-A7C3-E0B80A6390AA}" Directory_="APPDIR" Attributes="256" KeyPath="url_launcher_windows_plugin.dll"/>
+    <ROW Component="window_manager_plugin.dll" ComponentId="{2B4755B7-E91F-48E5-B775-6F16E78D960D}" Directory_="APPDIR" Attributes="256" KeyPath="window_manager_plugin.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="share_plus_plugin.dll" Component_="share_plus_plugin.dll" FileName="SHARE_~1.DLL|share_plus_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\share_plus_plugin.dll" SelfReg="false"/>
-    <ROW File="url_launcher_windows_plugin.dll" Component_="url_launcher_windows_plugin.dll" FileName="URL_LA~1.DLL|url_launcher_windows_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\url_launcher_windows_plugin.dll" SelfReg="false"/>
-    <ROW File="window_manager_plugin.dll" Component_="window_manager_plugin.dll" FileName="WINDOW~1.DLL|window_manager_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\window_manager_plugin.dll" SelfReg="false"/>
     <ROW File="app.so" Component_="app.so" FileName="app.so" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\data\app.so" SelfReg="false"/>
     <ROW File="AssetManifest.bin" Component_="AssetManifest.bin" FileName="ASSETM~1.BIN|AssetManifest.bin" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\data\flutter_assets\AssetManifest.bin" SelfReg="false"/>
     <ROW File="AssetManifest.json" Component_="AssetManifest.bin" FileName="ASSETM~1.JSO|AssetManifest.json" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\data\flutter_assets\AssetManifest.json" SelfReg="false"/>
@@ -256,6 +253,9 @@
     <ROW File="laqahy.exp" Component_="bitsdojo_window_windows_plugin.lib" FileName="laqahy.exp" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\laqahy.exp" SelfReg="false"/>
     <ROW File="laqahy.lib" Component_="bitsdojo_window_windows_plugin.lib" FileName="laqahy.lib" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\laqahy.lib" SelfReg="false"/>
     <ROW File="screen_retriever_plugin.dll" Component_="screen_retriever_plugin.dll" FileName="SCREEN~1.DLL|screen_retriever_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\screen_retriever_plugin.dll" SelfReg="false"/>
+    <ROW File="share_plus_plugin.dll" Component_="share_plus_plugin.dll" FileName="SHARE_~1.DLL|share_plus_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\share_plus_plugin.dll" SelfReg="false"/>
+    <ROW File="url_launcher_windows_plugin.dll" Component_="url_launcher_windows_plugin.dll" FileName="URL_LA~1.DLL|url_launcher_windows_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\url_launcher_windows_plugin.dll" SelfReg="false"/>
+    <ROW File="window_manager_plugin.dll" Component_="window_manager_plugin.dll" FileName="WINDOW~1.DLL|window_manager_plugin.dll" Attributes="0" SourcePath="..\..\Flutter_Desktop\Centers\laqahy\build\windows\x64\runner\Release\window_manager_plugin.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
     <ROW Property="AI_SHORTCUTSREG" Registry="AI_SHORTCUTSREG" HklmSearch="AI_SHORTCUTSREG" HkcuSearch="AI_SHORTCUTSREG_1"/>
@@ -403,13 +403,14 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
     <ROW Feature_="MainFeature" Component_="ProductInformation"/>
-    <ROW Feature_="MainFeature" Component_="share_plus_plugin.dll"/>
-    <ROW Feature_="MainFeature" Component_="url_launcher_windows_plugin.dll"/>
-    <ROW Feature_="MainFeature" Component_="window_manager_plugin.dll"/>
     <ROW Feature_="MainFeature" Component_="app.so"/>
     <ROW Feature_="MainFeature" Component_="AssetManifest.bin"/>
     <ROW Feature_="MainFeature" Component_="TajawalMedium.ttf"/>
     <ROW Feature_="MainFeature" Component_="addvaccinesicon.png"/>
+    <ROW Feature_="MainFeature" Component_="AI_CustomARPName"/>
+    <ROW Feature_="MainFeature" Component_="AI_SHORTCUTSREG"/>
+    <ROW Feature_="MainFeature" Component_="AI_INSTALLPERUSER"/>
+    <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
     <ROW Feature_="MainFeature" Component_="error.json"/>
     <ROW Feature_="MainFeature" Component_="error.mp3"/>
     <ROW Feature_="MainFeature" Component_="MaterialIconsRegular.otf"/>
@@ -417,10 +418,6 @@
     <ROW Feature_="MainFeature" Component_="fabrands400.ttf"/>
     <ROW Feature_="MainFeature" Component_="close.png"/>
     <ROW Feature_="MainFeature" Component_="close.png_1"/>
-    <ROW Feature_="MainFeature" Component_="AI_CustomARPName"/>
-    <ROW Feature_="MainFeature" Component_="AI_SHORTCUTSREG"/>
-    <ROW Feature_="MainFeature" Component_="AI_INSTALLPERUSER"/>
-    <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
     <ROW Feature_="MainFeature" Component_="close.png_2"/>
     <ROW Feature_="MainFeature" Component_="ic_chrome_close.png"/>
     <ROW Feature_="MainFeature" Component_="ink_sparkle.frag"/>
@@ -431,6 +428,9 @@
     <ROW Feature_="MainFeature" Component_="flutter_windows.dll"/>
     <ROW Feature_="MainFeature" Component_="laqahy.exe"/>
     <ROW Feature_="MainFeature" Component_="screen_retriever_plugin.dll"/>
+    <ROW Feature_="MainFeature" Component_="share_plus_plugin.dll"/>
+    <ROW Feature_="MainFeature" Component_="url_launcher_windows_plugin.dll"/>
+    <ROW Feature_="MainFeature" Component_="window_manager_plugin.dll"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">

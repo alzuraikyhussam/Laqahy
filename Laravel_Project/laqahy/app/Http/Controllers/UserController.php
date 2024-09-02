@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Offices_users;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -53,8 +53,6 @@ class UserController extends Controller
                     $query->where('user_account_name', $request->user_account_name)
                         ->orWhere('user_name', $request->user_name);
                 })->exists();
-
-
 
             if ($userExists) {
                 return response()->json([
@@ -143,7 +141,8 @@ class UserController extends Controller
                 ], 404);
             }
 
-            $user->delete();
+            // $user->delete();
+            $user->update(['deleted_at' => Carbon::now()]);
 
             return response()->json([
                 'message' => 'User deleted successfully',

@@ -303,7 +303,7 @@ class ApiExceptionWidgets {
     );
   }
 
-  myOrderWithQuantityAlert(
+  myAddedDosageWithQuantityAlert(
       {required String title, required String description, var quantity}) {
     Constants().playSuccessSound();
     myShowDialog(

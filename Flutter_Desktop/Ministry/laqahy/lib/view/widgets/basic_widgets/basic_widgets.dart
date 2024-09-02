@@ -1025,7 +1025,9 @@ myDropDownMenuButton({
           ),
         ),
         searchMatchFn: (item, searchValue) {
-          return item.value.toString().contains(searchValue);
+          // return item.value.toString().contains(searchValue);
+          var itemText = (item.child as Text).data?.toLowerCase() ?? '';
+          return itemText.contains(searchValue.toLowerCase());
         },
       ),
       //This to clear the search value when you close the menu

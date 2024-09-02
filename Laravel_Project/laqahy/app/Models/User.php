@@ -26,6 +26,7 @@ class User extends Authenticatable
         'gender_id',
         'permission_type_id',
         'healthy_center_id',
+        'deleted_at',
     ];
 
     // protected $hidden = ['user_account_password'];

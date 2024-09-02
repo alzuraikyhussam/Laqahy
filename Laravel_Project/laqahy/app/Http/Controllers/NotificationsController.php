@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Notifications;
 use Exception;
-use Illuminate\Http\Request;
 
 class NotificationsController extends Controller
 {
     public function show($mother_id)
     {
         try {
-            $notification = Notifications::where('mother_data_id', $mother_id)->get();
+            $notification = Notifications::where('mother_data_id', $mother_id)->orderBy('created_at', 'desc')->get();
 
             return response()->json([
                 'message' => 'Notifications retrieved successfully',

@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Child_data;
 use App\Models\Dosage_level;
-use App\Models\Dosage_type;
-use App\Models\Mother_data;
 use App\Models\Mother_statement;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -46,14 +42,24 @@ class MotherStatementController extends Controller
                     'return_date' => 'required',
                     'dosage_type_id' => 'required',
                     'dosage_level_id' => 'required',
-
                 ],
             );
-            if ($validator->fails()) {
-                return response()->json([
-                    'message' => $validator->errors(),
-                ], 400);
-            }
+
+            // if ($validator->fails()) {
+            //     return response()->json([
+            //         'message' => $validator->errors(),
+            //     ], 400);
+            // }
+
+            // $vaccineQty = Healthy_centers_stock_vaccine::where([['healthy_center_id', $request->healthy_center_id], ['vaccine_type_id', $request->vaccine_type_id]])->first();
+            // $qty = 1;
+
+            // if ($qty > $vaccineQty->quantity) {
+            //     return response()->json([
+            //         'message' => 'Vaccine quantity not enough',
+            //         'quantity' => $vaccineQty->quantity,
+            //     ], 405);
+            // }
 
             $motherStatementExists = Mother_statement::where('dosage_type_id', $request->dosage_type_id)->where('mother_data_id', $request->mother_data_id)->exists();
 
@@ -74,9 +80,14 @@ class MotherStatementController extends Controller
                 'dosage_level_id' => $request->dosage_level_id,
             ]);
 
+            // $oldQty = $vaccineQty->quantity;
+            // $newQty = $oldQty - $qty;
+            // $vaccineQty->update(['quantity' => $newQty]);
+
             // Return created record
             return response()->json([
                 'message' => 'Mother statement created successfully',
+                // 'quantity' => $vaccineQty->quantity,
             ], 201);
         } catch (Exception $e) {
             return response()->json([
@@ -135,8 +146,6 @@ class MotherStatementController extends Controller
                 ], 404);
             }
 
-
-
             $motherDeleteStatement->delete();
 
             return response()->json([
@@ -162,7 +171,7 @@ class MotherStatementController extends Controller
                     'dosage_count' => $dosageCount,
                     'basic_dosage_taken_count' => $basicDosageTakenCount,
                     'refresher_dosage_taken_count' => $refresherDosageTakenCount,
-                ]
+                ],
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -171,7 +180,7 @@ class MotherStatementController extends Controller
         }
     }
 
-    public function printMotherStatementData(string $motherId,string $dosageLevel,string $dosageType)
+    public function printMotherStatementData(string $motherId, string $dosageLevel, string $dosageType)
     {
         try {
             $motherStatement = Mother_statement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_statements.healthy_center_id', '=', 'healthy_centers.id')->join('dosage_types', 'mother_statements.dosage_type_id', '=', 'dosage_types.id')->join('dosage_levels', 'mother_statements.dosage_level_id', '=', 'dosage_levels.id')->join('users', 'mother_statements.user_id', '=', 'users.id')->select('mother_statements.*', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'dosage_types.dosage_type', 'dosage_levels.dosage_level', 'users.user_name')->where('mother_statements.dosage_level_id', $dosageLevel)->where('mother_statements.dosage_type_id', $dosageType)->where('mother_statements.mother_data_id', $motherId)->get();

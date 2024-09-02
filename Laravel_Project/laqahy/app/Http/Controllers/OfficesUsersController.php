@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offices_users;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -38,7 +39,6 @@ class OfficesUsersController extends Controller
                     $query->where('user_account_name', $request->user_account_name)
                         ->orWhere('user_name', $request->user_name);
                 })->exists();
-
 
             if ($userExists) {
                 return response()->json([
@@ -84,7 +84,6 @@ class OfficesUsersController extends Controller
             ], 500);
         }
     }
-
 
     public function updateUser(Request $request, string $id)
     {
@@ -132,7 +131,7 @@ class OfficesUsersController extends Controller
         }
     }
 
-    public function destroyUser(string $id)
+    public function destroyUser($id)
     {
         try {
             $user = Offices_users::find($id);
@@ -142,7 +141,8 @@ class OfficesUsersController extends Controller
                 ], 404);
             }
 
-            $user->delete();
+            // $user->delete();
+            $user->update(['deleted_at' => Carbon::now()]);
 
             return response()->json([
                 'message' => 'User deleted successfully',
@@ -302,7 +302,8 @@ class OfficesUsersController extends Controller
                 ], 404);
             }
 
-            $user->delete();
+            // $user->delete();
+            $user->update(['deleted_at' => Carbon::now()]);
 
             return response()->json([
                 'message' => 'User deleted successfully',
