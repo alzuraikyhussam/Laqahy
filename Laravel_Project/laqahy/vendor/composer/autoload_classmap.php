@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\DeleteOldSanctumTokens' => $baseDir . '/app/Console/Commands/DeleteOldSanctumTokens.php',
     'App\\Console\\Commands\\SendReminder' => $baseDir . '/app/Console/Commands/SendReminder.php',
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
     'App\\Http\\Controllers\\AwarenessInfoController' => $baseDir . '/app/Http/Controllers/AwarenessInfoController.php',
@@ -954,14 +955,6 @@ return array(
     'Fidry\\CpuCoreCounter\\NumberOfCpuCoreNotFound' => $vendorDir . '/fidry/cpu-core-counter/src/NumberOfCpuCoreNotFound.php',
     'Fig\\Http\\Message\\RequestMethodInterface' => $vendorDir . '/fig/http-message-util/src/RequestMethodInterface.php',
     'Fig\\Http\\Message\\StatusCodeInterface' => $vendorDir . '/fig/http-message-util/src/StatusCodeInterface.php',
-    'Firebase\\JWT\\BeforeValidException' => $vendorDir . '/firebase/php-jwt/src/BeforeValidException.php',
-    'Firebase\\JWT\\CachedKeySet' => $vendorDir . '/firebase/php-jwt/src/CachedKeySet.php',
-    'Firebase\\JWT\\ExpiredException' => $vendorDir . '/firebase/php-jwt/src/ExpiredException.php',
-    'Firebase\\JWT\\JWK' => $vendorDir . '/firebase/php-jwt/src/JWK.php',
-    'Firebase\\JWT\\JWT' => $vendorDir . '/firebase/php-jwt/src/JWT.php',
-    'Firebase\\JWT\\JWTExceptionWithPayloadInterface' => $vendorDir . '/firebase/php-jwt/src/JWTExceptionWithPayloadInterface.php',
-    'Firebase\\JWT\\Key' => $vendorDir . '/firebase/php-jwt/src/Key.php',
-    'Firebase\\JWT\\SignatureInvalidException' => $vendorDir . '/firebase/php-jwt/src/SignatureInvalidException.php',
     'Fruitcake\\Cors\\CorsService' => $vendorDir . '/fruitcake/php-cors/src/CorsService.php',
     'Fruitcake\\Cors\\Exceptions\\InvalidOptionException' => $vendorDir . '/fruitcake/php-cors/src/Exceptions/InvalidOptionException.php',
     'GPBMetadata\\ApiCore\\Testing\\Mocks' => $vendorDir . '/google/gax/metadata/ApiCore/Testing/Mocks.php',
