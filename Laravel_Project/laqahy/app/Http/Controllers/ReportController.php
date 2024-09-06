@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Child_data;
+use App\Models\ChildData;
+use App\Models\HealthyCenterOrder;
 use App\Models\Healthy_center;
 use App\Models\Healthy_centers_stock_vaccine;
-use App\Models\HealthyCenterOrder;
 use App\Models\Ministry_statement_stock_vaccine;
 use App\Models\Ministry_stock_vaccine;
-use App\Models\Mother_data;
+use App\Models\MotherData;
 use App\Models\Office;
-use App\Models\Office_stock_vaccine;
 use App\Models\OfficeOrder;
+use App\Models\Office_stock_vaccine;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
@@ -25,9 +24,9 @@ class ReportController extends Controller
         try {
 
             if ($id == 0) {
-                $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.cities_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->orderBy('healthy_centers.id', 'asc')->get();
+                $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.city_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->orderBy('healthy_centers.id', 'asc')->get();
             } else {
-                $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.cities_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->where('healthy_centers.office_id', $id)->orderBy('healthy_centers.id', 'asc')->get();
+                $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.city_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->where('healthy_centers.office_id', $id)->orderBy('healthy_centers.id', 'asc')->get();
             }
 
             return response()->json([
@@ -51,9 +50,9 @@ class ReportController extends Controller
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
             if ($request->status_type == 1) {
-                $data = Mother_data::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
+                $data = MotherData::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.city_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
             } else if ($request->status_type == 2) {
-                $data = Child_data::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
+                $data = ChildData::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
             } else {
                 return response()->json([
                     'message' => 'Data not found',
@@ -79,9 +78,9 @@ class ReportController extends Controller
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
             if ($request->status_type == 1) {
-                $data = Mother_data::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
+                $data = MotherData::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.city_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
             } else if ($request->status_type == 2) {
-                $data = Child_data::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
+                $data = ChildData::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
             } else {
                 return response()->json([
                     'message' => 'Data not found',
@@ -107,9 +106,9 @@ class ReportController extends Controller
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
             if ($request->status_type == 1) {
-                $data = Mother_data::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->where('offices.id', $request->office_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
+                $data = MotherData::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.city_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->where('offices.id', $request->office_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
             } else if ($request->status_type == 2) {
-                $data = Child_data::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->where('offices.id', $request->office_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
+                $data = ChildData::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->where('offices.id', $request->office_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
             } else {
                 return response()->json([
                     'message' => 'Data not found',
@@ -402,7 +401,7 @@ class ReportController extends Controller
     public function officeGenerateCentersReport($office_id)
     {
         try {
-            $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.cities_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->where('healthy_centers.office_id', $office_id)->orderBy('healthy_centers.id', 'asc')->get();
+            $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.city_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->where('healthy_centers.office_id', $office_id)->orderBy('healthy_centers.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Centers retrieved successfully',
@@ -443,9 +442,9 @@ class ReportController extends Controller
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
             if ($request->status_type == 1) {
-                $data = Mother_data::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
+                $data = MotherData::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.city_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
             } else if ($request->status_type == 2) {
-                $data = Child_data::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
+                $data = ChildData::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
             } else {
                 return response()->json([
                     'message' => 'Data not found',
@@ -471,9 +470,9 @@ class ReportController extends Controller
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
             if ($request->status_type == 1) {
-                $data = Mother_data::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->where('offices.id', $request->office_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
+                $data = MotherData::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.city_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->where('offices.id', $request->office_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
             } else if ($request->status_type == 2) {
-                $data = Child_data::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->where('offices.id', $request->office_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
+                $data = ChildData::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'offices.office_name')->where('offices.id', $request->office_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
             } else {
                 return response()->json([
                     'message' => 'Data not found',
@@ -518,7 +517,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders =  HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers.office_id', $request->office_id)->where('healthy_centers_orders.order_state_id', $request->order_state)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+            $orders = HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers.office_id', $request->office_id)->where('healthy_centers_orders.order_state_id', $request->order_state)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -613,7 +612,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders =  HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers_orders.healthy_center_id', $request->center_id)->where('healthy_centers_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+            $orders = HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers_orders.healthy_center_id', $request->center_id)->where('healthy_centers_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -711,7 +710,7 @@ class ReportController extends Controller
             $firstDate = Carbon::parse($request->first_date)->startOfDay();
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
-            $orders =  HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers_orders.healthy_center_id', $request->center_id)->where('healthy_centers_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
+            $orders = HealthyCenterOrder::join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->select('healthy_centers_orders.*', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name', 'order_states.order_state')->where('healthy_centers_orders.healthy_center_id', $request->center_id)->where('healthy_centers_orders.vaccine_type_id', $request->vaccine_type)->whereBetween('healthy_centers_orders.order_date', [$firstDate, $lastDate])->orderBy('healthy_centers_orders.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Orders retrieved successfully',
@@ -753,9 +752,9 @@ class ReportController extends Controller
             $lastDate = Carbon::parse($request->last_date)->endOfDay();
 
             if ($request->status_type == 1) {
-                $data = Mother_data::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
+                $data = MotherData::join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('cities', 'mother_data.city_id', '=', 'cities.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('mother_data.created_at', [$firstDate, $lastDate])->withCount('child_data as children_count')->orderBy('mother_data.id', 'asc')->get();
             } else if ($request->status_type == 2) {
-                $data = Child_data::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
+                $data = ChildData::join('genders', 'child_data.gender_id', '=', 'genders.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('child_data.*', 'genders.genders_type', 'mother_data.mother_name', 'healthy_centers.healthy_center_name')->where('mother_data.healthy_center_id', $request->center_id)->whereBetween('child_data.created_at', [$firstDate, $lastDate])->orderBy('child_data.id', 'asc')->get();
             } else {
                 return response()->json([
                     'message' => 'Data not found',

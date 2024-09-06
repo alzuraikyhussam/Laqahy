@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cities;
+use App\Models\City;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -14,9 +14,9 @@ class CityController extends Controller
     public function index()
     {
         try {
-            $city = Cities::get();
+            $city = City::get();
             return response()->json([
-                'message' => 'Cities retrieved successfully',
+                'message' => 'City retrieved successfully',
                 'data' => $city,
             ]);
         } catch (Exception $e) {

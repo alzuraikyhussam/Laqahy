@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Child_dosage_type;
-use App\Models\Child_statement;
-use App\Models\Vaccines_with_dosage;
+use App\Models\ChildStatement;
+use App\Models\ChildVaccineWithChildDosage;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -37,16 +36,16 @@ class ChildDosageTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $vaccineTypeId,string $visitTypeId, string $childId)
+    public function show(string $vaccineTypeId, string $visitTypeId, string $childId)
     {
         try {
             // Check if the child exists
-            $child = Child_statement::where('child_data_id', $childId)->first();
+            $child = ChildStatement::where('child_data_id', $childId)->first();
 
             if (!$child) {
-                $vaccineWithVisit = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')
-                    ->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type')
-                    ->where('vaccines_with_dosages.vaccine_type_id', $vaccineTypeId)
+                $vaccineWithVisit = ChildVaccineWithChildDosage::join('child_dosage_types', 'child_vaccine_with_child_dosage.child_dosage_type_id', '=', 'child_dosage_types.id')
+                    ->select('child_vaccine_with_child_dosage.child_dosage_type_id', 'child_dosage_types.child_dosage_type')
+                    ->where('child_vaccine_with_child_dosage.vaccine_type_id', $vaccineTypeId)
                     ->get();
                 return response()->json([
                     'message' => 'Dosage types retrieved successfully',
@@ -55,16 +54,16 @@ class ChildDosageTypeController extends Controller
             }
 
             // Get the vaccine dosage types that the child has not taken
-            $childStatement = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')
-                ->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type')
-                ->whereNotIn('child_dosage_type_id', function ($query) use ($childId,$visitTypeId) {
+            $childStatement = ChildVaccineWithChildDosage::join('child_dosage_types', 'child_vaccine_with_child_dosage.child_dosage_type_id', '=', 'child_dosage_types.id')
+                ->select('child_vaccine_with_child_dosage.child_dosage_type_id', 'child_dosage_types.child_dosage_type')
+                ->whereNotIn('child_dosage_type_id', function ($query) use ($childId, $visitTypeId) {
                     $query->select('child_dosage_type_id')
                         ->from('child_statements')
                         ->where('child_statements.child_data_id', $childId)
-                        ->where('child_statements.visit_type_id',$visitTypeId)
+                        ->where('child_statements.visit_type_id', $visitTypeId)
                         ->whereNull('child_statements.deleted_at');
                 })
-                ->where('vaccines_with_dosages.vaccine_type_id', $vaccineTypeId)
+                ->where('child_vaccine_with_child_dosage.vaccine_type_id', $vaccineTypeId)
                 ->get();
 
             return response()->json([
@@ -77,7 +76,6 @@ class ChildDosageTypeController extends Controller
             ], 500);
         }
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -105,7 +103,7 @@ class ChildDosageTypeController extends Controller
     public function getDosagesFromVaccine(string $vaccineTypeId)
     {
         try {
-            $vaccineWithVisit = Vaccines_with_dosage::join('child_dosage_types', 'vaccines_with_dosages.child_dosage_type_id', '=', 'child_dosage_types.id')->select('vaccines_with_dosages.child_dosage_type_id', 'child_dosage_types.child_dosage_type',)->where('vaccines_with_dosages.vaccine_type_id', $vaccineTypeId)->get();
+            $vaccineWithVisit = ChildVaccineWithChildDosage::join('child_dosage_types', 'child_vaccine_with_child_dosage.child_dosage_type_id', '=', 'child_dosage_types.id')->select('child_vaccine_with_child_dosage.child_dosage_type_id', 'child_dosage_types.child_dosage_type', )->where('child_vaccine_with_child_dosage.vaccine_type_id', $vaccineTypeId)->get();
             return response()->json([
                 'message' => 'Dosage data retrieved successfully',
                 'data' => $vaccineWithVisit,

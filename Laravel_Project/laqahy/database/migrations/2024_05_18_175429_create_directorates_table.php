@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('directorates', function (Blueprint $table) {
             $table->id();
-            $table->String('directorate_name');
-            $table->foreignId('cities_id')->constrained('cities')->onUpdate('cascade');
+            $table->string('directorate_name');
+            $table->foreignId('city_id')->constrained('cities')->onUpdate('cascade');
         });
     }
 

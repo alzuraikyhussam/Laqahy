@@ -10,8 +10,8 @@ class Donor extends Model
     use HasFactory;
     protected $fillable = ['donor_name'];
 
-    public function ministryStatementStockVaccines()
+    public function office_statement_stock_vaccine()
     {
-        return $this->hasMany(Ministry_statement_stock_vaccine::class);
+        return $this->hasMany(VaccineStockStatement::class);
     }
 }

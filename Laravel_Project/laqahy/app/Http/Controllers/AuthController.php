@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Child_data;
+use App\Models\ChildData;
 use App\Models\Healthy_center;
-use App\Models\Healthy_center_account;
 use App\Models\Healthy_centers_stock_vaccine;
 use App\Models\Ministry_stock_vaccine;
-use App\Models\Mother_data;
-use App\Models\Mother_statement;
 use App\Models\Office;
-use App\Models\Office_stock_vaccine;
 use App\Models\Offices_users;
+use App\Models\Office_stock_vaccine;
 use App\Models\User;
-use App\Models\Vaccine_type;
+use App\Models\VaccineType;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -39,7 +34,7 @@ class AuthController extends Controller
                     'office_name' => 'required',
                     'office_phone' => 'required',
                     'office_address' => 'required',
-                    'cities_id' => 'required',
+                    'city_id' => 'required',
                 ],
             );
 
@@ -53,7 +48,7 @@ class AuthController extends Controller
                 'office_name' => $request->office_name,
                 'office_address' => $request->office_address,
                 'office_phone' => $request->office_phone,
-                'cities_id' => $request->cities_id,
+                'city_id' => $request->city_id,
             ]);
 
             $user = Offices_users::create([
@@ -68,7 +63,7 @@ class AuthController extends Controller
                 'office_id' => $office->id,
             ]);
 
-            $vaccines = Vaccine_type::all();
+            $vaccines = VaccineType::all();
 
             foreach ($vaccines as $vaccine) {
                 Ministry_stock_vaccine::create([
@@ -136,7 +131,7 @@ class AuthController extends Controller
 
             $admin = Offices_users::where([
                 ['permission_type_id', 1],
-                ['office_id', $user->office_id]
+                ['office_id', $user->office_id],
             ])->first();
 
             $office = Office::where('id', $user->office_id)->first();
@@ -221,7 +216,7 @@ class AuthController extends Controller
 
             $office->update(['create_account_code' => null]);
 
-            $vaccines = Vaccine_type::all();
+            $vaccines = VaccineType::all();
 
             foreach ($vaccines as $vaccine) {
                 Office_stock_vaccine::create([
@@ -312,7 +307,7 @@ class AuthController extends Controller
 
             $center->update(['create_account_code' => null]);
 
-            $vaccines = Vaccine_type::all();
+            $vaccines = VaccineType::all();
 
             foreach ($vaccines as $vaccine) {
                 Healthy_centers_stock_vaccine::create([
@@ -379,9 +374,8 @@ class AuthController extends Controller
 
             $admin = User::where([
                 ['permission_type_id', 1],
-                ['healthy_center_id', $user->healthy_center_id]
+                ['healthy_center_id', $user->healthy_center_id],
             ])->first();
-
 
             $center = Healthy_center::join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'offices.office_name')->where('healthy_centers.id', $user->healthy_center_id)->first();
 
@@ -422,7 +416,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $user = Mother_data::where('mother_identity_num', $request->mother_identity_num)->first();
+            $user = MotherData::where('mother_identity_num', $request->mother_identity_num)->first();
 
             if (!$user) {
                 return response()->json([
@@ -436,10 +430,10 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $motherData = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.id', $user->id)->first();
+            $motherData = MotherData::join('cities', 'mother_data.city_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.id', $user->id)->first();
 
-            $returnDate = Mother_statement::where('mother_data_id', $motherData->id)->max('return_date');
-            $childrenCount = Child_data::where('mother_data_id', $motherData->id)->count();
+            $returnDate = MotherStatement::where('mother_data_id', $motherData->id)->max('return_date');
+            $childrenCount = ChildData::where('mother_data_id', $motherData->id)->count();
 
             // Set token
             $user->fcm_token = $request->token;
@@ -479,7 +473,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $user = Mother_data::find($request->mother_id);
+            $user = MotherData::find($request->mother_id);
 
             if (!$user) {
                 return response()->json([
@@ -487,10 +481,10 @@ class AuthController extends Controller
                 ], 404);
             }
 
-            $motherData = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.id', $user->id)->first();
+            $motherData = MotherData::join('cities', 'mother_data.city_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name', 'healthy_centers.healthy_center_name')->where('mother_data.id', $user->id)->first();
 
-            $returnDate = Mother_statement::where('mother_data_id', $motherData->id)->max('return_date');
-            $childrenCount = Child_data::where('mother_data_id', $motherData->id)->count();
+            $returnDate = MotherStatement::where('mother_data_id', $motherData->id)->max('return_date');
+            $childrenCount = ChildData::where('mother_data_id', $motherData->id)->count();
 
             // Set token
             $user->fcm_token = $request->token;

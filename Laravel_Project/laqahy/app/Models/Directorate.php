@@ -9,20 +9,20 @@ class Directorate extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable=['directorate_name','cities_id'];
+    protected $fillable = ['directorate_name', 'city_id'];
 
     public function city()
     {
-        return $this->belongsTo(Cities::class);
+        return $this->belongsTo(City::class);
     }
 
     public function mother_data()
     {
-        return $this->hasMany(Mother_data::class);
+        return $this->hasMany(MotherData::class);
     }
 
-    public function healthy_center()
+    public function directorate_office_account()
     {
-        return $this->hasMany(Healthy_center::class);
+        return $this->hasMany(DirectorateOfficeAccount::class);
     }
 }

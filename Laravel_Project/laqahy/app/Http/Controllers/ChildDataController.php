@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
-use App\Models\Child_data;
-use App\Models\Healthy_center;
-use App\Models\Mother_data;
+use App\Models\ChildData;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ChildDataController extends Controller
 {
@@ -49,7 +47,7 @@ class ChildDataController extends Controller
                 ], 400);
             }
 
-            // $childDataExists = Child_data::where('child_data_name', $request->child_data_name)->exists();
+            // $childDataExists = ChildData::where('child_data_name', $request->child_data_name)->exists();
 
             // if ($childDataExists) {
             //     return response()->json([
@@ -58,7 +56,7 @@ class ChildDataController extends Controller
             // }
 
             // Create record
-            $child = Child_data::create([
+            $child = ChildData::create([
                 'child_data_name' => $request->child_data_name,
                 'child_data_birthDate' => $request->child_data_birthDate,
                 'child_data_birthplace' => $request->child_data_birthplace,
@@ -84,12 +82,12 @@ class ChildDataController extends Controller
     {
         try {
 
-            $childData = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')
-            ->where('child_data.mother_data_id',$motherId)->get();
+            $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')
+                ->where('child_data.mother_data_id', $motherId)->get();
 
-            // $motherData = Mother_data::select('mother_data.id')->where('healthy_center_id', $healthyCenterId)->get();
+            // $motherData = MotherData::select('mother_data.id')->where('healthy_center_id', $healthyCenterId)->get();
 
-            // $childData = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')
+            // $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')
             //     ->where('mother_data.id', $motherData)->get();
 
             return response()->json([
@@ -117,7 +115,7 @@ class ChildDataController extends Controller
     public function update(Request $request, string $childId)
     {
         try {
-            $updateChild = Child_data::find($childId);
+            $updateChild = ChildData::find($childId);
 
             if (!$updateChild) {
                 return response()->json([
@@ -146,7 +144,7 @@ class ChildDataController extends Controller
     public function getChildren($mother_id)
     {
         try {
-            $childData = Child_data::where('mother_data_id', $mother_id)->get();
+            $childData = ChildData::where('mother_data_id', $mother_id)->get();
             return response()->json([
                 'message' => 'Child Data retrieved successfully',
                 'data' => $childData,
@@ -161,7 +159,7 @@ class ChildDataController extends Controller
     public function getAllChildrenStatusData()
     {
         try {
-            $childData = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')->get();
+            $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')->get();
             return response()->json([
                 'message' => 'Child Data retrieved successfully',
                 'data' => $childData,

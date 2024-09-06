@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Child_statement;
-use App\Models\Mother_statement;
-use App\Models\Notifications;
+use App\Models\ChildStatement;
+use App\Models\MotherStatement;
+use App\Models\Notification;
 use App\Services\FcmService;
 use Exception;
 use Illuminate\Console\Command;
@@ -35,19 +35,18 @@ class SendReminder extends Command
 
             $fcmService = new FcmService();
 
-            $mothers = Mother_statement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->select('mother_statements.*', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('mother_statements.return_date', today()->addDays(2)->toDateString())->whereNotNull('mother_data.fcm_token')->get();
+            $mothers = MotherStatement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->select('mother_statements.*', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('mother_statements.return_date', today()->addDays(2)->toDateString())->whereNotNull('mother_data.fcm_token')->get();
 
-            $children = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->select('child_statements.*', 'child_data.child_data_name', 'child_data.mother_data_id', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('child_statements.return_date', today()->addDays(2)->toDateString())->whereNotNull('mother_data.fcm_token')->get();
-            
-            // $mothers = Mother_statement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->select('mother_statements.*', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('mother_statements.return_date', today()->toDateString())->whereNotNull('mother_data.fcm_token')->get();
+            $children = ChildStatement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->select('child_statements.*', 'child_data.child_data_name', 'child_data.mother_data_id', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('child_statements.return_date', today()->addDays(2)->toDateString())->whereNotNull('mother_data.fcm_token')->get();
 
-            // $children = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->select('child_statements.*', 'child_data.child_data_name', 'child_data.mother_data_id', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('child_statements.return_date', today()->toDateString())->whereNotNull('mother_data.fcm_token')->get();
+            // $mothers = MotherStatement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->select('mother_statements.*', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('mother_statements.return_date', today()->toDateString())->whereNotNull('mother_data.fcm_token')->get();
+
+            // $children = ChildStatement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->select('child_statements.*', 'child_data.child_data_name', 'child_data.mother_data_id', 'mother_data.mother_name', 'mother_data.fcm_token')->whereDate('child_statements.return_date', today()->toDateString())->whereNotNull('mother_data.fcm_token')->get();
 
             foreach ($mothers as $mother) {
                 info("Cron Job mothers running at == " . now());
 
                 $mother_name = Str::of($mother->mother_name)->words(2, '');
-
 
                 $title = 'تذكير بموعد العودة';
                 $body = 'عزيزتي ' . $mother_name . ' لقد حان موعد العودة لأخذ جرعة اللقاح الخاصة بك ';
@@ -55,8 +54,7 @@ class SendReminder extends Command
                 // Send notification
                 $fcmService->sendNotification($mother->fcm_token, $title, $body);
 
-
-                Notifications::create([
+                Notification::create([
                     'mother_data_id' => $mother->id,
                     'notification_title' => $title,
                     'notification_description' => $body,
@@ -69,15 +67,13 @@ class SendReminder extends Command
                 $mother_name = Str::of($child->mother_name)->words(2, '');
                 $child_name = Str::of($child->child_data_name)->words(2, '');
 
-
                 $title = 'تذكير بموعد العودة';
                 $body = 'عزيزتي ' . $mother_name . ' لقد حان موعد العودة لتطعيم طفلك ' . $child_name;
 
                 // Send notification
                 $fcmService->sendNotification($child->fcm_token, $title, $body);
 
-
-                Notifications::create([
+                Notification::create([
                     'mother_data_id' => $child->mother_data_id,
                     'notification_title' => $title,
                     'notification_description' => $body,

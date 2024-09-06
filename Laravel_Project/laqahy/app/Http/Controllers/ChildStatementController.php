@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Child_data;
-use App\Models\Child_statement;
+use App\Models\ChildData;
+use App\Models\ChildStatement;
+use App\Models\ChildVaccineWithChildDosage;
 use App\Models\Healthy_centers_stock_vaccine;
-use App\Models\Vaccines_with_dosage;
-use App\Models\Vaccine_type;
+use App\Models\VaccineType;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,14 +20,14 @@ class ChildStatementController extends Controller
         try {
 
             // Fetch all vaccine types with their associated dosages
-            $vaccineTypes = Vaccine_type::with('child_dosage_type')->get();
+            $vaccineTypes = VaccineType::with('child_dosage_type')->get();
 
             // Initialize the vaccine dosage counts array
             $vaccineDosageCounts = [];
 
-            // Fetch total dosage counts for each vaccine type from vaccines_with_dosages table
+            // Fetch total dosage counts for each vaccine type from child_vaccine_with_child_dosage table
             foreach ($vaccineTypes as $vaccineType) {
-                $totalDosageCount = Vaccines_with_dosage::where('vaccine_type_id', $vaccineType->id)->count();
+                $totalDosageCount = ChildVaccineWithChildDosage::where('vaccine_type_id', $vaccineType->id)->count();
 
                 // Initialize the dosage count for each vaccine type
                 $vaccineDosageCounts[$vaccineType->id] =
@@ -40,7 +40,7 @@ class ChildStatementController extends Controller
             }
 
             // Fetch the child data along with child statements
-            $child = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')->with('child_statement')->find($child_id);
+            $child = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')->with('child_statement')->find($child_id);
 
             if (!$child) {
                 return response()->json([
@@ -55,7 +55,7 @@ class ChildStatementController extends Controller
                 }
             }
 
-            $returnDate = Child_statement::where('child_data_id', $child_id)->max('return_date');
+            $returnDate = ChildStatement::where('child_data_id', $child_id)->max('return_date');
 
             $now = Carbon::now();
             $birthDate = Carbon::parse($child->child_data_birthDate);
@@ -94,8 +94,8 @@ class ChildStatementController extends Controller
                 ],
             ]);
 
-            // $vaccineCount = Vaccine_type::withCount('child_dosage_type')->get();
-            // $childStatement = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->select('child_statements.*', 'child_data.child_data_name')->where('child_statements.id', $child_id)->get();
+            // $vaccineCount = VaccineType::withCount('child_dosage_type')->get();
+            // $childStatement = ChildStatement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->select('child_statements.*', 'child_data.child_data_name')->where('child_statements.id', $child_id)->get();
 
         } catch (Exception $e) {
             return response()->json([
@@ -137,7 +137,7 @@ class ChildStatementController extends Controller
                 ], 405);
             }
 
-            $childStatementExists = Child_statement::where('child_data_id', $request->child_data_id)->where('visit_type_id', $request->visit_type_id)->where('vaccine_type_id', $request->vaccine_type_id)->where('child_dosage_type_id', $request->child_dosage_type_id)->exists();
+            $childStatementExists = ChildStatement::where('child_data_id', $request->child_data_id)->where('visit_type_id', $request->visit_type_id)->where('vaccine_type_id', $request->vaccine_type_id)->where('child_dosage_type_id', $request->child_dosage_type_id)->exists();
 
             if ($childStatementExists) {
                 return response()->json([
@@ -146,7 +146,7 @@ class ChildStatementController extends Controller
             }
 
             // Create record
-            $user = Child_statement::create([
+            $user = ChildStatement::create([
                 'child_data_id' => $request->child_data_id,
                 'healthy_center_id' => $request->healthy_center_id,
                 'user_id' => $request->user_id,
@@ -176,7 +176,7 @@ class ChildStatementController extends Controller
     public function getChildStatement(string $childId)
     {
         try {
-            $childStatement = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('healthy_centers', 'child_statements.healthy_center_id', '=', 'healthy_centers.id')->join('users', 'child_statements.user_id', '=', 'users.id')->join('visit_types', 'child_statements.visit_type_id', '=', 'visit_types.id')->join('vaccine_types', 'child_statements.vaccine_type_id', '=', 'vaccine_types.id')->join('child_dosage_types', 'child_statements.child_dosage_type_id', '=', 'child_dosage_types.id')->select('child_statements.*', 'child_data.child_data_name', 'healthy_centers.healthy_center_name', 'users.user_name', 'visit_types.visit_period', 'vaccine_types.vaccine_type', 'child_dosage_types.child_dosage_type')->where('child_statements.child_data_id', $childId)->get();
+            $childStatement = ChildStatement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('healthy_centers', 'child_statements.healthy_center_id', '=', 'healthy_centers.id')->join('users', 'child_statements.user_id', '=', 'users.id')->join('visit_types', 'child_statements.visit_type_id', '=', 'visit_types.id')->join('vaccine_types', 'child_statements.vaccine_type_id', '=', 'vaccine_types.id')->join('child_dosage_types', 'child_statements.child_dosage_type_id', '=', 'child_dosage_types.id')->select('child_statements.*', 'child_data.child_data_name', 'healthy_centers.healthy_center_name', 'users.user_name', 'visit_types.visit_period', 'vaccine_types.vaccine_type', 'child_dosage_types.child_dosage_type')->where('child_statements.child_data_id', $childId)->get();
             return response()->json([
                 'message' => 'Child statement retrieved successfully',
                 'data' => $childStatement,
@@ -192,7 +192,7 @@ class ChildStatementController extends Controller
     {
 
         try {
-            $childDeleteStatement = Child_statement::find($childId);
+            $childDeleteStatement = ChildStatement::find($childId);
             if (!$childDeleteStatement) {
                 return response()->json([
                     'message' => 'Child Data not found',
@@ -214,7 +214,7 @@ class ChildStatementController extends Controller
     public function printChildStatementData(string $childDataId, string $visitTypeId, string $vaccineTypeId, string $childDosageType, )
     {
         try {
-            $childStatement = Child_statement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('healthy_centers', 'child_statements.healthy_center_id', '=', 'healthy_centers.id')->join('users', 'child_statements.user_id', '=', 'users.id')->join('visit_types', 'child_statements.visit_type_id', '=', 'visit_types.id')->join('vaccine_types', 'child_statements.vaccine_type_id', '=', 'vaccine_types.id')->join('child_dosage_types', 'child_statements.child_dosage_type_id', '=', 'child_dosage_types.id')->select('child_statements.*', 'child_data.child_data_name', 'healthy_centers.healthy_center_name', 'users.user_name', 'visit_types.visit_period', 'vaccine_types.vaccine_type', 'child_dosage_types.child_dosage_type')->where('child_statements.child_data_id', $childDataId)->where('child_statements.visit_type_id', $visitTypeId)->where('child_statements.vaccine_type_id', $vaccineTypeId)->where('child_statements.child_dosage_type_id', $childDosageType)->get();
+            $childStatement = ChildStatement::join('child_data', 'child_statements.child_data_id', '=', 'child_data.id')->join('healthy_centers', 'child_statements.healthy_center_id', '=', 'healthy_centers.id')->join('users', 'child_statements.user_id', '=', 'users.id')->join('visit_types', 'child_statements.visit_type_id', '=', 'visit_types.id')->join('vaccine_types', 'child_statements.vaccine_type_id', '=', 'vaccine_types.id')->join('child_dosage_types', 'child_statements.child_dosage_type_id', '=', 'child_dosage_types.id')->select('child_statements.*', 'child_data.child_data_name', 'healthy_centers.healthy_center_name', 'users.user_name', 'visit_types.visit_period', 'vaccine_types.vaccine_type', 'child_dosage_types.child_dosage_type')->where('child_statements.child_data_id', $childDataId)->where('child_statements.visit_type_id', $visitTypeId)->where('child_statements.vaccine_type_id', $vaccineTypeId)->where('child_statements.child_dosage_type_id', $childDosageType)->get();
             return response()->json([
                 'message' => 'Child statement retrieved successfully',
                 'data' => $childStatement,

@@ -16,13 +16,8 @@ class Gender extends Model
         return $this->hasMany(User::class);
     }
 
-    public function officeUser()
-    {
-        return $this->hasMany(Offices_users::class);
-    }
-
     public function child_data()
     {
-        return $this->hasMany(Child_data::class);
+        return $this->hasMany(ChildData::class);
     }
 }

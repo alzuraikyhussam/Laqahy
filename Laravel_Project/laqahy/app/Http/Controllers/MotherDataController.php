@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mother_data;
-use App\Models\Mother_statement;
-use Exception;
-use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MotherDataController extends Controller
 {
@@ -18,7 +16,7 @@ class MotherDataController extends Controller
     public function index(string $healthyCenterId)
     {
         try {
-            $mother = Mother_data::get();
+            $mother = MotherData::get();
             return response()->json([
                 'message' => 'Mothers retrieved successfully',
                 'data' => $mother,
@@ -33,7 +31,7 @@ class MotherDataController extends Controller
     public function getAllMotherStatusData()
     {
         try {
-            $mother = Mother_data::get();
+            $mother = MotherData::get();
             return response()->json([
                 'message' => 'Mothers retrieved successfully',
                 'data' => $mother,
@@ -69,7 +67,7 @@ class MotherDataController extends Controller
                     'mother_password' => 'required',
                     'mother_birthDate' => 'required',
                     'mother_village' => 'required',
-                    'cities_id' => 'required',
+                    'city_id' => 'required',
                     'directorate_id' => 'required',
                     'healthy_center_id' => 'required',
                 ],
@@ -80,7 +78,7 @@ class MotherDataController extends Controller
                 ], 400);
             }
 
-            $motherDataExists = Mother_data::where('mother_identity_num', $request->mother_identity_num)->exists();
+            $motherDataExists = MotherData::where('mother_identity_num', $request->mother_identity_num)->exists();
 
             if ($motherDataExists) {
                 return response()->json([
@@ -89,18 +87,17 @@ class MotherDataController extends Controller
             }
 
             // Create record
-            $mother = Mother_data::create([
+            $mother = MotherData::create([
                 'mother_name' => $request->mother_name,
                 'mother_phone' => $request->mother_phone,
                 'mother_identity_num' => $request->mother_identity_num,
                 'mother_password' => $request->mother_password,
                 'mother_birthDate' => $request->mother_birthDate,
                 'mother_village' => $request->mother_village,
-                'cities_id' => $request->cities_id,
+                'city_id' => $request->city_id,
                 'directorate_id' => $request->directorate_id,
                 'healthy_center_id' => $request->healthy_center_id,
             ]);
-
 
             // Return created record
             return response()->json([
@@ -138,18 +135,18 @@ class MotherDataController extends Controller
     public function update(Request $request, string $motherId)
     {
         try {
-            $updateMother = Mother_data::find($motherId);
+            $updateMother = MotherData::find($motherId);
 
             if (!$updateMother) {
                 return response()->json([
                     'message' => 'Mother not found',
                 ], 404);
             }
-            
-            $motherDataExists = Mother_data::where('mother_identity_num', $request->mother_identity_num)->exists();
+
+            $motherDataExists = MotherData::where('mother_identity_num', $request->mother_identity_num)->exists();
 
             if ($request->mother_identity_num !== $updateMother->mother_identity_num) {
-                $userExists = Mother_data::where('mother_identity_num', $request->mother_identity_num)
+                $userExists = MotherData::where('mother_identity_num', $request->mother_identity_num)
                     ->exists();
                 if ($userExists) {
                     return response()->json([
@@ -157,7 +154,7 @@ class MotherDataController extends Controller
                     ], 401);
                 }
             }
-            
+
             $updateMother->update($request->all());
             return response()->json([
                 'message' => 'Mother updated successfully',
@@ -183,8 +180,8 @@ class MotherDataController extends Controller
     {
         try {
 
-            $minDate = Carbon::parse(Mother_data::min('created_at'))->toDateString();
-            $maxDate = Carbon::parse(Mother_data::max('created_at'))->toDateString();
+            $minDate = Carbon::parse(MotherData::min('created_at'))->toDateString();
+            $maxDate = Carbon::parse(MotherData::max('created_at'))->toDateString();
 
             return response()->json([
                 'message' => 'Date range retrieved successfully',
@@ -204,9 +201,9 @@ class MotherDataController extends Controller
     {
         try {
 
-            $motherMinDate = Mother_data::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->min('mother_data.created_at');
+            $motherMinDate = MotherData::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->min('mother_data.created_at');
 
-            $motherMaxDate = Mother_data::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->max('mother_data.created_at');
+            $motherMaxDate = MotherData::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->max('mother_data.created_at');
 
             $minDate = Carbon::parse($motherMinDate)->toDateString();
             $maxDate = Carbon::parse($motherMaxDate)->toDateString();
@@ -229,9 +226,9 @@ class MotherDataController extends Controller
     {
         try {
 
-            $motherMinDate = Mother_data::where('mother_data.healthy_center_id', $center_id)->min('created_at');
+            $motherMinDate = MotherData::where('mother_data.healthy_center_id', $center_id)->min('created_at');
 
-            $motherMaxDate = Mother_data::where('mother_data.healthy_center_id', $center_id)->max('created_at');
+            $motherMaxDate = MotherData::where('mother_data.healthy_center_id', $center_id)->max('created_at');
 
             $minDate = Carbon::parse($motherMinDate)->toDateString();
             $maxDate = Carbon::parse($motherMaxDate)->toDateString();
@@ -251,7 +248,7 @@ class MotherDataController extends Controller
     public function showAllMothersStatusData(string $centerId)
     {
         try {
-            $mother = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->get();
+            $mother = MotherData::join('cities', 'mother_data.city_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->get();
             return response()->json([
                 'message' => 'Mothers retrieved successfully',
                 'data' => $mother,
@@ -265,7 +262,7 @@ class MotherDataController extends Controller
     public function printMotherStatusData(string $identityNumber)
     {
         try {
-            $return_mother = Mother_data::join('cities', 'mother_data.cities_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->where('mother_data.mother_identity_num',  $identityNumber)->get();
+            $return_mother = MotherData::join('cities', 'mother_data.city_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->where('mother_data.mother_identity_num', $identityNumber)->get();
             return response()->json([
                 'message' => 'Mothers retrieved successfully',
                 'data' => $return_mother,

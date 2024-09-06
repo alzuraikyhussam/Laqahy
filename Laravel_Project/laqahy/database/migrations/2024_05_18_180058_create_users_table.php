@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->String('user_name');
-            $table->String('user_phone');
+            $table->string('user_name');
+            $table->string('user_phone');
             $table->text('user_address');
             $table->date('user_birthDate');
-            $table->String('user_account_name');
-            $table->String('user_account_password');
+            $table->string('user_account_name');
+            $table->string('user_account_password');
             $table->foreignId('gender_id')->constrained('genders')->onUpdate('cascade');
             $table->foreignId('permission_type_id')->constrained('permission_types')->onUpdate('cascade');
-            $table->foreignId('healthy_center_id')->constrained('healthy_centers')->onUpdate('cascade');
+            $table->foreignId('office_type_id')->constrained('office_types')->onUpdate('cascade');
+            $table->morphs('office_name');
             $table->timestamps();
             $table->softDeletes();
         });

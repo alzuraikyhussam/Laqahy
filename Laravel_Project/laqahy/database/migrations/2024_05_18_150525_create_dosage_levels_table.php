@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('dosage_levels', function (Blueprint $table) {
             $table->id();
-            $table->String('dosage_level');
+            $table->string('dosage_level');
+            $table->foreignId('mother_vaccine_id')->constrained('mother_vaccines')->onUpdate('cascade');
         });
     }
 

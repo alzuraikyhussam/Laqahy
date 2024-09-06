@@ -18,13 +18,12 @@ use App\Http\Controllers\HealthyCenterStockVaccineController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
-use App\Http\Controllers\MotherStatement;
 use App\Http\Controllers\MotherStatementController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\OfficeController;
-use App\Http\Controllers\OfficesUsersController;
 use App\Http\Controllers\OfficeOrderController;
 use App\Http\Controllers\OfficeStockVaccineController;
+use App\Http\Controllers\OfficesUsersController;
 use App\Http\Controllers\OrderStateController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
@@ -34,10 +33,6 @@ use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VaccineTypesController;
 use App\Http\Controllers\VisitTypeController;
-use App\Models\Dosage_level;
-use App\Models\Mother_data;
-
-use App\Models\Ministry_statement_stock_vaccine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,7 +45,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
-*/
+ */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -99,11 +94,10 @@ Route::get('cities', [CityController::class, 'index']);
 Route::get('directorates/{id}', [DirectorateController::class, 'show']);
 // ------------------------------------------------------------
 
-
 Route::middleware('auth:sanctum')->group(function () {
 
     /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
+
     // --------------------- General Routes ------------------------
     Route::get('ministry/general/home-total-count/{office_id}', [GeneralController::class, 'getTotalCount']);
     // ------------------------------------------------------------

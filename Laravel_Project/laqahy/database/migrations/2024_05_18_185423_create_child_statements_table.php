@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('child_statements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('child_data_id')->constrained('child_data')->onUpdate('cascade');
-            $table->foreignId('healthy_center_id')->constrained('healthy_centers')->onUpdate('cascade');
+            $table->foreignId('healthy_center_account_id')->constrained('healthy_center_accounts')->onUpdate('cascade');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade');
             $table->dateTime('date_taking_dose')->useCurrent();
             $table->date('return_date');
             $table->foreignId('visit_type_id')->constrained('visit_types')->onUpdate('cascade');
-            $table->foreignId('vaccine_type_id')->constrained('vaccine_types')->onUpdate('cascade');
+            $table->foreignId('child_vaccine_id')->constrained('child_vaccines')->onUpdate('cascade');
             $table->foreignId('child_dosage_type_id')->constrained('child_dosage_types')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();

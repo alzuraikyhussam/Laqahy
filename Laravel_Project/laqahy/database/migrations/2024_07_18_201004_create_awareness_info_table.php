@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('awareness_info', function (Blueprint $table) {
             $table->id();
             $table->string('awareness_title');
-            $table->text('awareness_description');
+            $table->longText('awareness_description');
+            $table->dateTime('awareness_date')->useCurrent();
             $table->softDeletes();
         });
     }

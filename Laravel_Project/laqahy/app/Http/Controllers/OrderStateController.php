@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order_state;
+use App\Models\OrderState;
 use Exception;
-use Illuminate\Http\Request;
 
 class OrderStateController extends Controller
 {
     public function index()
     {
         try {
-            $state = Order_state::get();
+            $state = OrderState::get();
             return response()->json([
                 'message' => 'Order States retrieved successfully',
                 'data' => $state,

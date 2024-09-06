@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission_type;
+use App\Models\PermissionType;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class PermissionTypeController extends Controller
     public function index()
     {
         try {
-            $permission = Permission_type::get();
+            $permission = PermissionType::get();
             return response()->json([
                 'message' => 'Permissions retrieved successfully',
                 'data' => $permission,

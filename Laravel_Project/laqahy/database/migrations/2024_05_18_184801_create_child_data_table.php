@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('child_data', function (Blueprint $table) {
             $table->id();
-            $table->String('child_data_name');
+            $table->string('child_data_name');
             $table->foreignId('mother_data_id')->constrained('mother_data')->onUpdate('cascade');
-            $table->String('child_data_birthplace');
+            $table->string('child_data_birthplace');
             $table->date('child_data_birthDate');
             $table->foreignId('gender_id')->constrained('genders')->onUpdate('cascade');
             // $table->text('fcm_token')->nullable();

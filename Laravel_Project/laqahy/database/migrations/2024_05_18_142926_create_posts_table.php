@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->String('post_title');
+            $table->string('post_title');
             $table->longText('post_description');
-            $table->String('post_image');
-            $table->timestamp('post_publish_date');
+            $table->string('post_image');
+            $table->foreignId('city_office_account_id')->constrained('city_office_accounts')->onUpdate('cascade');
+            $table->dateTime('post_publish_date')->useCurrent();
             $table->softDeletes();
         });
     }

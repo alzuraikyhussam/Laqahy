@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mother_data;
 use App\Models\Post;
-use App\Notifications\NewPostNotification;
 use App\Services\FcmService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -150,7 +147,6 @@ class PostController extends Controller
                 $post->save();
             }
 
-
             // إعادة الاستجابة بالبيانات المحدثة
             return response()->json([
                 'message' => 'Post updated successfully',
@@ -178,7 +174,7 @@ class PostController extends Controller
         try {
             $post = Post::find($id);
             if (!$post) {
-                return response()->json(['message' => 'Post not found',], 404);
+                return response()->json(['message' => 'Post not found'], 404);
             }
 
             // if ($post->post_image) {
@@ -186,10 +182,9 @@ class PostController extends Controller
             //     Storage::delete('public/images/' . $post->post_image);
             // }
 
-
             $post->delete();
 
-            return response()->json(['message' => 'Post deleted successfully',], 200);
+            return response()->json(['message' => 'Post deleted successfully'], 200);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -229,10 +224,8 @@ class PostController extends Controller
 
             if ($post && $post->trashed()) {
 
-
                 // Delete image
                 Storage::delete('public/images/' . $post->post_image);
-
 
                 // Force delete the post
                 $post->forceDelete();
@@ -255,7 +248,7 @@ class PostController extends Controller
 
             if (!$trashedPosts) {
                 return response()->json([
-                    'message' => 'No soft deleted posts found.'
+                    'message' => 'No soft deleted posts found.',
                 ], 404);
             }
 
@@ -274,7 +267,7 @@ class PostController extends Controller
             }
 
             return response()->json([
-                'message' => 'All soft deleted posts have been permanently deleted.'
+                'message' => 'All soft deleted posts have been permanently deleted.',
             ], 200);
         } catch (Exception $e) {
             return response()->json([

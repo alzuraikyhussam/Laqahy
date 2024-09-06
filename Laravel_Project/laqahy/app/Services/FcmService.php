@@ -86,11 +86,11 @@
 
 namespace App\Services;
 
-use App\Models\Mother_data;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
-use App\Models\User; // تأكد من استيراد موديل المستخدم هنا
+
+// تأكد من استيراد موديل المستخدم هنا
 
 class FcmService
 {
@@ -99,14 +99,14 @@ class FcmService
     public function __construct()
     {
         $factory = (new Factory)
-            ->withServiceAccount(__DIR__.'/firebase-adminsdk.json'); // تحديد مسار ملف الخدمة
+            ->withServiceAccount(__DIR__ . '/firebase-adminsdk.json'); // تحديد مسار ملف الخدمة
 
         $this->messaging = $factory->createMessaging();
     }
 
     public function sendNotificationToAllUsers($title, $body)
     {
-        $users = Mother_data::whereNotNull('fcm_token')->get(); // استرجاع جميع المستخدمين الذين لديهم توكن FCM
+        $users = MotherData::whereNotNull('fcm_token')->get(); // استرجاع جميع المستخدمين الذين لديهم توكن FCM
 
         foreach ($users as $user) {
             $this->sendNotification($user->fcm_token, $title, $body);
@@ -121,4 +121,3 @@ class FcmService
         $this->messaging->send($message);
     }
 }
-

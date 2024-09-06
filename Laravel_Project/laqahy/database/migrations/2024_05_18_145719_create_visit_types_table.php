@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('visit_types', function (Blueprint $table) {
             $table->id();
-            $table->String('visit_period');
+            $table->string('visit_period');
         });
     }
 

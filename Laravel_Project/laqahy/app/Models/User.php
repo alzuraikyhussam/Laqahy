@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -25,7 +23,8 @@ class User extends Authenticatable
         'user_account_password',
         'gender_id',
         'permission_type_id',
-        'healthy_center_id',
+        'office_type_id',
+        'office_name',
         'deleted_at',
     ];
 
@@ -33,29 +32,33 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    public function office_name()
+    {
+        return $this->morphTo();
+    }
 
     public function gender()
     {
         return $this->belongsTo(Gender::class);
     }
 
-    public function motherStatement()
+    public function mother_statement()
     {
-        return $this->hasMany(Mother_statement::class);
+        return $this->hasMany(MotherStatement::class);
     }
 
-    public function childStatement()
+    public function child_statement()
     {
-        return $this->hasMany(Child_statement::class);
+        return $this->hasMany(ChildStatement::class);
     }
 
     public function permission_type()
     {
-        return $this->belongsTo(Permission_type::class);
+        return $this->belongsTo(PermissionType::class);
     }
 
-    public function healthy_center()
+    public function office_type()
     {
-        return $this->belongsTo(Healthy_center::class);
+        return $this->belongsTo(OfficeType::class);
     }
 }

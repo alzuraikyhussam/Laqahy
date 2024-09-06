@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dosage_level;
+use App\Models\DosageLevel;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -14,10 +14,10 @@ class DosageLevelsController extends Controller
     public function index()
     {
         try {
-            $Dosage_level = Dosage_level::get();
+            $DosageLevel = DosageLevel::get();
             return response()->json([
                 'message' => 'Dosages level retrieved successfully',
-                'data' => $Dosage_level,
+                'data' => $DosageLevel,
             ]);
         } catch (Exception $e) {
             return response()->json([

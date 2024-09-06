@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Healthy_centers_stock_vaccine;
 use App\Models\HealthyCenterOrder;
-use App\Models\Order_state;
+use App\Models\Healthy_centers_stock_vaccine;
+use App\Models\OrderState;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class HealthyCenterOrderController extends Controller
@@ -30,7 +30,7 @@ class HealthyCenterOrderController extends Controller
                 ], 400);
             }
 
-            $orderState = Order_state::where('order_state', 'صادرة')->first();
+            $orderState = OrderState::where('order_state', 'صادرة')->first();
 
             $order = HealthyCenterOrder::create([
                 'vaccine_type_id' => $request->vaccine_type_id,
@@ -99,7 +99,7 @@ class HealthyCenterOrderController extends Controller
     public function centerRejectedOrders($center_id)
     {
         try {
-            $rejected =  HealthyCenterOrder::join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->select('healthy_centers_orders.*', 'order_states.order_state', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name')->where([['order_states.order_state', 'مرفوضة'], ['healthy_centers_orders.healthy_center_id', $center_id]])->orderBy('healthy_centers_orders.updated_at', 'desc')->get();
+            $rejected = HealthyCenterOrder::join('order_states', 'healthy_centers_orders.order_state_id', '=', 'order_states.id')->join('vaccine_types', 'healthy_centers_orders.vaccine_type_id', '=', 'vaccine_types.id')->join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->select('healthy_centers_orders.*', 'order_states.order_state', 'vaccine_types.vaccine_type', 'healthy_centers.healthy_center_name')->where([['order_states.order_state', 'مرفوضة'], ['healthy_centers_orders.healthy_center_id', $center_id]])->orderBy('healthy_centers_orders.updated_at', 'desc')->get();
             return response()->json([
                 'message' => 'Rejected orders retrieved successfully',
                 'data' => $rejected,
@@ -123,7 +123,6 @@ class HealthyCenterOrderController extends Controller
                 ],
             );
 
-
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors(),
@@ -132,7 +131,7 @@ class HealthyCenterOrderController extends Controller
 
             $order = HealthyCenterOrder::find($request->order_id);
 
-            $orderState = Order_state::where('order_state', 'تم التسليم')->first();
+            $orderState = OrderState::where('order_state', 'تم التسليم')->first();
 
             $vaccine = Healthy_centers_stock_vaccine::where([['vaccine_type_id', $order->vaccine_type_id], ['healthy_center_id', $request->healthy_center_id]])->first();
 

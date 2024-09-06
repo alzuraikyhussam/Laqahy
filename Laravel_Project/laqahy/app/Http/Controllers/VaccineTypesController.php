@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vaccine_type;
+use App\Models\VaccineType;
 use Exception;
-use Illuminate\Http\Request;
 
 class VaccineTypesController extends Controller
 {
     public function getVaccines()
     {
         try {
-            $vaccines = Vaccine_type::get();
+            $vaccines = VaccineType::get();
             return response()->json([
                 'message' => 'Vaccines retrieved successfully',
                 'data' => $vaccines,

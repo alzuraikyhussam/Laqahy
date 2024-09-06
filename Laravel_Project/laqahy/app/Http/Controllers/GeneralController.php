@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Child_data;
-use App\Models\Healthy_center;
+use App\Models\ChildData;
 use App\Models\HealthyCenterOrder;
-use App\Models\Mother_data;
+use App\Models\Healthy_center;
 use App\Models\Office;
 use App\Models\OfficeOrder;
 use App\Models\Offices_users;
-use App\Models\Order_state;
+use App\Models\OrderState;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Vaccine_type;
+use App\Models\VaccineType;
 use Exception;
-use Illuminate\Http\Request;
 
 class GeneralController extends Controller
 {
@@ -24,10 +22,10 @@ class GeneralController extends Controller
             $usersCount = Offices_users::where('office_id', $office_id)->count();
             $officesCount = Office::where([['office_phone', '!=', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->count();
             $centersCount = Healthy_center::count();
-            $mothersCount = Mother_data::count();
-            $childrenCount = Child_data::count();
-            $vaccinesCount = Vaccine_type::count();
-            $orderState = Order_state::where('order_state', 'تم التسليم')->first();
+            $mothersCount = MotherData::count();
+            $childrenCount = ChildData::count();
+            $vaccinesCount = VaccineType::count();
+            $orderState = OrderState::where('order_state', 'تم التسليم')->first();
             $ordersCount = OfficeOrder::where('order_state_id', $orderState->id)->count();
             $postsCount = Post::count();
 
@@ -42,7 +40,7 @@ class GeneralController extends Controller
                     'vaccines_count' => $vaccinesCount,
                     'orders_count' => $ordersCount,
                     'posts_count' => $postsCount,
-                ]
+                ],
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -58,10 +56,10 @@ class GeneralController extends Controller
         try {
             $usersCount = Offices_users::where('office_id', $office_id)->count();
             $centersCount = Healthy_center::where('office_id', $office_id)->count();
-            $mothersCount = Mother_data::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
-            $childrenCount = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
-            $vaccinesCount = Vaccine_type::count();
-            $orderState = Order_state::where('order_state', 'تم التسليم')->first();
+            $mothersCount = MotherData::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
+            $childrenCount = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->count();
+            $vaccinesCount = VaccineType::count();
+            $orderState = OrderState::where('order_state', 'تم التسليم')->first();
             $ordersCount = HealthyCenterOrder::join('healthy_centers', 'healthy_centers_orders.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->where('order_state_id', $orderState->id)->count();
 
             return response()->json([
@@ -73,7 +71,7 @@ class GeneralController extends Controller
                     'children_count' => $childrenCount,
                     'vaccines_count' => $vaccinesCount,
                     'orders_count' => $ordersCount,
-                ]
+                ],
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -88,9 +86,9 @@ class GeneralController extends Controller
     {
         try {
             $usersCount = User::where('healthy_center_id', $center_id)->count();
-            $mothersCount = Mother_data::where('healthy_center_id', $center_id)->count();
-            $childrenCount = Child_data::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.id', $center_id)->count();
-            $orderState = Order_state::where('order_state', 'تم التسليم')->first();
+            $mothersCount = MotherData::where('healthy_center_id', $center_id)->count();
+            $childrenCount = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.id', $center_id)->count();
+            $orderState = OrderState::where('order_state', 'تم التسليم')->first();
             $ordersCount = HealthyCenterOrder::where('healthy_center_id', $center_id)->where('order_state_id', $orderState->id)->count();
 
             return response()->json([
@@ -100,7 +98,7 @@ class GeneralController extends Controller
                     'children_count' => $childrenCount,
                     'users_count' => $usersCount,
                     'orders_count' => $ordersCount,
-                ]
+                ],
             ]);
         } catch (Exception $e) {
             return response()->json([

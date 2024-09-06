@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\HealthyCenterOrder;
 use App\Models\Ministry_stock_vaccine;
-use App\Models\Office_stock_vaccine;
 use App\Models\OfficeOrder;
-use App\Models\Order_state;
+use App\Models\Office_stock_vaccine;
+use App\Models\OrderState;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -79,7 +79,7 @@ class OfficeOrderController extends Controller
         try {
             $order = OfficeOrder::find($id);
             $vaccineQty = Ministry_stock_vaccine::where('vaccine_type_id', $order->vaccine_type_id)->first();
-            $orderState = Order_state::where('order_state', 'قيد التسليم')->first();
+            $orderState = OrderState::where('order_state', 'قيد التسليم')->first();
 
             if (!$order) {
                 return response()->json([
@@ -117,7 +117,7 @@ class OfficeOrderController extends Controller
     {
         try {
             $order = OfficeOrder::find($id);
-            $orderState = Order_state::where('order_state', 'مرفوضة')->first();
+            $orderState = OrderState::where('order_state', 'مرفوضة')->first();
 
             if (!$order) {
                 return response()->json([
@@ -142,7 +142,7 @@ class OfficeOrderController extends Controller
     {
         try {
             $order = OfficeOrder::find($id);
-            $orderState = Order_state::where('order_state', 'صادرة')->first();
+            $orderState = OrderState::where('order_state', 'صادرة')->first();
 
             if (!$order) {
                 return response()->json([
@@ -203,7 +203,7 @@ class OfficeOrderController extends Controller
                 ], 400);
             }
 
-            $orderState = Order_state::where('order_state', 'صادرة')->first();
+            $orderState = OrderState::where('order_state', 'صادرة')->first();
 
             $order = OfficeOrder::create([
                 'vaccine_type_id' => $request->vaccine_type_id,
@@ -311,7 +311,6 @@ class OfficeOrderController extends Controller
                 ],
             );
 
-
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors(),
@@ -320,7 +319,7 @@ class OfficeOrderController extends Controller
 
             $order = OfficeOrder::find($request->order_id);
 
-            $orderState = Order_state::where('order_state', 'تم التسليم')->first();
+            $orderState = OrderState::where('order_state', 'تم التسليم')->first();
 
             $vaccine = Office_stock_vaccine::where([['vaccine_type_id', $order->vaccine_type_id], ['office_id', $request->office_id]])->first();
 
@@ -347,7 +346,7 @@ class OfficeOrderController extends Controller
         try {
             $order = HealthyCenterOrder::find($id);
             $vaccineQty = Office_stock_vaccine::where([['vaccine_type_id', $order->vaccine_type_id], ['office_id', $request->office_id]])->first();
-            $orderState = Order_state::where('order_state', 'قيد التسليم')->first();
+            $orderState = OrderState::where('order_state', 'قيد التسليم')->first();
 
             if (!$order) {
                 return response()->json([
@@ -386,7 +385,7 @@ class OfficeOrderController extends Controller
         try {
             $order = HealthyCenterOrder::find($id);
 
-            $orderState = Order_state::where('order_state', 'مرفوضة')->first();
+            $orderState = OrderState::where('order_state', 'مرفوضة')->first();
 
             if (!$order) {
                 return response()->json([

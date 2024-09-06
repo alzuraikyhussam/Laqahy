@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('permission_types', function (Blueprint $table) {
             $table->id();
-            $table->String('permission_type');
+            $table->string('permission_type');
         });
     }
 

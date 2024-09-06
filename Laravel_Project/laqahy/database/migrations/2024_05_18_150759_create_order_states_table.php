@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_states', function (Blueprint $table) {
             $table->id();
-            $table->String('order_state');
+            $table->string('order_state');
         });
     }
 

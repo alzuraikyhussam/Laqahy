@@ -13,7 +13,7 @@ class DirectorateController extends Controller
      */
     public function index()
     {
-        //    
+        //
     }
 
     /**
@@ -30,7 +30,7 @@ class DirectorateController extends Controller
     public function show($id)
     {
         try {
-            $directorate = Directorate::where('cities_id', $id)->get();
+            $directorate = Directorate::where('city_id', $id)->get();
             return response()->json([
                 'message' => 'Directorates retrieved successfully',
                 'data' => $directorate,

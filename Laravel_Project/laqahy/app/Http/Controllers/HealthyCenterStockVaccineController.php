@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Healthy_centers_stock_vaccine;
-use App\Models\Vaccine_type;
 use Exception;
-use Illuminate\Http\Request;
 
 class HealthyCenterStockVaccineController extends Controller
 {

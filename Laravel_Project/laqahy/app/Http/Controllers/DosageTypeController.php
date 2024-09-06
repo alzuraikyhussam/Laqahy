@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosage_type;
-use App\Models\Mother_statement;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class DosageTypeController extends Controller
@@ -41,7 +39,7 @@ class DosageTypeController extends Controller
     {
         try {
             // Check if the mother exists
-            $mother = Mother_statement::where('mother_data_id', $motherId)->first();
+            $mother = MotherStatement::where('mother_data_id', $motherId)->first();
 
             if (!$mother) {
                 // If the mother is not found, return all the dosage types for the given dosage level ID
@@ -59,8 +57,8 @@ class DosageTypeController extends Controller
                     ->where('mother_statements.mother_data_id', $motherId)
                     ->whereNull('mother_statements.deleted_at');
             })
-            ->where('dosage_level_id', $dosageLevelId)
-            ->get();
+                ->where('dosage_level_id', $dosageLevelId)
+                ->get();
 
             return response()->json([
                 'message' => 'Mother statement retrieved successfully',
