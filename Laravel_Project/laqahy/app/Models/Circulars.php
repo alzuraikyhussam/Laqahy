@@ -9,7 +9,7 @@ class Circulars extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['circular_title', 'circular_description', 'circular_date', 'send_type_id', 'office_type_id', 'sen_office_name', 'rec_office_name'];
+    protected $fillable = ['circular_title', 'circular_description', 'circular_date', 'send_type_id', 'office_type_id', 'sen_office_id', 'rec_office_id'];
 
     public function send_type()
     {
@@ -21,13 +21,23 @@ class Circulars extends Model
         return $this->belongsTo(OfficeType::class);
     }
 
-    public function sen_office_name()
+    public function city_office_account_sen_office_name()
     {
-        return $this->morphTo();
+        return $this->belongsTo(CityOfficeAccount::class);
     }
 
-    public function rec_office_name()
+    public function directorate_office_account_sen_office_name()
     {
-        return $this->morphTo();
+        return $this->belongsTo(DirectorateOfficeAccount::class);
+    }
+
+    public function city_office_account_rec_office_name()
+    {
+        return $this->belongsTo(CityOfficeAccount::class);
+    }
+
+    public function directorate_office_account_rec_office_name()
+    {
+        return $this->belongsTo(DirectorateOfficeAccount::class);
     }
 }

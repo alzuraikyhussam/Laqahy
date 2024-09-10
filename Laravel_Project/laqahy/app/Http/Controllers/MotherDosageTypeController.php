@@ -6,7 +6,7 @@ use App\Models\Dosage_type;
 use Exception;
 use Illuminate\Http\Request;
 
-class DosageTypeController extends Controller
+class MotherDosageTypeController extends Controller
 {
     /**
      * Display a listing of the resource.

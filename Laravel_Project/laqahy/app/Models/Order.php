@@ -12,7 +12,7 @@ class Order extends Model
 
     public $dates = ['deleted_at'];
 
-    protected $fillable = ['vaccine_type', 'office_type_id', 'office_name', 'order_quantity', 'order_request_date', 'order_delivery_date', 'order_sender_note', 'order_receiver_note', 'order_state_id'];
+    protected $fillable = ['vaccine_type_id', 'office_type_id', 'office_account_id', 'order_quantity', 'order_request_date', 'order_delivery_date', 'order_sender_note', 'order_receiver_note', 'order_state_id', 'vaccine_category'];
 
     public function office_type()
     {
@@ -24,13 +24,28 @@ class Order extends Model
         return $this->belongsTo(OrderState::class);
     }
 
-    public function office_name()
+    public function city_office_account()
     {
-        return $this->morphTo();
+        return $this->belongsTo(CityOfficeAccount::class);
     }
 
-    public function vaccine_type()
+    public function directorate_office_account()
     {
-        return $this->morphTo();
+        return $this->belongsTo(DirectorateOfficeAccount::class);
+    }
+
+    public function healthy_center_account()
+    {
+        return $this->belongsTo(HealthyCenterAccount::class);
+    }
+
+    public function mother_vaccine()
+    {
+        return $this->belongsTo(MotherVaccine::class);
+    }
+
+    public function child_vaccine()
+    {
+        return $this->belongsTo(ChildVaccine::class);
     }
 }

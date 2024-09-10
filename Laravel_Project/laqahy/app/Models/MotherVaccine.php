@@ -14,7 +14,7 @@ class MotherVaccine extends Model
 
     public function order()
     {
-        return $this->morphMany(Order::class, 'vaccine_type');
+        return $this->hasMany(Order::class, 'vaccine_type_id');
     }
 
     public function dosage_level()
@@ -25,5 +25,15 @@ class MotherVaccine extends Model
     public function mother_statement()
     {
         return $this->hasMany(MotherStatement::class);
+    }
+
+    public function vaccine_stock()
+    {
+        return $this->hasMany(VaccineStock::class, 'vaccine_type_id');
+    }
+
+    public function vaccine_stock_statement()
+    {
+        return $this->hasMany(VaccineStock::class, 'vaccine_type_id');
     }
 }

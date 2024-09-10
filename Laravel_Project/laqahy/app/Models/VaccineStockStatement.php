@@ -11,12 +11,13 @@ class VaccineStockStatement extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'vaccine_type',
+        'vaccine_type_id',
         'quantity',
         'date',
         'office_type_id',
-        'office_name',
+        'office_account_id',
         'donor_id',
+        'vaccine_category',
     ];
 
     public $timestamps = false;
@@ -28,14 +29,29 @@ class VaccineStockStatement extends Model
         return $this->belongsTo(OfficeType::class);
     }
 
-    public function office_name()
+    public function city_office_account()
     {
-        return $this->morphTo();
+        return $this->belongsTo(CityOfficeAccount::class);
     }
 
-    public function vaccine_type()
+    public function directorate_office_account()
     {
-        return $this->morphTo();
+        return $this->belongsTo(DirectorateOfficeAccount::class);
+    }
+
+    public function healthy_center_account()
+    {
+        return $this->belongsTo(HealthyCenterAccount::class);
+    }
+
+    public function mother_vaccine()
+    {
+        return $this->belongsTo(MotherVaccine::class);
+    }
+
+    public function child_vaccine()
+    {
+        return $this->belongsTo(ChildVaccine::class);
     }
 
     public function donor()

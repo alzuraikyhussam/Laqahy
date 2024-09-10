@@ -11,9 +11,9 @@ class DirectorateOfficeAccount extends Model
 
     protected $fillable = ['directorate_office_account_name', 'setup_code', 'directorate_office_account_phone', 'directorate_id', 'city_office_account_id', 'directorate_office_account_address', 'created_at', 'updated_at'];
 
-    public function user()
+    public function users()
     {
-        return $this->morphMany(User::class, 'office_name');
+        return $this->hasMany(User::class, 'office_account_id');
     }
 
     public function directorate()
@@ -33,36 +33,26 @@ class DirectorateOfficeAccount extends Model
 
     public function circulars_sen()
     {
-        return $this->morphMany(Circulars::class, 'sen_office_name');
+        return $this->hasMany(Circulars::class, 'sen_office_id');
     }
 
     public function circulars_rec()
     {
-        return $this->morphMany(Circulars::class, 'rec_office_name');
+        return $this->hasMany(Circulars::class, 'rec_office_id');
     }
 
     public function order()
     {
-        return $this->morphMany(Order::class, 'office_name');
+        return $this->hasMany(Order::class, 'office_account_id');
     }
 
-    public function office_statement_stock_vaccine_office_name()
+    public function vaccine_stock_statement()
     {
-        return $this->morphMany(VaccineStockStatement::class, 'office_name');
+        return $this->hasMany(VaccineStockStatement::class, 'office_account_id');
     }
 
-    public function office_statement_stock_vaccine_vax_type()
+    public function vaccine_stock()
     {
-        return $this->morphMany(VaccineStockStatement::class, 'vaccine_type');
-    }
-
-    public function vaccine_stock_office_name()
-    {
-        return $this->morphMany(VaccineStock::class, 'office_name');
-    }
-
-    public function vaccine_stock_vax_type()
-    {
-        return $this->morphMany(VaccineStock::class, 'vaccine_type');
+        return $this->hasMany(VaccineStock::class, 'office_account_id');
     }
 }

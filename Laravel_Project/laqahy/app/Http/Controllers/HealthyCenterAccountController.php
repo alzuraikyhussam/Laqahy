@@ -8,7 +8,7 @@ use function Laravel\Prompts\select;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class HealthyCenterController extends Controller
+class HealthyCenterAccountController extends Controller
 {
     /**
      * Display a listing of the resource.

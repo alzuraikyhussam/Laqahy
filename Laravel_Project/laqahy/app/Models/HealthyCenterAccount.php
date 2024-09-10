@@ -19,9 +19,9 @@ class HealthyCenterAccount extends Model
         return $this->belongsTo(DirectorateOfficeAccount::class);
     }
 
-    public function user()
+    public function users()
     {
-        return $this->morphMany(User::class, 'office_name');
+        return $this->hasMany(User::class, 'office_account_id');
     }
 
     public function circulars_sen()
@@ -36,27 +36,17 @@ class HealthyCenterAccount extends Model
 
     public function order()
     {
-        return $this->morphMany(Order::class, 'office_name');
+        return $this->hasMany(Order::class, 'office_account_id');
     }
 
-    public function office_statement_stock_vaccine_office_name()
+    public function vaccine_stock_statement()
     {
-        return $this->morphMany(VaccineStockStatement::class, 'office_name');
+        return $this->hasMany(VaccineStockStatement::class, 'office_account_id');
     }
 
-    public function office_statement_stock_vaccine_vax_type()
+    public function vaccine_stock()
     {
-        return $this->morphMany(VaccineStockStatement::class, 'vaccine_type');
-    }
-
-    public function vaccine_stock_office_name()
-    {
-        return $this->morphMany(VaccineStock::class, 'office_name');
-    }
-
-    public function vaccine_stock_vax_type()
-    {
-        return $this->morphMany(VaccineStock::class, 'vaccine_type');
+        return $this->hasMany(VaccineStock::class, 'office_account_id');
     }
 
     public function mother_data()

@@ -40,7 +40,7 @@ class ChildStatementController extends Controller
             }
 
             // Fetch the child data along with child statements
-            $child = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')->with('child_statement')->find($child_id);
+            $child = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.gender_type')->with('child_statement')->find($child_id);
 
             if (!$child) {
                 return response()->json([
@@ -81,7 +81,7 @@ class ChildStatementController extends Controller
                 'mother_name' => $child->mother_name,
                 'child_birthplace' => $child->child_data_birthplace,
                 'child_birthDate' => $child->child_data_birthDate,
-                'gender_type' => $child->genders_type,
+                'gender_type' => $child->gender_type,
                 'return_date' => $returnDate,
                 'child_age' => $age,
             ];

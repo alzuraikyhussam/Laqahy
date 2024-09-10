@@ -24,7 +24,7 @@ class User extends Authenticatable
         'gender_id',
         'permission_type_id',
         'office_type_id',
-        'office_name',
+        'office_account_id',
         'deleted_at',
     ];
 
@@ -32,9 +32,19 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
-    public function office_name()
+    public function city_office_account()
     {
-        return $this->morphTo();
+        return $this->belongsTo(CityOfficeAccount::class);
+    }
+
+    public function directorate_office_account()
+    {
+        return $this->belongsTo(DirectorateOfficeAccount::class);
+    }
+
+    public function healthy_center_account()
+    {
+        return $this->belongsTo(HealthyCenterAccount::class);
     }
 
     public function gender()

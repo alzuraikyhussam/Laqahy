@@ -18,8 +18,14 @@ return new class extends Migration
             $table->dateTime('circular_date')->useCurrent();
             $table->foreignId('send_type_id')->constrained('send_types')->onUpdate('cascade');
             $table->foreignId('office_type_id')->constrained('office_types')->onUpdate('cascade');
-            $table->morphs('sen_office_name');
-            $table->morphs('rec_office_name');
+            $table->unsignedBigInteger('sen_office_id');
+            $table->unsignedBigInteger('rec_office_id')->nullable();
+
+            $table->foreign('sen_office_id', 'city_office_account_foreign1')->references('id')->on('city_office_accounts')->onUpdate('cascade');
+            $table->foreign('sen_office_id', 'directorate_office_account_foreign1')->references('id')->on('directorate_office_accounts')->onUpdate('cascade');
+            $table->foreign('rec_office_id', 'city_office_account_foreign2')->references('id')->on('city_office_accounts')->onUpdate('cascade');
+            $table->foreign('rec_office_id', 'directorate_office_account_foreign2')->references('id')->on('directorate_office_accounts')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

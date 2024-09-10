@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Notification;
 use Exception;
 
-class NotificationsController extends Controller
+class NotificationController extends Controller
 {
     public function show($mother_id)
     {

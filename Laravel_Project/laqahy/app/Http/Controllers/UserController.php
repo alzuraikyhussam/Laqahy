@@ -13,7 +13,7 @@ class UserController extends Controller
     public function centerShowUser($id)
     {
         try {
-            $user = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_centers', 'users.healthy_center_id', '=', 'healthy_centers.id')->select('users.*', 'genders.genders_type', 'healthy_centers.healthy_center_name', 'permission_types.permission_type')->where('users.healthy_center_id', $id)->get();
+            $user = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_centers', 'users.healthy_center_id', '=', 'healthy_centers.id')->select('users.*', 'genders.gender_type', 'healthy_centers.healthy_center_name', 'permission_types.permission_type')->where('users.healthy_center_id', $id)->get();
             return response()->json([
                 'message' => 'Users retrieved successfully',
                 'data' => $user,
@@ -157,7 +157,7 @@ class UserController extends Controller
     public function centerGetAdminData(Request $request)
     {
         try {
-            $admin = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_centers', 'users.healthy_center_id', '=', 'healthy_centers.id')->select('users.*', 'genders.genders_type', 'healthy_centers.healthy_center_name', 'permission_types.permission_type')->where('users.healthy_center_id', $request->center_id)->where('users.id', $request->admin_id)->first();
+            $admin = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_centers', 'users.healthy_center_id', '=', 'healthy_centers.id')->select('users.*', 'genders.gender_type', 'healthy_centers.healthy_center_name', 'permission_types.permission_type')->where('users.healthy_center_id', $request->center_id)->where('users.id', $request->admin_id)->first();
             return response()->json([
                 'message' => 'Admin data retrieved successfully',
                 'data' => $admin,

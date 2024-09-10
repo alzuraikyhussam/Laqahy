@@ -82,12 +82,12 @@ class ChildDataController extends Controller
     {
         try {
 
-            $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')
+            $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.gender_type')
                 ->where('child_data.mother_data_id', $motherId)->get();
 
             // $motherData = MotherData::select('mother_data.id')->where('healthy_center_id', $healthyCenterId)->get();
 
-            // $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')
+            // $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.gender_type')
             //     ->where('mother_data.id', $motherData)->get();
 
             return response()->json([
@@ -159,7 +159,7 @@ class ChildDataController extends Controller
     public function getAllChildrenStatusData()
     {
         try {
-            $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.genders_type')->get();
+            $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.gender_type')->get();
             return response()->json([
                 'message' => 'Child Data retrieved successfully',
                 'data' => $childData,

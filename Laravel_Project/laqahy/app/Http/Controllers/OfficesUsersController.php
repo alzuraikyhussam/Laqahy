@@ -73,7 +73,7 @@ class OfficesUsersController extends Controller
     public function showUser($id)
     {
         try {
-            $user = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.genders_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $id)->get();
+            $user = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.gender_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $id)->get();
             return response()->json([
                 'message' => 'Users retrieved successfully',
                 'data' => $user,
@@ -157,7 +157,7 @@ class OfficesUsersController extends Controller
     public function getAdminData(Request $request)
     {
         try {
-            $admin = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.genders_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $request->office_id)->where('offices_users.id', $request->admin_id)->first();
+            $admin = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.gender_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $request->office_id)->where('offices_users.id', $request->admin_id)->first();
             return response()->json([
                 'message' => 'Admin data retrieved successfully',
                 'data' => $admin,
@@ -174,7 +174,7 @@ class OfficesUsersController extends Controller
     public function officeShowUser($id)
     {
         try {
-            $user = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.genders_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $id)->get();
+            $user = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.gender_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $id)->get();
             return response()->json([
                 'message' => 'Users retrieved successfully',
                 'data' => $user,
@@ -318,7 +318,7 @@ class OfficesUsersController extends Controller
     public function officeGetAdminData(Request $request)
     {
         try {
-            $admin = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.genders_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $request->office_id)->where('offices_users.id', $request->admin_id)->first();
+            $admin = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.gender_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $request->office_id)->where('offices_users.id', $request->admin_id)->first();
             return response()->json([
                 'message' => 'Admin data retrieved successfully',
                 'data' => $admin,

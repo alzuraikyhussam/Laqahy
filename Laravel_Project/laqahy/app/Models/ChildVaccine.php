@@ -14,7 +14,7 @@ class ChildVaccine extends Model
 
     public function order()
     {
-        return $this->morphMany(Order::class, 'vaccine_type');
+        return $this->hasMany(Order::class, 'vaccine_type_id');
     }
 
     public function child_statement()
@@ -30,5 +30,15 @@ class ChildVaccine extends Model
     public function child_dosage_type()
     {
         return $this->belongsToMany(ChildDosageType::class, 'child_vaccine_with_child_dosage');
+    }
+
+    public function vaccine_stock()
+    {
+        return $this->hasMany(VaccineStock::class, 'vaccine_type_id');
+    }
+
+    public function vaccine_stock_statement()
+    {
+        return $this->hasMany(VaccineStock::class, 'vaccine_type_id');
     }
 }

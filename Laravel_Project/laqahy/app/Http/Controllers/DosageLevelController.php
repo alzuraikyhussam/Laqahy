@@ -6,7 +6,7 @@ use App\Models\DosageLevel;
 use Exception;
 use Illuminate\Http\Request;
 
-class DosageLevelsController extends Controller
+class DosageLevelController extends Controller
 {
     /**
      * Display a listing of the resource.

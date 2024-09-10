@@ -8,18 +8,18 @@ use App\Http\Controllers\ChildStatementController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DirectorateController;
 use App\Http\Controllers\DonorController;
-use App\Http\Controllers\DosageLevelsController;
-use App\Http\Controllers\DosageTypeController;
+use App\Http\Controllers\DosageLevelController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GeneralController;
-use App\Http\Controllers\HealthyCenterController;
+use App\Http\Controllers\HealthyCenterAccountController;
 use App\Http\Controllers\HealthyCenterOrderController;
 use App\Http\Controllers\HealthyCenterStockVaccineController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
+use App\Http\Controllers\MotherDosageTypeController;
 use App\Http\Controllers\MotherStatementController;
-use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficeOrderController;
 use App\Http\Controllers\OfficeStockVaccineController;
@@ -52,12 +52,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // --------------------- Auth Routes ------------------------
-Route::post('ministry/auth/register', [AuthController::class, 'register']);
-Route::post('ministry/auth/login/{office_id?}', [AuthController::class, 'login']);
+Route::post('ministry/auth/register', [AuthController::class, 'cityOfficeAccountRegister']);
+Route::post('ministry/auth/login/{office_id?}', [AuthController::class, 'cityOfficeAccountLogin']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------
-Route::get('offices/auth/register/verify/{code}', [AuthController::class, 'officeCheckVerificationCode']);
+Route::get('offices/auth/register/verify', [AuthController::class, 'checkVerificationCode']); //---
 Route::post('offices/auth/register', [AuthController::class, 'officeRegister']);
 Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'login']);
 // ------------------------------------------------------------
@@ -130,8 +130,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Healthy Center Routes ------------------------
-    Route::get('ministry/centers', [HealthyCenterController::class, 'index']);
-    Route::get('ministry/centers/{id}', [HealthyCenterController::class, 'getCentersByOffice']);
+    Route::get('ministry/centers', [HealthyCenterAccountController::class, 'index']);
+    Route::get('ministry/centers/{id}', [HealthyCenterAccountController::class, 'getCentersByOffice']);
     // ------------------------------------------------------------
 
     // --------------------- User Routes ------------------------
@@ -223,9 +223,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Healthy Center Routes ------------------------
-    Route::get('offices/centers/{office_id}', [HealthyCenterController::class, 'officeGetCenters']);
-    Route::post('offices/centers/add-center/{office_id}', [HealthyCenterController::class, 'officeAddCenterAccount']);
-    Route::patch('offices/centers/update-center/{office_id}', [HealthyCenterController::class, 'officeUpdateCenterAccount']);
+    Route::get('offices/centers/{office_id}', [HealthyCenterAccountController::class, 'officeGetCenters']);
+    Route::post('offices/centers/add-center/{office_id}', [HealthyCenterAccountController::class, 'officeAddCenterAccount']);
+    Route::patch('offices/centers/update-center/{office_id}', [HealthyCenterAccountController::class, 'officeUpdateCenterAccount']);
     // ------------------------------------------------------------
 
     // --------------------- User Routes ------------------------
@@ -274,7 +274,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Notifications Routes ------------------------
-    Route::get('mobile/notifications/{mother_id}', [NotificationsController::class, 'show']);
+    Route::get('mobile/notifications/{mother_id}', [NotificationController::class, 'show']);
     // ------------------------------------------------------------
 
     // --------------------- Mother Statement Routes ------------------------
@@ -337,11 +337,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Dosage Level Routes ------------------------
-    Route::get('centers/dosage-level', [DosageLevelsController::class, 'index']);
+    Route::get('centers/dosage-level', [DosageLevelController::class, 'index']);
     // ------------------------------------------------------------
 
     // --------------------- Dosage Type Routes ------------------------
-    Route::get('centers/dosage-type/{dosageLevelId}/{motherId}', [DosageTypeController::class, 'show']);
+    Route::get('centers/dosage-type/{dosageLevelId}/{motherId}', [MotherDosageTypeController::class, 'show']);
     // ------------------------------------------------------------
 
     // --------------------- Health Center Order Routes ------------------------

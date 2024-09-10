@@ -3,74 +3,192 @@
 namespace App\Http\Controllers;
 
 use App\Models\ChildData;
+use App\Models\ChildVaccine;
+use App\Models\CityOfficeAccount;
+use App\Models\DirectorateOfficeAccount;
+use App\Models\HealthyCenterAccount;
 use App\Models\Healthy_center;
 use App\Models\Healthy_centers_stock_vaccine;
-use App\Models\Ministry_stock_vaccine;
+use App\Models\MotherVaccine;
 use App\Models\Office;
 use App\Models\Offices_users;
 use App\Models\Office_stock_vaccine;
 use App\Models\User;
+use App\Models\VaccineStock;
 use App\Models\VaccineType;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    // ------------------ City Office Accounts --------------------
+
+    public function cityOfficeAccountRegister(Request $request)
     {
         try {
-            $validator = Validator::make(
-                $request->all(),
-                [
-                    'user_name' => 'required',
-                    'user_phone' => 'required',
-                    'user_address' => 'required',
-                    'user_birthDate' => 'required',
-                    'user_account_name' => 'required',
-                    'user_account_password' => 'required',
-                    'gender_id' => 'required',
-                    'permission_type_id' => 'required',
-                    'office_name' => 'required',
-                    'office_phone' => 'required',
-                    'office_address' => 'required',
-                    'city_id' => 'required',
-                ],
-            );
 
-            if ($validator->fails()) {
+            $office = null;
+            $user = null;
+
+            if ($request->office_type_id == 1) { // مكتب وزارة
+                $validator = Validator::make(
+                    $request->all(),
+                    [
+                        'user_name' => 'required',
+                        'user_phone' => 'required',
+                        'user_address' => 'required',
+                        'user_birthDate' => 'required',
+                        'user_account_name' => 'required',
+                        'user_account_password' => 'required',
+                        'gender_id' => 'required',
+                        'permission_type_id' => 'required',
+                        'city_office_account_name' => 'required', //---
+                        'city_office_account_phone' => 'required', //---
+                        'city_office_account_address' => 'required', //---
+                        'city_id' => 'required',
+                        'office_type_id' => 'required', //---
+                    ],
+                );
+
+                if ($validator->fails()) {
+                    return response()->json([
+                        'message' => $validator->errors(),
+                    ], 400);
+                }
+
+                $office = CityOfficeAccount::create([ //---
+                    'city_office_account_name' => $request->city_office_account_name,
+                    'city_office_account_address' => $request->city_office_account_address,
+                    'city_office_account_phone' => $request->city_office_account_phone,
+                    'office_type_id' => $request->office_type_id,
+                    'city_id' => $request->city_id,
+                ]);
+
+                $user = User::create([
+                    'user_name' => $request->user_name,
+                    'user_phone' => $request->user_phone,
+                    'user_address' => $request->user_address,
+                    'user_birthDate' => $request->user_birthDate,
+                    'user_account_name' => $request->user_account_name,
+                    'user_account_password' => $request->user_account_password,
+                    'gender_id' => $request->gender_id,
+                    'permission_type_id' => $request->permission_type_id,
+                    'office_type_id' => $office->office_type_id, //---
+                    'office_account_id' => $office->id, //---
+                ]);
+
+            } else if ($request->office_type_id == 2) { // مكتب محافظة
+
+                $validator = Validator::make(
+                    $request->all(),
+                    [
+                        'user_name' => 'required',
+                        'user_phone' => 'required',
+                        'user_address' => 'required',
+                        'user_birthDate' => 'required',
+                        'user_account_name' => 'required',
+                        'user_account_password' => 'required',
+                        'gender_id' => 'required',
+                        'permission_type_id' => 'required',
+                        'city_office_account_id' => 'required',
+                    ],
+                );
+
+                if ($validator->fails()) {
+                    return response()->json([
+                        'message' => $validator->errors(),
+                    ], 400);
+                }
+
+                $office = CityOfficeAccount::where('id', $request->city_office_account_id)->first();
+
+                $office->update(['setup_code' => null]);
+
+            } else if ($request->office_type_id == 3) { // مكتب مديرية
+
+                $validator = Validator::make(
+                    $request->all(),
+                    [
+                        'user_name' => 'required',
+                        'user_phone' => 'required',
+                        'user_address' => 'required',
+                        'user_birthDate' => 'required',
+                        'user_account_name' => 'required',
+                        'user_account_password' => 'required',
+                        'gender_id' => 'required',
+                        'permission_type_id' => 'required',
+                        'directorate_office_account_id' => 'required',
+                    ],
+                );
+
+                if ($validator->fails()) {
+                    return response()->json([
+                        'message' => $validator->errors(),
+                    ], 400);
+                }
+
+                $office = DirectorateOfficeAccount::where('id', $request->directorate_office_account_id)->first();
+
+                $office->update(['setup_code' => null]);
+
+            } else if ($request->office_type_id == 4) { // مركز صحي
+
+                $validator = Validator::make(
+                    $request->all(),
+                    [
+                        'user_name' => 'required',
+                        'user_phone' => 'required',
+                        'user_address' => 'required',
+                        'user_birthDate' => 'required',
+                        'user_account_name' => 'required',
+                        'user_account_password' => 'required',
+                        'gender_id' => 'required',
+                        'permission_type_id' => 'required',
+                        'healthy_center_account_id' => 'required',
+                    ],
+                );
+
+                if ($validator->fails()) {
+                    return response()->json([
+                        'message' => $validator->errors(),
+                    ], 400);
+                }
+
+                $office = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.id as id', 'healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->where('healthy_center_accounts.id', $request->healthy_center_account_id)->first();
+
+                $office->update(['setup_code' => null]);
+
+            } else {
                 return response()->json([
-                    'message' => $validator->errors(),
-                ], 400);
+                    'message' => 'Sorry, something is wrong',
+                ], 404);
             }
 
-            $office = Office::create([
-                'office_name' => $request->office_name,
-                'office_address' => $request->office_address,
-                'office_phone' => $request->office_phone,
-                'city_id' => $request->city_id,
-            ]);
+            $mother_vaccines = MotherVaccine::get(); //---
+            $child_vaccines = ChildVaccine::get(); //---
 
-            $user = Offices_users::create([
-                'user_name' => $request->user_name,
-                'user_phone' => $request->user_phone,
-                'user_address' => $request->user_address,
-                'user_birthDate' => $request->user_birthDate,
-                'user_account_name' => $request->user_account_name,
-                'user_account_password' => $request->user_account_password,
-                'gender_id' => $request->gender_id,
-                'permission_type_id' => $request->permission_type_id,
-                'office_id' => $office->id,
-            ]);
-
-            $vaccines = VaccineType::all();
-
-            foreach ($vaccines as $vaccine) {
-                Ministry_stock_vaccine::create([
+            foreach ($mother_vaccines as $vaccine) { //---
+                VaccineStock::create([ //---
                     'vaccine_type_id' => $vaccine->id,
+                    'office_type_id' => $office->office_type_id, //---
+                    'office_account_id' => $office->id, //---
+                    'vaccine_category' => 'لقاحات الام', //---
                     'quantity' => 0,
                 ]);
             }
+            //---
+            foreach ($child_vaccines as $vaccine) {
+                VaccineStock::create([
+                    'vaccine_type_id' => $vaccine->id,
+                    'office_type_id' => $office->office_type_id,
+                    'office_account_id' => $office->id,
+                    'vaccine_category' => 'لقاحات الطفل',
+                    'quantity' => 0,
+                ]);
+            }
+            //---
 
             // إنشاء توكن Sanctum
             $token = $user->createToken('Office Personal Access Token')->plainTextToken;
@@ -88,9 +206,7 @@ class AuthController extends Controller
         }
     }
 
-    ///////////////////Offices//////////////////////
-
-    public function login(Request $request, $office_id = 0)
+    public function cityOfficeAccountLogin(Request $request, $office_id = 0)
     {
         try {
             $validator = Validator::make(
@@ -98,6 +214,7 @@ class AuthController extends Controller
                 [
                     'user_account_name' => 'required',
                     'user_account_password' => 'required',
+                    'office_type_id' => 'required', //---
                 ],
             );
 
@@ -107,7 +224,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $user = Offices_users::where('user_account_name', $request->user_account_name)->first();
+            $user = User::where('office_type_id', $request->office_type_id)->where('user_account_name', $request->user_account_name)->first(); //---
 
             if (!$user) {
                 return response()->json([
@@ -116,7 +233,7 @@ class AuthController extends Controller
             }
 
             if ($office_id != 0) {
-                if ($office_id != $user->office_id) {
+                if ($office_id != $user->office_account_id) { //---
                     return response()->json([
                         'message' => 'User not found in this office',
                     ], 402);
@@ -129,12 +246,15 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $admin = Offices_users::where([
+            $minDate = Carbon::parse(User::where([['office_type_id', $user->office_type_id], ['office_account_id', $user->office_account_id]])->min('created_at'))->toDateString(); //---
+
+            $admin = User::where([ //---
                 ['permission_type_id', 1],
-                ['office_id', $user->office_id],
+                ['created_at', $minDate], //---
+                // ['office_account_id', $user->office_id], //---
             ])->first();
 
-            $office = Office::where('id', $user->office_id)->first();
+            $office = CityOfficeAccount::where('id', $user->office_account_id)->first(); //---
 
             // إنشاء توكن Sanctum
             $token = $user->createToken('Office Personal Access Token')->plainTextToken;
@@ -153,17 +273,47 @@ class AuthController extends Controller
         }
     }
 
-    public function officeCheckVerificationCode($code)
+    public function checkVerificationCode(Request $request) //---
     {
         try {
+            //---
+            $office = null;
+            if ($request->office_type_id == 2) { // مكتب محافظة
 
-            $office = Office::where('create_account_code', $code)->first();
+                $office = CityOfficeAccount::where([['office_type_id', $request->office_type_id], ['setup_code', $request->setup_code]])->first(); //---
 
-            if (!$office) {
+                if (!$office) {
+                    return response()->json([
+                        'message' => 'Office not found',
+                    ], 404);
+                }
+
+            } else if ($request->office_type_id == 3) { // مكتب مديرية
+
+                $office = DirectorateOfficeAccount::where([['office_type_id', $request->office_type_id], ['setup_code', $request->setup_code]])->first(); //---
+
+                if (!$office) {
+                    return response()->json([
+                        'message' => 'Office not found',
+                    ], 404);
+                }
+
+            } else if ($request->office_type_id == 4) { // مركز صحي
+
+                $office = HealthyCenterAccount::where([['office_type_id', $request->office_type_id], ['setup_code', $request->setup_code]])->first(); //---
+
+                if (!$office) {
+                    return response()->json([
+                        'message' => 'Office not found',
+                    ], 404);
+                }
+
+            } else {
                 return response()->json([
-                    'message' => 'Office not found',
+                    'message' => 'Sorry, something is wrong',
                 ], 404);
             }
+            // ---
 
             return response()->json([
                 'message' => 'Office retrieved successfully',
@@ -244,28 +394,28 @@ class AuthController extends Controller
 
     /////////////////////////////// Centers ////////////////////////////////
 
-    public function centerCheckVerificationCode($code)
-    {
-        try {
+    // public function centerCheckVerificationCode($code)
+    // {
+    //     try {
 
-            $center = Healthy_center::where('create_account_code', $code)->first();
+    //         $center = Healthy_center::where('create_account_code', $code)->first();
 
-            if (!$center) {
-                return response()->json([
-                    'message' => 'Center not found',
-                ], 404);
-            }
+    //         if (!$center) {
+    //             return response()->json([
+    //                 'message' => 'Center not found',
+    //             ], 404);
+    //         }
 
-            return response()->json([
-                'message' => 'Center retrieved successfully',
-                'center' => $center,
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
+    //         return response()->json([
+    //             'message' => 'Center retrieved successfully',
+    //             'center' => $center,
+    //         ], 200);
+    //     } catch (Exception $e) {
+    //         return response()->json([
+    //             'message' => $e->getMessage(),
+    //         ], 500);
+    //     }
+    // }
 
     public function centerRegister(Request $request)
     {
