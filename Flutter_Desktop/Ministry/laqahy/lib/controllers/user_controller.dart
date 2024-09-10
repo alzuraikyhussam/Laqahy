@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -319,7 +318,7 @@ class UserController extends GetxController {
     if (userId == adminId) {
       isDeleteLoading(false);
       Get.back();
-      Constants().playErrorSound();
+      // Constants().playErrorSound();
 
       return myShowDialog(
         context: Get.context!,

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\ChildData;
 use App\Models\ChildStatement;
+use App\Models\ChildVaccine;
 use App\Models\ChildVaccineWithChildDosage;
 use App\Models\Healthy_centers_stock_vaccine;
+use App\Models\VaccineStock;
 use App\Models\VaccineType;
 use Carbon\Carbon;
 use Exception;
@@ -20,7 +22,10 @@ class ChildStatementController extends Controller
         try {
 
             // Fetch all vaccine types with their associated dosages
-            $vaccineTypes = VaccineType::with('child_dosage_type')->get();
+
+            //-----------------------------Modified----------------------------------
+            $vaccineTypes = ChildVaccine::with('child_dosage_type')->get();
+            //---------------------------------------------------------------
 
             // Initialize the vaccine dosage counts array
             $vaccineDosageCounts = [];
@@ -127,7 +132,9 @@ class ChildStatementController extends Controller
                 ], 400);
             }
 
-            $vaccineQty = Healthy_centers_stock_vaccine::where([['healthy_center_id', $request->healthy_center_id], ['vaccine_type_id', $request->vaccine_type_id]])->first();
+            // ------------------------Modified-------------------------------
+            $vaccineQty = VaccineStock::where([['healthy_center_id', $request->healthy_center_id], ['vaccine_type_id', $request->vaccine_type_id]])->first();
+            // -------------------------------------------------------
             $qty = 1;
 
             if ($qty > $vaccineQty->quantity) {

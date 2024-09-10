@@ -175,7 +175,7 @@ class ReportController extends GetxController {
       if (registeredOfficeErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -204,7 +204,7 @@ class ReportController extends GetxController {
       if (registeredOfficesDropDownMenu.isEmpty) {
         return InkWell(
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -504,7 +504,7 @@ class ReportController extends GetxController {
           keyboardType: TextInputType.datetime,
           onChanged: (value) {},
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -529,7 +529,7 @@ class ReportController extends GetxController {
           keyboardType: TextInputType.datetime,
           onChanged: (value) {},
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
             myShowDialog(
                 context: Get.context!,
                 widgetName: ApiExceptionAlert(
@@ -622,7 +622,7 @@ class ReportController extends GetxController {
       if (selectedRegisteredOffice.value == null) {
         return InkWell(
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
 
             myShowDialog(
               context: Get.context!,
@@ -660,7 +660,7 @@ class ReportController extends GetxController {
       } else if (centersErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -687,7 +687,7 @@ class ReportController extends GetxController {
       } else if (centersDropDownMenu.isEmpty) {
         return InkWell(
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -1267,7 +1267,7 @@ class ReportController extends GetxController {
       if (vaccinesErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -1296,7 +1296,7 @@ class ReportController extends GetxController {
       if (vaccinesDropDownMenu.isEmpty) {
         return InkWell(
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -1373,7 +1373,7 @@ class ReportController extends GetxController {
       if (donorErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -1402,7 +1402,7 @@ class ReportController extends GetxController {
       if (donorsDropDownMenu.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -1828,7 +1828,7 @@ class ReportController extends GetxController {
       if (orderStateErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -1857,7 +1857,7 @@ class ReportController extends GetxController {
       if (orderStateDropDownMenu.isEmpty) {
         return InkWell(
           onTap: () {
-            cons.playErrorSound();
+            // cons.playErrorSound();
 
             myShowDialog(
                 context: Get.context!,

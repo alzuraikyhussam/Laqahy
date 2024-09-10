@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Healthy_center;
+use App\Models\HealthyCenterAccount;
 use Exception;
 use function Laravel\Prompts\select;
 use Illuminate\Http\Request;
@@ -11,12 +12,18 @@ use Illuminate\Support\Facades\Validator;
 class HealthyCenterAccountController extends Controller
 {
     /**
-     * Display a listing of the resource.
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------- This Page Was Modified By Elias --------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
      */
     public function index()
     {
         try {
-            $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.city_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->orderBy('healthy_centers.id', 'asc')->get();
+            $center = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->orderBy('healthy_center_accounts.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Centers retrieved successfully',
@@ -29,13 +36,13 @@ class HealthyCenterAccountController extends Controller
         }
     }
 
-    public function getCentersByOffice($id)
+    public function getCentersByDirectorateOffice($id)
     {
         try {
             if ($id == 0) {
-                $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.city_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->orderBy('healthy_centers.id', 'asc')->get();
+                $center = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->orderBy('healthy_center_accounts.id', 'asc')->get();
             } else {
-                $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.city_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->where('healthy_centers.office_id', $id)->orderBy('healthy_centers.id', 'asc')->get();
+                $center = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->where('healthy_center_accounts.directorate_office_account_id', $id)->orderBy('healthy_center_accounts.id', 'asc')->get();
             }
             return response()->json([
                 'message' => 'Centers retrieved successfully',
@@ -50,10 +57,10 @@ class HealthyCenterAccountController extends Controller
 
     /////////////////////////////////////// Offices //////////////////////////////////////////
 
-    public function officeGetCenters($office_id)
+    public function directorateOfficeGetCenters($directorate_office_account_id)
     {
         try {
-            $center = Healthy_center::join('directorates', 'healthy_centers.directorate_id', '=', 'directorates.id')->join('cities', 'healthy_centers.city_id', '=', 'cities.id')->join('offices', 'healthy_centers.office_id', '=', 'offices.id')->select('healthy_centers.*', 'cities.city_name', 'directorates.directorate_name', 'offices.office_name')->where('healthy_centers.office_id', $office_id)->orderBy('healthy_centers.id', 'asc')->get();
+            $center = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->where('healthy_center_accounts.directorate_office_account_id', $directorate_office_account_id)->orderBy('healthy_centers.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Centers retrieved successfully',
@@ -66,18 +73,17 @@ class HealthyCenterAccountController extends Controller
         }
     }
 
-    public function officeAddCenterAccount(Request $request, $office_id)
+    public function directorateOfficeAddCenterAccount(Request $request, $directorate_office_account_id)
     {
         try {
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'healthy_center_name' => 'required',
-                    'healthy_center_phone' => 'required',
-                    'healthy_center_address' => 'required',
-                    'city_id' => 'required',
-                    'directorate_id' => 'required',
-                    'create_account_code' => 'required',
+                    'healthy_center_account_name' => 'required',
+                    'setup_code' => 'required',
+                    'healthy_center_account_phone' => 'required',
+                    'healthy_center_account_address' => 'required',
+                    'directorate_office_account_id' => 'required',
                 ],
             );
 
@@ -87,9 +93,9 @@ class HealthyCenterAccountController extends Controller
                 ], 400);
             }
 
-            $centerExists = Healthy_center::where('office_id', $request->office_id)
+            $centerExists = HealthyCenterAccount::where('directorate_office_account_id', $request->directorate_office_id)
                 ->where(function ($query) use ($request) {
-                    $query->where('healthy_center_name', $request->healthy_center_name);
+                    $query->where('healthy_center_account_name', $request->healthy_center_account_name);
                 })->exists();
 
             if ($centerExists) {
@@ -99,14 +105,12 @@ class HealthyCenterAccountController extends Controller
             }
 
             // Create record
-            $addCenter = Healthy_center::create([
-                'healthy_center_name' => $request->healthy_center_name,
-                'healthy_center_phone' => $request->healthy_center_phone,
-                'healthy_center_address' => $request->healthy_center_address,
-                'city_id' => $request->city_id,
-                'directorate_id' => $request->directorate_id,
-                'create_account_code' => $request->create_account_code,
-                'office_id' => $office_id,
+            $addCenter = HealthyCenterAccount::create([
+                'healthy_center_account_name' => $request->healthy_center_account_name,
+                'healthy_center_account_phone' => $request->healthy_center_account_phone,
+                'healthy_center_account_address' => $request->healthy_center_account_address,
+                'setup_code' => $request->setup_code,
+                'directorate_office_account_id' => $directorate_office_account_id,
             ]);
 
             // Return created record
@@ -121,16 +125,16 @@ class HealthyCenterAccountController extends Controller
         }
     }
 
-    public function officeUpdateCenterAccount(Request $request, $office_id)
+    public function officeUpdateCenterAccount(Request $request, $directorate_office_account_id)
     {
         try {
 
-            $center = Healthy_center::find($request->id);
+            $center = HealthyCenterAccount::find($request->id);
 
             // التحقق من وجود اسم المركز في المكتب المحدد إذا تم تغييره
-            if ($request->healthy_center_name !== $center->healthy_center_name) {
-                $centerExists = Healthy_center::where('office_id', $office_id)
-                    ->where('healthy_center_name', $request->healthy_center_name)
+            if ($request->healthy_center_account_name !== $center->healthy_center_account_name) {
+                $centerExists = HealthyCenterAccount::where('directorate_office_account_id', $directorate_office_account_id)
+                    ->where('healthy_center_account_name', $request->healthy_center_account_name)
                     ->exists();
                 if ($centerExists) {
                     return response()->json([
@@ -139,7 +143,12 @@ class HealthyCenterAccountController extends Controller
                 }
             }
 
-            $center->update(['healthy_center_name' => $request->healthy_center_name, 'healthy_center_phone' => $request->healthy_center_phone, 'healthy_center_address' => $request->healthy_center_address, 'city_id' => $request->city_id, 'directorate_id' => $request->directorate_id]);
+            $center->update([
+                'healthy_center_account_name' => $request->healthy_center_account_name,
+                'healthy_center_account_phone' => $request->healthy_center_account_phone,
+                'healthy_center_account_address' => $request->healthy_center_account_address,
+                'directorate_office_account_id' => $directorate_office_account_id,
+            ]);
 
             return response()->json([
                 'message' => 'Center updated successfully',

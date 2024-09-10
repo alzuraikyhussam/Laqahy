@@ -150,7 +150,7 @@ class VaccineController extends GetxController {
         return;
       } else if (response.statusCode == 401) {
         isAddDonorLoading(false);
-        Constants().playErrorSound();
+        // Constants().playErrorSound();
 
         myShowDialog(
           context: Get.context!,
@@ -203,7 +203,7 @@ class VaccineController extends GetxController {
       if (donorErrorMsg.isNotEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
@@ -232,7 +232,7 @@ class VaccineController extends GetxController {
       if (donors.isEmpty) {
         return InkWell(
           onTap: () {
-            Constants().playErrorSound();
+            // Constants().playErrorSound();
 
             myShowDialog(
                 context: Get.context!,
