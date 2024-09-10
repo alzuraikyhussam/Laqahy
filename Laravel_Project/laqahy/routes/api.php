@@ -52,24 +52,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // --------------------- Auth Routes ------------------------
-Route::post('ministry/auth/register', [AuthController::class, 'cityOfficeAccountRegister']);
-Route::post('ministry/auth/login/{office_id?}', [AuthController::class, 'cityOfficeAccountLogin']);
+// Route::post('ministry/auth/register', [AuthController::class, 'OfficeAccountRegister']);
+// Route::post('ministry/auth/login/{office_id?}', [AuthController::class, 'OfficeAccountLogin']);
+
+Route::post('auth/register', [AuthController::class, 'register']); //---
+Route::post('auth/login/{office_id?}', [AuthController::class, 'login']); //---
+Route::post('auth/register/verify-setup-code', [AuthController::class, 'verifySetupCode']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------
-Route::get('offices/auth/register/verify', [AuthController::class, 'checkVerificationCode']); //---
-Route::post('offices/auth/register', [AuthController::class, 'officeRegister']);
-Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'login']);
+// Route::get('offices/auth/register/verify', [AuthController::class, 'checkVerificationCode']); //---
+// Route::post('offices/auth/register', [AuthController::class, 'officeRegister']);
+// Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'login']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------
-Route::get('centers/auth/register/verify/{code}', [AuthController::class, 'centerCheckVerificationCode']);
-Route::post('centers/auth/register', [AuthController::class, 'centerRegister']);
-Route::post('centers/auth/login/{center_Id?}', [AuthController::class, 'centerLogin']);
+// Route::get('centers/auth/register/verify/{code}', [AuthController::class, 'centerCheckVerificationCode']);
+// Route::post('centers/auth/register', [AuthController::class, 'centerRegister']);
+// Route::post('centers/auth/login/{center_Id?}', [AuthController::class, 'centerLogin']);
 // ------------------------------------------------------------
 
-// --------------------- Auth Routes ------------------------
-Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']);
+// --------------------- Mobile App Auth Routes ------------------------
+Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']); // ---
 Route::post('mobile/auth/fingerprint-login', [AuthController::class, 'mobileLoginWithFingerprint']);
 // ------------------------------------------------------------
 
