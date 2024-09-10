@@ -125,7 +125,7 @@ class HealthyCenterAccountController extends Controller
         }
     }
 
-    public function officeUpdateCenterAccount(Request $request, $directorate_office_account_id)
+    public function directorateOfficeUpdateCenterAccount(Request $request, $directorate_office_account_id)
     {
         try {
 

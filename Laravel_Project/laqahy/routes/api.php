@@ -131,7 +131,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // --------------------- Healthy Center Routes ------------------------
     Route::get('ministry/centers', [HealthyCenterAccountController::class, 'index']);
-    Route::get('ministry/centers/{id}', [HealthyCenterAccountController::class, 'getCentersByOffice']);
+    Route::get('ministry/centers/{id}', [HealthyCenterAccountController::class, 'getCentersByDirectorateOffice']);
     // ------------------------------------------------------------
 
     // --------------------- User Routes ------------------------
@@ -223,9 +223,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Healthy Center Routes ------------------------
-    Route::get('offices/centers/{office_id}', [HealthyCenterAccountController::class, 'officeGetCenters']);
-    Route::post('offices/centers/add-center/{office_id}', [HealthyCenterAccountController::class, 'officeAddCenterAccount']);
-    Route::patch('offices/centers/update-center/{office_id}', [HealthyCenterAccountController::class, 'officeUpdateCenterAccount']);
+    Route::get('offices/centers/{directorate_office_account_id}', [HealthyCenterAccountController::class, 'directorateOfficeGetCenters']);
+    Route::post('offices/centers/add-center/{directorate_office_account_id}', [HealthyCenterAccountController::class, 'directorateOfficeAddCenterAccount']);
+    Route::patch('offices/centers/update-center/{directorate_office_account_id}', [HealthyCenterAccountController::class, 'directorateOfficeUpdateCenterAccount']);
     // ------------------------------------------------------------
 
     // --------------------- User Routes ------------------------
