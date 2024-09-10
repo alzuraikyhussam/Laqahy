@@ -82,7 +82,7 @@ class TechnicalSupportController extends GetxController {
 
       if (response.statusCode == 200) {
         isLoading(false);
-        Constants().playSuccessSound();
+        // Constants().playSuccessSound();
 
         myShowDialog(
           context: Get.context!,
