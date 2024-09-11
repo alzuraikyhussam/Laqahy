@@ -30,11 +30,14 @@ class DirectorateController extends Controller
     public function show($id)
     {
         try {
+
             $directorate = Directorate::where('city_id', $id)->get();
+
             return response()->json([
                 'message' => 'Directorates retrieved successfully',
                 'data' => $directorate,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
 
+    // ------------------ HC & Offices Auth --------------------
+
     public function register(Request $request)
     {
         try {
@@ -197,7 +199,7 @@ class AuthController extends Controller
             } else {
                 return response()->json([
                     'message' => 'Sorry, something is wrong',
-                ], 404);
+                ], 402);
             }
 
             $mother_vaccines = MotherVaccine::all(); //---
@@ -306,7 +308,7 @@ class AuthController extends Controller
 
                 return response()->json([
                     'message' => 'Sorry, something is wrong',
-                ], 404);
+                ], 402);
 
             }
 
@@ -350,7 +352,7 @@ class AuthController extends Controller
 
                 return response()->json([
                     'message' => 'Sorry, something is wrong',
-                ], 404);
+                ], 402);
 
             }
             // ---
@@ -372,6 +374,8 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    // ----------------------------------------------------
 
     // public function officeRegister(Request $request)
     // {
@@ -593,13 +597,13 @@ class AuthController extends Controller
     //     }
     // }
 
-    ///////////////////MOBILE//////////////////////
+    // --------------------- Mobile App ---------------------
 
     public function mobileLogin(Request $request, $office_id = 0)
     {
         try {
 
-            if (ctype_digit($request->username)) {
+            if (ctype_digit($request->user_account_name)) {
 
                 // إذا كان أرقام، فإنه معرف الأم (ID)
 
@@ -695,15 +699,15 @@ class AuthController extends Controller
                     ['created_at', $minDate], //---
                 ])->first();
 
-                if (strpos($request->username, 'min-') === 0 || strpos($request->username, 'ci-') === 0) {
+                if (strpos($request->user_account_name, 'min-') === 0 || strpos($request->user_account_name, 'ci-') === 0) {
 
                     $office = CityOfficeAccount::where('id', $user->office_account_id)->first(); //---
 
-                } else if (strpos($request->username, 'dir-') === 0) {
+                } else if (strpos($request->user_account_name, 'dir-') === 0) {
 
                     $office = DirectorateOfficeAccount::where('id', $user->office_account_id)->first(); //---
 
-                } else if (strpos($request->username, 'hc-') === 0) {
+                } else if (strpos($request->user_account_name, 'hc-') === 0) {
 
                     $office = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->where('healthy_center_accounts.id', $user->office_account_id)->first();
 
@@ -733,7 +737,7 @@ class AuthController extends Controller
     {
         try {
 
-            if (ctype_digit($request->username)) {
+            if (ctype_digit($request->user_account_name)) {
 
                 // إذا كان أرقام، فإنه معرف الأم (ID)
 
@@ -788,8 +792,7 @@ class AuthController extends Controller
                 $validator = Validator::make(
                     $request->all(),
                     [
-                        'office_account_id' => 'required', //---
-                        'office_type_id' => 'required', //---
+                        'user_account_name' => 'required', //---
                         'token' => 'required',
                     ],
                 );
@@ -800,18 +803,12 @@ class AuthController extends Controller
                     ], 400);
                 }
 
-                $user = User::where('office_type_id', $request->office_type_id)->where('user_account_name', $request->user_account_name)->first(); //---
+                $user = User::where('user_account_name', $request->user_account_name)->first(); //---
 
                 if (!$user) {
                     return response()->json([
                         'message' => 'User not found',
                     ], 404);
-                }
-
-                if (!($request->user_account_password === $user->user_account_password)) {
-                    return response()->json([
-                        'message' => 'Invalid password',
-                    ], 401);
                 }
 
                 $minDate = Carbon::parse(User::where([['office_type_id', $user->office_type_id], ['office_account_id', $user->office_account_id]])->min('created_at'))->toDateString(); //---
@@ -822,15 +819,15 @@ class AuthController extends Controller
                     ['created_at', $minDate], //---
                 ])->first();
 
-                if (strpos($request->username, 'min-') === 0 || strpos($request->username, 'ci-') === 0) {
+                if (strpos($request->user_account_name, 'min-') === 0 || strpos($request->user_account_name, 'cit-') === 0) {
 
                     $office = CityOfficeAccount::where('id', $user->office_account_id)->first(); //---
 
-                } else if (strpos($request->username, 'dir-') === 0) {
+                } else if (strpos($request->user_account_name, 'dir-') === 0) {
 
                     $office = DirectorateOfficeAccount::where('id', $user->office_account_id)->first(); //---
 
-                } else if (strpos($request->username, 'hc-') === 0) {
+                } else if (strpos($request->user_account_name, 'hc-') === 0) {
 
                     $office = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->where('healthy_center_accounts.id', $user->office_account_id)->first();
 
@@ -848,6 +845,10 @@ class AuthController extends Controller
                 ], 200);
 
             }
+
+            return response()->json([
+                'message' => 'Sorry, something is wrong',
+            ], 402);
 
         } catch (Exception $e) {
             return response()->json([

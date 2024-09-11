@@ -31,7 +31,7 @@ class OfficeType extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function office_statement_stock_vaccine()
+    public function vaccine_stock_statement()
     {
         return $this->hasMany(VaccineStockStatement::class);
     }
@@ -39,5 +39,10 @@ class OfficeType extends Model
     public function vaccine_stock()
     {
         return $this->hasMany(VaccineStock::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }

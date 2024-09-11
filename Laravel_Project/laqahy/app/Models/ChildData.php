@@ -17,6 +17,7 @@ class ChildData extends Model
         'child_data_birthplace',
         'child_data_birthDate',
         'gender_id',
+        'healthy_center_account_id',
         // 'fcm_token',
     ];
     
@@ -36,5 +37,10 @@ class ChildData extends Model
     public function child_statement()
     {
         return $this->hasMany(ChildStatement::class);
+    }
+
+    public function healthy_center_account()
+    {
+        return $this->belongsTo(HealthyCenterAccount::class);
     }
 }

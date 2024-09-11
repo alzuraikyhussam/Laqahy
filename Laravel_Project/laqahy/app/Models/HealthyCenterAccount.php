@@ -63,4 +63,9 @@ class HealthyCenterAccount extends Model
     {
         return $this->hasMany(ChildStatement::class);
     }
+
+    public function child_data()
+    {
+        return $this->hasMany(ChildData::class);
+    }
 }

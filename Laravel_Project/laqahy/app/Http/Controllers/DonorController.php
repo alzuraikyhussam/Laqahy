@@ -15,11 +15,14 @@ class DonorController extends Controller
     public function index()
     {
         try {
+
             $donor = Donor::get();
+
             return response()->json([
                 'message' => 'Donors retrieved successfully',
                 'data' => $donor,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -33,6 +36,7 @@ class DonorController extends Controller
     public function store(Request $request)
     {
         try {
+
             $validator = Validator::make(
                 $request->all(),
                 [
@@ -64,6 +68,7 @@ class DonorController extends Controller
                 'message' => 'Donor created successfully',
                 'data' => $donor,
             ], 201);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
