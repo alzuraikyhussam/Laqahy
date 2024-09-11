@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\DosageLevel;
+use App\Models\MotherStatement;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class MotherStatementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /*
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------- This Page Was Modified By Elias --------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    */
     public function index()
     {
         //
@@ -35,11 +42,12 @@ class MotherStatementController extends Controller
                 $request->all(),
                 [
                     'mother_data_id' => 'required',
-                    'healthy_center_id' => 'required',
+                    'healthy_center_account_id' => 'required',
                     'user_id' => 'required',
                     'date_taking_dose' => 'required',
                     'return_date' => 'required',
-                    'dosage_type_id' => 'required',
+                    'mother_vaccine_id' => 'required',
+                    'mother_dosage_type_id' => 'required',
                     'dosage_level_id' => 'required',
                 ],
             );
@@ -60,7 +68,7 @@ class MotherStatementController extends Controller
             //     ], 405);
             // }
 
-            $motherStatementExists = MotherStatement::where('dosage_type_id', $request->dosage_type_id)->where('mother_data_id', $request->mother_data_id)->exists();
+            $motherStatementExists = MotherStatement::where('mother_dosage_type_id', $request->mother_dosage_type_id)->where('mother_data_id', $request->mother_data_id)->exists();
 
             if ($motherStatementExists) {
                 return response()->json([
@@ -71,11 +79,12 @@ class MotherStatementController extends Controller
             // Create record
             $user = MotherStatement::create([
                 'mother_data_id' => $request->mother_data_id,
-                'healthy_center_id' => $request->healthy_center_id,
+                'healthy_center_account_id' => $request->healthy_center_account_id,
                 'user_id' => $request->user_id,
                 'date_taking_dose' => $request->date_taking_dose,
                 'return_date' => $request->return_date,
-                'dosage_type_id' => $request->dosage_type_id,
+                'mother_vaccine_id' => $request->mother_vaccine_id,
+                'mother_dosage_type_id' => $request->mother_dosage_type_id,
                 'dosage_level_id' => $request->dosage_level_id,
             ]);
 
@@ -102,7 +111,7 @@ class MotherStatementController extends Controller
     {
         try {
 
-            $motherStatement = MotherStatement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_statements.healthy_center_id', '=', 'healthy_centers.id')->join('dosage_types', 'mother_statements.dosage_type_id', '=', 'dosage_types.id')->join('dosage_levels', 'mother_statements.dosage_level_id', '=', 'dosage_levels.id')->join('users', 'mother_statements.user_id', '=', 'users.id')->select('mother_statements.*', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'dosage_types.dosage_type', 'dosage_levels.dosage_level', 'users.user_name')->where('mother_statements.mother_data_id', $motherId)->get();
+            $motherStatement = MotherStatement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->join('healthy_center_accounts', 'mother_statements.healthy_center_account_id', '=', 'healthy_center_accounts.id')->join('mother_dosage_types', 'mother_statements.mother_dosage_type_id', '=', 'mother_dosage_types.id')->join('dosage_levels', 'mother_statements.dosage_level_id', '=', 'dosage_levels.id')->join('users', 'mother_statements.user_id', '=', 'users.id')->select('mother_statements.*', 'mother_data.mother_name', 'healthy_center_accounts.healthy_center_account_name', 'mother_dosage_types.mother_dosage_type', 'dosage_levels.dosage_level', 'users.user_name')->where('mother_statements.mother_data_id', $motherId)->get();
 
             return response()->json([
                 'message' => 'Mother statement retrieved successfully',
@@ -160,7 +169,7 @@ class MotherStatementController extends Controller
     public function getMotherDosage(string $mother_id)
     {
         try {
-            $dosageCount = DosageLevel::withCount('dosage_type')->get();
+            $dosageCount = DosageLevel::withCount('mother_dosage_types')->get();
             $basicDosageTakenCount = MotherStatement::where('mother_data_id', $mother_id)->where('dosage_level_id', 1)->count();
             $refresherDosageTakenCount = MotherStatement::where('mother_data_id', $mother_id)->where('dosage_level_id', 2)->count();
 
@@ -182,7 +191,7 @@ class MotherStatementController extends Controller
     public function printMotherStatementData(string $motherId, string $dosageLevel, string $dosageType)
     {
         try {
-            $motherStatement = MotherStatement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->join('healthy_centers', 'mother_statements.healthy_center_id', '=', 'healthy_centers.id')->join('dosage_types', 'mother_statements.dosage_type_id', '=', 'dosage_types.id')->join('dosage_levels', 'mother_statements.dosage_level_id', '=', 'dosage_levels.id')->join('users', 'mother_statements.user_id', '=', 'users.id')->select('mother_statements.*', 'mother_data.mother_name', 'healthy_centers.healthy_center_name', 'dosage_types.dosage_type', 'dosage_levels.dosage_level', 'users.user_name')->where('mother_statements.dosage_level_id', $dosageLevel)->where('mother_statements.dosage_type_id', $dosageType)->where('mother_statements.mother_data_id', $motherId)->get();
+            $motherStatement = MotherStatement::join('mother_data', 'mother_statements.mother_data_id', '=', 'mother_data.id')->join('healthy_center_accounts', 'mother_statements.healthy_center_account_id', '=', 'healthy_center_accounts.id')->join('mother_dosage_types', 'mother_statements.mother_dosage_type_id', '=', 'mother_dosage_types.id')->join('dosage_levels', 'mother_statements.dosage_level_id', '=', 'dosage_levels.id')->join('users', 'mother_statements.user_id', '=', 'users.id')->select('mother_statements.*', 'mother_data.mother_name', 'healthy_center_accounts.healthy_center_account_name', 'mother_dosage_types.mother_dosage_type', 'dosage_levels.dosage_level', 'users.user_name')->where('mother_statements.dosage_level_id', $dosageLevel)->where('mother_statements.mother_dosage_type_id', $dosageType)->where('mother_statements.mother_data_id', $motherId)->get();
 
             return response()->json([
                 'message' => 'Mother statement retrieved successfully',

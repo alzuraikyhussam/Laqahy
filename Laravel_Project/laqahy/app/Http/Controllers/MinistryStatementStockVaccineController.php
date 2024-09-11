@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ministry_statement_stock_vaccine;
 use App\Models\Ministry_stock_vaccine;
+use App\Models\VaccineStockStatement;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,12 +13,18 @@ use Illuminate\Support\Facades\Validator;
 class MinistryStatementStockVaccineController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------- This Page Was Modified By Elias --------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    */
     public function index()
     {
         try {
-            $vaccine = Ministry_statement_stock_vaccine::join('vaccine_types', 'ministry_statement_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->join('donors', 'ministry_statement_stock_vaccines.donor_id', '=', 'donors.id')->select('ministry_statement_stock_vaccines.*', 'vaccine_types.vaccine_type', 'donors.donor_name')->orderBy('id', 'desc')->get();
+            $vaccine = VaccineStockStatement::join('vaccine_types', 'vaccine_stock_statements.vaccine_type_id', '=', 'vaccine_types.id')->join('donors', 'vaccine_stock_statements.donor_id', '=', 'donors.id')->select('vaccine_stock_statements.*', 'vaccine_types.vaccine_type', 'donors.donor_name')->orderBy('id', 'desc')->get();
             return response()->json([
                 'message' => 'Vaccines quantity retrieved successfully',
                 'data' => $vaccine,
@@ -39,8 +46,11 @@ class MinistryStatementStockVaccineController extends Controller
                 $request->all(),
                 [
                     'vaccine_type_id' => 'required',
+                    'office_account_id' => 'required',
+                    'office_type_id' => 'required',
                     'quantity' => 'required',
                     'donor_id' => 'required',
+                    'date' => 'required',
                 ],
             );
 
@@ -51,13 +61,16 @@ class MinistryStatementStockVaccineController extends Controller
             }
 
             // Create record
-            $addQty = Ministry_statement_stock_vaccine::create([
+            $addQty = VaccineStockStatement::create([
                 'vaccine_type_id' => $request->vaccine_type_id,
+                'office_account_id' => $request->office_account_id,
+                'office_type_id' => $request->office_type_id,
                 'quantity' => $request->quantity,
                 'donor_id' => $request->donor_id,
+                'date' => $request->date,
             ]);
 
-            $vaccineQty = Ministry_stock_vaccine::where('vaccine_type_id', $request->vaccine_type_id)->first();
+            $vaccineQty = VaccineStockStatement::where('vaccine_type_id', $request->vaccine_type_id)->first();
             $newQty = $vaccineQty->quantity + $request->quantity;
             $vaccineQty->update([
                 'quantity' => $newQty,
@@ -105,7 +118,7 @@ class MinistryStatementStockVaccineController extends Controller
                 ], 400);
             }
 
-            $statement = Ministry_statement_stock_vaccine::find($id);
+            $statement = VaccineStockStatement::find($id);
 
             if (!$statement) {
                 return response()->json([
@@ -117,7 +130,7 @@ class MinistryStatementStockVaccineController extends Controller
             $newQty = $request->quantity;
             $quantityDifference = $newQty - $oldQty;
 
-            $vaccine = Ministry_stock_vaccine::where('vaccine_type_id', $statement->vaccine_type_id)->first();
+            $vaccine = VaccineStockStatement::where('vaccine_type_id', $statement->vaccine_type_id)->first();
 
             // التحقق من ان التحديث لن يؤدي الى قيمة سالبة
             if ($vaccine->quantity + $quantityDifference < 0) {
@@ -149,7 +162,7 @@ class MinistryStatementStockVaccineController extends Controller
     public function destroy($id)
     {
         try {
-            $statement = Ministry_statement_stock_vaccine::find($id);
+            $statement = VaccineStockStatement::find($id);
 
             if (!$statement) {
                 return response()->json([
@@ -157,7 +170,7 @@ class MinistryStatementStockVaccineController extends Controller
                 ], 404);
             }
 
-            $vaccine = Ministry_stock_vaccine::where('vaccine_type_id', $statement->vaccine_type_id)->first();
+            $vaccine = VaccineStockStatement::where('vaccine_type_id', $statement->vaccine_type_id)->first();
 
             // التحقق من ان الحذف لن يؤدي الى قيمة سالبة
             if ($vaccine->quantity < $statement->quantity) {
@@ -187,9 +200,9 @@ class MinistryStatementStockVaccineController extends Controller
     {
         try {
 
-            $minDate = Carbon::parse(Ministry_statement_stock_vaccine::min('date'))->toDateString();
+            $minDate = Carbon::parse(VaccineStockStatement::min('date'))->toDateString();
 
-            $maxDate = Carbon::parse(Ministry_statement_stock_vaccine::max('date'))->toDateString();
+            $maxDate = Carbon::parse(VaccineStockStatement::max('date'))->toDateString();
 
             return response()->json([
                 'message' => 'Date range retrieved successfully',

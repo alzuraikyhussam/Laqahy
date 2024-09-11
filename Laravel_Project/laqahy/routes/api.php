@@ -219,7 +219,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Mother Data Routes ------------------------
-    Route::get('offices/mother-data/date-range/{office_id}', [MotherDataController::class, 'officeGetDateRange']);
+    Route::get('offices/mother-data/date-range/{directorateOfficeId}', [MotherDataController::class, 'directorateOfficeGetDateRange']);
     // ------------------------------------------------------------
 
     // --------------------- Healthy Center Routes ------------------------
@@ -237,7 +237,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Health Center Order Routes ------------------------
-    Route::get('offices/orders/date-range/{office_id}', [HealthyCenterOrderController::class, 'officeGetDateRange']);
+    Route::get('offices/orders/date-range/{directorateOfficeId}', [HealthyCenterOrderController::class, 'directorateOfficeGetDateRange']);
     // ------------------------------------------------------------
 
     // --------------------- Order Routes ------------------------
@@ -292,7 +292,7 @@ Route::middleware('auth:sanctum')->group(function () {
     ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 
     // --------------------- Mother Data Routes ------------------------
-    Route::get('centers/mother-data/date-range/{center_id}', [MotherDataController::class, 'centerGetDateRange']);
+    Route::get('centers/mother-data/date-range/{healthyCenterId}', [MotherDataController::class, 'healthyCenterGetDateRange']);
     Route::post('centers/mother-data/add-mother', [MotherDataController::class, 'store']);
     Route::get('centers/mother-data/get-all-mother-data', [MotherDataController::class, 'getAllMotherStatusData']);
     Route::get('centers/mother-data/get-mother-data/{healthyCenterId}', [MotherDataController::class, 'index']);
@@ -345,16 +345,16 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Health Center Order Routes ------------------------
-    Route::get('centers/orders/date-range/{center_id}', [HealthyCenterOrderController::class, 'centerGetDateRange']);
+    Route::get('centers/orders/date-range/{healthyCenterId}', [HealthyCenterOrderController::class, 'healthyCenterGetDateRange']);
     // ------------------------------------------------------------
 
     // --------------------- Order Routes ------------------------
-    Route::post('centers/orders/add-order', [HealthyCenterOrderController::class, 'centerAddOrder']);
-    Route::get('centers/orders/outgoing/{center_id}', [HealthyCenterOrderController::class, 'centerOutgoingOrders']);
-    Route::get('centers/orders/in-delivery/{center_id}', [HealthyCenterOrderController::class, 'centerInDeliveryOrders']);
-    Route::get('centers/orders/delivered/{center_id}', [HealthyCenterOrderController::class, 'centerDeliveredOrders']);
-    Route::get('centers/orders/rejected/{center_id}', [HealthyCenterOrderController::class, 'centerRejectedOrders']);
-    Route::patch('centers/orders/receiving-confirm', [HealthyCenterOrderController::class, 'centerReceivingConfirmOrder']);
+    Route::post('centers/orders/add-order', [HealthyCenterOrderController::class, 'healthyCenterAddOrder']);
+    Route::get('centers/orders/outgoing/{center_id}', [HealthyCenterOrderController::class, 'healthyCenterOutgoingOrders']);
+    Route::get('centers/orders/in-delivery/{center_id}', [HealthyCenterOrderController::class, 'healthyCenterInDeliveryOrders']);
+    Route::get('centers/orders/delivered/{center_id}', [HealthyCenterOrderController::class, 'healthyCenterDeliveredOrders']);
+    Route::get('centers/orders/rejected/{center_id}', [HealthyCenterOrderController::class, 'healthyCenterRejectedOrders']);
+    Route::patch('centers/orders/receiving-confirm', [HealthyCenterOrderController::class, 'healthyCenterReceivingConfirmOrder']);
     // ------------------------------------------------------------
 
     // --------------------- Healthy Centers Stock Vaccines Routes ------------------------

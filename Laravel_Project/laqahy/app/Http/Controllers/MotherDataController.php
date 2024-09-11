@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MotherData;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -10,9 +11,15 @@ use Illuminate\Support\Facades\Validator;
 class MotherDataController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     */
+    /*
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------- This Page Was Modified By Elias --------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    */
     public function index(string $healthyCenterId)
     {
         try {
@@ -56,7 +63,6 @@ class MotherDataController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
             $validator = Validator::make(
                 $request->all(),
@@ -69,7 +75,7 @@ class MotherDataController extends Controller
                     'mother_village' => 'required',
                     'city_id' => 'required',
                     'directorate_id' => 'required',
-                    'healthy_center_id' => 'required',
+                    'healthy_center_account_id' => 'required',
                 ],
             );
             if ($validator->fails()) {
@@ -96,7 +102,7 @@ class MotherDataController extends Controller
                 'mother_village' => $request->mother_village,
                 'city_id' => $request->city_id,
                 'directorate_id' => $request->directorate_id,
-                'healthy_center_id' => $request->healthy_center_id,
+                'healthy_center_account_id' => $request->healthy_center_id,
             ]);
 
             // Return created record
@@ -197,13 +203,13 @@ class MotherDataController extends Controller
 
     /////////////////////////// Offices ////////////////////////////////
 
-    public function officeGetDateRange($office_id)
+    public function directorateOfficeGetDateRange($directorateOfficeId)
     {
         try {
 
-            $motherMinDate = MotherData::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->min('mother_data.created_at');
+            $motherMinDate = MotherData::join('healthy_center_accounts', 'mother_data.healthy_center_account_id', '=', 'healthy_center_accounts.id')->where('healthy_center_accounts.directorate_office_account_id', $directorateOfficeId)->min('mother_data.created_at');
 
-            $motherMaxDate = MotherData::join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->where('healthy_centers.office_id', $office_id)->max('mother_data.created_at');
+            $motherMaxDate = MotherData::join('healthy_center_accounts', 'mother_data.healthy_center_account_id', '=', 'healthy_center_accounts.id')->where('healthy_center_accounts.directorate_office_account_id', $directorateOfficeId)->max('mother_data.created_at');
 
             $minDate = Carbon::parse($motherMinDate)->toDateString();
             $maxDate = Carbon::parse($motherMaxDate)->toDateString();
@@ -222,13 +228,13 @@ class MotherDataController extends Controller
 
     ////////////////////////////////// Centers //////////////////////////////////
 
-    public function centerGetDateRange($center_id)
+    public function healthyCenterGetDateRange($healthyCenterId)
     {
         try {
 
-            $motherMinDate = MotherData::where('mother_data.healthy_center_id', $center_id)->min('created_at');
+            $motherMinDate = MotherData::where('mother_data.healthy_center_account_id', $healthyCenterId)->min('created_at');
 
-            $motherMaxDate = MotherData::where('mother_data.healthy_center_id', $center_id)->max('created_at');
+            $motherMaxDate = MotherData::where('mother_data.healthy_center_account_id', $healthyCenterId)->max('created_at');
 
             $minDate = Carbon::parse($motherMinDate)->toDateString();
             $maxDate = Carbon::parse($motherMaxDate)->toDateString();
@@ -248,7 +254,7 @@ class MotherDataController extends Controller
     public function showAllMothersStatusData(string $centerId)
     {
         try {
-            $mother = MotherData::join('cities', 'mother_data.city_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->get();
+            $mother = MotherData::join('cities', 'mother_data.city_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_center_accounts', 'mother_data.healthy_center_account_id', '=', 'healthy_center_accounts.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->get();
             return response()->json([
                 'message' => 'Mothers retrieved successfully',
                 'data' => $mother,
@@ -262,7 +268,7 @@ class MotherDataController extends Controller
     public function printMotherStatusData(string $identityNumber)
     {
         try {
-            $return_mother = MotherData::join('cities', 'mother_data.city_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_centers', 'mother_data.healthy_center_id', '=', 'healthy_centers.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->where('mother_data.mother_identity_num', $identityNumber)->get();
+            $return_mother = MotherData::join('cities', 'mother_data.city_id', '=', 'cities.id')->join('directorates', 'mother_data.directorate_id', '=', 'directorates.id')->join('healthy_center_accounts', 'mother_data.healthy_center_account_id', '=', 'healthy_center_accounts.id')->select('mother_data.*', 'cities.city_name', 'directorates.directorate_name')->where('mother_data.mother_identity_num', $identityNumber)->get();
             return response()->json([
                 'message' => 'Mothers retrieved successfully',
                 'data' => $return_mother,

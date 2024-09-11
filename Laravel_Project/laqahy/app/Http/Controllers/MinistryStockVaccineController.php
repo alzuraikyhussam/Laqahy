@@ -3,18 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ministry_stock_vaccine;
+use App\Models\VaccineStock;
 use Exception;
 use Illuminate\Http\Request;
 
 class MinistryStockVaccineController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /*
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------- This Page Was Modified By Elias --------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    */
     public function index()
     {
         try {
-            $vaccine = Ministry_stock_vaccine::join('vaccine_types', 'ministry_stock_vaccines.vaccine_type_id', '=', 'vaccine_types.id')->select('ministry_stock_vaccines.*', 'vaccine_types.vaccine_type')->get();
+            $vaccine = VaccineStock::join('vaccine_types', 'vaccine_stock.vaccine_type_id', '=', 'vaccine_types.id')->select('vaccine_stock.*', 'vaccine_types.vaccine_type')->get();
             return response()->json([
                 'message' => 'Vaccines retrieved successfully',
                 'data' => $vaccine,

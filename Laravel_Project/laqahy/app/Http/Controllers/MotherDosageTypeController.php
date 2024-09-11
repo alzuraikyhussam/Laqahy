@@ -3,14 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosage_type;
+use App\Models\MotherDosageType;
+use App\Models\MotherStatement;
 use Exception;
 use Illuminate\Http\Request;
 
 class MotherDosageTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /*
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------- This Page Was Modified By Elias --------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    **--------------------------------------------------------------
+    */
     public function index()
     {
         //
@@ -43,7 +51,7 @@ class MotherDosageTypeController extends Controller
 
             if (!$mother) {
                 // If the mother is not found, return all the dosage types for the given dosage level ID
-                $Dosage_type = Dosage_type::where('dosage_level_id', $dosageLevelId)->get();
+                $Dosage_type = MotherDosageType::where('dosage_level_id', $dosageLevelId)->get();
                 return response()->json([
                     'message' => 'Dosage types retrieved successfully',
                     'data' => $Dosage_type,
@@ -51,8 +59,8 @@ class MotherDosageTypeController extends Controller
             }
 
             // Get the dosage types that the mother has not taken
-            $motherStatement = Dosage_type::whereNotIn('id', function ($query) use ($motherId) {
-                $query->select('dosage_type_id')
+            $motherStatement = MotherDosageType::whereNotIn('id', function ($query) use ($motherId) {
+                $query->select('mother_dosage_type_id')
                     ->from('mother_statements')
                     ->where('mother_statements.mother_data_id', $motherId)
                     ->whereNull('mother_statements.deleted_at');
