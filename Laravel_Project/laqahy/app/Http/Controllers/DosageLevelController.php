@@ -14,11 +14,14 @@ class DosageLevelController extends Controller
     public function index()
     {
         try {
+
             $DosageLevel = DosageLevel::get();
+
             return response()->json([
                 'message' => 'Dosages level retrieved successfully',
                 'data' => $DosageLevel,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

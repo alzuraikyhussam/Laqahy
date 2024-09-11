@@ -39,8 +39,10 @@ class ChildDataController extends Controller
                     'child_data_birthplace' => 'required',
                     'mother_data_id' => 'required',
                     'gender_id' => 'required',
+                    'healthy_center_account_id' => 'required', //---
                 ],
             );
+
             if ($validator->fails()) {
                 return response()->json([
                     'message' => $validator->errors(),
@@ -62,12 +64,14 @@ class ChildDataController extends Controller
                 'child_data_birthplace' => $request->child_data_birthplace,
                 'mother_data_id' => $request->mother_data_id,
                 'gender_id' => $request->gender_id,
+                'healthy_center_account_id' => $request->healthy_center_account_id, //---
             ]);
 
             // Return created record
             return response()->json([
                 'message' => 'Child created successfully',
             ], 201);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -78,7 +82,7 @@ class ChildDataController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $motherId)
+    public function getChildrenByMother(string $motherId)
     {
         try {
 
@@ -94,6 +98,7 @@ class ChildDataController extends Controller
                 'message' => 'Child Data retrieved successfully',
                 'data' => $childData,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -115,6 +120,7 @@ class ChildDataController extends Controller
     public function update(Request $request, string $childId)
     {
         try {
+
             $updateChild = ChildData::find($childId);
 
             if (!$updateChild) {
@@ -122,10 +128,13 @@ class ChildDataController extends Controller
                     'message' => 'Child not found',
                 ], 404);
             }
+
             $updateChild->update($request->all());
+
             return response()->json([
                 'message' => 'Child updated successfully',
             ], 200);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -141,29 +150,36 @@ class ChildDataController extends Controller
         //
     }
 
-    public function getChildren($mother_id)
-    {
-        try {
-            $childData = ChildData::where('mother_data_id', $mother_id)->get();
-            return response()->json([
-                'message' => 'Child Data retrieved successfully',
-                'data' => $childData,
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
+    //---
+    // public function getChildren($mother_id)
+    // {
+    //     try {
 
-    public function getAllChildrenStatusData()
+    //         $childData = ChildData::where('mother_data_id', $mother_id)->get();
+
+    //         return response()->json([
+    //             'message' => 'Child Data retrieved successfully',
+    //             'data' => $childData,
+    //         ]);
+
+    //     } catch (Exception $e) {
+    //         return response()->json([
+    //             'message' => $e->getMessage(),
+    //         ], 500);
+    //     }
+    // }
+    //---
+
+    public function getAllChildren()
     {
         try {
             $childData = ChildData::join('mother_data', 'child_data.mother_data_id', '=', 'mother_data.id')->join('genders', 'child_data.gender_id', '=', 'genders.id')->select('child_data.*', 'mother_data.mother_name', 'genders.gender_type')->get();
+
             return response()->json([
                 'message' => 'Child Data retrieved successfully',
                 'data' => $childData,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

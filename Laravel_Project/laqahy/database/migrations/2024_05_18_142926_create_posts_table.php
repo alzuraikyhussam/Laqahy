@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('post_title');
             $table->longText('post_description');
             $table->string('post_image');
+            $table->foreignId('office_type_id')->constrained('office_types')->onUpdate('cascade');
             $table->foreignId('city_office_account_id')->constrained('city_office_accounts')->onUpdate('cascade');
             $table->dateTime('post_publish_date')->useCurrent();
             $table->softDeletes();

@@ -52,24 +52,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // --------------------- Auth Routes ------------------------
-Route::post('ministry/auth/register', [AuthController::class, 'cityOfficeAccountRegister']);
-Route::post('ministry/auth/login/{office_id?}', [AuthController::class, 'cityOfficeAccountLogin']);
+// Route::post('ministry/auth/register', [AuthController::class, 'OfficeAccountRegister']);
+// Route::post('ministry/auth/login/{office_id?}', [AuthController::class, 'OfficeAccountLogin']);
+
+Route::post('auth/register', [AuthController::class, 'register']); //---
+Route::post('auth/login/{office_id?}', [AuthController::class, 'login']); //---
+Route::post('auth/register/verify-setup-code', [AuthController::class, 'verifySetupCode']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------
-Route::get('offices/auth/register/verify', [AuthController::class, 'checkVerificationCode']); //---
-Route::post('offices/auth/register', [AuthController::class, 'officeRegister']);
-Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'login']);
+// Route::get('offices/auth/register/verify', [AuthController::class, 'checkVerificationCode']); //---
+// Route::post('offices/auth/register', [AuthController::class, 'officeRegister']);
+// Route::post('offices/auth/login/{office_Id?}', [AuthController::class, 'login']);
 // ------------------------------------------------------------
 
 // --------------------- Auth Routes ------------------------
-Route::get('centers/auth/register/verify/{code}', [AuthController::class, 'centerCheckVerificationCode']);
-Route::post('centers/auth/register', [AuthController::class, 'centerRegister']);
-Route::post('centers/auth/login/{center_Id?}', [AuthController::class, 'centerLogin']);
+// Route::get('centers/auth/register/verify/{code}', [AuthController::class, 'centerCheckVerificationCode']);
+// Route::post('centers/auth/register', [AuthController::class, 'centerRegister']);
+// Route::post('centers/auth/login/{center_Id?}', [AuthController::class, 'centerLogin']);
 // ------------------------------------------------------------
 
-// --------------------- Auth Routes ------------------------
-Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']);
+// --------------------- Mobile App Auth Routes ------------------------
+Route::post('mobile/auth/login', [AuthController::class, 'mobileLogin']); // ---
 Route::post('mobile/auth/fingerprint-login', [AuthController::class, 'mobileLoginWithFingerprint']);
 // ------------------------------------------------------------
 
@@ -96,11 +100,19 @@ Route::get('directorates/{id}', [DirectorateController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // --------------------- General Routes ------------------------
-    Route::get('ministry/general/home-total-count/{office_id}', [GeneralController::class, 'getTotalCount']);
+    //---
+    // --------------------- Child Data Routes ------------------------
+    Route::get('child-data/get-children/{mother_id}', [ChildDataController::class, 'getChildrenByMother']); //---
     // ------------------------------------------------------------
+    //---
+
+    //---
+    // --------------------- General Routes ------------------------
+    Route::get('general/statistics', [GeneralController::class, 'statistics']); //---
+    // ------------------------------------------------------------
+    //---
+
+    /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // --------------------- Post Routes ------------------------
     Route::get('ministry/posts/trashed', [PostController::class, 'trashedPosts']);
@@ -209,11 +221,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     /////////////////////////////////////// Offices Routes ///////////////////////////////////////////////////////////////////////////////
-
-    // --------------------- General Routes ------------------------
-    Route::get('offices/general/home-total-count/{office_id}', [GeneralController::class, 'officesGetTotalCount']);
-    // ------------------------------------------------------------
-
+    //---
+    // // --------------------- General Routes ------------------------
+    // Route::get('offices/general/home-total-count/{office_id}', [GeneralController::class, 'officesGetTotalCount']);
+    // // ------------------------------------------------------------
+    //---
     // --------------------- Office Stock Vaccines Routes ------------------------
     Route::get('offices/vaccines-quantity/{office_id}', [OfficeStockVaccineController::class, 'index']);
     // ------------------------------------------------------------
@@ -285,20 +297,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('mobile/child-statements/get-child-vaccines/{child_id}', [ChildStatementController::class, 'getChildVaccines']);
     // ------------------------------------------------------------
 
-    // --------------------- Child Data Routes ------------------------
-    Route::get('mobile/child-data/get-child-data/{mother_id}', [ChildDataController::class, 'getChildren']);
-    // ------------------------------------------------------------
+    // // --------------------- Child Data Routes ------------------------
+    // Route::get('mobile/child-data/get-child-data/{mother_id}', [ChildDataController::class, 'getChildren']);
+    // // ------------------------------------------------------------
 
     ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 
     // --------------------- Mother Data Routes ------------------------
     Route::get('centers/mother-data/date-range/{healthyCenterId}', [MotherDataController::class, 'healthyCenterGetDateRange']);
     Route::post('centers/mother-data/add-mother', [MotherDataController::class, 'store']);
-    Route::get('centers/mother-data/get-all-mother-data', [MotherDataController::class, 'getAllMotherStatusData']);
     Route::get('centers/mother-data/get-mother-data/{healthyCenterId}', [MotherDataController::class, 'index']);
-    Route::get('centers/mother-data/get-All-mother-data/{centerId}', [MotherDataController::class, 'showAllMothersStatusData']);
-    Route::delete('centers/mother-data/delete-mother-status-data/{motherId}', [MotherDataController::class, 'destroy']);
     Route::patch('centers/mother-data/update-mother-status-data/{motherId}', [MotherDataController::class, 'update']);
+    Route::delete('centers/mother-data/delete-mother-status-data/{motherId}', [MotherDataController::class, 'destroy']);
+    Route::get('centers/mother-data/get-all-mother-data', [MotherDataController::class, 'getAllMotherStatusData']);
+    Route::get('centers/mother-data/date-range/{center_id}', [MotherDataController::class, 'centerGetDateRange']);
+    Route::get('centers/mother-data/get-All-mother-data/{centerId}', [MotherDataController::class, 'showAllMothersStatusData']);
     Route::get('centers/mother-data/print-mother-status-data/{identityNumber}', [MotherDataController::class, 'printMotherStatusData']);
     // ------------------------------------------------------------
 
@@ -311,9 +324,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // --------------------- Child Data Routes ------------------------
     Route::post('centers/child-data/add-child', [ChildDataController::class, 'store']);
-    Route::get('centers/child-data/get-child/{motherId}', [ChildDataController::class, 'show']);
-    Route::get('centers/child-data/get-all-children-status-data', [ChildDataController::class, 'getAllChildrenStatusData']);
-    Route::delete('centers/child-data/delete-children-status-data/{childId}', [ChildDataController::class, 'destroy']);
+    // Route::get('centers/child-data/get-child/{motherId}', [ChildDataController::class, 'getChildrenByMother']); //---
+    Route::get('centers/child-data/get-all-children-status-data', [ChildDataController::class, 'getAllChildren']); //---
+    // Route::delete('centers/child-data/delete-children-status-data/{childId}', [ChildDataController::class, 'destroy']);
     Route::patch('centers/child-data/update-children-status-data/{childId}', [ChildDataController::class, 'update']);
     // ------------------------------------------------------------
 
@@ -331,11 +344,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('centers/users/{id}', [UserController::class, 'centerShowUser']);
     Route::delete('centers/users/delete-user/{id}', [UserController::class, 'centerDestroyUser']);
     // ------------------------------------------------------------
-
-    // --------------------- General Routes ------------------------
-    Route::get('centers/general/home-total-count/{center_id}', [GeneralController::class, 'centersGetTotalCount']);
-    // ------------------------------------------------------------
-
+    //---
+    // // --------------------- General Routes ------------------------
+    // Route::get('centers/general/home-total-count/{center_id}', [GeneralController::class, 'centersGetTotalCount']);
+    // // ------------------------------------------------------------
+    //---
     // --------------------- Dosage Level Routes ------------------------
     Route::get('centers/dosage-level', [DosageLevelController::class, 'index']);
     // ------------------------------------------------------------

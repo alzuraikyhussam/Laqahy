@@ -14,13 +14,14 @@ class GenderController extends Controller
     public function index()
     {
         try {
-            $gender = Gender::get();
 
+            $gender = Gender::get();
 
             return response()->json([
                 'message' => 'Genders retrieved successfully',
                 'data' => $gender,
             ]);
+            
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

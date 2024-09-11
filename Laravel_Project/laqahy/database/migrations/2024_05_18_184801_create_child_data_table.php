@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('child_data_birthplace');
             $table->date('child_data_birthDate');
             $table->foreignId('gender_id')->constrained('genders')->onUpdate('cascade');
+            $table->foreignId('healthy_center_account_id')->constrained('healthy_center_accounts')->onUpdate('cascade');
             // $table->text('fcm_token')->nullable();
             $table->timestamps();
             $table->softDeletes();

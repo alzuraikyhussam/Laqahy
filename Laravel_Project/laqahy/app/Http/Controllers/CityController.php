@@ -14,11 +14,14 @@ class CityController extends Controller
     public function index()
     {
         try {
+
             $city = City::get();
+
             return response()->json([
-                'message' => 'City retrieved successfully',
+                'message' => 'Cities retrieved successfully',
                 'data' => $city,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
