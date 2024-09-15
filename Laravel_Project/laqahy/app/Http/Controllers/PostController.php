@@ -54,6 +54,9 @@ class PostController extends Controller
                     'post_title' => 'required',
                     'post_description' => 'required',
                     'post_image' => 'required|image|mimes:png,jpg,jpeg',
+                    'office_type_id' => 'required',
+                    'city_office_account_id' => 'required',
+                    'post_publish_date' => 'required',
                 ],
             );
 
@@ -72,6 +75,9 @@ class PostController extends Controller
                 'post_title' => $request->post_title,
                 'post_description' => $request->post_description,
                 'post_image' => $imageName,
+                'office_type_id' => $request->office_type_id,
+                'city_office_account_id' => $request->city_office_account_id,
+                'post_publish_date' => $request->post_publish_date,
             ]);
 
             // Send notification

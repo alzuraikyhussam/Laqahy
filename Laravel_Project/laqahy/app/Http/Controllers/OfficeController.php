@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CityOfficeAccount;
 use App\Models\Office;
 use Carbon\Carbon;
 use Exception;
@@ -15,7 +16,7 @@ class OfficeController extends Controller
      */
     public function index()
     {
-        //    
+        //
     }
 
     /**
@@ -23,7 +24,7 @@ class OfficeController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        //
     }
 
     /**
@@ -43,12 +44,12 @@ class OfficeController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'office_phone' => 'required',
-                    'office_address' => 'required',
+                    'city_office_account_phone' => 'required',
+                    'city_office_account_address' => 'required',
                 ],
             );
 
-            $office = Office::find($id);
+            $office = CityOfficeAccount::find($id);
 
             if ($validator->fails()) {
                 return response()->json([
@@ -56,15 +57,15 @@ class OfficeController extends Controller
                 ], 400);
             }
 
-            if ($request->create_account_code == null) {
-                $office->update(['office_phone' => $request->office_phone, 'office_address' => $request->office_address,  'updated_at' => Carbon::now(),]);
+            if ($request->setup_code == null) {
+                $office->update(['city_office_account_phone' => $request->city_office_account_phone, 'city_office_account_address' => $request->city_office_account_address,  'updated_at' => Carbon::now(),]);
                 return response()->json([
-                    'message' => 'Office updated successfully',
+                    'message' => 'City office updated successfully',
                 ], 200);
             } else {
-                $office->update(['office_phone' => $request->office_phone, 'create_account_code' => $request->create_account_code, 'office_address' => $request->office_address, 'updated_at' => Carbon::now(), 'created_at' => Carbon::now(),]);
+                $office->update(['city_office_account_phone' => $request->city_office_account_phone, 'setup_code' => $request->setup_code, 'city_office_account_address' => $request->city_office_account_address, 'updated_at' => Carbon::now(), 'created_at' => Carbon::now(),]);
                 return response()->json([
-                    'message' => 'Office initialized successfully',
+                    'message' => 'City office initialized successfully',
                 ], 200);
             }
         } catch (Exception $e) {
@@ -85,7 +86,7 @@ class OfficeController extends Controller
     public function getCentersCount()
     {
         try {
-            $office = Office::withCount('healthyCenter as healthy_centers_count')->where([['office_phone', '!=', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->get();
+            $office = CityOfficeAccount::withCount('healthyCenter as healthy_centers_count')->where([['city_office_account_phone', '!=', null], ['city_office_account_name', '!=', 'وزارة الصحة والسكان']])->get();
 
             return response()->json([
                 'message' => 'Offices retrieved successfully',
@@ -101,7 +102,7 @@ class OfficeController extends Controller
     public function getRegisteredOffices()
     {
         try {
-            $office = Office::where([['office_phone', '!=', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->get();
+            $office = CityOfficeAccount::where([['city_office_account_phone', '!=', null], ['city_office_account_name', '!=', 'وزارة الصحة والسكان']])->get();
 
             return response()->json([
                 'message' => 'Registered offices retrieved successfully',
@@ -117,7 +118,7 @@ class OfficeController extends Controller
     public function getUnRegisteredOffices()
     {
         try {
-            $office = Office::where([['office_phone', null], ['office_name', '!=', 'وزارة الصحة والسكان']])->get();
+            $office = CityOfficeAccount::where([['city_office_account_phone', null], ['city_office_account_name', '!=', 'وزارة الصحة والسكان']])->get();
 
             return response()->json([
                 'message' => 'Unregistered offices retrieved successfully',

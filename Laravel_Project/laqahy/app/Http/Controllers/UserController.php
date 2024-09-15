@@ -13,7 +13,7 @@ class UserController extends Controller
     public function centerShowUser($id)
     {
         try {
-            $user = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_centers', 'users.healthy_center_id', '=', 'healthy_centers.id')->select('users.*', 'genders.gender_type', 'healthy_centers.healthy_center_name', 'permission_types.permission_type')->where('users.healthy_center_id', $id)->get();
+            $user = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_center_accounts', 'users.office_account_id', '=', 'healthy_center_accounts.id')->select('users.*', 'genders.gender_type', 'healthy_center_accounts.healthy_center_account_name', 'permission_types.permission_type')->where('users.office_account_id', $id)->get();
             return response()->json([
                 'message' => 'Users retrieved successfully',
                 'data' => $user,
@@ -39,7 +39,8 @@ class UserController extends Controller
                     'user_account_password' => 'required',
                     'gender_id' => 'required',
                     'permission_type_id' => 'required',
-                    'healthy_center_id' => 'required',
+                    'office_type_id' => 'required',
+                    'office_account_id' => 'required',
                 ],
             );
             if ($validator->fails()) {
@@ -48,7 +49,7 @@ class UserController extends Controller
                 ], 400);
             }
 
-            $userExists = User::where('healthy_center_id', $request->healthy_center_id)
+            $userExists = User::where('office_account_id', $request->office_account_id)
                 ->where(function ($query) use ($request) {
                     $query->where('user_account_name', $request->user_account_name)
                         ->orWhere('user_name', $request->user_name);
@@ -70,7 +71,8 @@ class UserController extends Controller
                 'user_account_password' => $request->user_account_password,
                 'gender_id' => $request->gender_id,
                 'permission_type_id' => $request->permission_type_id,
-                'healthy_center_id' => $request->healthy_center_id,
+                'office_type_id' => $request->office_type_id,
+                'office_account_id' => $request->office_account_id,
             ]);
 
             // Return created record
@@ -98,7 +100,7 @@ class UserController extends Controller
 
             // التحقق من وجود اسم المستخدم الجديد في المكتب المحدد إذا تم تغييره
             if ($request->user_account_name !== $user->user_account_name) {
-                $userExists = User::where('healthy_center_id', $request->healthy_center_id)
+                $userExists = User::where('office_account_id', $request->office_account_id)
                     ->where('user_account_name', $request->user_account_name)
                     ->exists();
                 if ($userExists) {
@@ -110,7 +112,7 @@ class UserController extends Controller
 
             // التحقق من وجود اسم الموظف الجديد في المكتب المحدد إذا تم تغييره
             if ($request->user_name !== $user->user_name) {
-                $userExists = User::where('healthy_center_id', $request->healthy_center_id)
+                $userExists = User::where('office_account_id', $request->office_account_id)
                     ->where('user_name', $request->user_name)
                     ->exists();
                 if ($userExists) {
@@ -157,7 +159,7 @@ class UserController extends Controller
     public function centerGetAdminData(Request $request)
     {
         try {
-            $admin = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_centers', 'users.healthy_center_id', '=', 'healthy_centers.id')->select('users.*', 'genders.gender_type', 'healthy_centers.healthy_center_name', 'permission_types.permission_type')->where('users.healthy_center_id', $request->center_id)->where('users.id', $request->admin_id)->first();
+            $admin = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('healthy_center_accounts', 'users.office_account_id', '=', 'healthy_center_accounts.id')->select('users.*', 'genders.gender_type', 'healthy_center_accounts.healthy_center_account_name', 'permission_types.permission_type')->where('users.office_account_id', $request->center_id)->where('users.id', $request->admin_id)->first();
             return response()->json([
                 'message' => 'Admin data retrieved successfully',
                 'data' => $admin,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offices_users;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class OfficesUsersController extends Controller
                     'user_account_password' => 'required',
                     'gender_id' => 'required',
                     'permission_type_id' => 'required',
-                    'office_id' => 'required',
+                    'office_type_id' => 'required',
+                    'office_account_id' => 'required',
                 ],
             );
             if ($validator->fails()) {
@@ -34,7 +36,7 @@ class OfficesUsersController extends Controller
                 ], 400);
             }
 
-            $userExists = Offices_users::where('office_id', $request->office_id)
+            $userExists = User::where('office_account_id', $request->office_account_id)
                 ->where(function ($query) use ($request) {
                     $query->where('user_account_name', $request->user_account_name)
                         ->orWhere('user_name', $request->user_name);
@@ -47,7 +49,7 @@ class OfficesUsersController extends Controller
             }
 
             // Create record
-            $user = Offices_users::create([
+            $user = User::create([
                 'user_name' => $request->user_name,
                 'user_phone' => $request->user_phone,
                 'user_address' => $request->user_address,
@@ -56,7 +58,8 @@ class OfficesUsersController extends Controller
                 'user_account_password' => $request->user_account_password,
                 'gender_id' => $request->gender_id,
                 'permission_type_id' => $request->permission_type_id,
-                'office_id' => $request->office_id,
+                'office_type_id' => $request->office_type_id,
+                'office_account_id' => $request->office_account_id,
             ]);
 
             // Return created record
@@ -73,7 +76,7 @@ class OfficesUsersController extends Controller
     public function showUser($id)
     {
         try {
-            $user = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.gender_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $id)->get();
+            $user = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('city_office_accounts', 'users.office_account_id', '=', 'city_office_accounts.id')->select('users.*', 'genders.gender_type', 'city_office_accounts.city_office_account_name', 'permission_types.permission_type')->where('users.office_account_id', $id)->get();
             return response()->json([
                 'message' => 'Users retrieved successfully',
                 'data' => $user,
@@ -88,7 +91,7 @@ class OfficesUsersController extends Controller
     public function updateUser(Request $request, string $id)
     {
         try {
-            $user = Offices_users::find($id);
+            $user = User::find($id);
 
             if (!$user) {
                 return response()->json([
@@ -98,7 +101,7 @@ class OfficesUsersController extends Controller
 
             // التحقق من وجود اسم المستخدم الجديد في المكتب المحدد إذا تم تغييره
             if ($request->user_account_name !== $user->user_account_name) {
-                $userExists = Offices_users::where('office_id', $request->office_id)
+                $userExists = User::where('office_account_id', $request->office_account_id)
                     ->where('user_account_name', $request->user_account_name)
                     ->exists();
                 if ($userExists) {
@@ -110,7 +113,7 @@ class OfficesUsersController extends Controller
 
             // التحقق من وجود اسم الموظف الجديد في المكتب المحدد إذا تم تغييره
             if ($request->user_name !== $user->user_name) {
-                $userExists = Offices_users::where('office_id', $request->office_id)
+                $userExists = User::where('office_account_id', $request->office_account_id)
                     ->where('user_name', $request->user_name)
                     ->exists();
                 if ($userExists) {
@@ -134,7 +137,7 @@ class OfficesUsersController extends Controller
     public function destroyUser($id)
     {
         try {
-            $user = Offices_users::find($id);
+            $user = User::find($id);
             if (!$user) {
                 return response()->json([
                     'message' => 'User not found',
@@ -157,7 +160,7 @@ class OfficesUsersController extends Controller
     public function getAdminData(Request $request)
     {
         try {
-            $admin = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.gender_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $request->office_id)->where('offices_users.id', $request->admin_id)->first();
+            $admin = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('city_office_accounts', 'users.office_account_id', '=', 'city_office_accounts.id')->select('users.*', 'genders.gender_type', 'city_office_accounts.city_office_account_name', 'permission_types.permission_type')->where('users.office_account_id', $request->office_account_id)->where('users.id', $request->admin_id)->first();
             return response()->json([
                 'message' => 'Admin data retrieved successfully',
                 'data' => $admin,
@@ -174,7 +177,7 @@ class OfficesUsersController extends Controller
     public function officeShowUser($id)
     {
         try {
-            $user = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.gender_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $id)->get();
+            $user = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('city_office_accounts', 'users.office_account_id', '=', 'city_office_accounts.id')->select('users.*', 'genders.gender_type', 'city_office_accounts.city_office_account_name', 'permission_types.permission_type')->where('users.office_account_id', $id)->get();
             return response()->json([
                 'message' => 'Users retrieved successfully',
                 'data' => $user,
@@ -200,7 +203,8 @@ class OfficesUsersController extends Controller
                     'user_account_password' => 'required',
                     'gender_id' => 'required',
                     'permission_type_id' => 'required',
-                    'office_id' => 'required',
+                    'office_type_id' => 'required',
+                    'office_account_id' => 'required',
                 ],
             );
             if ($validator->fails()) {
@@ -209,7 +213,7 @@ class OfficesUsersController extends Controller
                 ], 400);
             }
 
-            $userExists = Offices_users::where('office_id', $request->office_id)
+            $userExists = User::where('office_account_id', $request->office_account_id)
                 ->where(function ($query) use ($request) {
                     $query->where('user_account_name', $request->user_account_name)
                         ->orWhere('user_name', $request->user_name);
@@ -222,7 +226,7 @@ class OfficesUsersController extends Controller
             }
 
             // Create record
-            $user = Offices_users::create([
+            $user = User::create([
                 'user_name' => $request->user_name,
                 'user_phone' => $request->user_phone,
                 'user_address' => $request->user_address,
@@ -231,7 +235,8 @@ class OfficesUsersController extends Controller
                 'user_account_password' => $request->user_account_password,
                 'gender_id' => $request->gender_id,
                 'permission_type_id' => $request->permission_type_id,
-                'office_id' => $request->office_id,
+                'office_type_id' => $request->office_type_id,
+                'office_account_id' => $request->office_account_id,
             ]);
 
             // Return created record
@@ -249,7 +254,7 @@ class OfficesUsersController extends Controller
     public function officeUpdateUser(Request $request, string $id)
     {
         try {
-            $user = Offices_users::find($id);
+            $user = User::find($id);
 
             if (!$user) {
                 return response()->json([
@@ -259,7 +264,7 @@ class OfficesUsersController extends Controller
 
             // التحقق من وجود اسم المستخدم الجديد في المكتب المحدد إذا تم تغييره
             if ($request->user_account_name !== $user->user_account_name) {
-                $userExists = Offices_users::where('office_id', $request->office_id)
+                $userExists = User::where('office_account_id', $request->office_account_id)
                     ->where('user_account_name', $request->user_account_name)
                     ->exists();
                 if ($userExists) {
@@ -271,7 +276,7 @@ class OfficesUsersController extends Controller
 
             // التحقق من وجود اسم الموظف الجديد في المكتب المحدد إذا تم تغييره
             if ($request->user_name !== $user->user_name) {
-                $userExists = Offices_users::where('office_id', $request->office_id)
+                $userExists = User::where('office_account_id', $request->office_account_id)
                     ->where('user_name', $request->user_name)
                     ->exists();
                 if ($userExists) {
@@ -295,7 +300,7 @@ class OfficesUsersController extends Controller
     public function officeDestroyUser(string $id)
     {
         try {
-            $user = Offices_users::find($id);
+            $user = User::find($id);
             if (!$user) {
                 return response()->json([
                     'message' => 'User not found',
@@ -318,7 +323,7 @@ class OfficesUsersController extends Controller
     public function officeGetAdminData(Request $request)
     {
         try {
-            $admin = Offices_users::join('permission_types', 'offices_users.permission_type_id', '=', 'permission_types.id')->join('genders', 'offices_users.gender_id', '=', 'genders.id')->join('offices', 'offices_users.office_id', '=', 'offices.id')->select('offices_users.*', 'genders.gender_type', 'offices.office_name', 'permission_types.permission_type')->where('offices_users.office_id', $request->office_id)->where('offices_users.id', $request->admin_id)->first();
+            $admin = User::join('permission_types', 'users.permission_type_id', '=', 'permission_types.id')->join('genders', 'users.gender_id', '=', 'genders.id')->join('city_office_accounts', 'users.office_account_id','=', 'city_office_accounts.id')->select('users.*', 'genders.gender_type', 'city_office_accounts.city_office_account_name', 'permission_types.permission_type')->where('users.office_account_id', $request->office_account_id)->where('users.id', $request->admin_id)->first();
             return response()->json([
                 'message' => 'Admin data retrieved successfully',
                 'data' => $admin,
