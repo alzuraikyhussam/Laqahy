@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Healthy_center;
 use App\Models\HealthyCenterAccount;
 use Exception;
 use function Laravel\Prompts\select;
@@ -12,14 +11,14 @@ use Illuminate\Support\Facades\Validator;
 class HealthyCenterAccountController extends Controller
 {
     /**
-    **--------------------------------------------------------------
-    **--------------------------------------------------------------
-    **--------------------------------------------------------------
-    **--------------- This Page Was Modified By Elias --------------
-    **--------------------------------------------------------------
-    **--------------------------------------------------------------
-    **--------------------------------------------------------------
-    */
+     **--------------------------------------------------------------
+     **--------------------------------------------------------------
+     **--------------------------------------------------------------
+     **--------------- This Page Was Modified By Elias --------------
+     **--------------------------------------------------------------
+     **--------------------------------------------------------------
+     **--------------------------------------------------------------
+     */
     public function index()
     {
         try {
@@ -29,6 +28,7 @@ class HealthyCenterAccountController extends Controller
                 'message' => 'Centers retrieved successfully',
                 'data' => $center,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -40,14 +40,20 @@ class HealthyCenterAccountController extends Controller
     {
         try {
             if ($id == 0) {
+
                 $center = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->orderBy('healthy_center_accounts.id', 'asc')->get();
+
             } else {
+
                 $center = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->where('healthy_center_accounts.directorate_office_account_id', $id)->orderBy('healthy_center_accounts.id', 'asc')->get();
+
             }
+
             return response()->json([
                 'message' => 'Centers retrieved successfully',
                 'data' => $center,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -60,12 +66,14 @@ class HealthyCenterAccountController extends Controller
     public function directorateOfficeGetCenters($directorate_office_account_id)
     {
         try {
-            $center = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->where('healthy_center_accounts.directorate_office_account_id', $directorate_office_account_id)->orderBy('healthy_centers.id', 'asc')->get();
+
+            $center = HealthyCenterAccount::join('directorate_office_accounts', 'healthy_center_accounts.directorate_office_account_id', '=', 'directorate_office_accounts.id')->select('healthy_center_accounts.*', 'directorate_office_accounts.directorate_office_account_name')->where('healthy_center_accounts.directorate_office_account_id', $directorate_office_account_id)->orderBy('healthy_center_accounts.id', 'asc')->get();
 
             return response()->json([
                 'message' => 'Centers retrieved successfully',
                 'data' => $center,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -93,7 +101,7 @@ class HealthyCenterAccountController extends Controller
                 ], 400);
             }
 
-            $centerExists = HealthyCenterAccount::where('directorate_office_account_id', $request->directorate_office_id)
+            $centerExists = HealthyCenterAccount::where('directorate_office_account_id', $request->directorate_office_account_id)
                 ->where(function ($query) use ($request) {
                     $query->where('healthy_center_account_name', $request->healthy_center_account_name);
                 })->exists();
@@ -117,15 +125,15 @@ class HealthyCenterAccountController extends Controller
             return response()->json([
                 'message' => 'Center created successfully',
             ], 201);
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
-
             ], 500);
         }
     }
 
-    public function directorateOfficeUpdateCenterAccount(Request $request, $directorate_office_account_id)
+    public function directorateOfficeUpdateCenterAccount(Request $request)
     {
         try {
 
@@ -133,9 +141,11 @@ class HealthyCenterAccountController extends Controller
 
             // التحقق من وجود اسم المركز في المكتب المحدد إذا تم تغييره
             if ($request->healthy_center_account_name !== $center->healthy_center_account_name) {
-                $centerExists = HealthyCenterAccount::where('directorate_office_account_id', $directorate_office_account_id)
+
+                $centerExists = HealthyCenterAccount::where('directorate_office_account_id', $request->directorate_office_account_id)
                     ->where('healthy_center_account_name', $request->healthy_center_account_name)
                     ->exists();
+
                 if ($centerExists) {
                     return response()->json([
                         'message' => 'This name already exists',
@@ -147,12 +157,13 @@ class HealthyCenterAccountController extends Controller
                 'healthy_center_account_name' => $request->healthy_center_account_name,
                 'healthy_center_account_phone' => $request->healthy_center_account_phone,
                 'healthy_center_account_address' => $request->healthy_center_account_address,
-                'directorate_office_account_id' => $directorate_office_account_id,
+                'directorate_office_account_id' => $request->directorate_office_account_id,
             ]);
 
             return response()->json([
                 'message' => 'Center updated successfully',
             ], 200);
+            
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

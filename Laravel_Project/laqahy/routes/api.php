@@ -12,7 +12,6 @@ use App\Http\Controllers\DosageLevelController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HealthyCenterAccountController;
-use App\Http\Controllers\HealthyCenterOrderController;
 use App\Http\Controllers\HealthyCenterStockVaccineController;
 use App\Http\Controllers\MinistryStatementStockVaccineController;
 use App\Http\Controllers\MinistryStockVaccineController;
@@ -21,9 +20,9 @@ use App\Http\Controllers\MotherDosageTypeController;
 use App\Http\Controllers\MotherStatementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfficeController;
-use App\Http\Controllers\OfficeOrderController;
 use App\Http\Controllers\OfficeStockVaccineController;
 use App\Http\Controllers\OfficesUsersController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStateController;
 use App\Http\Controllers\PermissionTypeController;
 use App\Http\Controllers\PostController;
@@ -111,7 +110,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('general/statistics', [GeneralController::class, 'statistics']); //---
     // ------------------------------------------------------------
     //---
-
+    //---
+    // --------------------- Order Routes ------------------------
+    Route::get('orders/date-range', [OrderController::class, 'getDateRange']);
+    Route::patch('orders/approval-order', [OrderController::class, 'approvalOrder']);
+    Route::patch('orders/reject-order', [OrderController::class, 'rejectOrder']);
+    Route::patch('orders/undo-rejected-order/{id}', [OrderController::class, 'undoRejectedOrder']);
+    Route::post('orders/add-order', [OrderController::class, 'addOrder']);
+    Route::post('orders/fetch-orders', [OrderController::class, 'fetchOrders']);
+    Route::patch('orders/confirm-receive-order', [OrderController::class, 'confirmReceiverOrder']);
+    // ------------------------------------------------------------
+    //---
     /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // --------------------- Post Routes ------------------------
@@ -180,14 +189,14 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Order Routes ------------------------
-    Route::get('ministry/orders/date-range', [OfficeOrderController::class, 'getDateRange']);
-    Route::patch('ministry/orders/approval-order/{id}', [OfficeOrderController::class, 'approvalOrder']);
-    Route::patch('ministry/orders/reject-order/{id}', [OfficeOrderController::class, 'rejectOrder']);
-    Route::patch('ministry/orders/undo-reject-order/{id}', [OfficeOrderController::class, 'undoRejectedOrder']);
-    Route::get('ministry/orders/incoming', [OfficeOrderController::class, 'incomingOrders']);
-    Route::get('ministry/orders/in-delivery', [OfficeOrderController::class, 'inDeliveryOrders']);
-    Route::get('ministry/orders/delivered', [OfficeOrderController::class, 'deliveredOrders']);
-    Route::get('ministry/orders/rejected', [OfficeOrderController::class, 'rejectedOrders']);
+    // Route::get('ministry/orders/date-range', [OfficeOrderController::class, 'getDateRange']); //---
+    // Route::patch('ministry/orders/approval-order/{id}', [OfficeOrderController::class, 'approvalOrder']); //---
+    // Route::patch('ministry/orders/reject-order/{id}', [OfficeOrderController::class, 'rejectOrder']); //---
+    // Route::patch('ministry/orders/undo-reject-order/{id}', [OfficeOrderController::class, 'undoRejectedOrder']); //---
+    // Route::get('ministry/orders/incoming', [OfficeOrderController::class, 'incomingOrders']); //---
+    // Route::get('ministry/orders/in-delivery', [OfficeOrderController::class, 'inDeliveryOrders']); //---
+    // Route::get('ministry/orders/delivered', [OfficeOrderController::class, 'deliveredOrders']); //---
+    // Route::get('ministry/orders/rejected', [OfficeOrderController::class, 'rejectedOrders']); //---
     // ------------------------------------------------------------
 
     // --------------------- Mother Data Routes ------------------------
@@ -249,19 +258,19 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Health Center Order Routes ------------------------
-    Route::get('offices/orders/date-range/{directorateOfficeId}', [HealthyCenterOrderController::class, 'directorateOfficeGetDateRange']);
+    // Route::get('offices/orders/date-range/{office_id}', [OrderController::class, 'officeGetDateRange']); //---
     // ------------------------------------------------------------
 
     // --------------------- Order Routes ------------------------
-    Route::post('offices/orders/add-order', [OfficeOrderController::class, 'officeAddOrder']);
-    Route::get('offices/orders/outgoing/{office_id}', [OfficeOrderController::class, 'officeOutgoingOrders']);
-    Route::get('offices/orders/incoming/{office_id}', [OfficeOrderController::class, 'officeIncomingOrders']);
-    Route::get('offices/orders/in-delivery/{office_id}', [OfficeOrderController::class, 'officeInDeliveryOrders']);
-    Route::get('offices/orders/delivered/{office_id}', [OfficeOrderController::class, 'officeDeliveredOrders']);
-    Route::get('offices/orders/rejected/{office_id}', [OfficeOrderController::class, 'officeRejectedOrders']);
-    Route::patch('offices/orders/receiving-confirm', [OfficeOrderController::class, 'officeReceivingConfirmOrder']);
-    Route::patch('offices/orders/approval-center-order/{id}', [OfficeOrderController::class, 'officeApprovalCenterOrder']);
-    Route::patch('offices/orders/reject-center-order/{id}', [OfficeOrderController::class, 'officeRejectCenterOrder']);
+    // Route::post('offices/orders/add-order', [OfficeOrderController::class, 'officeAddOrder']);
+    // Route::get('offices/orders/outgoing/{office_id}', [OfficeOrderController::class, 'officeOutgoingOrders']);
+    // Route::get('offices/orders/incoming/{office_id}', [OfficeOrderController::class, 'officeIncomingOrders']);
+    // Route::get('offices/orders/in-delivery/{office_id}', [OfficeOrderController::class, 'officeInDeliveryOrders']);
+    // Route::get('offices/orders/delivered/{office_id}', [OfficeOrderController::class, 'officeDeliveredOrders']);
+    // Route::get('offices/orders/rejected/{office_id}', [OfficeOrderController::class, 'officeRejectedOrders']);
+    // Route::patch('offices/orders/receiving-confirm', [OfficeOrderController::class, 'officeReceivingConfirmOrder']);
+    // Route::patch('offices/orders/approval-center-order/{id}', [OfficeOrderController::class, 'officeApprovalCenterOrder']);
+    // Route::patch('offices/orders/reject-center-order/{id}', [OfficeOrderController::class, 'officeRejectCenterOrder']);
     // ------------------------------------------------------------
 
     // --------------------- Report Routes ------------------------
@@ -358,16 +367,16 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Health Center Order Routes ------------------------
-    Route::get('centers/orders/date-range/{healthyCenterId}', [HealthyCenterOrderController::class, 'healthyCenterGetDateRange']);
+    // Route::get('centers/orders/date-range/{center_id}', [OrderController::class, 'centerGetDateRange']); //---
     // ------------------------------------------------------------
 
     // --------------------- Order Routes ------------------------
-    Route::post('centers/orders/add-order', [HealthyCenterOrderController::class, 'healthyCenterAddOrder']);
-    Route::get('centers/orders/outgoing/{center_id}', [HealthyCenterOrderController::class, 'healthyCenterOutgoingOrders']);
-    Route::get('centers/orders/in-delivery/{center_id}', [HealthyCenterOrderController::class, 'healthyCenterInDeliveryOrders']);
-    Route::get('centers/orders/delivered/{center_id}', [HealthyCenterOrderController::class, 'healthyCenterDeliveredOrders']);
-    Route::get('centers/orders/rejected/{center_id}', [HealthyCenterOrderController::class, 'healthyCenterRejectedOrders']);
-    Route::patch('centers/orders/receiving-confirm', [HealthyCenterOrderController::class, 'healthyCenterReceivingConfirmOrder']);
+    // Route::post('centers/orders/add-order', [OrderController::class, 'centerAddOrder']); //---
+    // Route::get('centers/orders/outgoing/{center_id}', [OrderController::class, 'centerOutgoingOrders']); //---
+    // Route::get('centers/orders/in-delivery/{center_id}', [OrderController::class, 'centerInDeliveryOrders']); //---
+    // Route::get('centers/orders/delivered/{center_id}', [OrderController::class, 'centerDeliveredOrders']); //---
+    // Route::get('centers/orders/rejected/{center_id}', [OrderController::class, 'centerRejectedOrders']); //---
+    // Route::patch('centers/orders/receiving-confirm', [OrderController::class, 'centerReceivingConfirmOrder']);
     // ------------------------------------------------------------
 
     // --------------------- Healthy Centers Stock Vaccines Routes ------------------------
