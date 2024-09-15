@@ -211,7 +211,7 @@ class AuthController extends Controller
                     'office_type_id' => $request->office_type_id, //---
                     'office_account_id' => $office->id, //---
                     'vaccine_category' => 'لقاحات الام', //---
-                    'quantity' => 0,
+                    'vaccine_quantity' => 0,
                 ]);
             }
             //---
@@ -221,7 +221,7 @@ class AuthController extends Controller
                     'office_type_id' => $request->office_type_id,
                     'office_account_id' => $office->id,
                     'vaccine_category' => 'لقاحات الطفل',
-                    'quantity' => 0,
+                    'vaccine_quantity' => 0,
                 ]);
             }
             //---
@@ -699,7 +699,7 @@ class AuthController extends Controller
                     ['created_at', $minDate], //---
                 ])->first();
 
-                if (strpos($request->user_account_name, 'min-') === 0 || strpos($request->user_account_name, 'ci-') === 0) {
+                if (strpos($request->user_account_name, 'min-') === 0 || strpos($request->user_account_name, 'cit-') === 0) {
 
                     $office = CityOfficeAccount::where('id', $user->office_account_id)->first(); //---
 

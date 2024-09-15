@@ -621,7 +621,7 @@ class ComposerStaticInit615bf00273bd08b80edfe7d642a8a670
         'App\\Http\\Controllers\\GenderController' => __DIR__ . '/../..' . '/app/Http/Controllers/GenderController.php',
         'App\\Http\\Controllers\\GeneralController' => __DIR__ . '/../..' . '/app/Http/Controllers/GeneralController.php',
         'App\\Http\\Controllers\\HealthyCenterAccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/HealthyCenterAccountController.php',
-        'App\\Http\\Controllers\\HealthyCenterOrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/HealthyCenterOrderController.php',
+        'App\\Http\\Controllers\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrderController.php',
         'App\\Http\\Controllers\\HealthyCenterStockVaccineController' => __DIR__ . '/../..' . '/app/Http/Controllers/HealthyCenterStockVaccineController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\MinistryStatementStockVaccineController' => __DIR__ . '/../..' . '/app/Http/Controllers/MinistryStatementStockVaccineController.php',

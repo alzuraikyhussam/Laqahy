@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('vaccine_type_id');
             $table->enum('vaccine_category', ['لقاحات الام', 'لقاحات الطفل']);
-            $table->integer('quantity');
+            $table->integer('vaccine_statement_quantity');
             $table->foreignId('office_type_id')->constrained('office_types')->onUpdate('cascade');
             $table->unsignedBigInteger('office_account_id');
             $table->foreignId('donor_id')->nullable()->constrained('donors')->onUpdate('cascade');
-            $table->dateTime('date')->useCurrent();
+            $table->dateTime('vaccine_statement_date')->useCurrent();
             $table->softDeletes();
 
             $table->foreign('vaccine_type_id', 'mother_vaccine_foreign2')->references('id')->on('mother_vaccines')->onUpdate('cascade');

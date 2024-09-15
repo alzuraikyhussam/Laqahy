@@ -12,8 +12,8 @@ class VaccineStockStatement extends Model
 
     protected $fillable = [
         'vaccine_type_id',
-        'quantity',
-        'date',
+        'vaccine_statement_quantity',
+        'vaccine_statement_date',
         'office_type_id',
         'office_account_id',
         'donor_id',

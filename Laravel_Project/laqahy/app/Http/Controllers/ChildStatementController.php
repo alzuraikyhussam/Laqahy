@@ -134,11 +134,11 @@ class ChildStatementController extends Controller
 
             $qty = 1;
 
-            if ($qty > $vaccineQty->quantity) {
+            if ($qty > $vaccineQty->vaccine_quantity) {
 
                 return response()->json([
                     'message' => 'Vaccine quantity not enough',
-                    'quantity' => $vaccineQty->quantity,
+                    'quantity' => $vaccineQty->vaccine_quantity,
                 ], 405);
 
             }
@@ -163,14 +163,14 @@ class ChildStatementController extends Controller
                 'child_dosage_type_id' => $request->child_dosage_type_id,
             ]);
 
-            $oldQty = $vaccineQty->quantity;
+            $oldQty = $vaccineQty->vaccine_quantity;
             $newQty = $oldQty - $qty;
-            $vaccineQty->update(['quantity' => $newQty]);
+            $vaccineQty->update(['vaccine_quantity' => $newQty]);
 
             // Return created record
             return response()->json([
                 'message' => 'Child statement created successfully',
-                'quantity' => $vaccineQty->quantity,
+                'quantity' => $vaccineQty->vaccine_quantity,
             ], 201);
 
         } catch (Exception $e) {

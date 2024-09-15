@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vaccine_stock', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('vaccine_type_id');
-            $table->integer('quantity');
+            $table->integer('vaccine_quantity');
             $table->foreignId('office_type_id')->constrained('office_types')->onUpdate('cascade');
             $table->enum('vaccine_category', ['لقاحات الام', 'لقاحات الطفل']);
             $table->unsignedBigInteger('office_account_id');

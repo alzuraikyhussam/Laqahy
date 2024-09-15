@@ -22,7 +22,7 @@ return array(
     'App\\Http\\Controllers\\GenderController' => $baseDir . '/app/Http/Controllers/GenderController.php',
     'App\\Http\\Controllers\\GeneralController' => $baseDir . '/app/Http/Controllers/GeneralController.php',
     'App\\Http\\Controllers\\HealthyCenterAccountController' => $baseDir . '/app/Http/Controllers/HealthyCenterAccountController.php',
-    'App\\Http\\Controllers\\HealthyCenterOrderController' => $baseDir . '/app/Http/Controllers/HealthyCenterOrderController.php',
+    'App\\Http\\Controllers\\OrderController' => $baseDir . '/app/Http/Controllers/OrderController.php',
     'App\\Http\\Controllers\\HealthyCenterStockVaccineController' => $baseDir . '/app/Http/Controllers/HealthyCenterStockVaccineController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\MinistryStatementStockVaccineController' => $baseDir . '/app/Http/Controllers/MinistryStatementStockVaccineController.php',

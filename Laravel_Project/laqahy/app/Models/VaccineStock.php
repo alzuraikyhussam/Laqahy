@@ -14,7 +14,7 @@ class VaccineStock extends Model
 
     protected $fillable = [
         'vaccine_type_id',
-        'quantity',
+        'vaccine_quantity',
         'office_account_id',
         'office_type_id',
         'vaccine_category',
