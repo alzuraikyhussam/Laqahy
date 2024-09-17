@@ -25,7 +25,7 @@ return array(
     'App\\Http\\Controllers\\OrderController' => $baseDir . '/app/Http/Controllers/OrderController.php',
     'App\\Http\\Controllers\\HealthyCenterStockVaccineController' => $baseDir . '/app/Http/Controllers/HealthyCenterStockVaccineController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
-    'App\\Http\\Controllers\\MinistryStatementStockVaccineController' => $baseDir . '/app/Http/Controllers/MinistryStatementStockVaccineController.php',
+    'App\\Http\\Controllers\\VaccineStockStatementController' => $baseDir . '/app/Http/Controllers/VaccineStockStatementController.php',
     'App\\Http\\Controllers\\MinistryStockVaccineController' => $baseDir . '/app/Http/Controllers/MinistryStockVaccineController.php',
     'App\\Http\\Controllers\\MotherDataController' => $baseDir . '/app/Http/Controllers/MotherDataController.php',
     'App\\Http\\Controllers\\MotherStatementController' => $baseDir . '/app/Http/Controllers/MotherStatementController.php',

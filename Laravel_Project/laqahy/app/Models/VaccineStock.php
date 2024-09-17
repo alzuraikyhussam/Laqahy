@@ -27,26 +27,26 @@ class VaccineStock extends Model
 
     public function city_office_account()
     {
-        return $this->belongsTo(CityOfficeAccount::class);
+        return $this->belongsTo(CityOfficeAccount::class, 'office_account_id');
     }
 
     public function directorate_office_account()
     {
-        return $this->belongsTo(DirectorateOfficeAccount::class);
+        return $this->belongsTo(DirectorateOfficeAccount::class, 'office_account_id');
     }
 
     public function healthy_center_account()
     {
-        return $this->belongsTo(HealthyCenterAccount::class);
+        return $this->belongsTo(HealthyCenterAccount::class, 'office_account_id');
     }
 
     public function mother_vaccine()
     {
-        return $this->belongsTo(MotherVaccine::class);
+        return $this->belongsTo(MotherVaccine::class, 'vaccine_type_id');
     }
 
     public function child_vaccine()
     {
-        return $this->belongsTo(ChildVaccine::class);
+        return $this->belongsTo(ChildVaccine::class, 'vaccine_type_id');
     }
 }

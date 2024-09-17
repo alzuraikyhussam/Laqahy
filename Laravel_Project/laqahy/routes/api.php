@@ -12,9 +12,6 @@ use App\Http\Controllers\DosageLevelController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HealthyCenterAccountController;
-use App\Http\Controllers\HealthyCenterStockVaccineController;
-use App\Http\Controllers\MinistryStatementStockVaccineController;
-use App\Http\Controllers\MinistryStockVaccineController;
 use App\Http\Controllers\MotherDataController;
 use App\Http\Controllers\MotherDosageTypeController;
 use App\Http\Controllers\MotherStatementController;
@@ -30,6 +27,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TechnicalSupportController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VaccineStockController;
+use App\Http\Controllers\VaccineStockStatementController;
 use App\Http\Controllers\VaccineTypesController;
 use App\Http\Controllers\VisitTypeController;
 use Illuminate\Http\Request;
@@ -121,6 +120,25 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('orders/confirm-receive-order', [OrderController::class, 'confirmReceiverOrder']);
     // ------------------------------------------------------------
     //---
+    //---
+    // --------------------- Vaccine Stock Routes ------------------------
+    Route::get('vaccine-stock/vaccines-stock', [VaccineStockController::class, 'fetchVaccinesStock']);
+    // ------------------------------------------------------------
+    //---
+    //---
+    // --------------------- Vaccine Stock Statement Routes ------------------------
+    Route::get('vaccines-statement', [VaccineStockStatementController::class, 'fetchVaccinesStatement']);
+    Route::get('vaccines-statement/date-range', [VaccineStockStatementController::class, 'getDateRange']);
+    Route::post('vaccines-statement/add-statement', [VaccineStockStatementController::class, 'store']);
+    Route::patch('vaccines-statement/update-statement/{id}', [VaccineStockStatementController::class, 'update']);
+    Route::delete('vaccines-statement/delete-statement/{id}', [VaccineStockStatementController::class, 'destroy']);
+    // ------------------------------------------------------------
+    //---
+    //---
+    // --------------------- Mother Data Routes ------------------------
+    Route::get('mother-data/date-range', [MotherDataController::class, 'getDateRange']);
+    // ------------------------------------------------------------
+    //---
     /////////////////////////////Ministry//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // --------------------- Post Routes ------------------------
@@ -172,15 +190,15 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Ministry Stock Vaccines Routes ------------------------
-    Route::get('ministry/vaccines', [MinistryStockVaccineController::class, 'index']);
+    // Route::get('ministry/vaccines', [MinistryStockVaccineController::class, 'index']);
     // ------------------------------------------------------------
 
     // --------------------- Ministry Statement Stock Vaccines Routes ------------------------
-    Route::get('ministry/vaccines/date-range', [MinistryStatementStockVaccineController::class, 'getDateRange']);
-    Route::post('ministry/vaccines/add-quantity', [MinistryStatementStockVaccineController::class, 'store']);
-    Route::get('ministry/vaccines/statement', [MinistryStatementStockVaccineController::class, 'index']);
-    Route::patch('ministry/vaccines/update-statement/{id}', [MinistryStatementStockVaccineController::class, 'update']);
-    Route::delete('ministry/vaccines/delete-statement/{id}', [MinistryStatementStockVaccineController::class, 'destroy']);
+    // Route::get('ministry/vaccines/date-range', [VaccineStockStatementController::class, 'getDateRange']);
+    // Route::post('ministry/vaccines/add-quantity', [VaccineStockStatementController::class, 'store']);
+    // Route::get('ministry/vaccines-statement', [VaccineStockStatementController::class, 'fetchVaccinesStatement']);
+    // Route::patch('ministry/vaccines/update-statement/{id}', [VaccineStockStatementController::class, 'update']);
+    // Route::delete('ministry/vaccines/delete-statement/{id}', [VaccineStockStatementController::class, 'destroy']);
     // ------------------------------------------------------------
 
     // --------------------- Donor Routes ------------------------
@@ -200,7 +218,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Mother Data Routes ------------------------
-    Route::get('ministry/mother-data/date-range', [MotherDataController::class, 'getDateRange']);
+    // Route::get('ministry/mother-data/date-range', [MotherDataController::class, 'getDateRange']);
     // ------------------------------------------------------------
 
     // --------------------- Report Routes ------------------------
@@ -240,7 +258,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Mother Data Routes ------------------------
-    Route::get('offices/mother-data/date-range/{directorateOfficeId}', [MotherDataController::class, 'directorateOfficeGetDateRange']);
+    // Route::get('offices/mother-data/date-range/{directorateOfficeId}', [MotherDataController::class, 'directorateOfficeGetDateRange']);
     // ------------------------------------------------------------
 
     // --------------------- Healthy Center Routes ------------------------
@@ -313,15 +331,15 @@ Route::middleware('auth:sanctum')->group(function () {
     ///////////////////////////////////////// Center Routes ////////////////////////////////////////////////////////////////////////////
 
     // --------------------- Mother Data Routes ------------------------
-    Route::get('centers/mother-data/date-range/{healthyCenterId}', [MotherDataController::class, 'healthyCenterGetDateRange']);
+    // Route::get('centers/mother-data/date-range/{healthyCenterId}', [MotherDataController::class, 'healthyCenterGetDateRange']);
     Route::post('centers/mother-data/add-mother', [MotherDataController::class, 'store']);
-    Route::get('centers/mother-data/get-mother-data/{healthyCenterId}', [MotherDataController::class, 'index']);
-    Route::patch('centers/mother-data/update-mother-status-data/{motherId}', [MotherDataController::class, 'update']);
-    Route::delete('centers/mother-data/delete-mother-status-data/{motherId}', [MotherDataController::class, 'destroy']);
-    Route::get('centers/mother-data/get-all-mother-data', [MotherDataController::class, 'getAllMotherStatusData']);
-    Route::get('centers/mother-data/date-range/{center_id}', [MotherDataController::class, 'centerGetDateRange']);
-    Route::get('centers/mother-data/get-All-mother-data/{centerId}', [MotherDataController::class, 'showAllMothersStatusData']);
-    Route::get('centers/mother-data/print-mother-status-data/{identityNumber}', [MotherDataController::class, 'printMotherStatusData']);
+    Route::get('centers/mother-data', [MotherDataController::class, 'index']);
+    Route::patch('centers/mother-data/update-mother-data/{motherId}', [MotherDataController::class, 'update']);
+    // Route::delete('centers/mother-data/delete-mother-data/{motherId}', [MotherDataController::class, 'destroy']);
+    // Route::get('centers/mother-data/get-all-mother-data', [MotherDataController::class, 'getAllMothersStatusData']);
+    // Route::get('centers/mother-data/date-range/{center_id}', [MotherDataController::class, 'centerGetDateRange']);
+    Route::get('centers/mother-data/All-mother-status', [MotherDataController::class, 'getAllMothersStatusData']);
+    Route::get('centers/mother-data/print-mother-data/{identityNumber}', [MotherDataController::class, 'printMotherStatusData']);
     // ------------------------------------------------------------
 
     // --------------------- Mother Statement Routes ------------------------
@@ -380,7 +398,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Healthy Centers Stock Vaccines Routes ------------------------
-    Route::get('centers/vaccines-quantity/{center_id}', [HealthyCenterStockVaccineController::class, 'index']);
+    // Route::get('centers/vaccines-quantity/{center_id}', [HealthyCenterStockVaccineController::class, 'index']); //---
     // ------------------------------------------------------------
 
     // --------------------- Visit Type Routes ------------------------
