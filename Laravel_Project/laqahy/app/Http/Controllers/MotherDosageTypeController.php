@@ -46,19 +46,19 @@ class MotherDosageTypeController extends Controller
     {
         try {
             // Check if the mother exists
-            $mother = MotherStatement::where('mother_data_id', $motherId)->first();
+            $motherStatement = MotherStatement::where('mother_data_id', $motherId)->first();
 
-            if (!$mother) {
+            if (!$motherStatement) {
                 // If the mother is not found, return all the dosage types for the given dosage level ID
-                $Dosage_type = MotherDosageType::where('dosage_level_id', $dosageLevelId)->get();
+                $dosage_type = MotherDosageType::where('dosage_level_id', $dosageLevelId)->get();
                 return response()->json([
                     'message' => 'Dosage types retrieved successfully',
-                    'data' => $Dosage_type,
+                    'data' => $dosage_type,
                 ]);
             }
 
             // Get the dosage types that the mother has not taken
-            $motherStatement = MotherDosageType::whereNotIn('id', function ($query) use ($motherId) {
+            $motherDosages = MotherDosageType::whereNotIn('id', function ($query) use ($motherId) {
                 $query->select('mother_dosage_type_id')
                     ->from('mother_statements')
                     ->where('mother_statements.mother_data_id', $motherId)
@@ -71,6 +71,7 @@ class MotherDosageTypeController extends Controller
                 'message' => 'Mother statement retrieved successfully',
                 'data' => $motherStatement,
             ]);
+            
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

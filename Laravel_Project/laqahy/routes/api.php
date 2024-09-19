@@ -7,6 +7,7 @@ use App\Http\Controllers\ChildDosageTypeController;
 use App\Http\Controllers\ChildStatementController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DirectorateController;
+use App\Http\Controllers\DirectorateOfficeAccountController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\DosageLevelController;
 use App\Http\Controllers\GenderController;
@@ -16,7 +17,6 @@ use App\Http\Controllers\MotherDataController;
 use App\Http\Controllers\MotherDosageTypeController;
 use App\Http\Controllers\MotherStatementController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficeStockVaccineController;
 use App\Http\Controllers\OfficesUsersController;
 use App\Http\Controllers\OrderController;
@@ -161,11 +161,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('vaccines', [VaccineTypesController::class, 'getVaccines']);
     // ------------------------------------------------------------
 
-    // --------------------- Office Routes ------------------------
-    Route::get('ministry/offices/centers-count', [OfficeController::class, 'getCentersCount']);
-    Route::get('ministry/offices/registered', [OfficeController::class, 'getRegisteredOffices']);
-    Route::get('ministry/offices/unregistered', [OfficeController::class, 'getUnRegisteredOffices']);
-    Route::patch('ministry/offices/update-office/{id}', [OfficeController::class, 'update']);
+    // --------------------- City Office Account Routes ------------------------
+    // Route::get('ministry/offices/centers-count', [CityOfficeAccountController::class, 'getCentersCount']);
+    // Route::get('ministry/offices/registered', [CityOfficeAccountController::class, 'getRegisteredOffices']);
+    // Route::get('ministry/offices/unregistered', [CityOfficeAccountController::class, 'getUnRegisteredOffices']);
+    // Route::patch('ministry/offices/update-office/{id}', [CityOfficeAccountController::class, 'update']);
+    // ------------------------------------------------------------
+
+    // --------------------- Directorate Office Account Routes ------------------------
+    Route::get('directorate/offices/centers-count/{id}', [DirectorateOfficeAccountController::class, 'getHealthyCentersCount']);
+    Route::get('directorate/offices/centers-registered/{id}', [DirectorateOfficeAccountController::class, 'getRegisteredHealthyCentersAccount']);
     // ------------------------------------------------------------
 
     // --------------------- Healthy Center Routes ------------------------
@@ -317,7 +322,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Mother Statement Routes ------------------------
-    Route::get('mobile/mother-statements/get-mother-dosage/{mother_id}', [MotherStatementController::class, 'getMotherDosage']);
+    Route::get('mobile/mother-statements/get-mother-dosage/{mother_id}', [MotherStatementController::class, 'getMotherDosageData']);
     // ------------------------------------------------------------
 
     // --------------------- Child Statement Routes ------------------------
@@ -346,7 +351,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('centers/mother-statement/add-mother-statement', [MotherStatementController::class, 'store']);
     Route::delete('centers/mother-statement/delete-mother-statement/{motherId}', [MotherStatementController::class, 'destroy']);
     Route::get('centers/mother-statement/get-mother-statement/{motherId}', [MotherStatementController::class, 'show']);
-    Route::get('centers/mother-Statement/print-mother-statement-data/{motherId}/{dosageLevel}/{dosageType}', [MotherStatementController::class, 'printMotherStatementData']);
+    Route::get('centers/mother-Statement/print-mother-statement-data/{motherId}/{dosageLevel}/{dosageType}/{vaccineName}', [MotherStatementController::class, 'printMotherStatementData']);
     // ------------------------------------------------------------
 
     // --------------------- Child Data Routes ------------------------
@@ -381,7 +386,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // ------------------------------------------------------------
 
     // --------------------- Dosage Type Routes ------------------------
-    Route::get('centers/dosage-type/{dosageLevelId}/{motherId}', [MotherDosageTypeController::class, 'show']);
+    Route::get('centers/mother-dosage-type/{dosageLevelId}/{motherId}', [MotherDosageTypeController::class, 'show']);
     // ------------------------------------------------------------
 
     // --------------------- Health Center Order Routes ------------------------

@@ -30,7 +30,7 @@ return array(
     'App\\Http\\Controllers\\MotherDataController' => $baseDir . '/app/Http/Controllers/MotherDataController.php',
     'App\\Http\\Controllers\\MotherStatementController' => $baseDir . '/app/Http/Controllers/MotherStatementController.php',
     'App\\Http\\Controllers\\NotificationController' => $baseDir . '/app/Http/Controllers/NotificationController.php',
-    'App\\Http\\Controllers\\OfficeController' => $baseDir . '/app/Http/Controllers/OfficeController.php',
+    'App\\Http\\Controllers\\CityOfficeAccountController' => $baseDir . '/app/Http/Controllers/CityOfficeAccountController.php',
     'App\\Http\\Controllers\\OfficeOrderController' => $baseDir . '/app/Http/Controllers/OfficeOrderController.php',
     'App\\Http\\Controllers\\OfficeStockVaccineController' => $baseDir . '/app/Http/Controllers/OfficeStockVaccineController.php',
     'App\\Http\\Controllers\\OfficesUsersController' => $baseDir . '/app/Http/Controllers/OfficesUsersController.php',

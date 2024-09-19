@@ -111,7 +111,7 @@ class ChildStatementController extends Controller
                 $request->all(),
                 [
                     'child_data_id' => 'required',
-                    'office_type_id' => 'required',
+                    // 'office_type_id' => 'required',
                     'office_account_id' => 'required',
                     'user_id' => 'required',
                     'date_taking_dose' => 'required',
@@ -129,7 +129,7 @@ class ChildStatementController extends Controller
             }
 
             // ------------------------Modified-------------------------------
-            $vaccineQty = VaccineStock::where([['office_type_id', $request->office_type_id], ['office_account_id', $request->office_account_id], ['vaccine_category', 'لقاحات الطفل'], ['vaccine_type_id', $request->child_vaccine_id]])->first();
+            $vaccineQty = VaccineStock::where([['office_type_id', 4], ['office_account_id', $request->office_account_id], ['vaccine_category', 'لقاحات الطفل'], ['vaccine_type_id', $request->child_vaccine_id]])->first();
             // -------------------------------------------------------
 
             $qty = 1;

@@ -629,7 +629,7 @@ class ComposerStaticInit615bf00273bd08b80edfe7d642a8a670
         'App\\Http\\Controllers\\MotherDataController' => __DIR__ . '/../..' . '/app/Http/Controllers/MotherDataController.php',
         'App\\Http\\Controllers\\MotherStatementController' => __DIR__ . '/../..' . '/app/Http/Controllers/MotherStatementController.php',
         'App\\Http\\Controllers\\NotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotificationController.php',
-        'App\\Http\\Controllers\\OfficeController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfficeController.php',
+        'App\\Http\\Controllers\\CityOfficeAccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/CityOfficeAccountController.php',
         'App\\Http\\Controllers\\OfficeOrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfficeOrderController.php',
         'App\\Http\\Controllers\\OfficeStockVaccineController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfficeStockVaccineController.php',
         'App\\Http\\Controllers\\OfficesUsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfficesUsersController.php',

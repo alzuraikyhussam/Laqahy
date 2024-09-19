@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\CityOfficeAccount;
-use App\Models\Office;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class OfficeController extends Controller
+class CityOfficeAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -58,16 +57,17 @@ class OfficeController extends Controller
             }
 
             if ($request->setup_code == null) {
-                $office->update(['city_office_account_phone' => $request->city_office_account_phone, 'city_office_account_address' => $request->city_office_account_address,  'updated_at' => Carbon::now(),]);
+                $office->update(['city_office_account_phone' => $request->city_office_account_phone, 'city_office_account_address' => $request->city_office_account_address, 'updated_at' => Carbon::now()]);
                 return response()->json([
-                    'message' => 'City office updated successfully',
+                    'message' => 'City office account updated successfully',
                 ], 200);
             } else {
-                $office->update(['city_office_account_phone' => $request->city_office_account_phone, 'setup_code' => $request->setup_code, 'city_office_account_address' => $request->city_office_account_address, 'updated_at' => Carbon::now(), 'created_at' => Carbon::now(),]);
+                $office->update(['city_office_account_phone' => $request->city_office_account_phone, 'setup_code' => $request->setup_code, 'city_office_account_address' => $request->city_office_account_address, 'updated_at' => Carbon::now(), 'created_at' => Carbon::now()]);
                 return response()->json([
-                    'message' => 'City office initialized successfully',
+                    'message' => 'City office account initialized successfully',
                 ], 200);
             }
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -81,38 +81,6 @@ class OfficeController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function getCentersCount()
-    {
-        try {
-            $office = CityOfficeAccount::withCount('healthyCenter as healthy_centers_count')->where([['city_office_account_phone', '!=', null], ['city_office_account_name', '!=', 'وزارة الصحة والسكان']])->get();
-
-            return response()->json([
-                'message' => 'Offices retrieved successfully',
-                'data' => $office,
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function getRegisteredOffices()
-    {
-        try {
-            $office = CityOfficeAccount::where([['city_office_account_phone', '!=', null], ['city_office_account_name', '!=', 'وزارة الصحة والسكان']])->get();
-
-            return response()->json([
-                'message' => 'Registered offices retrieved successfully',
-                'data' => $office,
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
     }
 
     public function getUnRegisteredOffices()

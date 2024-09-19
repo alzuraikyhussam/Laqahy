@@ -16,6 +16,7 @@ class NotificationController extends Controller
                 'message' => 'Notifications retrieved successfully',
                 'data' => $notification,
             ]);
+            
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
